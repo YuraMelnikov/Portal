@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Wiki.OTK_ChaeckList>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/Content/Scripts/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            height: 650px;
+            width: 1600px;
+            overflow: auto;
+        }
+
+        th {
+            background: #000080; /* Цвет фона строки заголовка */
+            color: #ffe; /* Цвет текста */
+            text-align: left; /* Выравнивание по левому краю */
+            font-family: Arial, Helvetica, sans-serif; /* Выбор гарнитуры */
+            font-size: 0.9em; /* Размер текста */
+        }
+    </style>
+</head>
+<h4>Чек-листы</h4>
+<span>
+    @Html.ActionLink("Создать", "Create", null, new { @class = "btn-sm btn-info" })
+    @Html.ActionLink("Чек-листы", "Index", "OTK_ChaeckList", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("В работе (не отгружены)", "ListActiveWork", "OTK_Reclamation", null, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Не закрытые (отгружены)", "ListDeactiveWork", "OTK_Reclamation", null, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Квартальный отчет", "QuaReport", "OTK_ChaeckList", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    <br />
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+</span>
+<br />
+
+<div class="container">
+    <table data-toggle="table" data-height="650">
+        <thead>
+            <tr>
+                <th> Открыть </th>
+                <th data-sortable="true"> № заказа </th>
+                <th data-sortable="true"> Дата создания </th>
+
+                <th> Зарегистрирован </th>
+                <th> Код МТР </th>
+                <th> Замечаний </th>
+                <th> Замечаний в работе </th>
+                <th> Замечаний без ответа </th>
+                <th> Закрытые замечания </th>
+
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                if (@item.OTK_Reclamation.Where(d => d.Complited == false).Count(d => d.Complited == false) > 0)
+                {
+                    <tr class="warning">
+                        <td> @Html.ActionLink("Открыть", "IndexCheckList", "OTK_Reclamation", new { id = item.id }, new { @class = "btn-sm btn-primary" }) </td>
+                        <td> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz) </td>
+                        <td> @item.DateCreate.ToString().Substring(0, 10) </td>
+                        <td> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                        <td> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.MTR) </td>
+                        <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Count) </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.Complited == false).Count(d => d.Complited == false) </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.AnswerText == "").Count(d => d.AnswerText == "") </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.Complited == true).Count(d => d.Complited == true) </td>
+
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td> @Html.ActionLink("Открыть", "IndexCheckList", "OTK_Reclamation", new { id = item.id }, new { @class = "btn-sm btn-primary" }) </td>
+                        <td> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz) </td>
+                        <td> @item.DateCreate.ToString().Substring(0, 10) </td>
+                        <td> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                        <td> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.MTR) </td>
+                        <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Count) </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.Complited == false).Count(d => d.Complited == false) </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.AnswerText == "").Count(d => d.AnswerText == "") </td>
+                        <td> @item.OTK_Reclamation.Where(d => d.Complited == true).Count(d => d.Complited == true) </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script>
+    $('table').tfh({
+        trigger: 0,
+        top: 0
+    });
+</script>
+
+
+<script src="~/Content/Scripts/bootstrap-table.min.js"></script>
+<script src="~/Content/Scripts/jquery.min.js"></script>

@@ -1,0 +1,67 @@
+﻿@model Wiki.Debit_Platform
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Debit_Platform</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_PlanZakaz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_PlanZakaz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.massa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.massa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.countPlatform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.countPlatform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numPlatform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPlatform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numPlomb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPlomb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gabar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gabar)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

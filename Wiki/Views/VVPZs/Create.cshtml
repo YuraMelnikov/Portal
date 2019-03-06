@@ -1,0 +1,95 @@
+﻿@model Wiki.VVPZ
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.ActionLink("Отменить", "Index", new { @class = "btn btn-danger" })
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+
+        <h4>Добавить задание на отгрузку (1 этап: загрузка заказов)</h4>
+        <hr />
+
+        Заказ
+        @Html.DropDownList("id_PZ_PlanZakaz", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+        Примечание к рассылке
+        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+        Масса брутто (кг. цифрами)
+        @Html.EditorFor(model => model.massaBrutto, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.massaBrutto, "", new { @class = "text-danger" })
+
+        Масса нетто (кг. цифрами). Если [масса брутто] = [масса нетто], то можно данное поле не заполнять
+        @Html.EditorFor(model => model.massaNetto, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.massaNetto, "", new { @class = "text-danger" })
+
+        Грузополучатель
+        @Html.EditorFor(model => model.gruzopoluchatel, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.gruzopoluchatel, "", new { @class = "text-danger" })
+
+        Почтовый адрес грузополучателя
+        @Html.EditorFor(model => model.adresGruzo, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.adresGruzo, "", new { @class = "text-danger" })
+
+        ИНН/УНН грузополучателя
+        @Html.EditorFor(model => model.iNNGruz, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.iNNGruz, "", new { @class = "text-danger" })
+
+        ОКПО грузополучателя
+        @Html.EditorFor(model => model.oKPOGruz, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.oKPOGruz, "", new { @class = "text-danger" })
+
+        Код грузополучателя
+        @Html.EditorFor(model => model.kodGruz, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.kodGruz, "", new { @class = "text-danger" })
+
+        Станция назначения
+        @Html.EditorFor(model => model.sTNazn, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.sTNazn, "", new { @class = "text-danger" })
+
+        Код станции
+        @Html.EditorFor(model => model.kodSt, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.kodSt, "", new { @class = "text-danger" })
+
+        Особые отметки грузоотправителя
+        @Html.EditorFor(model => model.osobieOtm, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.osobieOtm, "", new { @class = "text-danger" })
+
+        Прочее
+        @Html.EditorFor(model => model.prochee, new { htmlAttributes = new { @class = "form-control", @id = "inv_num" } })
+        @Html.ValidationMessageFor(model => model.prochee, "", new { @class = "text-danger" })
+
+        Дата отгрузки
+        @Html.EditorFor(model => model.dateSh, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.dateSh, "", new { @class = "text-danger" })
+
+        <h1></h1>
+        <input type="submit" value="Сохранить" class="btn btn-success" />
+
+    </div>
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateSh').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

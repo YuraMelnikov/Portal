@@ -1,0 +1,71 @@
+﻿@model Wiki.Debit_WorkBit
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Ред.</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <div>
+        @Html.ActionLink("Назад к списку", "Index")
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.id_TaskForPZ)
+    @Html.HiddenFor(model => model.dateCreate)
+    @Html.HiddenFor(model => model.dateClose)
+    @Html.HiddenFor(model => model.id_PlanZakaz)
+    @Html.HiddenFor(model => model.datePlanFirst)
+    <h4>
+        @ViewBag.PZTitle
+        <br />
+    </h4>
+    
+    <h4>
+        @Model.TaskForPZ.taskName
+    </h4>
+    <hr />
+    <div style="margin:0px 0px 0px 20px;">
+
+        <div class="form-group">
+            Плановая дата завершения задачи
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.datePlan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.datePlan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Задача завершена
+            <div class="col-md-10">
+                <div class="checkbox" style="margin:0px 0px 0px 60px;">
+
+
+                    @Html.EditorFor(model => model.close)
+                    @Html.ValidationMessageFor(model => model.close, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <input type="submit" value="Сохранить" class="btn btn-default" />
+</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#datePlan').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿@model Wiki.OTK_ChaeckList
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Чек-лист</h2>
+
+<div>
+    <h4>@ViewBag.OrderNumber</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt> Зарегистрирован </dt>
+        <dd> @Html.DisplayFor(model => model.DateCreate) </dd>
+        <dt> Кем </dt>
+        <dd> @Html.DisplayFor(model => model.AspNetUsers.CiliricalName) </dd>
+    </dl>
+</div>
+
+
+
+<h1></h1>
+@Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-danger" })
+

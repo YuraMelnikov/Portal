@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Загрузить файл по деспетчеризации^</title>
+</head>
+<body>
+    @using (Html.BeginForm("ImportExcel", "RKD", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <br />
+        <form action="/RKD/ImportExcel" enctype="multipart/form-data" method="post">
+            <label>Загрузить файл по деспетчеризации:</label>
+            <br />
+            <br />
+            <input accept="file/*" id="fileExcel" multiple="multiple" name="fileExcel" type="file" />
+            <br />
+            <br />
+            <input type="submit" value="Отправить" />
+        </form>
+    }
+
+    <h1></h1>
+    <span>
+        <a href="~/RKD/Index" class="btn btn-danger" role="button">Отменить</a>
+    </span>
+</body>
+</html>

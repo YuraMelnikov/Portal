@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Wiki.CMO_Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            width: 1600px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h2>Заказ железа у ЦМО</h2>
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+    <br />
+    @Html.ActionLink("Сформировать заказ", "CreateOrder", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Оформить дозаказ", "CreateOrderDefault", null, new { @class = "btn btn-info" })
+    <a href="~/CMO/TestTableOS" class="btn btn-primary" role="button">Сводная таблица</a>
+    <a href="~/CMO/TestTableOS2" class="btn btn-primary" role="button">Сводная таблица (сокращенная)</a>
+    <hr />
+    <table data-toggle="table">
+        <thead>
+            <tr>
+                <th>№ заявки</th>
+                <th>Описание заявки</th>
+                <th>Дата размещения</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr class="something">
+                    <td class="col-md-2">@Html.DisplayFor(modelItem => item.id)</td>
+                    <td class="col-md-7">
+                        @foreach (var item2 in item.CMO_PositionOrder)
+                        {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
+                    </td>
+                    <td class="col-md-2">@item.dateCreate.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

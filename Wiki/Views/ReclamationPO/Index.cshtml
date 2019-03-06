@@ -1,0 +1,144 @@
+﻿@model Wiki.Models.ReclamationPO
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            width: 1600px;
+        }
+
+        th {
+            background: #000080; /* Цвет фона строки заголовка */
+            color: #ffe; /* Цвет текста */
+            text-align: left; /* Выравнивание по левому краю */
+            font-family: Arial, Helvetica, sans-serif; /* Выбор гарнитуры */
+            font-size: 0.9em; /* Размер текста */
+        }
+    </style>
+</head>
+
+<div class="container">
+
+    <h2>Замечания ПО</h2>
+    <span>
+        <a href="~/OTK_ReclamationKO/Create" class="btn btn-info" role="button">Добавить</a>
+        <a href="~/DocOTK_ReclamationKO/Index" class="btn btn-info" role="button">Итоги</a>
+
+            <a href="http://tpserver/PWA/ProjectBICenter/Sample%20Reports/%d0%9e%d0%b1%d1%89%d0%b8%d0%b5%20%d0%be%d1%82%d1%87%d0%b5%d1%82%d1%8b/%d0%a0%d0%b5%d0%ba%d0%bb%d0%b0%d0%bc%d0%b0%d1%86%d0%b8%d0%b8%20%d0%9f%d0%9e.xlsx" class="btn btn-success" role="button">Excel</a>
+
+    </span>
+    &nbsp&nbsp
+    <br />
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+    <h2></h2>
+    <h4>Активные замечания</h4>
+    <table data-toggle="table"
+           data-height="750">
+        <thead>
+            <tr>
+                <th> Ред. </th>
+                <th width="20"> № </th>
+                <th data-sortable="true" width="50"> Заказ </th>
+                <th width="75"> СП </th>
+                <th width="100"> Тип ошибки </th>
+                <th width="300"> Описание </th>
+                <th width="300"> Ответ </th>
+                <th width="300"> Ответ рук. КБ </th>
+                <th width="200" data-sortable="true"> Кто создал </th>
+                <th width="150" data-sortable="true">  Ответственный </th>
+                <th width="150"> Степень ошибки </th>
+                <th width="150" data-sortable="true"> Дата и время </th>
+            </tr>
+        </thead>
+
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveList)
+            {
+            <tr>
+                <td> @Html.ActionLink("Ред.", "Edit", "OTK_ReclamationKO", new { id = item.id }, null) </td>
+                <td width="20"> @Html.DisplayFor(modelItem => item.id) </td>
+                <td width="50"> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz) </td>
+                <td width="75"> @Html.DisplayFor(modelItem => item.AspNetUsers.Devision1.name) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.OTK_TypeReclamation.Name) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.textReclamation) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.textAnswer) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.descriptionManagerKO) </td>
+                <td width="200"> @Html.DisplayFor(modelItem => item.AspNetUsers3.CiliricalName) </td>
+                <td width="200"> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                <td width="150"> @Html.DisplayFor(modelItem => item.OTK_CounterErrorKO.name) </td>
+                <td width="150"> @Html.DisplayFor(modelItem => item.dateCreate) </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h4>Отработанные замечания</h4>
+    <table data-toggle="table"
+           data-height="750">
+        <thead>
+            <tr>
+                <th width="20"> № </th>
+                <th data-sortable="true" width="50"> Заказ </th>
+                <th width="75"> СП </th>
+                <th width="100"> Тип ошибки </th>
+                <th width="300"> Описание </th>
+                <th width="300"> Ответ </th>
+                <th width="300"> Ответ рук. КБ </th>
+                <th width="200" data-sortable="true"> Кто создал </th>
+                <th width="150" data-sortable="true">  Ответственный </th>
+                <th width="150"> Степень ошибки </th>
+                <th width="150" data-sortable="true"> Дата и время </th>
+                <th> Ред. </th>
+            </tr>
+        </thead>
+
+        <tbody id="myTable">
+            @foreach (var item in Model.DeActiveList)
+            {
+            <tr>
+                <td width="20"> @Html.DisplayFor(modelItem => item.id) </td>
+                <td width="50"> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz) </td>
+                <td width="75"> @Html.DisplayFor(modelItem => item.AspNetUsers.Devision1.name) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.OTK_TypeReclamation.Name) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.textReclamation) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.textAnswer) </td>
+                <td width="300"> @Html.DisplayFor(modelItem => item.descriptionManagerKO) </td>
+                <td width="200"> @Html.DisplayFor(modelItem => item.AspNetUsers3.CiliricalName) </td>
+                <td width="200"> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                <td width="150"> @Html.DisplayFor(modelItem => item.OTK_CounterErrorKO.name) </td>
+                <td width="150"> @Html.DisplayFor(modelItem => item.dateCreate) </td>
+                <td> @Html.ActionLink("Ред.", "Edit", "OTK_ReclamationKO", new { id = item.id }, null) </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+

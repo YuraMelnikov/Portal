@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Wiki.OTK_ReclamationAnswer>
+
+@{
+    ViewBag.Title = "IndexSP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<span>
+    @Html.ActionLink("Чек-листы", "ChackLists", "ReclamationOTK", null, new { @class = "btn btn-info" })
+</span>
+<span>
+    @Html.ActionLink("Активные замечания", "ActiveReclamation", "ReclamationOTK", null, new { @class = "btn btn-info" })
+</span>
+<span>
+    @Html.ActionLink("Замечания отдела", "Index", "OTK_ChaeckList", null, new { @class = "btn btn-info" })
+</span>
+<span>
+    <a href="http://tpserver/PWA/ProjectBICenter/Sample%20Reports/%d0%9e%d0%b1%d1%89%d0%b8%d0%b5%20%d0%be%d1%82%d1%87%d0%b5%d1%82%d1%8b/%d0%a0%d0%b5%d0%ba%d0%bb%d0%b0%d0%bc%d0%b0%d1%86%d0%b8%d0%b8%20%d0%9e%d0%a2%d0%9a.xlsx" class="btn btn-success" role="button">Excel</a>
+</span>
+<h2>Замечания в работе</h2>
+<table class="table table-striped table-bordered table-hover table-condensed" align="center" style="width:1500px">
+    <tr>
+        <th width="10"> Заказ </th>
+        <th width="300"> Замечание </th>
+        <th width="150"> Прим. </th>
+        <th width="300"> Ответ </th>
+        <th width="10"> Создано </th>
+        <th width="10"> СП </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Text == "")
+        {
+            <tr class="warning">
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.ReclamationText) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Description) </td>
+                <td> @Html.DisplayFor(modelItem => item.Text) </td>
+                <td> @item.OTK_Reclamation.DateTimeCreate.ToString().Substring(0, 10) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Devision1.name) </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.ReclamationText) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Description) </td>
+                <td> @Html.DisplayFor(modelItem => item.Text) </td>
+                <td> @item.OTK_Reclamation.DateTimeCreate.ToString().Substring(0, 10) </td>
+                <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Devision1.name) </td>
+            </tr>
+        }
+    }
+</table>
+
+@Html.ActionLink("Назад", "Index", "OTK_ChaeckList", null, new { @class = "btn btn-primary" })

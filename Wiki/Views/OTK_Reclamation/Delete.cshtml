@@ -1,0 +1,91 @@
+﻿@model Wiki.OTK_Reclamation
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удалить запись</h2>
+
+<h3>Вы действительно хотите удалить данную запись?</h3>
+
+@Html.ActionLink("Отменить", "IndexCheckList", new { id = Model.CheckList }, new { @class = "btn btn-primary" })
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Отметка о закрытиии
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complited)
+        </dd>
+
+        <dt>
+            Текст рекламации
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReclamationText)
+        </dd>
+
+        <dt>
+            Прим.
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Дата и время создания
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeCreate)
+        </dd>
+
+        <dt>
+            Трудозатраты
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LaborCostManufacturing)
+        </dd>
+
+        <dt>
+            Кто создал
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OTK_ChaeckList.UserCreate)
+        </dd>
+
+        <dt>
+            Тип рекламации
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OTK_TypeReclamation.Name)
+        </dd>
+
+        <dt>
+            Пользователь создавший
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger, new { id = Model.CheckList" /> 
+            
+        </div>
+    }
+</div>

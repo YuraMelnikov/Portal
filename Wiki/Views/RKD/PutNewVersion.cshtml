@@ -1,0 +1,33 @@
+﻿@model Wiki.RKD_Order
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+
+<h2>РКД направляется на доработку в КО</h2>
+@using (Html.BeginForm("PutNewVersion", "RKD", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.id_PZ_PlanZakaz)
+            <h4>Укажите ориентировочную дату готовности новой версии РКД:</h4>
+            @Html.EditorFor(model => model.datePlanCritical, new { htmlAttributes = new { @class = "form-control" } })
+            <br />
+            <input type="submit" value="Отправить РКД на доработку" class="btn btn-info" />
+            @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#datePlanCritical').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

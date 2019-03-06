@@ -1,0 +1,75 @@
+﻿@model Wiki.OTK_ReclamationAnswer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OTK_ReclamationAnswer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Completed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Devision1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Devision1.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Devision2.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Devision2.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OTK_Reclamation.ReclamationText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OTK_Reclamation.ReclamationText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

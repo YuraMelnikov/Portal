@@ -1,0 +1,73 @@
+﻿@model Wiki.Debit_Platform
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Debit_Platform</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_PlanZakaz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_PlanZakaz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.massa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.massa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.countPlatform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.countPlatform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numPlatform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPlatform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numPlomb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPlomb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gabar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gabar)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

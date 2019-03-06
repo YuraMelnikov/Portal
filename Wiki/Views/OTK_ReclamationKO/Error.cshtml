@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ошибка сохранения данных</h2>
+
+При попытке сохранить данные произошла ошибка
+<br />
+Возможные причиниы:
+<br />
+Не заполнено поле: "Текст замечания".
+<h5></h5>
+
+@ViewBag.Exeption
+
+<h1></h1>
+<span>
+    <a href="~/OTK_ReclamationKO/Index" class="btn btn-success" role="button">Вернутся к списку замечаний</a>
+</span>

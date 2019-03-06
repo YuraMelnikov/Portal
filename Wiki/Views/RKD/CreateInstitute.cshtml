@@ -1,0 +1,20 @@
+﻿@model Wiki.RKD_Institute
+@{
+    ViewBag.Title = "CreateInstitute";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+
+<h2>Добавить проектный институт</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div style="width:1400px;">
+    <p>Наименование</p>
+    @Html.TextAreaFor(model => model.name, new { @class = "form-control" })
+    <br />
+    <input type="submit" value="Сохранить" class="btn btn-info" />
+</div>
+}

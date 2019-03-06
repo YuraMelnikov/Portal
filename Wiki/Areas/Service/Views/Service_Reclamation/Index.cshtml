@@ -1,0 +1,122 @@
+﻿@{
+    Layout = "~/Areas/Service/Views/Shared/_LayoutServiceReclamation.cshtml";
+}
+<head>
+    <script src="~/Areas/Service/Content/Scripts/Service_Reclamation.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+<button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-sm-1">Действие</th>
+            <th class="col-sm-1">Ид.</th>
+            <th class="col-sm-3">Заказ/ы</th>
+            <th class="col-sm-1">Создана</th>
+            <th class="col-sm-6">Краткое описание</th>
+        </tr>
+    </thead>
+    <tbody class="tbody"></tbody>
+</table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        @model Wiki.Service_Reclamation
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-sm btn-primary" id="btnAddReclamationInfo" onclick="return AddReclamationInfo();"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+                <button type="button" class="btn-sm btn-primary" id="btnAddReclamationDocument" onclick="return AddReclamationDocument();"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>№ рекламации:</label>
+                            @Html.EditorFor(model => model.id, new { htmlAttributes = new { disabled = "disabled", @class = "form-control" } })
+                        </div>
+                        <div class="col-md-9">
+                            <label>Заказ/ы:</label>
+                            @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Дата регистрации:</label>
+                            @Html.EditorFor(model => model.dateAdd, new { htmlAttributes = new { disabled = "disabled", @class = "form-control" } })
+                        </div>
+                        <div class="col-md-9">
+                            <label>Тип рекламации:</label>
+                            @Html.ListBox("service_TypeReclamation", ViewBag.Service_TypeReclamation as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Отправитель рекламации:</label>
+                            @Html.DropDownList("id_Service_ReclamationWhoAdd", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>Вид документа:</label>
+                            @Html.DropDownList("id_Service_TypeDocument", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-3">
+                            <label>№ документа документа:</label>
+                            @Html.EditorFor(model => model.numberDocument, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-md-2">
+                            <label>Дата документа:</label>
+                            @Html.EditorFor(model => model.dateDocument, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Краткое описание:</label>
+                            @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", style = "width: 100%; max-width: 100%;" })
+                        </div>
+                    </div>
+                    <br />
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-sm-3">Дата</th>
+                            <th class="col-sm-9">Событие</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbodyt">
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Content/Chosen/chosen.jquery.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/Chosen/chosen.css")" rel="stylesheet" type="text/css" />
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateDocument').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

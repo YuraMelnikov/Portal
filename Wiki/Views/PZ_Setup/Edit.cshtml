@@ -1,0 +1,77 @@
+﻿@model Wiki.PZ_Setup
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактирование договорных условий</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <div>
+        @Html.ActionLink("Назад", "Index")
+    </div>
+    <h4>
+        Заказ:
+        @ViewBag.Zakaz
+    </h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.id_PZ_PlanZakaz)
+    <h3>Сверка наименования изделия</h3>
+    <h5 style="width:500px">Договорное наименование: @ViewBag.Name</h5>
+    <h5 style="width:500px">Наименование согласно ТУ завода: @ViewBag.NameTU</h5>
+    Отправить наименование на согласование в ТП
+    @Html.CheckBox("incorrectName", false, new { basicCount = "incorrectName" })
+    <hr />
+    Подготовил предварительный расчет
+    @Html.DropDownList("userTP", null, htmlAttributes: new { @class = "form-control" })
+    НД кто подготовил предрасчет
+    @Html.CheckBox("nullTP", false, new { basicCount = "nullTP" })
+    <hr/>
+    Кол-во дней на приемку
+    @Html.EditorFor(model => model.KolVoDneyNaPrijemku, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.KolVoDneyNaPrijemku, "", new { @class = "text-danger" })
+
+    Пункт договора о сроках приемки
+    @Html.TextAreaFor(model => model.PunktDogovoraOSrokahPriemki, new { @class = "form-control", @cols = 1400, @rows = 5 })
+    @*@Html.EditorFor(model => model.PunktDogovoraOSrokahPriemki, new { htmlAttributes = new { @class = "form-control" } })*@
+    @Html.ValidationMessageFor(model => model.PunktDogovoraOSrokahPriemki, "", new { @class = "text-danger" })
+
+    Условие оплаты (текстовое)
+    @Html.TextAreaFor(model => model.UslovieOplatyText, new { @class = "form-control", @cols = 1400, @rows = 5 })
+    @*@Html.EditorFor(model => model.UslovieOplatyText, new { htmlAttributes = new { @class = "form-control" } })*@
+    @Html.ValidationMessageFor(model => model.UslovieOplatyText, "", new { @class = "text-danger" })
+
+    Условие оплаты (числовое)
+    @Html.EditorFor(model => model.UslovieOplatyInt, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.UslovieOplatyInt, "", new { @class = "text-danger" })
+
+    Время на подготовку РКД
+    @Html.EditorFor(model => model.TimeNaRKD, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.TimeNaRKD, "", new { @class = "text-danger" })
+
+    Время на рассмотрение РКД
+    @Html.EditorFor(model => model.RassmotrenieRKD, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.RassmotrenieRKD, "", new { @class = "text-danger" })
+
+    Срок рассмотрений замечаний по РКД
+    @Html.EditorFor(model => model.SrokZamechanieRKD, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.SrokZamechanieRKD, "", new { @class = "text-danger" })
+
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-info" />
+        </div>
+    </div>
+</div>
+}
+
+

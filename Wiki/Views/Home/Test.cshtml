@@ -1,0 +1,136 @@
+﻿<h4>Angular-xeditable Editable row (Bootstrap 3)</h4>
+<div ng-app="app" ng-controller="Ctrl">
+    <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+            <td style="width:35%">Name</td>
+            <td style="width:20%">Status</td>
+            <td style="width:20%">Group</td>
+            <td style="width:25%">Edit</td>
+        </tr>
+        <tr ng-repeat="user in users">
+            <td>
+                <!-- editable username (text with validation) -->
+                <span editable-text="user.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, user.id)" e-required>
+                    {{ user.name || 'empty' }}
+                </span>
+            </td>
+            <td>
+                <!-- editable status (select-local) -->
+                <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
+                    {{ showStatus(user) }}
+                </span>
+            </td>
+            <td>
+                <!-- editable group (select-remote) -->
+                <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
+                    {{ showGroup(user) }}
+                </span>
+            </td>
+            <td style="white-space: nowrap">
+                <!-- form -->
+                <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        save
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                        cancel
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                    <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <button class="btn btn-default" ng-click="addUser()">Add row</button>
+</div>
+
+var app = angular.module("app", ["xeditable", "ngMockE2E"]);
+
+app.run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
+
+app.controller('Ctrl', function($scope, $filter, $http) {
+ $scope.users = [
+    {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
+    {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
+    {id: 3, name: 'awesome user3', status: 2, group: null}
+  ];
+
+  $scope.statuses = [
+    {value: 1, text: 'status1'},
+    {value: 2, text: 'status2'},
+    {value: 3, text: 'status3'},
+    {value: 4, text: 'status4'}
+  ];
+
+  $scope.groups = [];
+  $scope.loadGroups = function() {
+    return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
+      $scope.groups = data;
+    });
+  };
+
+  $scope.showGroup = function(user) {
+    if(user.group && $scope.groups.length) {
+      var selected = $filter('filter')($scope.groups, {id: user.group});
+      return selected.length ? selected[0].text : 'Not set';
+    } else {
+      return user.groupName || 'Not set';
+    }
+  };
+
+  $scope.showStatus = function(user) {
+    var selected = [];
+    if(user.status) {
+      selected = $filter('filter')($scope.statuses, {value: user.status});
+    }
+    return selected.length ? selected[0].text : 'Not set';
+  };
+
+  $scope.checkName = function(data, id) {
+    if (id === 2 && data !== 'awesome') {
+      return "Username 2 should be `awesome`";
+    }
+  };
+
+  $scope.saveUser = function(data, id) {
+    //$scope.user not updated yet
+    angular.extend(data, {id: id});
+    return $http.post('/saveUser', data);
+  };
+
+  // remove user
+  $scope.removeUser = function(index) {
+    $scope.users.splice(index, 1);
+  };
+
+  // add user
+  $scope.addUser = function() {
+    $scope.inserted = {
+      id: $scope.users.length+1,
+      name: '',
+      status: null,
+      group: null
+    };
+    $scope.users.push($scope.inserted);
+  };
+});
+
+// --------------- mock $http requests ----------------------
+app.run(function($httpBackend) {
+  $httpBackend.whenGET('/groups').respond([
+    {id: 1, text: 'user'},
+    {id: 2, text: 'customer'},
+    {id: 3, text: 'vip'},
+    {id: 4, text: 'admin'}
+  ]);
+
+  $httpBackend.whenPOST(/\/saveUser/).respond(function(method, url, data) {
+    data = angular.fromJson(data);
+    return [200, {status: 'ok'}];
+  });
+});

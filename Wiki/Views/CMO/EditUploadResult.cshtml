@@ -1,0 +1,37 @@
+﻿@model Wiki.CMO_UploadResult
+
+@{
+    ViewBag.Title = "EditUploadResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Редактировать предоставленные данные</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.id_CMO_Company)
+    @Html.HiddenFor(model => model.id_CMO_Tender)
+    @Html.HiddenFor(model => model.dateComplited)
+    @Html.HiddenFor(model => model.dateTimeUpload)
+    @Html.HiddenFor(model => model.userUpload)
+    <hr />
+    Стоимость
+    @Html.EditorFor(model => model.cost, new { htmlAttributes = new { @class = "form-control" } })
+    <br />
+    <br />
+    Количество дней на изготовление
+    @Html.EditorFor(model => model.day, new { htmlAttributes = new { @class = "form-control" } })
+    <br />
+    <br />
+    Ручная установка победителя
+    @Html.EditorFor(model => model.winnerBit, new { htmlAttributes = new { @class = "form-control" } })
+    <hr />
+    <input type="submit" value="Сохранить" class="btn btn-default" />
+
+</div>
+}

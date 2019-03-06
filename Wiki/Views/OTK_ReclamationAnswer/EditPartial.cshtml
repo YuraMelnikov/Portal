@@ -1,0 +1,37 @@
+﻿@model Wiki.OTK_ReclamationAnswer
+@{
+    Layout = null;
+}
+<head>
+    <style>
+        .form-control {
+            max-width: none !important;
+            width: 680px;
+        }
+        </style>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.ReclamationId)
+        @Html.HiddenFor(model => model.User)
+        @Html.HiddenFor(model => model.Devision)
+        @Html.HiddenFor(model => model.DateCreate)
+        <hr />
+        <h5 style="width: 680px"> № Заказа: @ViewBag.NumberOrder @ViewBag.NameOrder </h5>
+        <h5 style="width: 680px"> Текст рекламации: @ViewBag.TextReclamation </h5>
+        <label>Ответ</label>
+        @Html.TextAreaFor(model => model.Text, new { @class = "form-control", @cols = 1400, @rows = 5 })
+        <label>Ответственный исполнитель:</label>
+        @Html.DropDownList("userPOError", null, htmlAttributes: new { @class = "form-control" })
+        <hr />
+        <label>Перенаправить замечание в другой отдел</label>
+        @Html.CheckBox("newDevision");
+        @Html.DropDownList("reloadError", null, htmlAttributes: new { @class = "form-control" })
+        <hr />
+        <input type="submit" value="Сохранить" class="btn btn-info" />
+        @Html.ActionLink("Назад", "Index", "ReclamationOTK", null, new { @class = "btn btn-danger", @style = "color: white" })
+    </div>
+}

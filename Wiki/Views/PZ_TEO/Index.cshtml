@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Wiki.PZ_TEO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            height: 630px;
+            width: 1600px;
+            overflow: auto;
+        }
+
+        th {
+            background: #000080; /* Цвет фона строки заголовка */
+            color: #ffe; /* Цвет текста */
+            text-align: left; /* Выравнивание по левому краю */
+            font-family: Arial, Helvetica, sans-serif; /* Выбор гарнитуры */
+            font-size: 0.9em; /* Размер текста */
+        }
+    </style>
+</head>
+<h2>ТЭО</h2>
+<span>
+    <br />
+    <a href="~/Debit_WorkBit/Index" class="btn btn-primary" role="button">Мои активные задачи</a>
+    @*<a href="~/Debit_WorkBit/StatusOrders" class="btn btn-primary" role="button">Статус заказа</a>*@
+    <a href="~/Debit_WorkBit/IndexBrows" class="btn btn-primary" role="button">Активные задачи по заказам</a>
+    <a href="~/PZ_TEO/Index" class="btn btn-primary" role="button">Справочник ТЭО</a>
+    <a href="~/PZ_Setup/Index" class="btn btn-primary" role="button">Договорные условия</a>
+    <br />
+    <br />
+    <a href="http://tsqlserver/Reports/Pages/Report.aspx?ItemPath=%2fDashboard_EveryDay%2f%d0%94%d0%b5%d0%b1%d0%b8%d1%82%d0%be%d1%80%d0%ba%d0%b0" class="btn btn-info" role="button">Отчет (полная форма)</a>
+    <a href="~/Debit_WorkBit/ReportBasic" class="btn btn-primary" role="button">Отчет (сокращенная форма)</a>
+    <a href="~/Debit_WorkBit/RemainingList" class="btn btn-info" role="button">Ожидание прихода средств</a>
+    <br />
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+    <br />
+</span>
+<div class="container">
+    <table data-toggle="table"
+           data-height="630">
+        <thead>
+            <tr>
+                <th>
+                    Заказ
+                </th>
+                <th>
+                    Выручка без НДС
+                </th>
+                <th>
+                    С/С материалов
+                </th>
+                <th>
+                    С/С зп рабочих
+                </th>
+                <th>
+                    Коммерчиские издержки
+                </th>
+                <th>
+                    % по кредиту
+                </th>
+                <th>
+                    Постоянные издержки
+                </th>
+                <th>
+                    НОП
+                </th>
+                <th>
+                    КИ Прочие_Ш
+                </th>
+                <th>
+                    КИ Прочие
+                </th>
+                <th>
+                    Отпускная цена без НДС
+                </th>
+                <th>
+                    Валюта
+                </th>
+                <th>
+                    Сумма НДС
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SSM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SSR)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IzdKom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IzdPPKredit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KI_S)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KI_prochee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtpuskChena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PZ_Currency.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NDS)
+                </td>
+                <td>
+                    @Html.ActionLink("Ред.", "Edit", new { id = item.id })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<script>
+    $('table').tfh({
+        trigger: 0,
+        top: 0
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

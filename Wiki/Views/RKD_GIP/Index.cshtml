@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Wiki.RKD_GIP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>Заказ</th>
+        <th>ГИП КБМ</th>
+        <th>ГИП КБЭ</th>
+        <th>Ред.</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.RKD_Order.PZ_PlanZakaz.PlanZakaz) </td>
+
+        <td> @Html.DisplayFor(modelItem => item.AspNetUsers1.CiliricalName)</td>
+
+        <td> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+        <td> @Html.ActionLink("Ред.", "Edit", new { id = item.id }) </td>
+    </tr>
+}
+</table>

@@ -1,0 +1,1469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{880278D0-7AA0-49FB-AE74-41664A80C022}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wiki</RootNamespace>
+    <AssemblyName>Wiki</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.64.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.64\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.4.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.14.0.0.1\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Outlook.14.0.0\lib\net40\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ProjectServer.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\myi\Desktop\PSI dll\Microsoft.ProjectServer.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\myi\Desktop\PSI dll\Microsoft.SharePoint.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\myi\Desktop\PSI dll\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Excel.14.0.4760.1000\lib\net20\Office.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Spire.Doc, Version=7.2.4.4040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.Doc.7.2.4\lib\net40\Spire.Doc.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License, Version=1.3.7.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.Doc.7.2.4\lib\net40\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=5.2.8.19040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.Doc.7.2.4\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_ReclamationCounterErrorController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_ReclamationWhoAddController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_TypeCorrespondenceController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_TypeReclamationController.cs" />
+    <Compile Include="Areas\Service\Controllers\Service_TypeReclamationDocumentController.cs" />
+    <Compile Include="Areas\Service\Models\Service_ReclamationCounterErrorCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Service_ReclamationCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Service_ReclamationInfoR.cs" />
+    <Compile Include="Areas\Service\Models\Service_ReclamationU.cs" />
+    <Compile Include="Areas\Service\Models\Service_ReclamationWhoAddCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Service_Service_TypeReclamationDocumentCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Service_TypeCorrespondenceCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Service_TypeReclamationCRUD.cs" />
+    <Compile Include="Areas\Service\Models\Thead.cs" />
+    <Compile Include="Areas\Service\Models\TheadBasicNames.cs" />
+    <Compile Include="Areas\Service\Models\TheadNamesForReclamationTable.cs" />
+    <Compile Include="Areas\Service\Models\TheadReclamation.cs" />
+    <Compile Include="Areas\Service\Models\ViewReclamationAll.cs" />
+    <Compile Include="Areas\Service\ServiceAreaRegistration.cs" />
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\IRKDWorkFactory.cs" />
+    <Compile Include="Classes\RKDWork.cs" />
+    <Compile Include="Classes\RKDWorkFactory.cs" />
+    <Compile Include="Classes\UploadHTEO.cs" />
+    <Compile Include="CMO_Company.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_CompanyMailList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_FileOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_HoureTender.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_Mail.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_Order.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_PositionOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_PositionPreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_PreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_Report.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_Tender.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_TypeProduct.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_TypeTask.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO_UploadResult.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CMO2Controller.cs" />
+    <Compile Include="Controllers\CMOController.cs" />
+    <Compile Include="Controllers\Debit_CMRController.cs" />
+    <Compile Include="Controllers\Debit_CostUpdateController.cs" />
+    <Compile Include="Controllers\Debit_IstPostController.cs" />
+    <Compile Include="Controllers\Debit_PlatformController.cs" />
+    <Compile Include="Controllers\Debit_TNController.cs" />
+    <Compile Include="Controllers\Debit_WorkBitController.cs" />
+    <Compile Include="Controllers\DevisionsController.cs" />
+    <Compile Include="Controllers\ExceptionController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OTK_ChaeckListController.cs" />
+    <Compile Include="Controllers\OTK_CounterErrorKOController.cs" />
+    <Compile Include="Controllers\OTK_ReclamationAnswerController.cs" />
+    <Compile Include="Controllers\OTK_ReclamationController.cs" />
+    <Compile Include="Controllers\OTK_ReclamationKOController.cs" />
+    <Compile Include="Controllers\OTK_ReclamationQuaReport.cs" />
+    <Compile Include="Controllers\OTK_TypeReclamationController.cs" />
+    <Compile Include="Controllers\PZ_SetupController.cs" />
+    <Compile Include="Controllers\PZ_TEOController.cs" />
+    <Compile Include="Controllers\ReceivablesController.cs" />
+    <Compile Include="Controllers\ReclamationOTKController.cs" />
+    <Compile Include="Controllers\ReclamationPOController.cs" />
+    <Compile Include="Controllers\RKDController.cs" />
+    <Compile Include="Controllers\RKD_GIPController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Areas\Service\Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\UploadDocumentController.cs" />
+    <Compile Include="Controllers\UploadERController.cs" />
+    <Compile Include="Controllers\VVPZsController.cs" />
+    <Compile Include="Controllers\VV_PositionController.cs" />
+    <Compile Include="DashboardKO_Quartal.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_CMR.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_CostUpdate.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_DataReportOprih.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_EmailList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_IstPost.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_MatchingType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_Name.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_PeriodReportOprih.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_Platform.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_TN.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_WorkBit.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Devision.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBPortal.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBPortal.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBPortal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBPortal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBPortal.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FolderDocument.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelIdentity\AppRole.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointments.cs" />
+    <Compile Include="Models\CMO_Create.cs" />
+    <Compile Include="Models\CMO_Description.cs" />
+    <Compile Include="Models\CMO_PreOrderView.cs" />
+    <Compile Include="Models\CMO_View.cs" />
+    <Compile Include="Models\COM_UploadResult.cs" />
+    <Compile Include="Models\Despatching.cs" />
+    <Compile Include="Models\DespatchingTmp.cs" />
+    <Compile Include="Models\Dictionaries.cs" />
+    <Compile Include="Models\ElementsWorkDeskOS.cs" />
+    <Compile Include="Models\EmailClient.cs" />
+    <Compile Include="Models\EmailFirstToTPVersion.cs" />
+    <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\EmailPutErrorClient.cs" />
+    <Compile Include="Models\EmailRevisionToKO.cs" />
+    <Compile Include="Models\EmailRKD.cs" />
+    <Compile Include="Models\EmailRKDQuestion.cs" />
+    <Compile Include="Models\EmailRKDQustionUpdate.cs" />
+    <Compile Include="Models\EmailSuccessRKD.cs" />
+    <Compile Include="Models\EmailToTPVersion.cs" />
+    <Compile Include="Models\EmailVersion.cs" />
+    <Compile Include="Models\ExcelFile.cs" />
+    <Compile Include="Models\ExcelParserCMO.cs" />
+    <Compile Include="Models\ExceptionFilter.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IExceptionFilter.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ManufacturingHoure.cs" />
+    <Compile Include="Models\OTKReclamationKoReportQuart.cs" />
+    <Compile Include="Models\OTK_QuartalReport.cs" />
+    <Compile Include="Models\OTK_ReclamationToExcel.cs" />
+    <Compile Include="Models\ProjectServer.cs" />
+    <Compile Include="Models\Receivables.cs" />
+    <Compile Include="Models\ReceivablesList.cs" />
+    <Compile Include="Models\RenderUserMenu.cs" />
+    <Compile Include="Models\TaskForPWA.cs" />
+    <Compile Include="Models\ReclamationOTK.cs" />
+    <Compile Include="Models\ReclamationPO.cs" />
+    <Compile Include="Models\RKD.cs" />
+    <Compile Include="Models\RKD_AllView.cs" />
+    <Compile Include="Models\RKD_ExcelDesparting.cs" />
+    <Compile Include="Models\RKD_ForTaskList.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\TenderOffer.cs" />
+    <Compile Include="Models\ViewOSCMO.cs" />
+    <Compile Include="Models\ViewPostShipment.cs" />
+    <Compile Include="Models\ViewRKD.cs" />
+    <Compile Include="Models\ViewRKD_Question.cs" />
+    <Compile Include="Models\WordDocumentAttribute.cs" />
+    <Compile Include="Models\WorkDeskKO.cs" />
+    <Compile Include="OTKMultiSelectList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ChaeckList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_CounterErrorKO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_Reclamation.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationAnswer.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationKO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationKO_DocData.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationKO_DocDataOTK.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationKO_DocResult.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_ReclamationKO_DocResultOTK.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OTK_TypeReclamation.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Post.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostAlertShip.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostMatching.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectServer_CreateTasks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectServer_UpdateTasks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectWBS.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project_WBSLevelStruct.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PWA_EmpProject.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_Client.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_Currency.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_Dostavka.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_FIO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_OperatorDogovora.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_Packaging.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_PlanZakaz.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_ProductType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_Setup.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_SMRPNR.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_TEO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_TypeShip.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reclamation_Order.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Despatching.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_FailBPlan.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_FileMailVersion.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_GIP.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_HistoryTaskVersion.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Institute.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Mail_TimeForComplited.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Mail_Version.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Order.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_PostList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Question.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_QuestionData.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Task.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_TaskUIDProjectUD.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_TaskVersion.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_TypeTask.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_Version.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_VersionDay.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_VersionWork.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_Reclamation.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationAddOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationAnswerDevision.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationCorrespondence.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationCounterError.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationInfo.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationMonthDoc.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationMonthResult.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationPZ.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_ReclamationWhoAdd.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_TypeCorrespondence.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_TypeReclamation.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_TypeReclamationDocument.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskForPZ.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tmpRecl.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeRKD_Mail_Version.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeTaskForPZ.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VVPZ.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VV_infPost.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VV_Position.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WBS_ClassicStruct.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XTEO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
+    <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
+    <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />
+    <Content Include="Areas\Service\Content\Scripts\Service_TypeCorrespondenceCRUD.js" />
+    <Content Include="Areas\Service\Content\Scripts\TypeReclamationCRUD.js" />
+    <Content Include="Areas\Service\Content\Scripts\TypeReclamationDocumentCRUD.js" />
+    <Content Include="Areas\Service\Content\tmp.jpg" />
+    <Content Include="Areas\Service\Content\underConst.png" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\Chosen\chosen-sprite.png" />
+    <Content Include="Content\Chosen\chosen.css" />
+    <Content Include="Content\Chosen\chosen.jquery.js" />
+    <Content Include="Content\Chosen\chosen.jquery.min.js" />
+    <Content Include="Content\Chosen\chosen.min.css" />
+    <Content Include="Content\Chosen\chosen.proto.js" />
+    <Content Include="Content\Chosen\chosen.proto.min.js" />
+    <Content Include="Content\Chosen\docsupport\chosen.png" />
+    <Content Include="Content\Chosen\docsupport\init.js" />
+    <Content Include="Content\Chosen\docsupport\init.proto.js" />
+    <Content Include="Content\Chosen\docsupport\jquery-1.12.4.min.js" />
+    <Content Include="Content\Chosen\docsupport\jquery-3.2.1.min.js" />
+    <Content Include="Content\Chosen\docsupport\oss-credit.png" />
+    <Content Include="Content\Chosen\docsupport\prism.css" />
+    <Content Include="Content\Chosen\docsupport\prism.js" />
+    <Content Include="Content\Chosen\docsupport\prototype-1.7.0.0.js" />
+    <Content Include="Content\Chosen\docsupport\style.css" />
+    <Content Include="Content\Chosen\index.html" />
+    <Content Include="Content\Chosen\index.proto.html" />
+    <Content Include="Content\Chosen\options.html" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\edititem.gif" />
+    <Content Include="Content\images\ExcelLogo.scale-80.png" />
+    <Content Include="Content\images\postBlank.jpg" />
+    <Content Include="Content\images\signatureMVV.png" />
+    <Content Include="Content\images\WinProjLogo.scale-80.png" />
+    <Content Include="Content\images\WinWordLogo.scale-80.png" />
+    <Content Include="Content\jquery-latest.js" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\AUTHORS.txt" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\index.html" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Content\jquery.tablesorter.js" />
+    <Content Include="Content\MelnikauCSS.css" />
+    <Content Include="Content\Scripts\bootstrap-table.min.css" />
+    <Content Include="Content\Scripts\bootstrap-table.min.js" />
+    <Content Include="Content\Scripts\bootstrap.min.css" />
+    <Content Include="Content\Scripts\jquery.min.js" />
+    <Content Include="Content\StyleSheet.css" />
+    <Content Include="Content\tableExport.jquery.plugin-master\html2canvas.js" />
+    <Content Include="Content\tableExport.jquery.plugin-master\jquery.base64.js" />
+    <Content Include="Content\tableExport.jquery.plugin-master\jspdf\jspdf.js" />
+    <Content Include="Content\tableExport.jquery.plugin-master\jspdf\libs\base64.js" />
+    <Content Include="Content\tableExport.jquery.plugin-master\jspdf\libs\sprintf.js" />
+    <Content Include="Content\tableExport.jquery.plugin-master\tableExport.js" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="EFDBPortal.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBPortal.edmx</DependentUpon>
+      <LastGenOutput>EFDBPortal.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFDBPortal.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBPortal.edmx</DependentUpon>
+      <LastGenOutput>EFDBPortal.cs</LastGenOutput>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="Files\logo.jpg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\Admin\Devision.jpg" />
+    <Content Include="Images\Admin\OP.jpg" />
+    <Content Include="Images\Admin\OTK.jpg" />
+    <Content Include="Images\Admin\Users&amp;Roles.jpg" />
+    <Content Include="Images\Логотип.jpg" />
+    <Content Include="Microsoft.ProjectServer.Client.dll" />
+    <Content Include="Microsoft.SharePoint.Client.dll" />
+    <Content Include="Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="Scripts\angular-dropdown-multiselect.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\jquery-ui-1.12.1.custom\package.json" />
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <Content Include="apiapp.json" />
+    <Content Include="Content\Chosen\bower.json" />
+    <Content Include="Content\Chosen\package.json" />
+    <Content Include="Content\tableExport.jquery.plugin-master\README.md" />
+    <Content Include="Content\tableExport.jquery.plugin-master\tableExport.jquery.json" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Service\Views\ServiceReclamation\Index.cshtml" />
+    <Content Include="Areas\Service\Views\web.config" />
+    <Content Include="Areas\Service\Views\Shared\_LayoutServiceReclamation.cshtml" />
+    <Content Include="Areas\Service\Views\Shared\_LayoutService.cshtml" />
+    <Content Include="Areas\Service\Views\Service\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Shared\_LayoutServiceAdmin.cshtml" />
+    <Content Include="Areas\Service\Views\ServiceAdmin\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Shared\_LayoutServiceAdminCard.cshtml" />
+    <Content Include="Areas\Service\Views\Service_TypeReclamation\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Service_TypeReclamationDocument\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Service_TypeCorrespondence\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Service_ReclamationWhoAdd\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Service_ReclamationCounterError\Index.cshtml" />
+    <Content Include="Areas\Service\Views\Service_Reclamation\Index.cshtml" />
+    <EntityDeploy Include="EFDBPortal.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDBPortal.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EFDBPortal.edmx.diagram">
+      <DependentUpon>EFDBPortal.edmx</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\myi.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\i18n\af.js" />
+    <Content Include="Scripts\i18n\ar.js" />
+    <Content Include="Scripts\i18n\az.js" />
+    <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bs.js" />
+    <Content Include="Scripts\i18n\ca.js" />
+    <Content Include="Scripts\i18n\cs.js" />
+    <Content Include="Scripts\i18n\da.js" />
+    <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
+    <Content Include="Scripts\i18n\el.js" />
+    <Content Include="Scripts\i18n\en.js" />
+    <Content Include="Scripts\i18n\es.js" />
+    <Content Include="Scripts\i18n\et.js" />
+    <Content Include="Scripts\i18n\eu.js" />
+    <Content Include="Scripts\i18n\fa.js" />
+    <Content Include="Scripts\i18n\fi.js" />
+    <Content Include="Scripts\i18n\fr.js" />
+    <Content Include="Scripts\i18n\gl.js" />
+    <Content Include="Scripts\i18n\he.js" />
+    <Content Include="Scripts\i18n\hi.js" />
+    <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
+    <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
+    <Content Include="Scripts\i18n\id.js" />
+    <Content Include="Scripts\i18n\is.js" />
+    <Content Include="Scripts\i18n\it.js" />
+    <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\km.js" />
+    <Content Include="Scripts\i18n\ko.js" />
+    <Content Include="Scripts\i18n\lt.js" />
+    <Content Include="Scripts\i18n\lv.js" />
+    <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\ms.js" />
+    <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\nl.js" />
+    <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
+    <Content Include="Scripts\i18n\pt-BR.js" />
+    <Content Include="Scripts\i18n\pt.js" />
+    <Content Include="Scripts\i18n\ro.js" />
+    <Content Include="Scripts\i18n\ru.js" />
+    <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sr-Cyrl.js" />
+    <Content Include="Scripts\i18n\sr.js" />
+    <Content Include="Scripts\i18n\sv.js" />
+    <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tr.js" />
+    <Content Include="Scripts\i18n\uk.js" />
+    <Content Include="Scripts\i18n\vi.js" />
+    <Content Include="Scripts\i18n\zh-CN.js" />
+    <Content Include="Scripts\i18n\zh-TW.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.ui.combobox.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\MyApp.js" />
+    <Content Include="Scripts\my\chooseGenre.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2-3.5.4\select2-bootstrap.css" />
+    <Content Include="Scripts\select2-3.5.4\select2-spinner.gif" />
+    <Content Include="Scripts\select2-3.5.4\select2.css" />
+    <Content Include="Scripts\select2-3.5.4\select2.js" />
+    <Content Include="Scripts\select2-3.5.4\select2.min.js" />
+    <Content Include="Scripts\select2-3.5.4\select2.png" />
+    <Content Include="Scripts\select2-3.5.4\select2x2.png" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ar.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_az.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_bg.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ca.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_cs.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_da.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_de.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_el.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_es.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_et.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_eu.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_fa.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_fi.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_fr.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_gl.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_he.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_hr.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_hu.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_id.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_is.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_it.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ja.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ka.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ko.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_lt.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_lv.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_mk.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ms.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_nb.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_nl.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_pl.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_pt-BR.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_pt-PT.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ro.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_rs.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ru.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_sk.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_sv.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_th.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_tr.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_ug-CN.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_uk.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_vi.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_zh-CN.js" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_zh-TW.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\Details.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
+    <Content Include="Views\Devisions\Create.cshtml" />
+    <Content Include="Views\Devisions\Delete.cshtml" />
+    <Content Include="Views\Devisions\Details.cshtml" />
+    <Content Include="Views\Devisions\Edit.cshtml" />
+    <Content Include="Views\Devisions\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialAdmin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\RolesUsers.cshtml" />
+    <Content Include="Views\Admin\OTK.cshtml" />
+    <Content Include="Views\Admin\OP.cshtml" />
+    <Content Include="Views\Shared\_LayoutDAteTime.cshtml" />
+    <Content Include="Scripts\select2-3.5.4\.gitignore" />
+    <Content Include="Scripts\select2-3.5.4\bower.json" />
+    <Content Include="Scripts\select2-3.5.4\component.json" />
+    <Content Include="Scripts\select2-3.5.4\composer.json" />
+    <Content Include="Scripts\select2-3.5.4\CONTRIBUTING.md" />
+    <Content Include="Scripts\select2-3.5.4\LICENSE" />
+    <Content Include="Scripts\select2-3.5.4\package.json" />
+    <Content Include="Scripts\select2-3.5.4\README.md" />
+    <Content Include="Scripts\select2-3.5.4\release.sh" />
+    <Content Include="Scripts\select2-3.5.4\select2.jquery.json" />
+    <Content Include="Scripts\select2-3.5.4\select2_locale_en.js.template" />
+    <Content Include="Views\OTK_ChaeckList\Create.cshtml" />
+    <Content Include="Views\OTK_ChaeckList\Index.cshtml" />
+    <Content Include="Views\OTK_ChaeckList\Details.cshtml" />
+    <Content Include="Views\OTK_TypeReclamation\Create.cshtml" />
+    <Content Include="Views\OTK_TypeReclamation\Delete.cshtml" />
+    <Content Include="Views\OTK_TypeReclamation\Details.cshtml" />
+    <Content Include="Views\OTK_TypeReclamation\Edit.cshtml" />
+    <Content Include="Views\OTK_TypeReclamation\Index.cshtml" />
+    <Content Include="Views\OTK_Reclamation\Create.cshtml" />
+    <Content Include="Views\OTK_Reclamation\Delete.cshtml" />
+    <Content Include="Views\OTK_Reclamation\Details.cshtml" />
+    <Content Include="Views\OTK_Reclamation\Edit.cshtml" />
+    <Content Include="Views\OTK_Reclamation\Index.cshtml" />
+    <Content Include="Views\OTK_Reclamation\IndexCheckList.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Shared\_LayoutModal.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\Details.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\Edit.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\Index.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\IndexSP.cshtml" />
+    <Content Include="Views\OTK_CounterErrorKO\Create.cshtml" />
+    <Content Include="Views\OTK_CounterErrorKO\Delete.cshtml" />
+    <Content Include="Views\OTK_CounterErrorKO\Details.cshtml" />
+    <Content Include="Views\OTK_CounterErrorKO\Edit.cshtml" />
+    <Content Include="Views\OTK_CounterErrorKO\Index.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\Create.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\Delete.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\Details.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\Edit.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\Error.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\IndexMy.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\RepotrQuart.cshtml" />
+    <Content Include="Views\TaskForPZs\Create.cshtml" />
+    <Content Include="Views\TaskForPZs\Delete.cshtml" />
+    <Content Include="Views\TaskForPZs\Details.cshtml" />
+    <Content Include="Views\TaskForPZs\Edit.cshtml" />
+    <Content Include="Views\TaskForPZs\Index.cshtml" />
+    <Content Include="Views\Debit_WorkBit\Create.cshtml" />
+    <Content Include="Views\Debit_WorkBit\Delete.cshtml" />
+    <Content Include="Views\Debit_WorkBit\Details.cshtml" />
+    <Content Include="Views\Debit_WorkBit\Edit.cshtml" />
+    <Content Include="Views\Debit_WorkBit\Index.cshtml" />
+    <Content Include="Views\VVPZs\Create.cshtml" />
+    <Content Include="Views\VVPZs\Delete.cshtml" />
+    <Content Include="Views\VVPZs\Details.cshtml" />
+    <Content Include="Views\VVPZs\Edit.cshtml" />
+    <Content Include="Views\VVPZs\Index.cshtml" />
+    <Content Include="Views\VV_Position\Create.cshtml" />
+    <Content Include="Views\VV_Position\Delete.cshtml" />
+    <Content Include="Views\VV_Position\Details.cshtml" />
+    <Content Include="Views\VV_Position\Edit.cshtml" />
+    <Content Include="Views\VV_Position\Index.cshtml" />
+    <Content Include="Views\PZ_TEO\Edit.cshtml" />
+    <Content Include="Views\PZ_TEO\Index.cshtml" />
+    <Content Include="Views\PZ_Setup\Create.cshtml" />
+    <Content Include="Views\PZ_Setup\Delete.cshtml" />
+    <Content Include="Views\PZ_Setup\Details.cshtml" />
+    <Content Include="Views\PZ_Setup\Edit.cshtml" />
+    <Content Include="Views\PZ_Setup\Index.cshtml" />
+    <Content Include="Views\UploadDocument\UploadGraphic.cshtml" />
+    <Content Include="Views\Shared\_LayoutUpload.cshtml" />
+    <Content Include="Views\UploadDocument\UploadAlertShip.cshtml" />
+    <Content Include="Views\UploadDocument\UploadMatchingShip.cshtml" />
+    <Content Include="Views\VV_Position\List.cshtml" />
+    <Content Include="Views\UploadDocument\UploadCMR.cshtml" />
+    <Content Include="Views\Debit_IstPost\Create.cshtml" />
+    <Content Include="Views\Debit_IstPost\Delete.cshtml" />
+    <Content Include="Views\Debit_IstPost\Details.cshtml" />
+    <Content Include="Views\Debit_IstPost\Edit.cshtml" />
+    <Content Include="Views\Debit_IstPost\Index.cshtml" />
+    <Content Include="Views\Debit_TN\Create.cshtml" />
+    <Content Include="Views\Debit_TN\Delete.cshtml" />
+    <Content Include="Views\Debit_TN\Details.cshtml" />
+    <Content Include="Views\Debit_TN\Edit.cshtml" />
+    <Content Include="Views\Debit_TN\Index.cshtml" />
+    <Content Include="Views\UploadDocument\UploadDocument.cshtml" />
+    <Content Include="Views\UploadDocument\UploadAlertShipClose.cshtml" />
+    <Content Include="Views\UploadDocument\PostUploadAlertShipClose.cshtml" />
+    <Content Include="Views\Debit_WorkBit\IndexBrows.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\IndexAll.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\EditKO.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\CreatePO.cshtml" />
+    <Content Include="Views\Debit_Platform\Create.cshtml" />
+    <Content Include="Views\Debit_Platform\Delete.cshtml" />
+    <Content Include="Views\Debit_Platform\Details.cshtml" />
+    <Content Include="Views\Debit_Platform\Edit.cshtml" />
+    <Content Include="Views\Debit_Platform\Index.cshtml" />
+    <Content Include="Views\Debit_WorkBit\StatusOrders.cshtml" />
+    <Content Include="Views\Debit_CMR\Create.cshtml" />
+    <Content Include="Views\Debit_CMR\Delete.cshtml" />
+    <Content Include="Views\Debit_CMR\Details.cshtml" />
+    <Content Include="Views\Debit_CMR\Edit.cshtml" />
+    <Content Include="Views\Debit_CMR\Index.cshtml" />
+    <Content Include="Views\Debit_WorkBit\RemainingList.cshtml" />
+    <Content Include="Views\Home\IndexTest.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\Create.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\Delete.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\Details.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\Edit.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\Index.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\NewPlus.cshtml" />
+    <Content Include="Views\Debit_Platform\Debit.cshtml" />
+    <Content Include="Views\ReclamationPO\Index.cshtml" />
+    <Content Include="Views\ReclamationOTK\Index.cshtml" />
+    <Content Include="Views\CMO\CreateOrder.cshtml" />
+    <Content Include="Views\CMO\ViewStartMenuOS.cshtml" />
+    <Content Include="Views\CMO\StartFirstTender.cshtml" />
+    <Content Include="Views\CMO\UploadDataCompany.cshtml" />
+    <Content Include="Views\CMO\CloseFirstTender.cshtml" />
+    <Content Include="Views\CMO\FinishFirstTender.cshtml" />
+    <Content Include="Views\CMO\FinishSecondTender.cshtml" />
+    <Content Include="Views\CMO\Index.cshtml" />
+    <Content Include="Views\CMO\ViewStartMenuKO.cshtml" />
+    <Content Include="Views\CMO\CreateOrderDefault.cshtml" />
+    <Content Include="Views\CMO\TestTableOS.cshtml" />
+    <Content Include="Views\CMO\CloseOrder.cshtml" />
+    <Content Include="Views\CMO\Error.cshtml" />
+    <Content Include="Views\RKD\Index.cshtml" />
+    <Content Include="Views\RKD\Error.cshtml" />
+    <Content Include="Views\RKD\Edit.cshtml" />
+    <Content Include="Views\RKD\EditInst.cshtml" />
+    <Content Include="Views\RKD\NewVersionRKD.cshtml" />
+    <Content Include="Views\RKD\EditVersion.cshtml" />
+    <Content Include="Views\RKD\EditTask.cshtml" />
+    <Content Include="Views\RKD\NewErrorPost.cshtml" />
+    <Content Include="Views\RKD\CreateQuestion.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\RKD\UpdateQuestion.cshtml" />
+    <Content Include="Views\RKD\QuestionList.cshtml" />
+    <Content Include="Views\RKD\ImportExcel.cshtml" />
+    <Content Include="Views\RKD\IndexOld.cshtml" />
+    <Content Include="Views\RKD\CreateInstitute.cshtml" />
+    <Content Include="Views\RKD\CloseRKD.cshtml" />
+    <Content Include="Views\RKD\Details.cshtml" />
+    <Content Include="Views\RKD\Debug.cshtml" />
+    <Content Include="Views\RKD\UploadNewVersionRDK.cshtml" />
+    <Content Include="Views\CMO\EditUploadResult.cshtml" />
+    <Content Include="Views\CMO\Test.cshtml" />
+    <Content Include="Views\Debit_CostUpdate\EditPartial.cshtml" />
+    <Content Include="Views\Debit_WorkBit\ReportBasic.cshtml" />
+    <Content Include="Views\RKD\SeachTP.cshtml" />
+    <Content Include="Views\RKD\UploadVersionRDK.cshtml" />
+    <Content Include="Views\CMO\TestTableOS2.cshtml" />
+    <Content Include="Views\RKD\PlusClientDay.cshtml" />
+    <Content Include="Views\RKD\GetInfClient.cshtml" />
+    <Content Include="Views\RKD\GetGoodList.cshtml" />
+    <Content Include="Views\RKD\GetErrorList.cshtml" />
+    <Content Include="Views\RKD\CreateNewDespatching.cshtml" />
+    <Content Include="Views\RKD\EditTP.cshtml" />
+    <Content Include="Views\RKD\EditTaskTP.cshtml" />
+    <Content Include="Views\RKD\PutNewVersion.cshtml" />
+    <Content Include="Views\RKD_GIP\Create.cshtml" />
+    <Content Include="Views\RKD_GIP\Delete.cshtml" />
+    <Content Include="Views\RKD_GIP\Details.cshtml" />
+    <Content Include="Views\RKD_GIP\Edit.cshtml" />
+    <Content Include="Views\RKD_GIP\Index.cshtml" />
+    <Content Include="Views\RKD\CreateQuestionOnOrder.cshtml" />
+    <Content Include="Views\RKD\ErrorNewVersionRDK.cshtml" />
+    <Content Include="Views\UploadDocument\AlertOpenOrderInManuf.cshtml" />
+    <Content Include="Views\ReclamationOTK\ChackLists.cshtml" />
+    <Content Include="Views\ReclamationOTK\IndexCheckList.cshtml" />
+    <Content Include="Views\ReclamationOTK\ActiveReclamation.cshtml" />
+    <Content Include="Views\OTK_Reclamation\EditPartial.cshtml" />
+    <Content Include="Views\OTK_Reclamation\CreatePartial.cshtml" />
+    <Content Include="Views\OTK_ChaeckList\QuaReport.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\EditKOPartial.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\EditPartial.cshtml" />
+    <Content Include="Views\Admin\Debug.cshtml" />
+    <Content Include="Views\UploadER\UploadFoundationNorm.cshtml" />
+    <Content Include="Views\UploadER\Index.cshtml" />
+    <Content Include="Views\RKD\DetailsClose.cshtml" />
+    <Content Include="Views\CMO2\WorkDeskOS.cshtml" />
+    <Content Include="Views\CMO2\WorkDeskKO.cshtml" />
+    <Content Include="Views\CMO2\CreateOrder.cshtml" />
+    <Content Include="Views\CMO2\CreateOrderDefault.cshtml" />
+    <Content Include="Views\CMO2\Report.cshtml" />
+    <Content Include="Views\CMO2\ReportSmall.cshtml" />
+    <Content Include="Views\CMO2\CloseOrder.cshtml" />
+    <Content Include="Views\CMO2\StartTender.cshtml" />
+    <Content Include="Views\CMO2\UploadTenderProtocol.cshtml" />
+    <Content Include="Views\Shared\_LayoutService.cshtml" />
+    <Content Include="Views\Shared\_LayoutServiceReclamation.cshtml" />
+    <Content Include="Views\Exception\Index.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\EditPO.cshtml" />
+    <Content Include="Views\Shared\_LayoutRKD.cshtml" />
+    <Content Include="Views\Shared\_LayoutWord.cshtml" />
+    <Content Include="Views\OTK_ReclamationKO\EditUserKO.cshtml" />
+    <Content Include="Views\OTK_ReclamationAnswer\EditUserKOPartial.cshtml" />
+    <Content Include="Views\RKD\IndexComplited.cshtml" />
+    <Content Include="Views\Shared\_LayoutReceivables.cshtml" />
+    <Content Include="Views\Receivables\Index.cshtml" />
+    <Content Include="Views\ReclamationOTK\ListActiveWork.cshtml" />
+    <Content Include="Views\OTK_Reclamation\ListActiveWork.cshtml" />
+    <Content Include="Views\OTK_Reclamation\ListDeactiveWork.cshtml" />
+    <Content Include="Views\OTK_Reclamation\EditPartialActive.cshtml" />
+    <Content Include="Views\OTK_Reclamation\EditPartialDeActive.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="KoffAddIn">
+      <Guid>{39DC140D-83E8-49CD-8885-134731216CAD}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57314</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57314/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

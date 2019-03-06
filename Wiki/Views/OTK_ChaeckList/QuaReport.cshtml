@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Загрузка квартального отчета</h2>
+
+<h2></h2>
+<span>
+    @Html.ActionLink("Создать", "Create", null, new { @class = "btn-sm btn-info" })
+    @Html.ActionLink("Чек-листы", "Index", "OTK_ChaeckList", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("В работе (не отгружены)", "ListActiveWork", "OTK_Reclamation", null, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Не закрытые (отгружены)", "ListDeactiveWork", "OTK_Reclamation", null, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Квартальный отчет", "QuaReport", "OTK_ChaeckList", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+</span>
+<hr />
+
+
+
+
+@using (Html.BeginForm())
+{
+    <h4>Укажите период по которому необходимо получить данные (ГГГГ.КК):</h4>
+    @Html.DropDownList("Period", null, htmlAttributes: new { @class = "form-control" })
+    <br/>
+    <h4>Данные по:</h4>
+    @Html.DropDownList("Devision", null, htmlAttributes: new { @class = "form-control" })
+    <hr />
+    <input type="submit" value="Сформировать" class="btn btn-success" />
+}

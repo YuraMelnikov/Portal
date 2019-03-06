@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Wiki.OTK_ReclamationAnswer>
+
+@{
+    ViewBag.Title = "IndexAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Список активных замечаний</h2>
+
+<table class="table table-striped table-bordered table-hover table-condensed" align="center">
+    <tr>
+        <th> № заказа </th>
+        <th> Замечание </th>
+        <th> Прим. </th>
+        <th> Создано </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz) </td>
+            <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.ReclamationText) </td>
+            <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.Description) </td>
+            <td> @Html.DisplayFor(modelItem => item.OTK_Reclamation.DateTimeCreate) </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Назад", "Index", "OTK_ChaeckList", null, new { @class = "btn btn-primary" })

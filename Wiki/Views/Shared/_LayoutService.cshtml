@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал КАТЭК</title>
+    @Styles.Render("~/Content/css")    <link href="~/Content/MelnikauCSS.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+<body>
+<div id="container-katek">
+    <div id="allSharePoint">
+        <div id="lentSharepoint">
+            <div id="textSharePointLent">
+                @{Html.RenderAction("RenderUserMenu", "Home"); }
+            </div>
+        </div>
+        <div id="lentBrown">
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid">
+    @RenderBody()
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

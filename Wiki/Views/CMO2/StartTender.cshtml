@@ -1,0 +1,36 @@
+﻿@model Wiki.CMO_Order
+@{
+    ViewBag.Title = "StartFirstTender";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.HiddenFor(model => model.id)
+<h3>Запустить тендер</h3>
+№ заявки: @ViewBag.Order
+<br />
+Дата и время создания заявки: @ViewBag.DateTimeCreate
+<br />
+Сотрудник разместивший заявку: @ViewBag.UserCreate
+<br />
+@Html.ActionLink("Отменить", "ViewStartMenuOS", null, new { @class = "btn btn-danger" })
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <input type="submit" value="Отправить подрядчикам" class="btn btn-success"/>
+            <br/>
+            <br/>
+
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#dateCreate').datetimepicker({
+            locale: 'ru',
+            //format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

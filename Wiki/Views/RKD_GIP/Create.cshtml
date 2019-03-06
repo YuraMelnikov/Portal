@@ -1,0 +1,22 @@
+﻿@model Wiki.RKD_GIP
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    @Html.DropDownList("id_RKD_Order", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("id_UserKBM", null, htmlAttributes: new { @class = "form-control" })
+    @Html.DropDownList("id_UserKBE", null, htmlAttributes: new { @class = "form-control" })
+
+    <input type="submit" value="Create" class="btn btn-default" />
+
+
+</div>
+}

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал КАТЭК</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Scripts/select2-3.5.4/select2.css" rel="stylesheet" />
+    <link href="~/Content/MelnikauCSS.css" rel="stylesheet" />
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="~/Scripts/select2-3.5.4/select2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/Receivables">Подтверждение оприходования заказа</a></li>
+                <li><a href="/Receivables/CloseReceivables">Оприходованные заказы</a></li>
+                <li><a href="http://tsqlserver/Reports/Pages/Report.aspx?ItemPath=%2fDashboard_EveryDay%2fDashboard%2f%d0%94%d0%b5%d0%b1%d0%b8%d1%82%d0%be%d1%80%d0%ba%d0%b0">Отчет</a></li>
+                <li>
+                    <a style="color:crimson" href="/Account/Login/">
+                        @{Html.RenderAction("RenderUserMenu", "Home"); }
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fuild">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿@model Wiki.Models.ViewRKD_Question
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            width: 1600px;
+        }
+
+    </style>
+</head>
+
+<div class="container">
+    <h2></h2>
+    <h4>
+        Активные вопросы
+    </h4>
+    <table data-toggle="table">
+        <thead>
+            <tr>
+                <th> Вопрос/ответ </th>
+                <th> № вопроса </th>
+                <th> № заказа </th>
+                <th> Вопрос </th>
+                <th> Ход обсуждения </th>
+                <th data-sortable="true"> Дата/время создания </th>
+                <th> Сотрудник создавший вопрос </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveQuestion)
+            {
+                <tr>
+                    <td> @Html.ActionLink("Вопрос/ответ", "UpdateQuestion", "RKD", new { id = item.id }, null) </td>
+                    <td> @Html.DisplayFor(modelItem => item.id) </td>
+                    <td> @Html.DisplayFor(modelItem => item.RKD_Order.PZ_PlanZakaz.PlanZakaz) </td>
+                    <td> @Html.DisplayFor(modelItem => item.textQuestion) </td>
+                    <td>
+                        @try
+                        {
+                            foreach (var item2 in item.RKD_QuestionData)
+                            {
+                                @item2.AspNetUsers.CiliricalName <nobr>: </nobr> @item2.textData <br />
+                            }
+                        }
+                        catch
+                        {
+                            <p></p>
+                        }
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => item.dateUpload) </td>
+                    <td> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+
+    <h2></h2>
+    <h4>Закрытые вопросы</h4>
+    <table data-toggle="table">
+        <thead>
+            <tr>
+                <th> № вопроса </th>
+                <th> № заказа </th>
+                <th> Вопрос </th>
+                <th> Ход обсуждения </th>
+                <th data-sortable="true"> Дата/время создания </th>
+                <th> Сотрудник создавший вопрос </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.CloseQuestion)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(modelItem => item.id) </td>
+                    <td> @Html.DisplayFor(modelItem => item.RKD_Order.PZ_PlanZakaz.PlanZakaz) </td>
+                    <td> @Html.DisplayFor(modelItem => item.textQuestion) </td>
+                    <td>
+                        @try
+                        {
+                            foreach (var item2 in item.RKD_QuestionData)
+                            {
+                                @item2.AspNetUsers.CiliricalName <nobr>: </nobr> @item2.textData <br />
+                            }
+                        }
+                        catch
+                        {
+                            <p></p>
+                        }
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => item.dateUpload) </td>
+                    <td> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

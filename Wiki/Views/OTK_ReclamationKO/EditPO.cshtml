@@ -1,0 +1,44 @@
+﻿@model Wiki.OTK_ReclamationKO
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактировать</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <h5>Номер замечания: @ViewBag.Textid </h5>
+    <h5>Дата и время создания: @ViewBag.TextdateCreate </h5>
+    <h5>Номер заказа: @ViewBag.TextPlanZakaz </h5>
+    <h5>Текст замечания: @ViewBag.TexttextReclamation </h5>
+    <h5>Сотрудник написавший замечание: @ViewBag.TextCiliricalName </h5>
+    <h4></h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.dateCreate)
+    @Html.HiddenFor(model => model.order)
+    @Html.HiddenFor(model => model.userCreate)
+    @Html.HiddenFor(model => model.shippedOrder)
+    @Html.HiddenFor(model => model.clouseReclamation)
+    @Html.HiddenFor(model => model.typeReclamation)
+    @Html.HiddenFor(model => model.time)
+    @Html.HiddenFor(model => model.aplayResylt)
+
+    @Html.HiddenFor(model => model.countError)
+    @Html.HiddenFor(model => model.textAnswer)
+    @Html.HiddenFor(model => model.descriptionManagerKO)
+    <hr />
+    <h4></h4>
+    <label>Текст замечания:</label>
+    @Html.TextAreaFor(model => model.textReclamation, new { @class = "form-control", @cols = 1400, @rows = 5 })
+    <h4></h4>
+    <label>Ответсвенный за ошибку</label>
+    @Html.DropDownList("userError", null, htmlAttributes: new { @class = "form-control" })
+    <h1></h1>
+    <input type="submit" value="Сохранить" class="btn btn-success" />
+    @Html.ActionLink("Отменить", "Index", "ReclamationPO", null, new { @class = "btn btn-danger" })
+}

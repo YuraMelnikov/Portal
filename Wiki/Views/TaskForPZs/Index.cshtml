@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Wiki.TaskForPZ>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Задания при открытии заказа</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th> Название задачи </th>
+        <th> Шаг выполнения </th>
+        <th>  Сотрудник </th>
+        <th>  Время на выполнение задачи </th>
+        <th> Редактировать</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.step)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </td>
+    </tr>
+}
+
+</table>

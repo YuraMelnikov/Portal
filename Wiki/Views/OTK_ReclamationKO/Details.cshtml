@@ -1,0 +1,99 @@
+﻿@model Wiki.OTK_ReclamationKO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OTK_ReclamationKO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateUpdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateUpdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userUpdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userUpdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.shippedOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shippedOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clouseReclamation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clouseReclamation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userError)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userError)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OTK_CounterErrorKO.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OTK_CounterErrorKO.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OTK_TypeReclamation.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OTK_TypeReclamation.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PZ_PlanZakaz.MTR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PZ_PlanZakaz.MTR)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

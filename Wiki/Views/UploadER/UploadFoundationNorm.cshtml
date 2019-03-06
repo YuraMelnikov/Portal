@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "UploadWireNorm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Загрузка Х ТЭО</h2>
+@using (Html.BeginForm("UploadFoundationNorm", "UploadER", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input accept="file/*" id="fileUpload" multiple="multiple" name="fileUpload" type="file" />
+    <br />
+    <input type="submit" value="Загрузить" />
+}
+<hr />
+@Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-danger" })

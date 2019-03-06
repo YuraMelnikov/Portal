@@ -1,0 +1,326 @@
+﻿@model Wiki.Models.ViewOSCMO
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            width: 1600px;
+        }
+    </style>
+</head>
+<div class="container">
+    <h4>Заказ железа у ЦМО</h4>
+    <br />
+    <a href="~/CMO2/Report" class="btn btn-primary" role="button">Сводная таблица</a>
+    <a href="~/CMO2/ReportSmall" class="btn btn-primary" role="button">Сводная таблица (сокращенная)</a>
+    <br />
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+    <h2></h2>
+    @Html.ActionLink("Сформировать заказ поставщику", "StartFirstTender", "CMO", null, new { @class = "viewDialog1", data_dialog_title = "Загрузить данные" })
+    <h5></h5>
+    <h5>Необходимо запустить торги</h5>
+    <table data-toggle="table" class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Описание заявки </th>
+                <th> Дата/время размещения </th>
+                <th> Excel </th>
+                <th> № предварительной заявки </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveOrder)
+            {
+                <tr>
+                    <td>
+                        @foreach (var item2 in item.CMO_PositionPreOrder)
+                        {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => item.dateCreate) </td>
+                    <td>                 <a href=@item.folder.ToString()>Excel</a> </td>
+                    <td> @Html.DisplayFor(modelItem => item.id) </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h5> 1 этап торгов</h5>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Описание заявки </th>
+                <th> Подрядчик </th>
+                <th> Срок </th>
+                <th> Excel </th>
+            </tr>
+        </thead>
+        @{
+            var count2 = 0;
+            var count3 = 0;
+            var count4 = 0;
+        }
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveFirstUpload)
+            {
+                count3 = item.CMO_Tender.id_CMO_Order;
+                if (count3 != count4)
+                {
+                    if (count2 == 0)
+                    {
+                        count2 = 1;
+                    }
+                    else
+                    {
+                        count2 = 0;
+                    }
+                }
+                if (count2 == 0)
+                {
+                    <tr class="warning">
+                        <td>@Html.ActionLink("Загрузить", "UploadDataCompany", "CMO", new { id = item.id }, new { @class = "viewDialog", data_dialog_title = "Загрузить данные" })</td>
+                        <td>
+                            @foreach (var item2 in item.CMO_Tender.CMO_Order.CMO_PositionOrder)
+                            {@item2.PZ_PlanZakaz.PlanZakaz
+                            <nobr> - </nobr>
+                            @item2.CMO_TypeProduct.name
+                            <nobr>; </nobr>}
+                        </td>
+                        <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
+                        <td>@item.CMO_Tender.finishPlanClose</td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="info">
+                        <td>@Html.ActionLink("Загрузить", "UploadDataCompany", "CMO", new { id = item.id }, new { @class = "viewDialog", data_dialog_title = "Загрузить данные" })</td>
+                        <td>
+                            @foreach (var item2 in item.CMO_Tender.CMO_Order.CMO_PositionOrder)
+                            {@item2.PZ_PlanZakaz.PlanZakaz
+                            <nobr> - </nobr>
+                            @item2.CMO_TypeProduct.name
+                            <nobr>; </nobr>}
+                        </td>
+                        <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
+                        <td>@item.CMO_Tender.finishPlanClose</td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                    </tr>
+                }
+                count4 = item.CMO_Tender.id_CMO_Order;
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h5>Итоги 1 этапа торгов</h5>
+    <table data-toggle="table" class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Подвести итоги </th>
+                <th> Описание заявки </th>
+                <th> Срок </th>
+                <th> Кол-во ответов </th>
+                <th> Excel </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveFirstTender)
+            {
+                <tr>
+                    <td> @Html.ActionLink("Подвести итоги", "FinishFirstTender", "CMO", new { id = item.CMO_Order.id }, null) </td>
+                    <td>
+                        @foreach (var item2 in item.CMO_Order.CMO_PositionOrder)
+                        {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => item.finishPlanClose) </td>
+                    <td> @Html.DisplayFor(modelItem => item.CMO_UploadResult.Where(d => d.CMO_Tender.id == item.id & d.dateTimeUpload != null).ToList().Count) </td>
+                    <td>
+                        <a href=@item.CMO_Order.folder.ToString()>Excel</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h5>2 этап торгов</h5>
+    <table data-toggle="table" class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Загрузить </th>
+                <th> Описание заявки </th>
+                <th> Подрядчик </th>
+                <th> Срок </th>
+                <th> Excel </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ActiveSecondUpload)
+            {
+                count3 = item.CMO_Tender.id_CMO_Order;
+                if (count3 != count4)
+                {
+                    if (count2 == 0)
+                    {
+                        count2 = 1;
+                    }
+                    else
+                    {
+                        count2 = 0;
+                    }
+                }
+                if (count2 == 0)
+                {
+                    <tr class="warning">
+                        <td>@Html.ActionLink("Загрузить", "UploadDataCompany", "CMO", new { id = item.id }, new { @class = "viewDialog", data_dialog_title = "Загрузить данные" })</td>
+                        <td>
+                            @foreach (var item2 in item.CMO_Tender.CMO_Order.CMO_PositionOrder)
+                            {@item2.PZ_PlanZakaz.PlanZakaz
+                            <nobr> - </nobr>
+                            @item2.CMO_TypeProduct.name
+                            <nobr>; </nobr>}
+                        </td>
+                        <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
+                        <td>@item.CMO_Tender.finishPlanClose</td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="info">
+                        <td>@Html.ActionLink("Загрузить", "UploadDataCompany", "CMO", new { id = item.id }, new { @class = "viewDialog", data_dialog_title = "Загрузить данные" })</td>
+                        <td>
+                            @foreach (var item2 in item.CMO_Tender.CMO_Order.CMO_PositionOrder)
+                            {@item2.PZ_PlanZakaz.PlanZakaz
+                            <nobr> - </nobr>
+                            @item2.CMO_TypeProduct.name
+                            <nobr>; </nobr>}
+                        </td>
+                        <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
+                        <td>@item.CMO_Tender.finishPlanClose</td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                    </tr>
+                }
+                count4 = item.CMO_Tender.id_CMO_Order;
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h5>Итоги 2 этапа торгов (выбор победителя)</h5>
+    <table data-toggle="table" class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Подвести итоги </th>
+                <th> Описание заявки </th>
+                <th> Срок </th>
+                <th> Кол-во ответов </th>
+                <th> Excel </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveSecondTender)
+            {
+                <tr>
+                    <td> @Html.ActionLink("Подвести итоги", "FinishSecondTender", "CMO", new { id = item.CMO_Order.id }, null) </td>
+                    <td>
+                        @foreach (var item2 in item.CMO_Order.CMO_PositionOrder)
+                        {@item2.PZ_PlanZakaz.PlanZakaz <nobr style=""> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
+                    </td>
+
+                    <td> @Html.DisplayFor(modelItem => item.finishPlanClose) </td>
+                    <td> @Html.DisplayFor(modelItem => item.CMO_UploadResult.Where(d => d.CMO_Tender.id == item.id & d.dateTimeUpload != null).ToList().Count) </td>
+                    <td>
+                        <a href=@item.CMO_Order.folder.ToString()>Excel</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h5>Поступление</h5>
+    <table data-toggle="table" class="table table-condensed">
+        <thead>
+            <tr>
+                <th> Начать тендер </th>
+                <th> Описание заявки </th>
+                <th> Подрядчик </th>
+                <th> Ожидаемая дата поступления </th>
+                <th data-sortable="true"> Дата/время размещения </th>
+                <th> Excel </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model.ActiveOrderClose)
+            {
+                <tr>
+                    <td> @Html.ActionLink("Закрыть", "CloseOrder", "CMO", new { id = item.Id_Order }, null) </td>
+                    <td>
+                        @item.PositionOrder.ToString()
+                    </td>
+                    <td> @item.CompanyName.ToString() </td>
+                    <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.PlanFinishWork2).ToString()).ToShortDateString() </td>
+                    <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.DateStartWork).ToString()).ToShortDateString() </td>
+                    <td> <a href=@item.folder.ToString()>Excel</a> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+</div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+<script src='@Url.Content("~/Scripts/jquery-3.1.1.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    width: 1200,
+                    height: 700,
+                    modal: true
+                })
+                .load(this.href);
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog1").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    width: 1200,
+                    height: 700,
+                    modal: true
+                })
+                .load(this.href);
+        });
+    });
+</script>

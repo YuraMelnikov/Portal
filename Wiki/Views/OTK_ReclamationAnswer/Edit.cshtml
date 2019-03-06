@@ -1,0 +1,60 @@
+﻿@model Wiki.OTK_ReclamationAnswer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Ответ на замечание</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>
+                    № Заказа:
+                    @ViewBag.NumberOrder
+                    @ViewBag.NameOrder
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4></h4>
+                <h4>
+                    Текст рекламации:
+                    <br />
+                    @ViewBag.TextReclamation
+                </h4>
+                <h4></h4>
+            </div>
+            <div class="col-sm-6">
+                @Html.HiddenFor(model => model.ReclamationId)
+                @Html.HiddenFor(model => model.id)
+                @Html.HiddenFor(model => model.User)
+                @Html.HiddenFor(model => model.Devision)
+                @Html.HiddenFor(model => model.DateCreate)
+                <h5>Ответ</h5>
+                @Html.TextAreaFor(model => model.Text, new { @cols = 1800, @rows = 5 })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <hr />
+    <input type="submit" value="Сохранить" class="btn btn-success" />
+    <span>
+        @Html.ActionLink("Отменить", "Index", "ReclamationOTK", new { myDevision = ViewBag.myId }, new { @class = "btn btn-danger" })
+    </span>
+</div>
+}

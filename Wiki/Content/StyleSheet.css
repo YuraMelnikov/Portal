@@ -1,0 +1,22 @@
+﻿/*.melnikau-menu {
+    width: 200px;
+}
+
+.melnikau-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.melnikau-menu a:hover {
+    background-color: #ccc;
+}
+
+.melnikau-menu a.active {
+    background-color: #4CAF50;
+    color: white;
+}*/
+
+

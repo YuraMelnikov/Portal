@@ -1,0 +1,61 @@
+﻿@model Wiki.RKD_Despatching
+<head>
+    <style>
+        .container {
+            max-width: none !important;
+            width: 970px;
+        }
+
+        .form-control {
+            max-width: none !important;
+            width: 970px;
+        }
+    </style>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.id_RKD_Order)
+            <h4>Введите дополнительный/е №заказа/ов</h4>
+            @Html.ListBox("PZ", ViewBag.PZ as MultiSelectList, new { @class = "chosen-select" })
+
+            @Html.TextAreaFor(model => model.text, new { @class = "form-control", @cols = 1400, @rows = 5 })
+            <br />
+            @Html.EditorFor(model => model.dateTaskFinishDate, new { htmlAttributes = new { @class = "form-control" } })
+            <br />
+            @Html.DropDownList("id_AspNetUsers", null, htmlAttributes: new { @class = "form-control" })
+            <br />
+            <input type="submit" value="Сохранить" class="btn btn-success" />
+            @Html.ActionLink("Назад", "OpenOrder", "RKD", new { idOrder = Model.id_RKD_Order }, new { @class = "btn btn-danger", @style = "color: white" })
+        }
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#dateTaskFinishDate').datetimepicker({
+                locale: 'ru',
+                format: 'L',
+                calendarWeeks: true,
+                showTodayButton: true
+            });
+        });
+    </script>
+</body>
+<script src="@Url.Content("~/Content/Chosen/chosen.jquery.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/Chosen/chosen.css")" rel="stylesheet" type="text/css" />
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true,
+        disable_search_threshold: 5, width: "100%"
+    });
+</script>

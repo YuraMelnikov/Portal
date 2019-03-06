@@ -1,0 +1,235 @@
+﻿@model Wiki.RKD_Order
+    @using System.Linq
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutRKD.cshtml";
+}
+<body>
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-10">
+    <table>
+        @if (@ViewBag.PredcwssorOrderLink > 0)
+        {
+            <tr style="vertical-align: top;">
+                @try
+                {
+                    @Html.ActionLink("Предыдущий заказ", "OpenOrder", "RKD", new { idOrder = @ViewBag.PredcwssorOrderLink }, null)
+                }
+                catch
+                {
+
+                }
+            </tr>
+        }
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @if (@ViewBag.PoslOrderLink > 0)
+        {
+            <tr style="vertical-align: top;">
+                @try
+                {
+                    @Html.ActionLink("Следующий заказ", "OpenOrder", "RKD", new { idOrder = @ViewBag.PoslOrderLink }, null)
+                }
+                catch
+                {
+
+                }
+            </tr>
+        }
+    </table>
+    <div style="width: 500px;">
+        <h4>Необходимо отправить РКД на согласование в ТП</h4>
+        <h4>№ заказа: @ViewBag.PlanZakaz</h4>
+        <h5>Заказчик: @ViewBag.Client</h5>
+        <h5>Проектный институт: @ViewBag.Inst</h5>
+        @Html.ActionLink("Изменить проектный институт", "EditInst", "RKD", new { id = ViewBag.idOrder }, new { @class = "viewDialog", data_dialog_title = "Выберете проектный институт" })
+        <h5>Наименование заказа (контрактное): @ViewBag.PlanZakazName</h5>
+
+    </div>
+    @using (Html.BeginForm("UploadNewVersionRDK", "RKD", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.id_PZ_PlanZakaz)
+            <hr />
+            Индекс версии:
+            @Html.TextBox("basicCount", (String)ViewBag.BasicCount, new { basicCount = "basicCount", @class = "form-control" })
+            <br />
+            Гиперссылка на папку с РКД:
+            @Html.TextBox("folderRKD", null, new { folderRKD = "folderRKD", @class = "form-control" })
+            <hr />
+            <input type="submit" value="Отправить РКД на согласование" class="btn btn-info" />
+            @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-danger" })
+            <hr />
+            @if (ViewBag.ActiveQuestion != null)
+            {
+                <h4> Активные вопросы </h4>
+                <table class="table table-hover" style="width:1000px">
+                    <thead>
+                    <tr>
+                        <th> Вопрос/ответ </th>
+                        <th> № вопроса </th>
+                        <th> № заказа </th>
+                        <th> Вопрос </th>
+                        <th> Ход обсуждения </th>
+                        <th data-sortable="true"> Дата/время создания </th>
+                        <th> Сотрудник создавший вопрос </th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    @foreach (var item in ViewBag.ActiveQuestion)
+                    {
+                        <tr>
+                            <td> @Html.ActionLink("Вопрос/ответ", "UpdateQuestion", "RKD", new { id = item.id }, null) </td>
+                            <td> @item.id </td>
+                            <td> @item.RKD_Order.PZ_PlanZakaz.PlanZakaz </td>
+                            <td> @item.textQuestion </td>
+                            <td>
+                                @try
+                                {
+                                    foreach (var item2 in item.RKD_QuestionData)
+                                    {
+                                        @item2.AspNetUsers.CiliricalName
+                                        <nobr>: </nobr>
+                                        @item2.textData
+                                        <br />
+                                    }
+                                }
+                                catch
+                                {
+                                    <p></p>
+                                }
+                            </td>
+                            <td> @item.dateUpload </td>
+                            <td> @item.AspNetUsers.CiliricalName </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <hr />
+            }
+
+            @Html.ActionLink("Добавить запись", "CreateNewDespatching", "RKD", new { idOrder = ViewBag.idOrder }, new { @class = "viewDialog", data_dialog_title = "Внесите данные обсуждения" })
+            <h4>Диспетчеризация</h4>
+            <table class="table table-hover" style="width:1500px">
+                <thead>
+                <tr>
+                    <th> Дата </th>
+                    <th> Описание </th>
+                    <th> ФИО </th>
+                    <th> Срок </th>
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                @foreach (var item in ViewBag.Despatching)
+                {
+
+                    if (item.TypeTask == 0)
+                    {
+                        <tr>
+                            <td> @item.DateEvent.ToString().Substring(0, 16) </td>
+                            <td> @item.TextData </td>
+                            <td> @item.UserID </td>
+                            <td> @item.TaskFinishDate </td>
+                        </tr>
+                    }
+                    else if (item.TypeTask == 100)
+                    {
+                        <tr>
+                            <td class="warning"> @item.DateEvent.ToString().Substring(0, 16) </td>
+                            <td class="warning"> @item.TextData </td>
+                            <td class="warning"> @item.UserID </td>
+                            <td class="warning"> @item.TaskFinishDate </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="active"> @item.DateEvent.ToString().Substring(0, 16) </td>
+                            <td class="active"> @item.TextData </td>
+                            <td class="active"> @item.UserID </td>
+                            <td class="active"> @item.TaskFinishDate </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+            <hr />
+            @if (ViewBag.CloseQuestion != null)
+            {
+                <h4>Закрытые вопросы</h4>
+                <table class="table table-hover" style="width:1000px">
+                    <thead>
+                    <tr>
+                        <th> № вопроса </th>
+                        <th> № заказа </th>
+                        <th> Вопрос </th>
+                        <th> Ход обсуждения </th>
+                        <th data-sortable="true"> Дата/время создания </th>
+                        <th> Сотрудник создавший вопрос </th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    @foreach (var item in ViewBag.CloseQuestion)
+                    {
+                        <tr>
+                            <td> @item.id </td>
+                            <td> @item.RKD_Order.PZ_PlanZakaz.PlanZakaz </td>
+                            <td> @item.textQuestion </td>
+                            <td>
+                                @try
+                                {
+                                    foreach (var item2 in item.RKD_QuestionData)
+                                    {
+                                        @item2.AspNetUsers.CiliricalName
+                                        <nobr>: </nobr>
+                                        @item2.textData
+                                        <br />
+                                    }
+                                }
+                                catch
+                                {
+                                    <p></p>
+                                }
+                            </td>
+                            <td> @item.dateUpload </td>
+                            <td> @item.AspNetUsers.CiliricalName </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <hr />
+            }
+
+        </div>
+    }
+</div>
+<div class="col-sm-1"></div>
+</div>
+<script src='@Url.Content("~/Scripts/jquery-3.1.1.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog").on("click",
+            function (e) {
+                e.preventDefault();
+                $("<div></div>")
+                    .addClass("dialog")
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() },
+                        width: 1000,
+                        height: 550,
+                        modal: true
+                    })
+                    .load(this.href);
+            });
+    });
+</script>
+</body>

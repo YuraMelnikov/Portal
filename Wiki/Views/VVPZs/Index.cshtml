@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Wiki.VVPZ>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Задание на отгрузку</h2>
+
+<p>
+    @Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-info" })
+</p>
+<table class="table table-striped table-bordered table-hover table-condensed" align="center">
+    <tr>
+        <th> Наименование  </th>
+        <th>  Прим. </th>
+        <th> Вес (брутто) </th>
+        <th> Вес (нетто) </th>
+        <th> Грузополучатель </th>
+        <th>  Адрес гр-теля </th>
+        <th> ИНН гр-теля </th>
+        <th> ОКПО гр-теля </th>
+        <th> Код гр-теля </th>
+        <th> Ст. назначения </th>
+        <th> Код станции </th>
+        <th> Особые отметки </th>
+        <th> Прочее </th>
+        <th> Заказ </th>
+        <th>Ред.</th>
+        <th>Открыть.</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.name) </td>
+        <td> @Html.DisplayFor(modelItem => item.description) </td>
+        <td> @Html.DisplayFor(modelItem => item.massaBrutto) </td>
+        <td> @Html.DisplayFor(modelItem => item.massaNetto) </td>
+        <td> @Html.DisplayFor(modelItem => item.gruzopoluchatel) </td>
+        <td> @Html.DisplayFor(modelItem => item.adresGruzo) </td>
+        <td> @Html.DisplayFor(modelItem => item.iNNGruz) </td>
+        <td> @Html.DisplayFor(modelItem => item.oKPOGruz) </td>
+        <td> @Html.DisplayFor(modelItem => item.kodGruz) </td>
+        <td> @Html.DisplayFor(modelItem => item.sTNazn) </td>
+        <td> @Html.DisplayFor(modelItem => item.kodSt) </td>
+        <td> @Html.DisplayFor(modelItem => item.osobieOtm) </td>
+        <td> @Html.DisplayFor(modelItem => item.prochee) </td>
+        <td> @Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz) </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id })
+
+        </td>
+        <td> @Html.ActionLink("Открыть", "IndexCheckList", "OTK_Reclamation", new { id = item.id }, new { @class = "btn-sm btn-primary" }) </td>
+    </tr>
+}
+
+</table>

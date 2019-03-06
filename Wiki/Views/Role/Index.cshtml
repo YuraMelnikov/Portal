@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Wiki.Models.RoleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Группы пользователей</h2>
+<span>
+    @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-success" })
+</span>
+<h3></h3>
+
+<table class="table-striped">
+    <tr>
+        <th>&emsp; Наименование группы &emsp;</th>
+        <th>&emsp; Редакртирование &emsp;</th>
+    </tr>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            &emsp;
+            @Html.DisplayFor(modelItem => item.Name)
+            &emsp;
+        </td>
+        <td>
+            &emsp;
+            @*@Html.ActionLink("Редактирование", "Edit", new { id = item.Id })
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })*@
+            &emsp;
+        </td>
+    </tr>
+}
+</table>
+<h3></h3>
+<p><a href="~/Admin/RolesUsers" class="btn btn-warning" role="button">Back to Role & Users panel</a></p>
+<h3></h3>
+<p><a href="~/Admin/Index" class="btn btn-primary" role="button">Back to admin panel</a></p>

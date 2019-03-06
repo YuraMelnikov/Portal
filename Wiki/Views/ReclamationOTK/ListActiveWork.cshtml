@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Wiki.OTK_Reclamation>
+
+@{
+    ViewBag.Title = "IndexCheckList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <style>
+        table tr.marked {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<h4>Активные рекламации</h4>
+<span>
+    @Html.ActionLink("Создать", "Create", null, new { @class = "btn-sm btn-info" })
+    @Html.ActionLink("В работе (не отгружены)", "IndexSP", "OTK_ReclamationAnswer", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Не закрытые (отгружены)", "IndexSP", "OTK_ReclamationAnswer", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    @Html.ActionLink("Квартальный отчет", "QuaReport", "OTK_ChaeckList", new { myDevision = ViewBag.myId }, new { @class = "btn-sm btn-primary" })
+    <br />
+    <br />
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
+</span>
+<br />
+<h1></h1>
+<div>
+    <table class="table table-bordered table-hover table-condensed">
+        <tr>
+            <th width="10"> № </th>
+            <th width="250"> Тип </th>
+            <th width="10"> Закрыта </th>
+            <th width="300"> Рекламация </th>
+            <th width="150"> Прим. </th>
+            <th width="10"> Тр-ты ОТК </th>
+            <th width="10"> Тр-ты ПУ </th>
+            <th width="250"> Ответ </th>
+            <th width="250"> СП </th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.AnswerText == "")
+            {
+                <tr class="danger">
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.OTK_TypeReclamation.Name) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Complited) </td>
+                    <td width="300"> @Html.DisplayFor(modelItem => item.ReclamationText) </td>
+                    <td width="150"> @Html.DisplayFor(modelItem => item.Description) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostOTK) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostManufacturing) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.AnswerText) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.Devision1.name) </td>
+                </tr>
+            }
+            else if (item.Complited == true)
+            {
+                <tr>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.OTK_TypeReclamation.Name) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Complited) </td>
+                    <td width="300"> @Html.DisplayFor(modelItem => item.ReclamationText) </td>
+                    <td width="150"> @Html.DisplayFor(modelItem => item.Description) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostOTK) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostManufacturing) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.AnswerText) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.Devision1.name) </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="warning">
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Id) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.OTK_TypeReclamation.Name) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.Complited) </td>
+                    <td width="300"> @Html.DisplayFor(modelItem => item.ReclamationText) </td>
+                    <td width="150"> @Html.DisplayFor(modelItem => item.Description) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostOTK) </td>
+                    <td width="10"> @Html.DisplayFor(modelItem => item.LaborCostManufacturing) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.AnswerText) </td>
+                    <td width="250"> @Html.DisplayFor(modelItem => item.Devision1.name) </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<h1></h1>
+
+@Html.ActionLink("Назад", "ChackLists", "ReclamationOTK", null, new { @class = "btn btn-primary" })
+
+<script>
+    $(document).ready(function () {
+        $('table tr').on('click', function (e) {
+            $('table tr').removeClass('marked');
+            $(this).addClass('marked');
+        });
+    });
+</script>
+
+
+<script>
+    $('#myLink').click(function (
+    ) {
+    }
+    );
+
+</script>

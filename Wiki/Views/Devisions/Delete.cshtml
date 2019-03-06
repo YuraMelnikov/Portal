@@ -1,0 +1,32 @@
+﻿@model Wiki.Devision
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Devision</h2>
+
+<h3>Вы действительно хотите удалить элемент?</h3>
+<div>
+    <h4>Удление</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Наименование отдела
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-success" />
+            @Html.ActionLink("Отменить", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>

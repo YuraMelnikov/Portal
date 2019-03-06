@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал КАТЭК</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Scripts/select2-3.5.4/select2.css" rel="stylesheet" />
+    <link href="~/Content/MelnikauCSS.css" rel="stylesheet" />
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="~/Scripts/select2-3.5.4/select2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
+    <link href="~/Content/Scripts/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/RKD">Неотгруженные заказы</a></li>
+                <li><a href="/RKD/IndexComplited">Неотгруженные заказы (Согласованные)</a></li>
+                <li><a href="/RKD/IndexOld">Отгруженные заказы</a></li>
+                <li><a href="/RKD/QuestionList">Вопросы по РКД</a></li>
+                <li><a href="/RKD/StartDesparting">Начать диспетчеризацию</a></li>
+                <li><a href="/RKD/CreateInstitute">Добавить ПИ</a></li>
+                <li><a href="/RKD_GIP">ГИПы (временное) </a></li>
+                <li>
+                    <a style="color:crimson" href="/Account/Login/">
+                        @{Html.RenderAction("RenderUserMenu", "Home"); }
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fuild">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
