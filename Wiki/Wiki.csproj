@@ -1021,6 +1021,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="datatables.mvc5.0.1.0\lib\net45\DataTables.Mvc.dll" />
     <Content Include="EFDBPortal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
@@ -1170,6 +1171,8 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="datatables.mvc5.0.1.0\.signature.p7s" />
+    <Content Include="datatables.mvc5.0.1.0\datatables.mvc5.0.1.0.nupkg" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
