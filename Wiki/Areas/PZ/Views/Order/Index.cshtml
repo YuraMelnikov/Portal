@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
+}
+
+<div class="container-fluid">
+    <table id="assets-data-table" class="display compact" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+            </tr>
+        </thead>
+
+
+    </table>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var assetListVM;
+        $(function () {
+            assetListVM = {
+                dt: null,
+                init: function () {
+                    dt = $('#assets-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Table", "Order")",
+                            "data": function (data) {
+                                data.Id = $("#Id").val();
+                            }
+                        },
+                        "columns": [
+                            { "title": "Id", "data": "Id", "searchable": true }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+    </script>
+}
