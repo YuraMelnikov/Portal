@@ -1,6 +1,4 @@
-﻿using DataTables.AspNet.Core;
-using DataTables.AspNet.Mvc5;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Linq;
 using System.Web.Mvc;
 

@@ -747,6 +747,7 @@
     <Content Include="Areas\PZ\Contant\DataTable\DataTables-1.10.18\js\jquery.dataTables.min.js" />
     <Content Include="Areas\PZ\Contant\DataTable\datatables.css" />
     <Content Include="Areas\PZ\Contant\DataTable\datatables.js" />
+    <Content Include="Areas\PZ\Contant\OrdersList.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />

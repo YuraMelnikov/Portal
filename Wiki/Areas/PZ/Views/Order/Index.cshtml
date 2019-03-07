@@ -12,6 +12,7 @@
     <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
     <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
     <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
+    
     <style>
         div.dataTables_wrapper {
             margin: 0 auto;
@@ -21,7 +22,7 @@
             text-align: center;
         }
     </style>
-
+    <script src="~/Areas/PZ/Contant/OrdersList.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -52,7 +53,7 @@
         </div>
 
     </div>
-    <script>
+    @*<script>
         $(document).ready(function () {
             $('#myTable').dataTable({
                 "ajax": {
@@ -89,7 +90,6 @@
                     { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true },
                     { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true },
                     { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true },
-
                     { "title": "С/ф №", "data": "SF", "autowidth": true },
                     { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true },
                     { "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
@@ -107,6 +107,6 @@
                 }
             });
         });
-    </script>
+    </script>*@
 </body>
 </html>
