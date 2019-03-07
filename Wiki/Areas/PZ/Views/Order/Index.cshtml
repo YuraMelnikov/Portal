@@ -1,112 +1,13 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
+}
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портал КАТЭК</title>
-    <script src="~/Areas/PZ/Contant/Bootstrap/jquery-3.3.1.js"></script>
-    <link href="~/Areas/PZ/Contant/Bootstrap/bootstrap.css" rel="stylesheet" />
-    <script src="~/Areas/PZ/Contant/Bootstrap/bootstrap.js"></script>
-    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
-    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
-    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
-    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
-    
-    <style>
-        div.dataTables_wrapper {
-            margin: 0 auto;
-        }
-
-        .th {
-            text-align: center;
-        }
-    </style>
     <script src="~/Areas/PZ/Contant/OrdersList.js"></script>
 </head>
-<body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#">Реестр заказов</a></li>
-                <li><a href="#">Заказчики</a></li>
-                <li><a href="#">Операторы договора</a></li>
-                <li><a href="#">Кураторы договора</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-primary list-panel" id="list-panel">
-                    <div class="panel-heading list-panel-heading">
-                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#advancedSearchModal" id="advancedsearch-button"> Search </button>
-                    </div>
-                    <div class="panel-body">
-                        <table id="myTable" class="table table-striped table-bordered" style="width:100%;"></table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#advancedSearchModal" id="advancedsearch-button"> Search </button>
+        <table id="myTable" class="display compact" style="width:100%;"></table>
     </div>
-    @*<script>
-        $(document).ready(function () {
-            $('#myTable').dataTable({
-                "ajax": {
-                    "url": "/Order/Lowx",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-                "bDestroy": true,
-                "columns": [
-                    { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true },
-                    { "title": "Тип продукции", "data": "ProductType", "autowidth": true },
-                    { "title": "Дата открытия", "data": "DateCreate", "autowidth": true },
-                    { "title": "Статус", "data": "StatusOrder", "autowidth": true },
-                    { "title": "Менеджер", "data": "Manager", "autowidth": true },
-                    { "title": "Примечание", "data": "Description", "autowidth": true },
-                    { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true },
-                    { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true },
-                    { "title": "Контрактное наименование", "data": "Name", "autowidth": true },
-                    { "title": "Наименование по ТУ", "data": "nameTU", "autowidth": true },
-                    { "title": "Опросный лист №", "data": "OL", "autowidth": true },
-                    { "title": "Заказчик", "data": "NameSort", "autowidth": true },
-                    { "title": "Запрос №", "data": "Zapros", "autowidth": true },
-                    { "title": "Закупка №", "data": "numZakupki", "autowidth": true },
-                    { "title": "Лот №", "data": "numLota", "autowidth": true },
-                    { "title": "Договор №", "data": "timeContract", "autowidth": true },
-                    { "title": "Дата договора", "data": "timeContractDate", "autowidth": true },
-                    { "title": "Приложение №", "data": "timeArr", "autowidth": true },
-                    { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true },
-                    { "title": "Требуемая дата поставки", "data": "DateShipping", "autowidth": true },
-                    { "title": "Требуемая дата отгрузки", "data": "DateSupply", "autowidth": true },
-                    { "title": "Оператор договора", "data": "OperatorDogovora", "autowidth": true },
-                    { "title": "Куратор договора", "data": "KuratorDogovora", "autowidth": true },
-                    { "title": "Способ доставки", "data": "typeDostavka", "autowidth": true },
-                    { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true },
-                    { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true },
-                    { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true },
-                    { "title": "С/ф №", "data": "SF", "autowidth": true },
-                    { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true },
-                    { "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
-                    { "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
-                    { "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
-                ],
-                "scrollY": '75vh',
-                "scrollX": true,
-                "paging": false,
-                "info": false,
-                "language": {
-                    "zeroRecords": "Отсутствуют записи",
-                    "infoEmpty": "Отсутствуют записи",
-                    "search": "Поиск"
-                }
-            });
-        });
-    </script>*@
-</body>
-</html>
+</div>
