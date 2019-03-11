@@ -635,8 +635,6 @@
           <Property Name="OsobieOtmetkiGruzopoluchatelya" Type="varchar(max)" Nullable="false" />
           <Property Name="DescriptionGruzopoluchatel" Type="varchar(max)" Nullable="false" />
           <Property Name="Folder" Type="varchar(max)" Nullable="false" />
-          <Property Name="PowerST" Type="varchar(max)" Nullable="false" />
-          <Property Name="VN/NN" Type="varchar(max)" Nullable="false" />
           <Property Name="Modul" Type="varchar(max)" Nullable="false" />
           <Property Name="Naznachenie" Type="varchar(max)" Nullable="false" />
           <Property Name="timeContract" Type="varchar(max)" Nullable="false" />
@@ -654,7 +652,7 @@
           <Property Name="nomenklaturNumber" Type="varchar(max)" Nullable="false" />
           <Property Name="costSMR" Type="float" Nullable="false" />
           <Property Name="costPNR" Type="float" Nullable="false" />
-          <Property Name="id_PZ_OperatorDogovora" Type="int" />
+          <Property Name="id_PZ_OperatorDogovora" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -2028,7 +2026,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora">
-          <End Role="PZ_OperatorDogovora" Type="Self.PZ_OperatorDogovora" Multiplicity="0..1" />
+          <End Role="PZ_OperatorDogovora" Type="Self.PZ_OperatorDogovora" Multiplicity="1" />
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_OperatorDogovora">
@@ -3562,7 +3560,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PZ_Currency" EntityType="PortalKATEKModel.PZ_Currency" />
           <EntitySet Name="PZ_Dostavka" EntityType="PortalKATEKModel.PZ_Dostavka" />
           <EntitySet Name="PZ_FIO" EntityType="PortalKATEKModel.PZ_FIO" />
-          <EntitySet Name="PZ_OperatorDogovora" EntityType="PortalKATEKModel.PZ_OperatorDogovora" />
           <EntitySet Name="PZ_Packaging" EntityType="PortalKATEKModel.PZ_Packaging" />
           <EntitySet Name="PZ_PlanZakaz" EntityType="PortalKATEKModel.PZ_PlanZakaz" />
           <EntitySet Name="PZ_ProductType" EntityType="PortalKATEKModel.PZ_ProductType" />
@@ -3888,10 +3885,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_FIO" EntitySet="PZ_FIO" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
-          <AssociationSet Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora" Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora">
-            <End Role="PZ_OperatorDogovora" EntitySet="PZ_OperatorDogovora" />
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-          </AssociationSet>
           <AssociationSet Name="FK_PZ_Packaging_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PZ_Packaging_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_Packaging" EntitySet="PZ_Packaging" />
@@ -4055,6 +4048,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="PZ_OperatorDogovora" EntityType="PortalKATEKModel.PZ_OperatorDogovora" />
+          <AssociationSet Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora" Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora">
+            <End Role="PZ_OperatorDogovora" EntitySet="PZ_OperatorDogovora" />
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -4721,14 +4719,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="PZ_Client" Relationship="PortalKATEKModel.FK_PZ_FIO_PZ_Client" FromRole="PZ_FIO" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_FIO" FromRole="PZ_FIO" ToRole="PZ_PlanZakaz" />
         </EntityType>
-        <EntityType Name="PZ_OperatorDogovora">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" FromRole="PZ_OperatorDogovora" ToRole="PZ_PlanZakaz" />
-        </EntityType>
         <EntityType Name="PZ_Packaging">
           <Key>
             <PropertyRef Name="id" />
@@ -4767,8 +4757,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="OsobieOtmetkiGruzopoluchatelya" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DescriptionGruzopoluchatel" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PowerST" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VN_NN" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Modul" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Naznachenie" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="timeContract" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -4786,7 +4774,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="nomenklaturNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="costSMR" Type="Double" Nullable="false" />
           <Property Name="costPNR" Type="Double" Nullable="false" />
-          <Property Name="id_PZ_OperatorDogovora" Type="Int32" />
+          <Property Name="id_PZ_OperatorDogovora" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="PZ_PlanZakaz" ToRole="AspNetUsers" />
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionPreOrder" />
@@ -4799,7 +4787,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="PZ_Client" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Client" FromRole="PZ_PlanZakaz" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_Dostavka" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Dostavka" FromRole="PZ_PlanZakaz" ToRole="PZ_Dostavka" />
           <NavigationProperty Name="PZ_FIO" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_FIO" FromRole="PZ_PlanZakaz" ToRole="PZ_FIO" />
-          <NavigationProperty Name="PZ_OperatorDogovora" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" FromRole="PZ_PlanZakaz" ToRole="PZ_OperatorDogovora" />
           <NavigationProperty Name="PZ_Packaging" Relationship="PortalKATEKModel.FK_PZ_Packaging_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_Packaging" />
           <NavigationProperty Name="PZ_ProductType" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_ProductType" FromRole="PZ_PlanZakaz" ToRole="PZ_ProductType" />
           <NavigationProperty Name="PZ_TypeShip" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" FromRole="PZ_PlanZakaz" ToRole="PZ_TypeShip" />
@@ -4808,6 +4795,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
+          <NavigationProperty Name="PZ_OperatorDogovora" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" FromRole="PZ_PlanZakaz" ToRole="PZ_OperatorDogovora" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -6154,18 +6142,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora">
-          <End Type="PortalKATEKModel.PZ_OperatorDogovora" Role="PZ_OperatorDogovora" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_OperatorDogovora">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PZ_PlanZakaz">
-              <PropertyRef Name="id_PZ_OperatorDogovora" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PZ_Packaging_PZ_PlanZakaz">
           <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
           <End Type="PortalKATEKModel.PZ_Packaging" Role="PZ_Packaging" Multiplicity="*" />
@@ -6649,6 +6625,26 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
         <Association Name="AspNetUserRoles">
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PZ_OperatorDogovora">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" FromRole="PZ_OperatorDogovora" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora">
+          <End Type="PortalKATEKModel.PZ_OperatorDogovora" Role="PZ_OperatorDogovora" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_OperatorDogovora">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_PlanZakaz">
+              <PropertyRef Name="id_PZ_OperatorDogovora" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -7480,14 +7476,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PZ_OperatorDogovora">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PZ_OperatorDogovora">
-              <MappingFragment StoreEntitySet="PZ_OperatorDogovora">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PZ_Packaging">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_Packaging">
               <MappingFragment StoreEntitySet="PZ_Packaging">
@@ -7518,8 +7506,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="timeContract" ColumnName="timeContract" />
                 <ScalarProperty Name="Naznachenie" ColumnName="Naznachenie" />
                 <ScalarProperty Name="Modul" ColumnName="Modul" />
-                <ScalarProperty Name="VN_NN" ColumnName="VN/NN" />
-                <ScalarProperty Name="PowerST" ColumnName="PowerST" />
                 <ScalarProperty Name="Folder" ColumnName="Folder" />
                 <ScalarProperty Name="DescriptionGruzopoluchatel" ColumnName="DescriptionGruzopoluchatel" />
                 <ScalarProperty Name="OsobieOtmetkiGruzopoluchatelya" ColumnName="OsobieOtmetkiGruzopoluchatelya" />
@@ -8001,6 +7987,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PZ_OperatorDogovora">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PZ_OperatorDogovora">
+              <MappingFragment StoreEntitySet="PZ_OperatorDogovora">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="122">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="108">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="72.625" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardKO_Quartal" Width="1.5" PointX="62" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="54.75" PointY="6.25" IsExpanded="true" />
@@ -73,7 +73,6 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_Currency" Width="1.5" PointX="14.25" PointY="56.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_Dostavka" Width="1.5" PointX="12" PointY="55.25" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_FIO" Width="1.5" PointX="12" PointY="38.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_OperatorDogovora" Width="1.5" PointX="12" PointY="53.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_Packaging" Width="1.5" PointX="16.5" PointY="80.875" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_PlanZakaz" Width="1.5" PointX="14.25" PointY="43.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_ProductType" Width="1.5" PointX="12" PointY="42.5" />
@@ -186,7 +185,6 @@
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_TEO_PZ_Currency" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Dostavka" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_FIO" />
-        <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_Packaging_PZ_PlanZakaz" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_ProductType" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" />
@@ -228,6 +226,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_OperatorDogovora" Width="1.5" PointX="0.75" PointY="3.875" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

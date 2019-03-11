@@ -58,8 +58,6 @@ namespace Wiki
         public string OsobieOtmetkiGruzopoluchatelya { get; set; }
         public string DescriptionGruzopoluchatel { get; set; }
         public string Folder { get; set; }
-        public string PowerST { get; set; }
-        public string VN_NN { get; set; }
         public string Modul { get; set; }
         public string Naznachenie { get; set; }
         public string timeContract { get; set; }
@@ -77,7 +75,7 @@ namespace Wiki
         public string nomenklaturNumber { get; set; }
         public double costSMR { get; set; }
         public double costPNR { get; set; }
-        public Nullable<int> id_PZ_OperatorDogovora { get; set; }
+        public int id_PZ_OperatorDogovora { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -99,7 +97,6 @@ namespace Wiki
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
         public virtual PZ_FIO PZ_FIO { get; set; }
-        public virtual PZ_OperatorDogovora PZ_OperatorDogovora { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_Packaging> PZ_Packaging { get; set; }
         public virtual PZ_ProductType PZ_ProductType { get; set; }
@@ -114,5 +111,6 @@ namespace Wiki
         public virtual ICollection<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VVPZ> VVPZ { get; set; }
+        public virtual PZ_OperatorDogovora PZ_OperatorDogovora { get; set; }
     }
 }

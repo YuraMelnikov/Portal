@@ -93,7 +93,6 @@ namespace Wiki
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }
         public virtual DbSet<PZ_FIO> PZ_FIO { get; set; }
-        public virtual DbSet<PZ_OperatorDogovora> PZ_OperatorDogovora { get; set; }
         public virtual DbSet<PZ_Packaging> PZ_Packaging { get; set; }
         public virtual DbSet<PZ_PlanZakaz> PZ_PlanZakaz { get; set; }
         public virtual DbSet<PZ_ProductType> PZ_ProductType { get; set; }
@@ -135,5 +134,6 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
+        public virtual DbSet<PZ_OperatorDogovora> PZ_OperatorDogovora { get; set; }
     }
 }

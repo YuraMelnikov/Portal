@@ -144,5 +144,18 @@ namespace Wiki.Areas.PZ.Controllers
 
             return Json(new { data });
         }
+
+        public JsonResult Add(PZ_PlanZakaz pZ_PlanZakaz, int[] countOrders)
+        {
+            int count = countOrders[0];
+
+            for(int i = 0; i < count; i++)
+            {
+
+            }
+
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }
