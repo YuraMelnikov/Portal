@@ -4,8 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
 using System.IO;
 using Wiki.Models;
 

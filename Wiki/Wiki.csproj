@@ -249,6 +249,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Areas\PZ\Controllers\OrderController.cs" />
+    <Compile Include="Areas\PZ\Models\CorrectPlanZakaz.cs" />
+    <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
@@ -1652,7 +1654,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\PZ\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

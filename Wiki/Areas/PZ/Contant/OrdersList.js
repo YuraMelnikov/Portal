@@ -187,7 +187,7 @@ function Add() {
         timeArrDate: $('#timeArrDate').val(),
         DateShipping: $('#DateShipping').val(),
         DateSupply: $('#DateSupply').val(),
-        TypeShip: $('#TypeShip').val(),
+        Dostavka: $('#Dostavka').val(),
         Cost: $('#Cost').val(),
         costSMR: $('#costSMR').val(),
         costPNR: $('#costPNR').val(),
@@ -273,12 +273,12 @@ function validate() {
         $('#DateSupply').css('border-color', 'lightgrey');
     }
 
-    if ($('#TypeShip').val().trim() === "") {
-        $('#TypeShip').css('border-color', 'Red');
+    if ($('#Dostavka').val().trim() === "") {
+        $('#Dostavka').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#TypeShip').css('border-color', 'lightgrey');
+        $('#Dostavka').css('border-color', 'lightgrey');
     }
 
     if ($('#Cost').val().trim() === "") {
@@ -303,6 +303,14 @@ function validate() {
     }
     else {
         $('#Zapros').css('border-color', 'lightgrey');
+    }
+
+    if ($('#Dostavka').val().trim() === "") {
+        $('#Dostavka').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#Dostavka').css('border-color', 'lightgrey');
     }
 
     return isValid;

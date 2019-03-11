@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Linq;
 using System.Web.Mvc;
+using Wiki.Areas.PZ.Models;
 
 namespace Wiki.Areas.PZ.Controllers
 {
@@ -147,13 +148,13 @@ namespace Wiki.Areas.PZ.Controllers
 
         public JsonResult Add(PZ_PlanZakaz pZ_PlanZakaz, int[] countOrders)
         {
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(pZ_PlanZakaz);
+            pZ_PlanZakaz = correctPlanZakaz.PZ_PlanZakaz;
             int count = countOrders[0];
-
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-
+                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz);
             }
-
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
