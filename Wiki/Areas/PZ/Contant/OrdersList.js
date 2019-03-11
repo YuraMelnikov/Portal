@@ -5,7 +5,7 @@
 function loadData() {
     $("#myTable").DataTable({
         "ajax": {
-            "url": "/Order/Lowx",
+            "url": "/Order/OrdersList",
             "type": "POST",
             "datatype": "json"
         },

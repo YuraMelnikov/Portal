@@ -15,7 +15,7 @@ namespace Wiki.Areas.PZ.Controllers
         }
 
         [HttpPost]
-        public JsonResult Lowx()
+        public JsonResult OrdersList()
         {
             var query = db.PZ_PlanZakaz.ToList();
 
