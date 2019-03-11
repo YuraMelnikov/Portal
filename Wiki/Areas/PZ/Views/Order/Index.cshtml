@@ -8,6 +8,17 @@
 <div class="row">
     <div class="col-md-12">
         <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#advancedSearchModal" id="advancedsearch-button"> Search </button>
+
+
+        <button type="button" class="btn-xs btn-primary" id="btnloadData" onclick="return loadData();">Последние 200</button>
+        <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2019" onclick="return OrdersListLY(2019);">2019</button>
+        <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2018" onclick="return OrdersListLY(2018);">2018</button>
+        <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2017" onclick="return OrdersListLY(2017);">2017</button>
+        <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2016" onclick="return OrdersListLY(2016);">2016</button>
+        <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
+
+
+
         <table id="myTable" class="display compact" style="width:100%;"></table>
     </div>
 </div>
