@@ -45,16 +45,12 @@ namespace Wiki.Areas.Service.Models
             {
                 service_TypeReclamation[i] = listTypeReclamation[i].id_Service_TypeReclamation.ToString();
             }
-
             var reclamationInfoArray = reclamation.Service_ReclamationInfo.ToArray();
             service_ReclamationInfo = new Service_ReclamationInfoR[reclamationInfoArray.Length];
-
             for (int i = 0; i < reclamationInfoArray.Length; i++)
             {
                 service_ReclamationInfo[i] = new Service_ReclamationInfoR(reclamationInfoArray[i]);
             }
-            
-            //service_ReclamationCorrespondence = reclamation.Service_ReclamationCorrespondence.ToArray();
         }
     }
 }

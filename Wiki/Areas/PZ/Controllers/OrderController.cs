@@ -33,7 +33,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PlanZakaz,
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
-                StatusOrder = "",
+                //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
                 dataList.Description,
                 dataList.MTR,
@@ -57,11 +57,11 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Cost,
                 dataList.costSMR,
                 dataList.costPNR,
-                SF = "",
-                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", ""),
-                dateDostavki = "",
-                datePriemki = "",
-                dateOplat = ""
+                //SF = "",
+                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", "")
+                //dateDostavki = "",
+                //datePriemki = "",
+                //dateOplat = ""
             });
 
             return Json(new { data });
@@ -76,7 +76,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PlanZakaz,
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
-                StatusOrder = "",
+                //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
                 dataList.Description,
                 dataList.MTR,
@@ -100,11 +100,11 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Cost,
                 dataList.costSMR,
                 dataList.costPNR,
-                SF = "",
-                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", ""),
-                dateDostavki = "",
-                datePriemki = "",
-                dateOplat = ""
+                //SF = "",
+                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", "")
+                //dateDostavki = "",
+                //datePriemki = "",
+                //dateOplat = ""
             });
 
             return Json(new { data });
@@ -119,7 +119,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PlanZakaz,
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
-                StatusOrder = "",
+                //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
                 dataList.Description,
                 dataList.MTR,
@@ -143,11 +143,11 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Cost,
                 dataList.costSMR,
                 dataList.costPNR,
-                SF = "",
-                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", ""),
-                dateDostavki = "",
-                datePriemki = "",
-                dateOplat = ""
+                //SF = "",
+                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", "")
+                //dateDostavki = "",
+                //datePriemki = "",
+                //dateOplat = ""
             });
 
             return Json(new { data });
@@ -165,5 +165,6 @@ namespace Wiki.Areas.PZ.Controllers
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

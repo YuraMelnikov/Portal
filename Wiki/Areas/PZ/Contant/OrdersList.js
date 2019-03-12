@@ -14,7 +14,7 @@ function loadData() {
             { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true },
             { "title": "Тип продукции", "data": "ProductType", "autowidth": true },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true },
-            { "title": "Статус", "data": "StatusOrder", "autowidth": true },
+            //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
             { "title": "Менеджер", "data": "Manager", "autowidth": true },
             { "title": "Примечание", "data": "Description", "autowidth": true },
             { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true },
@@ -38,11 +38,11 @@ function loadData() {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true },
-            { "title": "С/ф №", "data": "SF", "autowidth": true },
-            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true },
-            { "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
-            { "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
-            { "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true }
+            //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
+            //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
+            //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -68,7 +68,7 @@ function OrdersListLY(yearCreateOrder) {
             { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true },
             { "title": "Тип продукции", "data": "ProductType", "autowidth": true },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true },
-            { "title": "Статус", "data": "StatusOrder", "autowidth": true },
+            //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
             { "title": "Менеджер", "data": "Manager", "autowidth": true },
             { "title": "Примечание", "data": "Description", "autowidth": true },
             { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true },
@@ -92,11 +92,11 @@ function OrdersListLY(yearCreateOrder) {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true },
-            { "title": "С/ф №", "data": "SF", "autowidth": true },
-            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true },
-            { "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
-            { "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
-            { "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true }
+            //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
+            //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
+            //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -122,7 +122,7 @@ function OrdersListALL() {
             { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true },
             { "title": "Тип продукции", "data": "ProductType", "autowidth": true },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true },
-            { "title": "Статус", "data": "StatusOrder", "autowidth": true },
+            //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
             { "title": "Менеджер", "data": "Manager", "autowidth": true },
             { "title": "Примечание", "data": "Description", "autowidth": true },
             { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true },
@@ -146,11 +146,11 @@ function OrdersListALL() {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true },
-            { "title": "С/ф №", "data": "SF", "autowidth": true },
-            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true },
-            { "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
-            { "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
-            { "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true }
+            //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
+            //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
+            //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -237,8 +237,7 @@ function validate() {
     else {
         $('#countOrders').css('border-color', 'lightgrey');
     }
-
-    if ($('#Manager').val().trim() === "") {
+    if ($('#Manager').val() === null) {
         $('#Manager').css('border-color', 'Red');
         isValid = false;
     }
@@ -246,7 +245,7 @@ function validate() {
         $('#Manager').css('border-color', 'lightgrey');
     }
 
-    if ($('#Client').val().trim() === "") {
+    if ($('#Client').val() === null) {
         $('#Client').css('border-color', 'Red');
         isValid = false;
     }
@@ -278,7 +277,7 @@ function validate() {
         $('#DateSupply').css('border-color', 'lightgrey');
     }
 
-    if ($('#Dostavka').val().trim() === "") {
+    if ($('#Dostavka').val() === null) {
         $('#Dostavka').css('border-color', 'Red');
         isValid = false;
     }
@@ -294,7 +293,7 @@ function validate() {
         $('#Cost').css('border-color', 'lightgrey');
     }
     
-    if ($('#ProductType').val().trim() === "") {
+    if ($('#ProductType').val() === null) {
         $('#ProductType').css('border-color', 'Red');
         isValid = false;
     }
@@ -310,19 +309,13 @@ function validate() {
         $('#Zapros').css('border-color', 'lightgrey');
     }
 
-    if ($('#Dostavka').val().trim() === "") {
-        $('#Dostavka').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#Dostavka').css('border-color', 'lightgrey');
-    }
-
     return isValid;
 }
 
 function clearTextBox() {
     $("#btnAdd").attr('disabled', false);
+    $('#Dostavka').val("");
+    $('#Modul').val("");
     $('#PowerST').val("");
     $('#VN_NN').val("");
     $('#TypeShip').val("");
@@ -367,3 +360,4 @@ function clearTextBox() {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
 }
+
