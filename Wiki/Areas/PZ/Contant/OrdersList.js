@@ -169,6 +169,7 @@ function Add() {
     if (res === false) {
         return false;
     }
+    $("#btnAdd").attr('disabled', true);
     var typeObj = {
         countOrders: $('#countOrders').val(),
         PlanZakaz: $('#PlanZakaz').val(),
@@ -321,6 +322,7 @@ function validate() {
 }
 
 function clearTextBox() {
+    $("#btnAdd").attr('disabled', false);
     $('#PowerST').val("");
     $('#VN_NN').val("");
     $('#TypeShip').val("");

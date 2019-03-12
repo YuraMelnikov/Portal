@@ -47,8 +47,9 @@ namespace Wiki.Areas.PZ.Models
                 pZ_PlanZakaz.numZakupki = "";
             if (pZ_PlanZakaz.numLota == null)
                 pZ_PlanZakaz.numLota = "";
-            if (pZ_PlanZakaz.dataOtgruzkiBP == null)
-                pZ_PlanZakaz.dataOtgruzkiBP = DateTime.Now.AddDays(60);
+            DateTime today = DateTime.Now;
+            DateTime answer = today.AddDays(90);
+            pZ_PlanZakaz.dataOtgruzkiBP = answer;
             if (pZ_PlanZakaz.nameTU == null)
                 pZ_PlanZakaz.nameTU = "";
             if (pZ_PlanZakaz.TypeShip == 0)
