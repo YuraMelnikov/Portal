@@ -598,7 +598,7 @@ namespace Wiki.Models
             {
                 PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Where(d => d.Id == id_PZ_PlaznZakaz).First();
                 id_RKD_Order = db.RKD_Order.Where(d => d.id_PZ_PlanZakaz == id_PZ_PlaznZakaz).First().id;
-                projectUID = pZ_PlanZakaz.ProjectUID;
+                projectUID = pZ_PlanZakaz.ProjectUID.Value;
                 logger.Debug("RKD - GetId_RKD_Order " + id_RKD_Order.ToString());
             }
             catch (Exception ex)
@@ -791,7 +791,7 @@ namespace Wiki.Models
                             rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                         {
                             TaskForPWA taskForPwa = new TaskForPWA();
-                            taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, day, 100);
+                            taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, day, 100);
                         }
                     }
                     catch (Exception ex)
@@ -841,7 +841,7 @@ namespace Wiki.Models
                                 rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                             {
                                 TaskForPWA taskForPwa = new TaskForPWA();
-                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
+                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
                             }
                         }
                         catch (Exception ex)
@@ -877,7 +877,7 @@ namespace Wiki.Models
                                 rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                             {
                                 TaskForPWA taskForPwa = new TaskForPWA();
-                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
+                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
                             }
                         }
                         catch (Exception ex)
@@ -915,7 +915,7 @@ namespace Wiki.Models
                                 rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                             {
                                 TaskForPWA taskForPwa = new TaskForPWA();
-                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
+                                taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, rKD_TaskVersion.finishDate, 100);
                             }
                         }
                         catch (Exception ex)
@@ -991,7 +991,7 @@ namespace Wiki.Models
                     rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                 {
                     TaskForPWA taskForPwa = new TaskForPWA();
-                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
+                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
                 }
             }
             if (typeTask == 2)
@@ -1018,7 +1018,7 @@ namespace Wiki.Models
                     rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                 {
                     TaskForPWA taskForPwa = new TaskForPWA();
-                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
+                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
                 }
             }
             if (typeTask == 3)
@@ -1046,7 +1046,7 @@ namespace Wiki.Models
                     rKD_TaskVersion.RKD_Task.UID_Task.Value != null)
                 {
                     TaskForPWA taskForPwa = new TaskForPWA();
-                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
+                    taskForPwa.CreateTaskRKD(rKD_TaskVersion.RKD_Version.RKD_Order.PZ_PlanZakaz.ProjectUID.Value, rKD_TaskVersion.RKD_Task.UID_Task.Value, DateTime.Now, 100);
                 }
             }
         }

@@ -128,21 +128,6 @@ namespace Wiki.Controllers
             return connectingString;
         }
 
-        public string IfTaskForPZ22(int pz)
-        {
-            string connectingString = "/Edit/";
-            PZ_PlanZakaz planZakaz = db.PZ_PlanZakaz.Find(pz);
-            foreach (var data in db.PZ_Packaging)
-            {
-                if (data.id_PZ_PlanZakaz == planZakaz.Id)
-                {
-                    connectingString += data.id.ToString();
-                    break;
-                }
-            }
-            return connectingString;
-        }
-
         public string IfTaskForPZ4(int pz)
         {
             string connectingString = "/Edit/";
@@ -299,13 +284,6 @@ namespace Wiki.Controllers
                 }
 
                 return RedirectToAction("List", "VV_Position", new { id = vVPZ.id });
-            }
-            //Заполнить данные по упаковке
-            if (idTask == 22)
-            {
-                string connectingString;
-                connectingString = IfTaskForPZ22(debit_WorkBit.id_PlanZakaz);
-                return RedirectToRoute(new { controller = "PZ_Packaging", action = connectingString });
             }
             //Заполнить финансовые данные по экспедитору
             if (idTask == 26)

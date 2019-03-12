@@ -156,6 +156,25 @@
                         <input type="text" class="form-control" id="countOrders" />
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="TypeShip">Тип ограничения по отгрузке:</label>
+                        <input type="text" class="form-control" id="TypeShip" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="criticalDateShip">Крайний срок ограничения:</label>
+                        <input type="text" class="form-control" id="criticalDateShip" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="PowerST">Мощность СТ:</label>
+                        <input type="text" class="form-control" id="PowerST" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="VN_NN">Габариты блок-бокса:</label>
+                        <input type="text" class="form-control" id="VN_NN" />
+                    </div>
+                </div>
                 <hr />
                 <label>Информация о грузополучателе изделия:</label>
                 <div class="row">
@@ -165,7 +184,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label for="PostAdresGruzopoluchatel">Адрес грузополучателя:</label>
-                        <input type="text" class="form-control" id="PostAdresGruzopoluchatel"/>
+                        <input type="text" class="form-control" id="PostAdresGruzopoluchatel" />
                     </div>
                     <div class="col-lg-2">
                         <label for="INNGruzopoluchatel">ИНН/УНН:</label>
@@ -187,7 +206,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label for="KodStanciiGruzopoluchatelya">Код станции:</label>
-                        <input type="text" class="form-control" id="KodStanciiGruzopoluchatelya"/>
+                        <input type="text" class="form-control" id="KodStanciiGruzopoluchatelya" />
                     </div>
                     <div class="col-lg-3">
                         <label for="OsobieOtmetkiGruzopoluchatelya">Особые отметки:</label>
@@ -248,6 +267,16 @@
 <script type="text/javascript">
     $(function () {
         $('#DateShipping').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#criticalDateShip').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

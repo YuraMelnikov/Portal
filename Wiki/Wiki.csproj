@@ -556,9 +556,6 @@
     <Compile Include="PZ_OperatorDogovora.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="PZ_Packaging.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="PZ_PlanZakaz.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -566,9 +563,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PZ_Setup.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PZ_SMRPNR.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PZ_TEO.cs">

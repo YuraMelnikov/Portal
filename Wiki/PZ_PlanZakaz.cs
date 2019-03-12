@@ -25,7 +25,6 @@ namespace Wiki
             this.Debit_WorkBit = new HashSet<Debit_WorkBit>();
             this.OTK_ChaeckList = new HashSet<OTK_ChaeckList>();
             this.OTK_ReclamationKO = new HashSet<OTK_ReclamationKO>();
-            this.PZ_Packaging = new HashSet<PZ_Packaging>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
             this.PZ_TEO = new HashSet<PZ_TEO>();
             this.RKD_Order = new HashSet<RKD_Order>();
@@ -61,21 +60,23 @@ namespace Wiki
         public string Modul { get; set; }
         public string Naznachenie { get; set; }
         public string timeContract { get; set; }
-        public System.DateTime timeContractDate { get; set; }
+        public Nullable<System.DateTime> timeContractDate { get; set; }
         public string timeArr { get; set; }
-        public System.DateTime timeArrDate { get; set; }
+        public Nullable<System.DateTime> timeArrDate { get; set; }
         public int id_PZ_FIO { get; set; }
         public string numZakupki { get; set; }
         public string numLota { get; set; }
         public System.DateTime dataOtgruzkiBP { get; set; }
-        public System.Guid ProjectUID { get; set; }
+        public Nullable<System.Guid> ProjectUID { get; set; }
         public string nameTU { get; set; }
         public int TypeShip { get; set; }
-        public System.DateTime criticalDateShip { get; set; }
+        public Nullable<System.DateTime> criticalDateShip { get; set; }
         public string nomenklaturNumber { get; set; }
         public double costSMR { get; set; }
         public double costPNR { get; set; }
         public int id_PZ_OperatorDogovora { get; set; }
+        public string VN_NN { get; set; }
+        public string PowerST { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -97,8 +98,7 @@ namespace Wiki
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
         public virtual PZ_FIO PZ_FIO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PZ_Packaging> PZ_Packaging { get; set; }
+        public virtual PZ_OperatorDogovora PZ_OperatorDogovora { get; set; }
         public virtual PZ_ProductType PZ_ProductType { get; set; }
         public virtual PZ_TypeShip PZ_TypeShip { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -111,6 +111,5 @@ namespace Wiki
         public virtual ICollection<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VVPZ> VVPZ { get; set; }
-        public virtual PZ_OperatorDogovora PZ_OperatorDogovora { get; set; }
     }
 }

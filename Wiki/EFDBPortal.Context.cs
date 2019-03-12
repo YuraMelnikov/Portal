@@ -35,8 +35,6 @@ namespace Wiki
         public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
         public virtual DbSet<ProjectServer_UpdateTasks> ProjectServer_UpdateTasks { get; set; }
         public virtual DbSet<ProjectWBS> ProjectWBS { get; set; }
-        public virtual DbSet<PZ_SMRPNR> PZ_SMRPNR { get; set; }
-        public virtual DbSet<Reclamation_Order> Reclamation_Order { get; set; }
         public virtual DbSet<RKD_FailBPlan> RKD_FailBPlan { get; set; }
         public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
@@ -49,6 +47,7 @@ namespace Wiki
         public virtual DbSet<VV_infPost> VV_infPost { get; set; }
         public virtual DbSet<OTKMultiSelectList> OTKMultiSelectList { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
+        public virtual DbSet<Reclamation_Order> Reclamation_Order { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -93,7 +92,7 @@ namespace Wiki
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }
         public virtual DbSet<PZ_FIO> PZ_FIO { get; set; }
-        public virtual DbSet<PZ_Packaging> PZ_Packaging { get; set; }
+        public virtual DbSet<PZ_OperatorDogovora> PZ_OperatorDogovora { get; set; }
         public virtual DbSet<PZ_PlanZakaz> PZ_PlanZakaz { get; set; }
         public virtual DbSet<PZ_ProductType> PZ_ProductType { get; set; }
         public virtual DbSet<PZ_Setup> PZ_Setup { get; set; }
@@ -134,6 +133,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<PZ_OperatorDogovora> PZ_OperatorDogovora { get; set; }
     }
 }

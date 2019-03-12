@@ -204,6 +204,12 @@ function Add() {
         StantionGruzopoluchatel: $('#StantionGruzopoluchatel').val(),
         KodStanciiGruzopoluchatelya: $('#KodStanciiGruzopoluchatelya').val(),
         OsobieOtmetkiGruzopoluchatelya: $('#OsobieOtmetkiGruzopoluchatelya').val(),
+
+        PowerST: $('#PowerST').val(),
+        VN_NN: $('#VN_NN').val(),
+        TypeShip: $('#TypeShip').val(),
+        criticalDateShip: $('#criticalDateShip').val(),
+
         DescriptionGruzopoluchatel: $('#DescriptionGruzopoluchatel').val()
     };
     $.ajax({
