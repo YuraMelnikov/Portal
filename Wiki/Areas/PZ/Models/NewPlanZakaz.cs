@@ -8,9 +8,9 @@ namespace Wiki.Areas.PZ.Models
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
 
-        public NewPlanZakaz(PZ_PlanZakaz pZ_PlanZakaz)
+        public NewPlanZakaz(PZ_PlanZakaz pZ_PlanZakaz, bool addDebitWork)
         { 
-            int numberPZ = db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).Max(d => d.PlanZakaz);
+            int numberPZ = db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).Max(d => d.PlanZakaz) + 1;
             PZ_PlanZakaz newPZ_PlanZakaz = new PZ_PlanZakaz() {
                 PlanZakaz = numberPZ,
                 DateCreate = DateTime.Now,
@@ -53,7 +53,9 @@ namespace Wiki.Areas.PZ.Models
                 nomenklaturNumber = pZ_PlanZakaz.nomenklaturNumber,
                 costSMR = pZ_PlanZakaz.costSMR,
                 costPNR = pZ_PlanZakaz.costPNR,
-                id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora
+                id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora,
+                PowerST = pZ_PlanZakaz.PowerST,
+                VN_NN = pZ_PlanZakaz.VN_NN
             };
             db.PZ_PlanZakaz.Add(newPZ_PlanZakaz);
             db.SaveChanges();
@@ -92,27 +94,30 @@ namespace Wiki.Areas.PZ.Models
             debit_Platform.numPlomb = "";
             db.Debit_Platform.Add(debit_Platform);
             db.SaveChanges();
-            List<TaskForPZ> dateTaskWork = db.TaskForPZ.Where(w => w.step == 1).Where(z => z.id_TypeTaskForPZ == 1).ToList();
-            foreach (var data in dateTaskWork)
+            if(addDebitWork == true)
             {
-                Debit_WorkBit newDebit_WorkBit = new Debit_WorkBit();
-                newDebit_WorkBit.dateCreate = DateTime.Now;
-                newDebit_WorkBit.close = false;
-                newDebit_WorkBit.id_PlanZakaz = newPZ_PlanZakaz.Id;
-                newDebit_WorkBit.id_TaskForPZ = (int)data.id;
-                newDebit_WorkBit.datePlanFirst = DateTime.Now.AddDays((double)data.time);
-                newDebit_WorkBit.datePlan = DateTime.Now.AddDays((double)data.time);
-                db.Debit_WorkBit.Add(new Debit_WorkBit()
+                List<TaskForPZ> dateTaskWork = db.TaskForPZ.Where(w => w.step == 1).Where(z => z.id_TypeTaskForPZ == 1).ToList();
+                foreach (var data in dateTaskWork)
                 {
-                    close = false,
-                    dateClose = null,
-                    dateCreate = DateTime.Now,
-                    datePlan = newDebit_WorkBit.datePlan,
-                    datePlanFirst = newDebit_WorkBit.datePlanFirst,
-                    id_PlanZakaz = newDebit_WorkBit.id_PlanZakaz,
-                    id_TaskForPZ = newDebit_WorkBit.id_TaskForPZ
-                });
-                db.SaveChanges();
+                    Debit_WorkBit newDebit_WorkBit = new Debit_WorkBit();
+                    newDebit_WorkBit.dateCreate = DateTime.Now;
+                    newDebit_WorkBit.close = false;
+                    newDebit_WorkBit.id_PlanZakaz = newPZ_PlanZakaz.Id;
+                    newDebit_WorkBit.id_TaskForPZ = (int)data.id;
+                    newDebit_WorkBit.datePlanFirst = DateTime.Now.AddDays((double)data.time);
+                    newDebit_WorkBit.datePlan = DateTime.Now.AddDays((double)data.time);
+                    db.Debit_WorkBit.Add(new Debit_WorkBit()
+                    {
+                        close = false,
+                        dateClose = null,
+                        dateCreate = DateTime.Now,
+                        datePlan = newDebit_WorkBit.datePlan,
+                        datePlanFirst = newDebit_WorkBit.datePlanFirst,
+                        id_PlanZakaz = newDebit_WorkBit.id_PlanZakaz,
+                        id_TaskForPZ = newDebit_WorkBit.id_TaskForPZ
+                    });
+                    db.SaveChanges();
+                }
             }
         }
     }

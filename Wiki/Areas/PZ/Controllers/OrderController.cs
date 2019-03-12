@@ -12,6 +12,13 @@ namespace Wiki.Areas.PZ.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
+            ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
+            ViewBag.Dostavka = new SelectList(db.PZ_Dostavka.OrderBy(d => d.Name), "id", "Name");
+            ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
+            ViewBag.id_PZ_OperatorDogovora = new SelectList(db.PZ_OperatorDogovora.OrderBy(x => x.name), "id", "name");
+            ViewBag.id_PZ_FIO = new SelectList(db.PZ_FIO.OrderBy(x => x.fio), "id", "fio");
+            ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
             return View();
         }
 
@@ -153,7 +160,7 @@ namespace Wiki.Areas.PZ.Controllers
             int count = countOrders[0];
             for (int i = 0; i < count; i++)
             {
-                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz);
+                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz, true);
             }
 
             return Json(1, JsonRequestBehavior.AllowGet);

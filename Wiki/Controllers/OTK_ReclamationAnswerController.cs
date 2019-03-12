@@ -482,7 +482,8 @@ namespace Wiki.Controllers
                     oTkReclamationAnswer.Text = "замечание перенаправлено";
                 oTkReclamationAnswer.countError = 4;
                 oTkReclamation.Devision = Convert.ToInt32(reloadError);
-                oTkReclamation.AnswerText += "\n" + devisionName + ": " + " замечание перенаправлено";
+                oTkReclamation.AnswerText += "\n" + devisionName + ": " + " замечание перенаправлено" + " (" +
+                    oTkReclamationAnswer.Text + ")";
                 OTK_ReclamationAnswer newAnswer = new OTK_ReclamationAnswer();
                 newAnswer.ReclamationId = oTkReclamationAnswer.ReclamationId;
                 newAnswer.Text = "";

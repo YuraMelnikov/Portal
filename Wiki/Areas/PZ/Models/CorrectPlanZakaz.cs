@@ -59,6 +59,12 @@ namespace Wiki.Areas.PZ.Models
                 pZ_PlanZakaz.id_PZ_OperatorDogovora = 1;
             if (pZ_PlanZakaz.id_PZ_FIO == 0)
                 pZ_PlanZakaz.id_PZ_FIO = 7;
+            if (pZ_PlanZakaz.PowerST == null)
+                pZ_PlanZakaz.PowerST = "";
+            if (pZ_PlanZakaz.VN_NN == null)
+                pZ_PlanZakaz.VN_NN = "";
+            if (pZ_PlanZakaz.TypeShip == 0)
+                pZ_PlanZakaz.TypeShip = 1;
         }
 
         public PZ_PlanZakaz PZ_PlanZakaz { get => pZ_PlanZakaz; set => pZ_PlanZakaz = value; }

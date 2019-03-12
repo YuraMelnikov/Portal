@@ -23,7 +23,6 @@
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2017" onclick="return OrdersListLY(2017);">2017</button>
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2016" onclick="return OrdersListLY(2016);">2016</button>
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
-
         <table id="myTable" class="display compact" style="width:100%;"></table>
     </div>
 </div>
@@ -48,19 +47,19 @@
                     </div>
                     <div class="col-lg-2">
                         <label for="Manager">Менеджер:</label>
-                        <input type="text" class="form-control" id="Manager" />
+                        @Html.DropDownList("Manager", ViewBag.Manager as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="Client">Заказчик:</label>
-                        <input type="text" class="form-control" id="Client" />
+                        @Html.DropDownList("Client", ViewBag.Client as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="id_PZ_OperatorDogovora">Оператор договора:</label>
-                        <input type="text" class="form-control" id="id_PZ_OperatorDogovora" />
+                        @Html.DropDownList("id_PZ_OperatorDogovora", ViewBag.id_PZ_OperatorDogovora as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="id_PZ_FIO">Куратор договора:</label>
-                        <input type="text" class="form-control" id="id_PZ_FIO" />
+                        @Html.DropDownList("id_PZ_FIO", ViewBag.id_PZ_FIO as MultiSelectList, new { @class = "form-control" })
                     </div>
                 </div>
                 <br />
@@ -113,7 +112,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label for="Dostavka">Способ доставки:</label>
-                        <input type="text" class="form-control" id="Dostavka" />
+                        @Html.DropDownList("Dostavka", ViewBag.Dostavka as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="Cost">Контрактная цена, без НДС:</label>
@@ -132,7 +131,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label for="ProductType">Тип продукции:</label>
-                        <input type="text" class="form-control" id="ProductType" />
+                        @Html.DropDownList("ProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="OL">Опросный лист №:</label>
@@ -160,7 +159,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label for="TypeShip">Тип ограничения по отгрузке:</label>
-                        <input type="text" class="form-control" id="TypeShip" />
+                        @Html.DropDownList("TypeShip", ViewBag.TypeShip as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label for="criticalDateShip">Крайний срок ограничения:</label>
@@ -171,8 +170,12 @@
                         <input type="text" class="form-control" id="PowerST" />
                     </div>
                     <div class="col-lg-2">
-                        <label for="VN_NN">Габариты блок-бокса:</label>
+                        <label for="VN_NN">ВН/НН:</label>
                         <input type="text" class="form-control" id="VN_NN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Modul">Габариты блок-бокса:</label>
+                        <input type="text" class="form-control" id="Modul" />
                     </div>
                 </div>
                 <hr />
