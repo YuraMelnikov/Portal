@@ -57,6 +57,9 @@
     <Reference Include="DataTables.AspNet.Mvc5, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DataTables.AspNet.Mvc5.2.0.2\lib\net45\DataTables.AspNet.Mvc5.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.9.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.9.0\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -235,6 +238,7 @@
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Owin">
@@ -1176,6 +1180,7 @@
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\PZ\Contant\dotx\Табличка_заказ.dotx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

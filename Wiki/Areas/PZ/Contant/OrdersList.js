@@ -850,3 +850,36 @@ function validateUpdateKO() {
     }
     return isValid;
 }
+
+function clearTextBoxTableOrders() {
+    $("#btnTableOrders").attr('disabled', false);
+    $('#tOrders').val("");
+    $('#tOrders').chosen();
+    $('#tOrders').trigger('chosen:updated');
+    $('#btnTableOrders').show();
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+}
+
+
+function TableOrders() {
+    $("#btnTableOrders").attr('disabled', true);
+    var typeObj = {
+        Id: $('#tOrders').val()
+    };
+    $.ajax({
+        url: "/Order/TableOrders",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData();
+            $('#tablesModal').modal('hide');
+            $("#btnTableOrders").attr('disabled', false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}

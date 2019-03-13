@@ -1,7 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
+
 
 namespace Wiki.Areas.PZ.Controllers
 {
@@ -25,7 +31,7 @@ namespace Wiki.Areas.PZ.Controllers
             ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
             return View();
         }
-        
+
         [HttpPost]
         public JsonResult OrdersList()
         {
@@ -36,7 +42,7 @@ namespace Wiki.Areas.PZ.Controllers
             int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             string linkPartOne = "";
             string linkPartTwo = "";
-            if (devision == 3 || devision == 15|| devision == 16)
+            if (devision == 3 || devision == 15 || devision == 16)
             {
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
@@ -379,7 +385,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
                 if (pZ_PlanZakaz.Name != null)
                 {
-                    if(editPZ.Name != pZ_PlanZakaz.Name)
+                    if (editPZ.Name != pZ_PlanZakaz.Name)
                     {
                         EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                         emailRename.SendEmail();
@@ -424,7 +430,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.numLota = pZ_PlanZakaz.numLota;
                 if (pZ_PlanZakaz.TypeShip != 0)
                     editPZ.TypeShip = pZ_PlanZakaz.TypeShip;
-                if ( pZ_PlanZakaz.criticalDateShip != null)
+                if (pZ_PlanZakaz.criticalDateShip != null)
                     editPZ.criticalDateShip = pZ_PlanZakaz.criticalDateShip;
                 if (pZ_PlanZakaz.PowerST != null)
                     editPZ.PowerST = pZ_PlanZakaz.PowerST;
@@ -470,7 +476,7 @@ namespace Wiki.Areas.PZ.Controllers
 
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult UpdateKO(PZ_PlanZakaz pZ_PlanZakaz)
         {
             string login = HttpContext.User.Identity.Name;
@@ -485,6 +491,32 @@ namespace Wiki.Areas.PZ.Controllers
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
             db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult TableOrders(int[] Id)
+        {
+            //using (var document = WordprocessingDocument.Create(@"C:\Users\myi\source\repos\Portal\Wiki\Areas\PZ\Contant\dotx\Табличка_заказ.dotx", WordprocessingDocumentType.Document))
+            //{
+            //    IDictionary<String, BookmarkStart> bookmarkMap = new Dictionary<String, BookmarkStart>();
+
+            //    foreach (BookmarkStart bookmarkStart in document.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
+            //    {
+            //        bookmarkMap[bookmarkStart.Name] = bookmarkStart;
+            //    }
+
+            //    foreach (BookmarkStart bookmarkStart in bookmarkMap.Values)
+            //    {
+            //        Run bookmarkText = bookmarkStart.NextSibling<Run>();
+            //        if (bookmarkText != null)
+            //        {
+            //            bookmarkText.GetFirstChild<Text>().Text = "blah";
+            //        }
+            //    }
+            //}
+
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

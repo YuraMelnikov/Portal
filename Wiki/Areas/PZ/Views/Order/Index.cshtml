@@ -17,6 +17,7 @@
         .colu-200 {
             min-width: 200px;
         }
+
         .colu-300 {
             min-width: 300px;
         }
@@ -33,6 +34,7 @@
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2016" onclick="return OrdersListLY(2016);">2016</button>
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#ordersModal" onclick="clearTextBoxUpdateOrders();">Массовое обновление данных</button>
+        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#tablesModal" onclick="clearTextBoxTableOrders();">Сформировать таблички</button>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
@@ -460,7 +462,43 @@
     </div>
 </div>
 
-
+<div id="tablesModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="Orders">Заказы:</label>
+                        @Html.ListBox("tOrders", ViewBag.Orders as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnTableOrders" onclick="return TableOrders();">Сформировать</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="@Url.Content("~/Content/Chosen/chosen.jquery.js")" type="text/javascript"></script>

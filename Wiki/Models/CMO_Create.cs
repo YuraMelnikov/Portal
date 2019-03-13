@@ -283,11 +283,11 @@ namespace Wiki.Models
             EmailModel emailModel = new EmailModel();
             List<string> recipientList = new List<string>();
             recipientList.Add("myi@katek.by");
-            //recipientList.Add("gdp@katek.by");
-            //recipientList.Add("Antipov@katek.by");
-            //recipientList.Add("vi@katek.by");
-            //recipientList.Add("yaa@katek.by");
-            //recipientList.Add("nrf@katek.by");
+            recipientList.Add("gdp@katek.by");
+            recipientList.Add("Antipov@katek.by");
+            recipientList.Add("vi@katek.by");
+            recipientList.Add("yaa@katek.by");
+            recipientList.Add("nrf@katek.by");
 
             foreach (var listMailCompany in db.CMO_CompanyMailList.Where(d => d.id_CMO_Company == cMO_Company.id & d.active == true).ToList())
             {
