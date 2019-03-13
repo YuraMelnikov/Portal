@@ -9,7 +9,7 @@ namespace Wiki.Areas.PZ.Controllers
     public class OrderController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
-        JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
 
         public ActionResult Index()
         {

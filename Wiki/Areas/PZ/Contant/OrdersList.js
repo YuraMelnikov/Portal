@@ -31,9 +31,9 @@ function loadData() {
             { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
             { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
-            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
-            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
             { "title": "Требуемая дата поставки", "data": "DateShipping", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Требуемая дата отгрузки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Оператор договора", "data": "OperatorDogovora", "bSortable": false },
@@ -89,9 +89,9 @@ function OrdersListLY(yearCreateOrder) {
             { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
             { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
-            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
-            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center', "render": processNull },
             { "title": "Требуемая дата поставки", "data": "DateShipping", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Требуемая дата отгрузки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Оператор договора", "data": "OperatorDogovora", "bSortable": false },
@@ -147,9 +147,9 @@ function OrdersListALL() {
             { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
             { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
-            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
-            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Дата приложения", "data": "timeArrDate", "autowidth": true, "bSortable": false, "className": 'text-center', "render": processNull },
             { "title": "Требуемая дата поставки", "data": "DateShipping", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Требуемая дата отгрузки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Оператор договора", "data": "OperatorDogovora", "bSortable": false },
@@ -777,4 +777,13 @@ function clearTextBoxUpdateOrders() {
     $('#btnUpdateOrders').show();
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
+}
+
+function processNull(data) {
+    console.log(data);
+    if (data === 'null') {
+        return '';
+    } else {
+        return data;
+    }
 }
