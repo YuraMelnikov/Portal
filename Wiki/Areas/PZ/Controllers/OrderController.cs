@@ -29,10 +29,11 @@ namespace Wiki.Areas.PZ.Controllers
         [HttpPost]
         public JsonResult OrdersList()
         {
-            string login = HttpContext.User.Identity.Name;
-            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             int countLastOrdersView = 200;
             var query = db.PZ_PlanZakaz.OrderByDescending(d => d.DateCreate).Take(countLastOrdersView).ToList();
+
+            string login = HttpContext.User.Identity.Name;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             string linkPartOne = "";
             string linkPartTwo = "";
             if (devision == 3 || devision == 15|| devision == 16)
@@ -91,10 +92,26 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult OrdersListLY(int yearCreateOrder)
         {
             var query = db.PZ_PlanZakaz.Where(d => d.DateCreate.Year == yearCreateOrder).ToList();
+
+            string login = HttpContext.User.Identity.Name;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            string linkPartOne = "";
+            string linkPartTwo = "";
+            if (devision == 3 || devision == 15 || devision == 16)
+            {
+                linkPartOne = firstPartLinkEditKO;
+                linkPartTwo = lastPartEdit;
+            }
+            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            {
+                linkPartOne = firstPartLinkEditOP;
+                linkPartTwo = lastPartEdit;
+            }
+
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                Id = linkPartOne + dataList.Id + linkPartTwo,
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
@@ -136,10 +153,26 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult OrdersListALL()
         {
             var query = db.PZ_PlanZakaz.ToList();
+
+            string login = HttpContext.User.Identity.Name;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            string linkPartOne = "";
+            string linkPartTwo = "";
+            if (devision == 3 || devision == 15 || devision == 16)
+            {
+                linkPartOne = firstPartLinkEditKO;
+                linkPartTwo = lastPartEdit;
+            }
+            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            {
+                linkPartOne = firstPartLinkEditOP;
+                linkPartTwo = lastPartEdit;
+            }
+
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                Id = linkPartOne + dataList.Id + linkPartTwo,
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
@@ -241,6 +274,7 @@ namespace Wiki.Areas.PZ.Controllers
 
         public JsonResult Update(PZ_PlanZakaz pZ_PlanZakaz)
         {
+            string login = HttpContext.User.Identity.Name;
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.Manager != pZ_PlanZakaz.Manager)
                 editPZ.Manager = pZ_PlanZakaz.Manager;
@@ -251,7 +285,11 @@ namespace Wiki.Areas.PZ.Controllers
             if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
                 editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
             if (editPZ.Name != pZ_PlanZakaz.Name)
+            {
+                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
+                emailRename.SendEmail();
                 editPZ.Name = pZ_PlanZakaz.Name;
+            }
             if (editPZ.Description != pZ_PlanZakaz.Description)
                 editPZ.Description = pZ_PlanZakaz.Description;
             if (editPZ.MTR != pZ_PlanZakaz.MTR)
@@ -325,6 +363,7 @@ namespace Wiki.Areas.PZ.Controllers
 
         public JsonResult UpdateOrders(PZ_PlanZakaz pZ_PlanZakaz, int[] Orders)
         {
+            string login = HttpContext.User.Identity.Name;
             if (Orders == null)
                 return Json(1, JsonRequestBehavior.AllowGet);
             for (int i = 0; i < Orders.Length; i++)
@@ -339,7 +378,14 @@ namespace Wiki.Areas.PZ.Controllers
                 if (pZ_PlanZakaz.id_PZ_FIO != 0)
                     editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
                 if (pZ_PlanZakaz.Name != null)
-                    editPZ.Name = pZ_PlanZakaz.Name;
+                {
+                    if(editPZ.Name != pZ_PlanZakaz.Name)
+                    {
+                        EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
+                        emailRename.SendEmail();
+                        editPZ.Name = pZ_PlanZakaz.Name;
+                    }
+                }
                 if (pZ_PlanZakaz.Description != null)
                     editPZ.Description = pZ_PlanZakaz.Description;
                 if (pZ_PlanZakaz.MTR != null)
@@ -427,9 +473,14 @@ namespace Wiki.Areas.PZ.Controllers
         
         public JsonResult UpdateKO(PZ_PlanZakaz pZ_PlanZakaz)
         {
+            string login = HttpContext.User.Identity.Name;
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
+            {
+                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
+                emailRename.SendEmail();
                 editPZ.nameTU = pZ_PlanZakaz.nameTU;
+            }
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
             db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;

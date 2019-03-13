@@ -250,6 +250,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Areas\PZ\Controllers\OrderController.cs" />
     <Compile Include="Areas\PZ\Models\CorrectPlanZakaz.cs" />
+    <Compile Include="Areas\PZ\Models\EmailRename.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
