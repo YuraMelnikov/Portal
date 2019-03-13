@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
@@ -10,6 +9,9 @@ namespace Wiki.Areas.PZ.Controllers
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('";
+        string firstPartLinkEditKO = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyKOID('";
+        string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
 
         public ActionResult Index()
         {
@@ -23,17 +25,31 @@ namespace Wiki.Areas.PZ.Controllers
             ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
             return View();
         }
-
+        
         [HttpPost]
         public JsonResult OrdersList()
         {
+            string login = HttpContext.User.Identity.Name;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             int countLastOrdersView = 200;
             var query = db.PZ_PlanZakaz.OrderByDescending(d => d.DateCreate).Take(countLastOrdersView).ToList();
+            string linkPartOne = "";
+            string linkPartTwo = "";
+            if (devision == 3 || devision == 15|| devision == 16)
+            {
+                linkPartOne = firstPartLinkEditKO;
+                linkPartTwo = lastPartEdit;
+            }
+            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            {
+                linkPartOne = firstPartLinkEditOP;
+                linkPartTwo = lastPartEdit;
+            }
 
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                Id = linkPartOne + dataList.Id + linkPartTwo,
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
@@ -393,6 +409,31 @@ namespace Wiki.Areas.PZ.Controllers
                 db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetKOOrder(int Id)
+        {
+            var query = db.PZ_PlanZakaz.Where(d => d.Id == Id).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.PlanZakaz,
+                dataList.nameTU,
+                dataList.Id
+            });
+
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+        
+        public JsonResult UpdateKO(PZ_PlanZakaz pZ_PlanZakaz)
+        {
+            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
+            if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
+                editPZ.nameTU = pZ_PlanZakaz.nameTU;
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
+            editPZ = correctPlanZakaz.PZ_PlanZakaz;
+            db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

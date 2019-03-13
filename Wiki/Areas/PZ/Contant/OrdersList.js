@@ -787,3 +787,66 @@ function processNull(data) {
         return data;
     }
 }
+
+function getbyKOID(Id) {
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+    $.ajax({
+        url: "/Order/GetKOOrder/" + Id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#Id').val(result.Id);
+            $('#kPlanZakaz').val(result.PlanZakaz);
+            $('#nameTU').val(result.nameTU);
+            $('#orderKOModal').modal('show');
+            $('#btnUpdateKO').show();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function UpdateKO() {
+    var res = validateUpdateKO();
+    if (res === false) {
+        return false;
+    }
+    $("#btnUpdateKO").attr('disabled', true);
+    var typeObj = {
+        Id: $('#Id').val(),
+        PlanZakaz: $('#kPlanZakaz').val(),
+        nameTU: $('#nameTU').val()
+    };
+    $.ajax({
+        url: "/Order/UpdateKO",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData();
+            $('#orderKOModal').modal('hide');
+            $("#btnUpdateKO").attr('disabled', false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validateUpdateKO() {
+    var isValid = true;
+    if ($('#nameTU').val() === null) {
+        $('#nameTU').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#nameTU').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
