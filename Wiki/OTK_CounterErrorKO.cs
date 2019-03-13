@@ -18,8 +18,6 @@ namespace Wiki
         public OTK_CounterErrorKO()
         {
             this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
-            this.OTK_ReclamationKO_DocData = new HashSet<OTK_ReclamationKO_DocData>();
-            this.OTK_ReclamationKO_DocDataOTK = new HashSet<OTK_ReclamationKO_DocDataOTK>();
             this.OTK_ReclamationKO = new HashSet<OTK_ReclamationKO>();
         }
     
@@ -29,10 +27,6 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO_DocData> OTK_ReclamationKO_DocData { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO_DocDataOTK> OTK_ReclamationKO_DocDataOTK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
     }

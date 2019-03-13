@@ -506,18 +506,6 @@
     <Compile Include="OTK_ReclamationKO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="OTK_ReclamationKO_DocData.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_ReclamationKO_DocDataOTK.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_ReclamationKO_DocResult.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_ReclamationKO_DocResultOTK.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="OTK_TypeReclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -574,9 +562,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PZ_TypeShip.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reclamation_Order.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="RKD_Despatching.cs">

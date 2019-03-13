@@ -47,7 +47,8 @@ namespace Wiki
         public virtual DbSet<VV_infPost> VV_infPost { get; set; }
         public virtual DbSet<OTKMultiSelectList> OTKMultiSelectList { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
-        public virtual DbSet<Reclamation_Order> Reclamation_Order { get; set; }
+        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
+        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -69,7 +70,6 @@ namespace Wiki
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
         public virtual DbSet<Debit_IstPost> Debit_IstPost { get; set; }
-        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Debit_Name> Debit_Name { get; set; }
         public virtual DbSet<Debit_PeriodReportOprih> Debit_PeriodReportOprih { get; set; }
         public virtual DbSet<Debit_Platform> Debit_Platform { get; set; }
@@ -81,13 +81,8 @@ namespace Wiki
         public virtual DbSet<OTK_Reclamation> OTK_Reclamation { get; set; }
         public virtual DbSet<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
         public virtual DbSet<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
-        public virtual DbSet<OTK_ReclamationKO_DocData> OTK_ReclamationKO_DocData { get; set; }
-        public virtual DbSet<OTK_ReclamationKO_DocDataOTK> OTK_ReclamationKO_DocDataOTK { get; set; }
-        public virtual DbSet<OTK_ReclamationKO_DocResult> OTK_ReclamationKO_DocResult { get; set; }
-        public virtual DbSet<OTK_ReclamationKO_DocResultOTK> OTK_ReclamationKO_DocResultOTK { get; set; }
         public virtual DbSet<OTK_TypeReclamation> OTK_TypeReclamation { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
-        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }

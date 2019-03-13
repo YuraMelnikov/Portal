@@ -780,7 +780,6 @@ function clearTextBoxUpdateOrders() {
 }
 
 function processNull(data) {
-    console.log(data);
     if (data === 'null') {
         return '';
     } else {
@@ -860,7 +859,6 @@ function clearTextBoxTableOrders() {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
 }
-
 
 function TableOrders() {
     $("#btnTableOrders").attr('disabled', true);

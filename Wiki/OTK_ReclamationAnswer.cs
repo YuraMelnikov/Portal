@@ -14,12 +14,6 @@ namespace Wiki
     
     public partial class OTK_ReclamationAnswer
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OTK_ReclamationAnswer()
-        {
-            this.OTK_ReclamationKO_DocDataOTK = new HashSet<OTK_ReclamationKO_DocDataOTK>();
-        }
-    
         public int id { get; set; }
         public int ReclamationId { get; set; }
         public string Text { get; set; }
@@ -38,7 +32,5 @@ namespace Wiki
         public virtual Devision Devision1 { get; set; }
         public virtual OTK_CounterErrorKO OTK_CounterErrorKO { get; set; }
         public virtual OTK_Reclamation OTK_Reclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO_DocDataOTK> OTK_ReclamationKO_DocDataOTK { get; set; }
     }
 }

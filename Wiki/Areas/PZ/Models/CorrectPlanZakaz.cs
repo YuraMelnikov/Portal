@@ -37,8 +37,6 @@ namespace Wiki.Areas.PZ.Models
                 pZ_PlanZakaz.Folder = "";
             if (pZ_PlanZakaz.Modul == null)
                 pZ_PlanZakaz.Modul = "";
-            if (pZ_PlanZakaz.Naznachenie == null)
-                pZ_PlanZakaz.Naznachenie = "";
             if (pZ_PlanZakaz.timeContract == null)
                 pZ_PlanZakaz.timeContract = "";
             if (pZ_PlanZakaz.timeArr == null)

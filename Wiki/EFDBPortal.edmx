@@ -442,42 +442,6 @@
           <Property Name="aplayResylt" Type="bit" />
           <Property Name="descriptionManagerKO" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocData">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_OTK_ReclamationKO_DocResult" Type="int" Nullable="false" />
-          <Property Name="id_ReclamationKO" Type="int" Nullable="false" />
-          <Property Name="id_OTK_CounterErrorKO" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocDataOTK">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_OTK_ReclamationKO_DocResult" Type="int" Nullable="false" />
-          <Property Name="id_ReclamationKO" Type="int" Nullable="false" />
-          <Property Name="id_OTK_CounterErrorKO" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocResult">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
-          <Property Name="numberDoc" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="write" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocResultOTK">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
-          <Property Name="numberDoc" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="write" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="OTK_TypeReclamation">
           <Key>
             <PropertyRef Name="id" />
@@ -563,6 +527,8 @@
           <Property Name="NameSort" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="INN_UNN" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="GCompany" Type="int" />
+          <Property Name="DCCompany" Type="int" />
         </EntityType>
         <EntityType Name="PZ_Currency">
           <Key>
@@ -627,8 +593,9 @@
           <Property Name="OsobieOtmetkiGruzopoluchatelya" Type="varchar(max)" Nullable="false" />
           <Property Name="DescriptionGruzopoluchatel" Type="varchar(max)" Nullable="false" />
           <Property Name="Folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="PowerST" Type="varchar(max)" Nullable="false" />
+          <Property Name="VN/NN" Type="varchar(max)" Nullable="false" />
           <Property Name="Modul" Type="varchar(max)" Nullable="false" />
-          <Property Name="Naznachenie" Type="varchar(max)" Nullable="false" />
           <Property Name="timeContract" Type="varchar(max)" Nullable="false" />
           <Property Name="timeContractDate" Type="date" />
           <Property Name="timeArr" Type="varchar(max)" Nullable="false" />
@@ -641,12 +608,10 @@
           <Property Name="nameTU" Type="varchar(max)" Nullable="false" />
           <Property Name="TypeShip" Type="int" Nullable="false" />
           <Property Name="criticalDateShip" Type="date" />
-          <Property Name="nomenklaturNumber" Type="varchar(max)" Nullable="false" />
-          <Property Name="costSMR" Type="float" Nullable="false" />
-          <Property Name="costPNR" Type="float" Nullable="false" />
           <Property Name="id_PZ_OperatorDogovora" Type="int" Nullable="false" />
-          <Property Name="VN/NN" Type="varchar(max)" Nullable="false" />
-          <Property Name="PowerST" Type="varchar(max)" Nullable="false" />
+          <Property Name="costPNR" Type="float" Nullable="false" />
+          <Property Name="costSMR" Type="float" Nullable="false" />
+          <Property Name="nomenklaturNumber" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -663,8 +628,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="KolVoDneyNaPrijemku" Type="int" Nullable="false" />
-          <Property Name="PunktDogovoraOSrokahPriemki" Type="varchar(max)" />
-          <Property Name="UslovieOplatyText" Type="varchar(max)" />
+          <Property Name="PunktDogovoraOSrokahPriemki" Type="varchar(max)" Nullable="false" />
+          <Property Name="UslovieOplatyText" Type="varchar(max)" Nullable="false" />
           <Property Name="UslovieOplatyInt" Type="int" Nullable="false" />
           <Property Name="TimeNaRKD" Type="int" Nullable="false" />
           <Property Name="RassmotrenieRKD" Type="int" Nullable="false" />
@@ -701,27 +666,6 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typeShip" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Reclamation_Order">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="dateCreate" Type="datetime" Nullable="false" />
-          <Property Name="userCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="userUpdate" Type="nvarchar" MaxLength="128" />
-          <Property Name="dateUpdate" Type="datetime" />
-          <Property Name="id_OTK_TypeReclamation" Type="int" Nullable="false" />
-          <Property Name="id_Reclamation_WhoInc" Type="int" Nullable="false" />
-          <Property Name="id_Reclamation_TypeDoc" Type="int" Nullable="false" />
-          <Property Name="numberDoc" Type="varchar(max)" Nullable="false" />
-          <Property Name="dateDoc" Type="date" Nullable="false" />
-          <Property Name="id_PZ_Client" Type="int" Nullable="false" />
-          <Property Name="textData" Type="varchar(max)" Nullable="false" />
-          <Property Name="dateClose" Type="date" />
-          <Property Name="close" Type="bit" Nullable="false" />
-          <Property Name="closeSMR" Type="bit" Nullable="false" />
-          <Property Name="userWork" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -1162,7 +1106,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1189,7 +1133,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1199,7 +1143,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1209,7 +1153,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1220,7 +1164,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -1808,78 +1752,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO">
-          <End Role="OTK_CounterErrorKO" Type="Self.OTK_CounterErrorKO" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocData" Type="Self.OTK_ReclamationKO_DocData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_OTK_CounterErrorKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO">
-          <End Role="OTK_CounterErrorKO" Type="Self.OTK_CounterErrorKO" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocDataOTK" Type="Self.OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_OTK_CounterErrorKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer">
-          <End Role="OTK_ReclamationAnswer" Type="Self.OTK_ReclamationAnswer" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocDataOTK" Type="Self.OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_ReclamationKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK">
-          <End Role="OTK_ReclamationKO_DocResultOTK" Type="Self.OTK_ReclamationKO_DocResultOTK" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocDataOTK" Type="Self.OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO_DocResultOTK">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_OTK_ReclamationKO_DocResult" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO">
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocData" Type="Self.OTK_ReclamationKO_DocData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_ReclamationKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult">
-          <End Role="OTK_ReclamationKO_DocResult" Type="Self.OTK_ReclamationKO_DocResult" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO_DocData" Type="Self.OTK_ReclamationKO_DocData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO_DocResult">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_OTK_ReclamationKO_DocResult" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO">
           <End Role="OTK_CounterErrorKO" Type="Self.OTK_CounterErrorKO" Multiplicity="1" />
           <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
@@ -1937,6 +1809,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="PostMatching">
               <PropertyRef Name="id_MatchingType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_Client_PZ_Client">
+          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="0..1" />
+          <End Role="PZ_Client1" Type="Self.PZ_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_Client1">
+              <PropertyRef Name="GCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_Client_PZ_Client1">
+          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="0..1" />
+          <End Role="PZ_Client1" Type="Self.PZ_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_Client1">
+              <PropertyRef Name="DCCompany" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2652,10 +2548,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="OTK_Reclamation" EntityType="Self.OTK_Reclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_ReclamationAnswer" EntityType="Self.OTK_ReclamationAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_ReclamationKO" EntityType="Self.OTK_ReclamationKO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationKO_DocData" EntityType="Self.OTK_ReclamationKO_DocData" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationKO_DocDataOTK" EntityType="Self.OTK_ReclamationKO_DocDataOTK" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationKO_DocResult" EntityType="Self.OTK_ReclamationKO_DocResult" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationKO_DocResultOTK" EntityType="Self.OTK_ReclamationKO_DocResultOTK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_TypeReclamation" EntityType="Self.OTK_TypeReclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
@@ -2674,7 +2566,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PZ_Setup" EntityType="Self.PZ_Setup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TEO" EntityType="Self.PZ_TEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TypeShip" EntityType="Self.PZ_TypeShip" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Reclamation_Order" EntityType="Self.Reclamation_Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_Despatching" EntityType="Self.RKD_Despatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_FileMailVersion" EntityType="Self.RKD_FileMailVersion" Schema="dbo" store:Type="Tables" />
@@ -2962,30 +2853,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer">
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK">
-            <End Role="OTK_ReclamationKO_DocResultOTK" EntitySet="OTK_ReclamationKO_DocResultOTK" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO">
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult" Association="Self.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult">
-            <End Role="OTK_ReclamationKO_DocResult" EntitySet="OTK_ReclamationKO_DocResult" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
-          </AssociationSet>
           <AssociationSet Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO" Association="Self.FK_OTK_ReclamationKO_OTK_CounterErrorKO">
             <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
@@ -3005,6 +2872,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="Self.FK_PostMatching_Debit_MatchingType">
             <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
             <End Role="PostMatching" EntitySet="PostMatching" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_Client_PZ_Client" Association="Self.FK_PZ_Client_PZ_Client">
+            <End Role="PZ_Client" EntitySet="PZ_Client" />
+            <End Role="PZ_Client1" EntitySet="PZ_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_Client_PZ_Client1" Association="Self.FK_PZ_Client_PZ_Client1">
+            <End Role="PZ_Client" EntitySet="PZ_Client" />
+            <End Role="PZ_Client1" EntitySet="PZ_Client" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_FIO_PZ_Client" Association="Self.FK_PZ_FIO_PZ_Client">
             <End Role="PZ_Client" EntitySet="PZ_Client" />
@@ -3455,7 +3330,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="VV_infPost" EntityType="PortalKATEKModel.VV_infPost" />
           <EntitySet Name="OTKMultiSelectList" EntityType="PortalKATEKModel.OTKMultiSelectList" />
           <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
-          <EntitySet Name="Reclamation_Order" EntityType="PortalKATEKModel.Reclamation_Order" />
+          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
+          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
+          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
+            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
+            <End Role="PostMatching" EntitySet="PostMatching" />
+          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
@@ -3477,7 +3357,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
           <EntitySet Name="Debit_IstPost" EntityType="PortalKATEKModel.Debit_IstPost" />
-          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
           <EntitySet Name="Debit_Name" EntityType="PortalKATEKModel.Debit_Name" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="PortalKATEKModel.Debit_PeriodReportOprih" />
           <EntitySet Name="Debit_Platform" EntityType="PortalKATEKModel.Debit_Platform" />
@@ -3489,13 +3368,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="OTK_Reclamation" EntityType="PortalKATEKModel.OTK_Reclamation" />
           <EntitySet Name="OTK_ReclamationAnswer" EntityType="PortalKATEKModel.OTK_ReclamationAnswer" />
           <EntitySet Name="OTK_ReclamationKO" EntityType="PortalKATEKModel.OTK_ReclamationKO" />
-          <EntitySet Name="OTK_ReclamationKO_DocData" EntityType="PortalKATEKModel.OTK_ReclamationKO_DocData" />
-          <EntitySet Name="OTK_ReclamationKO_DocDataOTK" EntityType="PortalKATEKModel.OTK_ReclamationKO_DocDataOTK" />
-          <EntitySet Name="OTK_ReclamationKO_DocResult" EntityType="PortalKATEKModel.OTK_ReclamationKO_DocResult" />
-          <EntitySet Name="OTK_ReclamationKO_DocResultOTK" EntityType="PortalKATEKModel.OTK_ReclamationKO_DocResultOTK" />
           <EntitySet Name="OTK_TypeReclamation" EntityType="PortalKATEKModel.OTK_TypeReclamation" />
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
-          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
           <EntitySet Name="PZ_Client" EntityType="PortalKATEKModel.PZ_Client" />
           <EntitySet Name="PZ_Currency" EntityType="PortalKATEKModel.PZ_Currency" />
           <EntitySet Name="PZ_Dostavka" EntityType="PortalKATEKModel.PZ_Dostavka" />
@@ -3701,10 +3575,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_IstPost" EntitySet="Debit_IstPost" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
-            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
-            <End Role="PostMatching" EntitySet="PostMatching" />
-          </AssociationSet>
           <AssociationSet Name="FK_Debit_Name_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_Name_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_Name" EntitySet="Debit_Name" />
@@ -3761,14 +3631,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
             <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
-          </AssociationSet>
           <AssociationSet Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO" Association="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO">
             <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
@@ -3781,14 +3643,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
             <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer">
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO">
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
-          </AssociationSet>
           <AssociationSet Name="FK_OTK_ReclamationKO_OTK_TypeReclamation" Association="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation">
             <End Role="OTK_TypeReclamation" EntitySet="OTK_TypeReclamation" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
@@ -3797,13 +3651,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult">
-            <End Role="OTK_ReclamationKO_DocResult" EntitySet="OTK_ReclamationKO_DocResult" />
-            <End Role="OTK_ReclamationKO_DocData" EntitySet="OTK_ReclamationKO_DocData" />
+          <AssociationSet Name="FK_PZ_Client_PZ_Client" Association="PortalKATEKModel.FK_PZ_Client_PZ_Client">
+            <End Role="PZ_Client" EntitySet="PZ_Client" />
+            <End Role="PZ_Client1" EntitySet="PZ_Client" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK" Association="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK">
-            <End Role="OTK_ReclamationKO_DocResultOTK" EntitySet="OTK_ReclamationKO_DocResultOTK" />
-            <End Role="OTK_ReclamationKO_DocDataOTK" EntitySet="OTK_ReclamationKO_DocDataOTK" />
+          <AssociationSet Name="FK_PZ_Client_PZ_Client1" Association="PortalKATEKModel.FK_PZ_Client_PZ_Client1">
+            <End Role="PZ_Client" EntitySet="PZ_Client" />
+            <End Role="PZ_Client1" EntitySet="PZ_Client" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_FIO_PZ_Client" Association="PortalKATEKModel.FK_PZ_FIO_PZ_Client">
             <End Role="PZ_Client" EntitySet="PZ_Client" />
@@ -4067,27 +3921,35 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="ProjectUID" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Reclamation_Order">
+        <EntityType Name="Debit_MatchingType">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="userUpdate" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateUpdate" Type="DateTime" Precision="3" />
-          <Property Name="id_OTK_TypeReclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation_WhoInc" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation_TypeDoc" Type="Int32" Nullable="false" />
-          <Property Name="numberDoc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateDoc" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id_PZ_Client" Type="Int32" Nullable="false" />
-          <Property Name="textData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateClose" Type="DateTime" Precision="0" />
-          <Property Name="close" Type="Boolean" Nullable="false" />
-          <Property Name="closeSMR" Type="Boolean" Nullable="false" />
-          <Property Name="userWork" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
         </EntityType>
+        <EntityType Name="PostMatching">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
+          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
+        </EntityType>
+        <Association Name="FK_PostMatching_Debit_MatchingType">
+          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_MatchingType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PostMatching">
+              <PropertyRef Name="id_MatchingType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -4368,14 +4230,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="currency" Type="Int32" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit" FromRole="Debit_IstPost" ToRole="Debit_WorkBit" />
         </EntityType>
-        <EntityType Name="Debit_MatchingType">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
-        </EntityType>
         <EntityType Name="Debit_Name">
           <Key>
             <PropertyRef Name="id" />
@@ -4479,8 +4333,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="count" Type="Double" Nullable="false" />
           <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationAnswer" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocData" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationKO_DocData" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocDataOTK" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationKO_DocDataOTK" />
           <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationKO" />
         </EntityType>
         <EntityType Name="OTK_Reclamation">
@@ -4529,7 +4381,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="OTK_ReclamationAnswer" ToRole="Devision" />
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_ReclamationAnswer" ToRole="OTK_CounterErrorKO" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation" FromRole="OTK_ReclamationAnswer" ToRole="OTK_Reclamation" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocDataOTK" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer" FromRole="OTK_ReclamationAnswer" ToRole="OTK_ReclamationKO_DocDataOTK" />
         </EntityType>
         <EntityType Name="OTK_ReclamationKO">
           <Key>
@@ -4556,53 +4407,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers2" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO" ToRole="OTK_CounterErrorKO" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocData" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO" FromRole="OTK_ReclamationKO" ToRole="OTK_ReclamationKO_DocData" />
           <NavigationProperty Name="OTK_TypeReclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation" FromRole="OTK_ReclamationKO" ToRole="OTK_TypeReclamation" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="OTK_ReclamationKO" ToRole="PZ_PlanZakaz" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocData">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_OTK_ReclamationKO_DocResult" Type="Int32" Nullable="false" />
-          <Property Name="id_ReclamationKO" Type="Int32" Nullable="false" />
-          <Property Name="id_OTK_CounterErrorKO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO_DocData" ToRole="OTK_CounterErrorKO" />
-          <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO" FromRole="OTK_ReclamationKO_DocData" ToRole="OTK_ReclamationKO" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocResult" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult" FromRole="OTK_ReclamationKO_DocData" ToRole="OTK_ReclamationKO_DocResult" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocDataOTK">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_OTK_ReclamationKO_DocResult" Type="Int32" Nullable="false" />
-          <Property Name="id_ReclamationKO" Type="Int32" Nullable="false" />
-          <Property Name="id_OTK_CounterErrorKO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO_DocDataOTK" ToRole="OTK_CounterErrorKO" />
-          <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer" FromRole="OTK_ReclamationKO_DocDataOTK" ToRole="OTK_ReclamationAnswer" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocResultOTK" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK" FromRole="OTK_ReclamationKO_DocDataOTK" ToRole="OTK_ReclamationKO_DocResultOTK" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocResult">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="numberDoc" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="write" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocData" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult" FromRole="OTK_ReclamationKO_DocResult" ToRole="OTK_ReclamationKO_DocData" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO_DocResultOTK">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="numberDoc" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="write" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="OTK_ReclamationKO_DocDataOTK" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK" FromRole="OTK_ReclamationKO_DocResultOTK" ToRole="OTK_ReclamationKO_DocDataOTK" />
         </EntityType>
         <EntityType Name="OTK_TypeReclamation">
           <Key>
@@ -4624,15 +4430,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="numPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
         </EntityType>
-        <EntityType Name="PostMatching">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
-          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
-        </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
             <PropertyRef Name="id" />
@@ -4641,6 +4438,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="NameSort" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="INN_UNN" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="GCompany" Type="Int32" />
+          <Property Name="DCCompany" Type="Int32" />
+          <NavigationProperty Name="PZ_Client1" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client" FromRole="PZ_Client" ToRole="PZ_Client1" />
+          <NavigationProperty Name="PZ_Client2" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client" FromRole="PZ_Client1" ToRole="PZ_Client" />
+          <NavigationProperty Name="PZ_Client11" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client1" FromRole="PZ_Client" ToRole="PZ_Client1" />
+          <NavigationProperty Name="PZ_Client3" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client1" FromRole="PZ_Client1" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_FIO" Relationship="PortalKATEKModel.FK_PZ_FIO_PZ_Client" FromRole="PZ_Client" ToRole="PZ_FIO" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Client" FromRole="PZ_Client" ToRole="PZ_PlanZakaz" />
         </EntityType>
@@ -4712,8 +4515,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="OsobieOtmetkiGruzopoluchatelya" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DescriptionGruzopoluchatel" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PowerST" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VN_NN" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Modul" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Naznachenie" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="timeContract" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="timeContractDate" Type="DateTime" Precision="0" />
           <Property Name="timeArr" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -4726,12 +4530,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="nameTU" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TypeShip" Type="Int32" Nullable="false" />
           <Property Name="criticalDateShip" Type="DateTime" Precision="0" />
-          <Property Name="nomenklaturNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="costSMR" Type="Double" Nullable="false" />
-          <Property Name="costPNR" Type="Double" Nullable="false" />
           <Property Name="id_PZ_OperatorDogovora" Type="Int32" Nullable="false" />
-          <Property Name="VN_NN" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PowerST" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="costPNR" Type="Double" Nullable="false" />
+          <Property Name="costSMR" Type="Double" Nullable="false" />
+          <Property Name="nomenklaturNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="PZ_PlanZakaz" ToRole="AspNetUsers" />
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionPreOrder" />
@@ -4769,8 +4571,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
           <Property Name="KolVoDneyNaPrijemku" Type="Int32" Nullable="false" />
-          <Property Name="PunktDogovoraOSrokahPriemki" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UslovieOplatyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PunktDogovoraOSrokahPriemki" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UslovieOplatyText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UslovieOplatyInt" Type="Int32" Nullable="false" />
           <Property Name="TimeNaRKD" Type="Int32" Nullable="false" />
           <Property Name="RassmotrenieRKD" Type="Int32" Nullable="false" />
@@ -5726,18 +5528,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostMatching_Debit_MatchingType">
-          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
-          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_MatchingType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PostMatching">
-              <PropertyRef Name="id_MatchingType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Debit_Name_debit_WorkBit">
           <End Type="PortalKATEKModel.Debit_WorkBit" Role="Debit_WorkBit" Multiplicity="1" />
           <End Type="PortalKATEKModel.Debit_Name" Role="Debit_Name" Multiplicity="*" />
@@ -5906,30 +5696,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_CounterErrorKO">
-          <End Type="PortalKATEKModel.OTK_CounterErrorKO" Role="OTK_CounterErrorKO" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocData" Role="OTK_ReclamationKO_DocData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_OTK_CounterErrorKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_CounterErrorKO">
-          <End Type="PortalKATEKModel.OTK_CounterErrorKO" Role="OTK_CounterErrorKO" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocDataOTK" Role="OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_OTK_CounterErrorKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO">
           <End Type="PortalKATEKModel.OTK_CounterErrorKO" Role="OTK_CounterErrorKO" Multiplicity="1" />
           <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
@@ -5966,30 +5732,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationAnswer">
-          <End Type="PortalKATEKModel.OTK_ReclamationAnswer" Role="OTK_ReclamationAnswer" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocDataOTK" Role="OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_ReclamationKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO">
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocData" Role="OTK_ReclamationKO_DocData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_ReclamationKO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OTK_ReclamationKO_OTK_TypeReclamation">
           <End Type="PortalKATEKModel.OTK_TypeReclamation" Role="OTK_TypeReclamation" Multiplicity="1" />
           <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
@@ -6014,27 +5756,27 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_ReclamationKO_DocResult">
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocResult" Role="OTK_ReclamationKO_DocResult" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocData" Role="OTK_ReclamationKO_DocData" Multiplicity="*" />
+        <Association Name="FK_PZ_Client_PZ_Client">
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client1" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO_DocResult">
+            <Principal Role="PZ_Client">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocData">
-              <PropertyRef Name="id_OTK_ReclamationKO_DocResult" />
+            <Dependent Role="PZ_Client1">
+              <PropertyRef Name="GCompany" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ReclamationKO_DocData_OTK_OTK_ReclamationKO_DocResultOTK">
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocResultOTK" Role="OTK_ReclamationKO_DocResultOTK" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO_DocDataOTK" Role="OTK_ReclamationKO_DocDataOTK" Multiplicity="*" />
+        <Association Name="FK_PZ_Client_PZ_Client1">
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client1" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OTK_ReclamationKO_DocResultOTK">
+            <Principal Role="PZ_Client">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OTK_ReclamationKO_DocDataOTK">
-              <PropertyRef Name="id_OTK_ReclamationKO_DocResult" />
+            <Dependent Role="PZ_Client1">
+              <PropertyRef Name="DCCompany" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6873,24 +6615,19 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_Order">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Order">
-              <MappingFragment StoreEntitySet="Reclamation_Order">
-                <ScalarProperty Name="userWork" ColumnName="userWork" />
-                <ScalarProperty Name="closeSMR" ColumnName="closeSMR" />
-                <ScalarProperty Name="close" ColumnName="close" />
-                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
-                <ScalarProperty Name="textData" ColumnName="textData" />
-                <ScalarProperty Name="id_PZ_Client" ColumnName="id_PZ_Client" />
-                <ScalarProperty Name="dateDoc" ColumnName="dateDoc" />
-                <ScalarProperty Name="numberDoc" ColumnName="numberDoc" />
-                <ScalarProperty Name="id_Reclamation_TypeDoc" ColumnName="id_Reclamation_TypeDoc" />
-                <ScalarProperty Name="id_Reclamation_WhoInc" ColumnName="id_Reclamation_WhoInc" />
-                <ScalarProperty Name="id_OTK_TypeReclamation" ColumnName="id_OTK_TypeReclamation" />
-                <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
-                <ScalarProperty Name="userUpdate" ColumnName="userUpdate" />
-                <ScalarProperty Name="userCreate" ColumnName="userCreate" />
-                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <EntitySetMapping Name="Debit_MatchingType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
+              <MappingFragment StoreEntitySet="Debit_MatchingType">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostMatching">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
+              <MappingFragment StoreEntitySet="PostMatching">
+                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
+                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7136,14 +6873,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Debit_MatchingType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
-              <MappingFragment StoreEntitySet="Debit_MatchingType">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Debit_Name">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_Name">
               <MappingFragment StoreEntitySet="Debit_Name">
@@ -7296,46 +7025,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationKO_DocData">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO_DocData">
-              <MappingFragment StoreEntitySet="OTK_ReclamationKO_DocData">
-                <ScalarProperty Name="id_OTK_CounterErrorKO" ColumnName="id_OTK_CounterErrorKO" />
-                <ScalarProperty Name="id_ReclamationKO" ColumnName="id_ReclamationKO" />
-                <ScalarProperty Name="id_OTK_ReclamationKO_DocResult" ColumnName="id_OTK_ReclamationKO_DocResult" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationKO_DocDataOTK">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO_DocDataOTK">
-              <MappingFragment StoreEntitySet="OTK_ReclamationKO_DocDataOTK">
-                <ScalarProperty Name="id_OTK_CounterErrorKO" ColumnName="id_OTK_CounterErrorKO" />
-                <ScalarProperty Name="id_ReclamationKO" ColumnName="id_ReclamationKO" />
-                <ScalarProperty Name="id_OTK_ReclamationKO_DocResult" ColumnName="id_OTK_ReclamationKO_DocResult" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationKO_DocResult">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO_DocResult">
-              <MappingFragment StoreEntitySet="OTK_ReclamationKO_DocResult">
-                <ScalarProperty Name="write" ColumnName="write" />
-                <ScalarProperty Name="numberDoc" ColumnName="numberDoc" />
-                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationKO_DocResultOTK">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO_DocResultOTK">
-              <MappingFragment StoreEntitySet="OTK_ReclamationKO_DocResultOTK">
-                <ScalarProperty Name="write" ColumnName="write" />
-                <ScalarProperty Name="numberDoc" ColumnName="numberDoc" />
-                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OTK_TypeReclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.OTK_TypeReclamation">
               <MappingFragment StoreEntitySet="OTK_TypeReclamation">
@@ -7355,18 +7044,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PostMatching">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
-              <MappingFragment StoreEntitySet="PostMatching">
-                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
-                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PZ_Client">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_Client">
               <MappingFragment StoreEntitySet="PZ_Client">
+                <ScalarProperty Name="DCCompany" ColumnName="DCCompany" />
+                <ScalarProperty Name="GCompany" ColumnName="GCompany" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="INN_UNN" ColumnName="INN_UNN" />
                 <ScalarProperty Name="NameSort" ColumnName="NameSort" />
@@ -7415,12 +7097,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="PZ_PlanZakaz">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_PlanZakaz">
               <MappingFragment StoreEntitySet="PZ_PlanZakaz">
-                <ScalarProperty Name="PowerST" ColumnName="PowerST" />
-                <ScalarProperty Name="VN_NN" ColumnName="VN/NN" />
-                <ScalarProperty Name="id_PZ_OperatorDogovora" ColumnName="id_PZ_OperatorDogovora" />
-                <ScalarProperty Name="costPNR" ColumnName="costPNR" />
-                <ScalarProperty Name="costSMR" ColumnName="costSMR" />
                 <ScalarProperty Name="nomenklaturNumber" ColumnName="nomenklaturNumber" />
+                <ScalarProperty Name="costSMR" ColumnName="costSMR" />
+                <ScalarProperty Name="costPNR" ColumnName="costPNR" />
+                <ScalarProperty Name="id_PZ_OperatorDogovora" ColumnName="id_PZ_OperatorDogovora" />
                 <ScalarProperty Name="criticalDateShip" ColumnName="criticalDateShip" />
                 <ScalarProperty Name="TypeShip" ColumnName="TypeShip" />
                 <ScalarProperty Name="nameTU" ColumnName="nameTU" />
@@ -7433,8 +7113,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="timeArr" ColumnName="timeArr" />
                 <ScalarProperty Name="timeContractDate" ColumnName="timeContractDate" />
                 <ScalarProperty Name="timeContract" ColumnName="timeContract" />
-                <ScalarProperty Name="Naznachenie" ColumnName="Naznachenie" />
                 <ScalarProperty Name="Modul" ColumnName="Modul" />
+                <ScalarProperty Name="VN_NN" ColumnName="VN/NN" />
+                <ScalarProperty Name="PowerST" ColumnName="PowerST" />
                 <ScalarProperty Name="Folder" ColumnName="Folder" />
                 <ScalarProperty Name="DescriptionGruzopoluchatel" ColumnName="DescriptionGruzopoluchatel" />
                 <ScalarProperty Name="OsobieOtmetkiGruzopoluchatelya" ColumnName="OsobieOtmetkiGruzopoluchatelya" />

@@ -14,12 +14,6 @@ namespace Wiki
     
     public partial class OTK_ReclamationKO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OTK_ReclamationKO()
-        {
-            this.OTK_ReclamationKO_DocData = new HashSet<OTK_ReclamationKO_DocData>();
-        }
-    
         public int id { get; set; }
         public System.DateTime dateCreate { get; set; }
         public System.DateTime dateUpdate { get; set; }
@@ -42,8 +36,6 @@ namespace Wiki
         public virtual AspNetUsers AspNetUsers2 { get; set; }
         public virtual AspNetUsers AspNetUsers3 { get; set; }
         public virtual OTK_CounterErrorKO OTK_CounterErrorKO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO_DocData> OTK_ReclamationKO_DocData { get; set; }
         public virtual OTK_TypeReclamation OTK_TypeReclamation { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }

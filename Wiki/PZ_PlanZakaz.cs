@@ -57,8 +57,9 @@ namespace Wiki
         public string OsobieOtmetkiGruzopoluchatelya { get; set; }
         public string DescriptionGruzopoluchatel { get; set; }
         public string Folder { get; set; }
+        public string PowerST { get; set; }
+        public string VN_NN { get; set; }
         public string Modul { get; set; }
-        public string Naznachenie { get; set; }
         public string timeContract { get; set; }
         public Nullable<System.DateTime> timeContractDate { get; set; }
         public string timeArr { get; set; }
@@ -71,12 +72,10 @@ namespace Wiki
         public string nameTU { get; set; }
         public int TypeShip { get; set; }
         public Nullable<System.DateTime> criticalDateShip { get; set; }
-        public string nomenklaturNumber { get; set; }
-        public double costSMR { get; set; }
-        public double costPNR { get; set; }
         public int id_PZ_OperatorDogovora { get; set; }
-        public string VN_NN { get; set; }
-        public string PowerST { get; set; }
+        public double costPNR { get; set; }
+        public double costSMR { get; set; }
+        public string nomenklaturNumber { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
