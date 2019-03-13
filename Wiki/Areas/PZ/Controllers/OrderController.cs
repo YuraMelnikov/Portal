@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
@@ -12,6 +13,7 @@ namespace Wiki.Areas.PZ.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Orders = new SelectList(db.PZ_PlanZakaz.OrderBy(x => x.PlanZakaz), "id", "PlanZakaz");
             ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
             ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
             ViewBag.Dostavka = new SelectList(db.PZ_Dostavka.OrderBy(d => d.Name), "id", "Name");
@@ -31,6 +33,8 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
+                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
@@ -74,6 +78,8 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
+                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
@@ -117,6 +123,8 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
+                Id = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
@@ -166,5 +174,221 @@ namespace Wiki.Areas.PZ.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetOrder(int Id)
+        {
+            var query = db.PZ_PlanZakaz.Where(d => d.Id == Id).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.PlanZakaz,
+                DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
+                dataList.Manager,
+                dataList.Client,
+                dataList.id_PZ_OperatorDogovora,
+                dataList.id_PZ_FIO,
+                dataList.Name,
+                dataList.Description,
+                dataList.MTR,
+                dataList.nomenklaturNumber,
+                dataList.timeContract,
+                timeContractDate = JsonConvert.SerializeObject(dataList.timeContractDate, settings).Replace(@"""", ""),
+                dataList.timeArr,
+                timeArrDate = JsonConvert.SerializeObject(dataList.timeArrDate, settings).Replace(@"""", ""),
+                DateShipping = JsonConvert.SerializeObject(dataList.DateShipping, settings).Replace(@"""", ""),
+                DateSupply = JsonConvert.SerializeObject(dataList.DateSupply, settings).Replace(@"""", ""),
+                dataList.Dostavka,
+                dataList.Cost,
+                dataList.costSMR,
+                dataList.costPNR,
+                dataList.ProductType,
+                dataList.OL,
+                dataList.Zapros,
+                dataList.numZakupki,
+                dataList.numLota,
+                dataList.TypeShip,
+                criticalDateShip = JsonConvert.SerializeObject(dataList.criticalDateShip, settings).Replace(@"""", ""),
+                dataList.PowerST,
+                dataList.VN_NN,
+                dataList.Modul,
+                dataList.Gruzopoluchatel,
+                dataList.PostAdresGruzopoluchatel,
+                dataList.INNGruzopoluchatel,
+                dataList.OKPOGruzopoluchatelya,
+                dataList.KodGruzopoluchatela,
+                dataList.StantionGruzopoluchatel,
+                dataList.KodStanciiGruzopoluchatelya,
+                dataList.OsobieOtmetkiGruzopoluchatelya,
+                dataList.DescriptionGruzopoluchatel
+            });
+
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Update(PZ_PlanZakaz pZ_PlanZakaz)
+        {
+            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
+            if (editPZ.Manager != pZ_PlanZakaz.Manager)
+                editPZ.Manager = pZ_PlanZakaz.Manager;
+            if (editPZ.Client != pZ_PlanZakaz.Client)
+                editPZ.Client = pZ_PlanZakaz.Client;
+            if (editPZ.id_PZ_OperatorDogovora != pZ_PlanZakaz.id_PZ_OperatorDogovora)
+                editPZ.id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora;
+            if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
+                editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
+            if (editPZ.Name != pZ_PlanZakaz.Name)
+                editPZ.Name = pZ_PlanZakaz.Name;
+            if (editPZ.Description != pZ_PlanZakaz.Description)
+                editPZ.Description = pZ_PlanZakaz.Description;
+            if (editPZ.MTR != pZ_PlanZakaz.MTR)
+                editPZ.MTR = pZ_PlanZakaz.MTR;
+            if (editPZ.nomenklaturNumber != pZ_PlanZakaz.nomenklaturNumber)
+                editPZ.nomenklaturNumber = pZ_PlanZakaz.nomenklaturNumber;
+            if (editPZ.timeContract != pZ_PlanZakaz.timeContract)
+                editPZ.timeContract = pZ_PlanZakaz.timeContract;
+            if (editPZ.timeContractDate != pZ_PlanZakaz.timeContractDate)
+                editPZ.timeContractDate = pZ_PlanZakaz.timeContractDate;
+            if (editPZ.timeArr != pZ_PlanZakaz.timeArr)
+                editPZ.timeArr = pZ_PlanZakaz.timeArr;
+            if (editPZ.timeArrDate != pZ_PlanZakaz.timeArrDate)
+                editPZ.timeArrDate = pZ_PlanZakaz.timeArrDate;
+            if (editPZ.DateShipping != pZ_PlanZakaz.DateShipping)
+                editPZ.DateShipping = pZ_PlanZakaz.DateShipping;
+            if (editPZ.DateSupply != pZ_PlanZakaz.DateSupply)
+                editPZ.DateSupply = pZ_PlanZakaz.DateSupply;
+            if (editPZ.Dostavka != pZ_PlanZakaz.Dostavka)
+                editPZ.Dostavka = pZ_PlanZakaz.Dostavka;
+            if (editPZ.Cost != pZ_PlanZakaz.Cost)
+                editPZ.Cost = pZ_PlanZakaz.Cost;
+            if (editPZ.costSMR != pZ_PlanZakaz.costSMR)
+                editPZ.costSMR = pZ_PlanZakaz.costSMR;
+            if (editPZ.costPNR != pZ_PlanZakaz.costPNR)
+                editPZ.costPNR = pZ_PlanZakaz.costPNR;
+            if (editPZ.ProductType != pZ_PlanZakaz.ProductType)
+                editPZ.ProductType = pZ_PlanZakaz.ProductType;
+            if (editPZ.OL != pZ_PlanZakaz.OL)
+                editPZ.OL = pZ_PlanZakaz.OL;
+            if (editPZ.Zapros != pZ_PlanZakaz.Zapros)
+                editPZ.Zapros = pZ_PlanZakaz.Zapros;
+            if (editPZ.numZakupki != pZ_PlanZakaz.numZakupki)
+                editPZ.numZakupki = pZ_PlanZakaz.numZakupki;
+            if (editPZ.numLota != pZ_PlanZakaz.numLota)
+                editPZ.numLota = pZ_PlanZakaz.numLota;
+            if (editPZ.TypeShip != pZ_PlanZakaz.TypeShip)
+                editPZ.TypeShip = pZ_PlanZakaz.TypeShip;
+            if (editPZ.criticalDateShip != pZ_PlanZakaz.criticalDateShip)
+                editPZ.criticalDateShip = pZ_PlanZakaz.criticalDateShip;
+            if (editPZ.PowerST != pZ_PlanZakaz.PowerST)
+                editPZ.PowerST = pZ_PlanZakaz.PowerST;
+            if (editPZ.VN_NN != pZ_PlanZakaz.VN_NN)
+                editPZ.VN_NN = pZ_PlanZakaz.VN_NN;
+            if (editPZ.Modul != pZ_PlanZakaz.Modul)
+                editPZ.Modul = pZ_PlanZakaz.Modul;
+            if (editPZ.Gruzopoluchatel != pZ_PlanZakaz.Gruzopoluchatel)
+                editPZ.Gruzopoluchatel = pZ_PlanZakaz.Gruzopoluchatel;
+            if (editPZ.PostAdresGruzopoluchatel != pZ_PlanZakaz.PostAdresGruzopoluchatel)
+                editPZ.PostAdresGruzopoluchatel = pZ_PlanZakaz.PostAdresGruzopoluchatel;
+            if (editPZ.INNGruzopoluchatel != pZ_PlanZakaz.INNGruzopoluchatel)
+                editPZ.INNGruzopoluchatel = pZ_PlanZakaz.INNGruzopoluchatel;
+            if (editPZ.OKPOGruzopoluchatelya != pZ_PlanZakaz.OKPOGruzopoluchatelya)
+                editPZ.OKPOGruzopoluchatelya = pZ_PlanZakaz.OKPOGruzopoluchatelya;
+            if (editPZ.KodGruzopoluchatela != pZ_PlanZakaz.KodGruzopoluchatela)
+                editPZ.KodGruzopoluchatela = pZ_PlanZakaz.KodGruzopoluchatela;
+            if (editPZ.StantionGruzopoluchatel != pZ_PlanZakaz.StantionGruzopoluchatel)
+                editPZ.StantionGruzopoluchatel = pZ_PlanZakaz.StantionGruzopoluchatel;
+            if (editPZ.KodStanciiGruzopoluchatelya != pZ_PlanZakaz.KodStanciiGruzopoluchatelya)
+                editPZ.KodStanciiGruzopoluchatelya = pZ_PlanZakaz.KodStanciiGruzopoluchatelya;
+            if (editPZ.OsobieOtmetkiGruzopoluchatelya != pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya)
+                editPZ.OsobieOtmetkiGruzopoluchatelya = pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya;
+            if (editPZ.DescriptionGruzopoluchatel != pZ_PlanZakaz.DescriptionGruzopoluchatel)
+                editPZ.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
+            editPZ = correctPlanZakaz.PZ_PlanZakaz;
+            db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateOrders(PZ_PlanZakaz pZ_PlanZakaz, int[] Orders)
+        {
+            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
+            if (editPZ.Manager != pZ_PlanZakaz.Manager)
+                editPZ.Manager = pZ_PlanZakaz.Manager;
+            if (editPZ.Client != pZ_PlanZakaz.Client)
+                editPZ.Client = pZ_PlanZakaz.Client;
+            if (editPZ.id_PZ_OperatorDogovora != pZ_PlanZakaz.id_PZ_OperatorDogovora)
+                editPZ.id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora;
+            if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
+                editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
+            if (editPZ.Name != pZ_PlanZakaz.Name)
+                editPZ.Name = pZ_PlanZakaz.Name;
+            if (editPZ.Description != pZ_PlanZakaz.Description)
+                editPZ.Description = pZ_PlanZakaz.Description;
+            if (editPZ.MTR != pZ_PlanZakaz.MTR)
+                editPZ.MTR = pZ_PlanZakaz.MTR;
+            if (editPZ.nomenklaturNumber != pZ_PlanZakaz.nomenklaturNumber)
+                editPZ.nomenklaturNumber = pZ_PlanZakaz.nomenklaturNumber;
+            if (editPZ.timeContract != pZ_PlanZakaz.timeContract)
+                editPZ.timeContract = pZ_PlanZakaz.timeContract;
+            if (editPZ.timeContractDate != pZ_PlanZakaz.timeContractDate)
+                editPZ.timeContractDate = pZ_PlanZakaz.timeContractDate;
+            if (editPZ.timeArr != pZ_PlanZakaz.timeArr)
+                editPZ.timeArr = pZ_PlanZakaz.timeArr;
+            if (editPZ.timeArrDate != pZ_PlanZakaz.timeArrDate)
+                editPZ.timeArrDate = pZ_PlanZakaz.timeArrDate;
+            if (editPZ.DateShipping != pZ_PlanZakaz.DateShipping)
+                editPZ.DateShipping = pZ_PlanZakaz.DateShipping;
+            if (editPZ.DateSupply != pZ_PlanZakaz.DateSupply)
+                editPZ.DateSupply = pZ_PlanZakaz.DateSupply;
+            if (editPZ.Dostavka != pZ_PlanZakaz.Dostavka)
+                editPZ.Dostavka = pZ_PlanZakaz.Dostavka;
+            if (editPZ.Cost != pZ_PlanZakaz.Cost)
+                editPZ.Cost = pZ_PlanZakaz.Cost;
+            if (editPZ.costSMR != pZ_PlanZakaz.costSMR)
+                editPZ.costSMR = pZ_PlanZakaz.costSMR;
+            if (editPZ.costPNR != pZ_PlanZakaz.costPNR)
+                editPZ.costPNR = pZ_PlanZakaz.costPNR;
+            if (editPZ.ProductType != pZ_PlanZakaz.ProductType)
+                editPZ.ProductType = pZ_PlanZakaz.ProductType;
+            if (editPZ.OL != pZ_PlanZakaz.OL)
+                editPZ.OL = pZ_PlanZakaz.OL;
+            if (editPZ.Zapros != pZ_PlanZakaz.Zapros)
+                editPZ.Zapros = pZ_PlanZakaz.Zapros;
+            if (editPZ.numZakupki != pZ_PlanZakaz.numZakupki)
+                editPZ.numZakupki = pZ_PlanZakaz.numZakupki;
+            if (editPZ.numLota != pZ_PlanZakaz.numLota)
+                editPZ.numLota = pZ_PlanZakaz.numLota;
+            if (editPZ.TypeShip != pZ_PlanZakaz.TypeShip)
+                editPZ.TypeShip = pZ_PlanZakaz.TypeShip;
+            if (editPZ.criticalDateShip != pZ_PlanZakaz.criticalDateShip)
+                editPZ.criticalDateShip = pZ_PlanZakaz.criticalDateShip;
+            if (editPZ.PowerST != pZ_PlanZakaz.PowerST)
+                editPZ.PowerST = pZ_PlanZakaz.PowerST;
+            if (editPZ.VN_NN != pZ_PlanZakaz.VN_NN)
+                editPZ.VN_NN = pZ_PlanZakaz.VN_NN;
+            if (editPZ.Modul != pZ_PlanZakaz.Modul)
+                editPZ.Modul = pZ_PlanZakaz.Modul;
+            if (editPZ.Gruzopoluchatel != pZ_PlanZakaz.Gruzopoluchatel)
+                editPZ.Gruzopoluchatel = pZ_PlanZakaz.Gruzopoluchatel;
+            if (editPZ.PostAdresGruzopoluchatel != pZ_PlanZakaz.PostAdresGruzopoluchatel)
+                editPZ.PostAdresGruzopoluchatel = pZ_PlanZakaz.PostAdresGruzopoluchatel;
+            if (editPZ.INNGruzopoluchatel != pZ_PlanZakaz.INNGruzopoluchatel)
+                editPZ.INNGruzopoluchatel = pZ_PlanZakaz.INNGruzopoluchatel;
+            if (editPZ.OKPOGruzopoluchatelya != pZ_PlanZakaz.OKPOGruzopoluchatelya)
+                editPZ.OKPOGruzopoluchatelya = pZ_PlanZakaz.OKPOGruzopoluchatelya;
+            if (editPZ.KodGruzopoluchatela != pZ_PlanZakaz.KodGruzopoluchatela)
+                editPZ.KodGruzopoluchatela = pZ_PlanZakaz.KodGruzopoluchatela;
+            if (editPZ.StantionGruzopoluchatel != pZ_PlanZakaz.StantionGruzopoluchatel)
+                editPZ.StantionGruzopoluchatel = pZ_PlanZakaz.StantionGruzopoluchatel;
+            if (editPZ.KodStanciiGruzopoluchatelya != pZ_PlanZakaz.KodStanciiGruzopoluchatelya)
+                editPZ.KodStanciiGruzopoluchatelya = pZ_PlanZakaz.KodStanciiGruzopoluchatelya;
+            if (editPZ.OsobieOtmetkiGruzopoluchatelya != pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya)
+                editPZ.OsobieOtmetkiGruzopoluchatelya = pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya;
+            if (editPZ.DescriptionGruzopoluchatel != pZ_PlanZakaz.DescriptionGruzopoluchatel)
+                editPZ.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
+            editPZ = correctPlanZakaz.PZ_PlanZakaz;
+            db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

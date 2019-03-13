@@ -711,6 +711,7 @@
   <ItemGroup>
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
+    <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\PZ\Contant\Bootstrap\jquery-3.3.1.js" />
     <Content Include="Areas\PZ\Contant\DataTable\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="Areas\PZ\Contant\DataTable\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
@@ -1170,6 +1171,10 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="datatables.mvc5.0.1.0\.signature.p7s" />
     <Content Include="datatables.mvc5.0.1.0\datatables.mvc5.0.1.0.nupkg" />
+    <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
