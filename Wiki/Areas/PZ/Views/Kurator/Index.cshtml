@@ -1,10 +1,10 @@
-﻿@model Wiki.PZ_Client
+﻿@model Wiki.PZ_FIO
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
 }
 <head>
-    <script src="~/Areas/PZ/Contant/ClientsList.js"></script>
+    <script src="~/Areas/PZ/Contant/Kurator.js"></script>
     <style>
         .modal.modal-wide .modal-dialog {
             width: 90%;
@@ -40,13 +40,21 @@
             <div class="modal-body">
                 @Html.HiddenFor(model => model.id)
                 <div class="row">
-                    <div class="col-lg-6">
-                        <label for="NameSort">Краткое наименование:</label>
-                        <input type="text" class="form-control" id="NameSort" />
+                    <div class="col-lg-3">
+                        <label for="fio">Фамилия:</label>
+                        <input type="text" class="form-control" id="fio" />
                     </div>
-                    <div class="col-lg-6">
-                        <label for="Name">Полное наименование:</label>
-                        <input type="text" class="form-control" id="Name" />
+                    <div class="col-lg-3">
+                        <label for="i">Имя:</label>
+                        <input type="text" class="form-control" id="i" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="o">Отчество:</label>
+                        <input type="text" class="form-control" id="o" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="email">email:</label>
+                        <input type="text" class="form-control" id="email" />
                     </div>
                 </div>
             </div>
@@ -54,8 +62,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="INN_UNN">ИНН/УНН:</label>
-                        <input type="text" class="form-control" id="INN_UNN" />
+                        <label for="position">Должность:</label>
+                        <input type="text" class="form-control" id="position" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="phone">Контактные данные:</label>
+                        <input type="text" class="form-control" id="phone" />
                     </div>
                 </div>
             </div>
@@ -63,12 +75,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="NameSort">Головная компания:</label>
-                        @Html.DropDownList("GCompany", ViewBag.Client1 as MultiSelectList, new { @class = "form-control" })
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="Name">Держатель контракта:</label>
-                        @Html.DropDownList("DCCompany", ViewBag.Client11 as MultiSelectList, new { @class = "form-control" })
+                        <label for="id_PZ_Client">Организация:</label>
+                        @Html.DropDownList("id_PZ_Client", ViewBag.id_PZ_Client as MultiSelectList, new { @class = "form-control" })
                     </div>
                 </div>
             </div>
