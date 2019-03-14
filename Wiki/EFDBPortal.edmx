@@ -527,8 +527,8 @@
           <Property Name="NameSort" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="INN_UNN" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="GCompany" Type="int" />
-          <Property Name="DCCompany" Type="int" />
+          <Property Name="GCompany" Type="int" Nullable="false" />
+          <Property Name="DCCompany" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_Currency">
           <Key>
@@ -1106,7 +1106,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1133,7 +1133,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1143,7 +1143,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1153,7 +1153,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1164,7 +1164,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -1813,7 +1813,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PZ_Client_PZ_Client">
-          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="0..1" />
+          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="1" />
           <End Role="PZ_Client1" Type="Self.PZ_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_Client">
@@ -1825,7 +1825,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PZ_Client_PZ_Client1">
-          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="0..1" />
+          <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="1" />
           <End Role="PZ_Client1" Type="Self.PZ_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_Client">
@@ -4438,8 +4438,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="NameSort" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="INN_UNN" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="GCompany" Type="Int32" />
-          <Property Name="DCCompany" Type="Int32" />
+          <Property Name="GCompany" Type="Int32" Nullable="false" />
+          <Property Name="DCCompany" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PZ_Client1" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client" FromRole="PZ_Client" ToRole="PZ_Client1" />
           <NavigationProperty Name="PZ_Client2" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client" FromRole="PZ_Client1" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_Client11" Relationship="PortalKATEKModel.FK_PZ_Client_PZ_Client1" FromRole="PZ_Client" ToRole="PZ_Client1" />
@@ -5757,7 +5757,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PZ_Client_PZ_Client">
-          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="1" />
           <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_Client">
@@ -5769,7 +5769,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PZ_Client_PZ_Client1">
-          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="1" />
           <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_Client">

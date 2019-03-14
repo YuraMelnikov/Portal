@@ -252,7 +252,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\OrderController.cs" />
+    <Compile Include="Areas\PZ\Models\CorrectClient.cs" />
     <Compile Include="Areas\PZ\Models\CorrectPlanZakaz.cs" />
     <Compile Include="Areas\PZ\Models\EmailRename.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
@@ -735,6 +737,7 @@
     <Content Include="Areas\PZ\Contant\DataTable\DataTables-1.10.18\js\jquery.dataTables.min.js" />
     <Content Include="Areas\PZ\Contant\DataTable\datatables.css" />
     <Content Include="Areas\PZ\Contant\DataTable\datatables.js" />
+    <Content Include="Areas\PZ\Contant\ClientsList.js" />
     <Content Include="Areas\PZ\Contant\OrdersList.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
@@ -1167,6 +1170,7 @@
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\PZ\Contant\dotx\Табличка_заказ.dotx" />
+    <Content Include="Areas\PZ\Views\Client\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -1,0 +1,85 @@
+﻿@model Wiki.PZ_Client
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
+}
+<head>
+    <script src="~/Areas/PZ/Contant/ClientsList.js"></script>
+    <style>
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+
+        .colu-200 {
+            min-width: 200px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+
+
+<div id="orderModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="NameSort">Краткое наименование:</label>
+                        <input type="text" class="form-control" id="NameSort" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Name">Полное наименование:</label>
+                        <input type="text" class="form-control" id="Name" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="INN_UNN">ИНН/УНН:</label>
+                        <input type="text" class="form-control" id="INN_UNN" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="NameSort">Головная компания:</label>
+                        @Html.DropDownList("GCompany", ViewBag.Client1 as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Name">Держатель контракта:</label>
+                        @Html.DropDownList("DCCompany", ViewBag.Client11 as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
