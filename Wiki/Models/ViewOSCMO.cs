@@ -4,6 +4,7 @@ namespace Wiki.Models
 {
     public class ViewOSCMO
     {
+        public List<CMO_Order> DefaultOrderNotComplited { get; set; }
         public List<CMO_PreOrder> ActiveOrder { get; set; }
         public List<CMO_UploadResult> ActiveFirstUpload { get; set; }
         public List<CMO_Tender> ActiveFirstTender { get; set; }

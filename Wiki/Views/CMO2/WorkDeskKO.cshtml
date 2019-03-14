@@ -4,8 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/bootstrap-table.min.css" rel="stylesheet" />
     <style>
         .container {
             width: 1600px;
@@ -22,30 +24,65 @@
     <a href="~/CMO2/Report" class="btn btn-primary" role="button">Сводная таблица</a>
     <a href="~/CMO2/ReportSmall" class="btn btn-primary" role="button">Сводная таблица (сокращенная)</a>
     <hr />
-    <h5>Ожидается запуск тендера</h5>
-    <table data-toggle="table">
-        <thead>
-            <tr>
-                <th>№ заявки</th>
-                <th>Описание заявки</th>
-                <th>Дата размещения</th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var item in Model.CMO_PreOrders)
-            {
+    @if (Model.CMO_PreOrders.Count > 0)
+    {
+        <h5>Ожидается запуск тендера</h5>
+        <table data-toggle="table">
+            <thead>
+                <tr>
+                    <th>№ заявки</th>
+                    <th>Описание заявки</th>
+                    <th>Дата размещения</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var item in Model.CMO_PreOrders)
+                {
+                    <tr class="something">
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.id)</td>
+                        <td class="col-md-7">
+                            @foreach (var item2 in item.CMO_PositionPreOrder)
+                            {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
+                        </td>
+                        <td class="col-md-2">@item.dateCreate.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+    }
+    @if (Model.CMO_DefaultOrders.Count > 0)
+    {
+        <h5>Ожидается подтверждение дозаказа</h5>
+        <table data-toggle="table">
+            <thead>
+                <tr>
+                    <th> № заявки </th>
+                    <th> Описание дозаказа </th>
+                    <th> Подрядчик </th>
+                    <th data-sortable="true"> Дата/время размещения </th>
+                    <th> Excel </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var item in Model.CMO_DefaultOrders)
+                {
                 <tr class="something">
-                    <td class="col-md-2">@Html.DisplayFor(modelItem => item.id)</td>
-                    <td class="col-md-7">
-                        @foreach (var item2 in item.CMO_PositionPreOrder)
-                        {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
-                </td>
-                <td class="col-md-2">@item.dateCreate.ToString()</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-    <hr />
+                    <td> @item.id.ToString() </td>
+                    <td>
+                        @foreach (var data in item.CMO_PositionOrder)
+                        {
+                            @data.PZ_PlanZakaz.PlanZakaz.ToString() <nobr>;   </nobr>
+                        }
+                    </td>
+                    <td> @item.CMO_Company.name.ToString() </td>
+                    <td> @item.dateCreate </td>
+                    <td> <a href=@item.folder.ToString()>Excel</a> </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
     <h5>Запущен тендер</h5>
     <table data-toggle="table">
         <thead>
@@ -63,10 +100,10 @@
                     <td class="col-md-7">
                         @foreach (var item2 in item.CMO_PositionOrder)
                         {@item2.PZ_PlanZakaz.PlanZakaz <nobr> - </nobr> @item2.CMO_TypeProduct.name <nobr>;   </nobr>}
-                </td>
-                <td class="col-md-2">@item.dateCreate.ToString()</td>
-            </tr>
-        }
+                    </td>
+                    <td class="col-md-2">@item.dateCreate.ToString()</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
@@ -80,5 +117,8 @@
         });
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+<script src="~/Content/Scripts/jquery.min.js"></script>
+<script src="~/Content/Scripts/bootstrap-table.min.js"></script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>*@

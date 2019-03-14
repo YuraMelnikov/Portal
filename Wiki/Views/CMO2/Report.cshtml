@@ -1,15 +1,18 @@
-﻿@model IEnumerable<Wiki.CMO_Report>
+﻿@model Wiki.Models.CMO.CMO_ReportList
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />
+    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Scripts/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/bootstrap-table.min.css" rel="stylesheet" />
     <style>
         .container {
             width: 1600px;
         }
+
         th {
             background: #000080; /* Цвет фона строки заголовка */
             color: #ffe; /* Цвет текста */
@@ -29,6 +32,41 @@
     var DATAx = 0;
 }
 <div class="container">
+
+    @if (Model.CMO_DefaultOrders.Count > 0)
+    {
+        <h5>Ожидается подтверждение дозаказа</h5>
+        <table data-toggle="table">
+            <thead>
+                <tr>
+                    <th> № заявки </th>
+                    <th> Описание дозаказа </th>
+                    <th> Подрядчик </th>
+                    <th data-sortable="true"> Дата/время размещения </th>
+                    <th> Excel </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var item in Model.CMO_DefaultOrders)
+                {
+                <tr class="something">
+                    <td> @item.id.ToString() </td>
+                    <td>
+                        @foreach (var data in item.CMO_PositionOrder)
+                        {
+                            @data.PZ_PlanZakaz.PlanZakaz.ToString() <nobr>;   </nobr>
+                        }
+                    </td>
+                    <td> @item.CMO_Company.name.ToString() </td>
+                    <td> @item.dateCreate </td>
+                    <td> <a href=@item.folder.ToString()>Excel</a> </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+    }
+
     <div class="table-responsive">
         <table data-toggle="table" class="table table-condensed">
             <thead>
@@ -46,7 +84,7 @@
                 </tr>
             </thead>
             <tbody id="myTable">
-                @foreach (var item in Model)
+                @foreach (var item in Model.CMO_Report)
                 {
                     if (tmp < 3)
                     {
@@ -394,5 +432,7 @@
         });
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>*@
+<script src="~/Content/Scripts/bootstrap-table.min.js"></script>
+<script src="~/Content/Scripts/jquery.min.js"></script>

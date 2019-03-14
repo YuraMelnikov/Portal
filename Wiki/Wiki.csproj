@@ -439,6 +439,7 @@
     <Compile Include="ModelIdentity\AppRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointments.cs" />
+    <Compile Include="Models\CMO\CMO_ReportList.cs" />
     <Compile Include="Models\CMO_Create.cs" />
     <Compile Include="Models\CMO_Description.cs" />
     <Compile Include="Models\CMO_PreOrderView.cs" />
@@ -1642,6 +1643,7 @@
     <Content Include="Views\OTK_Reclamation\EditPartialDeActive.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\CMO\AppDefaultOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="log\" />

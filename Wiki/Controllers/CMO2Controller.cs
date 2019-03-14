@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wiki.Models;
+using Wiki.Models.CMO;
 
 namespace Wiki.Controllers
 {
@@ -91,7 +92,7 @@ namespace Wiki.Controllers
         public ActionResult Report()
         {
             string login = HttpContext.User.Identity.Name;
-            var data = db.CMO_Report.OrderByDescending(d => d.Id_Order).ToList();
+            CMO_ReportList data = new CMO_ReportList();
             return View(data);
         }
 

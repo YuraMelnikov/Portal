@@ -48,6 +48,11 @@ namespace Wiki.Controllers
             ViewOSCMO viewOSCMO = new ViewOSCMO();
             try
             {
+                var defaultOrderNotComplited = db.CMO_Order
+                    .Where(d => d.datetimeFirstTenderFinish == null)
+                    .Where(d => d.dateCloseOrder != null)
+                    .Where(d => d.companyWin > 0)
+                    .ToList();
                 var activeOrder = db.CMO_PreOrder.Where(d => d.firstTenderStart == false).ToList();
                 var activeFirstUpload = db.CMO_UploadResult.Where(d => d.dateComplited == null & d.CMO_Tender.id_CMO_TypeTask == 1).ToList();
                 var activeFirstTender = db.CMO_Tender.Where(d => d.id_CMO_TypeTask == 1 & d.close == false).ToList();
@@ -60,6 +65,7 @@ namespace Wiki.Controllers
                 viewOSCMO.ActiveSecondUpload = activeSecondUpload;
                 viewOSCMO.ActiveSecondTender = activeSecondTender;
                 viewOSCMO.ActiveOrderClose = activeOrderClose;
+                viewOSCMO.DefaultOrderNotComplited = defaultOrderNotComplited;
                 logger.Debug("получены данные от сервера (CMOController/ViewStartMenuOS): " + login.ToString());
             }
             catch (Exception ex)
@@ -511,6 +517,41 @@ namespace Wiki.Controllers
             catch (Exception ex)
             {
                 logger.Error(postServerError + " (CMOController/EditUploadResult): " + ex.Message.ToString());
+                return RedirectToAction("Error", "CMO");
+            }
+
+
+
+        }
+        
+        public ActionResult AppDefaultOrder(int? id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                CMO_Order cmo_Order = db.CMO_Order.Find(id);
+                logger.Debug(getServer + " (CMOController/AppDefaultOrder(int? id)): " + login.ToString());
+                return View(cmo_Order);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(getServerError + " (CMOController/AppDefaultOrder(int? id)): " + ex.Message.ToString());
+                return RedirectToAction("Error", "CMO");
+            }
+        }
+        [HttpPost]
+        public ActionResult AppDefaultOrder(CMO_Order cmo_Order)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                db.Entry(cmo_Order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ViewStartMenuOS", "CMO");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(postServerError + " (CMOController/AppDefaultOrder): " + ex.Message.ToString());
                 return RedirectToAction("Error", "CMO");
             }
         }
