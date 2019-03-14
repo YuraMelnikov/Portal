@@ -71,7 +71,7 @@ namespace Wiki.Controllers
         public ActionResult CreateOrderDefault()
         {
             string login = HttpContext.User.Identity.Name;
-            ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now == false).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.CMO_Company1 = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             return View();
         }
