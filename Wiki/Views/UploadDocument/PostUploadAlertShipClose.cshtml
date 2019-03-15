@@ -16,6 +16,9 @@
     <h4>Введите дату письма</h4>
     <br />
     @Html.TextBox("DateSupply", null, new { DateSupply = "DateSupply" })
+        <h4>Введите дату поступления изделия в пункт назначения</h4>
+    <br />
+    @Html.TextBox("datePrihod", null, new { DateSupply = "DateSupply" })
     <hr />
     <input type="file" name="upload" /><br>
     <input type="submit" value="Загрузить" />
@@ -30,6 +33,17 @@
 <script type="text/javascript">
     $(function () {
         $('#DateSupply').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datePrihod').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

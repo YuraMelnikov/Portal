@@ -18,6 +18,7 @@ namespace Wiki
         public int id_Debit_WorkBit { get; set; }
         public System.DateTime datePost { get; set; }
         public string numPost { get; set; }
+        public System.DateTime datePrihod { get; set; }
     
         public virtual Debit_WorkBit Debit_WorkBit { get; set; }
     }

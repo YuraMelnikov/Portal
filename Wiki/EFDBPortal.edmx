@@ -478,6 +478,7 @@
           <Property Name="id_Debit_WorkBit" Type="int" Nullable="false" />
           <Property Name="datePost" Type="date" Nullable="false" />
           <Property Name="numPost" Type="varchar(max)" Nullable="false" />
+          <Property Name="datePrihod" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="PostMatching">
           <Key>
@@ -1107,7 +1108,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1134,7 +1135,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1144,7 +1145,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1154,7 +1155,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1165,7 +1166,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -4442,6 +4443,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="datePost" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="numPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
+          <Property Name="datePrihod" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -7064,6 +7066,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="PostAlertShip">
             <EntityTypeMapping TypeName="PortalKATEKModel.PostAlertShip">
               <MappingFragment StoreEntitySet="PostAlertShip">
+                <ScalarProperty Name="datePrihod" ColumnName="datePrihod" />
                 <ScalarProperty Name="numPost" ColumnName="numPost" />
                 <ScalarProperty Name="datePost" ColumnName="datePost" />
                 <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />

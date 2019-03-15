@@ -328,7 +328,7 @@ namespace Wiki.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PostUploadAlertShipClose(HttpPostedFileBase upload, int[] PlanZakaz, string myClientConArr, DateTime DateSupply)
+        public ActionResult PostUploadAlertShipClose(HttpPostedFileBase upload, int[] PlanZakaz, string myClientConArr, DateTime DateSupply, DateTime datePrihod)
         {
             foreach (var data in PlanZakaz)
             {
@@ -344,6 +344,7 @@ namespace Wiki.Controllers
                 Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == pZ_PlanZakaz.Id).Where(d => d.id_TaskForPZ == 12).First();
                 postAlertShip.id_Debit_WorkBit = debit_WorkBit.id;
                 postAlertShip.numPost = myClientConArr;
+                postAlertShip.datePrihod = datePrihod;
                 db.PostAlertShip.Add(postAlertShip);
                 db.SaveChanges();
                 List<string> list = new List<string>();
