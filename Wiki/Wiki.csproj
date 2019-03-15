@@ -252,6 +252,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
+    <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
     <Compile Include="Areas\PZ\Controllers\OperatorController.cs" />
@@ -1179,6 +1181,9 @@
     <Content Include="Areas\PZ\Views\Operator\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Kurator\Index.cshtml" />
     <Content Include="Areas\PZ\Contant\xlsx\Реестр заказов.xlsx" />
+    <Content Include="Areas\Deb\Views\web.config" />
+    <Content Include="Areas\Deb\Views\Shared\_LayoutDeb.cshtml" />
+    <Content Include="Areas\Deb\Views\DTasks\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1658,6 +1663,7 @@
     <Content Include="Views\CMO\AppDefaultOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Deb\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
