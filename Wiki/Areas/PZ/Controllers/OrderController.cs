@@ -508,8 +508,7 @@ namespace Wiki.Areas.PZ.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-
-
+        
         public JsonResult TableOrders(int[] Id)
         {
             //using (var document = WordprocessingDocument.Create(@"C:\Users\myi\source\repos\Portal\Wiki\Areas\PZ\Contant\dotx\Табличка_заказ.dotx", WordprocessingDocumentType.Document))

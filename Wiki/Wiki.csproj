@@ -252,6 +252,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
@@ -704,6 +705,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Deb\Contant\Tasks.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.svg" />
@@ -1181,6 +1183,7 @@
     <Content Include="Areas\Deb\Views\web.config" />
     <Content Include="Areas\Deb\Views\Shared\_LayoutDeb.cshtml" />
     <Content Include="Areas\Deb\Views\DTasks\Index.cshtml" />
+    <Content Include="Areas\Deb\Views\ActiveReport\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
