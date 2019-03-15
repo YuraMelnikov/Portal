@@ -24,6 +24,7 @@ namespace Wiki
         public string period { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public Nullable<System.DateTime> dateTimeClose { get; set; }
+        public bool close { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }

@@ -368,7 +368,6 @@
     <Compile Include="Controllers\OTK_TypeReclamationController.cs" />
     <Compile Include="Controllers\PZ_SetupController.cs" />
     <Compile Include="Controllers\PZ_TEOController.cs" />
-    <Compile Include="Controllers\ReceivablesController.cs" />
     <Compile Include="Controllers\ReclamationOTKController.cs" />
     <Compile Include="Controllers\ReclamationPOController.cs" />
     <Compile Include="Controllers\RKDController.cs" />
@@ -380,6 +379,9 @@
     <Compile Include="Controllers\VVPZsController.cs" />
     <Compile Include="Controllers\VV_PositionController.cs" />
     <Compile Include="DashboardKO_Quartal.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DebitReclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Debit_CMR.cs">
@@ -478,8 +480,6 @@
     <Compile Include="Models\OTK_QuartalReport.cs" />
     <Compile Include="Models\OTK_ReclamationToExcel.cs" />
     <Compile Include="Models\ProjectServer.cs" />
-    <Compile Include="Models\Receivables.cs" />
-    <Compile Include="Models\ReceivablesList.cs" />
     <Compile Include="Models\RenderUserMenu.cs" />
     <Compile Include="Models\TaskForPWA.cs" />
     <Compile Include="Models\ReclamationOTK.cs" />
@@ -676,9 +676,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskForPZ.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tmpRecl.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="TypeRKD_Mail_Version.cs">

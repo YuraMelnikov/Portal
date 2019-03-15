@@ -38,7 +38,6 @@ namespace Wiki
         public virtual DbSet<RKD_FailBPlan> RKD_FailBPlan { get; set; }
         public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<tmpRecl> tmpRecl { get; set; }
         public virtual DbSet<UserPO> UserPO { get; set; }
         public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
         public virtual DbSet<XTEO> XTEO { get; set; }
@@ -128,5 +127,6 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
+        public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
     }
 }

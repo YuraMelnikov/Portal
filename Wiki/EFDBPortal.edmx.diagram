@@ -18,7 +18,6 @@
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_FailBPlan" Width="1.5" PointX="109.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_HistoryTaskVersion" Width="1.5" PointX="111.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.sysdiagrams" Width="1.5" PointX="113.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.tmpRecl" Width="1.5" PointX="113.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.UserPO" Width="1.5" PointX="125.125" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.WBS_ClassicStruct" Width="1.5" PointX="114.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.XTEO" Width="1.5" PointX="115.5" PointY="6.75" IsExpanded="true" />
@@ -216,6 +215,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DebitReclamation" Width="1.5" PointX="10.5" PointY="66.25" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

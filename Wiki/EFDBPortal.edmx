@@ -305,6 +305,7 @@
           <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
           <Property Name="dateTimeClose" Type="datetime" />
+          <Property Name="close" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_Platform">
           <Key>
@@ -342,6 +343,15 @@
           <Property Name="close" Type="bit" Nullable="false" />
           <Property Name="id_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="datePlan" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DebitReclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="dateOpen" Type="date" Nullable="false" />
+          <Property Name="dateClose" Type="date" />
         </EntityType>
         <EntityType Name="Devision">
           <Key>
@@ -1011,15 +1021,6 @@
           <Property Name="id_TypeTaskForPZ" Type="int" Nullable="false" />
           <Property Name="Predecessors" Type="int" />
         </EntityType>
-        <EntityType Name="tmpRecl">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="DateOpenReclamation" Type="datetime" Nullable="false" />
-          <Property Name="DateCloseReclamation" Type="datetime" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="TypeRKD_Mail_Version">
           <Key>
             <PropertyRef Name="id" />
@@ -1581,6 +1582,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="Debit_WorkBit">
               <PropertyRef Name="id_TaskForPZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitReclamation_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="DebitReclamation" Type="Self.DebitReclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitReclamation">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2540,6 +2553,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_Platform" EntityType="Self.Debit_Platform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_TN" EntityType="Self.Debit_TN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_WorkBit" EntityType="Self.Debit_WorkBit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DebitReclamation" EntityType="Self.DebitReclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Devision" EntityType="Self.Devision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
@@ -2600,7 +2614,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Service_TypeReclamationDocument" EntityType="Self.Service_TypeReclamationDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tmpRecl" EntityType="Self.tmpRecl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeTaskForPZ" EntityType="Self.TypeTaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
@@ -2796,6 +2809,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_debit_WorkBit_TaskForPZ" Association="Self.FK_debit_WorkBit_TaskForPZ">
             <End Role="TaskForPZ" EntitySet="TaskForPZ" />
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="Self.FK_DebitReclamation_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_OTK_ChaeckList_AspNetUsers" Association="Self.FK_OTK_ChaeckList_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3260,15 +3277,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="tmpRecl">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="DateOpenReclamation" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateCloseReclamation" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="UserPO">
           <Key>
             <PropertyRef Name="id" />
@@ -3321,7 +3329,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" />
           <EntitySet Name="RKD_HistoryTaskVersion" EntityType="Self.RKD_HistoryTaskVersion" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="tmpRecl" EntityType="Self.tmpRecl" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" />
@@ -3843,6 +3850,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
+          <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DebitReclamation" EntitySet="DebitReclamation" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4252,6 +4264,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dateTimeClose" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_PeriodReportOprih" ToRole="Debit_DataReportOprih" />
+          <Property Name="close" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_Platform">
           <Key>
@@ -4554,6 +4567,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
+          <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -6324,6 +6338,28 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="DebitReclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateClose" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="DebitReclamation" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_DebitReclamation_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DebitReclamation" Role="DebitReclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitReclamation">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6490,16 +6526,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tmpRecl">
-            <EntityTypeMapping TypeName="PortalKATEKModel.tmpRecl">
-              <MappingFragment StoreEntitySet="tmpRecl">
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="DateOpenReclamation" ColumnName="DateOpenReclamation" />
-                <ScalarProperty Name="DateCloseReclamation" ColumnName="DateCloseReclamation" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6888,6 +6914,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Debit_PeriodReportOprih">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PeriodReportOprih">
               <MappingFragment StoreEntitySet="Debit_PeriodReportOprih">
+                <ScalarProperty Name="close" ColumnName="close" />
                 <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
                 <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
                 <ScalarProperty Name="period" ColumnName="period" />
@@ -7597,6 +7624,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DebitReclamation">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DebitReclamation">
+              <MappingFragment StoreEntitySet="DebitReclamation">
+                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
+                <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

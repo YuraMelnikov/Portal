@@ -11,10 +11,10 @@ namespace Wiki.Controllers
 {
     public class CMOController : Controller
     {
-        private string getServer = "получены данные от сервера ";
-        private string postServer = "отправлены данные от сервера ";
-        private string getServerError = "ошибка получения данныех от сервера ";
-        private string postServerError = "ошибка отправки данных от сервера ";
+        private readonly string getServer = "получены данные от сервера ";
+        private readonly string postServer = "отправлены данные от сервера ";
+        private readonly string getServerError = "ошибка получения данныех от сервера ";
+        private readonly string postServerError = "ошибка отправки данных от сервера ";
 
         private PortalKATEKEntities db = new PortalKATEKEntities();
         private static Logger logger = LogManager.GetCurrentClassLogger();

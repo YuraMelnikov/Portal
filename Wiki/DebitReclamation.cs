@@ -12,11 +12,13 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class tmpRecl
+    public partial class DebitReclamation
     {
-        public int Order { get; set; }
-        public System.DateTime DateOpenReclamation { get; set; }
-        public System.DateTime DateCloseReclamation { get; set; }
         public int id { get; set; }
+        public int id_PZ_PlanZakaz { get; set; }
+        public System.DateTime dateOpen { get; set; }
+        public Nullable<System.DateTime> dateClose { get; set; }
+    
+        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
 }
