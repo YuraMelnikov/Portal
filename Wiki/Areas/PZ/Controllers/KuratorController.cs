@@ -10,6 +10,7 @@ namespace Wiki.Areas.PZ.Controllers
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
 
+        [Authorize(Roles = "Admin, OPTP, OP")]
         public ActionResult Index()
         {
             ViewBag.id_PZ_Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
