@@ -1178,6 +1178,7 @@
     <Content Include="Areas\PZ\Views\Client\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Operator\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Kurator\Index.cshtml" />
+    <Content Include="Areas\PZ\Contant\xlsx\Реестр заказов.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
