@@ -1188,6 +1188,7 @@
     <Content Include="Areas\Deb\Views\DTasks\Index.cshtml" />
     <Content Include="Areas\Deb\Views\ActiveReport\Index.cshtml" />
     <Content Include="Areas\Deb\Views\ArchiveReport\Index.cshtml" />
+    <Content Include="Areas\Deb\Controllers\Отчет по дебиторской задолженности.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
