@@ -240,6 +240,10 @@
           <Property Name="dateOprihPlanFact" Type="date" Nullable="false" />
           <Property Name="oprihClose" Type="bit" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="numberSF" Type="varchar(max)" Nullable="false" />
+          <Property Name="reclamation" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="reclamationOpen" Type="date" />
+          <Property Name="reclamationClose" Type="date" />
         </EntityType>
         <EntityType Name="Debit_EmailList">
           <Key>
@@ -4230,6 +4234,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Debit_PeriodReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_DataReportOprih" ToRole="Debit_PeriodReportOprih" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_debit_WorkBit" FromRole="Debit_DataReportOprih" ToRole="Debit_WorkBit" />
+          <Property Name="numberSF" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="reclamation" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="reclamationOpen" Type="DateTime" Precision="0" />
+          <Property Name="reclamationClose" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Debit_IstPost">
           <Key>
@@ -6880,6 +6888,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="Debit_DataReportOprih">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_DataReportOprih">
               <MappingFragment StoreEntitySet="Debit_DataReportOprih">
+                <ScalarProperty Name="reclamationClose" ColumnName="reclamationClose" />
+                <ScalarProperty Name="reclamationOpen" ColumnName="reclamationOpen" />
+                <ScalarProperty Name="reclamation" ColumnName="reclamation" />
+                <ScalarProperty Name="numberSF" ColumnName="numberSF" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="oprihClose" ColumnName="oprihClose" />
                 <ScalarProperty Name="dateOprihPlanFact" ColumnName="dateOprihPlanFact" />

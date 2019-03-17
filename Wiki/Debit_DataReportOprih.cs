@@ -20,6 +20,10 @@ namespace Wiki
         public System.DateTime dateOprihPlanFact { get; set; }
         public bool oprihClose { get; set; }
         public string description { get; set; }
+        public string numberSF { get; set; }
+        public string reclamation { get; set; }
+        public Nullable<System.DateTime> reclamationOpen { get; set; }
+        public Nullable<System.DateTime> reclamationClose { get; set; }
     
         public virtual Debit_PeriodReportOprih Debit_PeriodReportOprih { get; set; }
         public virtual Debit_WorkBit Debit_WorkBit { get; set; }

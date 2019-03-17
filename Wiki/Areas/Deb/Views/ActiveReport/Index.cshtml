@@ -4,7 +4,7 @@
     Layout = "~/Areas/Deb/Views/Shared/_LayoutDeb.cshtml";
 }
 <head>
-    <script src="~/Areas/Deb/Contant/Tasks.js"></script>
+    <script src="~/Areas/Deb/Contant/TasksDoc.js"></script>
     <style>
         .modal.modal-wide .modal-dialog {
             width: 90%;
@@ -54,42 +54,24 @@
                         <input type="text" class="form-control" id="dataOtgruzkiBP" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label for="numberSF">Номер с/ф:</label>
-                        <input type="text" class="form-control" id="numberSF" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label for="datePrihod">Фактическая дата доставки:</label>
-                        <input type="text" class="form-control" id="datePrihod" disabled="disabled" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">
                         <label for="DateSupply">Договорная дата поставки:</label>
                         <input type="text" class="form-control" id="DateSupply" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label for="idReclamation">Наличие претензий:</label>
-                        <input type="text" class="form-control" id="idReclamation" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label for="openReclamation">Дата получения претензии:</label>
-                        <input type="text" class="form-control" id="openReclamation" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label for="closeReclamation">Дата закрытия претензии:</label>
-                        <input type="text" class="form-control" id="closeReclamation" disabled="disabled" />
                     </div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-2">
                         <label for="dateClose">Дата оприходования:</label>
-                        @Html.EditorFor(model => model.dateClose, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.dateOprihPlanFact, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     <div class="col-lg-2">
-                        <label for="closeId">Подтвердить оприходование:</label>
+                        <label for="oprihClose">Подтвердить оприходование:</label>
                         <br />
-                        <input type="checkbox" checked="checked" id="closeId" />
+                        <input type="checkbox" checked="checked" id="oprihClose" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Name">Примечание:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 5 })
                     </div>
                 </div>
                 <div class="row">
