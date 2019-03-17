@@ -13,17 +13,19 @@ function loadData() {
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред.", "data": "id", "autowidth": true, "bSortable": false }
-            , { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
-            , { "title": "Наименование", "data": "Name", "autowidth": true, "bSortable": false }
-            , { "title": "Менеджер", "data": "Manager", "autowidth": true }
+            , { "title": "Номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center'}
+            , { "title": "Наименование", "data": "Name", "autowidth": true, "bSortable": false, "class": 'colu-300'}
+            , { "title": "Менеджер", "data": "Manager", "autowidth": true, "class": 'colu-300'}
             , { "title": "Заказчик", "data": "Client", "autowidth": true }
-            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false }
-            , { "title": "Номер с/ф", "data": "numberSF", "autowidth": true, "bSortable": false }
-            , { "title": "Фактическая дата доставки", "data": "datePrihod", "autowidth": true, "bSortable": false }
-            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false }
-            , { "title": "Наличие претензий", "data": "idReclamation", "autowidth": true, "bSortable": false }
-            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": false }
-            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": false }
+            , { "title": "Заказ оприходован", "data": "oprihClose", "autowidth": true, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
+            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Номер с/ф", "data": "numberSF", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Наличие претензий", "data": "reclamation", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Прим.:", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -44,6 +46,7 @@ function clearTextBox() {
     $('#description').val("");
     $('#oprihClose').prop('checked', true);
     $('#dateOprihPlanFact').val("");
+
     $('#PlanZakaz').val("");
     $('#Name').val("");
     $('#Manager').val("");
@@ -51,6 +54,11 @@ function clearTextBox() {
     $('#dataOtgruzkiBP').val("");
     $('#DateSupply').val("");
 
+    $('#numberSF').val("");
+    $('#reclamation').val("");
+    $('#openReclamation').val("");
+    $('#closeReclamation').val("");
+    
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#name').css('border-color', 'lightgrey');
@@ -70,12 +78,18 @@ function getbyID(Id) {
             $('#description').val(result.description);
             $('#oprihClose').prop('checked', result.oprihClose);
             $('#dateOprihPlanFact').val(result.dateOprihPlanFact);
+
             $('#PlanZakaz').val(result.PlanZakaz);
             $('#Name').val(result.Name);
             $('#Manager').val(result.Manager);
             $('#Client').val(result.Client);
             $('#dataOtgruzkiBP').val(result.dataOtgruzkiBP);
             $('#DateSupply').val(result.DateSupply);
+
+            $('#numberSF').val(result.DateSupply);
+            $('#reclamation').val(result.DateSupply);
+            $('#openReclamation').val(result.DateSupply);
+            $('#closeReclamation').val(result.DateSupply);
 
             $('#orderModal').modal('show');
             $('#btnUpdate').show();
@@ -109,4 +123,20 @@ function Update() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function processNull(data) {
+    if (data === 'null') {
+        return '';
+    } else {
+        return data;
+    }
+}
+
+function localRUStatus(data) {
+    if (data === true) {
+        return 'Оприходован';
+    } else {
+        return 'Не оприходован';
+    }
 }
