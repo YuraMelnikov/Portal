@@ -255,6 +255,7 @@
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
+    <Compile Include="Areas\Deb\Controllers\DSetupController.cs" />
     <Compile Include="Areas\Deb\Controllers\UploadController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
@@ -708,6 +709,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Deb\Contant\Archive.js" />
+    <Content Include="Areas\Deb\Contant\DSetup.js" />
     <Content Include="Areas\Deb\Contant\Upload.js" />
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
@@ -1194,6 +1196,7 @@
     <Content Include="Areas\Deb\Views\Upload\Index.cshtml" />
     <Content Include="Areas\Deb\Views\Upload\NewPlus.cshtml" />
     <Content Include="Areas\Deb\Views\Upload\EditPartial.cshtml" />
+    <Content Include="Areas\Deb\Views\DSetup\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
