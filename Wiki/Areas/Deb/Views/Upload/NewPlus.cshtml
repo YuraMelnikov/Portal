@@ -1,7 +1,7 @@
 ﻿@model Wiki.Debit_CostUpdate
 @{
     ViewBag.Title = "NewPlus";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Deb/Views/Shared/_LayoutDeb.cshtml";
 }
 <body>
     <div class=" container">
@@ -29,6 +29,7 @@
 
     @using (Html.BeginForm())
     {
+        @Html.HiddenFor(model => model.id_PZ_PlanZakaz)
         @Html.AntiForgeryToken()
         <div class="container">
             <div class="col-sm-6">
@@ -41,7 +42,7 @@
                 @Html.ValidationMessageFor(model => model.cost, "", new { @class = "text-danger" })
                 <hr />
                 <input type="submit" value="Сохранить" class="btn btn-success" />
-                @Html.ActionLink("Отменить", "Index", "debit_WorkBit", null, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Отменить", "Index", "Upload", null, new { @class = "btn btn-danger" })
                 <hr />
                 <h5>История поступлений</h5>
                 <table class="table table-hover">
@@ -58,20 +59,15 @@
                         {
                             <tr>
                                 <td>@person.dateCreate.ToString().Substring(0, 10)</td>
-                                <td>
-                                    @try
-                                    {
-                                        @person.dateGetMoney.ToString().Substring(0, 10)
-                                    }
-                                    catch
-                                    {
-                                        <p></p>
-                                    }
-                                </td>
+                                @try
+                                {
+                                    <td>@person.dateGetMoney.ToString().Substring(0, 10)</td>
+                                }
+                                catch
+                                {
+                                    <td></td>
+                                }
                                 <td>@person.cost.ToString("N", new System.Globalization.CultureInfo("en-US", false).NumberFormat)</td>
-                                <td>
-                                    @Html.ActionLink("Ред.", "EditPartial", "Debit_CostUpdate", new { id = person.id }, new { @class = "viewDialog", data_dialog_title = "Ред." })
-                                </td>
                             </tr>
                         }
                     </tbody>
@@ -90,21 +86,4 @@
             });
         });
     </script>
-        <script>
-            $(document).ready(function () {
-                $.ajaxSetup({ cache: false });
-                $(".viewDialog").on("click", function (e) {
-                    e.preventDefault();
-                    $("<div></div>")
-                        .addClass("dialog")
-                        .appendTo("body")
-                        .dialog({
-                            title: $(this).attr("data-dialog-title"),
-                            close: function () { $(this).remove() },
-                            modal: true
-                        })
-                        .load(this.href);
-                });
-            });
-        </script>
-    </body>
+</body>

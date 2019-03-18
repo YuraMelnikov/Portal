@@ -178,7 +178,6 @@ namespace Wiki.Controllers
             ViewBag.listCost = listCost.ToList();
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult NewPlus([Bind(Include = "id,id_PZ_PlanZakaz,cost,dateCreate")] Debit_CostUpdate debit_CostUpdate, int? id_PlanZakaz)

@@ -255,6 +255,7 @@
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
+    <Compile Include="Areas\Deb\Controllers\UploadController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
@@ -707,6 +708,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Deb\Contant\Archive.js" />
+    <Content Include="Areas\Deb\Contant\Upload.js" />
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
@@ -1188,7 +1190,10 @@
     <Content Include="Areas\Deb\Views\DTasks\Index.cshtml" />
     <Content Include="Areas\Deb\Views\ActiveReport\Index.cshtml" />
     <Content Include="Areas\Deb\Views\ArchiveReport\Index.cshtml" />
-    <Content Include="Areas\Deb\Controllers\Отчет по дебиторской задолженности.xlsx" />
+    <Content Include="Areas\Deb\Controllers\Отчет.xlsx" />
+    <Content Include="Areas\Deb\Views\Upload\Index.cshtml" />
+    <Content Include="Areas\Deb\Views\Upload\NewPlus.cshtml" />
+    <Content Include="Areas\Deb\Views\Upload\EditPartial.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

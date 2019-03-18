@@ -18,7 +18,7 @@ namespace Wiki
         public int id_PZ_PlanZakaz { get; set; }
         public double cost { get; set; }
         public System.DateTime dateCreate { get; set; }
-        public Nullable<System.DateTime> dateGetMoney { get; set; }
+        public System.DateTime dateGetMoney { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
