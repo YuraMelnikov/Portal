@@ -14,6 +14,7 @@ namespace Wiki.Areas.Deb.Controllers
         readonly string firstPartLinkEditKO = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyKOID('";
         readonly string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
 
+        [Authorize(Roles = "Admin, OPTP, OP, Fin director")]
         public ActionResult Index()
         {
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
@@ -122,8 +123,24 @@ namespace Wiki.Areas.Deb.Controllers
                 db.SaveChanges();
                 if (debit_WorkBit.close == true)
                     CreateNewTasks(28, debit_WorkBit.id_PlanZakaz);
+                ClosePredoplataTask(debit_WorkBit.id_PlanZakaz);
             }
             return RedirectToAction("Index", "ActiveReport", new { area = "Deb" });
+        }
+
+        void ClosePredoplataTask(int planZakaz)
+        {
+            try
+            {
+                Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_TaskForPZ == 38).Where(d => d.id_PlanZakaz == planZakaz).First();
+                debit_WorkBit.close = true;
+                db.Entry(debit_WorkBit).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch
+            {
+
+            }
         }
         
         void CreateNewTasks(int predecessors, int idOrder)

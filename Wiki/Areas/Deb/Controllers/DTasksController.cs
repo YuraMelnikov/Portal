@@ -9,6 +9,7 @@ namespace Wiki.Areas.Deb.Controllers
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
 
+        [Authorize(Roles = "Admin, OPTP, OP, Fin director")]
         public ActionResult Index()
         {
             return View();

@@ -12,16 +12,19 @@ namespace Wiki.Areas.Deb.Controllers
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
 
+        [Authorize(Roles = "Admin, OPTP, OP, Fin director")]
         public ActionResult Index()
         {
+            ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             return View();
         }
 
         public JsonResult List()
         {
-            var query = db.Debit_WorkBit.Where(d => d.close == false).Where(d => d.id_TaskForPZ == 15).ToList();
+            var query = db.Debit_WorkBit.Where(d => d.id_TaskForPZ == 15 || d.id_TaskForPZ == 38).ToList();
             var data = query.Select(dataList => new
             {
+                status = GetStatusName(dataList),
                 edit =  "<a href =" + '\u0022' + "http://localhost:57314/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
                 dataList.PZ_PlanZakaz.PlanZakaz,
                 dataList.PZ_PlanZakaz.Name,
@@ -34,6 +37,18 @@ namespace Wiki.Areas.Deb.Controllers
             return Json(new { data });
         }
 
+        string GetStatusName(Debit_WorkBit debit_WorkBit)
+        {
+            string statusName = "Не оплачен";
+            if (debit_WorkBit.close == true)
+                statusName = "Оплачен";
+            if (debit_WorkBit.id_TaskForPZ == 38)
+                statusName = "Внести предоплату";
+
+            return statusName;
+        }
+
+        [Authorize(Roles = "Admin, Fin director")]
         public ActionResult NewPlus(int id)
         {
             double getCost = 0;
@@ -80,7 +95,16 @@ namespace Wiki.Areas.Deb.Controllers
                 db.Debit_CostUpdate.Add(debit_CostUpdate);
                 db.SaveChanges();
                 PZ_TEO pZ_TEO = db.PZ_TEO.Where(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).First();
-                double costCorrect = (double)pZ_TEO.NDS + (double)pZ_TEO.OtpuskChena;
+                double nds = 0;
+                try
+                {
+                    nds = (double)pZ_TEO.NDS;
+                }
+                catch
+                {
+
+                }
+                double costCorrect = nds + (double)pZ_TEO.OtpuskChena;
                 double costNow = 0;
                 foreach (var data in db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz))
                 {
@@ -102,6 +126,7 @@ namespace Wiki.Areas.Deb.Controllers
             return View(debit_CostUpdate);
         }
 
+        [Authorize(Roles = "Admin, Fin director")]
         public ActionResult EditPartial(int? id)
         {
             if (id == null)
@@ -131,6 +156,28 @@ namespace Wiki.Areas.Deb.Controllers
             }
             ViewBag.id_PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz, "Id", "MTR", debit_CostUpdate.id_PZ_PlanZakaz);
             return View(debit_CostUpdate);
+        }
+
+
+        public JsonResult СreateTask38С(int[] PZ)
+        {
+            foreach (int data in PZ)
+            {
+                int countPZ = db.Debit_WorkBit.Where(d => d.id_TaskForPZ == 28 || d.id_TaskForPZ == 38).Where(d => d.id_PlanZakaz == data).Count();
+                if (countPZ == 0)
+                {
+                    Debit_WorkBit debit_WorkBit = new Debit_WorkBit();
+                    debit_WorkBit.id_PlanZakaz = data;
+                    debit_WorkBit.close = false;
+                    debit_WorkBit.dateCreate = DateTime.Now;
+                    debit_WorkBit.datePlan = DateTime.Now;
+                    debit_WorkBit.datePlanFirst = DateTime.Now;
+                    debit_WorkBit.id_TaskForPZ = 38;
+                    db.Debit_WorkBit.Add(debit_WorkBit);
+                    db.SaveChanges();
+                }
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

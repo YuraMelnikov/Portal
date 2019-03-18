@@ -11,6 +11,7 @@ namespace Wiki.Areas.Deb.Controllers
         readonly string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('";
         readonly string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
 
+        [Authorize(Roles = "Admin, OPTP, OP, Fin director")]
         public ActionResult Index()
         {
             return View();
