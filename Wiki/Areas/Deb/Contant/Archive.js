@@ -15,7 +15,7 @@ function loadData() {
             { "title": "Cм.", "data": "id", "autowidth": true, "bSortable": false }
             , { "title": "Период", "data": "period", "autowidth": true, "bSortable": false, "className": 'text-center' }
             , { "title": "Дата открытия", "data": "dateTimeCreate", "autowidth": true, "bSortable": false, "className": 'text-center' }
-            , { "title": "Дата закрытия", "data": "dateTimeClose", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Дата закрытия", "data": "dateTimeClose", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
             , { "title": "Отметка о закрытии", "data": "close", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
        ],
         "scrollY": '75vh',
