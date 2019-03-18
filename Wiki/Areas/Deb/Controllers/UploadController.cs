@@ -25,7 +25,7 @@ namespace Wiki.Areas.Deb.Controllers
             var data = query.Select(dataList => new
             {
                 status = GetStatusName(dataList),
-                edit =  "<a href =" + '\u0022' + "http://localhost:57314/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
+                edit =  "<a href =" + '\u0022' + "http://pserver/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
                 dataList.PZ_PlanZakaz.PlanZakaz,
                 dataList.PZ_PlanZakaz.Name,
                 Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
