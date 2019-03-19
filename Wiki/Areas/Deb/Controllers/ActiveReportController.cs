@@ -99,7 +99,8 @@ namespace Wiki.Areas.Deb.Controllers
         {
             Debit_DataReportOprih debit_DataReportOprih = db.Debit_DataReportOprih.Find(work.id);
             debit_DataReportOprih.dateOprihPlanFact = work.dateOprihPlanFact;
-            debit_DataReportOprih.description = work.description;
+            if (work.description != null)
+                debit_DataReportOprih.description = work.description;
             debit_DataReportOprih.oprihClose = oprihClose;
             db.Entry(debit_DataReportOprih).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();

@@ -52,9 +52,24 @@ namespace Wiki.Areas.PZ.Controllers
         {
             int countLastOrdersView = 200;
             var query = db.PZ_PlanZakaz.OrderByDescending(d => d.DateCreate).Take(countLastOrdersView).ToList();
+            string login = "";
+            try
+            {
+                login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
 
-            string login = HttpContext.User.Identity.Name;
-            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             string linkPartOne = "";
             string linkPartTwo = "";
             if (devision == 3 || devision == 15 || devision == 16)
@@ -113,9 +128,24 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult OrdersListLY(int yearCreateOrder)
         {
             var query = db.PZ_PlanZakaz.Where(d => d.DateCreate.Year == yearCreateOrder).ToList();
+            string login = "";
+            try
+            {
+                login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
 
-            string login = HttpContext.User.Identity.Name;
-            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             string linkPartOne = "";
             string linkPartTwo = "";
             if (devision == 3 || devision == 15 || devision == 16)
@@ -174,9 +204,24 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult OrdersListALL()
         {
             var query = db.PZ_PlanZakaz.ToList();
+            string login = "";
+            try
+            {
+                login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
 
-            string login = HttpContext.User.Identity.Name;
-            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             string linkPartOne = "";
             string linkPartTwo = "";
             if (devision == 3 || devision == 15 || devision == 16)
@@ -415,15 +460,15 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.nomenklaturNumber = pZ_PlanZakaz.nomenklaturNumber;
                 if (pZ_PlanZakaz.timeContract != null)
                     editPZ.timeContract = pZ_PlanZakaz.timeContract;
-                if (pZ_PlanZakaz.timeContractDate != null)
+                if (pZ_PlanZakaz.timeContractDate != null && pZ_PlanZakaz.timeContractDate.Value.Year > 2000)
                     editPZ.timeContractDate = pZ_PlanZakaz.timeContractDate;
                 if (pZ_PlanZakaz.timeArr != null)
                     editPZ.timeArr = pZ_PlanZakaz.timeArr;
-                if (pZ_PlanZakaz.timeArrDate != null)
+                if (pZ_PlanZakaz.timeArrDate != null && pZ_PlanZakaz.timeArrDate.Value.Year > 2000)
                     editPZ.timeArrDate = pZ_PlanZakaz.timeArrDate;
-                if (pZ_PlanZakaz.DateShipping != null)
+                if (pZ_PlanZakaz.DateShipping != null && pZ_PlanZakaz.DateShipping.Value.Year > 2000)
                     editPZ.DateShipping = pZ_PlanZakaz.DateShipping;
-                if (pZ_PlanZakaz.DateSupply != null)
+                if (pZ_PlanZakaz.DateSupply != null && pZ_PlanZakaz.DateSupply.Value.Year > 2000)
                     editPZ.DateSupply = pZ_PlanZakaz.DateSupply;
                 if (pZ_PlanZakaz.Dostavka != 0)
                     editPZ.Dostavka = pZ_PlanZakaz.Dostavka;
@@ -445,7 +490,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.numLota = pZ_PlanZakaz.numLota;
                 if (pZ_PlanZakaz.TypeShip != 0)
                     editPZ.TypeShip = pZ_PlanZakaz.TypeShip;
-                if (pZ_PlanZakaz.criticalDateShip != null)
+                if (pZ_PlanZakaz.criticalDateShip != null && pZ_PlanZakaz.criticalDateShip.Value.Year > 2000)
                     editPZ.criticalDateShip = pZ_PlanZakaz.criticalDateShip;
                 if (pZ_PlanZakaz.PowerST != null)
                     editPZ.PowerST = pZ_PlanZakaz.PowerST;
