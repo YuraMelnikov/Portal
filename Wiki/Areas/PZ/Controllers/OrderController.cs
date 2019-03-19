@@ -466,9 +466,9 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.timeArr = pZ_PlanZakaz.timeArr;
                 if (pZ_PlanZakaz.timeArrDate != null && pZ_PlanZakaz.timeArrDate.Value.Year > 2000)
                     editPZ.timeArrDate = pZ_PlanZakaz.timeArrDate;
-                if (pZ_PlanZakaz.DateShipping != null && pZ_PlanZakaz.DateShipping.Value.Year > 2000)
+                if (pZ_PlanZakaz.DateShipping != null && pZ_PlanZakaz.DateShipping.Year > 2000)
                     editPZ.DateShipping = pZ_PlanZakaz.DateShipping;
-                if (pZ_PlanZakaz.DateSupply != null && pZ_PlanZakaz.DateSupply.Value.Year > 2000)
+                if (pZ_PlanZakaz.DateSupply != null && pZ_PlanZakaz.DateSupply.Year > 2000)
                     editPZ.DateSupply = pZ_PlanZakaz.DateSupply;
                 if (pZ_PlanZakaz.Dostavka != 0)
                     editPZ.Dostavka = pZ_PlanZakaz.Dostavka;
