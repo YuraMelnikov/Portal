@@ -266,6 +266,7 @@
     <Compile Include="Areas\PZ\Models\CorrectKurator.cs" />
     <Compile Include="Areas\PZ\Models\CorrectPlanZakaz.cs" />
     <Compile Include="Areas\PZ\Models\EmailRename.cs" />
+    <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
@@ -1182,7 +1183,6 @@
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Areas\PZ\Contant\dotx\Табличка_заказ.dotx" />
     <Content Include="Areas\PZ\Views\Client\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Operator\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Kurator\Index.cshtml" />
@@ -1677,6 +1677,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Deb\Models\" />
+    <Folder Include="Areas\PZ\Contant\dotx\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

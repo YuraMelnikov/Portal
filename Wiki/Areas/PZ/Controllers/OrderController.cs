@@ -1,9 +1,5 @@
-﻿using System;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
@@ -556,25 +552,14 @@ namespace Wiki.Areas.PZ.Controllers
         
         public JsonResult TableOrders(int[] Id)
         {
-            //using (var document = WordprocessingDocument.Create(@"C:\Users\myi\source\repos\Portal\Wiki\Areas\PZ\Contant\dotx\Табличка_заказ.dotx", WordprocessingDocumentType.Document))
-            //{
-            //    IDictionary<String, BookmarkStart> bookmarkMap = new Dictionary<String, BookmarkStart>();
-
-            //    foreach (BookmarkStart bookmarkStart in document.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
-            //    {
-            //        bookmarkMap[bookmarkStart.Name] = bookmarkStart;
-            //    }
-
-            //    foreach (BookmarkStart bookmarkStart in bookmarkMap.Values)
-            //    {
-            //        Run bookmarkText = bookmarkStart.NextSibling<Run>();
-            //        if (bookmarkText != null)
-            //        {
-            //            bookmarkText.GetFirstChild<Text>().Text = "blah";
-            //        }
-            //    }
-            //}
-
+            string part = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Таблички\" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "_" + "_" + DateTime.Now.Minute + DateTime.Now.Second + "_" + "(";
+            foreach (var data in Id)
+            {
+                part += db.PZ_PlanZakaz.Find(data).PlanZakaz.ToString() + ", ";
+            }
+            part += ").docx";
+            GeneratedTablesOreder generatedTablesOreder = new GeneratedTablesOreder(Id);
+            generatedTablesOreder.CreatePackage(part, Id.Length);
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
