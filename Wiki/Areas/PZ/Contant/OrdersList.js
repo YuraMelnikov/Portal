@@ -5,31 +5,23 @@
 function loadData() {
     $("#myTable").DataTable({
         "ajax": {
+            "cache": false,
             "url": "/Order/OrdersList",
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "desc"]],
+        "order": [[3, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false},
             { "title": "См", "data": "IdRead", "autowidth": true, "bSortable": false },
-            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
-            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
             //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
-            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
-            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
-            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
-            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
-            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
-            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
-            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
-            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
-            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
+            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
@@ -42,7 +34,16 @@ function loadData() {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
             //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
+            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
+            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
+            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
+            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
@@ -63,31 +64,23 @@ function loadData() {
 function OrdersListLY(yearCreateOrder) {
     $("#myTable").DataTable({
         "ajax": {
+            "cache": false,
             "url": "/Order/OrdersListLY?yearCreateOrder=" + yearCreateOrder,
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "desc"]],
+        "order": [[3, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },
             { "title": "См", "data": "IdRead", "autowidth": true, "bSortable": false },
-            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
-            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
             //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
-            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
-            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
-            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
-            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
-            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
-            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
-            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
-            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
-            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
+            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
@@ -100,7 +93,16 @@ function OrdersListLY(yearCreateOrder) {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
             //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
+            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
+            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
+            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
+            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
@@ -121,31 +123,23 @@ function OrdersListLY(yearCreateOrder) {
 function OrdersListALL() {
     $("#myTable").DataTable({
         "ajax": {
+            "cache": false,
             "url": "/Order/OrdersListALL",
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "desc"]],
+        "order": [[3, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },
             { "title": "См", "data": "IdRead", "autowidth": true, "bSortable": false },
-            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
-            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата открытия", "data": "DateCreate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Заводской номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' },
             //{ "title": "Статус", "data": "StatusOrder", "autowidth": true },
-            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
-            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
-            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
-            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
-            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
-            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
-            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
-            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
-            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
+            { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
             { "title": "Приложение №", "data": "timeArr", "autowidth": true, "bSortable": false },
@@ -158,7 +152,16 @@ function OrdersListALL() {
             { "title": "Контрактная цена, без НДС", "data": "Cost", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ШМР, без НДС", "data": "costSMR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Стоимость ПНР, без НДС", "data": "costPNR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+            { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
             //{ "title": "С/ф №", "data": "SF", "autowidth": true },
+            { "title": "Код МТР Заказчика", "data": "MTR", "autowidth": true, "bSortable": false },
+            { "title": "Номенклатурный номер", "data": "nomenklaturNumber", "autowidth": true, "bSortable": false },
+            { "title": "Менеджер", "data": "Manager", "fixedColumns": true, "width": '500px', "class": 'colu-200' },
+            { "title": "Примечание", "data": "Description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+            { "title": "Закупка №", "data": "numZakupki", "autowidth": true, "bSortable": false },
+            { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
+            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
+            { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
             { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
@@ -224,6 +227,7 @@ function Add() {
         DescriptionGruzopoluchatel: $('#DescriptionGruzopoluchatel').val()
     };
     $.ajax({
+        cache: false,
         url: "/Order/Add",
         data: JSON.stringify(typeObj),
         type: "POST",
@@ -377,6 +381,7 @@ function getbyID(Id) {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
+        cache: false,
         url: "/Order/GetOrder/" + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
@@ -480,6 +485,7 @@ function Update() {
         Gruzopoluchatel: $('#Gruzopoluchatel').val()
     };
     $.ajax({
+        cache: false,
         url: "/Order/Update",
         data: JSON.stringify(typeObj),
         type: "POST",
@@ -615,6 +621,7 @@ function getbyReadID(Id) {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
+        cache: false,
         url: "/Order/GetOrder/" + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
@@ -713,6 +720,7 @@ function UpdateOrders() {
         DescriptionGruzopoluchatel: $('#mDescriptionGruzopoluchatel').val()
     };
     $.ajax({
+        cache: false,
         url: "/Order/UpdateOrders",
         data: JSON.stringify(typeObj),
         type: "POST",
@@ -733,47 +741,47 @@ function clearTextBoxUpdateOrders() {
     $('#Orders').val("");
     $('#Orders').chosen();
     $('#Orders').trigger('chosen:updated');
-    $('#Dostavka').val("");
-    $('#Modul').val("");
-    $('#PowerST').val("");
-    $('#VN_NN').val("");
-    $('#TypeShip').val("");
-    $('#criticalDateShip').val("");
-    $('#countOrders').val("");
-    $('#PlanZakaz').val("");
-    $('#DateCreate').val("");
-    $('#Manager').val("");
-    $('#Client').val("");
-    $('#id_PZ_OperatorDogovora').val("");
-    $('#id_PZ_FIO').val("");
-    $('#Name').val("");
-    $('#Description').val("");
-    $('#MTR').val("");
-    $('#nomenklaturNumber').val("");
-    $('#timeContract').val("");
-    $('#timeContractDate').val("");
-    $('#timeArr').val("");
-    $('#timeArrDate').val("");
-    $('#DateShipping').val("");
-    $('#DateSupply').val("");
-    $('#TypeShip').val("");
-    $('#Cost').val("");
-    $('#costSMR').val("");
-    $('#costPNR').val("");
-    $('#ProductType').val("");
-    $('#OL').val("");
-    $('#Zapros').val("");
-    $('#numZakupki').val("");
-    $('#numLota').val("");
-    $('#Gruzopoluchatel').val("");
-    $('#PostAdresGruzopoluchatel').val("");
-    $('#INNGruzopoluchatel').val("");
-    $('#OKPOGruzopoluchatelya').val("");
-    $('#KodGruzopoluchatela').val("");
-    $('#StantionGruzopoluchatel').val("");
-    $('#KodStanciiGruzopoluchatelya').val("");
-    $('#OsobieOtmetkiGruzopoluchatelya').val("");
-    $('#DescriptionGruzopoluchatel').val("");
+    $('#mDostavka').val("");
+    $('#mModul').val("");
+    $('#mPowerST').val("");
+    $('#mVN_NN').val("");
+    $('#mTypeShip').val("");
+    $('#mcriticalDateShip').val("");
+    $('#mcountOrders').val("");
+    $('#mPlanZakaz').val("");
+    $('#mDateCreate').val("");
+    $('#mManager').val("");
+    $('#mClient').val("");
+    $('#mid_PZ_OperatorDogovora').val("");
+    $('#mid_PZ_FIO').val("");
+    $('#mName').val("");
+    $('#mDescription').val("");
+    $('#mMTR').val("");
+    $('#mnomenklaturNumber').val("");
+    $('#mtimeContract').val("");
+    $('#mtimeContractDate').val("");
+    $('#mtimeArr').val("");
+    $('#mtimeArrDate').val("");
+    $('#mDateShipping').val("");
+    $('#mDateSupply').val("");
+    $('#mTypeShip').val("");
+    $('#mCost').val("");
+    $('#mcostSMR').val("");
+    $('#mcostPNR').val("");
+    $('#mProductType').val("");
+    $('#mOL').val("");
+    $('#mZapros').val("");
+    $('#mnumZakupki').val("");
+    $('#mnumLota').val("");
+    $('#mGruzopoluchatel').val("");
+    $('#mPostAdresGruzopoluchatel').val("");
+    $('#mINNGruzopoluchatel').val("");
+    $('#mOKPOGruzopoluchatelya').val("");
+    $('#mKodGruzopoluchatela').val("");
+    $('#mStantionGruzopoluchatel').val("");
+    $('#mKodStanciiGruzopoluchatelya').val("");
+    $('#mOsobieOtmetkiGruzopoluchatelya').val("");
+    $('#mDescriptionGruzopoluchatel').val("");
     $('#btnUpdateOrders').show();
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
@@ -791,6 +799,7 @@ function getbyKOID(Id) {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
+        cache: false,
         url: "/Order/GetKOOrder/" + Id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
@@ -822,6 +831,7 @@ function UpdateKO() {
         nameTU: $('#nameTU').val()
     };
     $.ajax({
+        cache: false,
         url: "/Order/UpdateKO",
         data: JSON.stringify(typeObj),
         type: "POST",
@@ -866,6 +876,7 @@ function TableOrders() {
         Id: $('#tOrders').val()
     };
     $.ajax({
+        cache: false,
         url: "/Order/TableOrders",
         data: JSON.stringify(typeObj),
         type: "POST",

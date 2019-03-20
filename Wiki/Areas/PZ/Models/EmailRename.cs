@@ -33,16 +33,16 @@ namespace Wiki.Areas.PZ.Models
 
         string GetBody()
         {
-            string textBody = subject + "<br/>" + "<br/>" + ":";
+            string textBody = subject + "<br/>" + "<br/>";
             if (renameTU == true)
             {
-                textBody += "Наименование по ТУ до изменения: " + before + "<br/>" + "<br/>" + ";";
+                textBody += "Наименование по ТУ до изменения: " + before + "<br/>";
                 textBody += "Наименование по ТУ после изменения: " + next + "<br/>";
 
             }
             else
             {
-                textBody += "Контрактное (договорное) наименование до изменения: " + before + "<br/>" + "<br/>" + ";";
+                textBody += "Контрактное (договорное) наименование до изменения: " + before + "<br/>";
                 textBody += "Контрактное (договорное) наименование после изменения: " + next + "<br/>";
             }
             return textBody;
@@ -51,7 +51,10 @@ namespace Wiki.Areas.PZ.Models
         void SetMailAddress()
         {
             mail.To.Add(new MailAddress("myi@katek.by"));
+            mail.To.Add(new MailAddress("gea@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
+            mail.To.Add(new MailAddress("pev@katek.by"));
+            mail.To.Add(new MailAddress("maa@katek.by"));
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3).Where(d => d.LockoutEnabled == true))
             {
                 mail.To.Add(new MailAddress(data.Email));
