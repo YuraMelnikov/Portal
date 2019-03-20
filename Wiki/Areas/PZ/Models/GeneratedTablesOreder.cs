@@ -35,7 +35,7 @@ namespace Wiki.Areas.PZ.Models
                 CreateParts(package);
             }
         }
-
+        
         // Adds child parts and generates content of the specified part.
         private void CreateParts(WordprocessingDocument document)
         {
@@ -3978,8 +3978,5 @@ namespace Wiki.Areas.PZ.Models
         }
 
         #endregion
-
-
-
     }
 }
