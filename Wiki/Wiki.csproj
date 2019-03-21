@@ -258,6 +258,7 @@
     <Compile Include="Areas\Deb\Controllers\DSetupController.cs" />
     <Compile Include="Areas\Deb\Controllers\UploadController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
+    <Compile Include="Areas\Deb\Models\EmailDeb.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
     <Compile Include="Areas\PZ\Controllers\OperatorController.cs" />
@@ -1676,7 +1677,6 @@
     <Content Include="Views\CMO\AppDefaultOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Deb\Models\" />
     <Folder Include="Areas\PZ\Contant\dotx\" />
     <Folder Include="log\" />
   </ItemGroup>

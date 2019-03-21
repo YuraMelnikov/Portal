@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Wiki.Areas.Deb.Models;
 
 namespace Wiki.Areas.Deb.Controllers
 {
@@ -126,6 +127,8 @@ namespace Wiki.Areas.Deb.Controllers
                     CreateNewTasks(28, debit_WorkBit.id_PlanZakaz);
                 ClosePredoplataTask(debit_WorkBit.id_PlanZakaz);
             }
+            EmailDeb mail = new EmailDeb(debit_PeriodReportOprih.period);
+            mail.SendEmail();
             return RedirectToAction("Index", "ActiveReport", new { area = "Deb" });
         }
 
