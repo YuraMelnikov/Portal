@@ -9,11 +9,9 @@
         .modal.modal-wide .modal-dialog {
             width: 90%;
         }
-
         .modal-wide .modal-body {
             overflow-y: auto;
         }
-
         .colu-300 {
             min-width: 300px;
             max-width: 300px;
@@ -22,8 +20,7 @@
 </head>
 @if (ViewBag.ClosePeriod == 0)
 {
-<a href="~/ActiveReport/ClosePeriod" class="btn-xs btn-primary" role="button">Закрыть период</a>
-
+    <a href="~/ActiveReport/ClosePeriod" class="btn-xs btn-primary" role="button">Закрыть период</a>
 }
 <div class="row">
     <div class="col-md-12">
@@ -40,50 +37,51 @@
                 @Html.HiddenFor(model => model.id)
                 <div class="row">
                     <div class="col-lg-2">
+                        <br />
                         <label for="PlanZakaz">Номер заказа:</label>
                         <input type="text" class="form-control" id="PlanZakaz" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
+                        <br />
                         <label for="Manager">Менеджер заказа:</label>
                         <input type="text" class="form-control" id="Manager" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
+                        <br />
                         <label for="Client">Заказчик:</label>
                         <input type="text" class="form-control" id="Client" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="dataOtgruzkiBP">Фактическая дата отгрузки:</label>
                         <input type="text" class="form-control" id="dataOtgruzkiBP" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="DateSupply">Договорная дата поставки:</label>
                         <input type="text" class="form-control" id="DateSupply" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="numberSF">Номер счет-фактуры:</label>
                         <input type="text" class="form-control" id="numberSF" disabled="disabled" />
                     </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <label for="Name">Контрактное (договорное) наименование:</label>
-                        <input type="text" class="form-control" id="Name" disabled="disabled" />
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="Name">Контрактная цена с НДС:</label>
                         <input type="text" class="form-control" id="costWithHDS" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="Name">Контрактная цена без НДС:</label>
                         <input type="text" class="form-control" id="costNotNDS" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
+                        <br />
                         <label for="Name">Сумма НДС:</label>
                         <input type="text" class="form-control" id="costNDS" disabled="disabled" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="Name">Контрактное (договорное) наименование:</label>
+                        <input type="text" class="form-control" id="Name" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label for="Name">Наличие рекламации/й:</label>
@@ -98,7 +96,25 @@
                         <input type="text" class="form-control" id="closeReclamation" disabled="disabled" />
                     </div>
                 </div>
-                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="oprihClose">Подтвердить оприходование:</label>
+                        <input type="checkbox" checked="checked" id="oprihClose" />
+                        <br />
+                        <label for="dateClose">Дата оприходования:</label>
+                        @Html.EditorFor(model => model.dateOprihPlanFact, new { htmlAttributes = new { @class = "form-control" } })
+                        <label for="Manager">Основание подтверждения оприходования товара :</label>
+                        @Html.DropDownList("id_Debit_PostingOnType", ViewBag.id_Debit_PostingOnType as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-8">
+                        <label for="Manager">Причина отсутствия оприходования товара:</label>
+                        @Html.DropDownList("id_Debit_PostingOffType", ViewBag.id_Debit_PostingOffType as MultiSelectList, new { @class = "form-control" })
+                        <label for="Name">Примечание:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 3 })
+                    </div>
+                </div>
+                <hr />
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="Name">Условия приемки изделия:</label>
@@ -110,61 +126,7 @@
                     </div>
                 </div>
                 <br />
-                <hr />
-                <div class="row">
-                    <div class="col-lg-2">
-                        <label for="dateClose">Дата оприходования:</label>
-                        @Html.EditorFor(model => model.dateOprihPlanFact, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-lg-2">
-                        <label for="oprihClose">Подтвердить оприходование:</label>
-                        <br />
-                        <input type="checkbox" checked="checked" id="oprihClose" />
-                    </div>
-                    <div class="col-lg-8">
-                        <label for="Name">Примечание:</label>
-                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 3 })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">&nbsp</div>
-                </div>
+
             </div>
 
             <div class="modal-footer">

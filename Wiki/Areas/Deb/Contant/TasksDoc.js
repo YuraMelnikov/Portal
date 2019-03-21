@@ -11,6 +11,21 @@ function loadData() {
         },
         "bDestroy": true,
         "bAutoWidth": false,
+
+        "rowCallback": function (row, data, index) {
+            if (data.id_Debit_PostingOffType === 1 && data.id_Debit_PostingOnType === 1) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+            if (data.id_Debit_PostingOffType > 1) {
+                $('td', row).css('background-color', '#5bc0de');
+                $('td', row).css('color', 'black');
+            }
+            if (data.id_Debit_PostingOnType > 1) {
+                $('td', row).css('background-color', '#5cb85c');
+                $('td', row).css('color', 'black');
+            }
+        },
         "columns": [
             { "title": "Ред.", "data": "id", "autowidth": true, "bSortable": false }
             , { "title": "Номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center'}
@@ -41,31 +56,27 @@ function loadData() {
 
 function clearTextBox() {
     $("#btnAdd").attr('disabled', false);
-
     $('#id').val("");
     $('#description').val("");
     $('#oprihClose').prop('checked', true);
     $('#dateOprihPlanFact').val("");
-
     $('#PlanZakaz').val("");
     $('#Name').val("");
     $('#Manager').val("");
     $('#Client').val("");
     $('#dataOtgruzkiBP').val("");
     $('#DateSupply').val("");
-
     $('#numberSF').val("");
     $('#reclamation').val("");
     $('#openReclamation').val("");
     $('#closeReclamation').val("");
-
     $('#costNDS').val("");
     $('#costNotNDS').val("");
     $('#costWithHDS').val("");
-
     $('#conditionPay').val("");
     $('#conditionAcceptOrder').val("");
-    
+    $('#id_Debit_PostingOffType').val("");
+    $('#id_Debit_PostingOnType').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#name').css('border-color', 'lightgrey');
@@ -85,26 +96,23 @@ function getbyID(Id) {
             $('#description').val(result.description);
             $('#oprihClose').prop('checked', result.oprihClose);
             $('#dateOprihPlanFact').val(result.dateOprihPlanFact);
-
             $('#PlanZakaz').val(result.PlanZakaz);
             $('#Name').val(result.Name);
             $('#Manager').val(result.Manager);
             $('#Client').val(result.Client);
             $('#dataOtgruzkiBP').val(result.dataOtgruzkiBP);
             $('#DateSupply').val(result.DateSupply);
-
             $('#costNDS').val(result.costNDS);
             $('#costNotNDS').val(result.costNotNDS);
             $('#costWithHDS').val(result.costWithHDS);
-
             $('#numberSF').val(result.numberSF);
             $('#reclamation').val(result.reclamation);
-            $('#openReclamation').val(result.openReclamation);
-            $('#closeReclamation').val(result.closeReclamation);
-
+            $('#openReclamation').val(processNull(result.openReclamation));
+            $('#closeReclamation').val(processNull(result.closeReclamation));
             $('#conditionAcceptOrder').val(result.conditionAcceptOrder);
             $('#conditionPay').val(result.conditionPay);
-
+            $('#id_Debit_PostingOnType').val(result.id_Debit_PostingOnType);
+            $('#id_Debit_PostingOffType').val(result.id_Debit_PostingOffType);
             $('#orderModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
@@ -117,10 +125,16 @@ function getbyID(Id) {
 }
 
 function Update() {
+    var res = validateUpdate();
+    if (res === false) {
+        return false;
+    }
     var typeObj = {
         id: $('#id').val(),
         description: $('#description').val(),
         dateOprihPlanFact: $('#dateOprihPlanFact').val(),
+        id_Debit_PostingOffType: $('#id_Debit_PostingOffType').val(),
+        id_Debit_PostingOnType: $('#id_Debit_PostingOnType').val(),
         oprihClose: $('#oprihClose').is(":checked")
     };
     $.ajax({
@@ -153,4 +167,59 @@ function localRUStatus(data) {
     } else {
         return 'Не оприходован';
     }
+}
+
+function validateUpdate() {
+    var tmp = $('#id_Debit_PostingOnType').val();
+    var tmp1 = $('#id_Debit_PostingOffType').val();
+    var tmp3 = $('#description').val().trim();
+    var isValid = true;
+    if ($('#oprihClose').is(":checked") === true) {
+        $('#description').css('border-color', 'lightgrey');
+        if ($('#id_Debit_PostingOnType').val() === "1") {
+            $('#id_Debit_PostingOnType').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_Debit_PostingOnType').css('border-color', 'lightgrey');
+        }
+        if ($('#id_Debit_PostingOffType').val() !== "1") {
+            $('#id_Debit_PostingOffType').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_Debit_PostingOffType').css('border-color', 'lightgrey');
+        }
+        if ($('#dateOprihPlanFact').val().trim() === "") {
+            $('#dateOprihPlanFact').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#dateOprihPlanFact').css('border-color', 'lightgrey');
+        }
+    }
+    else {
+        if ($('#id_Debit_PostingOnType').val() !== "1") {
+            $('#id_Debit_PostingOnType').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_Debit_PostingOnType').css('border-color', 'lightgrey');
+        }
+        if ($('#id_Debit_PostingOffType').val() === "1") {
+            $('#id_Debit_PostingOffType').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_Debit_PostingOffType').css('border-color', 'lightgrey');
+        }
+        if ($('#description').val().trim() === "") {
+            $('#description').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#description').css('border-color', 'lightgrey');
+        }
+    }
+    return isValid;
 }
