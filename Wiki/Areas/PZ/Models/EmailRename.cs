@@ -50,11 +50,12 @@ namespace Wiki.Areas.PZ.Models
 
         void SetMailAddress()
         {
+            if(renameTU != true)
+                mail.To.Add(new MailAddress("maa@katek.by"));
             mail.To.Add(new MailAddress("myi@katek.by"));
             mail.To.Add(new MailAddress("gea@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
             mail.To.Add(new MailAddress("pev@katek.by"));
-            mail.To.Add(new MailAddress("maa@katek.by"));
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3).Where(d => d.LockoutEnabled == true))
             {
                 mail.To.Add(new MailAddress(data.Email));

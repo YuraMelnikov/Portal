@@ -712,6 +712,7 @@
   <ItemGroup>
     <Content Include="Areas\Deb\Contant\Archive.js" />
     <Content Include="Areas\Deb\Contant\DSetup.js" />
+    <Content Include="Areas\Deb\Contant\NewPlus.js" />
     <Content Include="Areas\Deb\Contant\Upload.js" />
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />

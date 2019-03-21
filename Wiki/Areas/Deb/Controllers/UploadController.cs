@@ -25,7 +25,7 @@ namespace Wiki.Areas.Deb.Controllers
             var data = query.Select(dataList => new
             {
                 status = GetStatusName(dataList),
-                edit =  "<a href =" + '\u0022' + "http://pserver/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
+                edit =  "<a href =" + '\u0022' + "http://localhost:57314/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
                 dataList.PZ_PlanZakaz.PlanZakaz,
                 dataList.PZ_PlanZakaz.Name,
                 Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
@@ -85,45 +85,40 @@ namespace Wiki.Areas.Deb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewPlus(Debit_CostUpdate debit_CostUpdate)
         {
-            if (ModelState.IsValid)
+            Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz & d.id_TaskForPZ == 15).First();
+            if (debit_CostUpdate.dateGetMoney.Year < 2010)
+                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
+            if (debit_CostUpdate.cost == 0)
+                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
+            PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(debit_CostUpdate.id_PZ_PlanZakaz);
+            debit_CostUpdate.id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
+            debit_CostUpdate.dateCreate = DateTime.Now;
+            db.Debit_CostUpdate.Add(debit_CostUpdate);
+            db.SaveChanges();
+            PZ_TEO pZ_TEO = db.PZ_TEO.Where(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).First();
+            double nds = 0;
+            try
             {
-                PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(debit_CostUpdate.id_PZ_PlanZakaz);
-                debit_CostUpdate.id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
-                debit_CostUpdate.dateCreate = DateTime.Now;
-                if(debit_CostUpdate.dateGetMoney == null)
-                    return RedirectToAction("NewPlus", "Upload", new { db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz && d.id_TaskForPZ == 15).id, area = "Deb" });
-                db.Debit_CostUpdate.Add(debit_CostUpdate);
-                db.SaveChanges();
-                PZ_TEO pZ_TEO = db.PZ_TEO.Where(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).First();
-                double nds = 0;
-                try
-                {
-                    nds = (double)pZ_TEO.NDS;
-                }
-                catch
-                {
-
-                }
-                double costCorrect = nds + (double)pZ_TEO.OtpuskChena;
-                double costNow = 0;
-                foreach (var data in db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz))
-                {
-                    costNow += data.cost;
-                }
-
-                if (costCorrect - costNow == 0)
-                {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz & d.id_TaskForPZ == 15).First();
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index", "Upload", new { area = "Deb" });
+                nds = (double)pZ_TEO.NDS;
             }
+            catch
+            {
 
-            ViewBag.id_PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz, "Id", "MTR", debit_CostUpdate.id_PZ_PlanZakaz);
-            return View(debit_CostUpdate);
+            }
+            double costCorrect = nds + (double)pZ_TEO.OtpuskChena;
+            double costNow = 0;
+            foreach (var data in db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz))
+            {
+                costNow += data.cost;
+            }
+            if (costCorrect - costNow == 0)
+            {
+                debit_WorkBit.close = true;
+                debit_WorkBit.dateClose = DateTime.Now;
+                db.Entry(debit_WorkBit).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Upload", new { area = "Deb" });
         }
 
         [Authorize(Roles = "Admin, Fin director")]
@@ -157,8 +152,7 @@ namespace Wiki.Areas.Deb.Controllers
             ViewBag.id_PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz, "Id", "MTR", debit_CostUpdate.id_PZ_PlanZakaz);
             return View(debit_CostUpdate);
         }
-
-
+        
         public JsonResult СreateTask38С(int[] PZ)
         {
             foreach (int data in PZ)
@@ -178,6 +172,59 @@ namespace Wiki.Areas.Deb.Controllers
                 }
             }
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get(int Id)
+        {
+            var query = db.Debit_CostUpdate.Where(d => d.id == Id).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.id,
+                dataList.dateCreate,
+                dataList.dateGetMoney,
+                dataList.id_PZ_PlanZakaz,
+                dataList.cost
+            });
+
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Update(Debit_CostUpdate debit_CostUpdate)
+        {
+            Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz & d.id_TaskForPZ == 15).First();
+            if (debit_CostUpdate.dateGetMoney.Year < 2010)
+                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
+            if (debit_CostUpdate.cost == 0)
+                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
+            Debit_CostUpdate newCost = db.Debit_CostUpdate.Find(debit_CostUpdate.id);
+            newCost.cost = debit_CostUpdate.cost;
+            newCost.dateGetMoney = debit_CostUpdate.dateGetMoney;
+            db.Entry(newCost).State = EntityState.Modified;
+            db.SaveChanges();
+            PZ_TEO pZ_TEO = db.PZ_TEO.Where(d => d.Id_PlanZakaz == newCost.id_PZ_PlanZakaz).First();
+            double nds = 0;
+            try
+            {
+                nds = (double)pZ_TEO.NDS;
+            }
+            catch
+            {
+
+            }
+            double costCorrect = nds + (double)pZ_TEO.OtpuskChena;
+            double costNow = 0;
+            foreach (var data in db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == newCost.id_PZ_PlanZakaz))
+            {
+                costNow += data.cost;
+            }
+            if (costCorrect - costNow == 0)
+            {
+                debit_WorkBit.close = true;
+                debit_WorkBit.dateClose = DateTime.Now;
+                db.Entry(debit_WorkBit).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Upload", new { area = "Deb" });
         }
     }
 }
