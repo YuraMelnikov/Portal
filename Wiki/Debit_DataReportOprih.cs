@@ -27,8 +27,12 @@ namespace Wiki
         public double costWithHDS { get; set; }
         public double costNotNDS { get; set; }
         public double costNDS { get; set; }
+        public int id_Debit_PostingOnType { get; set; }
+        public int id_Debit_PostingOffType { get; set; }
     
         public virtual Debit_PeriodReportOprih Debit_PeriodReportOprih { get; set; }
         public virtual Debit_WorkBit Debit_WorkBit { get; set; }
+        public virtual Debit_PostingOffType Debit_PostingOffType { get; set; }
+        public virtual Debit_PostingOnType Debit_PostingOnType { get; set; }
     }
 }

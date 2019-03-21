@@ -217,6 +217,10 @@
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="PortalKATEKModel.DebitReclamation" Width="1.5" PointX="10.5" PointY="66.25" />
         <AssociationConnector Association="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOffType" Width="1.5" PointX="21.875" PointY="60.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOnType" Width="1.5" PointX="0.75" PointY="3.875" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

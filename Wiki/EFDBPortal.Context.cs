@@ -128,5 +128,7 @@ namespace Wiki
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
+        public virtual DbSet<Debit_PostingOffType> Debit_PostingOffType { get; set; }
+        public virtual DbSet<Debit_PostingOnType> Debit_PostingOnType { get; set; }
     }
 }

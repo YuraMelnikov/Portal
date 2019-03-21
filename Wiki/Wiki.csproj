@@ -417,6 +417,12 @@
     <Compile Include="Debit_Platform.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Debit_PostingOffType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Debit_PostingOnType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Debit_TN.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

@@ -247,6 +247,8 @@
           <Property Name="costWithHDS" Type="float" Nullable="false" />
           <Property Name="costNotNDS" Type="float" Nullable="false" />
           <Property Name="costNDS" Type="float" Nullable="false" />
+          <Property Name="id_Debit_PostingOnType" Type="int" Nullable="false" />
+          <Property Name="id_Debit_PostingOffType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_EmailList">
           <Key>
@@ -325,6 +327,22 @@
           <Property Name="numPlatform" Type="varchar(max)" />
           <Property Name="numPlomb" Type="varchar(max)" />
           <Property Name="gabar" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Debit_PostingOffType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Debit_PostingOnType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_TN">
           <Key>
@@ -1497,6 +1515,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOffType">
+          <End Role="Debit_PostingOffType" Type="Self.Debit_PostingOffType" Multiplicity="1" />
+          <End Role="Debit_DataReportOprih" Type="Self.Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOffType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOffType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOnType">
+          <End Role="Debit_PostingOnType" Type="Self.Debit_PostingOnType" Multiplicity="1" />
+          <End Role="Debit_DataReportOprih" Type="Self.Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOnType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOnType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Debit_DataReportOprih_debit_WorkBit">
           <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
           <End Role="Debit_DataReportOprih" Type="Self.Debit_DataReportOprih" Multiplicity="*" />
@@ -2559,6 +2601,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_Name" EntityType="Self.Debit_Name" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="Self.Debit_PeriodReportOprih" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_Platform" EntityType="Self.Debit_Platform" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Debit_PostingOffType" EntityType="Self.Debit_PostingOffType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Debit_PostingOnType" EntityType="Self.Debit_PostingOnType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_TN" EntityType="Self.Debit_TN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_WorkBit" EntityType="Self.Debit_WorkBit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DebitReclamation" EntityType="Self.DebitReclamation" Schema="dbo" store:Type="Tables" />
@@ -2784,6 +2828,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </AssociationSet>
           <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PeriodReportOprih" Association="Self.FK_Debit_DataReportOprih_Debit_PeriodReportOprih">
             <End Role="Debit_PeriodReportOprih" EntitySet="Debit_PeriodReportOprih" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOffType" Association="Self.FK_Debit_DataReportOprih_Debit_PostingOffType">
+            <End Role="Debit_PostingOffType" EntitySet="Debit_PostingOffType" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOnType" Association="Self.FK_Debit_DataReportOprih_Debit_PostingOnType">
+            <End Role="Debit_PostingOnType" EntitySet="Debit_PostingOnType" />
             <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
           </AssociationSet>
           <AssociationSet Name="FK_Debit_DataReportOprih_debit_WorkBit" Association="Self.FK_Debit_DataReportOprih_debit_WorkBit">
@@ -3863,6 +3915,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
+          <EntitySet Name="Debit_PostingOffType" EntityType="PortalKATEKModel.Debit_PostingOffType" />
+          <EntitySet Name="Debit_PostingOnType" EntityType="PortalKATEKModel.Debit_PostingOnType" />
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOffType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType">
+            <End Role="Debit_PostingOffType" EntitySet="Debit_PostingOffType" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOnType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType">
+            <End Role="Debit_PostingOnType" EntitySet="Debit_PostingOnType" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4244,6 +4306,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="costWithHDS" Type="Double" Nullable="false" />
           <Property Name="costNotNDS" Type="Double" Nullable="false" />
           <Property Name="costNDS" Type="Double" Nullable="false" />
+          <Property Name="id_Debit_PostingOnType" Type="Int32" Nullable="false" />
+          <Property Name="id_Debit_PostingOffType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debit_PostingOffType" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" FromRole="Debit_DataReportOprih" ToRole="Debit_PostingOffType" />
+          <NavigationProperty Name="Debit_PostingOnType" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" FromRole="Debit_DataReportOprih" ToRole="Debit_PostingOnType" />
         </EntityType>
         <EntityType Name="Debit_IstPost">
           <Key>
@@ -6376,6 +6442,48 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Debit_PostingOffType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" FromRole="Debit_PostingOffType" ToRole="Debit_DataReportOprih" />
+        </EntityType>
+        <EntityType Name="Debit_PostingOnType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" FromRole="Debit_PostingOnType" ToRole="Debit_DataReportOprih" />
+        </EntityType>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOffType">
+          <End Type="PortalKATEKModel.Debit_PostingOffType" Role="Debit_PostingOffType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOffType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOffType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOnType">
+          <End Type="PortalKATEKModel.Debit_PostingOnType" Role="Debit_PostingOnType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOnType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOnType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6894,6 +7002,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Debit_DataReportOprih">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_DataReportOprih">
               <MappingFragment StoreEntitySet="Debit_DataReportOprih">
+                <ScalarProperty Name="id_Debit_PostingOffType" ColumnName="id_Debit_PostingOffType" />
+                <ScalarProperty Name="id_Debit_PostingOnType" ColumnName="id_Debit_PostingOnType" />
                 <ScalarProperty Name="costNDS" ColumnName="costNDS" />
                 <ScalarProperty Name="costNotNDS" ColumnName="costNotNDS" />
                 <ScalarProperty Name="costWithHDS" ColumnName="costWithHDS" />
@@ -7654,6 +7764,24 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="dateClose" ColumnName="dateClose" />
                 <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debit_PostingOffType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOffType">
+              <MappingFragment StoreEntitySet="Debit_PostingOffType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debit_PostingOnType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOnType">
+              <MappingFragment StoreEntitySet="Debit_PostingOnType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
