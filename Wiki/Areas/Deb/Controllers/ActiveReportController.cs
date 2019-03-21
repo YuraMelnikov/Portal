@@ -72,28 +72,66 @@ namespace Wiki.Areas.Deb.Controllers
         public JsonResult GetId(int id)
         {
             var query = db.Debit_DataReportOprih.Where(d => d.id == id).ToList();
+            string conditionAcceptOrder = GetConditionAcceptOrder(query.First().id_DebitWork);
+            string conditionPay = GetConditionPay(query.First().id_DebitWork);
+
             var data = query.Select(dataList => new
             {
                 dataList.id,
                 dataList.description,
                 dataList.oprihClose,
                 dateOprihPlanFact = JsonConvert.SerializeObject(dataList.dateOprihPlanFact, settings).Replace(@"""", ""),
-
                 dataList.Debit_WorkBit.PZ_PlanZakaz.PlanZakaz,
                 dataList.Debit_WorkBit.PZ_PlanZakaz.Name,
                 Manager = dataList.Debit_WorkBit.PZ_PlanZakaz.AspNetUsers.CiliricalName,
                 Client = dataList.Debit_WorkBit.PZ_PlanZakaz.PZ_Client.NameSort,
                 dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.Debit_WorkBit.PZ_PlanZakaz.dataOtgruzkiBP, settings).Replace(@"""", ""),
                 DateSupply = JsonConvert.SerializeObject(dataList.Debit_WorkBit.PZ_PlanZakaz.DateSupply, settings).Replace(@"""", ""),
-
+                dataList.costNDS,
+                dataList.costNotNDS,
+                dataList.costWithHDS,
                 dataList.numberSF,
                 dataList.reclamation,
                 openReclamation = JsonConvert.SerializeObject(dataList.reclamationOpen, settings).Replace(@"""", ""),
-                closeReclamation = JsonConvert.SerializeObject(dataList.reclamationClose, settings).Replace(@"""", "")
+                closeReclamation = JsonConvert.SerializeObject(dataList.reclamationClose, settings).Replace(@"""", ""),
+
+                conditionAcceptOrder,
+                conditionPay
             });
 
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
+
+        string GetConditionAcceptOrder(int id_DebitWorkbit)
+        {
+            string condition = "";
+            var id_PZ = db.Debit_WorkBit.Find(id_DebitWorkbit).id_PlanZakaz;
+            try
+            {
+                condition = db.PZ_Setup.First(d => d.id_PZ_PlanZakaz == id_PZ).PunktDogovoraOSrokahPriemki;
+            }
+            catch
+            {
+
+            }
+            return condition;
+        }
+
+        string GetConditionPay(int id_DebitWorkbit)
+        {
+            string condition = "";
+            var id_PZ = db.Debit_WorkBit.Find(id_DebitWorkbit).id_PlanZakaz;
+            try
+            {
+                condition = db.PZ_Setup.First(d => d.id_PZ_PlanZakaz == id_PZ).UslovieOplatyText;
+            }
+            catch
+            {
+
+            }
+            return condition;
+        }
+
 
         [Authorize(Roles = "Admin, OPTP, OP")]
         public JsonResult Update(Debit_DataReportOprih work, bool oprihClose)

@@ -5,6 +5,23 @@
 }
 <head>
     <script src="~/Areas/Deb/Contant/NewPlus.js"></script>
+    <style>
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+
+        .colu-200 {
+            min-width: 200px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
+        }
+    </style>
 </head>
 <body>
     <div class=" container">
@@ -69,58 +86,56 @@
         </div>
     }
     <hr />
-
-
-    <div id="editUploadCost" class="modal modal-wide fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            @Html.HiddenFor(d => d.id)
-                            Дата поступления
-                            @Html.EditorFor(model => model.dateGetMoney, new { htmlAttributes = new { @class = "form-control" } })
-                            <br />
-                            Полученая суммма
-                            @Html.EditorFor(model => model.cost, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+</body>
+<div id="editUploadCost" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.HiddenFor(d => d.id)
+                        Дата поступления
+                        @Html.EditorFor(model => model.dateGetMoney, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        Полученая суммма
+                        @Html.EditorFor(model => model.cost, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $('#dateGetMoney').datetimepicker({
-                locale: 'ru',
-                format: 'L',
-                calendarWeeks: true,
-                showTodayButton: true
-            });
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#dateGetMoney').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
         });
-    </script>
-</body>
+    });
+</script>

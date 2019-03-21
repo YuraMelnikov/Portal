@@ -58,6 +58,13 @@ function clearTextBox() {
     $('#reclamation').val("");
     $('#openReclamation').val("");
     $('#closeReclamation').val("");
+
+    $('#costNDS').val("");
+    $('#costNotNDS').val("");
+    $('#costWithHDS').val("");
+
+    $('#conditionPay').val("");
+    $('#conditionAcceptOrder').val("");
     
     $('#btnUpdate').hide();
     $('#btnAdd').show();
@@ -86,10 +93,17 @@ function getbyID(Id) {
             $('#dataOtgruzkiBP').val(result.dataOtgruzkiBP);
             $('#DateSupply').val(result.DateSupply);
 
-            $('#numberSF').val(result.DateSupply);
-            $('#reclamation').val(result.DateSupply);
-            $('#openReclamation').val(result.DateSupply);
-            $('#closeReclamation').val(result.DateSupply);
+            $('#costNDS').val(result.costNDS);
+            $('#costNotNDS').val(result.costNotNDS);
+            $('#costWithHDS').val(result.costWithHDS);
+
+            $('#numberSF').val(result.numberSF);
+            $('#reclamation').val(result.reclamation);
+            $('#openReclamation').val(result.openReclamation);
+            $('#closeReclamation').val(result.closeReclamation);
+
+            $('#conditionAcceptOrder').val(result.conditionAcceptOrder);
+            $('#conditionPay').val(result.conditionPay);
 
             $('#orderModal').modal('show');
             $('#btnUpdate').show();

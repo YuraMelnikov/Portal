@@ -244,6 +244,9 @@
           <Property Name="reclamation" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="reclamationOpen" Type="date" />
           <Property Name="reclamationClose" Type="date" />
+          <Property Name="costWithHDS" Type="float" Nullable="false" />
+          <Property Name="costNotNDS" Type="float" Nullable="false" />
+          <Property Name="costNDS" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_EmailList">
           <Key>
@@ -4238,6 +4241,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="reclamation" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="reclamationOpen" Type="DateTime" Precision="0" />
           <Property Name="reclamationClose" Type="DateTime" Precision="0" />
+          <Property Name="costWithHDS" Type="Double" Nullable="false" />
+          <Property Name="costNotNDS" Type="Double" Nullable="false" />
+          <Property Name="costNDS" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_IstPost">
           <Key>
@@ -6888,6 +6894,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Debit_DataReportOprih">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_DataReportOprih">
               <MappingFragment StoreEntitySet="Debit_DataReportOprih">
+                <ScalarProperty Name="costNDS" ColumnName="costNDS" />
+                <ScalarProperty Name="costNotNDS" ColumnName="costNotNDS" />
+                <ScalarProperty Name="costWithHDS" ColumnName="costWithHDS" />
                 <ScalarProperty Name="reclamationClose" ColumnName="reclamationClose" />
                 <ScalarProperty Name="reclamationOpen" ColumnName="reclamationOpen" />
                 <ScalarProperty Name="reclamation" ColumnName="reclamation" />

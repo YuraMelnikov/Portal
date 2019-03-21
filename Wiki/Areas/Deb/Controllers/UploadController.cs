@@ -174,7 +174,7 @@ namespace Wiki.Areas.Deb.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get(int Id)
+        public JsonResult GetbyID(int Id)
         {
             var query = db.Debit_CostUpdate.Where(d => d.id == Id).ToList();
             var data = query.Select(dataList => new

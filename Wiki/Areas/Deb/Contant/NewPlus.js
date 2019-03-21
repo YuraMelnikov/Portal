@@ -1,19 +1,19 @@
-﻿function getbyID(Id) {
+﻿$(document).ready(function () {
+});
+
+function getbyID(Id) {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
         cache: false,
-        url: "/Upload/Get/" + Id,
-        typr: "GET",
+        url: "/Upload/GetbyID/" + Id,
+        type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             $('#id').val(result.id);
-            $('#id_PZ_PlanZakaz').val(result.id_PZ_PlanZakaz);
             $('#cost').val(result.cost);
-            $('#dateCreate').val(result.dateCreate);
             $('#dateGetMoney').val(result.dateGetMoney);
-
             $('#editUploadCost').modal('show');
             $('#btnUpdate').show();
         },

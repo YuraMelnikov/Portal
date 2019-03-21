@@ -24,6 +24,9 @@ namespace Wiki
         public string reclamation { get; set; }
         public Nullable<System.DateTime> reclamationOpen { get; set; }
         public Nullable<System.DateTime> reclamationClose { get; set; }
+        public double costWithHDS { get; set; }
+        public double costNotNDS { get; set; }
+        public double costNDS { get; set; }
     
         public virtual Debit_PeriodReportOprih Debit_PeriodReportOprih { get; set; }
         public virtual Debit_WorkBit Debit_WorkBit { get; set; }
