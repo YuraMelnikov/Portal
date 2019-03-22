@@ -724,6 +724,15 @@
     <Content Include="Areas\Deb\Contant\Tasks.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
+    <Content Include="Areas\PZ\Contant\DataTable\Scroll\dataTables.fixedColumns.min.js" />
+    <Content Include="Areas\PZ\Contant\DataTable\Scroll\dataTables.scroller.min.js" />
+    <Content Include="Areas\PZ\Contant\DataTable\Scroll\fixedColumns.dataTables.min.css" />
+    <Content Include="Areas\PZ\Contant\DataTable\Scroll\scroller.dataTables.min.css" />
+    <Content Include="Areas\PZ\Contant\DataTable\tdFixed\dataTables.fixedColumns.min.js" />
+    <Content Include="Areas\PZ\Contant\DataTable\tdFixed\fixedColumns.dataTables.min.css" />
+    <Content Include="Areas\PZ\Contant\fixedColomnBootstrap\dataTables.bootstrap.min.js" />
+    <Content Include="Areas\PZ\Contant\fixedColomnBootstrap\dataTables.fixedColumns.min.js" />
+    <Content Include="Areas\PZ\Contant\fixedColomnBootstrap\fixedColumns.bootstrap.min.css" />
     <Content Include="Areas\PZ\Contant\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\PZ\Contant\Bootstrap\jquery-3.3.1.js" />
     <Content Include="Areas\PZ\Contant\DataTable\DataTables-1.10.18\css\dataTables.bootstrap.css" />

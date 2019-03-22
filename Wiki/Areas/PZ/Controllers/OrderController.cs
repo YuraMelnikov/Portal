@@ -44,6 +44,102 @@ namespace Wiki.Areas.PZ.Controllers
         }
 
         [HttpPost]
+        public JsonResult OrdersListInManufacturing()
+        {
+            var query = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).ToList();
+            string login = "";
+            try
+            {
+                login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+
+            }
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
+            string linkPartOne = "";
+            string linkPartTwo = "";
+            if (devision == 3 || devision == 15 || devision == 16)
+            {
+                linkPartOne = firstPartLinkEditKO;
+                linkPartTwo = lastPartEdit;
+            }
+            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            {
+                linkPartOne = firstPartLinkEditOP;
+                linkPartTwo = lastPartEdit;
+            }
+            var data = query.Select(dataList => new
+            {
+                dataList.PlanZakaz,
+                Id = GetLinkForEdit(dataList, linkPartOne, linkPartTwo),
+                IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                dataList.PZ_ProductType.ProductType,
+                DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
+                //StatusOrder = "",
+                Manager = dataList.AspNetUsers.CiliricalName,
+                dataList.Description,
+                dataList.MTR,
+                dataList.nomenklaturNumber,
+                dataList.Name,
+                dataList.nameTU,
+                dataList.OL,
+                dataList.PZ_Client.NameSort,
+                dataList.Zapros,
+                dataList.numZakupki,
+                dataList.numLota,
+                dataList.timeContract,
+                timeContractDate = JsonConvert.SerializeObject(dataList.timeContractDate, settings).Replace(@"""", ""),
+                dataList.timeArr,
+                timeArrDate = JsonConvert.SerializeObject(dataList.timeArrDate, settings).Replace(@"""", ""),
+                DateShipping = JsonConvert.SerializeObject(dataList.DateShipping, settings).Replace(@"""", ""),
+                DateSupply = JsonConvert.SerializeObject(dataList.DateSupply, settings).Replace(@"""", ""),
+                OperatorDogovora = dataList.PZ_OperatorDogovora.name,
+                KuratorDogovora = dataList.PZ_FIO.fio,
+                typeDostavka = dataList.PZ_Dostavka.Name,
+                dataList.Cost,
+                dataList.costSMR,
+                dataList.costPNR,
+                //SF = "",
+                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settings).Replace(@"""", "")
+                //dateDostavki = "",
+                //datePriemki = "",
+                //dateOplat = ""
+            });
+
+            return Json(new { data });
+        }
+
+        string GetManager(string manager)
+        {
+
+
+
+            return manager;
+        }
+
+        string GetLinkForEdit(PZ_PlanZakaz pZ_PlanZakaz, string linkPartOne, string linkPartTwo)
+        {
+            int closeOrder = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == pZ_PlanZakaz.Id).Where(d => d.id_TaskForPZ == 15).Where(d => d.close == true).Count();
+
+
+            string link = linkPartOne + pZ_PlanZakaz.Id + linkPartTwo;
+            if (closeOrder > 0)
+                link = "<td><span class=" + '\u0022' + "glyphicon glyphicon-remove-circle" + '\u0022' + "></span></td>";
+            if (linkPartOne == "")
+                link = "<td></td>";
+            return link;
+        }
+
+        [HttpPost]
         public JsonResult OrdersList()
         {
             int countLastOrdersView = 200;
@@ -82,7 +178,7 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = linkPartOne + dataList.Id + linkPartTwo,
+                Id = GetLinkForEdit(dataList, linkPartOne, linkPartTwo),
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
@@ -158,7 +254,7 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = linkPartOne + dataList.Id + linkPartTwo,
+                Id = GetLinkForEdit(dataList, linkPartOne, linkPartTwo),
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
@@ -234,7 +330,7 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
-                Id = linkPartOne + dataList.Id + linkPartTwo,
+                Id = GetLinkForEdit(dataList, linkPartOne, linkPartTwo),
                 IdRead = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyReadID('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
