@@ -976,10 +976,10 @@ namespace Wiki.Models
             EmailModel emailModel = new EmailModel();
             List<string> recipientList = new List<string>();
             recipientList.Add("myi@katek.by");
-            //recipientList.Add("gdp@katek.by");
-            //recipientList.Add("Antipov@katek.by");
+            recipientList.Add("gdp@katek.by");
+            recipientList.Add("Antipov@katek.by");
             string mailCompany = db.CMO_CompanyMailList.Where(d => d.active == true).First(d => d.id_CMO_Company == companyWin).email;
-            //recipientList.Add(mailCompany);
+            recipientList.Add(mailCompany);
             emailModel.SendEmail(recipientList.ToArray(), GetSubjectMailFirstTender(), bodyMail, GetFileArray(), "gdp@katek.by");
         }
 
