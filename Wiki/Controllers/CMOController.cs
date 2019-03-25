@@ -48,6 +48,7 @@ namespace Wiki.Controllers
             ViewOSCMO viewOSCMO = new ViewOSCMO();
             try
             {
+
                 var defaultOrderNotComplited = db.CMO_Order
                     .Where(d => d.datetimeFirstTenderFinish == null)
                     .Where(d => d.dateCloseOrder != null)
@@ -66,7 +67,6 @@ namespace Wiki.Controllers
                 viewOSCMO.ActiveSecondTender = activeSecondTender;
                 viewOSCMO.ActiveOrderClose = activeOrderClose;
                 viewOSCMO.DefaultOrderNotComplited = defaultOrderNotComplited;
-                logger.Debug("получены данные от сервера (CMOController/ViewStartMenuOS): " + login.ToString());
             }
             catch (Exception ex)
             {

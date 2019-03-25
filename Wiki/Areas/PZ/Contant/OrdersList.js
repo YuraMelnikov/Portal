@@ -11,7 +11,7 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[2, "desc"]],
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },
             { "title": "См", "data": "IdRead", "autowidth": true, "bSortable": false },
@@ -73,7 +73,7 @@ function OrdersListLY(yearCreateOrder) {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[2, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },
@@ -136,7 +136,7 @@ function OrdersListALL() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[2, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },
@@ -199,7 +199,7 @@ function OrdersListInManufacturing() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[2, "desc"]],
         "bAutoWidth": false,
         "columns": [
             { "title": "Ред", "data": "Id", "autowidth": true, "bSortable": false },

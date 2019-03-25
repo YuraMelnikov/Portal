@@ -354,6 +354,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CMO2Controller.cs" />
+    <Compile Include="Controllers\CMO3Controller.cs" />
     <Compile Include="Controllers\CMOController.cs" />
     <Compile Include="Controllers\Debit_CMRController.cs" />
     <Compile Include="Controllers\Debit_CostUpdateController.cs" />
@@ -1691,6 +1692,10 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\CMO\AppDefaultOrder.cshtml" />
+    <Content Include="Views\CMO3\ViewStartMenuOS.cshtml" />
+    <Content Include="Views\CMO3\StartFirstTender.cshtml" />
+    <Content Include="Views\CMO3\Error.cshtml" />
+    <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\PZ\Contant\dotx\" />

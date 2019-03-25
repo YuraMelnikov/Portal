@@ -184,8 +184,8 @@ namespace Wiki.Models
                 for (int i = 0; i < preOrder.Length; i++)
                 {
 
-                        System.IO.DirectoryInfo dr = new System.IO.DirectoryInfo(preOrder[i].folder);
-                        foreach (System.IO.FileInfo fi in dr.GetFiles())
+                    DirectoryInfo dr = new System.IO.DirectoryInfo(preOrder[i].folder);
+                        foreach (FileInfo fi in dr.GetFiles())
                         {
 
                             fi.CopyTo(directory + fi.Name, true);
@@ -298,7 +298,7 @@ namespace Wiki.Models
             emailModel.SendEmail(recipientList.ToArray(), GetSubjectMailDefault(), bodyMail, GetFileArray(), mailUploadData);
             CreateCMO_Mail(4, "", bodyMail, GetFileArray());
         }
-
+        
         public void CMO_StartFirstTender(DateTime houreForInf)
         {
             CreateOrder();
@@ -907,6 +907,95 @@ namespace Wiki.Models
             CMO_Order cMO_Order = db.CMO_Order.Find(idOrder);
             var fileList = Directory.GetFiles(cMO_Order.folder).ToList();
             return fileList;
+        }
+        
+        //time blick CMO3 (2019_03_25)
+        public void CMO_CreateOrderForCMO(int companyWin, int cost)
+        {
+            CreateOrderForCMO(companyWin);
+            CreateFolderAndFileForOrder(preOrder);
+            CreateCMO_PositionWhisPreOrder();
+            CloseUploadPreOrder();
+            CreateCMO_TenderForCMO(1, true);
+            CreateCMO_UploadResultForCMO(companyWin, cost);
+            CreateCMO_TenderForCMO(2, false);
+            CreateCMO_UploadResultForCMO(companyWin, cost);
+            CreateCMO_TenderForCMO(3, false);
+            CreateCMO_UploadResultForCMO(companyWin, cost);
+            PushMailForCMOFirst(companyWin);
+        }
+
+        private void CreateOrderForCMO(int companyWin)
+        {
+            CMO_Order cMO_Order = new CMO_Order();
+            try
+            {
+                cMO_Order.firstTenderStart = true;
+                cMO_Order.datetimeFirstTenderFinish = DateTime.Now;
+                cMO_Order.datetimeWinTenderFinish = DateTime.Now;
+                cMO_Order.companyWin = companyWin;
+                cMO_Order.idTime = 1;
+                cMO_Order.dateCreate = DateTime.Now;
+                cMO_Order.userCreate = db.AspNetUsers.First(d => d.Email == loginIdCreate).Id;
+                db.CMO_Order.Add(cMO_Order);
+                db.SaveChanges();
+             }
+            catch
+            {
+            }
+            this.idOrder = cMO_Order.id;
+        }
+
+        private void CreateCMO_TenderForCMO(int id_CMO_TypeTask, bool win)
+        {
+            CMO_Tender cMO_Tender = new CMO_Tender();
+            cMO_Tender.id_CMO_Order = idOrder;
+            cMO_Tender.id_CMO_TypeTask = id_CMO_TypeTask;
+            cMO_Tender.close = win;
+            cMO_Tender.finishPlanClose = DateTime.Now;
+            db.CMO_Tender.Add(cMO_Tender);
+            db.SaveChanges();
+            idTender = cMO_Tender.id;
+        }
+
+        private void CreateCMO_UploadResultForCMO(int companyWin, int cost)
+        {
+            CMO_UploadResult cMO_UploadResult = new CMO_UploadResult();
+            cMO_UploadResult.id_CMO_Tender = idTender;
+            cMO_UploadResult.dateTimeUpload = DateTime.Now;
+            cMO_UploadResult.cost = cost;
+            cMO_UploadResult.day = 0;
+            cMO_UploadResult.id_CMO_Company = companyWin;
+            db.CMO_UploadResult.Add(cMO_UploadResult);
+            db.SaveChanges();
+        }
+
+        private void PushMailForCMOFirst(int companyWin)
+        {
+            string bodyMail = GetBodyMailForCMOFirst();
+            EmailModel emailModel = new EmailModel();
+            List<string> recipientList = new List<string>();
+            recipientList.Add("myi@katek.by");
+            //recipientList.Add("gdp@katek.by");
+            //recipientList.Add("Antipov@katek.by");
+            string mailCompany = db.CMO_CompanyMailList.Where(d => d.active == true).First(d => d.id_CMO_Company == companyWin).email;
+            //recipientList.Add(mailCompany);
+            emailModel.SendEmail(recipientList.ToArray(), GetSubjectMailFirstTender(), bodyMail, GetFileArray(), "gdp@katek.by");
+        }
+
+        private string GetBodyMailForCMOFirst()
+        {
+            string body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + idOrder.ToString() + "<br/>" + "Прошу прислать сроки готовности заказа:" + "<br/>";
+            var cmoPositionList = db.CMO_PositionOrder.Include(db => db.CMO_TypeProduct).Where(d => d.id_CMO_Order == idOrder).ToList();
+            foreach (var data in cmoPositionList)
+            {
+                body += "план-заказ № " + data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name.ToString() + "<br/>";
+            }
+            body += "<br/>" + "<br/>";
+            body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
+                    "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
+                    "gdp@katek.by";
+            return body;
         }
     }
 }
