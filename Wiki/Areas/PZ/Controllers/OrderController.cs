@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
@@ -116,14 +117,6 @@ namespace Wiki.Areas.PZ.Controllers
             });
 
             return Json(new { data });
-        }
-
-        string GetManager(string manager)
-        {
-
-
-
-            return manager;
         }
 
         string GetLinkForEdit(PZ_PlanZakaz pZ_PlanZakaz, string linkPartOne, string linkPartTwo)
@@ -674,6 +667,48 @@ namespace Wiki.Areas.PZ.Controllers
                 default:
                     return string.Format("{0} {1}. {2}", results[0], results[1].Substring(0, 1), results[2].Substring(0, 1) + ".");
             }
+        }
+
+        PZ_PlanZakaz GetUpdateGP(PZ_PlanZakaz queryFirst, PZ_PlanZakaz pZ_PlanZakaz)
+        {
+            queryFirst.PostAdresGruzopoluchatel = pZ_PlanZakaz.PostAdresGruzopoluchatel;
+            queryFirst.INNGruzopoluchatel = pZ_PlanZakaz.INNGruzopoluchatel;
+            queryFirst.OKPOGruzopoluchatelya = pZ_PlanZakaz.OKPOGruzopoluchatelya;
+            queryFirst.KodGruzopoluchatela = pZ_PlanZakaz.KodGruzopoluchatela;
+            queryFirst.StantionGruzopoluchatel = pZ_PlanZakaz.StantionGruzopoluchatel;
+            queryFirst.KodStanciiGruzopoluchatelya = pZ_PlanZakaz.KodGruzopoluchatela;
+            queryFirst.OsobieOtmetkiGruzopoluchatelya = pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya;
+            queryFirst.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
+            
+            return queryFirst;
+        }
+
+        public JsonResult GetGP(string Id)
+        {
+            List<PZ_PlanZakaz> query = new List<PZ_PlanZakaz>();
+            PZ_PlanZakaz pZ_PlanZakaz = new PZ_PlanZakaz();
+            try
+            {
+                pZ_PlanZakaz = db.PZ_PlanZakaz.Where(d => d.Gruzopoluchatel.Replace(" ", "").Replace("\"", "") == Id).OrderByDescending(d => d.dataOtgruzkiBP).First();
+            }
+            catch
+            {
+
+            }
+            query.Add(pZ_PlanZakaz);
+            var data = query.Select(dataList => new
+            {
+                dataList.PostAdresGruzopoluchatel,
+                dataList.INNGruzopoluchatel,
+                dataList.OKPOGruzopoluchatelya,
+                dataList.KodGruzopoluchatela,
+                dataList.StantionGruzopoluchatel,
+                dataList.KodStanciiGruzopoluchatelya,
+                dataList.OsobieOtmetkiGruzopoluchatelya,
+                dataList.DescriptionGruzopoluchatel
+            });
+
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
     }
 }

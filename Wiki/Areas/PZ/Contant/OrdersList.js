@@ -821,6 +821,7 @@ function getbyReadID(Id) {
             $('#DateCreate').val(result.DateCreate);
             $('#PlanZakaz').val(result.PlanZakaz);
             $('#orderModal').modal('show');
+            $('#btnGetInfGP').hide();
             $('#btnUpdate').hide();
             $('#btnAdd').hide();
         },
@@ -1045,4 +1046,60 @@ function TableOrders() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function GetGP(Gruzopoluchatel) {
+    Gruzopoluchatel = Gruzopoluchatel.split(' ').join('');
+    Gruzopoluchatel = Gruzopoluchatel.split('"').join('');
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+    $.ajax({
+        url: "/Order/GetGP/" + Gruzopoluchatel,
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        cache: false,
+        success: function (result) {
+            $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
+            $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
+            $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
+            $('#DescriptionGruzopoluchatel').val(result.DescriptionGruzopoluchatel);
+            $('#KodGruzopoluchatela').val(result.KodGruzopoluchatela);
+            $('#OKPOGruzopoluchatelya').val(result.OKPOGruzopoluchatelya);
+            $('#INNGruzopoluchatel').val(result.INNGruzopoluchatel);
+            $('#PostAdresGruzopoluchatel').val(result.PostAdresGruzopoluchatel);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function GetGPOrders(Gruzopoluchatel) {
+    Gruzopoluchatel = Gruzopoluchatel.split(' ').join('');
+    Gruzopoluchatel = Gruzopoluchatel.split('"').join('');
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+    $.ajax({
+        url: "/Order/GetGP/" + Gruzopoluchatel,
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        cache: false,
+        success: function (result) {
+            $('#mStantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
+            $('#mKodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
+            $('#mOsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
+            $('#mDescriptionGruzopoluchatel').val(result.DescriptionGruzopoluchatel);
+            $('#mKodGruzopoluchatela').val(result.KodGruzopoluchatela);
+            $('#mOKPOGruzopoluchatelya').val(result.OKPOGruzopoluchatelya);
+            $('#mINNGruzopoluchatel').val(result.INNGruzopoluchatel);
+            $('#mPostAdresGruzopoluchatel').val(result.PostAdresGruzopoluchatel);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }

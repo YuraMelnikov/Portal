@@ -7,12 +7,6 @@
     <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
     <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
     <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
-
-
-
-
-
-
     <script src="~/Areas/PZ/Contant/OrdersList.js"></script>
     <style>
         th.dt-invisible-column {
@@ -239,6 +233,7 @@
                     </div>
                 </div>
                 <hr />
+                <button type="button" class="btn-xs btn-primary" id="btnGetInfGP" onclick="GetGP(document.getElementById('Gruzopoluchatel').value);">Получить данные о грузополучателе</button>
                 <div class="row">
                     <div class="col-lg-3">
                         <label for="Gruzopoluchatel">Грузополучатель:</label>
@@ -431,6 +426,7 @@
                     </div>
                 </div>
                 <hr />
+                <button type="button" class="btn-xs btn-primary" id="btnGetInfGP" onclick="GetGPOrders(document.getElementById('mGruzopoluchatel').value);">Получить данные о грузополучателе</button>
                 <div class="row">
                     <div class="col-lg-3">
                         <label for="Gruzopoluchatel">Грузополучатель:</label>
