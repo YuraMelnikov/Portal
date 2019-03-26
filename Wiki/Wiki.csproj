@@ -1698,7 +1698,6 @@
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\PZ\Contant\dotx\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
