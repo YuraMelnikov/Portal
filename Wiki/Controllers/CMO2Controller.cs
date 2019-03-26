@@ -28,7 +28,8 @@ namespace Wiki.Controllers
             string login = HttpContext.User.Identity.Name;
             data = Convert.ToInt32(db.AspNetUsers.Where(d => d.Email == login).First().Devision);
             if (data == 7)
-                return RedirectToAction("ViewStartMenuOS", "CMO");
+                //return RedirectToAction("ViewStartMenuOS", "CMO");
+                return RedirectToAction("ViewStartMenuOS", "CMO3");
             else if (data == 15)
                 return RedirectToAction("WorkDeskKO", "CMO2");
             else if (data == 13)

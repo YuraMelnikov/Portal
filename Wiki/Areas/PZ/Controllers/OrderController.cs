@@ -85,7 +85,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = dataList.AspNetUsers.CiliricalName,
+                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -183,7 +183,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = dataList.AspNetUsers.CiliricalName,
+                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -259,7 +259,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = dataList.AspNetUsers.CiliricalName,
+                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -335,7 +335,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = dataList.AspNetUsers.CiliricalName,
+                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -658,6 +658,22 @@ namespace Wiki.Areas.PZ.Controllers
             generatedTablesOreder.CreatePackage(part, Id.Length);
 
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        private string ExctraxtIni(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return string.Empty;
+            string[] results = s.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            switch (results.Length)
+            {
+                case 1:
+                    return results[0];
+                case 2:
+                    return string.Format("{0} {1}.", results[0], results[1].Substring(0, 1));
+                default:
+                    return string.Format("{0} {1}. {2}", results[0], results[1].Substring(0, 1), results[2].Substring(0, 1) + ".");
+            }
         }
     }
 }

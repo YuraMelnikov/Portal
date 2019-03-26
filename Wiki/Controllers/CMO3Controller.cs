@@ -75,7 +75,6 @@ namespace Wiki.Controllers
                     int index = preOrder[i];
                     cMO_PreOrders[i] = db.CMO_PreOrder.First(d => d.id == index);
                 }
-
                 CMO_Create cMO_Create = new CMO_Create(cMO_PreOrders, login);
                 cMO_Create.CMO_CreateOrderForCMO(cMO_Order.companyWin.Value, cMO_Order.idTime);
                 return RedirectToAction("ViewStartMenuOS", "CMO3");

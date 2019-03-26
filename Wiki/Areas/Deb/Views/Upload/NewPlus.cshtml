@@ -25,22 +25,34 @@
 </head>
 <body>
     <div class=" container">
-        <div class="col-sm-6">
-            <h3>№ заказа: @ViewBag.PlanZakaz</h3>
-            <hr />
-            <h5>Отпускная цена (с НДС): @ViewBag.CostNDS</h5>
-            <h5>Отпускная цена (без НДС): @ViewBag.Cost</h5>
-            <h5>Сумма НДС: @ViewBag.NDS</h5>
-            <h5>Валюта платежа: @ViewBag.Curency</h5>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>№ заказа: @ViewBag.PlanZakaz</h3>
+                <hr />
+                <h5>Отпускная цена (с НДС): @ViewBag.CostNDS</h5>
+                <h5>Отпускная цена (без НДС): @ViewBag.Cost</h5>
+                <h5>Сумма НДС: @ViewBag.NDS</h5>
+                <h5>Валюта платежа: @ViewBag.Curency</h5>
+            </div>
+            <div class="col-sm-6">
+                <h3>&nbsp;</h3>
+                <hr />
+                <h5>&nbsp;</h5>
+                <h5>&nbsp;</h5>
+                <div>
+                    <h5>Получено: @ViewBag.GetCost</h5>
+                    <h5>Ожидание: @ViewBag.PostCost</h5>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-            <h3>&nbsp;</h3>
-            <hr />
-            <h5>&nbsp;</h5>
-            <h5>&nbsp;</h5>
-            <div>
-                <h5>Получено: @ViewBag.GetCost</h5>
-                <h5>Ожидание: @ViewBag.PostCost</h5>
+        <div class="row">
+            <div class="col-xs-6">
+                <h4>Условие оплаты:</h4>
+                @ViewBag.UslovieOplat
+            </div>
+            <div class="col-xs-6">
+                <h4>Условие приемки:</h4>
+                @ViewBag.UslovieOplat
             </div>
         </div>
     </div>
@@ -77,7 +89,7 @@
                                 <td>@person.dateCreate.ToString().Substring(0, 10)</td>
                                 <td>@person.dateGetMoney.ToString().Substring(0, 10)</td>
                                 <td>@person.cost.ToString("N", new System.Globalization.CultureInfo("en-US", false).NumberFormat)</td>
-                                <td><a href="#" onclick="return getbyID(' @person.id ')"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a href="#" onclick="return getbyID( @person.id )"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                         }
                     </tbody>
@@ -98,10 +110,10 @@
                     <div class="col-lg-4">
                         @Html.HiddenFor(d => d.id)
                         Дата поступления
-                        @Html.EditorFor(model => model.dateGetMoney, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="text" class="form-control" id="mdateGetMoney" />
                         <br />
                         Полученая суммма
-                        @Html.EditorFor(model => model.cost, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="text" class="form-control" id="mcost" />
                     </div>
                 </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -126,12 +138,24 @@
                 <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
             </div>
+
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $(function () {
         $('#dateGetMoney').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#mdateGetMoney').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

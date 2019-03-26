@@ -25,7 +25,7 @@ namespace Wiki.Areas.Deb.Controllers
             var data = query.Select(dataList => new
             {
                 status = GetStatusName(dataList),
-                edit =  "<a href =" + '\u0022' + "http://localhost:57314/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
+                edit =  "<a href =" + '\u0022' + "http://pserver/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
                 dataList.PZ_PlanZakaz.PlanZakaz,
                 dataList.PZ_PlanZakaz.Name,
                 Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
@@ -76,6 +76,10 @@ namespace Wiki.Areas.Deb.Controllers
             ViewBag.CostNDS = ndsCost.ToString("N", numForInf);
             ViewBag.PostCost = (ndsCost - getCost).ToString("N", numForInf);
             ViewBag.listCost = listCost.ToList();
+            PZ_Setup pZ_Setup = db.PZ_Setup.First(d => d.id_PZ_PlanZakaz == debit_WorkBit.id_PlanZakaz);
+            ViewBag.UslovieOplat = pZ_Setup.UslovieOplatyText;
+            ViewBag.UslovieOplat = pZ_Setup.PunktDogovoraOSrokahPriemki;
+
             Debit_CostUpdate dc = new Debit_CostUpdate();
             dc.id_PZ_PlanZakaz = debit_WorkBit.id_PlanZakaz;
             return View(dc);
@@ -181,7 +185,7 @@ namespace Wiki.Areas.Deb.Controllers
             {
                 dataList.id,
                 dataList.dateCreate,
-                dataList.dateGetMoney,
+                dateGetMoney = JsonConvert.SerializeObject(dataList.dateGetMoney, settings).Replace(@"""", ""),
                 dataList.id_PZ_PlanZakaz,
                 dataList.cost
             });
@@ -189,16 +193,17 @@ namespace Wiki.Areas.Deb.Controllers
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Update(Debit_CostUpdate debit_CostUpdate)
+        public JsonResult Update(Debit_CostUpdate debit_CostUpdate, float mcost, DateTime mdateGetMoney)
         {
-            Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz & d.id_TaskForPZ == 15).First();
-            if (debit_CostUpdate.dateGetMoney.Year < 2010)
-                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
-            if (debit_CostUpdate.cost == 0)
-                return RedirectToAction("NewPlus", "Upload", new { debit_WorkBit.id, area = "Deb" });
             Debit_CostUpdate newCost = db.Debit_CostUpdate.Find(debit_CostUpdate.id);
-            newCost.cost = debit_CostUpdate.cost;
-            newCost.dateGetMoney = debit_CostUpdate.dateGetMoney;
+            Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == newCost.id_PZ_PlanZakaz & d.id_TaskForPZ == 15).First();
+            if (mdateGetMoney.Year < 2010)
+                return Json(1, JsonRequestBehavior.AllowGet);
+            if (mcost == 0)
+                return Json(1, JsonRequestBehavior.AllowGet);
+
+            newCost.cost = mcost;
+            newCost.dateGetMoney = mdateGetMoney;
             db.Entry(newCost).State = EntityState.Modified;
             db.SaveChanges();
             PZ_TEO pZ_TEO = db.PZ_TEO.Where(d => d.Id_PlanZakaz == newCost.id_PZ_PlanZakaz).First();
@@ -224,7 +229,7 @@ namespace Wiki.Areas.Deb.Controllers
                 db.Entry(debit_WorkBit).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Upload", new { area = "Deb" });
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

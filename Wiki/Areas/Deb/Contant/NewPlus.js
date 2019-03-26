@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
 });
 
 function getbyID(Id) {
@@ -7,13 +8,13 @@ function getbyID(Id) {
     $.ajax({
         cache: false,
         url: "/Upload/GetbyID/" + Id,
-        type: "GET",
+        typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             $('#id').val(result.id);
-            $('#cost').val(result.cost);
-            $('#dateGetMoney').val(result.dateGetMoney);
+            $('#mdateGetMoney').val(result.dateGetMoney);
+            $('#mcost').val(result.cost);
             $('#editUploadCost').modal('show');
             $('#btnUpdate').show();
         },
@@ -31,8 +32,8 @@ function Update() {
     }
     var typeObj = {
         id: $('#id').val(),
-        cost: $('#cost').val(),
-        dateGetMoney: $('#dateGetMoney').val()
+        mcost: $('#mcost').val(),
+        mdateGetMoney: $('#mdateGetMoney').val()
     };
     $.ajax({
         url: "/Upload/Update",
@@ -41,16 +42,17 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
             $('#editUploadCost').modal('hide');
             $('#id').val("");
-            $('#cost').val("");
-            $('#dateGetMoney').val("");
+            $('#mcost').val("");
+            $('#mdateGetMoney').val("");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
+
     });
+    Refresh();
 }
 
 function validate() {
@@ -64,4 +66,8 @@ function validate() {
     }
     
     return isValid;
+}
+
+function Refresh() {
+    window.parent.location = window.parent.location.href;
 }
