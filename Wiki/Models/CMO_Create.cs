@@ -910,7 +910,7 @@ namespace Wiki.Models
         }
         
         //time blick CMO3 (2019_03_25)
-        public void CMO_CreateOrderForCMO(int companyWin, int cost)
+        public void CMO_CreateOrderForCMO(int companyWin, int cost, DateTime dateTimeResult)
         {
             CreateOrderForCMO(companyWin);
             CreateFolderAndFileForOrder(preOrder);
@@ -922,7 +922,7 @@ namespace Wiki.Models
             CreateCMO_UploadResultForCMO(companyWin, cost);
             CreateCMO_TenderForCMO(3, false);
             CreateCMO_UploadResultForCMO(companyWin, cost);
-            PushMailForCMOFirst(companyWin);
+            PushMailForCMOFirst(companyWin, dateTimeResult);
         }
 
         private void CreateOrderForCMO(int companyWin)
@@ -970,9 +970,9 @@ namespace Wiki.Models
             db.SaveChanges();
         }
 
-        private void PushMailForCMOFirst(int companyWin)
+        private void PushMailForCMOFirst(int companyWin, DateTime dateTimePost)
         {
-            string bodyMail = GetBodyMailForCMOFirst();
+            string bodyMail = GetBodyMailForCMOFirst(dateTimePost);
             EmailModel emailModel = new EmailModel();
             List<string> recipientList = new List<string>();
             recipientList.Add("myi@katek.by");
@@ -983,14 +983,15 @@ namespace Wiki.Models
             emailModel.SendEmail(recipientList.ToArray(), GetSubjectMailFirstTender(), bodyMail, GetFileArray(), "gdp@katek.by");
         }
 
-        private string GetBodyMailForCMOFirst()
+        private string GetBodyMailForCMOFirst(DateTime dateTimePost)
         {
-            string body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + idOrder.ToString() + "<br/>" + "Прошу прислать сроки готовности заказа:" + "<br/>";
+            string body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + idOrder.ToString() + ";" + "<br/>";
             var cmoPositionList = db.CMO_PositionOrder.Include(db => db.CMO_TypeProduct).Where(d => d.id_CMO_Order == idOrder).ToList();
             foreach (var data in cmoPositionList)
             {
                 body += "план-заказ № " + data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name.ToString() + "<br/>";
             }
+            body += "Прошу прислать сроки готовности заказа:" + dateTimePost + "<br/>";
             body += "<br/>" + "<br/>";
             body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                     "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +

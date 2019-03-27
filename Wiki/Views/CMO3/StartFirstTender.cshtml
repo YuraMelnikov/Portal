@@ -26,6 +26,9 @@
     <h4>Укажите подрядчика: </h4>
     @Html.DropDownList("companyWin", ViewBag.CMO_Company as MultiSelectList, new { @class = "form-control" })
     <br />
+    <h4>Укажите дату получения ответа </h4>
+    @Html.EditorFor(model => model.dateCreate, new { htmlAttributes = new { @class = "form-control" } })
+    <br />
     <h4>Цена, б/НДС (BYN): </h4>
     @Html.EditorFor(model => model.idTime, new { htmlAttributes = new { @class = "form-control" } })
     <hr />
