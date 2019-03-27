@@ -41,55 +41,55 @@ namespace Wiki.Controllers
                 return RedirectToAction("TestTableOS", "CMO");
         }
 
-        [Authorize(Roles = "Admin, OS")]
-        public ActionResult ViewStartMenuOS()
-        {
-            string login = HttpContext.User.Identity.Name;
-            ViewOSCMO viewOSCMO = new ViewOSCMO();
-            try
-            {
+        //[Authorize(Roles = "Admin, OS")]
+        //public ActionResult ViewStartMenuOS()
+        //{
+        //    string login = HttpContext.User.Identity.Name;
+        //    ViewOSCMO viewOSCMO = new ViewOSCMO();
+        //    try
+        //    {
 
-                var defaultOrderNotComplited = db.CMO_Order
-                    .Where(d => d.datetimeFirstTenderFinish == null)
-                    .Where(d => d.dateCloseOrder != null)
-                    .Where(d => d.companyWin > 0)
-                    .ToList();
-                var activeOrder = db.CMO_PreOrder.Where(d => d.firstTenderStart == false).ToList();
-                var activeFirstUpload = db.CMO_UploadResult.Where(d => d.dateComplited == null & d.CMO_Tender.id_CMO_TypeTask == 1).ToList();
-                var activeFirstTender = db.CMO_Tender.Where(d => d.id_CMO_TypeTask == 1 & d.close == false).ToList();
-                var activeSecondUpload = db.CMO_UploadResult.Where(d => d.dateComplited == null & d.CMO_Tender.id_CMO_TypeTask == 2).ToList();
-                var activeSecondTender = db.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2 & d.close == false).ToList();
-                var activeOrderClose = db.CMO_Report.Where(d => d.FactFinishDate == null & d.PlanFinishWork1 != null).ToList();
-                viewOSCMO.ActiveOrder = activeOrder;
-                viewOSCMO.ActiveFirstUpload = activeFirstUpload;
-                viewOSCMO.ActiveFirstTender = activeFirstTender;
-                viewOSCMO.ActiveSecondUpload = activeSecondUpload;
-                viewOSCMO.ActiveSecondTender = activeSecondTender;
-                viewOSCMO.ActiveOrderClose = activeOrderClose;
-                viewOSCMO.DefaultOrderNotComplited = defaultOrderNotComplited;
-            }
-            catch (Exception ex)
-            {
-                logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuOS): " + ex.Message.ToString());
-            }
-            return View(viewOSCMO);
-        }
-        [Authorize(Roles = "Admin, KBM, KBMUser")]
-        public ActionResult ViewStartMenuKO()
-        {
-            string login = HttpContext.User.Identity.Name;
-            try
-            {
-                var data = db.CMO_Order.OrderByDescending(d => d.id);
-                logger.Debug("получены данные от сервера (CMOController/ViewStartMenuKO): " + login.ToString());
-                return View(data);
-            }
-            catch (Exception ex)
-            {
-                logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
-                return RedirectToAction("Error", "CMO");
-            }
-        }
+        //        var defaultOrderNotComplited = db.CMO_Order
+        //            .Where(d => d.datetimeFirstTenderFinish == null)
+        //            .Where(d => d.dateCloseOrder != null)
+        //            .Where(d => d.companyWin > 0)
+        //            .ToList();
+        //        var activeOrder = db.CMO_PreOrder.Where(d => d.firstTenderStart == false).ToList();
+        //        var activeFirstUpload = db.CMO_UploadResult.Where(d => d.dateComplited == null & d.CMO_Tender.id_CMO_TypeTask == 1).ToList();
+        //        var activeFirstTender = db.CMO_Tender.Where(d => d.id_CMO_TypeTask == 1 & d.close == false).ToList();
+        //        var activeSecondUpload = db.CMO_UploadResult.Where(d => d.dateComplited == null & d.CMO_Tender.id_CMO_TypeTask == 2).ToList();
+        //        var activeSecondTender = db.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2 & d.close == false).ToList();
+        //        var activeOrderClose = db.CMO_Report.Where(d => d.FactFinishDate == null & d.PlanFinishWork1 != null).ToList();
+        //        viewOSCMO.ActiveOrder = activeOrder;
+        //        viewOSCMO.ActiveFirstUpload = activeFirstUpload;
+        //        viewOSCMO.ActiveFirstTender = activeFirstTender;
+        //        viewOSCMO.ActiveSecondUpload = activeSecondUpload;
+        //        viewOSCMO.ActiveSecondTender = activeSecondTender;
+        //        viewOSCMO.ActiveOrderClose = activeOrderClose;
+        //        viewOSCMO.DefaultOrderNotComplited = defaultOrderNotComplited;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuOS): " + ex.Message.ToString());
+        //    }
+        //    return View(viewOSCMO);
+        //}
+        //[Authorize(Roles = "Admin, KBM, KBMUser")]
+        //public ActionResult ViewStartMenuKO()
+        //{
+        //    string login = HttpContext.User.Identity.Name;
+        //    try
+        //    {
+        //        var data = db.CMO_Order.OrderByDescending(d => d.id);
+        //        logger.Debug("получены данные от сервера (CMOController/ViewStartMenuKO): " + login.ToString());
+        //        return View(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
+        //        return RedirectToAction("Error", "CMO");
+        //    }
+        //}
 
         [Authorize(Roles = "Admin, Technologist, OS")]
         public ActionResult TestTableOS()
