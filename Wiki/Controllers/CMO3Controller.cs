@@ -147,12 +147,37 @@ namespace Wiki.Controllers
                 winResult.dateTimeUpload = DateTime.Now;
                 db.Entry(winResult).State = EntityState.Modified;
                 db.SaveChanges();
+
+                EmailModel emailModel = new EmailModel();
+                List<string> recipientList = new List<string>();
+                recipientList.Add("myi@katek.by");
+                recipientList.Add("gea@katek.by");
+                
+                emailModel.SendEmail(recipientList.ToArray(), "Сроки поступления железа", GetBodyMailForCMOFirst(winResult), "gdp@katek.by");
+
+
+
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch
             {
                 return RedirectToAction("Error", "CMO3");
             }
+        }
+
+        private string GetBodyMailForCMOFirst(CMO_UploadResult cMO_UploadResult)
+        {
+            int idOrder = cMO_UploadResult.CMO_Tender.CMO_Order.id;
+            string body = "Добрый день!" + "<br/>" + "Получены данные о готовности заказа деталей №: " + cMO_UploadResult.CMO_Tender.CMO_Order.id.ToString() + ";" + "<br/>";
+            var cmoPositionList = db.CMO_PositionOrder.Include(db => db.CMO_TypeProduct).Where(d => d.id_CMO_Order == idOrder).ToList();
+            foreach (var data in cmoPositionList)
+            {
+                body += "план-заказ № " + data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name.ToString() + "<br/>";
+            }
+            body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
+                    "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
+                    "gdp@katek.by";
+            return body;
         }
 
         int GetBusinessDays(DateTime startD, DateTime endD)
