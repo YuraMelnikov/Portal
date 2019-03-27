@@ -985,13 +985,13 @@ namespace Wiki.Models
 
         private string GetBodyMailForCMOFirst(DateTime dateTimePost)
         {
-            string body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + idOrder.ToString() + ";" + "<br/>";
+            string body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + idOrder.ToString() + ":" + "<br/>";
             var cmoPositionList = db.CMO_PositionOrder.Include(db => db.CMO_TypeProduct).Where(d => d.id_CMO_Order == idOrder).ToList();
             foreach (var data in cmoPositionList)
             {
                 body += "план-заказ № " + data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name.ToString() + "<br/>";
             }
-            body += "Прошу прислать сроки готовности заказа:" + dateTimePost + "<br/>";
+            body += "Прошу прислать сроки готовности заказа: " + dateTimePost.ToString().Substring(0, 16) + "<br/>";
             body += "<br/>" + "<br/>";
             body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                     "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +

@@ -168,7 +168,7 @@ namespace Wiki.Controllers
         private string GetBodyMailForCMOFirst(CMO_UploadResult cMO_UploadResult)
         {
             int idOrder = cMO_UploadResult.CMO_Tender.CMO_Order.id;
-            string body = "Добрый день!" + "<br/>" + "Получены данные о готовности заказа деталей №: " + cMO_UploadResult.CMO_Tender.CMO_Order.id.ToString() + ";" + "<br/>";
+            string body = "Добрый день!" + "<br/>" + "Получены данные о готовности заказа деталей №: " + cMO_UploadResult.CMO_Tender.CMO_Order.id.ToString() + ":" + "<br/>";
             var cmoPositionList = db.CMO_PositionOrder.Include(db => db.CMO_TypeProduct).Where(d => d.id_CMO_Order == idOrder).ToList();
             foreach (var data in cmoPositionList)
             {
