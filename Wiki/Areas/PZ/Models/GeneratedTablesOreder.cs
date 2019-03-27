@@ -1647,13 +1647,13 @@ namespace Wiki.Areas.PZ.Models
             tableProperties2.Append(tableLook2);
 
             TableGrid tableGrid2 = new TableGrid();
-            GridColumn gridColumn2 = new GridColumn() { Width = "2405" };
+            GridColumn gridColumn2 = new GridColumn() { Width = "2373" };
             GridColumn gridColumn3 = new GridColumn() { Width = "1848" };
             GridColumn gridColumn4 = new GridColumn() { Width = "945" };
             GridColumn gridColumn5 = new GridColumn() { Width = "756" };
             GridColumn gridColumn6 = new GridColumn() { Width = "1843" };
             GridColumn gridColumn7 = new GridColumn() { Width = "1180" };
-            GridColumn gridColumn8 = new GridColumn() { Width = "598" };
+            GridColumn gridColumn8 = new GridColumn() { Width = "630" };
             GridColumn gridColumn9 = new GridColumn() { Width = "916" };
             GridColumn gridColumn10 = new GridColumn() { Width = "567" };
 
@@ -1672,7 +1672,7 @@ namespace Wiki.Areas.PZ.Models
             TableCell tableCell2 = new TableCell();
 
             TableCellProperties tableCellProperties2 = new TableCellProperties();
-            TableCellWidth tableCellWidth2 = new TableCellWidth() { Width = "2405", Type = TableWidthUnitValues.Dxa };
+            TableCellWidth tableCellWidth2 = new TableCellWidth() { Width = "2373", Type = TableWidthUnitValues.Dxa };
             TableCellVerticalAlignment tableCellVerticalAlignment1 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
 
             tableCellProperties2.Append(tableCellWidth2);
@@ -1800,9 +1800,7 @@ namespace Wiki.Areas.PZ.Models
             Run run16 = new Run() { RsidRunProperties = "006D06A1" };
             Text text12 = new Text();
             text12.Text = "ГОСТ";
-
             run16.Append(text12);
-
             paragraph16.Append(paragraphProperties16);
             paragraph16.Append(run16);
 
@@ -1825,11 +1823,16 @@ namespace Wiki.Areas.PZ.Models
 
             paragraphProperties17.Append(justification9);
 
+
+
+
             Run run17 = new Run() { RsidRunProperties = "006D06A1" };
             Text text13 = new Text();
             text13.Text = "МАССА";
-
             run17.Append(text13);
+
+
+
 
             paragraph17.Append(paragraphProperties17);
             paragraph17.Append(run17);
@@ -1840,7 +1843,7 @@ namespace Wiki.Areas.PZ.Models
             TableCell tableCell8 = new TableCell();
 
             TableCellProperties tableCellProperties8 = new TableCellProperties();
-            TableCellWidth tableCellWidth8 = new TableCellWidth() { Width = "598", Type = TableWidthUnitValues.Dxa };
+            TableCellWidth tableCellWidth8 = new TableCellWidth() { Width = "630", Type = TableWidthUnitValues.Dxa };
             TableCellVerticalAlignment tableCellVerticalAlignment7 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
 
             tableCellProperties8.Append(tableCellWidth8);
@@ -1940,19 +1943,11 @@ namespace Wiki.Areas.PZ.Models
                 pZ_PlanZakaz = db.PZ_PlanZakaz.Find(data);
 
                 TableRow tableRow3 = new TableRow() { RsidTableRowAddition = "004F2046", RsidTableRowProperties = "004F2046" };
-
-
-
-
-
-
-
-
-
+                
                 TableCell tableCell11 = new TableCell();
 
                 TableCellProperties tableCellProperties11 = new TableCellProperties();
-                TableCellWidth tableCellWidth11 = new TableCellWidth() { Width = "2405", Type = TableWidthUnitValues.Dxa };
+                TableCellWidth tableCellWidth11 = new TableCellWidth() { Width = "2373", Type = TableWidthUnitValues.Dxa };
 
                 tableCellProperties11.Append(tableCellWidth11);
 
@@ -2114,6 +2109,9 @@ namespace Wiki.Areas.PZ.Models
                 tableCell15.Append(tableCellProperties15);
                 tableCell15.Append(paragraph25);
 
+
+
+
                 TableCell tableCell16 = new TableCell();
 
                 TableCellProperties tableCellProperties16 = new TableCellProperties();
@@ -2135,11 +2133,17 @@ namespace Wiki.Areas.PZ.Models
                 paragraphMarkRunProperties17.Append(fontSizeComplexScript28);
 
                 paragraphProperties26.Append(paragraphMarkRunProperties17);
-
+                Run runKG = new Run() { RsidRunProperties = "006D06A1" };
+                Text textKG = new Text();
+                textKG.Text = " кг.";
+                runKG.Append(textKG);
+                paragraph26.Append(runKG);
                 paragraph26.Append(paragraphProperties26);
-
                 tableCell16.Append(tableCellProperties16);
                 tableCell16.Append(paragraph26);
+
+
+
 
                 TableCell tableCell17 = new TableCell();
 
