@@ -74,22 +74,22 @@ namespace Wiki.Controllers
         //    }
         //    return View(viewOSCMO);
         //}
-        //[Authorize(Roles = "Admin, KBM, KBMUser")]
-        //public ActionResult ViewStartMenuKO()
-        //{
-        //    string login = HttpContext.User.Identity.Name;
-        //    try
-        //    {
-        //        var data = db.CMO_Order.OrderByDescending(d => d.id);
-        //        logger.Debug("получены данные от сервера (CMOController/ViewStartMenuKO): " + login.ToString());
-        //        return View(data);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
-        //        return RedirectToAction("Error", "CMO");
-        //    }
-        //}
+        [Authorize(Roles = "Admin, KBM, KBMUser")]
+        public ActionResult ViewStartMenuKO()
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                var data = db.CMO_Order.OrderByDescending(d => d.id);
+                logger.Debug("получены данные от сервера (CMOController/ViewStartMenuKO): " + login.ToString());
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("ошибка получения данных от сервера (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
+                return RedirectToAction("Error", "CMO");
+            }
+        }
 
         [Authorize(Roles = "Admin, Technologist, OS")]
         public ActionResult TestTableOS()
@@ -462,7 +462,7 @@ namespace Wiki.Controllers
                 db.Entry(cMO).State = EntityState.Modified;
                 db.SaveChanges();
                 logger.Debug(postServer + " (CMOController/ViewStartMenuKO): " + login.ToString());
-                return RedirectToAction("ViewStartMenuOS", "CMO");
+                return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch (Exception ex)
             {
@@ -547,7 +547,7 @@ namespace Wiki.Controllers
             {
                 db.Entry(cmo_Order).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ViewStartMenuOS", "CMO");
+                return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch (Exception ex)
             {
