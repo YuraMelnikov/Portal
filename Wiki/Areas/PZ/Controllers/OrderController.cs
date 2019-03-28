@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
 
@@ -435,7 +436,7 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora;
             if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
                 editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
-            if (editPZ.Name != pZ_PlanZakaz.Name)
+            if (RemoveDiacritics(editPZ.Name.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.Name.Replace(" ", "")))
             {
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                 emailRename.SendEmail();
@@ -530,7 +531,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
                 if (pZ_PlanZakaz.Name != null)
                 {
-                    if (editPZ.Name != pZ_PlanZakaz.Name)
+                    if (RemoveDiacritics(editPZ.Name.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.Name.Replace(" ", "")))
                     {
                         EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                         emailRename.SendEmail();
@@ -626,7 +627,7 @@ namespace Wiki.Areas.PZ.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
-            if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
+            if (RemoveDiacritics(editPZ.nameTU.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.nameTU.Replace(" ", "")))
             {
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
                 emailRename.SendEmail();
@@ -709,6 +710,12 @@ namespace Wiki.Areas.PZ.Controllers
             });
 
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public string RemoveDiacritics(string s)
+        {
+            IEnumerable<char> chars = s.Normalize(NormalizationForm.FormD);
+            return new string(chars.Where(c => c < 0x7f && !char.IsControl(c)).ToArray());
         }
     }
 }
