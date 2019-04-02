@@ -177,7 +177,7 @@ namespace Wiki.Controllers
             //RKD rKD1 = new RKD(2594);
             //rKD1.id_RKD_Order = 265;
             //rKD1.Create_NULLRKD_TaskVersion();
-            for (int i = 2701; i < 2704; i++)
+            for (int i = 2690; i < 2689; i++)
             {
                 RKD rKD = new RKD(i);
                 rKD.CreateRKDOrder();

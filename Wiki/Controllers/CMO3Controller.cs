@@ -99,7 +99,7 @@ namespace Wiki.Controllers
                 ViewBag.Order = cMO_UploadResult.CMO_Tender.id_CMO_Order.ToString();
                 ViewBag.Company = cMO_UploadResult.CMO_Company.name.ToString();
                 string dataPositionOrder = "";
-
+                ViewBag.reloadError = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(x => x.name), "id", "name");
                 var dataListPosition = cMO_UploadResult.CMO_Tender.CMO_Order.CMO_PositionOrder.ToList();
                 foreach (var data in dataListPosition)
                 {
@@ -116,7 +116,7 @@ namespace Wiki.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadDataCompany(CMO_UploadResult cMO_UploadResult)
+        public ActionResult UploadDataCompany(CMO_UploadResult cMO_UploadResult, int reloadError, bool newDevision)
         {
             string login = HttpContext.User.Identity.Name;
             if (cMO_UploadResult.cost == 0)
@@ -126,6 +126,8 @@ namespace Wiki.Controllers
             try
             {
                 CMO_UploadResult upCMO_UploadResult = db.CMO_UploadResult.Find(cMO_UploadResult.id);
+                if (newDevision == true)
+                    upCMO_UploadResult.id_CMO_Company = reloadError;
                 upCMO_UploadResult.cost = cMO_UploadResult.cost;
                 upCMO_UploadResult.dateTimeUpload = DateTime.Now;
                 upCMO_UploadResult.dateComplited = cMO_UploadResult.dateComplited;
@@ -142,21 +144,25 @@ namespace Wiki.Controllers
                 db.Entry(tenderWin).State = EntityState.Modified;
                 db.SaveChanges();
                 CMO_UploadResult winResult = db.CMO_UploadResult.First(d => d.id_CMO_Tender == tenderWin.id);
+                if (newDevision == true)
+                    winResult.id_CMO_Company = reloadError;
                 winResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
                 winResult.cost = cMO_UploadResult.cost;
                 winResult.dateTimeUpload = DateTime.Now;
                 db.Entry(winResult).State = EntityState.Modified;
                 db.SaveChanges();
-
+                CMO_Order cMO_Order = db.CMO_Order.Find(cMO_Tender.id_CMO_Order);
+                if (newDevision == true)
+                {
+                    cMO_Order.companyWin = reloadError;
+                    db.Entry(cMO_Order).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
                 EmailModel emailModel = new EmailModel();
                 List<string> recipientList = new List<string>();
                 recipientList.Add("myi@katek.by");
                 recipientList.Add("gea@katek.by");
-                
                 emailModel.SendEmail(recipientList.ToArray(), "Сроки поступления железа", GetBodyMailForCMOFirst(winResult), "gdp@katek.by");
-
-
-
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch
