@@ -87,7 +87,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
+                dataList.Manager,
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -177,7 +177,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
+                dataList.Manager,
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -253,7 +253,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
+                dataList.Manager,
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -329,7 +329,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PZ_ProductType.ProductType,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
-                Manager = ExctraxtIni(dataList.AspNetUsers.CiliricalName),
+                dataList.Manager,
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -436,7 +436,7 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora;
             if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
                 editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
-            if (RemoveDiacritics(editPZ.Name.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.Name.Replace(" ", "")))
+            if (editPZ.Name.Replace(" ", "") != pZ_PlanZakaz.Name.Replace(" ", ""))
             {
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                 emailRename.SendEmail();
@@ -531,7 +531,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
                 if (pZ_PlanZakaz.Name != null)
                 {
-                    if (RemoveDiacritics(editPZ.Name.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.Name.Replace(" ", "")))
+                    if (editPZ.Name.Replace(" ", "") != pZ_PlanZakaz.Name.Replace(" ", ""))
                     {
                         EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                         emailRename.SendEmail();
@@ -627,7 +627,7 @@ namespace Wiki.Areas.PZ.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
-            if (RemoveDiacritics(editPZ.nameTU.Replace(" ", "")) != RemoveDiacritics(pZ_PlanZakaz.nameTU.Replace(" ", "")))
+            if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
             {
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
                 emailRename.SendEmail();

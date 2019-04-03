@@ -151,6 +151,11 @@ namespace Wiki.Controllers
                 winResult.dateTimeUpload = DateTime.Now;
                 db.Entry(winResult).State = EntityState.Modified;
                 db.SaveChanges();
+                EmailModel emailModel = new EmailModel();
+                List<string> recipientList = new List<string>();
+                recipientList.Add("myi@katek.by");
+                recipientList.Add("gea@katek.by");
+                emailModel.SendEmail(recipientList.ToArray(), "Сроки поступления железа", GetBodyMailForCMOFirst(winResult), "gdp@katek.by");
                 CMO_Order cMO_Order = db.CMO_Order.Find(cMO_Tender.id_CMO_Order);
                 if (newDevision == true)
                 {
@@ -158,11 +163,6 @@ namespace Wiki.Controllers
                     db.Entry(cMO_Order).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                EmailModel emailModel = new EmailModel();
-                List<string> recipientList = new List<string>();
-                recipientList.Add("myi@katek.by");
-                recipientList.Add("gea@katek.by");
-                emailModel.SendEmail(recipientList.ToArray(), "Сроки поступления железа", GetBodyMailForCMOFirst(winResult), "gdp@katek.by");
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch
