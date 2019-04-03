@@ -240,13 +240,13 @@ namespace Wiki.Controllers
             {
                 ViewBag.userError = new SelectList(db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com").OrderBy(d => d.CiliricalName), "Id", "CiliricalName", oTK_ReclamationKO.userError);
             }
-            //else if (login == "myi@katek.by")
-            //{
-            //    ViewBag.userError = new SelectList(db.AspNetUsers.Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com").OrderBy(d => d.CiliricalName), "Id", "CiliricalName", oTK_ReclamationKO.userError);
-            //}
+            else if (login == "myi@katek.by")
+            {
+                ViewBag.userError = new SelectList(db.AspNetUsers.Where(d => d.Devision == 18 || d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com").OrderBy(d => d.CiliricalName), "Id", "CiliricalName", oTK_ReclamationKO.userError);
+            }
             else if (login == "nrf@katek.by")
             {
-                ViewBag.userError = new SelectList(db.AspNetUsers.Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com").OrderBy(d => d.CiliricalName), "Id", "CiliricalName", oTK_ReclamationKO.userError);
+                ViewBag.userError = new SelectList(db.AspNetUsers.Where(d => d.Devision == 18 || d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com").OrderBy(d => d.CiliricalName), "Id", "CiliricalName", oTK_ReclamationKO.userError);
             }
             else if (login == "Kuchynski@katek.by")
             {
