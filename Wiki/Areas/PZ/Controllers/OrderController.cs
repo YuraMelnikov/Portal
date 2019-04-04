@@ -124,8 +124,6 @@ namespace Wiki.Areas.PZ.Controllers
         string GetLinkForEdit(PZ_PlanZakaz pZ_PlanZakaz, string linkPartOne, string linkPartTwo)
         {
             int closeOrder = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == pZ_PlanZakaz.Id).Where(d => d.id_TaskForPZ == 15).Where(d => d.close == true).Count();
-
-
             string link = linkPartOne + pZ_PlanZakaz.Id + linkPartTwo;
             if (closeOrder > 0)
                 link = "<td><span class=" + '\u0022' + "glyphicon glyphicon-remove-circle" + '\u0022' + "></span></td>";
