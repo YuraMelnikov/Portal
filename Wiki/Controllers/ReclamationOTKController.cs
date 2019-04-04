@@ -26,7 +26,6 @@ namespace Wiki.Controllers
                     .Where(o => o.descriptionManagerKO == "" || o.descriptionManagerKO == null)
                     .OrderByDescending(o => o.DateCreate)
                     .ToList();
-
                 var oTK_ReclamationAnswerClose = db.OTK_ReclamationAnswer
                     .Include(o => o.OTK_Reclamation)
                     .Where(o => o.Devision == 3 || o.Devision == 15 || o.Devision == 16)
