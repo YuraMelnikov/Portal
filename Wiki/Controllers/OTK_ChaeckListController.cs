@@ -21,7 +21,7 @@ namespace Wiki.Controllers
             string login = HttpContext.User.Identity.Name;
             int devisionId = (int)db.AspNetUsers.Where(d => d.Email == login).First().Devision;
             ViewBag.myId = devisionId;
-            if (devisionId == 6 || devisionId == 13)
+            if (devisionId == 6)
                 return View(oTK_ChaeckList.OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz).ToList());
             else
                 return RedirectToAction("Index", "ReclamationOTK");

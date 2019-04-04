@@ -11,7 +11,7 @@ namespace Wiki.Controllers
     {
         private PortalKATEKEntities db = new PortalKATEKEntities();
 
-        [Authorize(Roles = "KBE, Admin, KBM, OS, Manufacturing, Sklad, KBMUser, KBEUser")]
+        [Authorize(Roles = "KBE, Admin, KBM, OS, Manufacturing, Sklad, KBMUser, KBEUser, Service, OTK")]
         public ActionResult Index()
         {
             ReclamationOTK reclamationOTK = new ReclamationOTK();

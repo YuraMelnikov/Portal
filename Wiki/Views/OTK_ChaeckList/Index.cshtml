@@ -12,7 +12,6 @@
             width: 1600px;
             overflow: auto;
         }
-
         th {
             background: #000080; /* Цвет фона строки заголовка */
             color: #ffe; /* Цвет текста */
@@ -34,7 +33,6 @@
     <input class="form-control" id="myInput" type="text" placeholder="Поиск...">
 </span>
 <br />
-
 <div class="container">
     <table data-toggle="table" data-height="650">
         <thead>
@@ -42,7 +40,6 @@
                 <th> Открыть </th>
                 <th data-sortable="true"> № заказа </th>
                 <th data-sortable="true"> Дата создания </th>
-
                 <th> Зарегистрирован </th>
                 <th> Код МТР </th>
                 <th> Замечаний </th>
@@ -88,7 +85,6 @@
         </tbody>
     </table>
 </div>
-
 <script>
     $(document).ready(function () {
         $("#myInput").on("keyup", function () {
@@ -99,14 +95,11 @@
         });
     });
 </script>
-
 <script>
     $('table').tfh({
         trigger: 0,
         top: 0
     });
 </script>
-
-
 <script src="~/Content/Scripts/bootstrap-table.min.js"></script>
 <script src="~/Content/Scripts/jquery.min.js"></script>
