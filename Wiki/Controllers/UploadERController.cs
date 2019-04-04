@@ -63,7 +63,7 @@ namespace Wiki.Controllers
                     hteo.PlanZakaz = Convert.ToInt32(((Excel.Range)range.Cells[row, 2]).Text);
                     try
                     {
-                        hteo.DateShip = Convert.ToDateTime(((Excel.Range) range.Cells[row, 5]).Text);
+                        hteo.DateShip = Convert.ToDateTime(((Excel.Range) range.Cells[row, 4]).Text);
                     }
                     catch
                     {
@@ -111,7 +111,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.FSSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 30]).Text);
+                        hteo.FSSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 32]).Text);
                     }
                     catch
                     {
@@ -144,7 +144,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.DateOpen = Convert.ToDateTime(((Excel.Range)range.Cells[row, 16]).Text);
+                        hteo.DateOpen = Convert.ToDateTime(((Excel.Range)range.Cells[row, 3]).Text);
                     }
                     catch
                     {
