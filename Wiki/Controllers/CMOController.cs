@@ -451,24 +451,54 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "CMO");
             }
         }
+        //[HttpPost]
+        //public ActionResult CloseOrder(CMO_Order cMO_Order)
+        //{
+        //    string login = HttpContext.User.Identity.Name;
+        //    try
+        //    {
+        //        CMO_Order cMO = db.CMO_Order.Find(cMO_Order.id);
+        //        cMO.dateCloseOrder = cMO_Order.dateCloseOrder;
+        //        db.Entry(cMO).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        logger.Debug(postServer + " (CMOController/ViewStartMenuKO): " + login.ToString());
+        //        return RedirectToAction("ViewStartMenuOS", "CMO3");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error(postServerError + " (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
+        //        return RedirectToAction("Error", "CMO");
+        //    }
+        //}
         [HttpPost]
         public ActionResult CloseOrder(CMO_Order cMO_Order)
         {
-            string login = HttpContext.User.Identity.Name;
-            try
+            if(cMO_Order.idTime > 0)
             {
-                CMO_Order cMO = db.CMO_Order.Find(cMO_Order.id);
-                cMO.dateCloseOrder = cMO_Order.dateCloseOrder;
-                db.Entry(cMO).State = EntityState.Modified;
-                db.SaveChanges();
-                logger.Debug(postServer + " (CMOController/ViewStartMenuKO): " + login.ToString());
-                return RedirectToAction("ViewStartMenuOS", "CMO3");
+                string login = HttpContext.User.Identity.Name;
+                try
+                {
+                    CMO_UploadResult cMO_UploadResult = db.CMO_UploadResult
+                        .Where(d => d.CMO_Tender.id_CMO_Order == cMO_Order.id)
+                        .Where(d => d.CMO_Tender.id_CMO_TypeTask == 3)
+                        .First();
+                    cMO_UploadResult.cost = cMO_Order.idTime;
+                    db.Entry(cMO_UploadResult).State = EntityState.Modified;
+                    db.SaveChanges();
+                    CMO_Order cMO = db.CMO_Order.Find(cMO_Order.id);
+                    cMO.dateCloseOrder = cMO_Order.dateCloseOrder;
+                    db.Entry(cMO).State = EntityState.Modified;
+                    db.SaveChanges();
+                    logger.Debug(postServer + " (CMOController/ViewStartMenuKO): " + login.ToString());
+                    return RedirectToAction("ViewStartMenuOS", "CMO3");
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(postServerError + " (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
+                    return RedirectToAction("Error", "CMO");
+                }
             }
-            catch (Exception ex)
-            {
-                logger.Error(postServerError + " (CMOController/ViewStartMenuKO): " + ex.Message.ToString());
-                return RedirectToAction("Error", "CMO");
-            }
+            return RedirectToAction("ViewStartMenuOS", "CMO3");
         }
         
         public ActionResult EditUploadResult(int? id)

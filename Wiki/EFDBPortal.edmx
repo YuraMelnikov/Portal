@@ -455,6 +455,7 @@
           <Property Name="countError" Type="int" />
           <Property Name="userPO" Type="int" />
           <Property Name="descriptionManagerKO" Type="varchar(max)" />
+          <Property Name="gip" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_ReclamationKO">
           <Key>
@@ -476,6 +477,7 @@
           <Property Name="time" Type="float" />
           <Property Name="aplayResylt" Type="bit" />
           <Property Name="descriptionManagerKO" Type="varchar(max)" />
+          <Property Name="gip" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_TypeReclamation">
           <Key>
@@ -4475,6 +4477,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="OTK_ReclamationAnswer" ToRole="Devision" />
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_ReclamationAnswer" ToRole="OTK_CounterErrorKO" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation" FromRole="OTK_ReclamationAnswer" ToRole="OTK_Reclamation" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_ReclamationKO">
           <Key>
@@ -4503,6 +4506,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO" ToRole="OTK_CounterErrorKO" />
           <NavigationProperty Name="OTK_TypeReclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation" FromRole="OTK_ReclamationKO" ToRole="OTK_TypeReclamation" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="OTK_ReclamationKO" ToRole="PZ_PlanZakaz" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_TypeReclamation">
           <Key>
@@ -7147,6 +7151,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="OTK_ReclamationAnswer">
             <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationAnswer">
               <MappingFragment StoreEntitySet="OTK_ReclamationAnswer">
+                <ScalarProperty Name="gip" ColumnName="gip" />
                 <ScalarProperty Name="descriptionManagerKO" ColumnName="descriptionManagerKO" />
                 <ScalarProperty Name="userPO" ColumnName="userPO" />
                 <ScalarProperty Name="countError" ColumnName="countError" />
@@ -7166,6 +7171,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="OTK_ReclamationKO">
             <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO">
               <MappingFragment StoreEntitySet="OTK_ReclamationKO">
+                <ScalarProperty Name="gip" ColumnName="gip" />
                 <ScalarProperty Name="descriptionManagerKO" ColumnName="descriptionManagerKO" />
                 <ScalarProperty Name="aplayResylt" ColumnName="aplayResylt" />
                 <ScalarProperty Name="time" ColumnName="time" />

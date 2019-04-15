@@ -10,7 +10,6 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "bAutoWidth": false,
         "columns": [
             { "title": "Cм.", "data": "id", "autowidth": true, "bSortable": false }
             , { "title": "Период", "data": "period", "autowidth": true, "bSortable": false, "className": 'text-center' }
@@ -22,10 +21,29 @@ function loadData() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        },
+        initComplete: function () {
+            this.api().columns([3]).every(function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            });
         }
     });
 }

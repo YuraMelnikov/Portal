@@ -21,7 +21,7 @@ namespace Wiki.Areas.Deb.Controllers
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
             int closePeriod = 1;
             string login = HttpContext.User.Identity.Name;
-            if (login == "mvv@katek.by" || login == "myi@katek.by")
+            if (login == "mvv@katek.by" || login == "myi@katek.by" || login == "gea@katek.by")
             {
                 closePeriod = 0;
                 if (debit_PeriodReportOprih.close == true)
@@ -37,6 +37,45 @@ namespace Wiki.Areas.Deb.Controllers
         {
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
             var query = db.Debit_DataReportOprih.Where(d => d.id_Debit_PeriodReportOprih == debit_PeriodReportOprih.id).ToList();
+            string login = HttpContext.User.Identity.Name;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            string linkPartOne = "";
+            string linkPartTwo = "";
+            if (devision == 5 || login == "myi@katek.by" && debit_PeriodReportOprih.close != true)
+            {
+                linkPartOne = firstPartLinkEditOP;
+                linkPartTwo = lastPartEdit;
+            }
+            var data = query.Select(dataList => new
+            {
+                id = linkPartOne + dataList.id + linkPartTwo,
+                dataList.Debit_WorkBit.PZ_PlanZakaz.PlanZakaz,
+                dataList.Debit_WorkBit.PZ_PlanZakaz.Name,
+                Manager = dataList.Debit_WorkBit.PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                Client = dataList.Debit_WorkBit.PZ_PlanZakaz.PZ_Client.NameSort,
+                dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.Debit_WorkBit.PZ_PlanZakaz.dataOtgruzkiBP, settings).Replace(@"""", ""),
+                DateSupply = JsonConvert.SerializeObject(dataList.Debit_WorkBit.PZ_PlanZakaz.DateSupply, settings).Replace(@"""", ""),
+                dataList.id_Debit_PostingOffType,
+                dataList.id_Debit_PostingOnType,
+                dataList.numberSF,
+                dataList.reclamation,
+                openReclamation = JsonConvert.SerializeObject(dataList.reclamationOpen, settings).Replace(@"""", ""),
+                closeReclamation = JsonConvert.SerializeObject(dataList.reclamationClose, settings).Replace(@"""", ""),
+                dataList.description,
+                dataList.oprihClose,
+                dateOprihPlanFact = JsonConvert.SerializeObject(dataList.dateOprihPlanFact, settings).Replace(@"""", "")
+            });
+
+            return Json(new { data });
+        }
+
+        public JsonResult NoOprih()
+        {
+            Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
+            var query = db.Debit_DataReportOprih
+                .Where(d => d.id_Debit_PeriodReportOprih == debit_PeriodReportOprih.id)
+                .Where(d => d.oprihClose == false)
+                .ToList();
             string login = HttpContext.User.Identity.Name;
             int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             string linkPartOne = "";

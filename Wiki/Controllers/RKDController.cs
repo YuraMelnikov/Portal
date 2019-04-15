@@ -1,4 +1,6 @@
 ﻿using NLog;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -177,7 +179,7 @@ namespace Wiki.Controllers
             //RKD rKD1 = new RKD(2594);
             //rKD1.id_RKD_Order = 265;
             //rKD1.Create_NULLRKD_TaskVersion();
-            for (int i = 2690; i < 2689; i++)
+            for (int i = 2715; i < 2718; i++)
             {
                 RKD rKD = new RKD(i);
                 rKD.CreateRKDOrder();
@@ -554,9 +556,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-
-
-
+        
         public ActionResult IndexOld()
         {
             try
@@ -1322,6 +1322,7 @@ namespace Wiki.Controllers
             string login = HttpContext.User.Identity.Name;
             try
             {
+                ViewBag.linkToExcel = @"http://pserver/RKD/RKD/ExportToExcel/" + id.ToString(); 
                 RKD_Order rKD_Order = new RKD_Order();
                 rKD_Order = db.RKD_Order.Find(id);
                 ViewBag.idOrder = id;
@@ -1390,6 +1391,33 @@ namespace Wiki.Controllers
         public ActionResult GoToMiting(int idOrder)
         {
             return RedirectToAction("Index", "RKD");
+        }
+
+        public void ExportToExcel(int id)
+        {
+            var collectionData = GetListDespathingForOrder(id);
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            int row = 1;
+            ws.Cells[string.Format("A{0}", row)].Value = "Дата/время события";
+            ws.Cells[string.Format("B{0}", row)].Value = "№ заказа";
+            ws.Cells[string.Format("C{0}", row)].Value = "Событие/описание";
+            ws.Cells[string.Format("D{0}", row)].Value = "Срок";
+            ws.Cells[string.Format("D{0}", row)].Value = "Исполнитель";
+            foreach (var data in collectionData)
+            {
+                row++;
+                ws.Cells[string.Format("A{0}", row)].Value = data.DateEvent;
+                ws.Cells[string.Format("B{0}", row)].Value = data.PlanZakazName;
+                ws.Cells[string.Format("C{0}", row)].Value = data.TextData;
+                ws.Cells[string.Format("D{0}", row)].Value = data.TaskFinishDate;
+                ws.Cells[string.Format("E{0}", row)].Value = data.UserID;
+                ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            }
         }
     }
 }

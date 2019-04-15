@@ -121,7 +121,7 @@ namespace Wiki.Controllers
             oTK_Reclamation.mailPost = false;
             db.OTK_Reclamation.Add(oTK_Reclamation);
             db.SaveChanges();
-            
+            oTK_Answer.gip = false;
             oTK_Answer.ReclamationId = oTK_Reclamation.Id;
             oTK_Answer.Text = "";
             oTK_Answer.User = oTK_Reclamation.User;
@@ -310,6 +310,7 @@ namespace Wiki.Controllers
                     oTK_ReclamationAnswer.Completed = false;
                     oTK_ReclamationAnswer.countError = 1;
                     oTK_ReclamationAnswer.DateCreate = DateTime.Now;
+                    oTK_ReclamationAnswer.gip = false;
                     oTK_ReclamationAnswer.DateUpdate = DateTime.Now;
                     oTK_ReclamationAnswer.Devision = Convert.ToInt32(oTK_Reclamation.Devision);
                     oTK_ReclamationAnswer.ReclamationId = Convert.ToInt32(oTK_Reclamation.Id);
@@ -430,6 +431,7 @@ namespace Wiki.Controllers
                     oTK_ReclamationAnswer.Completed = false;
                     oTK_ReclamationAnswer.countError = 1;
                     oTK_ReclamationAnswer.DateCreate = DateTime.Now;
+                    oTK_ReclamationAnswer.gip = false;
                     oTK_ReclamationAnswer.DateUpdate = DateTime.Now;
                     oTK_ReclamationAnswer.Devision = Convert.ToInt32(oTK_Reclamation.Devision);
                     oTK_ReclamationAnswer.ReclamationId = Convert.ToInt32(oTK_Reclamation.Id);
@@ -504,7 +506,7 @@ namespace Wiki.Controllers
             ViewBag.CheckList = oTK_ChaeckList;
             db.OTK_Reclamation.Add(oTK_Reclamation);
             db.SaveChanges();
-
+            oTK_Answer.gip = false;
             oTK_Answer.ReclamationId = oTK_Reclamation.Id;
             oTK_Answer.Text = "";
             oTK_Answer.User = oTK_Reclamation.User;
@@ -572,6 +574,7 @@ namespace Wiki.Controllers
                     oTK_ReclamationAnswer.Completed = false;
                     oTK_ReclamationAnswer.countError = 1;
                     oTK_ReclamationAnswer.DateCreate = DateTime.Now;
+                    oTK_ReclamationAnswer.gip = false;
                     oTK_ReclamationAnswer.DateUpdate = DateTime.Now;
                     oTK_ReclamationAnswer.Devision = Convert.ToInt32(oTK_Reclamation.Devision);
                     oTK_ReclamationAnswer.ReclamationId = Convert.ToInt32(oTK_Reclamation.Id);
@@ -648,6 +651,7 @@ namespace Wiki.Controllers
                     OTK_ReclamationAnswer oTK_ReclamationAnswer = new OTK_ReclamationAnswer();
                     oTK_ReclamationAnswer.Completed = false;
                     oTK_ReclamationAnswer.countError = 1;
+                    oTK_ReclamationAnswer.gip = false;
                     oTK_ReclamationAnswer.DateCreate = DateTime.Now;
                     oTK_ReclamationAnswer.DateUpdate = DateTime.Now;
                     oTK_ReclamationAnswer.Devision = Convert.ToInt32(oTK_Reclamation.Devision);

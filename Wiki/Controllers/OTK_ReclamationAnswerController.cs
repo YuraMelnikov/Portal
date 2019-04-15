@@ -152,7 +152,6 @@ namespace Wiki.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             OTK_ReclamationAnswer oTK_ReclamationAnswer = db.OTK_ReclamationAnswer.Find(id);
-
             if (oTK_ReclamationAnswer.Devision == 3 || oTK_ReclamationAnswer.Devision == 15 || oTK_ReclamationAnswer.Devision == 16)
             {
                 return RedirectToAction("EditKO", "OTK_ReclamationAnswer", new { idRA = oTK_ReclamationAnswer.id});
@@ -258,7 +257,7 @@ namespace Wiki.Controllers
         [Authorize(Roles = "KBE, Admin, KBM, OS, Manufacturing, Sklad, KBMUser, KBEUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditKOPartial(OTK_ReclamationAnswer oTkReclamationAnswer, string reloadError, bool newDevision)
+        public ActionResult EditKOPartial(OTK_ReclamationAnswer oTkReclamationAnswer, string reloadError, bool newDevision, bool gip)
         {
             string login = HttpContext.User.Identity.Name;
             login = db.AspNetUsers.First(d => d.Email == login).Id;
@@ -273,6 +272,7 @@ namespace Wiki.Controllers
                     oTkReclamationAnswer.descriptionManagerKO = "-";
                 if (oTkReclamationAnswer.descriptionManagerKO == "")
                     oTkReclamationAnswer.descriptionManagerKO = "-";
+                oTkReclamationAnswer.gip = gip;
             }
             else if (loginEmail == "nrf@katek.by")
             {
@@ -280,6 +280,7 @@ namespace Wiki.Controllers
                     oTkReclamationAnswer.descriptionManagerKO = "-";
                 if (oTkReclamationAnswer.descriptionManagerKO == "")
                     oTkReclamationAnswer.descriptionManagerKO = "-";
+                oTkReclamationAnswer.gip = gip;
             }
             //else if (loginEmail == "myi@katek.by")
             //{
@@ -294,6 +295,7 @@ namespace Wiki.Controllers
                     oTkReclamationAnswer.descriptionManagerKO = "-";
                 if (oTkReclamationAnswer.descriptionManagerKO == "")
                     oTkReclamationAnswer.descriptionManagerKO = "-";
+                oTkReclamationAnswer.gip = gip;
             }
             else if (user == 3 || user == 16)
             {

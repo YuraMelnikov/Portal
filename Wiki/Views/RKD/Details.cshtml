@@ -229,6 +229,7 @@
             @Html.ActionLink("Добавить запись", "CreateNewDespatching", "RKD", new { idOrder = ViewBag.idOrder }, new { @class = "viewDialog", data_dialog_title = "Внесите данные обсуждения" })
             <hr />
             <h4>Диспетчеризация</h4>
+            <a href=@ViewBag.linkToExcel class="btn-xs btn-success" role="button">to Excel</a>
             <table class="table table-hover" style="width:1000px">
                 <thead>
                     <tr>
@@ -321,11 +322,6 @@
         </div>
         <div class="col-sm-1"></div>
     </div>
-
-
-
-
-
     <script src='@Url.Content("~/Scripts/jquery-3.1.1.min.js")' type="text/javascript"></script>
     <script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
     <script>

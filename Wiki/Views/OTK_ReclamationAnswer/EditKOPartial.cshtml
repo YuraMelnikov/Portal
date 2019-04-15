@@ -36,6 +36,8 @@
     <label>Перенаправить замечание в другой отдел</label>
     @Html.CheckBox("newDevision");
     @Html.DropDownList("reloadError", null, htmlAttributes: new { @class = "form-control" })
+    <label>Ответственен ГИП:</label>
+    @Html.CheckBox("gip")
     <hr />
     <input type="submit" value="Сохранить" class="btn btn-info" />
     @Html.ActionLink("Назад", "Index", "ReclamationOTK", null, new { @class = "btn btn-danger", @style = "color: white" })

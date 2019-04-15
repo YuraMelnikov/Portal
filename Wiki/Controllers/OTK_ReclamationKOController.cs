@@ -61,7 +61,7 @@ namespace Wiki.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(OTK_ReclamationKO oTK_ReclamationKO)
+        public ActionResult Create(OTK_ReclamationKO oTK_ReclamationKO, bool gip)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +71,10 @@ namespace Wiki.Controllers
                     oTK_ReclamationKO.textReclamation = "";
                 if (oTK_ReclamationKO.time == null)
                     oTK_ReclamationKO.time = 0;
+                if (gip != true)
+                    oTK_ReclamationKO.gip = false;
+                else
+                    oTK_ReclamationKO.gip = true;
                 oTK_ReclamationKO.textAnswer = "";
                 oTK_ReclamationKO.dateUpdate = DateTime.Now;
                 oTK_ReclamationKO.userUpdate = "";
@@ -202,6 +206,7 @@ namespace Wiki.Controllers
                 if (oTK_ReclamationKO.time == null)
                     oTK_ReclamationKO.time = 0;
                 oTK_ReclamationKO.textAnswer = "";
+                oTK_ReclamationKO.gip = false;
                 oTK_ReclamationKO.dateUpdate = DateTime.Now;
                 oTK_ReclamationKO.userUpdate = "";
                 oTK_ReclamationKO.countError = 1;
@@ -289,12 +294,16 @@ namespace Wiki.Controllers
         [Authorize(Roles = "Admin, KBM, KBE, KBMUser, KBEUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(OTK_ReclamationKO oTK_ReclamationKO)
+        public ActionResult Edit(OTK_ReclamationKO oTK_ReclamationKO, bool gip)
         {
             string login = HttpContext.User.Identity.Name;
             var emailRec = db.AspNetUsers.Where(d => d.Email == login).First().Email;
             if (ModelState.IsValid)
             {
+                if (gip != true)
+                    oTK_ReclamationKO.gip = false;
+                else
+                    oTK_ReclamationKO.gip = true;
                 if (oTK_ReclamationKO.descriptionManagerKO == "")
                     oTK_ReclamationKO.descriptionManagerKO = "-";
                 if (oTK_ReclamationKO.descriptionManagerKO == null)

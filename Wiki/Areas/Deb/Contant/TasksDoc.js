@@ -3,6 +3,7 @@
 });
 
 function loadData() {
+    document.getElementById('activeFilt').innerHTML = "0";
     $("#myTable").DataTable({
         "ajax": {
             "url": "/ActiveReport/List",
@@ -10,8 +11,6 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "bAutoWidth": false,
-
         "rowCallback": function (row, data, index) {
             if (data.id_Debit_PostingOffType === 1 && data.id_Debit_PostingOnType === 1) {
                 $('td', row).css('background-color', '#d9534f');
@@ -46,6 +45,59 @@ function loadData() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function NoOprih() {
+    document.getElementById('activeFilt').innerHTML = "1";
+    $("#myTable").DataTable({
+        "ajax": {
+            "url": "/ActiveReport/NoOprih",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "rowCallback": function (row, data, index) {
+            if (data.id_Debit_PostingOffType === 1 && data.id_Debit_PostingOnType === 1) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+            if (data.id_Debit_PostingOffType > 1) {
+                $('td', row).css('background-color', '#5bc0de');
+                $('td', row).css('color', 'black');
+            }
+            if (data.id_Debit_PostingOnType > 1) {
+                $('td', row).css('background-color', '#5cb85c');
+                $('td', row).css('color', 'black');
+            }
+        },
+        "columns": [
+            { "title": "Ред.", "data": "id", "autowidth": true, "bSortable": false }
+            , { "title": "Номер", "data": "PlanZakaz", "autowidth": true, "className": 'text-center' }
+            , { "title": "Наименование", "data": "Name", "autowidth": true, "bSortable": false, "class": 'colu-300' }
+            , { "title": "Менеджер", "data": "Manager", "autowidth": true, "class": 'colu-300' }
+            , { "title": "Заказчик", "data": "Client", "autowidth": true }
+            , { "title": "Заказ оприходован", "data": "oprihClose", "autowidth": true, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
+            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Номер с/ф", "data": "numberSF", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Наличие претензий", "data": "reclamation", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Прим.:", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
+        ],
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -137,6 +189,7 @@ function Update() {
         id_Debit_PostingOnType: $('#id_Debit_PostingOnType').val(),
         oprihClose: $('#oprihClose').is(":checked")
     };
+    var active = document.getElementById('activeFilt').innerHTML;
     $.ajax({
         url: "/ActiveReport/Update",
         data: JSON.stringify(typeObj),
@@ -144,7 +197,12 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            if (active === "1") {
+                NoOprih();
+            }
+            else {
+                loadData();
+            }
             $('#orderModal').modal('hide');
         },
         error: function (errormessage) {

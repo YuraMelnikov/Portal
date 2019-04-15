@@ -27,6 +27,7 @@ namespace Wiki
         public Nullable<int> countError { get; set; }
         public Nullable<int> userPO { get; set; }
         public string descriptionManagerKO { get; set; }
+        public bool gip { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Devision Devision1 { get; set; }

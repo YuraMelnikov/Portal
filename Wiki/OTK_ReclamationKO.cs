@@ -30,6 +30,7 @@ namespace Wiki
         public Nullable<double> time { get; set; }
         public Nullable<bool> aplayResylt { get; set; }
         public string descriptionManagerKO { get; set; }
+        public bool gip { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

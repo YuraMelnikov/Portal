@@ -1,5 +1,4 @@
 ﻿@model Wiki.Models.ReclamationPO
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,16 +20,12 @@
         }
     </style>
 </head>
-
 <div class="container">
-
     <h2>Замечания ПО</h2>
     <span>
         <a href="~/OTK_ReclamationKO/Create" class="btn btn-info" role="button">Добавить</a>
         <a href="~/DocOTK_ReclamationKO/Index" class="btn btn-info" role="button">Итоги</a>
-
-            <a href="http://tpserver/PWA/ProjectBICenter/Sample%20Reports/%d0%9e%d0%b1%d1%89%d0%b8%d0%b5%20%d0%be%d1%82%d1%87%d0%b5%d1%82%d1%8b/%d0%a0%d0%b5%d0%ba%d0%bb%d0%b0%d0%bc%d0%b0%d1%86%d0%b8%d0%b8%20%d0%9f%d0%9e.xlsx" class="btn btn-success" role="button">Excel</a>
-
+        <a href="http://tpserver/PWA/ProjectBICenter/Sample%20Reports/%d0%9e%d0%b1%d1%89%d0%b8%d0%b5%20%d0%be%d1%82%d1%87%d0%b5%d1%82%d1%8b/%d0%a0%d0%b5%d0%ba%d0%bb%d0%b0%d0%bc%d0%b0%d1%86%d0%b8%d0%b8%20%d0%9f%d0%9e.xlsx" class="btn btn-success" role="button">Excel</a>
     </span>
     &nbsp&nbsp
     <br />
@@ -56,7 +51,6 @@
                 <th width="150" data-sortable="true"> Дата и время </th>
             </tr>
         </thead>
-
         <tbody id="myTable">
             @foreach (var item in Model.ActiveList)
             {
@@ -73,7 +67,6 @@
                 <td width="200"> @Html.DisplayFor(modelItem => item.AspNetUsers.CiliricalName) </td>
                 <td width="150"> @Html.DisplayFor(modelItem => item.OTK_CounterErrorKO.name) </td>
                 <td width="150"> @Html.DisplayFor(modelItem => item.dateCreate) </td>
-
             </tr>
             }
         </tbody>
@@ -98,7 +91,6 @@
                 <th> Ред. </th>
             </tr>
         </thead>
-
         <tbody id="myTable">
             @foreach (var item in Model.DeActiveList)
             {
@@ -120,8 +112,6 @@
         </tbody>
     </table>
 </div>
-
-
 <script>
     $(document).ready(function () {
         $("#myInput").on("keyup", function () {
@@ -132,13 +122,5 @@
         });
     });
 </script>
-
-
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
-
-
