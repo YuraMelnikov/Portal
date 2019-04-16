@@ -1323,6 +1323,7 @@ namespace Wiki.Controllers
             try
             {
                 ViewBag.linkToExcel = @"http://pserver/RKD/ExportToExcel/" + id.ToString();
+                ViewBag.linkToExcelAll = @"http://pserver/RKD/ExportToExcelAll/" + id.ToString();
                 //ViewBag.linkToExcel = @"http://localhost:57314/RKD/ExportToExcel/" + id.ToString();
                 RKD_Order rKD_Order = new RKD_Order();
                 rKD_Order = db.RKD_Order.Find(id);
@@ -1397,6 +1398,44 @@ namespace Wiki.Controllers
         public void ExportToExcel(int id)
         {
             var collectionData = GetListDespathingForOrder(id).Where(d => d.TypeTask != 100);
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            int row = 1;
+            ws.Cells[string.Format("A{0}", row)].Value = "Дата/время события";
+            ws.Cells[string.Format("B{0}", row)].Value = "№ заказа";
+            ws.Cells[string.Format("C{0}", row)].Value = "Событие/описание";
+            ws.Cells[string.Format("D{0}", row)].Value = "Срок";
+            ws.Cells[string.Format("E{0}", row)].Value = "Исполнитель";
+            ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            foreach (var data in collectionData)
+            {
+                row++;
+                ws.Cells[string.Format("A{0}", row)].Value = data.DateEvent.ToString();
+                ws.Cells[string.Format("B{0}", row)].Value = data.PlanZakazName;
+                ws.Cells[string.Format("C{0}", row)].Value = data.TextData;
+                ws.Cells[string.Format("D{0}", row)].Value = data.TaskFinishDate;
+                ws.Cells[string.Format("E{0}", row)].Value = data.UserID;
+                ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            }
+            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+        }
+
+        public void ExportToExcelAll(int id)
+        {
+            var collectionData = GetListDespathingForOrder(id);
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
             int row = 1;

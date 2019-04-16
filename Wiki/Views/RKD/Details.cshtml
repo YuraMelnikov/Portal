@@ -229,7 +229,8 @@
             @Html.ActionLink("Добавить запись", "CreateNewDespatching", "RKD", new { idOrder = ViewBag.idOrder }, new { @class = "viewDialog", data_dialog_title = "Внесите данные обсуждения" })
             <hr />
             <h4>Диспетчеризация</h4>
-            <a href=@ViewBag.linkToExcel class="btn-xs btn-success" role="button">to Excel</a>
+            <a href=@ViewBag.linkToExcel class="btn-xs btn-success" role="button">to Excel (сокращенная)</a>
+            <a href=@ViewBag.linkToExcelAll class="btn-xs btn-success" role="button">to Excel (полная)</a>
             <table class="table table-hover" style="width:1000px">
                 <thead>
                     <tr>
