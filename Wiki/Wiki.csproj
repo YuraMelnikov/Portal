@@ -270,6 +270,13 @@
     <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\AllController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\GRController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\KOController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\OTKController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\POController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\RouterController.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
@@ -1235,6 +1242,7 @@
     <Content Include="Areas\Deb\Views\Upload\EditPartial.cshtml" />
     <Content Include="Areas\Deb\Views\DSetup\Index.cshtml" />
     <Content Include="Areas\Reclamation\Views\web.config" />
+    <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamation.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1718,9 +1726,14 @@
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Reclamation\Controllers\" />
     <Folder Include="Areas\Reclamation\Models\" />
-    <Folder Include="Areas\Reclamation\Views\Shared\" />
+    <Folder Include="Areas\Reclamation\Views\Admin\" />
+    <Folder Include="Areas\Reclamation\Views\All\" />
+    <Folder Include="Areas\Reclamation\Views\GR\" />
+    <Folder Include="Areas\Reclamation\Views\KO\" />
+    <Folder Include="Areas\Reclamation\Views\OTK\" />
+    <Folder Include="Areas\Reclamation\Views\PO\" />
+    <Folder Include="Areas\Reclamation\Views\Router\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

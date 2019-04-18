@@ -23,8 +23,6 @@ namespace Wiki.Controllers
         public ActionResult IndexSP(int? myDevision)
         {
             var oTK_ReclamationAnswer = new List<OTK_ReclamationAnswer>();
-
-
             if (myDevision == 6 || myDevision == 13)
             {
                 oTK_ReclamationAnswer = db.OTK_ReclamationAnswer
@@ -52,7 +50,6 @@ namespace Wiki.Controllers
                     .Where(c => c.OTK_Reclamation.Complited == false)
                     .OrderBy(z => z.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz).ToList();
             }
-
             return View(oTK_ReclamationAnswer.ToList());
         }
 
@@ -100,13 +97,11 @@ namespace Wiki.Controllers
             ViewBag.NumberOrder = oTK_ReclamationAnswer.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz.ToString();
             ViewBag.NameOrder = oTK_ReclamationAnswer.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.Name.ToString();
             ViewBag.TextReclamation = oTK_ReclamationAnswer.OTK_Reclamation.ReclamationText.ToString();
-
             ViewBag.Textid = oTK_ReclamationAnswer.OTK_Reclamation.Id.ToString();
             ViewBag.TextdateCreate = oTK_ReclamationAnswer.OTK_Reclamation.DateTimeCreate.ToString();
             ViewBag.TextPlanZakaz = oTK_ReclamationAnswer.OTK_Reclamation.OTK_ChaeckList.PZ_PlanZakaz.PlanZakaz.ToString();
             ViewBag.TexttextReclamation = oTK_ReclamationAnswer.OTK_Reclamation.ReclamationText.ToString();
             ViewBag.TextCiliricalName = oTK_ReclamationAnswer.OTK_Reclamation.AspNetUsers.CiliricalName.ToString();
-           
             return View(oTK_ReclamationAnswer);
         }
         [Authorize(Roles = "KBE, Admin, KBM, OS, Manufacturing, Sklad")]
