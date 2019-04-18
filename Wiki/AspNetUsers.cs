@@ -36,6 +36,9 @@ namespace Wiki
             this.RKD_QuestionData1 = new HashSet<RKD_QuestionData>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
+            this.Reclamation_Answer = new HashSet<Reclamation_Answer>();
+            this.Reclamation_Answer1 = new HashSet<Reclamation_Answer>();
+            this.Reclamation = new HashSet<Reclamation>();
         }
     
         public string Id { get; set; }
@@ -93,5 +96,11 @@ namespace Wiki
         public virtual ICollection<TaskForPZ> TaskForPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_Answer> Reclamation_Answer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_Answer> Reclamation_Answer1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation> Reclamation { get; set; }
     }
 }

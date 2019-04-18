@@ -705,6 +705,71 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typeShip" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Reclamation_Type" Type="int" Nullable="false" />
+          <Property Name="id_DevisionReclamation" Type="int" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFirst" Type="int" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFinal" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_DevisionCreate" Type="int" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="text" Type="varchar(max)" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="timeToSearch" Type="float" Nullable="false" />
+          <Property Name="timeToEliminate" Type="float" Nullable="false" />
+          <Property Name="close" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamation_Answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Reclamation" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsersError" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="answer" Type="varchar(max)" Nullable="false" />
+          <Property Name="gip" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamation_CountError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="count" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamation_PZ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_Reclamation" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamation_TechnicalAdvice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Reclamation" Type="int" Nullable="false" />
+          <Property Name="dateTimeClose" Type="datetime" Nullable="false" />
+          <Property Name="text" Type="varchar(max)" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reclamation_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="activeOTK" Type="bit" Nullable="false" />
+          <Property Name="activePO" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
             <PropertyRef Name="id" />
@@ -2045,6 +2110,150 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_Reclamation">
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="1" />
+          <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionReclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision1">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_PZ_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="Reclamation_PZ" Type="Self.Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_PZ_Reclamation">
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="1" />
+          <End Role="Reclamation_PZ" Type="Self.Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError">
+          <End Role="Reclamation_CountError" Type="Self.Reclamation_CountError" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFirst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError1">
+          <End Role="Reclamation_CountError" Type="Self.Reclamation_CountError" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFinal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_Type">
+          <End Role="Reclamation_Type" Type="Self.Reclamation_Type" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_TechnicalAdvice_Reclamation">
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="1" />
+          <End Role="Reclamation_TechnicalAdvice" Type="Self.Reclamation_TechnicalAdvice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdvice">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RKD_Despatching_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="RKD_Despatching" Type="Self.RKD_Despatching" Multiplicity="*" />
@@ -2634,6 +2843,12 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PZ_Setup" EntityType="Self.PZ_Setup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TEO" EntityType="Self.PZ_TEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TypeShip" EntityType="Self.PZ_TypeShip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation" EntityType="Self.Reclamation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_Answer" EntityType="Self.Reclamation_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_CountError" EntityType="Self.Reclamation_CountError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_PZ" EntityType="Self.Reclamation_PZ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="Self.Reclamation_TechnicalAdvice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_Type" EntityType="Self.Reclamation_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_Despatching" EntityType="Self.RKD_Despatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_FileMailVersion" EntityType="Self.RKD_FileMailVersion" Schema="dbo" store:Type="Tables" />
@@ -3007,6 +3222,54 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_PZ_TEO_PZ_PlanZakaz" Association="Self.FK_PZ_TEO_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_TEO" EntitySet="PZ_TEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="Self.FK_Reclamation_Answer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="Self.FK_Reclamation_Answer_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="Self.FK_Reclamation_Answer_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_AspNetUsers" Association="Self.FK_Reclamation_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision" Association="Self.FK_Reclamation_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision1" Association="Self.FK_Reclamation_Devision1">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="Self.FK_Reclamation_PZ_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_Reclamation" Association="Self.FK_Reclamation_PZ_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError" Association="Self.FK_Reclamation_Reclamation_CountError">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError1" Association="Self.FK_Reclamation_Reclamation_CountError1">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_Type" Association="Self.FK_Reclamation_Reclamation_Type">
+            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_Reclamation" Association="Self.FK_Reclamation_TechnicalAdvice_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_Despatching_AspNetUsers" Association="Self.FK_RKD_Despatching_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3927,6 +4190,60 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="Debit_PostingOnType" EntitySet="Debit_PostingOnType" />
             <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
           </AssociationSet>
+          <EntitySet Name="Reclamation" EntityType="PortalKATEKModel.Reclamation" />
+          <EntitySet Name="Reclamation_Answer" EntityType="PortalKATEKModel.Reclamation_Answer" />
+          <EntitySet Name="Reclamation_CountError" EntityType="PortalKATEKModel.Reclamation_CountError" />
+          <EntitySet Name="Reclamation_PZ" EntityType="PortalKATEKModel.Reclamation_PZ" />
+          <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" />
+          <EntitySet Name="Reclamation_Type" EntityType="PortalKATEKModel.Reclamation_Type" />
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision" Association="PortalKATEKModel.FK_Reclamation_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision1" Association="PortalKATEKModel.FK_Reclamation_Devision1">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_Reclamation" Association="PortalKATEKModel.FK_Reclamation_PZ_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError1" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_Type" Association="PortalKATEKModel.FK_Reclamation_Reclamation_Type">
+            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_Reclamation" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4103,6 +4420,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_Answer1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -4408,6 +4728,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="Devision" ToRole="OTK_ReclamationAnswer" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
           <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Devision" ToRole="Service_ReclamationAnswerDevision" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="OTK_ChaeckList">
           <Key>
@@ -4654,6 +4976,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
           <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
+          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -6488,6 +6811,233 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Reclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation_Type" Type="Int32" Nullable="false" />
+          <Property Name="id_DevisionReclamation" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFirst" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFinal" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_DevisionCreate" Type="Int32" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="timeToSearch" Type="Double" Nullable="false" />
+          <Property Name="timeToEliminate" Type="Double" Nullable="false" />
+          <Property Name="close" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Reclamation" ToRole="Devision" />
+          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Reclamation" ToRole="Devision" />
+          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation" ToRole="Reclamation_PZ" />
+          <NavigationProperty Name="Reclamation_CountError" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation" ToRole="Reclamation_CountError" />
+          <NavigationProperty Name="Reclamation_CountError1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation" ToRole="Reclamation_CountError" />
+          <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
+          <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
+        </EntityType>
+        <EntityType Name="Reclamation_Answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsersError" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_CountError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="count" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation_CountError" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation_CountError" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_PZ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="Reclamation_PZ" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation_PZ" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_TechnicalAdvice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activeOTK" Type="Boolean" Nullable="false" />
+          <Property Name="activePO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
+        </EntityType>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers1">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionReclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision1">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_PZ_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_PZ_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError">
+          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFirst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError1">
+          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFinal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_Type">
+          <End Type="PortalKATEKModel.Reclamation_Type" Role="Reclamation_Type" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_TechnicalAdvice_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdvice">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7787,6 +8337,77 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOnType">
               <MappingFragment StoreEntitySet="Debit_PostingOnType">
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
+              <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="close" ColumnName="close" />
+                <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
+                <ScalarProperty Name="timeToSearch" ColumnName="timeToSearch" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id_DevisionCreate" ColumnName="id_DevisionCreate" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="id_Reclamation_CountErrorFinal" ColumnName="id_Reclamation_CountErrorFinal" />
+                <ScalarProperty Name="id_Reclamation_CountErrorFirst" ColumnName="id_Reclamation_CountErrorFirst" />
+                <ScalarProperty Name="id_DevisionReclamation" ColumnName="id_DevisionReclamation" />
+                <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_Answer">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
+              <MappingFragment StoreEntitySet="Reclamation_Answer">
+                <ScalarProperty Name="gip" ColumnName="gip" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_CountError">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CountError">
+              <MappingFragment StoreEntitySet="Reclamation_CountError">
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_PZ">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_PZ">
+              <MappingFragment StoreEntitySet="Reclamation_PZ">
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_TechnicalAdvice">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdvice">
+              <MappingFragment StoreEntitySet="Reclamation_TechnicalAdvice">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_Type">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Type">
+              <MappingFragment StoreEntitySet="Reclamation_Type">
+                <ScalarProperty Name="activePO" ColumnName="activePO" />
+                <ScalarProperty Name="activeOTK" ColumnName="activeOTK" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

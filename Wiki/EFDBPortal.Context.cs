@@ -130,5 +130,11 @@ namespace Wiki
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Debit_PostingOffType> Debit_PostingOffType { get; set; }
         public virtual DbSet<Debit_PostingOnType> Debit_PostingOnType { get; set; }
+        public virtual DbSet<Reclamation> Reclamation { get; set; }
+        public virtual DbSet<Reclamation_Answer> Reclamation_Answer { get; set; }
+        public virtual DbSet<Reclamation_CountError> Reclamation_CountError { get; set; }
+        public virtual DbSet<Reclamation_PZ> Reclamation_PZ { get; set; }
+        public virtual DbSet<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
+        public virtual DbSet<Reclamation_Type> Reclamation_Type { get; set; }
     }
 }

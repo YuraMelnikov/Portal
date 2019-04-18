@@ -221,6 +221,24 @@
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOnType" Width="1.5" PointX="0.75" PointY="3.875" />
         <AssociationConnector Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" />
         <AssociationConnector Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation" Width="1.5" PointX="8.25" PointY="40.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Answer" Width="1.5" PointX="24.5" PointY="42.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CountError" Width="1.5" PointX="6" PointY="36.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_PZ" Width="1.5" PointX="19.5" PointY="54.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" Width="1.5" PointX="10.5" PointY="26.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Type" Width="1.5" PointX="6" PointY="32.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Devision" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Devision1" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Reclamation_Type" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

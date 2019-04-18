@@ -31,6 +31,7 @@ namespace Wiki
             this.Service_ReclamationPZ = new HashSet<Service_ReclamationPZ>();
             this.VVPZ = new HashSet<VVPZ>();
             this.DebitReclamation = new HashSet<DebitReclamation>();
+            this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
         }
     
         public int Id { get; set; }
@@ -113,5 +114,7 @@ namespace Wiki
         public virtual ICollection<VVPZ> VVPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DebitReclamation> DebitReclamation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_PZ> Reclamation_PZ { get; set; }
     }
 }
