@@ -435,7 +435,7 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora;
             if (editPZ.id_PZ_FIO != pZ_PlanZakaz.id_PZ_FIO)
                 editPZ.id_PZ_FIO = pZ_PlanZakaz.id_PZ_FIO;
-            if (editPZ.Name.Replace(" ", "") != pZ_PlanZakaz.Name.Replace(" ", ""))
+            if (editPZ.Name != pZ_PlanZakaz.Name)
             {
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.Name, pZ_PlanZakaz.Name, login, false);
                 emailRename.SendEmail();

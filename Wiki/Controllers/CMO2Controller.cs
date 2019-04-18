@@ -100,7 +100,7 @@ namespace Wiki.Controllers
         public ActionResult ReportSmall()
         {
             string login = HttpContext.User.Identity.Name;
-            var data = db.CMO_Report.OrderByDescending(d => d.Id_Order).ToList();
+            var data = db.CMO_Report.OrderByDescending(d => d.Id_Order).Take(150).ToList();
             return View(data);
         }
         

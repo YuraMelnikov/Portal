@@ -64,6 +64,8 @@ namespace Wiki.Controllers
         [HttpPost]
         public ActionResult StartFirstTender(int[] preOrder, CMO_Order cMO_Order)
         {
+            if(cMO_Order.companyWin == 6)
+                return RedirectToAction("ViewStartMenuOS", "CMO3");
             if (preOrder == null)
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             string login = HttpContext.User.Identity.Name;

@@ -270,6 +270,7 @@
     <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
+    <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationCounterErrorController.cs" />
@@ -1215,6 +1216,7 @@
     <Content Include="Areas\Deb\Views\Upload\NewPlus.cshtml" />
     <Content Include="Areas\Deb\Views\Upload\EditPartial.cshtml" />
     <Content Include="Areas\Deb\Views\DSetup\Index.cshtml" />
+    <Content Include="Areas\Reclamation\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1698,6 +1700,9 @@
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Reclamation\Controllers\" />
+    <Folder Include="Areas\Reclamation\Models\" />
+    <Folder Include="Areas\Reclamation\Views\Shared\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

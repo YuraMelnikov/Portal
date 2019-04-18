@@ -13,7 +13,7 @@ namespace Wiki.Models.CMO
         public CMO_ReportList()
         {
             cMO_Report = new List<CMO_Report>();
-            CMO_Report = db.CMO_Report.OrderByDescending(d => d.Id_Order).ToList();
+            CMO_Report = db.CMO_Report.OrderByDescending(d => d.Id_Order).Take(150).ToList();
 
             cMO_DefaultOrders = new List<CMO_Order>();
             CMO_DefaultOrders = db.CMO_Order.ToList()
