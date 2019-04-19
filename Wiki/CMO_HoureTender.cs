@@ -20,7 +20,7 @@ namespace Wiki
             this.CMO_Order = new HashSet<CMO_Order>();
         }
     
-        public int id { get; set; }
+        public double id { get; set; }
         public string name { get; set; }
         public int count { get; set; }
         public bool active { get; set; }

@@ -72,8 +72,11 @@ namespace Wiki
         public virtual DbSet<Debit_Name> Debit_Name { get; set; }
         public virtual DbSet<Debit_PeriodReportOprih> Debit_PeriodReportOprih { get; set; }
         public virtual DbSet<Debit_Platform> Debit_Platform { get; set; }
+        public virtual DbSet<Debit_PostingOffType> Debit_PostingOffType { get; set; }
+        public virtual DbSet<Debit_PostingOnType> Debit_PostingOnType { get; set; }
         public virtual DbSet<Debit_TN> Debit_TN { get; set; }
         public virtual DbSet<Debit_WorkBit> Debit_WorkBit { get; set; }
+        public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Devision> Devision { get; set; }
         public virtual DbSet<OTK_ChaeckList> OTK_ChaeckList { get; set; }
         public virtual DbSet<OTK_CounterErrorKO> OTK_CounterErrorKO { get; set; }
@@ -92,6 +95,12 @@ namespace Wiki
         public virtual DbSet<PZ_Setup> PZ_Setup { get; set; }
         public virtual DbSet<PZ_TEO> PZ_TEO { get; set; }
         public virtual DbSet<PZ_TypeShip> PZ_TypeShip { get; set; }
+        public virtual DbSet<Reclamation> Reclamation { get; set; }
+        public virtual DbSet<Reclamation_Answer> Reclamation_Answer { get; set; }
+        public virtual DbSet<Reclamation_CountError> Reclamation_CountError { get; set; }
+        public virtual DbSet<Reclamation_PZ> Reclamation_PZ { get; set; }
+        public virtual DbSet<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
+        public virtual DbSet<Reclamation_Type> Reclamation_Type { get; set; }
         public virtual DbSet<RKD_Despatching> RKD_Despatching { get; set; }
         public virtual DbSet<RKD_FileMailVersion> RKD_FileMailVersion { get; set; }
         public virtual DbSet<RKD_GIP> RKD_GIP { get; set; }
@@ -127,14 +136,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
-        public virtual DbSet<Debit_PostingOffType> Debit_PostingOffType { get; set; }
-        public virtual DbSet<Debit_PostingOnType> Debit_PostingOnType { get; set; }
-        public virtual DbSet<Reclamation> Reclamation { get; set; }
-        public virtual DbSet<Reclamation_Answer> Reclamation_Answer { get; set; }
-        public virtual DbSet<Reclamation_CountError> Reclamation_CountError { get; set; }
-        public virtual DbSet<Reclamation_PZ> Reclamation_PZ { get; set; }
-        public virtual DbSet<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
-        public virtual DbSet<Reclamation_Type> Reclamation_Type { get; set; }
     }
 }

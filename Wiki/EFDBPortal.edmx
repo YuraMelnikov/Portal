@@ -96,7 +96,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="float" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="float" Nullable="false" />
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="count" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
@@ -3692,8 +3692,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="Debit_Name" EntityType="PortalKATEKModel.Debit_Name" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="PortalKATEKModel.Debit_PeriodReportOprih" />
           <EntitySet Name="Debit_Platform" EntityType="PortalKATEKModel.Debit_Platform" />
+          <EntitySet Name="Debit_PostingOffType" EntityType="PortalKATEKModel.Debit_PostingOffType" />
+          <EntitySet Name="Debit_PostingOnType" EntityType="PortalKATEKModel.Debit_PostingOnType" />
           <EntitySet Name="Debit_TN" EntityType="PortalKATEKModel.Debit_TN" />
           <EntitySet Name="Debit_WorkBit" EntityType="PortalKATEKModel.Debit_WorkBit" />
+          <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
           <EntitySet Name="Devision" EntityType="PortalKATEKModel.Devision" />
           <EntitySet Name="OTK_ChaeckList" EntityType="PortalKATEKModel.OTK_ChaeckList" />
           <EntitySet Name="OTK_CounterErrorKO" EntityType="PortalKATEKModel.OTK_CounterErrorKO" />
@@ -3712,6 +3715,12 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PZ_Setup" EntityType="PortalKATEKModel.PZ_Setup" />
           <EntitySet Name="PZ_TEO" EntityType="PortalKATEKModel.PZ_TEO" />
           <EntitySet Name="PZ_TypeShip" EntityType="PortalKATEKModel.PZ_TypeShip" />
+          <EntitySet Name="Reclamation" EntityType="PortalKATEKModel.Reclamation" />
+          <EntitySet Name="Reclamation_Answer" EntityType="PortalKATEKModel.Reclamation_Answer" />
+          <EntitySet Name="Reclamation_CountError" EntityType="PortalKATEKModel.Reclamation_CountError" />
+          <EntitySet Name="Reclamation_PZ" EntityType="PortalKATEKModel.Reclamation_PZ" />
+          <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" />
+          <EntitySet Name="Reclamation_Type" EntityType="PortalKATEKModel.Reclamation_Type" />
           <EntitySet Name="RKD_Despatching" EntityType="PortalKATEKModel.RKD_Despatching" />
           <EntitySet Name="RKD_FileMailVersion" EntityType="PortalKATEKModel.RKD_FileMailVersion" />
           <EntitySet Name="RKD_GIP" EntityType="PortalKATEKModel.RKD_GIP" />
@@ -3794,6 +3803,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_PZ_Setup_AspNetUsers" Association="PortalKATEKModel.FK_PZ_Setup_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="PZ_Setup" EntitySet="PZ_Setup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_Despatching_AspNetUsers" Association="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3899,6 +3920,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="Debit_PeriodReportOprih" EntitySet="Debit_PeriodReportOprih" />
             <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
           </AssociationSet>
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOffType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType">
+            <End Role="Debit_PostingOffType" EntitySet="Debit_PostingOffType" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOnType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType">
+            <End Role="Debit_PostingOnType" EntitySet="Debit_PostingOnType" />
+            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
+          </AssociationSet>
           <AssociationSet Name="FK_Debit_DataReportOprih_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_DataReportOprih_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
@@ -3935,6 +3964,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="PostAlertShip" EntitySet="PostAlertShip" />
           </AssociationSet>
+          <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DebitReclamation" EntitySet="DebitReclamation" />
+          </AssociationSet>
           <AssociationSet Name="FK_OTK_Reclamation_Devision" Association="PortalKATEKModel.FK_OTK_Reclamation_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
@@ -3942,6 +3975,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_OTK_ReclamationAnswer_Devision" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision" Association="PortalKATEKModel.FK_Reclamation_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Devision1" Association="PortalKATEKModel.FK_Reclamation_Devision1">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_TypeTask_Devision" Association="PortalKATEKModel.FK_RKD_TypeTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
@@ -4031,6 +4072,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_TEO" EntitySet="PZ_TEO" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
           <AssociationSet Name="FK_RKD_Order_PZ_PlanZakaz" Association="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="RKD_Order" EntitySet="RKD_Order" />
@@ -4042,6 +4087,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_VVPZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="VVPZ" EntitySet="VVPZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PZ_Reclamation" Association="PortalKATEKModel.FK_Reclamation_PZ_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_CountError1" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_Reclamation_Type" Association="PortalKATEKModel.FK_Reclamation_Reclamation_Type">
+            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_Reclamation" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_Despatching_RKD_Order" Association="PortalKATEKModel.FK_RKD_Despatching_RKD_Order">
             <End Role="RKD_Order" EntitySet="RKD_Order" />
@@ -4174,75 +4243,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
-          <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="DebitReclamation" EntitySet="DebitReclamation" />
-          </AssociationSet>
-          <EntitySet Name="Debit_PostingOffType" EntityType="PortalKATEKModel.Debit_PostingOffType" />
-          <EntitySet Name="Debit_PostingOnType" EntityType="PortalKATEKModel.Debit_PostingOnType" />
-          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOffType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType">
-            <End Role="Debit_PostingOffType" EntitySet="Debit_PostingOffType" />
-            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Debit_DataReportOprih_Debit_PostingOnType" Association="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType">
-            <End Role="Debit_PostingOnType" EntitySet="Debit_PostingOnType" />
-            <End Role="Debit_DataReportOprih" EntitySet="Debit_DataReportOprih" />
-          </AssociationSet>
-          <EntitySet Name="Reclamation" EntityType="PortalKATEKModel.Reclamation" />
-          <EntitySet Name="Reclamation_Answer" EntityType="PortalKATEKModel.Reclamation_Answer" />
-          <EntitySet Name="Reclamation_CountError" EntityType="PortalKATEKModel.Reclamation_CountError" />
-          <EntitySet Name="Reclamation_PZ" EntityType="PortalKATEKModel.Reclamation_PZ" />
-          <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" />
-          <EntitySet Name="Reclamation_Type" EntityType="PortalKATEKModel.Reclamation_Type" />
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Devision" Association="PortalKATEKModel.FK_Reclamation_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Devision1" Association="PortalKATEKModel.FK_Reclamation_Devision1">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation">
-            <End Role="Reclamation" EntitySet="Reclamation" />
-            <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_PZ_Reclamation" Association="PortalKATEKModel.FK_Reclamation_PZ_Reclamation">
-            <End Role="Reclamation" EntitySet="Reclamation" />
-            <End Role="Reclamation_PZ" EntitySet="Reclamation_PZ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Reclamation_CountError" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError">
-            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Reclamation_CountError1" Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1">
-            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Reclamation_Type" Association="PortalKATEKModel.FK_Reclamation_Reclamation_Type">
-            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
-            <End Role="Reclamation" EntitySet="Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_Reclamation" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation">
-            <End Role="Reclamation" EntitySet="Reclamation" />
-            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -4412,6 +4412,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="OTK_ReclamationKO3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Setup" />
+          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_Answer1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_Despatching" Relationship="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Despatching" />
           <NavigationProperty Name="RKD_GIP" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBE" FromRole="AspNetUsers" ToRole="RKD_GIP" />
           <NavigationProperty Name="RKD_GIP1" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBM" FromRole="AspNetUsers" ToRole="RKD_GIP" />
@@ -4420,9 +4423,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
-          <NavigationProperty Name="Reclamation_Answer1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -4458,7 +4458,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Double" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="count" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
@@ -4489,7 +4489,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="datetimeFirstTenderFinish" Type="DateTime" Precision="3" />
           <Property Name="userFirstTenderStart" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="folder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idTime" Type="Int32" Nullable="false" />
+          <Property Name="idTime" Type="Double" Nullable="false" />
           <Property Name="datetimeSecondTenderFinish" Type="DateTime" Precision="3" />
           <Property Name="datetimeWinTenderFinish" Type="DateTime" Precision="3" />
           <Property Name="companyWin" Type="Int32" />
@@ -4606,7 +4606,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
           <Property Name="cost" Type="Double" Nullable="false" />
           <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dateGetMoney" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="dateGetMoney" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Debit_CostUpdate_PZ_PlanZakaz" FromRole="Debit_CostUpdate" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="Debit_DataReportOprih">
@@ -4619,8 +4619,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="dateOprihPlanFact" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="oprihClose" Type="Boolean" Nullable="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Debit_PeriodReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_DataReportOprih" ToRole="Debit_PeriodReportOprih" />
-          <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_debit_WorkBit" FromRole="Debit_DataReportOprih" ToRole="Debit_WorkBit" />
           <Property Name="numberSF" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="reclamation" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="reclamationOpen" Type="DateTime" Precision="0" />
@@ -4630,8 +4628,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="costNDS" Type="Double" Nullable="false" />
           <Property Name="id_Debit_PostingOnType" Type="Int32" Nullable="false" />
           <Property Name="id_Debit_PostingOffType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debit_PeriodReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_DataReportOprih" ToRole="Debit_PeriodReportOprih" />
           <NavigationProperty Name="Debit_PostingOffType" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" FromRole="Debit_DataReportOprih" ToRole="Debit_PostingOffType" />
           <NavigationProperty Name="Debit_PostingOnType" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" FromRole="Debit_DataReportOprih" ToRole="Debit_PostingOnType" />
+          <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_debit_WorkBit" FromRole="Debit_DataReportOprih" ToRole="Debit_WorkBit" />
         </EntityType>
         <EntityType Name="Debit_IstPost">
           <Key>
@@ -4666,8 +4666,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dateTimeClose" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_PeriodReportOprih" ToRole="Debit_DataReportOprih" />
           <Property Name="close" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PeriodReportOprih" FromRole="Debit_PeriodReportOprih" ToRole="Debit_DataReportOprih" />
         </EntityType>
         <EntityType Name="Debit_Platform">
           <Key>
@@ -4681,6 +4681,24 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="numPlomb" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="gabar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="Debit_Platform" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="Debit_PostingOffType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" FromRole="Debit_PostingOffType" ToRole="Debit_DataReportOprih" />
+        </EntityType>
+        <EntityType Name="Debit_PostingOnType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" FromRole="Debit_PostingOnType" ToRole="Debit_DataReportOprih" />
         </EntityType>
         <EntityType Name="Debit_TN">
           <Key>
@@ -4716,6 +4734,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_debit_WorkBit_TaskForPZ" FromRole="Debit_WorkBit" ToRole="TaskForPZ" />
           <NavigationProperty Name="PostAlertShip" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="PostAlertShip" />
         </EntityType>
+        <EntityType Name="DebitReclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateClose" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="DebitReclamation" ToRole="PZ_PlanZakaz" />
+        </EntityType>
         <EntityType Name="Devision">
           <Key>
             <PropertyRef Name="id" />
@@ -4726,10 +4754,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_Devision" FromRole="Devision" ToRole="OTK_Reclamation" />
           <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="Devision" ToRole="OTK_ReclamationAnswer" />
-          <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
-          <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Devision" ToRole="Service_ReclamationAnswerDevision" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
+          <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
+          <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Devision" ToRole="Service_ReclamationAnswerDevision" />
         </EntityType>
         <EntityType Name="OTK_ChaeckList">
           <Key>
@@ -4795,11 +4823,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="countError" Type="Int32" />
           <Property Name="userPO" Type="Int32" />
           <Property Name="descriptionManagerKO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_AspNetUsers" FromRole="OTK_ReclamationAnswer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="OTK_ReclamationAnswer" ToRole="Devision" />
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_ReclamationAnswer" ToRole="OTK_CounterErrorKO" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation" FromRole="OTK_ReclamationAnswer" ToRole="OTK_Reclamation" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_ReclamationKO">
           <Key>
@@ -4821,6 +4849,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="time" Type="Double" />
           <Property Name="aplayResylt" Type="Boolean" />
           <Property Name="descriptionManagerKO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers1" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers2" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
@@ -4828,7 +4857,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO" ToRole="OTK_CounterErrorKO" />
           <NavigationProperty Name="OTK_TypeReclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation" FromRole="OTK_ReclamationKO" ToRole="OTK_TypeReclamation" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="OTK_ReclamationKO" ToRole="PZ_PlanZakaz" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OTK_TypeReclamation">
           <Key>
@@ -4848,8 +4876,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
           <Property Name="datePost" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="numPost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
           <Property Name="datePrihod" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -4962,6 +4990,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="Debit_Name" Relationship="PortalKATEKModel.FK_Debit_Name_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Name" />
           <NavigationProperty Name="Debit_Platform" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Platform" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_debit_WorkBit_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_WorkBit" />
+          <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
           <NavigationProperty Name="OTK_ChaeckList" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OTK_ChaeckList" />
           <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="PZ_Client" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Client" FromRole="PZ_PlanZakaz" ToRole="PZ_Client" />
@@ -4972,11 +5001,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="PZ_TypeShip" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" FromRole="PZ_PlanZakaz" ToRole="PZ_TypeShip" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_Setup" />
           <NavigationProperty Name="PZ_TEO" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_TEO" />
+          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
-          <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
-          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -5037,6 +5065,89 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="typeShip" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" FromRole="PZ_TypeShip" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="Reclamation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation_Type" Type="Int32" Nullable="false" />
+          <Property Name="id_DevisionReclamation" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFirst" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation_CountErrorFinal" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_DevisionCreate" Type="Int32" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="timeToSearch" Type="Double" Nullable="false" />
+          <Property Name="timeToEliminate" Type="Double" Nullable="false" />
+          <Property Name="close" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Reclamation" ToRole="Devision" />
+          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Reclamation" ToRole="Devision" />
+          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation" ToRole="Reclamation_PZ" />
+          <NavigationProperty Name="Reclamation_CountError" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation" ToRole="Reclamation_CountError" />
+          <NavigationProperty Name="Reclamation_CountError1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation" ToRole="Reclamation_CountError" />
+          <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
+          <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
+        </EntityType>
+        <EntityType Name="Reclamation_Answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsersError" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_CountError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="count" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation_CountError" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation_CountError" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_PZ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="Reclamation_PZ" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation_PZ" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_TechnicalAdvice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activeOTK" Type="Boolean" Nullable="false" />
+          <Property Name="activePO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -5615,6 +5726,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers1">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RKD_Despatching_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
           <End Type="PortalKATEKModel.RKD_Despatching" Role="RKD_Despatching" Multiplicity="*" />
@@ -5927,6 +6074,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOffType">
+          <End Type="PortalKATEKModel.Debit_PostingOffType" Role="Debit_PostingOffType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOffType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOffType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOnType">
+          <End Type="PortalKATEKModel.Debit_PostingOnType" Role="Debit_PostingOnType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_PostingOnType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Debit_DataReportOprih">
+              <PropertyRef Name="id_Debit_PostingOnType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Debit_DataReportOprih_debit_WorkBit">
           <End Type="PortalKATEKModel.Debit_WorkBit" Role="Debit_WorkBit" Multiplicity="1" />
           <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
@@ -6035,6 +6206,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DebitReclamation_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DebitReclamation" Role="DebitReclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitReclamation">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OTK_Reclamation_Devision">
           <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
           <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="*" />
@@ -6056,6 +6239,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="OTK_ReclamationAnswer">
               <PropertyRef Name="Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionReclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Devision1">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_DevisionCreate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6323,6 +6530,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_PZ_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RKD_Order_PZ_PlanZakaz">
           <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
           <End Type="PortalKATEKModel.RKD_Order" Role="RKD_Order" Multiplicity="*" />
@@ -6356,6 +6575,78 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="VVPZ">
               <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_PZ_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_PZ">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError">
+          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFirst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_CountError1">
+          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_CountErrorFinal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Reclamation_Type">
+          <End Type="PortalKATEKModel.Reclamation_Type" Role="Reclamation_Type" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_Reclamation_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_TechnicalAdvice_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdvice">
+              <PropertyRef Name="id_Reclamation" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6746,297 +7037,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
         <Association Name="AspNetUserRoles">
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
-        <EntityType Name="DebitReclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="dateClose" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="DebitReclamation" ToRole="PZ_PlanZakaz" />
-        </EntityType>
-        <Association Name="FK_DebitReclamation_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DebitReclamation" Role="DebitReclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DebitReclamation">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Debit_PostingOffType">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOffType" FromRole="Debit_PostingOffType" ToRole="Debit_DataReportOprih" />
-        </EntityType>
-        <EntityType Name="Debit_PostingOnType">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_Debit_PostingOnType" FromRole="Debit_PostingOnType" ToRole="Debit_DataReportOprih" />
-        </EntityType>
-        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOffType">
-          <End Type="PortalKATEKModel.Debit_PostingOffType" Role="Debit_PostingOffType" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_PostingOffType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Debit_DataReportOprih">
-              <PropertyRef Name="id_Debit_PostingOffType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Debit_DataReportOprih_Debit_PostingOnType">
-          <End Type="PortalKATEKModel.Debit_PostingOnType" Role="Debit_PostingOnType" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Debit_DataReportOprih" Role="Debit_DataReportOprih" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_PostingOnType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Debit_DataReportOprih">
-              <PropertyRef Name="id_Debit_PostingOnType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Reclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Reclamation_Type" Type="Int32" Nullable="false" />
-          <Property Name="id_DevisionReclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation_CountErrorFirst" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation_CountErrorFinal" Type="Int32" Nullable="false" />
-          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="id_DevisionCreate" Type="Int32" Nullable="false" />
-          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="timeToSearch" Type="Double" Nullable="false" />
-          <Property Name="timeToEliminate" Type="Double" Nullable="false" />
-          <Property Name="close" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Reclamation" ToRole="Devision" />
-          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Reclamation" ToRole="Devision" />
-          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation" ToRole="Reclamation_Answer" />
-          <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation" ToRole="Reclamation_PZ" />
-          <NavigationProperty Name="Reclamation_CountError" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation" ToRole="Reclamation_CountError" />
-          <NavigationProperty Name="Reclamation_CountError1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation" ToRole="Reclamation_CountError" />
-          <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
-          <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
-        </EntityType>
-        <EntityType Name="Reclamation_Answer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_AspNetUsersError" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
-        </EntityType>
-        <EntityType Name="Reclamation_CountError">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <Property Name="count" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation_CountError" ToRole="Reclamation" />
-          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation_CountError" ToRole="Reclamation" />
-        </EntityType>
-        <EntityType Name="Reclamation_PZ">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="Reclamation_PZ" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_PZ_Reclamation" FromRole="Reclamation_PZ" ToRole="Reclamation" />
-        </EntityType>
-        <EntityType Name="Reclamation_TechnicalAdvice">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
-        </EntityType>
-        <EntityType Name="Reclamation_Type">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="activeOTK" Type="Boolean" Nullable="false" />
-          <Property Name="activePO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
-        </EntityType>
-        <Association Name="FK_Reclamation_Answer_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_Answer">
-              <PropertyRef Name="id_AspNetUsersError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Answer_AspNetUsers1">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_Answer">
-              <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_DevisionReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Devision1">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_DevisionCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_PZ_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_PZ">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Answer_Reclamation">
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation_Answer">
-              <PropertyRef Name="id_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_PZ_Reclamation">
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_PZ" Role="Reclamation_PZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation_PZ">
-              <PropertyRef Name="id_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Reclamation_CountError">
-          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation_CountError">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_Reclamation_CountErrorFirst" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Reclamation_CountError1">
-          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation_CountError">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_Reclamation_CountErrorFinal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_Reclamation_Type">
-          <End Type="PortalKATEKModel.Reclamation_Type" Role="Reclamation_Type" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation_Type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation">
-              <PropertyRef Name="id_Reclamation_Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_TechnicalAdvice_Reclamation">
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reclamation_TechnicalAdvice">
-              <PropertyRef Name="id_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -7622,6 +7622,24 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Debit_PostingOffType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOffType">
+              <MappingFragment StoreEntitySet="Debit_PostingOffType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debit_PostingOnType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOnType">
+              <MappingFragment StoreEntitySet="Debit_PostingOnType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Debit_TN">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_TN">
               <MappingFragment StoreEntitySet="Debit_TN">
@@ -7645,6 +7663,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="datePlanFirst" ColumnName="datePlanFirst" />
                 <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
                 <ScalarProperty Name="id_TaskForPZ" ColumnName="id_TaskForPZ" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DebitReclamation">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DebitReclamation">
+              <MappingFragment StoreEntitySet="DebitReclamation">
+                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
+                <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7915,6 +7943,77 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_TypeShip">
               <MappingFragment StoreEntitySet="PZ_TypeShip">
                 <ScalarProperty Name="typeShip" ColumnName="typeShip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
+              <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="close" ColumnName="close" />
+                <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
+                <ScalarProperty Name="timeToSearch" ColumnName="timeToSearch" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id_DevisionCreate" ColumnName="id_DevisionCreate" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="id_Reclamation_CountErrorFinal" ColumnName="id_Reclamation_CountErrorFinal" />
+                <ScalarProperty Name="id_Reclamation_CountErrorFirst" ColumnName="id_Reclamation_CountErrorFirst" />
+                <ScalarProperty Name="id_DevisionReclamation" ColumnName="id_DevisionReclamation" />
+                <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_Answer">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
+              <MappingFragment StoreEntitySet="Reclamation_Answer">
+                <ScalarProperty Name="gip" ColumnName="gip" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_CountError">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CountError">
+              <MappingFragment StoreEntitySet="Reclamation_CountError">
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_PZ">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_PZ">
+              <MappingFragment StoreEntitySet="Reclamation_PZ">
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_TechnicalAdvice">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdvice">
+              <MappingFragment StoreEntitySet="Reclamation_TechnicalAdvice">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_Type">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Type">
+              <MappingFragment StoreEntitySet="Reclamation_Type">
+                <ScalarProperty Name="activePO" ColumnName="activePO" />
+                <ScalarProperty Name="activeOTK" ColumnName="activeOTK" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -8314,105 +8413,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="DebitReclamation">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DebitReclamation">
-              <MappingFragment StoreEntitySet="DebitReclamation">
-                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
-                <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Debit_PostingOffType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOffType">
-              <MappingFragment StoreEntitySet="Debit_PostingOffType">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Debit_PostingOnType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_PostingOnType">
-              <MappingFragment StoreEntitySet="Debit_PostingOnType">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
-              <MappingFragment StoreEntitySet="Reclamation">
-                <ScalarProperty Name="close" ColumnName="close" />
-                <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
-                <ScalarProperty Name="timeToSearch" ColumnName="timeToSearch" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
-                <ScalarProperty Name="id_DevisionCreate" ColumnName="id_DevisionCreate" />
-                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
-                <ScalarProperty Name="id_Reclamation_CountErrorFinal" ColumnName="id_Reclamation_CountErrorFinal" />
-                <ScalarProperty Name="id_Reclamation_CountErrorFirst" ColumnName="id_Reclamation_CountErrorFirst" />
-                <ScalarProperty Name="id_DevisionReclamation" ColumnName="id_DevisionReclamation" />
-                <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_Answer">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
-              <MappingFragment StoreEntitySet="Reclamation_Answer">
-                <ScalarProperty Name="gip" ColumnName="gip" />
-                <ScalarProperty Name="answer" ColumnName="answer" />
-                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
-                <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
-                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_CountError">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CountError">
-              <MappingFragment StoreEntitySet="Reclamation_CountError">
-                <ScalarProperty Name="count" ColumnName="count" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_PZ">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_PZ">
-              <MappingFragment StoreEntitySet="Reclamation_PZ">
-                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_TechnicalAdvice">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdvice">
-              <MappingFragment StoreEntitySet="Reclamation_TechnicalAdvice">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
-                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reclamation_Type">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Type">
-              <MappingFragment StoreEntitySet="Reclamation_Type">
-                <ScalarProperty Name="activePO" ColumnName="activePO" />
-                <ScalarProperty Name="activeOTK" ColumnName="activeOTK" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

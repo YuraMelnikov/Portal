@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Models;
@@ -78,7 +79,7 @@ namespace Wiki.Controllers
                     cMO_PreOrders[i] = db.CMO_PreOrder.First(d => d.id == index);
                 }
                 CMO_Create cMO_Create = new CMO_Create(cMO_PreOrders, login);
-                cMO_Create.CMO_CreateOrderForCMO(cMO_Order.companyWin.Value, cMO_Order.idTime, cMO_Order.dateCreate);
+                cMO_Create.CMO_CreateOrderForCMO(cMO_Order.companyWin.Value, 0, cMO_Order.dateCreate);
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch
@@ -125,54 +126,85 @@ namespace Wiki.Controllers
                 return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
             if (cMO_UploadResult.dateComplited.Value.Year < 2000 || cMO_UploadResult.dateComplited == null)
                 return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
-            try
+
+            CMO_UploadResult upCMO_UploadResult = db.CMO_UploadResult.Find(cMO_UploadResult.id);
+            if (newDevision == true)
+                upCMO_UploadResult.id_CMO_Company = reloadError;
+            upCMO_UploadResult.cost = cMO_UploadResult.cost;
+            upCMO_UploadResult.dateTimeUpload = DateTime.Now;
+            upCMO_UploadResult.dateComplited = cMO_UploadResult.dateComplited;
+            upCMO_UploadResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
+            db.Entry(upCMO_UploadResult).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Tender cMO_Tender = db.CMO_Tender.First(d => d.id == upCMO_UploadResult.id_CMO_Tender);
+            cMO_Tender.close = true;
+            db.Entry(cMO_Tender).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Tender tenderWin = db.CMO_Tender.First(d => d.id_CMO_TypeTask == 3 && d.id_CMO_Order == cMO_Tender.id_CMO_Order);
+            tenderWin.finishPlanClose = cMO_UploadResult.dateComplited.Value;
+            tenderWin.close = true;
+            db.Entry(tenderWin).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_UploadResult winResult = db.CMO_UploadResult.First(d => d.id_CMO_Tender == tenderWin.id);
+            if (newDevision == true)
+                winResult.id_CMO_Company = reloadError;
+            winResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
+            winResult.cost = cMO_UploadResult.cost;
+            winResult.dateTimeUpload = DateTime.Now;
+            db.Entry(winResult).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Order cMO_Order = db.CMO_Order.Find(cMO_Tender.id_CMO_Order);
+            if (newDevision == true)
             {
-                CMO_UploadResult upCMO_UploadResult = db.CMO_UploadResult.Find(cMO_UploadResult.id);
-                if (newDevision == true)
-                    upCMO_UploadResult.id_CMO_Company = reloadError;
-                upCMO_UploadResult.cost = cMO_UploadResult.cost;
-                upCMO_UploadResult.dateTimeUpload = DateTime.Now;
-                upCMO_UploadResult.dateComplited = cMO_UploadResult.dateComplited;
-                upCMO_UploadResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
-                db.Entry(upCMO_UploadResult).State = EntityState.Modified;
+                cMO_Order.companyWin = reloadError;
+                db.Entry(cMO_Order).State = EntityState.Modified;
                 db.SaveChanges();
-                CMO_Tender cMO_Tender = db.CMO_Tender.First(d => d.id == upCMO_UploadResult.id_CMO_Tender);
-                cMO_Tender.close = true;
-                db.Entry(cMO_Tender).State = EntityState.Modified;
-                db.SaveChanges();
-                CMO_Tender tenderWin = db.CMO_Tender.First(d => d.id_CMO_TypeTask == 3 && d.id_CMO_Order == cMO_Tender.id_CMO_Order);
-                tenderWin.finishPlanClose = cMO_UploadResult.dateComplited.Value;
-                tenderWin.close = true;
-                db.Entry(tenderWin).State = EntityState.Modified;
-                db.SaveChanges();
-                CMO_UploadResult winResult = db.CMO_UploadResult.First(d => d.id_CMO_Tender == tenderWin.id);
-                if (newDevision == true)
-                    winResult.id_CMO_Company = reloadError;
-                winResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
-                winResult.cost = cMO_UploadResult.cost;
-                winResult.dateTimeUpload = DateTime.Now;
-                db.Entry(winResult).State = EntityState.Modified;
-                db.SaveChanges();
-                EmailModel emailModel = new EmailModel();
-                List<string> recipientList = new List<string>();
-                recipientList.Add("myi@katek.by");
-                recipientList.Add("gea@katek.by");
-                emailModel.SendEmail(recipientList.ToArray(), "Сроки поступления железа", GetBodyMailForCMOFirst(winResult), "gdp@katek.by");
-                CMO_Order cMO_Order = db.CMO_Order.Find(cMO_Tender.id_CMO_Order);
-                if (newDevision == true)
-                {
-                    cMO_Order.companyWin = reloadError;
-                    db.Entry(cMO_Order).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
-            catch
-            {
-                return RedirectToAction("Error", "CMO3");
-            }
+            PushMailToWinnerTender(upCMO_UploadResult);
+            return RedirectToAction("ViewStartMenuOS", "CMO3");
+        }
+        
+        private void PushMailToWinnerTender(CMO_UploadResult winResult)
+        {
+            string bodyMail = GetBodyMailWinnerTender(winResult);
+            EmailModel emailModel = new EmailModel();
+            List<string> recipientList = new List<string>();
+            recipientList.Add("myi@katek.by");
+            recipientList.Add("gdp@katek.by");
+            recipientList.Add("gea@katek.by");
+            recipientList.Add("bav@katek.by");
+            recipientList.Add("Antipov@katek.by");
+            recipientList.Add(winResult.CMO_Company.CMO_CompanyMailList.First().email);
+            emailModel.SendEmail(recipientList.ToArray(), GetSubjectMailFirstTender(winResult), bodyMail, GetFileArray(winResult.CMO_Tender.id_CMO_Order), "gdp@katek.by");
         }
 
+        private string GetBodyMailWinnerTender(CMO_UploadResult winResult)
+        {
+            string body = "Добрый день! " + "<br/>" + "Запускаем заказ в работу, требуемая дата изготовления: " + winResult.dateComplited.ToString().Substring(0, 10);
+            return body;
+        }
+
+        private string GetSubjectMailFirstTender(CMO_UploadResult winResult)
+        {
+            string subject = "Заказ деталей: ";
+            var cmoPositionList = db.CMO_PositionOrder.Where(d => d.id_CMO_Order == winResult.CMO_Tender.id_CMO_Order).ToList();
+            foreach (var data in cmoPositionList)
+            {
+                subject += "план-заказ № " + data.PZ_PlanZakaz.PlanZakaz.ToString() + " " + data.CMO_TypeProduct.name.ToString() + ";";
+            }
+            subject += " (заявка № " + winResult.CMO_Tender.id_CMO_Order.ToString() + ")";
+            string str = "";
+            str = subject.Replace("\n", " ").Replace("\r", " ");
+            return str;
+        }
+
+        private List<string> GetFileArray(int idOreder)
+        {
+            CMO_Order cMO_Order = db.CMO_Order.Find(idOreder);
+            var fileList = Directory.GetFiles(cMO_Order.folder).ToList();
+            return fileList;
+        }
+        
         private string GetBodyMailForCMOFirst(CMO_UploadResult cMO_UploadResult)
         {
             int idOrder = cMO_UploadResult.CMO_Tender.CMO_Order.id;

@@ -20,10 +20,10 @@ namespace Wiki
             this.AspNetUsers = new HashSet<AspNetUsers>();
             this.OTK_Reclamation = new HashSet<OTK_Reclamation>();
             this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
-            this.RKD_TypeTask = new HashSet<RKD_TypeTask>();
-            this.Service_ReclamationAnswerDevision = new HashSet<Service_ReclamationAnswerDevision>();
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
+            this.RKD_TypeTask = new HashSet<RKD_TypeTask>();
+            this.Service_ReclamationAnswerDevision = new HashSet<Service_ReclamationAnswerDevision>();
         }
     
         public int id { get; set; }
@@ -37,12 +37,12 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RKD_TypeTask> RKD_TypeTask { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service_ReclamationAnswerDevision> Service_ReclamationAnswerDevision { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation> Reclamation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation> Reclamation1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RKD_TypeTask> RKD_TypeTask { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service_ReclamationAnswerDevision> Service_ReclamationAnswerDevision { get; set; }
     }
 }

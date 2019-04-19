@@ -30,7 +30,7 @@ namespace Wiki
         public Nullable<System.DateTime> datetimeFirstTenderFinish { get; set; }
         public string userFirstTenderStart { get; set; }
         public string folder { get; set; }
-        public int idTime { get; set; }
+        public double idTime { get; set; }
         public Nullable<System.DateTime> datetimeSecondTenderFinish { get; set; }
         public Nullable<System.DateTime> datetimeWinTenderFinish { get; set; }
         public Nullable<int> companyWin { get; set; }

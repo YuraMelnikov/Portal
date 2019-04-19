@@ -37,7 +37,7 @@
             <h4>Декларируемая дата изготовления</h4>
             @Html.EditorFor(model => model.dateComplited, new { htmlAttributes = new { @class = "form-control" } })
             <h4>Сменить подрядчика</h4>
-            @Html.CheckBox("newDevision");
+            @Html.CheckBox("newDevision")
             @Html.DropDownList("reloadError", null, htmlAttributes: new { @class = "form-control" })
             <hr />
             <input type="submit" value="Сохранить" class="btn btn-success" />

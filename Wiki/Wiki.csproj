@@ -805,6 +805,7 @@
     <Content Include="Areas\Service\Content\Scripts\TypeReclamationDocumentCRUD.js" />
     <Content Include="Areas\Service\Content\tmp.jpg" />
     <Content Include="Areas\Service\Content\underConst.png" />
+    <Content Include="Areas\tmp dev\importDataNewStruct.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
