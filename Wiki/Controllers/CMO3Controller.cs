@@ -79,7 +79,7 @@ namespace Wiki.Controllers
                     cMO_PreOrders[i] = db.CMO_PreOrder.First(d => d.id == index);
                 }
                 CMO_Create cMO_Create = new CMO_Create(cMO_PreOrders, login);
-                cMO_Create.CMO_CreateOrderForCMO(cMO_Order.companyWin.Value, 0, cMO_Order.dateCreate);
+                cMO_Create.CMO_CreateOrderForCMO(cMO_Order.companyWin.Value, (int)cMO_Order.idTime, cMO_Order.dateCreate);
                 return RedirectToAction("ViewStartMenuOS", "CMO3");
             }
             catch

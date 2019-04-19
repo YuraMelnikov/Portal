@@ -47,7 +47,7 @@
                         }
                     </td>
                     <td> @Html.DisplayFor(modelItem => item.dateCreate) </td>
-                    <td>                 <a href=@item.folder.ToString()>Excel</a> </td>
+                    <td> <a href=@item.folder.ToString() onClick="refreshPage()">Excel</a> </td>
                     <td> @Html.DisplayFor(modelItem => item.id) </td>
                 </tr>
             }
@@ -95,7 +95,7 @@
                         </td>
                         <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
                         <td>@item.CMO_Tender.finishPlanClose</td>
-                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString() onClick="refreshPage()">Excel</a> </td>
                     </tr>
                 }
                 else
@@ -111,7 +111,7 @@
                         </td>
                         <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
                         <td>@item.CMO_Tender.finishPlanClose</td>
-                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()>Excel</a> </td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
                     </tr>
                 }
                 count4 = item.CMO_Tender.id_CMO_Order;
@@ -159,7 +159,7 @@
                 {
                     <td></td>
                 }
-                <td> <a href=@item.folder.ToString()>Excel</a> </td>
+                <td> <a href=@item.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
             </tr>
             }
         </tbody>
@@ -191,7 +191,7 @@
                     </td>
                     <td> @item.CMO_Company.name.ToString() </td>
                     <td> @item.dateCreate </td>
-                    <td> <a href=@item.folder.ToString()>Excel</a> </td>
+                    <td> <a href=@item.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
                 </tr>
             }
         </tbody>
@@ -268,4 +268,9 @@
                 .load(this.href);
         });
     });
+</script>
+<script>
+    function refreshPage() {
+        window.location.reload();
+    }
 </script>

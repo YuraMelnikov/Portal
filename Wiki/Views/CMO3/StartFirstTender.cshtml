@@ -28,6 +28,9 @@
     <br />
     <h4>Укажите дату получения ответа </h4>
     @Html.EditorFor(model => model.dateCreate, new { htmlAttributes = new { @class = "form-control" } })
+    <br />
+    <h4>Цена, б/НДС (BYN): </h4>
+    @Html.EditorFor(model => model.idTime, new { htmlAttributes = new { @class = "form-control" } })
     <hr />
     <input type="submit" value="Сохранить" class="btn btn-primary" />
     @Html.ActionLink("Назад", "ViewStartMenuOS", "CMO3", new { @class = "btn btn-default" })

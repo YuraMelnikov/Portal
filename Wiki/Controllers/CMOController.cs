@@ -432,20 +432,7 @@ namespace Wiki.Controllers
             string login = HttpContext.User.Identity.Name;
             try
             {
-
                 CMO_Order cMO_Order = db.CMO_Order.Find(id);
-
-
-                CMO_UploadResult startUpload = db.CMO_UploadResult
-                    .Where(d => d.CMO_Tender.id_CMO_Order == cMO_Order.id && d.CMO_Tender.id_CMO_TypeTask == 1)
-                    .First();
-                CMO_UploadResult secondUpload = db.CMO_UploadResult
-                    .Where(d => d.CMO_Tender.id_CMO_Order == cMO_Order.id && d.CMO_Tender.id_CMO_TypeTask == 2)
-                    .First();
-                startUpload.cost = secondUpload.cost;
-                db.Entry(startUpload).State = EntityState.Modified;
-                db.SaveChanges();
-
                 ViewBag.numOrder = cMO_Order.id.ToString();
                 ViewBag.DateTimeCreate = cMO_Order.dateCreate;
                 ViewBag.UserCreate = db.AspNetUsers.Find(cMO_Order.userCreate).CiliricalName.ToString();
