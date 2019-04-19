@@ -432,7 +432,20 @@ namespace Wiki.Controllers
             string login = HttpContext.User.Identity.Name;
             try
             {
+
                 CMO_Order cMO_Order = db.CMO_Order.Find(id);
+
+
+                CMO_UploadResult startUpload = db.CMO_UploadResult
+                    .Where(d => d.CMO_Tender.id_CMO_Order == cMO_Order.id && d.CMO_Tender.id_CMO_TypeTask == 1)
+                    .First();
+                CMO_UploadResult secondUpload = db.CMO_UploadResult
+                    .Where(d => d.CMO_Tender.id_CMO_Order == cMO_Order.id && d.CMO_Tender.id_CMO_TypeTask == 2)
+                    .First();
+                startUpload.cost = secondUpload.cost;
+                db.Entry(startUpload).State = EntityState.Modified;
+                db.SaveChanges();
+
                 ViewBag.numOrder = cMO_Order.id.ToString();
                 ViewBag.DateTimeCreate = cMO_Order.dateCreate;
                 ViewBag.UserCreate = db.AspNetUsers.Find(cMO_Order.userCreate).CiliricalName.ToString();
@@ -451,6 +464,31 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "CMO");
             }
         }
+
+        //public ActionResult CloseOrder(int? id)
+        //{
+        //    string login = HttpContext.User.Identity.Name;
+        //    try
+        //    {
+        //        CMO_Order cMO_Order = db.CMO_Order.Find(id);
+        //        ViewBag.numOrder = cMO_Order.id.ToString();
+        //        ViewBag.DateTimeCreate = cMO_Order.dateCreate;
+        //        ViewBag.UserCreate = db.AspNetUsers.Find(cMO_Order.userCreate).CiliricalName.ToString();
+        //        List<CMO_Description> cMO_DescriptionsList = new List<CMO_Description>();
+        //        foreach (var data in cMO_Order.CMO_PositionOrder.ToList())
+        //        {
+        //            cMO_DescriptionsList.Add(new CMO_Description(data.PZ_PlanZakaz.PlanZakaz.ToString(), data.CMO_TypeProduct.name));
+        //        }
+        //        ViewBag.OrderDescription = cMO_DescriptionsList;
+        //        logger.Debug(getServer + " (CMOController/CloseOrder): " + login.ToString());
+        //        return View();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error(getServerError + " (CMOController/CloseOrder): " + ex.Message.ToString());
+        //        return RedirectToAction("Error", "CMO");
+        //    }
+        //}
         //[HttpPost]
         //public ActionResult CloseOrder(CMO_Order cMO_Order)
         //{

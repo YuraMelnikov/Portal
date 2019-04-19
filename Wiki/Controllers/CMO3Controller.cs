@@ -126,7 +126,6 @@ namespace Wiki.Controllers
                 return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
             if (cMO_UploadResult.dateComplited.Value.Year < 2000 || cMO_UploadResult.dateComplited == null)
                 return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
-
             CMO_UploadResult upCMO_UploadResult = db.CMO_UploadResult.Find(cMO_UploadResult.id);
             if (newDevision == true)
                 upCMO_UploadResult.id_CMO_Company = reloadError;
