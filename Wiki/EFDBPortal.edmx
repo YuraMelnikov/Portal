@@ -722,6 +722,7 @@
           <Property Name="timeToSearch" Type="float" Nullable="false" />
           <Property Name="timeToEliminate" Type="float" Nullable="false" />
           <Property Name="close" Type="bit" Nullable="false" />
+          <Property Name="gip" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -732,7 +733,7 @@
           <Property Name="id_AspNetUsersError" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="answer" Type="varchar(max)" Nullable="false" />
-          <Property Name="gip" Type="bit" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -1200,7 +1201,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1227,7 +1228,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1237,7 +1238,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1247,7 +1248,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1258,7 +1259,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -2110,18 +2111,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reclamation_Answer_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_Answer">
-              <PropertyRef Name="id_AspNetUsersError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reclamation_Answer_AspNetUsers1">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
@@ -2131,6 +2120,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="Reclamation_Answer">
               <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers2">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation_Answer" Type="Self.Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersError" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3223,11 +3224,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_TEO" EntitySet="PZ_TEO" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="Self.FK_Reclamation_Answer_AspNetUsers">
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="Self.FK_Reclamation_Answer_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="Self.FK_Reclamation_Answer_AspNetUsers1">
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers2" Association="Self.FK_Reclamation_Answer_AspNetUsers2">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
           </AssociationSet>
@@ -3804,11 +3805,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="PZ_Setup" EntitySet="PZ_Setup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers">
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1">
+          <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers2" Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers2">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
           </AssociationSet>
@@ -4412,8 +4413,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="OTK_ReclamationKO3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Setup" />
-          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
-          <NavigationProperty Name="Reclamation_Answer1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
+          <NavigationProperty Name="Reclamation_Answer1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers2" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_Despatching" Relationship="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Despatching" />
           <NavigationProperty Name="RKD_GIP" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBE" FromRole="AspNetUsers" ToRole="RKD_GIP" />
@@ -5083,6 +5084,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="timeToSearch" Type="Double" Nullable="false" />
           <Property Name="timeToEliminate" Type="Double" Nullable="false" />
           <Property Name="close" Type="Boolean" Nullable="false" />
+          <Property Name="gip" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
           <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Reclamation" ToRole="Devision" />
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Reclamation" ToRole="Devision" />
@@ -5102,9 +5104,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id_AspNetUsersError" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers2" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
@@ -5726,18 +5728,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reclamation_Answer_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_Answer">
-              <PropertyRef Name="id_AspNetUsersError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reclamation_Answer_AspNetUsers1">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
@@ -5747,6 +5737,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="Reclamation_Answer">
               <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_Answer_AspNetUsers2">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_Answer">
+              <PropertyRef Name="id_AspNetUsersError" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7950,6 +7952,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="gip" ColumnName="gip" />
                 <ScalarProperty Name="close" ColumnName="close" />
                 <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
                 <ScalarProperty Name="timeToSearch" ColumnName="timeToSearch" />
@@ -7969,7 +7972,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="Reclamation_Answer">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
               <MappingFragment StoreEntitySet="Reclamation_Answer">
-                <ScalarProperty Name="gip" ColumnName="gip" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
                 <ScalarProperty Name="answer" ColumnName="answer" />
                 <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
                 <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
