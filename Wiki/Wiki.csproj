@@ -277,6 +277,8 @@
     <Compile Include="Areas\Reclamation\Controllers\OTKController.cs" />
     <Compile Include="Areas\Reclamation\Controllers\POController.cs" />
     <Compile Include="Areas\Reclamation\Controllers\RouterController.cs" />
+    <Compile Include="Areas\Reclamation\Models\PlanZakazOTKViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\ReclamationOTKViwers.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
@@ -805,7 +807,7 @@
     <Content Include="Areas\Service\Content\Scripts\TypeReclamationDocumentCRUD.js" />
     <Content Include="Areas\Service\Content\tmp.jpg" />
     <Content Include="Areas\Service\Content\underConst.png" />
-    <Content Include="Areas\tmp dev\importDataNewStruct.sql" />
+    <Content Include="Areas\migrate db\importDataNewStruct.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -1243,7 +1245,8 @@
     <Content Include="Areas\Deb\Views\Upload\EditPartial.cshtml" />
     <Content Include="Areas\Deb\Views\DSetup\Index.cshtml" />
     <Content Include="Areas\Reclamation\Views\web.config" />
-    <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamation.cshtml" />
+    <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamationOTK.cshtml" />
+    <Content Include="Areas\Reclamation\Views\OTK\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1727,12 +1730,10 @@
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Reclamation\Models\" />
     <Folder Include="Areas\Reclamation\Views\Admin\" />
     <Folder Include="Areas\Reclamation\Views\All\" />
     <Folder Include="Areas\Reclamation\Views\GR\" />
     <Folder Include="Areas\Reclamation\Views\KO\" />
-    <Folder Include="Areas\Reclamation\Views\OTK\" />
     <Folder Include="Areas\Reclamation\Views\PO\" />
     <Folder Include="Areas\Reclamation\Views\Router\" />
     <Folder Include="log\" />

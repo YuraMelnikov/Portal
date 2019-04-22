@@ -19,6 +19,7 @@
         div.dataTables_wrapper {
             margin: 0 auto;
         }
+
         .th {
             text-align: center;
         }
@@ -31,10 +32,11 @@
                 <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="http://pserver/PZ/Order/Index">Активные замечания</a></li>
-                <li><a href="http://pserver/PZ/Client/Index/">Отработанные замечания</a></li>
-                <li><a href="http://pserver/PZ/Operator/Index/">Замечания по заказам (отдела)</a></li>
-                <li><a href="http://pserver/PZ/Operator/Index/">Замечания по заказам (все)</a></li>
+                <li><a href="http://pserver/PZ/Order/Index">Активные замечания (список)</a></li>
+                <li><a href="http://pserver/PZ/Order/Index">Активные замечания (заказы)</a></li>
+                <li><a href="http://pserver/PZ/Order/Index">Замечания (неотгруженные заказы)</a></li>
+                <li><a href="http://pserver/PZ/Order/Index">Замечания (отгруженные заказы)</a></li>
+                <li><a href="http://pserver/PZ/Order/Index">Замечания (заказы)</a></li>
                 <li>
                     <a style="color:crimson" href="/Account/Login/">
                         @{Html.RenderAction("RenderUserMenu", "Order"); }
