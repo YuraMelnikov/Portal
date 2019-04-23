@@ -1,6 +1,6 @@
 ﻿namespace Wiki.Areas.Reclamation.Models
 {
-    public struct PlanZakazOTKViwers
+    public struct PlanZakazViwers
     {
         int id_PZ_PlanZakaz;
         int planZakaz;

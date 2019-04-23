@@ -16,7 +16,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public List<Wiki.Reclamation> Reclamations { get => reclamations; set => reclamations = value; }
 
-        public void GetActiveReclamationOTK()
+        public void GetActiveReclamation(int id_Devision)
         {
             Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ

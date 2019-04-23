@@ -7,6 +7,13 @@ namespace Wiki.Areas.Reclamation.Models
     public class ReclamationViwers
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
+
+        readonly string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getOTKID('";
+        readonly string firstPartLinkEditKO = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyKOID('";
+        readonly string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+
+        string editLinkJS;
+        string viewLinkJS;
         int id_Reclamation;
         string planZakaz;
         string type;
@@ -30,6 +37,8 @@ namespace Wiki.Areas.Reclamation.Models
         public string Type { get => type; set => type = value; }
         public string PlanZakaz { get => planZakaz; set => planZakaz = value; }
         public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
+        public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
+        public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
 
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {

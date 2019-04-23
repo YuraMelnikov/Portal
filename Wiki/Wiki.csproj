@@ -270,14 +270,8 @@
     <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\AdminController.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\AllController.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\GRController.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\KOController.cs" />
     <Compile Include="Areas\Reclamation\Controllers\OTKController.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\POController.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\RouterController.cs" />
-    <Compile Include="Areas\Reclamation\Models\PlanZakazOTKViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
@@ -801,6 +795,7 @@
     <Content Include="Areas\PZ\Contant\Kurator.js" />
     <Content Include="Areas\PZ\Contant\OperatorList.js" />
     <Content Include="Areas\PZ\Contant\OrdersList.js" />
+    <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />
@@ -1249,6 +1244,7 @@
     <Content Include="Areas\Reclamation\Views\web.config" />
     <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamationOTK.cshtml" />
     <Content Include="Areas\Reclamation\Views\OTK\Index.cshtml" />
+    <Content Include="Areas\Reclamation\Views\ReclamationData\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1732,12 +1728,6 @@
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Reclamation\Views\Admin\" />
-    <Folder Include="Areas\Reclamation\Views\All\" />
-    <Folder Include="Areas\Reclamation\Views\GR\" />
-    <Folder Include="Areas\Reclamation\Views\KO\" />
-    <Folder Include="Areas\Reclamation\Views\PO\" />
-    <Folder Include="Areas\Reclamation\Views\Router\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

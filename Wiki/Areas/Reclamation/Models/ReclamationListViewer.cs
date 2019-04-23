@@ -4,26 +4,26 @@ namespace Wiki.Areas.Reclamation.Models
 {
     public class ReclamationListViewer
     {
-        PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly PortalKATEKEntities db = new PortalKATEKEntities();
         List<ReclamationViwers> reclamationsListView = new List<ReclamationViwers>();
 
         public List<ReclamationViwers> ReclamationsListView { get => reclamationsListView; set => reclamationsListView = value; }
 
-        public void GetActiveReclamationOTK()
+        void InitializationList()
+        {
+            reclamationsListView = new List<ReclamationViwers>();
+        }
+
+        public void GetActiveReclamation(int id_Devision)
         {
             InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
-            reclamations.GetActiveReclamationOTK();
+            reclamations.GetActiveReclamation(id_Devision);
             foreach (var data in reclamations.Reclamations)
             {
                 ReclamationViwers reclamation = new ReclamationViwers(data);
                 ReclamationsListView.Add(reclamation);
             }
-        }
-
-        void InitializationList()
-        {
-            reclamationsListView = new List<ReclamationViwers>();
         }
     }
 }
