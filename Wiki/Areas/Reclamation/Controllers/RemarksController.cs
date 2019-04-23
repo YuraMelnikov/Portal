@@ -29,6 +29,41 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+        //public JsonResult NotCountReclamation(int id_Devision)
+        //{
+        //    ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+        //    reclamationListViewer.GetReclamation(id_Devision, false);
+        //    return Json(new { data = reclamationListViewer.ReclamationsListView });
+        //}
+
+        public JsonResult PlanZakazDevisionNotSh(int id_Devision)
+        {
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs(id_Devision, false);
+            return Json(new { data = planZakazListViewers.PlanZakazViwers });
+        }
+
+        public JsonResult PlanZakazDevisionSh(int id_Devision)
+        {
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs(id_Devision, true);
+            return Json(new { data = planZakazListViewers.PlanZakazViwers });
+        }
+
+        public JsonResult PlanZakazDevisionAll(int id_Devision)
+        {
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs(id_Devision);
+            return Json(new { data = planZakazListViewers.PlanZakazViwers });
+        }
+
+        public JsonResult PlanZakaz()
+        {
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs();
+            return Json(new { data = planZakazListViewers.PlanZakazViwers});
+        }
+
         int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;
