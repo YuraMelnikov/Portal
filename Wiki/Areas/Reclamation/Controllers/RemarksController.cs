@@ -1,10 +1,13 @@
 ﻿using System.Web.Mvc;
 using Wiki.Areas.Reclamation.Models;
+using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
-    public class OTKController : Controller
+    public class RemarksController : Controller
     {
+        PortalKATEKEntities db = new PortalKATEKEntities();
+
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
@@ -15,8 +18,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         public JsonResult ActiveReclamation(int id_Devision)
         {
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetActiveReclamation(id_Devision);
-
+            reclamationListViewer.GetReclamation(id_Devision, false);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 

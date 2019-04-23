@@ -270,7 +270,7 @@
     <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
-    <Compile Include="Areas\Reclamation\Controllers\OTKController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\RemarksController.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
@@ -1243,8 +1243,7 @@
     <Content Include="Areas\Deb\Views\DSetup\Index.cshtml" />
     <Content Include="Areas\Reclamation\Views\web.config" />
     <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamationOTK.cshtml" />
-    <Content Include="Areas\Reclamation\Views\OTK\Index.cshtml" />
-    <Content Include="Areas\Reclamation\Views\ReclamationData\Index.cshtml" />
+    <Content Include="Areas\Reclamation\Views\Remarks\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

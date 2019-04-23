@@ -14,11 +14,11 @@ namespace Wiki.Areas.Reclamation.Models
             reclamationsListView = new List<ReclamationViwers>();
         }
 
-        public void GetActiveReclamation(int id_Devision)
+        public void GetReclamation(int id_Devision, bool active)
         {
             InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
-            reclamations.GetActiveReclamation(id_Devision);
+            reclamations.GetReclamation(id_Devision, active);
             foreach (var data in reclamations.Reclamations)
             {
                 ReclamationViwers reclamation = new ReclamationViwers(data);
