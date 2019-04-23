@@ -21,7 +21,7 @@ namespace Wiki.Areas.Reclamation.Models
             reclamations.GetReclamation(id_Devision, active);
             foreach (var data in reclamations.Reclamations)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data);
+                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
                 ReclamationsListView.Add(reclamation);
             }
         }

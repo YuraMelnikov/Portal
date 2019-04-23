@@ -7,11 +7,6 @@ namespace Wiki.Areas.Reclamation.Models
     public class ReclamationViwers
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
-
-        readonly string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getOTKID('";
-        readonly string firstPartLinkEditKO = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyKOID('";
-        readonly string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-
         string editLinkJS;
         string viewLinkJS;
         int id_Reclamation;
@@ -40,8 +35,10 @@ namespace Wiki.Areas.Reclamation.Models
         public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
         public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation)
+        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
         {
+            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            editLinkJS = GetEditLink(id_Devision, reclamation.id);
             id_Reclamation = reclamation.id;
             planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
             type = reclamation.Reclamation_Type.name;
@@ -95,6 +92,20 @@ namespace Wiki.Areas.Reclamation.Models
                             .Where(d => d.id_Reclamation == id_Reclamation)
                             .OrderByDescending(d => d.dateTimeCreate)
                             .ToList();
+        }
+
+        string GetEditLink(int id_Devision, int id_Reclamation)
+        {
+            string link = "";
+            if (id_Devision == 6)
+                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getOTKID('";
+            if (id_Devision == 3 || id_Devision == 15 || id_Devision == 16)
+                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getKOID('";
+            if (id_Devision > 0)
+                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getStandartID('";
+            if (id_Devision != 0)
+                link += id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            return link;
         }
     }
 }

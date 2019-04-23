@@ -22,6 +22,13 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+        public JsonResult CloseReclamation(int id_Devision)
+        {
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation(id_Devision, true);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
         int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;
