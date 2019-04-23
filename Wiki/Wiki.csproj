@@ -278,7 +278,9 @@
     <Compile Include="Areas\Reclamation\Controllers\POController.cs" />
     <Compile Include="Areas\Reclamation\Controllers\RouterController.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazOTKViwers.cs" />
-    <Compile Include="Areas\Reclamation\Models\ReclamationOTKViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
+    <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
+    <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
@@ -807,7 +809,7 @@
     <Content Include="Areas\Service\Content\Scripts\TypeReclamationDocumentCRUD.js" />
     <Content Include="Areas\Service\Content\tmp.jpg" />
     <Content Include="Areas\Service\Content\underConst.png" />
-    <Content Include="Areas\migrate db\importDataNewStruct.sql" />
+    <Content Include="Areas\Reclamation\migrate db\importDataNewStruct.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />

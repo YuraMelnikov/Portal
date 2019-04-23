@@ -723,6 +723,8 @@
           <Property Name="timeToEliminate" Type="float" Nullable="false" />
           <Property Name="close" Type="bit" Nullable="false" />
           <Property Name="gip" Type="bit" Nullable="false" />
+          <Property Name="timePO" Type="int" />
+          <Property Name="timeOTK" Type="int" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -734,6 +736,7 @@
           <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="answer" Type="varchar(max)" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="trash" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -5094,6 +5097,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation_CountError1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation" ToRole="Reclamation_CountError" />
           <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
+          <Property Name="timePO" Type="Int32" />
+          <Property Name="timeOTK" Type="Int32" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -5108,6 +5113,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers2" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
+          <Property Name="trash" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -7952,6 +7958,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="timeOTK" ColumnName="timeOTK" />
+                <ScalarProperty Name="timePO" ColumnName="timePO" />
                 <ScalarProperty Name="gip" ColumnName="gip" />
                 <ScalarProperty Name="close" ColumnName="close" />
                 <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
@@ -7972,6 +7980,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation_Answer">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
               <MappingFragment StoreEntitySet="Reclamation_Answer">
+                <ScalarProperty Name="trash" ColumnName="trash" />
                 <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
                 <ScalarProperty Name="answer" ColumnName="answer" />
                 <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />

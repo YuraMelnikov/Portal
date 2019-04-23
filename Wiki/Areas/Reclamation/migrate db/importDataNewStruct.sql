@@ -59,6 +59,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].userUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].textAnswer
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].dateUpdate
+,0
 from 
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO] left join
 [PortalKATEK_TEST].[dbo].[Reclamation] on [PortalKATEK_TEST].[dbo].[Reclamation].timePO = [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].id
@@ -72,6 +73,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].userUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].descriptionManagerKO
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].dateUpdate
+,0
 from 
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO] left join
 [PortalKATEK_TEST].[dbo].[Reclamation] on [PortalKATEK_TEST].[dbo].[Reclamation].timePO = [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].id
@@ -130,6 +132,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].[Text]
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].DateUpdate
+,0
 from
 [PortalKATEK_TEST].[dbo].[Reclamation] left join
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer] on [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].ReclamationId = [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK
@@ -147,6 +150,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].[Text]
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].DateUpdate
+,0
 from
 [PortalKATEK_TEST].[dbo].[Reclamation] left join
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer] on [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].ReclamationId = [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK
@@ -168,6 +172,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].descriptionManagerKO
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].DateUpdate
+,0
 from
 [PortalKATEK_TEST].[dbo].[Reclamation] left join
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer] on [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].ReclamationId = [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK
@@ -188,6 +193,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].descriptionManagerKO
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].DateUpdate
+,0
 from
 [PortalKATEK_TEST].[dbo].[Reclamation] left join
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer] on [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].ReclamationId = [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK

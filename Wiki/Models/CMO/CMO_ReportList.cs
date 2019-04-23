@@ -9,7 +9,7 @@ namespace Wiki.Models.CMO
 
         List<CMO_Report> cMO_Report = new List<CMO_Report>();
         List<CMO_Order> cMO_DefaultOrders = new List<CMO_Order>();
-
+        
         public CMO_ReportList()
         {
             cMO_Report = new List<CMO_Report>();

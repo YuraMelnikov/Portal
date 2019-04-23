@@ -824,13 +824,11 @@ namespace Wiki.Controllers
                     ViewBag.CloseQuestion = closeQuestion;
                 else
                     ViewBag.CloseQuestion = null;
-                logger.Debug("RKDController - ErrorNewVersionRDK " + login.ToString());
-                return RedirectToAction("Details", "RKD", new { id = rKD_Order.id });
+                return RedirectToAction("Details", "RKD", new { rKD_Order.id });
             }
-            catch (Exception ex)
+            catch 
             {
-                logger.Error("RKDController - ErrorNewVersionRDK " + login.ToString() + " " + ex.Message.ToString());
-                return RedirectToAction("Details", "RKD", new { id = rKD_Order.id });
+                return RedirectToAction("Details", "RKD", new { rKD_Order.id });
             }
         }
 

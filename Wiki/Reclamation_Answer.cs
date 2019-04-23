@@ -20,6 +20,7 @@ namespace Wiki
         public string id_AspNetUsersCreate { get; set; }
         public string answer { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
+        public bool trash { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
