@@ -271,6 +271,7 @@
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
     <Compile Include="Areas\Reclamation\Controllers\RemarksController.cs" />
+    <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
