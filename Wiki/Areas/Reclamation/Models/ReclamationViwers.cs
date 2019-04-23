@@ -35,6 +35,23 @@ namespace Wiki.Areas.Reclamation.Models
         public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
         public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
 
+        public ReclamationViwers(Wiki.Reclamation reclamation)
+        {
+            viewLinkJS = "";
+            editLinkJS = "";
+            id_Reclamation = reclamation.id;
+            planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
+            type = reclamation.Reclamation_Type.name;
+            close = GetClose(reclamation.close);
+            text = reclamation.text;
+            description = reclamation.description;
+            timeToSearch = (float)reclamation.timeToSearch;
+            timeToEliminate = (float)reclamation.timeToEliminate;
+            answers = GetAnswer(GetAnswerList(reclamation.id));
+            devision = reclamation.Devision.name;
+            dateCreate = reclamation.dateTimeCreate;
+        }
+
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
         {
             viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";

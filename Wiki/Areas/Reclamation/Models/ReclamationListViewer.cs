@@ -25,5 +25,41 @@ namespace Wiki.Areas.Reclamation.Models
                 ReclamationsListView.Add(reclamation);
             }
         }
+        
+        public void GetReclamationPlanZakaz(int id_PZ_PlanZakaz)
+        {
+            InitializationList();
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamationPlanZakaz(id_PZ_PlanZakaz);
+            foreach (var data in reclamations.Reclamations)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(data);
+                ReclamationsListView.Add(reclamation);
+            }
+        }
+
+        public void GetReclamationPlanZakaz(int id_Devision, int id_PZ_PlanZakaz)
+        {
+            InitializationList();
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamationPlanZakaz(id_Devision, id_PZ_PlanZakaz);
+            foreach (var data in reclamations.Reclamations)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
+                ReclamationsListView.Add(reclamation);
+            }
+        }
+        
+        public void GetReclamationPlanZakaz(int id_Devision, bool active, int id_PZ_PlanZakaz)
+        {
+            InitializationList();
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamationPlanZakaz(id_Devision, active, id_PZ_PlanZakaz);
+            foreach (var data in reclamations.Reclamations)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
+                ReclamationsListView.Add(reclamation);
+            }
+        }
     }
 }
