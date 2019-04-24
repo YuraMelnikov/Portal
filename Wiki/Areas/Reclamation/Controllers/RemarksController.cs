@@ -10,22 +10,22 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult Index()
         {
-            string login = HttpContext.User.Identity.Name;
-            ViewBag.id_Devision = GetIdDevision(login);
             return View();
         }
         
-        public JsonResult ActiveReclamation(int id_Devision)
+        public JsonResult ActiveReclamation()
         {
+            string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(id_Devision, false);
+            reclamationListViewer.GetReclamation(GetIdDevision(login), false);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
-        public JsonResult CloseReclamation(int id_Devision)
+        public JsonResult CloseReclamation()
         {
+            string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(id_Devision, true);
+            reclamationListViewer.GetReclamation(GetIdDevision(login), true);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
@@ -36,24 +36,27 @@ namespace Wiki.Areas.Reclamation.Controllers
         //    return Json(new { data = reclamationListViewer.ReclamationsListView });
         //}
 
-        public JsonResult PlanZakazDevisionNotSh(int id_Devision)
+        public JsonResult PlanZakazDevisionNotSh()
         {
+            string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs(id_Devision, false);
+            planZakazListViewers.GetPlanZakazs(GetIdDevision(login), false);
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
-        public JsonResult PlanZakazDevisionSh(int id_Devision)
+        public JsonResult PlanZakazDevisionSh()
         {
+            string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs(id_Devision, true);
+            planZakazListViewers.GetPlanZakazs(GetIdDevision(login), true);
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
-        public JsonResult PlanZakazDevisionAll(int id_Devision)
+        public JsonResult PlanZakazDevisionAll()
         {
+            string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs(id_Devision);
+            planZakazListViewers.GetPlanZakazs(GetIdDevision(login));
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
@@ -76,6 +79,21 @@ namespace Wiki.Areas.Reclamation.Controllers
 
             }
             return id_Devision;
+        }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
         }
     }
 }

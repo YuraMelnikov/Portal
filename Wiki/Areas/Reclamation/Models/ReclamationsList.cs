@@ -18,10 +18,10 @@ namespace Wiki.Areas.Reclamation.Models
 
         public void GetReclamation(int id_Devision, bool active)
         {
-            if(id_Devision == 6)
+            Initialization();
+            if (id_Devision == 6)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
                     .ToList();
@@ -29,7 +29,6 @@ namespace Wiki.Areas.Reclamation.Models
             else if (id_Devision == 3 || id_Devision == 16)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
                     .ToList();
@@ -37,14 +36,12 @@ namespace Wiki.Areas.Reclamation.Models
             else if (id_Devision == 0)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
                     .Where(d => d.close == active)
                     .ToList();
             }
             else
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .ToList();
@@ -53,6 +50,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public void GetReclamationPlanZakaz(int id_PZ_PlanZakaz)
         {
+            Initialization();
             Reclamations = db.Reclamation
                 .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
                 .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
@@ -61,6 +59,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public void GetReclamationPlanZakaz(int id_Devision, int id_PZ_PlanZakaz)
         {
+            Initialization();
             if (id_Devision == 6)
             {
                 Reclamations = db.Reclamation
@@ -96,6 +95,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public void GetReclamationPlanZakaz(int id_Devision, bool active, int id_PZ_PlanZakaz)
         {
+            Initialization();
             if (id_Devision == 6)
             {
                 Reclamations = db.Reclamation
@@ -131,6 +131,11 @@ namespace Wiki.Areas.Reclamation.Models
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .ToList();
             }
+        }
+
+        void Initialization()
+        {
+            Reclamations = new List<Wiki.Reclamation>();
         }
     }
 }

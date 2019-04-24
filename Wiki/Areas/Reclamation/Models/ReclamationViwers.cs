@@ -55,7 +55,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
         {
-            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = GetEditLink(id_Devision, reclamation.id);
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
@@ -86,12 +86,13 @@ namespace Wiki.Areas.Reclamation.Models
             }
             else if (reclamation.id_DevisionReclamation == 22 || reclamation.id_DevisionReclamation == 27 || reclamation.id_DevisionReclamation == 8 || reclamation.id_DevisionReclamation == 20 || reclamation.id_DevisionReclamation == 9 || reclamation.id_DevisionReclamation == 10)
             {
-                user = reclamation.Reclamation_Answer
-                    .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
-                    .OrderByDescending(d => d.dateTimeCreate)
-                    .First().userPO;
-                if (user == null)
-                    user = "";
+                if(reclamation.Reclamation_Answer.Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation).Count() > 0)
+                {
+                    user = reclamation.Reclamation_Answer
+                                .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
+                                .OrderByDescending(d => d.dateTimeCreate)
+                                .First().userPO;
+                }
             }
             return user;
         }
@@ -170,7 +171,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 foreach (var data in reclamations)
                 {
-                    answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "/n";
+                    answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "<br>";
                 }
             }
             return answers;
