@@ -21,6 +21,7 @@ namespace Wiki
         public string answer { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public bool trash { get; set; }
+        public string userPO { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

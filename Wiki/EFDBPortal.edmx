@@ -737,6 +737,7 @@
           <Property Name="answer" Type="varchar(max)" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
           <Property Name="trash" Type="bit" Nullable="false" />
+          <Property Name="userPO" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -5114,6 +5115,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers2" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
           <Property Name="trash" Type="Boolean" Nullable="false" />
+          <Property Name="userPO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -7980,6 +7982,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation_Answer">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Answer">
               <MappingFragment StoreEntitySet="Reclamation_Answer">
+                <ScalarProperty Name="userPO" ColumnName="userPO" />
                 <ScalarProperty Name="trash" ColumnName="trash" />
                 <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
                 <ScalarProperty Name="answer" ColumnName="answer" />

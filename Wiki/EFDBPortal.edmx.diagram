@@ -76,8 +76,8 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_Setup" Width="1.5" PointX="22.5" PointY="60.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_TEO" Width="1.5" PointX="21.5" PointY="54.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.PZ_TypeShip" Width="1.5" PointX="12" PointY="70.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation" Width="1.5" PointX="11.25" PointY="62.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Answer" Width="1.5" PointX="11.25" PointY="55.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation" Width="2.25" PointX="10.5" PointY="62.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Answer" Width="2" PointX="10.75" PointY="55.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CountError" Width="1.5" PointX="9" PointY="67.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_PZ" Width="1.5" PointX="19.5" PointY="63.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" Width="1.5" PointX="13.5" PointY="66.875" />

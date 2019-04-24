@@ -20,42 +20,92 @@ namespace Wiki.Areas.Reclamation.Models
         string answers;
         string devision;
         DateTime dateCreate;
-
+        string answersChief;
+        string userCreate;
+        string userReclamation;
+        string leavelReclamation;
+        
+        public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
+        public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
+        public string PlanZakaz { get => planZakaz; set => planZakaz = value; }
+        public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
         public DateTime DateCreate { get => dateCreate; set => dateCreate = value; }
         public string Devision { get => devision; set => devision = value; }
+        public string Type { get => type; set => type = value; }
+        public string Text { get => text; set => text = value; }
+        public string Description { get => description; set => description = value; }
         public string Answers { get => answers; set => answers = value; }
         public float TimeToEliminate { get => timeToEliminate; set => timeToEliminate = value; }
         public float TimeToSearch { get => timeToSearch; set => timeToSearch = value; }
-        public string Description { get => description; set => description = value; }
-        public string Text { get => text; set => text = value; }
         public string Close { get => close; set => close = value; }
-        public string Type { get => type; set => type = value; }
-        public string PlanZakaz { get => planZakaz; set => planZakaz = value; }
-        public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
-        public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
-        public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
-
+        public string UserCreate { get => userCreate; set => userCreate = value; }
+        public string AnswersChief { get => answersChief; set => answersChief = value; }
+        public string UserReclamation { get => userReclamation; set => userReclamation = value; }
+        public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
+        
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {
             viewLinkJS = "";
             editLinkJS = "";
-            id_Reclamation = reclamation.id;
-            planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
-            type = reclamation.Reclamation_Type.name;
-            close = GetClose(reclamation.close);
-            text = reclamation.text;
-            description = reclamation.description;
-            timeToSearch = (float)reclamation.timeToSearch;
-            timeToEliminate = (float)reclamation.timeToEliminate;
-            answers = GetAnswer(GetAnswerList(reclamation.id));
-            devision = reclamation.Devision.name;
-            dateCreate = reclamation.dateTimeCreate;
+            GetReclamationData(reclamation);
+            GetLeavelReclamation(reclamation);
+            GetUserReclamation(reclamation);
+            GetAnswersChief(reclamation);
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
         {
             viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             editLinkJS = GetEditLink(id_Devision, reclamation.id);
+            GetReclamationData(reclamation);
+            GetLeavelReclamation(reclamation);
+            GetUserReclamation(reclamation);
+            GetAnswersChief(reclamation);
+        }
+
+        string GetLeavelReclamation(Wiki.Reclamation reclamation)
+        {
+            string level = "";
+            if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
+            {
+                level = reclamation.Reclamation_CountError.name;
+            }
+            return level;
+        }
+
+        string GetUserReclamation(Wiki.Reclamation reclamation)
+        {
+            string user = "";
+
+            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
+            {
+                if (reclamation.Reclamation_Answer.Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation).Count() > 0)
+                    user = reclamation.Reclamation_Answer
+                        .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
+                        .OrderByDescending(d => d.dateTimeCreate)
+                        .First().AspNetUsers1.CiliricalName;
+            }
+            else if (reclamation.id_DevisionReclamation == 22 || reclamation.id_DevisionReclamation == 27 || reclamation.id_DevisionReclamation == 8 || reclamation.id_DevisionReclamation == 20 || reclamation.id_DevisionReclamation == 9 || reclamation.id_DevisionReclamation == 10)
+            {
+                user = reclamation.Reclamation_Answer
+                    .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
+                    .OrderByDescending(d => d.dateTimeCreate)
+                    .First().userPO;
+                if (user == null)
+                    user = "";
+            }
+            return user;
+        }
+
+
+        string GetAnswersChief(Wiki.Reclamation reclamation)
+        {
+            string answer = "";
+            return answer;
+        }
+
+        void GetReclamationData(Wiki.Reclamation reclamation)
+        {
             id_Reclamation = reclamation.id;
             planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
             type = reclamation.Reclamation_Type.name;
@@ -67,8 +117,9 @@ namespace Wiki.Areas.Reclamation.Models
             answers = GetAnswer(GetAnswerList(reclamation.id));
             devision = reclamation.Devision.name;
             dateCreate = reclamation.dateTimeCreate;
+            userCreate = reclamation.AspNetUsers.CiliricalName;
         }
-        
+
         string GetPlanZakazName(List<Reclamation_PZ> reclamation_PZs)
         {
             string pzNames = "";
@@ -97,7 +148,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 foreach (var data in reclamations)
                 {
-                    answers += data.AspNetUsers.CiliricalName + " : " + data.answer;
+                    answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "/n";
                 }
             }
             return answers;
