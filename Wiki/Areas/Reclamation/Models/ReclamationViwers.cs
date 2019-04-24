@@ -76,7 +76,6 @@ namespace Wiki.Areas.Reclamation.Models
         string GetUserReclamation(Wiki.Reclamation reclamation)
         {
             string user = "";
-
             if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
             {
                 if (reclamation.Reclamation_Answer.Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation).Count() > 0)
@@ -96,11 +95,34 @@ namespace Wiki.Areas.Reclamation.Models
             }
             return user;
         }
-
-
+        
         string GetAnswersChief(Wiki.Reclamation reclamation)
         {
             string answer = "";
+            if (reclamation.id_DevisionReclamation == 3)
+            {
+                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "5ba3227f-ac84-4d65-ad87-632044217841").Count() > 0)
+                    answer = reclamation.Reclamation_Answer
+                        .Where(d => d.id_AspNetUsersCreate == "5ba3227f-ac84-4d65-ad87-632044217841")
+                        .OrderByDescending(d => d.dateTimeCreate)
+                        .First().answer;
+            }
+            else if (reclamation.id_DevisionReclamation == 15)
+            {
+                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "8294e987-b175-4444-b300-8cb729448b38").Count() > 0)
+                    answer = reclamation.Reclamation_Answer
+                        .Where(d => d.id_AspNetUsersCreate == "8294e987-b175-4444-b300-8cb729448b38")
+                        .OrderByDescending(d => d.dateTimeCreate)
+                        .First().answer;
+            }
+            else if (reclamation.id_DevisionReclamation == 16)
+            {
+                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76").Count() > 0)
+                    answer = reclamation.Reclamation_Answer
+                        .Where(d => d.id_AspNetUsersCreate == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
+                        .OrderByDescending(d => d.dateTimeCreate)
+                        .First().answer;
+            }
             return answer;
         }
 
