@@ -21,9 +21,11 @@ namespace Wiki.Areas.Reclamation.Models
             Initialization();
             if (id_Devision == 6)
             {
+                DateTime dateCerrect = DateTime.Now.AddDays(-10);
                 Reclamations = db.Reclamation
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateCerrect)
                     .ToList();
             }
             else if (id_Devision == 3 || id_Devision == 16)
