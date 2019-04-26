@@ -169,7 +169,7 @@ namespace Wiki.Areas.Reclamation.Models
             string answers = "";
             if(reclamations.Count > 0)
             {
-                foreach (var data in reclamations)
+                foreach (var data in reclamations.OrderByDescending(d => d.dateTimeCreate))
                 {
                     answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "<br>";
                 }
@@ -181,7 +181,6 @@ namespace Wiki.Areas.Reclamation.Models
         {
             return db.Reclamation_Answer
                             .Where(d => d.id_Reclamation == id_Reclamation)
-                            .OrderByDescending(d => d.dateTimeCreate)
                             .ToList();
         }
 

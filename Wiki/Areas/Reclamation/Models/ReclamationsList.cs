@@ -29,7 +29,7 @@ namespace Wiki.Areas.Reclamation.Models
             else if (id_Devision == 3 || id_Devision == 16)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
                     .ToList();
             }
@@ -42,7 +42,7 @@ namespace Wiki.Areas.Reclamation.Models
             else
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .ToList();
             }

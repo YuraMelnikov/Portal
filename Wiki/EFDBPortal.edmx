@@ -725,6 +725,7 @@
           <Property Name="gip" Type="bit" Nullable="false" />
           <Property Name="timePO" Type="int" />
           <Property Name="timeOTK" Type="int" />
+          <Property Name="closeDevision" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -5100,6 +5101,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
           <Property Name="timePO" Type="Int32" />
           <Property Name="timeOTK" Type="Int32" />
+          <Property Name="closeDevision" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -7960,6 +7962,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="closeDevision" ColumnName="closeDevision" />
                 <ScalarProperty Name="timeOTK" ColumnName="timeOTK" />
                 <ScalarProperty Name="timePO" ColumnName="timePO" />
                 <ScalarProperty Name="gip" ColumnName="gip" />

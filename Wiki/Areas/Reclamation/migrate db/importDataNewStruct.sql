@@ -35,6 +35,7 @@ PortalKATEK_TEST.[dbo].[Reclamation_Type].id
 ,0
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].id
 ,0
+,1
 from [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO] left join
 [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation] on [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation].id = [PortalKATEK_TEST].[dbo].[OTK_ReclamationKO].typeReclamation left join
 PortalKATEK_TEST.[dbo].[Reclamation_Type] on PortalKATEK_TEST.[dbo].[Reclamation_Type].name = [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation].Name left join
@@ -113,6 +114,7 @@ select
 ,[PortalKATEK_TEST].[dbo].[OTK_Reclamation].id
 ,0
 ,[PortalKATEK_TEST].[dbo].[OTK_Reclamation].Id
+,[PortalKATEK_TEST].[dbo].[OTK_Reclamation].Complited
 from [PortalKATEK_TEST].[dbo].[OTK_Reclamation] left join
 [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation] on [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation].id = [PortalKATEK_TEST].[dbo].[OTK_Reclamation].TypeReclamation left join
 [PortalKATEK_TEST].[dbo].[Reclamation_Type] on [PortalKATEK_TEST].[dbo].[Reclamation_Type].name = [PortalKATEK_TEST].[dbo].[OTK_TypeReclamation].Name
@@ -234,3 +236,15 @@ and
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].Devision = 15 or
 [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].Devision = 16)
 and ([PortalKATEK_TEST].[dbo].[Reclamation_CountError].id is not null)
+
+delete from [PortalKATEK_TEST].[dbo].[Reclamation_Answer] where [answer] like ''
+
+update [PortalKATEK_TEST].[dbo].[Reclamation] set
+[PortalKATEK_TEST].[dbo].[Reclamation].closeDevision = 1
+FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join [PortalKATEK_TEST].[dbo].[Reclamation_Answer] on [PortalKATEK_TEST].[dbo].[Reclamation_Answer].id_Reclamation = [PortalKATEK_TEST].[dbo].[Reclamation].id
+where [PortalKATEK_TEST].[dbo].[Reclamation_Answer].id is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 6
+from [PortalKATEK_TEST].[dbo].[Reclamation]
+where [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 26
