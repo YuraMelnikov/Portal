@@ -32,11 +32,12 @@
                 <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="http://pserver/PZ/Order/Index">Активные замечания (список)</a></li>
-                <li><a href="http://pserver/PZ/Order/Index">Активные замечания (заказы)</a></li>
-                <li><a href="http://pserver/PZ/Order/Index">Замечания (неотгруженные заказы)</a></li>
-                <li><a href="http://pserver/PZ/Order/Index">Замечания (отгруженные заказы)</a></li>
-                <li><a href="http://pserver/PZ/Order/Index">Замечания (заказы)</a></li>
+                <li><a href="" id="linkActiveList" onclick="return loadData();">Активные замечания (список)</a></li>
+                <li><a href="" id="linkActiveOrder" onclick="return activeOrder();">Активные замечания (заказы)</a></li>
+                <li><a href="" id="linkOrderNotSh" onclick="return orderNotSh();">Замечания (неотгруженные заказы)</a></li>
+                <li><a href="" id="linkOrderSh" onclick="return orderSh();">Замечания (отгруженные заказы)</a></li>
+                <li><a href="" id="linkOrder" onclick="return order();">Замечания (заказы)</a></li>
+                <li><a href="" id="linkOrder" onclick="return deactiveList();">Замечания (список)</a></li>
                 <li>
                     <a style="color:crimson" href="/Account/Login/">
                         @{Html.RenderAction("RenderUserMenu", "Remarks"); }
