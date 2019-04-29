@@ -21,21 +21,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
-        public JsonResult CloseReclamation()
-        {
-            string login = HttpContext.User.Identity.Name;
-            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(GetIdDevision(login), true);
-            return Json(new { data = reclamationListViewer.ReclamationsListView });
-        }
-
-        //public JsonResult NotCountReclamation(int id_Devision)
-        //{
-        //    ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-        //    reclamationListViewer.GetReclamation(id_Devision, false);
-        //    return Json(new { data = reclamationListViewer.ReclamationsListView });
-        //}
-
         public JsonResult PlanZakazDevisionNotSh()
         {
             string login = HttpContext.User.Identity.Name;
@@ -60,11 +45,12 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
-        public JsonResult PlanZakaz()
+        public JsonResult CloseReclamation()
         {
-            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs();
-            return Json(new { data = planZakazListViewers.PlanZakazViwers});
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation(GetIdDevision(login), true);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
         int GetIdDevision(string loginUser)

@@ -14,6 +14,7 @@ namespace Wiki.Areas.Reclamation.Models
         int reclamationCount;
         int reclamationActive;
         int reclamationClose;
+        string openLinkJS;
 
         public int Id_PZ_PlanZakaz { get => id_PZ_PlanZakaz; set => id_PZ_PlanZakaz = value; }
         public int PlanZakaz { get => planZakaz; set => planZakaz = value; }
@@ -25,6 +26,7 @@ namespace Wiki.Areas.Reclamation.Models
         public int ReclamationCount { get => reclamationCount; set => reclamationCount = value; }
         public int ReclamationActive { get => reclamationActive; set => reclamationActive = value; }
         public int ReclamationClose { get => reclamationClose; set => reclamationClose = value; }
+        public string OpenLinkJS { get => openLinkJS; set => openLinkJS = value; }
 
         public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz)
         {
@@ -38,6 +40,7 @@ namespace Wiki.Areas.Reclamation.Models
             ReclamationCount = pZ_PlanZakaz.Reclamation_PZ.Count;
             ReclamationActive = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == false).Count();
             ReclamationClose = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == true).Count();
+            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
         public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision)

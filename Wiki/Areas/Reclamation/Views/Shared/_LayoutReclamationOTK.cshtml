@@ -15,6 +15,10 @@
     <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
+    <script src="~/Areas/Reclamation/Content/ReclamationList.js"></script>
     <style>
         div.dataTables_wrapper {
             margin: 0 auto;
@@ -22,6 +26,26 @@
 
         .th {
             text-align: center;
+        }
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
+
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+
+        .colu-200 {
+            min-width: 200px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
         }
     </style>
 </head>
@@ -32,12 +56,11 @@
                 <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="" id="linkActiveList" onclick="return loadData();">Активные замечания (список)</a></li>
-                <li><a href="" id="linkActiveOrder" onclick="return activeOrder();">Активные замечания (заказы)</a></li>
-                <li><a href="" id="linkOrderNotSh" onclick="return orderNotSh();">Замечания (неотгруженные заказы)</a></li>
-                <li><a href="" id="linkOrderSh" onclick="return orderSh();">Замечания (отгруженные заказы)</a></li>
-                <li><a href="" id="linkOrder" onclick="return order();">Замечания (заказы)</a></li>
-                <li><a href="" id="linkOrder" onclick="return deactiveList();">Замечания (список)</a></li>
+                <li><a onclick="return loadData();">Активные замечания (список)</a></li>
+                <li><p onclick="return planZakazDevisionNotSh();">Замечания (неотгруженные заказы)</p></li>
+                <li><p onclick="return planZakazDevisionSh();">Замечания (отгруженные заказы)</p></li>
+                <li><p onclick="return planZakazDevisionAll();">Замечания (заказы)</p></li>
+                <li><p onclick="return closeReclamation();">Закрытые замечания (список)</p></li>
                 <li>
                     <a style="color:crimson" href="/Account/Login/">
                         @{Html.RenderAction("RenderUserMenu", "Remarks"); }
