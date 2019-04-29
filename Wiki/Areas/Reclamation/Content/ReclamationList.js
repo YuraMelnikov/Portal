@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    loadData();
+    activeReclamation();
 });
 
 var objRemark = [
@@ -17,20 +17,7 @@ var objRemark = [
     { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
 ];
 
-var objOrder = [
-    { "title": "См.", "data": "OpenLinkJS", "autowidth": true, "bSortable": false },
-    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Контрактное наименование", "data": "ContractName", "autowidth": true, "bSortable": false },
-    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": false },
-    { "title": "Заказчик", "data": "Client", "autowidth": true, "bSortable": true },
-    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": false },
-    { "title": "ОЛ №", "data": "Ol", "autowidth": true, "bSortable": true },
-    { "title": "Ошибок", "data": "ReclamationCount", "autowidth": true, "bSortable": true },
-    { "title": "Активных", "data": "ReclamationActive", "autowidth": true, "bSortable": true },
-    { "title": "Закрытых", "data": "ReclamationClose", "autowidth": true, "bSortable": true }
-];
-
-function loadData() {
+function activeReclamation() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
@@ -39,134 +26,9 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "processing": true,
         "order": [[2, "desc"]],
         "columns": objRemark,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
-        }
-    });
-}
-
-function planZakazDevisionNotSh() {
-    $("#myTable").DataTable({
-        "ajax": {
-            "cache": false,
-            "url": "/Remarks/PlanZakazDevisionNotSh",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "bDestroy": true,
-        "order": [[2, "desc"]],
-        "columns": objOrder,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
-        }
-    });
-}
-
-function planZakazDevisionSh() {
-    $("#myTable").DataTable({
-        "ajax": {
-            "cache": false,
-            "url": "/Remarks/PlanZakazDevisionSh",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "bDestroy": true,
-        "order": [[2, "desc"]],
-        "columns": objOrder,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
-        }
-    });
-}
-
-function planZakazDevisionAll() {
-    $("#myTable").DataTable({
-        "ajax": {
-            "cache": false,
-            "url": "/Remarks/PlanZakazDevisionAll",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "bDestroy": true,
-        "order": [[2, "desc"]],
-        "columns": objOrder,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -207,6 +69,7 @@ function closeReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "processing": true,
         "order": [[2, "desc"]],
         "columns": objRemark,
         "scrollY": '75vh',

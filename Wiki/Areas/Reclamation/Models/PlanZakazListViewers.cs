@@ -44,7 +44,7 @@ namespace Wiki.Areas.Reclamation.Models
                 list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP < DateTime.Now).ToList();
             else
                 list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP >= DateTime.Now).ToList();
-            foreach (var data in db.PZ_PlanZakaz.ToList())
+            foreach (var data in list)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);
                 PlanZakazViwers.Add(planZakazViwers);

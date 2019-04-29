@@ -12,7 +12,12 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult IndexOrders()
+        {
+            return View();
+        }
+
         public JsonResult ActiveReclamation()
         {
             string login = HttpContext.User.Identity.Name;
