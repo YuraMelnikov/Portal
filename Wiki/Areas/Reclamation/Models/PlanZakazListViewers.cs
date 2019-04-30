@@ -22,7 +22,7 @@ namespace Wiki.Areas.Reclamation.Models
             foreach (var data in db.PZ_PlanZakaz.ToList())
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data);
-                PlanZakazViwers.Add(planZakazViwers);
+                AddPlanZakazViwersList(planZakazViwers);
             }
         }
 
@@ -32,7 +32,7 @@ namespace Wiki.Areas.Reclamation.Models
             foreach (var data in db.PZ_PlanZakaz.ToList())
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);
-                PlanZakazViwers.Add(planZakazViwers);
+                AddPlanZakazViwersList(planZakazViwers);
             }
         }
 
@@ -47,8 +47,15 @@ namespace Wiki.Areas.Reclamation.Models
             foreach (var data in list)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);
-                PlanZakazViwers.Add(planZakazViwers);
+                AddPlanZakazViwersList(planZakazViwers);
             }
+        }
+
+        bool AddPlanZakazViwersList(PlanZakazViwers planZakazViwers)
+        {
+            if (planZakazViwers.ReclamationCount > 0)
+                PlanZakazViwers.Add(planZakazViwers);
+            return true;
         }
     }
 }
