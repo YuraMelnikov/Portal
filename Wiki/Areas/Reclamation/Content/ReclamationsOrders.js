@@ -58,10 +58,6 @@ function planZakazDevisionSh() {
         "processing": true,
         "order": [[1, "desc"]],
         "rowCallback": function (row, data, index) {
-            if (data.ReclamationClose > 0) {
-                $('td', row).css('background-color', '#5bc0de');
-                $('td', row).css('color', 'black');
-            }
             if (data.ReclamationActive > 0) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
@@ -94,10 +90,6 @@ function planZakazDevisionAll() {
         "order": [[1, "desc"]],
         "columns": objOrder,
         "rowCallback": function (row, data, index) {
-            if (data.ReclamationClose > 0) {
-                $('td', row).css('background-color', '#5bc0de');
-                $('td', row).css('color', 'black');
-            }
             if (data.ReclamationActive > 0) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
