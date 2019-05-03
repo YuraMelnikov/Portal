@@ -55,11 +55,11 @@
                 <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="http://localhost:57314/Reclamation/Remarks/Index/" onclick="return activeReclamation();">Активные замечания (список)</a></li>
-                <li><a href="http://localhost:57314/Reclamation/Remarks/IndexOrders/" onclick="return planZakazDevisionNotSh();">Замечания (неотгруженные заказы)</a></li>
+                <li><a href="~/Reclamation/Remarks/Index/" onclick="return activeReclamation();">Активные замечания (список)</a></li>
+                <li><a href="~/Reclamation/Remarks/IndexOrders/" onclick="return planZakazDevisionNotSh();">Замечания (неотгруженные заказы)</a></li>
                 <li><p onclick="return planZakazDevisionSh();">Замечания (отгруженные заказы)</p></li>
-                <li><a href="" onclick="return planZakazDevisionAll();">Замечания (заказы)</a></li>
-                <li><a href="" onclick="return closeReclamation();">Закрытые замечания (список)</a></li>
+                <li><p onclick="return planZakazDevisionAll();">Замечания (заказы)</p></li>
+                <li><p onclick="return closeReclamation();">Закрытые замечания (список)</p></li>
                 <li>
                     <a style="color:crimson" href="/Account/Login/">
                         @{Html.RenderAction("RenderUserMenu", "Remarks"); }
