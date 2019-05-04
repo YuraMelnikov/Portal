@@ -19,7 +19,9 @@ namespace Wiki.Areas.Reclamation.Models
         public CorrectReclamation(Wiki.Reclamation reclamation, string login)
         {
             this.reclamation = reclamation;
-            this.reclamation.AspNetUsers = db.AspNetUsers.First(d => d.Email == login);
+            AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
+            this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
+            this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
             GetCorrectFieldReclamation();
         }
 

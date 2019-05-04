@@ -28,3 +28,239 @@
         </table>
     </div>
 </div>
+<div id="orderModal" class="modal modal-wide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.Id)
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="PlanZakaz">Заводской номер:</label>
+                        <input type="text" class="form-control" id="PlanZakaz" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="DateCreate">Дата открытия:</label>
+                        <input type="text" class="form-control" id="DateCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Manager">Менеджер:</label>
+                        @Html.DropDownList("Manager", ViewBag.Manager as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Client">Заказчик:</label>
+                        @Html.DropDownList("Client", ViewBag.Client as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="id_PZ_OperatorDogovora">Оператор договора:</label>
+                        @Html.DropDownList("id_PZ_OperatorDogovora", ViewBag.id_PZ_OperatorDogovora as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="id_PZ_FIO">Куратор договора:</label>
+                        @Html.DropDownList("id_PZ_FIO", ViewBag.id_PZ_FIO as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="Name">Контрактное (договорное) наименование:</label>
+                        @Html.TextAreaFor(model => model.Name, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Description">Примечание:</label>
+                        @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="MTR">Код МТР Заказчика:</label>
+                        <input type="text" class="form-control" id="MTR" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="nomenklaturNumber">Номенклатурный номер:</label>
+                        <input type="text" class="form-control" id="nomenklaturNumber" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="timeContract">Договор №:</label>
+                        <input type="text" class="form-control" id="timeContract" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="timeContractDate">Дата договора:</label>
+                        <input type="text" class="form-control" id="timeContractDate" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="timeArr">Приложение №:</label>
+                        <input type="text" class="form-control" id="timeArr" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="timeArrDate">Дата приложения:</label>
+                        <input type="text" class="form-control" id="timeArrDate" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="DateShipping">Требуемая дата поставки:</label>
+                        <input type="text" class="form-control" id="DateShipping" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="DateSupply">Требуемая дата отгрузки:</label>
+                        <input type="text" class="form-control" id="DateSupply" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Dostavka">Способ доставки:</label>
+                        @Html.DropDownList("Dostavka", ViewBag.Dostavka as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Cost">Контрактная цена, без НДС:</label>
+                        <input type="text" class="form-control" id="Cost" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="costSMR">Стоимость ШМР, без НДС:</label>
+                        <input type="text" class="form-control" id="costSMR" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="costPNR">Стоимость ПНР, без НДС:</label>
+                        <input type="text" class="form-control" id="costPNR" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="ProductType">Тип продукции:</label>
+                        @Html.DropDownList("ProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="OL">Опросный лист №:</label>
+                        <input type="text" class="form-control" id="OL" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Zapros">Запрос №:</label>
+                        <input type="text" class="form-control" id="Zapros" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="numZakupki">Закупка №:</label>
+                        <input type="text" class="form-control" id="numZakupki" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="numLota">Лот №:</label>
+                        <input type="text" class="form-control" id="numLota" />
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label for="countOrders">Кол-во изделий:</label>
+                        <input type="text" class="form-control" id="countOrders" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="TypeShip">Тип ограничения по отгрузке:</label>
+                        @Html.DropDownList("TypeShip", ViewBag.TypeShip as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="criticalDateShip">Крайний срок ограничения:</label>
+                        <input type="text" class="form-control" id="criticalDateShip" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="PowerST">Мощность СТ:</label>
+                        <input type="text" class="form-control" id="PowerST" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="VN_NN">ВН/НН:</label>
+                        <input type="text" class="form-control" id="VN_NN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Modul">Габариты блок-бокса:</label>
+                        <input type="text" class="form-control" id="Modul" />
+                    </div>
+                </div>
+                <hr />
+                <button type="button" class="btn-xs btn-primary" id="btnGetInfGP" onclick="GetGP(document.getElementById('Gruzopoluchatel').value);">Получить данные о грузополучателе</button>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="Gruzopoluchatel">Грузополучатель:</label>
+                        <input type="text" class="form-control" id="Gruzopoluchatel" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="PostAdresGruzopoluchatel">Адрес грузополучателя:</label>
+                        <input type="text" class="form-control" id="PostAdresGruzopoluchatel" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="INNGruzopoluchatel">ИНН/УНН грузополучателя:</label>
+                        <input type="text" class="form-control" id="INNGruzopoluchatel" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="OKPOGruzopoluchatelya">ОКПО грузополучателя:</label>
+                        <input type="text" class="form-control" id="OKPOGruzopoluchatelya" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="KodGruzopoluchatela">Код грузополучателя:</label>
+                        <input type="text" class="form-control" id="KodGruzopoluchatela" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="StantionGruzopoluchatel">Станция назначения:</label>
+                        <input type="text" class="form-control" id="StantionGruzopoluchatel" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="KodStanciiGruzopoluchatelya">Код станции назначения:</label>
+                        <input type="text" class="form-control" id="KodStanciiGruzopoluchatelya" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="OsobieOtmetkiGruzopoluchatelya">Особые отметки грузополучателя:</label>
+                        <input type="text" class="form-control" id="OsobieOtmetkiGruzopoluchatelya" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="DescriptionGruzopoluchatel">Прим. грузополучателя:</label>
+                        <input type="text" class="form-control" id="DescriptionGruzopoluchatel" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Content/Chosen/chosen.jquery.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/Chosen/chosen.css")" rel="stylesheet" type="text/css" />
+
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        no_results_text: 'Не найдено: ',
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#timeContractDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

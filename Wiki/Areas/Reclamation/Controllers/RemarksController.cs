@@ -2,6 +2,7 @@
 using Wiki.Areas.Reclamation.Models;
 using System.Linq;
 using Newtonsoft.Json;
+using System;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -12,14 +13,51 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Orders = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(x => x.PlanZakaz), "id", "PlanZakaz");
-            ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
-            ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
-            ViewBag.Dostavka = new SelectList(db.PZ_Dostavka.OrderBy(d => d.Name), "id", "Name");
-            ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
-            ViewBag.id_PZ_OperatorDogovora = new SelectList(db.PZ_OperatorDogovora.OrderBy(x => x.name), "id", "name");
-            ViewBag.id_PZ_FIO = new SelectList(db.PZ_FIO.OrderBy(x => x.fio), "id", "fio");
-            ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
+            string login = HttpContext.User.Identity.Name;
+            int id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
+            
+            if (login == "fvs@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "nrf@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "myi@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "Kuchynski@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.UserPO
+                    .Where(d => d.id_Devision == id_Devision)
+                    .OrderBy(d => d.name), "id", "name");
+            }
+            else
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers.Where(d => d.Email == login), "Id", "CiliricalName");
+            }
+            if (id_Devision == 6)
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
+            else
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now.AddDays(-14)), "Id", "PlanZakaz");
             return View();
         }
 
@@ -71,6 +109,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         public JsonResult Add(Wiki.Reclamation reclamation)
         {
             string login = HttpContext.User.Identity.Name;
+            reclamation.dateTimeCreate = DateTime.Now;
             CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login);
             reclamation = correctReclamation.Reclamation;
             db.Reclamation.Add(reclamation);
