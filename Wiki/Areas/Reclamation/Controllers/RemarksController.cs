@@ -58,6 +58,26 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+
+
+        public JsonResult Add(Wiki.Reclamation reclamation)
+        {
+
+
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(pZ_PlanZakaz);
+            pZ_PlanZakaz = correctPlanZakaz.PZ_PlanZakaz;
+            int count = countOrders[0];
+            for (int i = 0; i < count; i++)
+            {
+                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz, true);
+            }
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
         int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;
