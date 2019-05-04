@@ -54,8 +54,14 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
-            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
-            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true)
+                .OrderBy(d => d.name), "id", "name");
+            ViewBag.id_DevisionReclamationReload = new SelectList(db.Devision.Where(d => d.OTK == true)
+                .Where(d => d.id != id_Devision)
+                .OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError
+                .Where(d => d.active == true)
+                .OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now.AddDays(-14)), "Id", "PlanZakaz");
             return View();
@@ -151,7 +157,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
         
-        public JsonResult Add(Wiki.Reclamation reclamation)
+        public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
         {
             string login = HttpContext.User.Identity.Name;
             reclamation.dateTimeCreate = DateTime.Now;
