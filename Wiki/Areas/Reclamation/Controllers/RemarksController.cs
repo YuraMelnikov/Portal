@@ -63,6 +63,51 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult IndexOrders()
         {
+            string login = HttpContext.User.Identity.Name;
+            int id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
+
+            if (login == "fvs@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "nrf@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "myi@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "Kuchynski@katek.by")
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.UserPO
+                    .Where(d => d.id_Devision == id_Devision)
+                    .OrderBy(d => d.name), "id", "name");
+            }
+            else
+            {
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers.Where(d => d.Email == login), "Id", "CiliricalName");
+            }
+            if (id_Devision == 6)
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
+            else
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now.AddDays(-14)), "Id", "PlanZakaz");
             return View();
         }
 
