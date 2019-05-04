@@ -1,15 +1,25 @@
 ﻿using System.Web.Mvc;
 using Wiki.Areas.Reclamation.Models;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
     public class RemarksController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
 
         public ActionResult Index()
         {
+            ViewBag.Orders = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(x => x.PlanZakaz), "id", "PlanZakaz");
+            ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
+            ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
+            ViewBag.Dostavka = new SelectList(db.PZ_Dostavka.OrderBy(d => d.Name), "id", "Name");
+            ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
+            ViewBag.id_PZ_OperatorDogovora = new SelectList(db.PZ_OperatorDogovora.OrderBy(x => x.name), "id", "name");
+            ViewBag.id_PZ_FIO = new SelectList(db.PZ_FIO.OrderBy(x => x.fio), "id", "fio");
+            ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
             return View();
         }
 
@@ -57,27 +67,53 @@ namespace Wiki.Areas.Reclamation.Controllers
             reclamationListViewer.GetReclamation(GetIdDevision(login), true);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
-
-
-
+        
         public JsonResult Add(Wiki.Reclamation reclamation)
         {
-
-
-            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(pZ_PlanZakaz);
-            pZ_PlanZakaz = correctPlanZakaz.PZ_PlanZakaz;
-            int count = countOrders[0];
-            for (int i = 0; i < count; i++)
-            {
-                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz, true);
-            }
-
+            string login = HttpContext.User.Identity.Name;
+            CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login);
+            reclamation = correctReclamation.Reclamation;
+            db.Reclamation.Add(reclamation);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Update(Wiki.Reclamation reclamation)
+        {
+            string login = HttpContext.User.Identity.Name;
+            CorrectReclamation correctPlanZakaz = new CorrectReclamation(reclamation);
+            reclamation = correctPlanZakaz.Reclamation;
+            db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
 
+        public JsonResult GetReclamation(int id)
+        {
+            var query = db.Reclamation.Where(d => d.id == id).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.id,
+                dataList.id_Reclamation_Type,
+                dataList.id_DevisionReclamation,
+                dataList.id_Reclamation_CountErrorFirst,
+                dataList.id_Reclamation_CountErrorFinal,
+                dataList.id_AspNetUsersCreate,
+                dataList.id_DevisionCreate,
+                dataList.text,
+                dataList.description,
+                dataList.timeToSearch,
+                dataList.timeToEliminate,
+                dataList.close,
+                dataList.gip,
+                dataList.closeDevision,
+                dataList.PCAM,
+                dataList.editManufacturing,
+                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", "")
+            });
 
-
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+        
         int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;

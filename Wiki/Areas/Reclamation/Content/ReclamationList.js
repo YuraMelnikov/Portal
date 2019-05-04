@@ -138,7 +138,7 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            activeReclamation();
             $('#orderModal').modal('hide');
         },
         error: function (errormessage) {
@@ -199,12 +199,12 @@ function clearTextBox() {
     $('#active').css('border-color', 'lightgrey');
 }
 
-function getbyID(Id) {
+function GetReclamation(id) {
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
         cache: false,
-        url: "/Remarks/GetOrder/" + Id,
+        url: "/Remarks/GetOrder/" + id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -251,7 +251,7 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            activeReclamation();
             $('#orderModal').modal('hide');
             $('#id').val("");
             $('#id_Reclamation_Type').val("");

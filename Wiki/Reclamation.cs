@@ -39,6 +39,8 @@ namespace Wiki
         public Nullable<int> timePO { get; set; }
         public Nullable<int> timeOTK { get; set; }
         public bool closeDevision { get; set; }
+        public string PCAM { get; set; }
+        public bool editManufacturing { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Devision Devision { get; set; }
