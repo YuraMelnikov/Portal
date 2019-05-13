@@ -6,9 +6,14 @@
 <head>
     <script src="~/Areas/Reclamation/Content/ReclamationList.js"></script>
 </head>
+
+@{ 
+    var counterDevision = ViewBag.CRUDCounter;
+}
+
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick="clearTextBox(counterDevision);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;">
             <tfoot>
                 <tr>
@@ -29,7 +34,7 @@
         </table>
     </div>
 </div>
-<div id="viewReclamation" class="modal modal-wide fade" data-backdrop="static" data-keyboard="false">
+<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -40,7 +45,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label>План-Заказ/ы №№:</label>
-                        @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ as MultiSelectList, new { @class = "chosen-select" })
+                        @Html.ListBox("pz", ViewBag.PZ as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-2">
                         <label>Тип рекламации:</label>
@@ -50,34 +55,26 @@
                         <label>Автор рекламации:</label>
                         <input type="text" class="form-control" id="id_AspNetUsersCreate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>Создана:</label>
                         <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
                     </div>
+                    <div class="col-lg-1">
+                        <label> ОТК закрыл :      .  </label>
+                        <input type="checkbox" id="close" />
+                    </div>
                 </div>
-
-                <br />
+                <hr />
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label>Ответственное СП:</label>
                         @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control" })
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label>Ответственный сотрудник:</label>
                         @Html.DropDownList("id_AspNetUsersError", ViewBag.id_AspNetUsersError as MultiSelectList, new { @class = "form-control" })
                     </div>
-                    <div class="col-lg-1">
-                        <label>ГИП: </label>
-                        <input type="checkbox" checked="checked" id="gip" />
-                    </div>
-                    <div class="col-lg-1">
-                        <label>Перенаправить: </label>
-                        <input type="checkbox" checked="checked" id="reload" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Перенаправить на:</label>
-                        @Html.DropDownList("id_DevisionReclamationReload", ViewBag.id_DevisionReclamationReload as MultiSelectList, new { @class = "form-control" })
-                    </div>
+
                     <div class="col-lg-2">
                         <label>Критерий ошибки:</label>
                         @Html.DropDownList("id_Reclamation_CountErrorFirst", ViewBag.id_Reclamation_CountErrorFirst as MultiSelectList, new { @class = "form-control" })
@@ -86,59 +83,68 @@
                         <label>Критерий ошибки (утв.):</label>
                         @Html.DropDownList("id_Reclamation_CountErrorFinal", ViewBag.id_Reclamation_CountErrorFinal as MultiSelectList, new { @class = "form-control" })
                     </div>
+                    <div class="col-lg-1">
+                        <label>Поиск (ч.): </label>
+                        <input type="text" class="form-control" id="timeToSearch" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Устранение (ч.): </label>
+                        <input type="text" class="form-control" id="timeToEliminate" />
+                    </div>
                 </div>
-                <br />
+                <hr />
                 <div class="row">
                     <div class="col-lg-6">
                         <label>Текст рекламации:</label>
                         @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 5 })
                     </div>
                     <div class="col-lg-6">
-                        <label>Текст рекламации:</label>
-                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 3 })
+                        <label>Прим.:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 2 })
                         <div class="row">
+                            <div class="col-lg-5">
+                                <label>Полуфабрикат:</label>
+                                @Html.DropDownList("id_PF", ViewBag.id_PF as MultiSelectList, new { @class = "form-control" })
+                            </div>
                             <div class="col-lg-5">
                                 <label>РСАМ: </label>
                                 <input type="text" class="form-control" id="PCAM" />
                             </div>
-                            <div class="col-lg-5">
-                                <label>Полуфабрикат:</label>
-                                @Html.ListBox("id_PF", ViewBag.PZ as MultiSelectList, new { @class = "chosen-select" })
-                            </div>
-                            <div class="col-lg-1">
-                                <label>Доработка: </label>
-                                <input type="checkbox" checked="checked" id="notReclamation" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <label>Закрыта: </label>
-                                <input type="checkbox" checked="checked" id="closeDevision" />
-                            </div>
-                            <div class="col-lg-1">
-                                <label>Закрыта ОТК: </label>
-                                <input type="checkbox" checked="checked" id="close" />
-                            </div>
                             <div class="col-lg-2">
-                                <label>Время на поиск (ч.): </label>
-                                <input type="text" class="form-control" id="timeToSearch" />
-                            </div>
-                            <div class="col-lg-2">
-                                <label>Время на устранение (ч.): </label>
-                                <input type="text" class="form-control" id="timeToEliminate" />
+                                <label>Рекл. закрыта: </label>
+                                <input type="checkbox" id="closeDevision" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <br />
+                <hr />
                 <div class="row">
                     <div class="col-lg-6">
                         <label>Ответ:</label>
-                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 8 })
                     </div>
                     <div class="col-lg-6">
                         <label>История переписки:</label>
-                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 8 })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Перенаправить: </label>
+                    </div>
+                    <div class="col-lg-1">
+                        @Html.DropDownList("id_DevisionReclamationReload", ViewBag.id_DevisionReclamationReload as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="reload" />
+                    </div>
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <label>ГИП: </label>
+                        <input type="checkbox" id="gip" />
                     </div>
                 </div>
             </div>

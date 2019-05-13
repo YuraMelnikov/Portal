@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿//type view
+//'1' - OTK
+//'2' - Manager KO
+//'3' - PO
+//'4' - all users
+
+$(document).ready(function () {
     activeReclamation();
 });
 
@@ -32,9 +38,11 @@ var objRemark = {
     timeToSearch: $('#timeToSearch').val(),
     timeToEliminate: $('#timeToEliminate').val(),
     close: $('#close').val(),
+    gip: $('gip').val(),
     closeDevision: $('#closeDevision').val(),
     PCAM: $('#PCAM').val(),
-    editManufacturing: $('#editManufacturing').val()
+    editManufacturing: $('#editManufacturing').val(),
+    id_PF: $('#id_PF').val()
 };
 
 function activeReclamation() {
@@ -139,7 +147,7 @@ function Add() {
         dataType: "json",
         success: function (result) {
             activeReclamation();
-            $('#orderModal').modal('hide');
+            $('#viewReclamation').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -174,7 +182,7 @@ function validate() {
     return isValid;
 }
 
-function clearTextBox() {
+function clearTextBox(CRUDCounter) {
     $("#btnAdd").attr('disabled', false);
     $('#id').val("");
     $('#id_Reclamation_Type').val("");
@@ -193,6 +201,32 @@ function clearTextBox() {
     $('#closeDevision').val("");
     $('#PCAM').val("");
     $('#editManufacturing').val("");
+    $('#id_PF').val("");
+
+    $('#closeDevision').attr('disabled', 'disabled');
+    $('#id_DevisionReclamationReload').attr('disabled', 'disabled');
+    $('#reload').attr('disabled', 'disabled');
+    $('#id_Reclamation_CountErrorFinal').attr('disabled', 'disabled');
+
+    if (CRUDCounter === '1') {
+        $('#id_AspNetUsersError').attr('disabled', 'disabled');
+        $('#id_Reclamation_CountErrorFirst').attr('disabled', 'disabled');
+        $('#gip').attr('disabled', 'disabled');
+        //Ответ и история переписки, придется ваять новую модель, состоящую с одной рекламации одного ответа и стринга истории переписки
+    }
+    else if (CRUDCounter === '2') {
+        $('#close').attr('disabled', 'disabled');
+        $('#timeToSearch').attr('disabled', 'disabled');
+        $('#timeToEliminate').attr('disabled', 'disabled');
+    }
+    else {
+        $('#id_AspNetUsersError').attr('disabled', 'disabled');
+        $('#id_Reclamation_CountErrorFirst').attr('disabled', 'disabled');
+        $('#gip').attr('disabled', 'disabled');
+        $('#close').attr('disabled', 'disabled');
+        $('#timeToSearch').attr('disabled', 'disabled');
+        $('#timeToEliminate').attr('disabled', 'disabled');
+    }
     $('#btnUpdate').hide();
     $('#btnAdd').show();
     $('#name').css('border-color', 'lightgrey');
@@ -224,6 +258,7 @@ function GetReclamation(id) {
             $('#close').val(result.close);
             $('#gip').val(result.gip);
             $('#closeDevision').val(result.closeDevision);
+            $('#id_PF').val(result.id_PF);
             $('#PCAM').val(result.PCAM);
             $('#editManufacturing').val(result.editManufacturing);
             $('#orderModal').modal('show');
@@ -268,6 +303,7 @@ function Update() {
             $('#close').val("");
             $('#gip').val("");
             $('#closeDevision').val("");
+            $('#id_PF').val("");
             $('#PCAM').val("");
             $('#editManufacturing').val("");
         },
