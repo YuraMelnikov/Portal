@@ -254,3 +254,5 @@ update [PortalKATEK_TEST].[dbo].[Reclamation]
 set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 6
 from [PortalKATEK_TEST].[dbo].[Reclamation]
 where [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 26
+
+update [PortalKATEK_TEST].[dbo].[Reclamation] set [id_PF] = 21
