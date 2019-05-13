@@ -538,6 +538,9 @@
     <Compile Include="OTK_TypeReclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="PF.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Post.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

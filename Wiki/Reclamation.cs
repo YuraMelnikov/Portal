@@ -41,6 +41,7 @@ namespace Wiki
         public bool closeDevision { get; set; }
         public string PCAM { get; set; }
         public bool editManufacturing { get; set; }
+        public int id_PF { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Devision Devision { get; set; }
@@ -54,5 +55,6 @@ namespace Wiki
         public virtual Reclamation_Type Reclamation_Type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
+        public virtual PF PF { get; set; }
     }
 }

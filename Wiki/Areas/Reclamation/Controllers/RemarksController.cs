@@ -15,7 +15,6 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             int id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
-            
             if (login == "fvs@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
@@ -64,6 +63,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 .OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now.AddDays(-14)), "Id", "PlanZakaz");
+            ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             return View();
         }
 

@@ -487,6 +487,14 @@
           <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="KO" Type="bit" />
         </EntityType>
+        <EntityType Name="PF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="id" />
@@ -728,6 +736,7 @@
           <Property Name="closeDevision" Type="bit" Nullable="false" />
           <Property Name="PCAM" Type="varchar(max)" Nullable="false" />
           <Property Name="editManufacturing" Type="bit" Nullable="false" />
+          <Property Name="id_PF" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -2190,6 +2199,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_PF">
+          <End Role="PF" Type="Self.PF" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PF">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_PF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reclamation_PZ_PZ_PlanZakaz">
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
           <End Role="Reclamation_PZ" Type="Self.Reclamation_PZ" Multiplicity="*" />
@@ -2834,6 +2855,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="OTK_ReclamationAnswer" EntityType="Self.OTK_ReclamationAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_ReclamationKO" EntityType="Self.OTK_ReclamationKO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_TypeReclamation" EntityType="Self.OTK_TypeReclamation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
@@ -3253,6 +3275,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Devision1" Association="Self.FK_Reclamation_Devision1">
             <End Role="Devision" EntitySet="Devision" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_PF" Association="Self.FK_Reclamation_PF">
+            <End Role="PF" EntitySet="PF" />
             <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="Self.FK_Reclamation_PZ_PZ_PlanZakaz">
@@ -4252,6 +4278,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="PF" EntityType="PortalKATEKModel.PF" />
+          <AssociationSet Name="FK_Reclamation_PF" Association="PortalKATEKModel.FK_Reclamation_PF">
+            <End Role="PF" EntitySet="PF" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5106,6 +5137,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="closeDevision" Type="Boolean" Nullable="false" />
           <Property Name="PCAM" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="editManufacturing" Type="Boolean" Nullable="false" />
+          <Property Name="id_PF" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PF" Relationship="PortalKATEKModel.FK_Reclamation_PF" FromRole="Reclamation" ToRole="PF" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -7054,6 +7087,27 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="PF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_PF" FromRole="PF" ToRole="Reclamation" />
+        </EntityType>
+        <Association Name="FK_Reclamation_PF">
+          <End Type="PortalKATEKModel.PF" Role="PF" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PF">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_PF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7966,6 +8020,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="id_PF" ColumnName="id_PF" />
                 <ScalarProperty Name="editManufacturing" ColumnName="editManufacturing" />
                 <ScalarProperty Name="PCAM" ColumnName="PCAM" />
                 <ScalarProperty Name="closeDevision" ColumnName="closeDevision" />
@@ -8437,6 +8492,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PF">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PF">
+              <MappingFragment StoreEntitySet="PF">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -101,6 +101,10 @@
                                 <label>РСАМ: </label>
                                 <input type="text" class="form-control" id="PCAM" />
                             </div>
+                            <div class="col-lg-5">
+                                <label>Полуфабрикат:</label>
+                                @Html.ListBox("id_PF", ViewBag.PZ as MultiSelectList, new { @class = "chosen-select" })
+                            </div>
                             <div class="col-lg-1">
                                 <label>Доработка: </label>
                                 <input type="checkbox" checked="checked" id="notReclamation" />

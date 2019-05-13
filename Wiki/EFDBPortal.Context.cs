@@ -136,5 +136,6 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
+        public virtual DbSet<PF> PF { get; set; }
     }
 }
