@@ -1,8 +1,6 @@
 ﻿//type view
 //'1' - OTK
 //'2' - Manager KO
-//'3' - PO
-//'4' - all users
 
 $(document).ready(function () {
     activeReclamation();
@@ -42,7 +40,8 @@ var objRemark = {
     closeDevision: $('#closeDevision').val(),
     PCAM: $('#PCAM').val(),
     editManufacturing: $('#editManufacturing').val(),
-    id_PF: $('#id_PF').val()
+    id_PF: $('#id_PF').val(),
+    pZ_PlanZakaz: $('#pZ_PlanZakaz').val()
 };
 
 function activeReclamation() {
@@ -132,12 +131,33 @@ function closeReclamation() {
 }
 
 function Add() {
-    var res = validate();
-    if (res === false) {
-        return false;
-    }
+    //var res = validate();
+    //if (res === false) {
+    //    return false;
+    //}
     $("#btnAdd").attr('disabled', true);
-    var objRemark;
+    var objRemark = {
+        id: $('#id').val(),
+        id_Reclamation_Type: $('#id_Reclamation_Type').val(),
+        id_DevisionReclamation: $('#id_DevisionReclamation').val(),
+        id_Reclamation_CountErrorFirst: $('#id_Reclamation_CountErrorFirst').val(),
+        id_Reclamation_CountErrorFinal: $('#id_Reclamation_CountErrorFinal').val(),
+        id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
+        id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
+        id_DevisionCreate: $('#id_DevisionCreate').val(),
+        dateTimeCreate: $('#dateTimeCreate').val(),
+        text: $('#text').val(),
+        description: $('#description').val(),
+        timeToSearch: $('#timeToSearch').val(),
+        timeToEliminate: $('#timeToEliminate').val(),
+        close: $('#close').val(),
+        gip: $('gip').val(),
+        closeDevision: $('#closeDevision').val(),
+        PCAM: $('#PCAM').val(),
+        editManufacturing: $('#editManufacturing').val(),
+        id_PF: $('#id_PF').val(),
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val()
+    };
     $.ajax({
         cache: false,
         url: "/Remarks/Add",
@@ -182,9 +202,12 @@ function validate() {
     return isValid;
 }
 
-function clearTextBox(CRUDCounter) {
+function clearTextBox(counterDevision) {
     $("#btnAdd").attr('disabled', false);
     $('#id').val("");
+    $('#pZ_PlanZakaz').val("");
+    $('#pZ_PlanZakaz').chosen();
+    $('#pZ_PlanZakaz').trigger('chosen:updated');
     $('#id_Reclamation_Type').val("");
     $('#id_DevisionReclamation').val("");
     $('#id_Reclamation_CountErrorFirst').val("");
@@ -202,30 +225,30 @@ function clearTextBox(CRUDCounter) {
     $('#PCAM').val("");
     $('#editManufacturing').val("");
     $('#id_PF').val("");
-
-    $('#closeDevision').attr('disabled', 'disabled');
-    $('#id_DevisionReclamationReload').attr('disabled', 'disabled');
-    $('#reload').attr('disabled', 'disabled');
-    $('#id_Reclamation_CountErrorFinal').attr('disabled', 'disabled');
-
-    if (CRUDCounter === '1') {
-        $('#id_AspNetUsersError').attr('disabled', 'disabled');
-        $('#id_Reclamation_CountErrorFirst').attr('disabled', 'disabled');
-        $('#gip').attr('disabled', 'disabled');
+    $('#closeDevision').prop('disabled', true);
+    $('#id_DevisionReclamationReload').prop('disabled', true);
+    $('#reload').prop('disabled', true);
+    $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
+    $('#History').prop('disabled', true);
+    $('#Answer').prop('disabled', true);
+    if (counterDevision === 1) {
+        $('#id_AspNetUsersError').prop('disabled', true);
+        $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
+        $('#gip').prop('disabled', true);
         //Ответ и история переписки, придется ваять новую модель, состоящую с одной рекламации одного ответа и стринга истории переписки
     }
-    else if (CRUDCounter === '2') {
-        $('#close').attr('disabled', 'disabled');
-        $('#timeToSearch').attr('disabled', 'disabled');
-        $('#timeToEliminate').attr('disabled', 'disabled');
+    else if (counterDevision === 2) {
+        $('#close').prop('disabled', true);
+        $('#timeToSearch').prop('disabled', true);
+        $('#timeToEliminate').prop('disabled', true);
     }
     else {
-        $('#id_AspNetUsersError').attr('disabled', 'disabled');
-        $('#id_Reclamation_CountErrorFirst').attr('disabled', 'disabled');
-        $('#gip').attr('disabled', 'disabled');
-        $('#close').attr('disabled', 'disabled');
-        $('#timeToSearch').attr('disabled', 'disabled');
-        $('#timeToEliminate').attr('disabled', 'disabled');
+        $('#id_AspNetUsersError').prop('disabled', true);
+        $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
+        $('#gip').prop('disabled', true);
+        $('#close').prop('disabled', true);
+        $('#timeToSearch').prop('disabled', true);
+        $('#timeToEliminate').prop('disabled', true);
     }
     $('#btnUpdate').hide();
     $('#btnAdd').show();

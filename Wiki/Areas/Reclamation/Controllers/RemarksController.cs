@@ -19,6 +19,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -26,6 +27,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                                        .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -33,6 +35,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                                        .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -40,6 +43,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                                        .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -55,8 +59,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers.Where(d => d.Email == login), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '4';
             }
-
-
             if (id_Devision == 6)
             {
                 ViewBag.CRUDCounter = '1';
@@ -73,7 +75,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 .OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             DateTime dateTimeSh = DateTime.Now.AddDays(-14);
-            ViewBag.PZ = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             return View();
         }

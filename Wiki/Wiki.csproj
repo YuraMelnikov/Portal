@@ -274,6 +274,7 @@
     <Compile Include="Areas\Reclamation\Models\CorrectReclamation.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\ReclamationCRUD.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
