@@ -13,6 +13,7 @@ namespace Wiki.Controllers
     {
         private PortalKATEKEntities db = new PortalKATEKEntities();
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private string linkToExcelListOrders = @"http://pserver/RKD/ExportToExcelOrders/";
 
         private int GetPredcessorOrderNumForLink(int id_Order)
         {
@@ -442,6 +443,8 @@ namespace Wiki.Controllers
 
         public ActionResult Index()
         {
+            //ViewBag.linkToExcel = @"http://pserver/RKD/ExportToExcel/"
+            ViewBag.linkToExcel = linkToExcelListOrders;
             try
             {
                 int devision = 0;
@@ -503,6 +506,7 @@ namespace Wiki.Controllers
 
         public ActionResult IndexComplited()
         {
+            ViewBag.linkToExcel = linkToExcelListOrders;
             try
             {
                 int devision = 0;
@@ -522,8 +526,12 @@ namespace Wiki.Controllers
                 }
                 ViewBag.devision = devision;
                 ViewRKD viewRKD = new ViewRKD();
-                var datadata = db.RKD_Order.Where(d => d.PZ_PlanZakaz.dataOtgruzkiBP > DateTime.Now == false)
-                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList().Where(d => d.RKD_Version.First(z => z.activeVersion == true).id_RKD_VersionWork == 10).ToList();
+                var datadata = db.RKD_Order
+                    .Where(d => d.PZ_PlanZakaz.dataOtgruzkiBP > DateTime.Now == false)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
+                    .ToList()
+                    //.Where(d => d.RKD_Version.First(z => z.activeVersion == true).id_RKD_VersionWork == 10)
+                    .ToList();
                 viewRKD.ActiveOrder = datadata;
                 ViewRKD_Question viewOSCMO = new ViewRKD_Question();
                 try
@@ -559,6 +567,7 @@ namespace Wiki.Controllers
         
         public ActionResult IndexOld()
         {
+            ViewBag.linkToExcel = linkToExcelListOrders;
             try
             {
                 int devision = 0;
@@ -1460,6 +1469,75 @@ namespace Wiki.Controllers
                 ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            }
+            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+        }
+
+
+        public void ExportToExcelOrders()
+        {
+            var collectionData = db.RKD_Order.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList();
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            int row = 1;
+            ws.Cells[string.Format("A{0}", row)].Value = "Заказ №";
+            ws.Cells[string.Format("B{0}", row)].Value = "Состояние согласования";
+            ws.Cells[string.Format("C{0}", row)].Value = "ГИП КБМ";
+            ws.Cells[string.Format("D{0}", row)].Value = "ГИП КБЭ";
+            ws.Cells[string.Format("E{0}", row)].Value = "Заказчик";
+            ws.Cells[string.Format("E{0}", row)].Value = "Дата открытия";
+            ws.Cells[string.Format("F{0}", row)].Value = "Контрактная дата отгрузки";
+            ws.Cells[string.Format("G{0}", row)].Value = "Плановая дата отгрузки";
+            ws.Cells[string.Format("H{0}", row)].Value = "Текущая версия РКД";
+
+            ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("G{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("H{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
+            foreach (var data in collectionData)
+            {
+                row++;
+                ws.Cells[string.Format("A{0}", row)].Value = data.PZ_PlanZakaz.PlanZakaz.ToString();
+                ws.Cells[string.Format("B{0}", row)].Value = data.RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.name.ToString();
+                try
+                {
+                    ws.Cells[string.Format("C{0}", row)].Value = data.RKD_GIP.First().AspNetUsers1.CiliricalName;
+                }
+                catch
+                {
+                    ws.Cells[string.Format("C{0}", row)].Value = "";
+                }
+                try
+                {
+                    ws.Cells[string.Format("D{0}", row)].Value = data.RKD_GIP.First().AspNetUsers.CiliricalName;
+                }
+                catch
+                {
+                    ws.Cells[string.Format("D{0}", row)].Value = "";
+                }
+                ws.Cells[string.Format("E{0}", row)].Value = data.PZ_PlanZakaz.PZ_Client.NameSort;
+                ws.Cells[string.Format("F{0}", row)].Value = data.PZ_PlanZakaz.DateCreate.ToString().Substring(0, 10);
+                ws.Cells[string.Format("G{0}", row)].Value = data.PZ_PlanZakaz.dataOtgruzkiBP.ToString().Substring(0, 10);
+                ws.Cells[string.Format("H{0}", row)].Value = "V " + data.RKD_Version.Where(d => d.activeVersion).First().numberVersion1.ToString() + "." + data.RKD_Version.Where(d => d.activeVersion).First().numberVersion2.ToString();
+
+                ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("G{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("H{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
             }
             ws.Cells[ws.Dimension.Address].AutoFitColumns();
             Response.Clear();

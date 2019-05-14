@@ -21,6 +21,7 @@
     </style>
 </head>
 <div class="container">
+    <a href=@ViewBag.linkToExcel class="btn-xs btn-success" role="button">to Excel (полная)</a>
     <table data-toggle="table" data-height="750">
         <thead>
             <tr class="something">
@@ -43,82 +44,82 @@
         <tbody id="myTable">
             @foreach (var item in Model.ActiveOrder)
             {
-            <tr>
-                <td class="col-md-1">@Html.ActionLink("См.", "Details", "RKD", new { id = item.id }, null) </td>
-                @if (@ViewBag.devision == @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.devision || @ViewBag.devision == 13)
-                {
-                    <td class="col-md-1 warning" text-align="center">@Html.ActionLink("►", "OpenOrder", "RKD", new { idOrder = item.id }, null) </td>
-                }
-                else
-                {
-                    <td></td>
-                }
-                <td class="col-md-1">@Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz)</td>
-                <td class="col-md-6">@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.name.ToString()</td>
-                <td class="col-md-4">
-                    @try
+                <tr>
+                    <td class="col-md-1">@Html.ActionLink("См.", "Details", "RKD", new { id = item.id }, null) </td>
+                    @if (@ViewBag.devision == @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.devision || @ViewBag.devision == 13)
                     {
-                        @Html.DisplayFor(modelItem => item.RKD_GIP.First().AspNetUsers1.CiliricalName)
+                        <td class="col-md-1 warning" text-align="center">@Html.ActionLink("►", "OpenOrder", "RKD", new { idOrder = item.id }, null) </td>
                     }
-                    catch { }
-                </td>
-                <td class="col-md-4">
-                    @try
+                    else
                     {
-                        @Html.DisplayFor(modelItem => item.RKD_GIP.First().AspNetUsers.CiliricalName)
+                        <td></td>
                     }
-                    catch { }
+                    <td class="col-md-1">@Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PlanZakaz)</td>
+                    <td class="col-md-6">@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.name.ToString()</td>
+                    <td class="col-md-4">
+                        @try
+                        {
+                            @Html.DisplayFor(modelItem => item.RKD_GIP.First().AspNetUsers1.CiliricalName)
+                        }
+                        catch { }
+                    </td>
+                    <td class="col-md-4">
+                        @try
+                        {
+                            @Html.DisplayFor(modelItem => item.RKD_GIP.First().AspNetUsers.CiliricalName)
+                        }
+                        catch { }
 
-                </td>
+                    </td>
 
-                <td class="col-md-4">@Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PZ_Client.NameSort)</td>
-                <td class="col-md-2">@DateTime.Parse(Html.DisplayFor(modelItem => item.PZ_PlanZakaz.DateCreate).ToString()).ToShortDateString()</td>
-                <td class="col-md-2">@DateTime.Parse(Html.DisplayFor(modelItem => item.PZ_PlanZakaz.DateShipping).ToString()).ToShortDateString()</td>
-                <td class="col-md-2">
-                    V.@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().numberVersion1.ToString()<nobr>.</nobr>@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().numberVersion2.ToString()
-                </td>
+                    <td class="col-md-4">@Html.DisplayFor(modelItem => item.PZ_PlanZakaz.PZ_Client.NameSort)</td>
+                    <td class="col-md-2">@DateTime.Parse(Html.DisplayFor(modelItem => item.PZ_PlanZakaz.DateCreate).ToString()).ToShortDateString()</td>
+                    <td class="col-md-2">@DateTime.Parse(Html.DisplayFor(modelItem => item.PZ_PlanZakaz.DateShipping).ToString()).ToShortDateString()</td>
+                    <td class="col-md-2">
+                        V.@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().numberVersion1.ToString()<nobr>.</nobr>@item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().numberVersion2.ToString()
+                    </td>
 
 
-                <td class="col-md-3">
+                    <td class="col-md-3">
+                        @try
+                        {
+                            @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().planFinishDate.ToString().Substring(0, 10)
+                        }
+                        catch
+                        {
+
+                        }
+
+                    </td>
+                    <td class="col-md-3">@item.PZ_PlanZakaz.RKD_Order.First().datePlanCritical.ToString().Substring(0, 10)</td>
                     @try
                     {
-                        @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().planFinishDate.ToString().Substring(0, 10)
+                        if (item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_TaskVersion.Max(d => d.finishDate) > item.PZ_PlanZakaz.RKD_Order.First().datePlanCritical)
+                        {
+                            <td class="col-md-1, danger"></td>
+                        }
+                        else
+                        {
+                            <td class="col-md-1"></td>
+                        }
+                    }
+                    catch
+                    {
+                        <td class="col-md-1"></td>
+                    }
+                    @try
+                    {
+                        <td class="col-md-2">
+                            <a href=@item.PZ_PlanZakaz.Folder.ToString()>Папка</a>
+                        </td>
                     }
                     catch
                     {
 
-                    }
-
-                </td>
-                <td class="col-md-3">@item.PZ_PlanZakaz.RKD_Order.First().datePlanCritical.ToString().Substring(0, 10)</td>
-                @try
-                {
-                    if (item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_TaskVersion.Max(d => d.finishDate) > item.PZ_PlanZakaz.RKD_Order.First().datePlanCritical)
-                    {
-                        <td class="col-md-1, danger"></td>
-                    }
-                    else
-                    {
                         <td class="col-md-1"></td>
                     }
-                }
-                catch
-                {
-                    <td class="col-md-1"></td>
-                }
-                @try
-                {
-                    <td class="col-md-2">
-                        <a href=@item.PZ_PlanZakaz.Folder.ToString()>Папка</a>
-                    </td>
-                }
-                catch
-                {
 
-                <td class="col-md-1"></td>
-                }
-
-            </tr>
+                </tr>
             }
         </tbody>
     </table>
