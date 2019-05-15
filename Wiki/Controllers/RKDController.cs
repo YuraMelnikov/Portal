@@ -180,7 +180,7 @@ namespace Wiki.Controllers
             //RKD rKD1 = new RKD(2594);
             //rKD1.id_RKD_Order = 265;
             //rKD1.Create_NULLRKD_TaskVersion();
-            for (int i = 2720; i < 2724; i++)
+            for (int i = 2727; i < 2728; i++)
             {
                 RKD rKD = new RKD(i);
                 rKD.CreateRKDOrder();
@@ -1477,8 +1477,7 @@ namespace Wiki.Controllers
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
         }
-
-
+        
         public void ExportToExcelOrders()
         {
             var collectionData = db.RKD_Order.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList();

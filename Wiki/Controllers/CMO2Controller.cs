@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,6 +22,8 @@ namespace Wiki.Controllers
         private string getServerError = "ошибка получения данныех от сервера ";
         private string postServerError = "ошибка отправки данных от сервера ";
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        string linkToExcelReport = @"http://pserver/CMO2/ExportToExcelReport/";
+        string linkToExcelSmallReport = @"http://pserver/CMO2/ExportToExcelSmallReport/";
 
         [Authorize(Roles = "Admin, KBMUser, KBM, KBMUser, Technologist, KBE, KBEUser, GR, OPTP, OTK, Manufacturing, Sklad, OP, OS")]
         public ActionResult Index()
@@ -92,6 +96,7 @@ namespace Wiki.Controllers
         [Authorize(Roles = "Admin, Technologist, OS, KBM")]
         public ActionResult Report()
         {
+            ViewBag.linkToExcel = linkToExcelReport;
             string login = HttpContext.User.Identity.Name;
             return View();
         }
@@ -111,6 +116,98 @@ namespace Wiki.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.dateCloseOrder, settings).Replace(@"""", "")
             });
             return Json(new { data });
+        }
+
+        public void ExportToExcelReport()
+        {
+            var collectionData = db.CMO_Order.Where(d => d.datetimeWinTenderFinish != null).Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            int row = 1;
+            ws.Cells[string.Format("A{0}", row)].Value = "Позиция";
+            ws.Cells[string.Format("B{0}", row)].Value = "Подрядчик";
+            ws.Cells[string.Format("C{0}", row)].Value = "Первая цена";
+            ws.Cells[string.Format("D{0}", row)].Value = "Изг. дн.";
+            ws.Cells[string.Format("E{0}", row)].Value = "Стоимость, б/НДС (BYN)";
+            ws.Cells[string.Format("F{0}", row)].Value = "Дата размещения";
+            ws.Cells[string.Format("G{0}", row)].Value = "Дата исполнения";
+            ws.Cells[string.Format("H{0}", row)].Value = "Дата поступления";
+            ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("G{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("H{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            foreach (var dataList in collectionData)
+            {
+                row++;
+                ws.Cells[string.Format("A{0}", row)].Value = ReparceBr(GetPositionNames(dataList.CMO_PositionOrder.ToList()));
+                ws.Cells[string.Format("B{0}", row)].Value = dataList.CMO_Company.name;
+                ws.Cells[string.Format("C{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().cost;
+                ws.Cells[string.Format("D{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day;
+                ws.Cells[string.Format("E{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().cost;
+                ws.Cells[string.Format("F{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload.ToString().Substring(0, 10);
+                ws.Cells[string.Format("G{0}", row)].Value = GetDatePlanComplited(dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day.Value, dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload.Value).ToString().Substring(0, 10);
+                ws.Cells[string.Format("H{0}", row)].Value = dataList.dateCloseOrder.ToString();
+                ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("G{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("H{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            }
+            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+        }
+
+        public void ExportToExcelSmallReport()
+        {
+            var collectionData = db.CMO_Order.Where(d => d.datetimeWinTenderFinish != null).Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            int row = 1;
+            ws.Cells[string.Format("A{0}", row)].Value = "Позиция";
+            ws.Cells[string.Format("B{0}", row)].Value = "Подрядчик";
+            ws.Cells[string.Format("C{0}", row)].Value = "Изг. дн.";
+            ws.Cells[string.Format("D{0}", row)].Value = "Дата размещения";
+            ws.Cells[string.Format("E{0}", row)].Value = "Дата исполнения";
+            ws.Cells[string.Format("F{0}", row)].Value = "Дата поступления";
+            ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            foreach (var dataList in collectionData)
+            {
+                row++;
+                ws.Cells[string.Format("A{0}", row)].Value = ReparceBr(GetPositionNames(dataList.CMO_PositionOrder.ToList()));
+                ws.Cells[string.Format("B{0}", row)].Value = dataList.CMO_Company.name;
+                ws.Cells[string.Format("C{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day;
+                ws.Cells[string.Format("D{0}", row)].Value = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload.ToString().Substring(0, 10);
+                ws.Cells[string.Format("E{0}", row)].Value = GetDatePlanComplited(dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day.Value, dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload.Value).ToString().Substring(0, 10);
+                ws.Cells[string.Format("F{0}", row)].Value = dataList.dateCloseOrder.ToString();
+                ws.Cells[string.Format("A{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("B{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("C{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("D{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("E{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                ws.Cells[string.Format("F{0}", row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            }
+            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
         }
 
         DateTime GetDatePlanComplited(int day, DateTime dateStartWork)
@@ -134,9 +231,16 @@ namespace Wiki.Controllers
             }
             return positionNames;
         }
+
+        string ReparceBr(string str)
+        {
+            str.Replace(@"<br/>", "; ");
+            return str;
+        }
         
         public ActionResult ReportSmall()
         {
+            ViewBag.linkToExcel = linkToExcelSmallReport;
             string login = HttpContext.User.Identity.Name;
             return View();
         }
