@@ -55,8 +55,6 @@
     </table>
     <hr />
     <h5>Подтвердить запуск заказа в работу</h5>
-
-
     <table data-toggle="table" class="table table-condensed">
         <thead>
             <tr>
@@ -111,22 +109,20 @@
                         </td>
                         <td> @Html.DisplayFor(modelItem => item.CMO_Company.name) </td>
                         <td>@item.CMO_Tender.finishPlanClose</td>
-                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
+                        <td><a href=@item.CMO_Tender.CMO_Order.folder.ToString() onClick="refreshPage()">Excel</a> </td>
                     </tr>
                 }
                 count4 = item.CMO_Tender.id_CMO_Order;
             }
         </tbody>
     </table>
-
-
-
     <hr />
     <h5>Подтвердить поступление железа</h5>
     <table data-toggle="table" class="table table-condensed">
         <thead>
             <tr>
-                <th> Начать тендер </th>
+                <th> Оприходовать </th>
+                <th> Изменить </th>
                 <th> Описание заявки </th>
                 <th> Подрядчик </th>
                 <th> Ожидаемая дата поступления </th>
@@ -137,30 +133,31 @@
         <tbody id="myTable">
             @foreach (var item in Model.ActiveOrderClose)
             {
-            <tr>
-                <td> @Html.ActionLink("Закрыть", "CloseOrder", "CMO", new { id = item.Id_Order }, null) </td>
-                <td>
-                    @item.PositionOrder.ToString()
-                </td>
-                <td> @item.CompanyName.ToString() </td>
-                @try
-                {
-                    <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.PlanFinishWork2).ToString()).ToShortDateString() </td>
-                }
-                catch
-                {
-                    <td></td>
-                }
-                @try
-                {
-                    <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.DateStartWork).ToString()).ToShortDateString() </td>
-                }
-                catch
-                {
-                    <td></td>
-                }
-                <td> <a href=@item.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
-            </tr>
+                <tr>
+                    <td> @Html.ActionLink("Закрыть", "CloseOrder", "CMO", new { id = item.Id_Order }, null) </td>
+                    <td>@Html.ActionLink("Изменить", "UpdateCloseOrder", "CMO3", new { id = item.Id_Order }, new { @class = "viewDialog22", data_dialog_title = "Загрузить данные" })</td>
+                    <td>
+                        @item.PositionOrder.ToString()
+                    </td>
+                    <td> @item.CompanyName.ToString() </td>
+                    @try
+                    {
+                        <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.PlanFinishWork2).ToString()).ToShortDateString() </td>
+                    }
+                    catch
+                    {
+                        <td></td>
+                    }
+                    @try
+                    {
+                        <td> @DateTime.Parse(Html.DisplayFor(modelItem => item.DateStartWork).ToString()).ToShortDateString() </td>
+                    }
+                    catch
+                    {
+                        <td></td>
+                    }
+                    <td> <a href=@item.folder.ToString() onClick="refreshPage()">Excel</a> </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -191,7 +188,7 @@
                     </td>
                     <td> @item.CMO_Company.name.ToString() </td>
                     <td> @item.dateCreate </td>
-                    <td> <a href=@item.folder.ToString()  onClick="refreshPage()">Excel</a> </td>
+                    <td> <a href=@item.folder.ToString() onClick="refreshPage()">Excel</a> </td>
                 </tr>
             }
         </tbody>
@@ -254,6 +251,25 @@
     $(document).ready(function () {
         $.ajaxSetup({ cache: false });
         $(".viewDialogAppDefaultOrder").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    width: 1200,
+                    height: 700,
+                    modal: true
+                })
+                .load(this.href);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog22").on("click", function (e) {
             e.preventDefault();
             $("<div></div>")
                 .addClass("dialog")

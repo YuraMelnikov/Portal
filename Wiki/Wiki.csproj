@@ -1026,6 +1026,7 @@
     <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Content\jquery.tablesorter.js" />
     <Content Include="Content\MelnikauCSS.css" />
+    <Content Include="Content\Report.js" />
     <Content Include="Content\Scripts\bootstrap-table.min.css" />
     <Content Include="Content\Scripts\bootstrap-table.min.js" />
     <Content Include="Content\Scripts\bootstrap.min.css" />
@@ -1733,6 +1734,8 @@
     <Content Include="Views\CMO3\StartFirstTender.cshtml" />
     <Content Include="Views\CMO3\Error.cshtml" />
     <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
+    <Content Include="Views\CMO3\UpdateCloseOrder.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="log\" />

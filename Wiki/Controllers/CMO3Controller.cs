@@ -159,6 +159,16 @@ namespace Wiki.Controllers
                 db.Entry(cMO_Order).State = EntityState.Modified;
                 db.SaveChanges();
             }
+            var listUploadResult = db.CMO_UploadResult.Where(d => d.CMO_Tender.id_CMO_Order == cMO_Tender.id_CMO_Order).ToList();
+            foreach (var data in listUploadResult)
+            {
+                data.cost = cMO_UploadResult.cost;
+                if (newDevision == true)
+                    data.id_CMO_Company = reloadError;
+                db.Entry(data).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
             PushMailToWinnerTender(upCMO_UploadResult);
             return RedirectToAction("ViewStartMenuOS", "CMO3");
         }
@@ -229,6 +239,88 @@ namespace Wiki.Controllers
             if (startD.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
 
             return (int)calcBusinessDays;
+        }
+
+        public ActionResult UpdateCloseOrder(int? id)
+        {
+            CMO_Order cMO_Order = db.CMO_Order.Find(id);
+            CMO_UploadResult tmp = cMO_Order.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First();
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                CMO_UploadResult cMO_UploadResult = db.CMO_UploadResult.Find(tmp.id);
+                ViewBag.Order = cMO_UploadResult.CMO_Tender.id_CMO_Order.ToString();
+                ViewBag.Company = cMO_UploadResult.CMO_Company.name.ToString();
+                string dataPositionOrder = "";
+                ViewBag.reloadError = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(x => x.name), "id", "name");
+                var dataListPosition = cMO_UploadResult.CMO_Tender.CMO_Order.CMO_PositionOrder.ToList();
+                foreach (var data in dataListPosition)
+                {
+                    dataPositionOrder += data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name + ";";
+                }
+
+                ViewBag.Position = dataPositionOrder;
+                return View(cMO_UploadResult);
+            }
+            catch
+            {
+                return RedirectToAction("Error", "CMO3");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateCloseOrder(CMO_UploadResult cMO_UploadResult, int reloadError, bool newDevision)
+        {
+            string login = HttpContext.User.Identity.Name;
+            if (cMO_UploadResult.cost == 0)
+                return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
+            if (cMO_UploadResult.dateComplited.Value.Year < 2000 || cMO_UploadResult.dateComplited == null)
+                return RedirectToAction("UploadDataCompany", "CMO3", new { cMO_UploadResult.id });
+            CMO_UploadResult upCMO_UploadResult = db.CMO_UploadResult.Find(cMO_UploadResult.id);
+            if (newDevision == true)
+                upCMO_UploadResult.id_CMO_Company = reloadError;
+            upCMO_UploadResult.cost = cMO_UploadResult.cost;
+            upCMO_UploadResult.dateTimeUpload = DateTime.Now;
+            upCMO_UploadResult.dateComplited = cMO_UploadResult.dateComplited;
+            upCMO_UploadResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
+            db.Entry(upCMO_UploadResult).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Tender cMO_Tender = db.CMO_Tender.First(d => d.id == upCMO_UploadResult.id_CMO_Tender);
+            cMO_Tender.close = true;
+            db.Entry(cMO_Tender).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Tender tenderWin = db.CMO_Tender.First(d => d.id_CMO_TypeTask == 3 && d.id_CMO_Order == cMO_Tender.id_CMO_Order);
+            tenderWin.finishPlanClose = cMO_UploadResult.dateComplited.Value;
+            tenderWin.close = true;
+            db.Entry(tenderWin).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_UploadResult winResult = db.CMO_UploadResult.First(d => d.id_CMO_Tender == tenderWin.id);
+            if (newDevision == true)
+                winResult.id_CMO_Company = reloadError;
+            winResult.day = GetBusinessDays(DateTime.Now, cMO_UploadResult.dateComplited.Value);
+            winResult.cost = cMO_UploadResult.cost;
+            winResult.dateTimeUpload = DateTime.Now;
+            db.Entry(winResult).State = EntityState.Modified;
+            db.SaveChanges();
+            CMO_Order cMO_Order = db.CMO_Order.Find(cMO_Tender.id_CMO_Order);
+            if (newDevision == true)
+            {
+                cMO_Order.companyWin = reloadError;
+                db.Entry(cMO_Order).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            var listUploadResult = db.CMO_UploadResult.Where(d => d.CMO_Tender.id_CMO_Order == cMO_Tender.id_CMO_Order).ToList();
+            foreach (var data in listUploadResult)
+            {
+                data.cost = cMO_UploadResult.cost;
+                if (newDevision == true)
+                    data.id_CMO_Company = reloadError;
+                db.Entry(data).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            PushMailToWinnerTender(upCMO_UploadResult);
+            return RedirectToAction("ViewStartMenuOS", "CMO3");
         }
     }
 }

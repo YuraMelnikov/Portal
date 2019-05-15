@@ -6,12 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wiki.Models;
-using Wiki.Models.CMO;
 
 namespace Wiki.Controllers
 {
     public class CMO2Controller : Controller
     {
+        PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        DateTime firstReportPosition = new DateTime(2019, 04, 15);
         private string getServer = "получены данные от сервера ";
         private string postServer = "отправлены данные от сервера ";
         private string getServerError = "ошибка получения данныех от сервера ";
@@ -93,14 +95,35 @@ namespace Wiki.Controllers
         public ActionResult Report()
         {
             string login = HttpContext.User.Identity.Name;
-            CMO_ReportList data = new CMO_ReportList();
-            return View(data);
+            return View();
         }
+
+        public JsonResult List()
+        {
+            List<CMO_Order> query = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.p
+            });
+
+            return Json(new { data });
+        }
+
+        string GetPositionNames(List<CMO_PositionOrder> cMO_PositionOrders)
+        {
+            foreach (var position in item.CMO_PositionOrder.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
+            {
+                @position.PZ_PlanZakaz.PlanZakaz < nobr > -</ nobr > @position.CMO_TypeProduct.name<nobr> < br /></ nobr >;
+
+            }
+            return "";
+        }
+
 
         public ActionResult ReportSmall()
         {
             string login = HttpContext.User.Identity.Name;
-            var data = db.CMO_Report.OrderByDescending(d => d.Id_Order).Take(150).ToList();
+            List<CMO_Order> data = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
             return View(data);
         }
         
@@ -192,13 +215,11 @@ namespace Wiki.Controllers
                 ViewBag.Order = cMO_UploadResult.CMO_Tender.id_CMO_Order.ToString();
                 ViewBag.Company = cMO_UploadResult.CMO_Company.name.ToString();
                 string dataPositionOrder = "";
-
                 var dataListPosition = cMO_UploadResult.CMO_Tender.CMO_Order.CMO_PositionOrder.ToList();
                 foreach (var data in dataListPosition)
                 {
                     dataPositionOrder += data.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + data.CMO_TypeProduct.name + ";";
                 }
-
                 ViewBag.Position = dataPositionOrder;
                 logger.Debug(getServer + " (CMOController/UploadDataCompany): " + login.ToString());
                 return View(cMO_UploadResult);
@@ -242,11 +263,7 @@ namespace Wiki.Controllers
                 ViewBag.UserCreate = db.AspNetUsers.Find(cMO_Order.userCreate).CiliricalName.ToString();
                 ViewBag.idTime = new SelectList(db.CMO_HoureTender.Where(d => d.active == true).OrderBy(d => d.count).ToList(), "id", "name", cMO_Order.idTime);
                 ViewBag.tableResult = db.CMO_UploadResult.Where(d => d.CMO_Tender.CMO_Order.id == cMO_Order.id & d.CMO_Tender.id_CMO_TypeTask == 1).ToList();
-
-
-
                 List<CMO_Description> cMO_DescriptionsList = new List<CMO_Description>();
-
                 foreach (var data in cMO_Order.CMO_PositionOrder.ToList())
                 {
                     cMO_DescriptionsList.Add(new CMO_Description(data.PZ_PlanZakaz.PlanZakaz.ToString(), data.CMO_TypeProduct.name));
@@ -293,20 +310,12 @@ namespace Wiki.Controllers
                 ViewBag.UserCreate = db.AspNetUsers.Find(cMO_Order.userCreate).CiliricalName.ToString();
                 //ViewBag.idTime = new SelectList(db.CMO_HoureTender.Where(d => d.active == true).OrderBy(d => d.count).ToList(), "id", "name", cMO_Order.idTime);
                 ViewBag.tableResult = db.CMO_UploadResult.Where(d => d.CMO_Tender.CMO_Order.id == cMO_Order.id & d.CMO_Tender.id_CMO_TypeTask == 2).ToList();
-
-
                 List<CMO_Description> cMO_DescriptionsList = new List<CMO_Description>();
-
                 foreach (var data in cMO_Order.CMO_PositionOrder.ToList())
                 {
                     cMO_DescriptionsList.Add(new CMO_Description(data.PZ_PlanZakaz.PlanZakaz.ToString(), data.CMO_TypeProduct.name));
                 }
-
                 ViewBag.OrderDescription = cMO_DescriptionsList;
-
-
-
-
                 logger.Debug(getServer + " (CMOController/FinishSecondTender): " + login.ToString());
                 return View();
             }
