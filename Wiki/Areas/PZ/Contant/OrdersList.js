@@ -373,6 +373,7 @@ function Add() {
         KodStanciiGruzopoluchatelya: $('#KodStanciiGruzopoluchatelya').val(),
         OsobieOtmetkiGruzopoluchatelya: $('#OsobieOtmetkiGruzopoluchatelya').val(),
         PowerST: $('#PowerST').val(),
+        Modul: $('#Modul').val(),
         VN_NN: $('#VN_NN').val(),
         TypeShip: $('#TypeShip').val(),
         criticalDateShip: $('#criticalDateShip').val(),
@@ -545,6 +546,7 @@ function getbyID(Id) {
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
             $('#PowerST').val(result.PowerST);
             $('#VN_NN').val(result.VN_NN);
+            $('#Modul').val(result.Modul);
             $('#TypeShip').val(result.TypeShip);
             $('#criticalDateShip').val(result.criticalDateShip);
             $('#DescriptionGruzopoluchatel').val(result.DescriptionGruzopoluchatel);
@@ -784,6 +786,7 @@ function getbyReadID(Id) {
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
             $('#PowerST').val(result.PowerST);
+            $('#Modul').val(result.Modul);
             $('#VN_NN').val(result.VN_NN);
             $('#TypeShip').val(result.TypeShip);
             $('#criticalDateShip').val(result.criticalDateShip);

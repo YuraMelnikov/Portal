@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,10 +19,7 @@ namespace Wiki.Controllers
         private string postServer = "отправлены данные от сервера ";
         private string getServerError = "ошибка получения данныех от сервера ";
         private string postServerError = "ошибка отправки данных от сервера ";
-        
         private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        private PortalKATEKEntities db = new PortalKATEKEntities();
 
         [Authorize(Roles = "Admin, KBMUser, KBM, KBMUser, Technologist, KBE, KBEUser, GR, OPTP, OTK, Manufacturing, Sklad, OP, OS")]
         public ActionResult Index()
@@ -98,24 +96,24 @@ namespace Wiki.Controllers
             return View();
         }
 
-        public JsonResult List()
-        {
-            List<CMO_Order> query = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
-            var data = query.Select(dataList => new
-            {
-                dataList.p
-            });
+        //public JsonResult List()
+        //{
+        //    List<CMO_Order> query = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
+        //    var data = query.Select(dataList => new
+        //    {
+        //        dataList.p
+        //    });
 
-            return Json(new { data });
-        }
+        //    return Json(new { data });
+        //}
 
         string GetPositionNames(List<CMO_PositionOrder> cMO_PositionOrders)
         {
-            foreach (var position in item.CMO_PositionOrder.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
-            {
-                @position.PZ_PlanZakaz.PlanZakaz < nobr > -</ nobr > @position.CMO_TypeProduct.name<nobr> < br /></ nobr >;
+            //foreach (var position in item.CMO_PositionOrder.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
+            //{
+            //    @position.PZ_PlanZakaz.PlanZakaz < nobr > -</ nobr > @position.CMO_TypeProduct.name<nobr> < br /></ nobr >;
 
-            }
+            //}
             return "";
         }
 
