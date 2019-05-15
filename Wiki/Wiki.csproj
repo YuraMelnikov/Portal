@@ -1026,6 +1026,7 @@
     <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Content\jquery.tablesorter.js" />
     <Content Include="Content\MelnikauCSS.css" />
+    <Content Include="Content\ReportSmall.js" />
     <Content Include="Content\Report.js" />
     <Content Include="Content\Scripts\bootstrap-table.min.css" />
     <Content Include="Content\Scripts\bootstrap-table.min.js" />

@@ -96,33 +96,49 @@ namespace Wiki.Controllers
             return View();
         }
 
-        //public JsonResult List()
-        //{
-        //    List<CMO_Order> query = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
-        //    var data = query.Select(dataList => new
-        //    {
-        //        dataList.p
-        //    });
+        public JsonResult List()
+        {
+            List<CMO_Order> query = db.CMO_Order.Where(d => d.datetimeWinTenderFinish != null).Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
+            var data = query.Select(dataList => new
+            {
+                positionNames = GetPositionNames(dataList.CMO_PositionOrder.ToList()),
+                client = dataList.CMO_Company.name,
+                costFirst = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().cost,
+                dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day,
+                costFinal = dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().cost,
+                dateStart = JsonConvert.SerializeObject(dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload, settings).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(GetDatePlanComplited(dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().day.Value, dataList.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().dateTimeUpload.Value), settings).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.dateCloseOrder, settings).Replace(@"""", "")
+            });
+            return Json(new { data });
+        }
 
-        //    return Json(new { data });
-        //}
+        DateTime GetDatePlanComplited(int day, DateTime dateStartWork)
+        {
+            for(int i = 0; i < day; i++)
+            {
+                if (dateStartWork.DayOfWeek == DayOfWeek.Friday)
+                    dateStartWork = dateStartWork.AddDays(3);
+                else
+                    dateStartWork = dateStartWork.AddDays(1);
+            }
+            return dateStartWork;
+        }
 
         string GetPositionNames(List<CMO_PositionOrder> cMO_PositionOrders)
         {
-            //foreach (var position in item.CMO_PositionOrder.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
-            //{
-            //    @position.PZ_PlanZakaz.PlanZakaz < nobr > -</ nobr > @position.CMO_TypeProduct.name<nobr> < br /></ nobr >;
-
-            //}
-            return "";
+            string positionNames = "";
+            foreach (var position in cMO_PositionOrders.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
+            {
+                positionNames += position.PZ_PlanZakaz.PlanZakaz + " - " + position.CMO_TypeProduct.name + "<br/>";
+            }
+            return positionNames;
         }
-
-
+        
         public ActionResult ReportSmall()
         {
             string login = HttpContext.User.Identity.Name;
-            List<CMO_Order> data = db.CMO_Order.Where(d => d.dateCreate > firstReportPosition).OrderByDescending(d => d.dateCreate).ToList();
-            return View(data);
+            return View();
         }
         
         public ActionResult CloseOrder(int? id)

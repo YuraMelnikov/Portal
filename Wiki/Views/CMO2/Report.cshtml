@@ -3,77 +3,20 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
+<head>
+    <script src="~/Areas/PZ/Contant/Bootstrap/jquery-3.3.1.js"></script>
+    <link href="~/Areas/PZ/Contant/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/Bootstrap/bootstrap.js"></script>
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Content/Report.js"></script>
+</head>
 <h4>Заявки на заказ железа</h4>
+<a href="~/CMO2/Index" class="btn-sm btn-primary" role="button">Назад</a>
 <br />
-<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jqueryTable">
-    <thead>
-        <tr style="text-align:center">
-            <th class="col-md-3"><h6 style="text-align:center">№ Заказа</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Подрядчик</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Первая цена, <wbr> б/НДС (BYN)</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Изг.,  <wbr> дн</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Стоимость, <wbr> б/НДС (BYN)</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Дата размещения</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Дата исполнения</h6></th>
-            <th class="col-md-1"><h6 style="text-align:center">Дата поступления</h6></th>
-        </tr>
-    </thead>
-    <tbody id="myTable">
-        @foreach (var item in Model)
-        {
-        <tr>
-            @if (item.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).Count() > 0)
-            {
-                <td>
-                    @foreach (var position in item.CMO_PositionOrder.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList())
-                    {
-                        @position.PZ_PlanZakaz.PlanZakaz <nobr>-</nobr> @position.CMO_TypeProduct.name <nobr><br /></nobr>;
-
-                    }
-                </td>
-                <td>@item.CMO_Company.name</td>
-                try
-                {
-                    <td>@item.CMO_Tender.Where(d => d.id_CMO_TypeTask == 2).First().CMO_UploadResult.First().cost</td>
-                }
-                catch
-                {
-                    <td></td>
-                }
-
-                <td></td>
-                try
-                {
-                    <td>@item.CMO_Tender.Where(d => d.id_CMO_TypeTask == 3).First().CMO_UploadResult.First().cost</td>
-                }
-                catch
-                {
-                    <td></td>
-                }
-                <td></td>
-                <td></td>
-                <td></td>
-            }
-
-        </tr>
-        }
-    </tbody>
-</table>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#jqueryTable').dataTable({
-            "scrollY": '75vh',
-            "scrollX": true,
-            "paging": false,
-            "info": false,
-            "language": {
-                "zeroRecords": "Отсутствуют записи",
-                "infoEmpty": "Отсутствуют записи",
-                "search": "Поиск"
-            }
-        });
-    });
-</script>
-
-<script src="~/Content/Scripts/bootstrap-table.min.js"></script>
-<script src="~/Content/Scripts/jquery.min.js"></script>
+<table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
