@@ -16,9 +16,11 @@ namespace Wiki
     {
         public int id { get; set; }
         public int id_Reclamation { get; set; }
-        public System.DateTime dateTimeClose { get; set; }
+        public Nullable<System.DateTime> dateTimeClose { get; set; }
         public string text { get; set; }
         public string description { get; set; }
+        public string id_AspNetUsersCreate { get; set; }
+        public System.DateTime dateTimeCreate { get; set; }
     
         public virtual Reclamation Reclamation { get; set; }
     }

@@ -775,9 +775,11 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_Reclamation" Type="int" Nullable="false" />
-          <Property Name="dateTimeClose" Type="datetime" Nullable="false" />
+          <Property Name="dateTimeClose" Type="datetime" />
           <Property Name="text" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Type">
           <Key>
@@ -5194,10 +5196,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateTimeClose" Type="DateTime" Precision="3" />
           <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Reclamation_Type">
           <Key>
@@ -8091,6 +8095,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation_TechnicalAdvice">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdvice">
               <MappingFragment StoreEntitySet="Reclamation_TechnicalAdvice">
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />

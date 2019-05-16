@@ -81,7 +81,14 @@ namespace Wiki.Areas.Reclamation.Models
             devision = reclamation.Devision.name;
             dateCreate = reclamation.dateTimeCreate;
             userCreate = reclamation.AspNetUsers.CiliricalName;
-            userReclamation = reclamation.AspNetUsers1.CiliricalName;
+            try
+            {
+                userReclamation = reclamation.AspNetUsers1.CiliricalName;
+            }
+            catch
+            {
+                userReclamation = "";
+            }
         }
 
         string GetPlanZakazName(List<Reclamation_PZ> reclamation_PZs)
