@@ -42,6 +42,8 @@ namespace Wiki
         public string PCAM { get; set; }
         public bool editManufacturing { get; set; }
         public int id_PF { get; set; }
+        public Nullable<int> editManufacturingIdDevision { get; set; }
+        public bool technicalAdvice { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Devision Devision { get; set; }
