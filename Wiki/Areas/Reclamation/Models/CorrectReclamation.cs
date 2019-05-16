@@ -23,7 +23,7 @@ namespace Wiki.Areas.Reclamation.Models
             this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
             if (reclamation.id_AspNetUsersError != null)
-                this.reclamation.id_DevisionReclamation = reclamation.AspNetUsers1.Devision.Value;
+                this.reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
             GetCorrectFieldReclamation();
         }
 

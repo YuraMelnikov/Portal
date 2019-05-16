@@ -40,8 +40,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (login == "myi@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || id_Devision == 16)
-                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.LockoutEnabled == true && d.Devision == 3 || id_Devision == 16)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -55,9 +54,9 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
             {
-                ViewBag.id_AspNetUsersError = new SelectList(db.UserPO
-                    .Where(d => d.id_Devision == id_Devision)
-                    .OrderBy(d => d.name), "id", "name");
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == id_Devision).Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '3';
             }
             else
