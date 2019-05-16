@@ -15,7 +15,6 @@ var objRemarksList = [
     { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Рук. КБ", "data": "AnswersChief", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },
     { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
@@ -131,32 +130,28 @@ function closeReclamation() {
 }
 
 function Add() {
-    //var res = validate();
-    //if (res === false) {
-    //    return false;
-    //}
+    var res = validate();
+    if (res === false) {
+        return false;
+    }
     $("#btnAdd").attr('disabled', true);
     var objRemark = {
-        id: $('#id').val(),
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
         id_Reclamation_Type: $('#id_Reclamation_Type').val(),
+        close: $('#close').is(":checked"),
         id_DevisionReclamation: $('#id_DevisionReclamation').val(),
+        id_AspNetUsersError: $('#id_AspNetUsersError').val(),
         id_Reclamation_CountErrorFirst: $('#id_Reclamation_CountErrorFirst').val(),
-        id_Reclamation_CountErrorFinal: $('#id_Reclamation_CountErrorFinal').val(),
-        id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
-        id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
-        id_DevisionCreate: $('#id_DevisionCreate').val(),
-        dateTimeCreate: $('#dateTimeCreate').val(),
-        text: $('#text').val(),
-        description: $('#description').val(),
         timeToSearch: $('#timeToSearch').val(),
         timeToEliminate: $('#timeToEliminate').val(),
-        close: $('#close').val(),
-        gip: $('gip').val(),
-        closeDevision: $('#closeDevision').val(),
-        PCAM: $('#PCAM').val(),
-        editManufacturing: $('#editManufacturing').val(),
+        text: $('#text').val(),
+        description: $('#description').val(),
         id_PF: $('#id_PF').val(),
-        pZ_PlanZakaz: $('#pZ_PlanZakaz').val()
+        PCAM: $('#PCAM').val(),
+        closeDevision: $('#closeDevision').is(":checked"),
+        gip: $('#gip').is(":checked"),
+        trash: $('#trash').is(":checked"),
+        editManufacturing: $('#editManufacturing').is(":checked")
     };
     $.ajax({
         cache: false,
@@ -177,7 +172,14 @@ function Add() {
 
 function validate() {
     var isValid = true;
-    if ($('#id_Reclamation_Type').val().trim() === "") {
+    if ($('#pZ_PlanZakaz').val().length === 0) {
+        $('#pZ_PlanZakaz').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#pZ_PlanZakaz').css('border-color', 'lightgrey');
+    }
+    if ($('#id_Reclamation_Type').val() === null) {
         $('#id_Reclamation_Type').css('border-color', 'Red');
         isValid = false;
     }
@@ -191,13 +193,19 @@ function validate() {
     else {
         $('#id_DevisionReclamation').css('border-color', 'lightgrey');
     }
-
-    if ($('#text').val() === null) {
+    if ($('#text').val().trim() === "") {
         $('#text').css('border-color', 'Red');
         isValid = false;
     }
     else {
         $('#text').css('border-color', 'lightgrey');
+    }
+    if ($('#id_PF').val() === null) {
+        $('#id_PF').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_PF').css('border-color', 'lightgrey');
     }
     return isValid;
 }
@@ -209,33 +217,40 @@ function clearTextBox(counterDevision) {
     $('#pZ_PlanZakaz').chosen();
     $('#pZ_PlanZakaz').trigger('chosen:updated');
     $('#id_Reclamation_Type').val("");
+    $('#id_AspNetUsersCreate').val("");
+    $('#dateTimeCreate').val("");
+    $('#close').prop('checked', false);
     $('#id_DevisionReclamation').val("");
+    $('#id_AspNetUsersError').val("");
     $('#id_Reclamation_CountErrorFirst').val("");
     $('#id_Reclamation_CountErrorFinal').val("");
-    $('#id_AspNetUsersCreate').val("");
-    $('#id_DevisionCreate').val("");
-    $('#dateTimeCreate').val("");
-    $('#text').val("");
-    $('#description').val("");
     $('#timeToSearch').val("");
     $('#timeToEliminate').val("");
-    $('#close').val("");
-    $('#gip').val("");
-    $('#closeDevision').val("");
-    $('#PCAM').val("");
-    $('#editManufacturing').val("");
+    $('#text').val("");
+    $('#description').val("");
     $('#id_PF').val("");
-    $('#closeDevision').prop('disabled', true);
-    $('#id_DevisionReclamationReload').prop('disabled', true);
-    $('#reload').prop('disabled', true);
+    $('#PCAM').val("");
+    $('#closeDevision').prop('checked', false);
+    $('#answerText').val("");
+    $('#answerHistiryText').val("");
+    $('#reloadDevision').val("");
+    $('#reload').prop('checked', false);
+    $('#gip').prop('checked', false);
+    $('#trash').prop('checked', false);
+    $('#editManufacturing').prop('checked', false);
+    
     $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
-    $('#History').prop('disabled', true);
-    $('#Answer').prop('disabled', true);
+    $('#closeDevision').prop('disabled', true);
+    $('#answerText').prop('disabled', true);
+    $('#answerHistiryText').prop('disabled', true);
+    $('#reloadDevision').prop('disabled', true);
+    $('#reload').prop('disabled', true);
+    $('#trash').prop('disabled', true);
+
     if (counterDevision === 1) {
         $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
-        //Ответ и история переписки, придется ваять новую модель, состоящую с одной рекламации одного ответа и стринга истории переписки
     }
     else if (counterDevision === 2) {
         $('#close').prop('disabled', true);

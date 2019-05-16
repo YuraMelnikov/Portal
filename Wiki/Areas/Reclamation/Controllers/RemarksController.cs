@@ -170,17 +170,21 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
         
-        public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
+        public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string id_AspNetUsersError, bool editManufacturing)
         {
             string login = HttpContext.User.Identity.Name;
             reclamation.dateTimeCreate = DateTime.Now;
-            CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login);
+            CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login, id_AspNetUsersError);
             reclamation = correctReclamation.Reclamation;
             db.Reclamation.Add(reclamation);
+            db.SaveChanges();
+            CreateReclamation_PZ(pZ_PlanZakaz, reclamation.id);
+            //mail rebuild Manuf.
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(Wiki.Reclamation reclamation)
+        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, int? id_AspNetUsersError,
+            string answerText, bool? reload, int? reloadDevision, bool? trash, bool editManufacturing)
         {
             string login = HttpContext.User.Identity.Name;
             CorrectReclamation correctPlanZakaz = new CorrectReclamation(reclamation);
@@ -244,6 +248,21 @@ namespace Wiki.Areas.Reclamation.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+        bool CreateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
+        {
+            foreach (var pz in pZ_PlanZakaz)
+            {
+                Reclamation_PZ reclamation_PZ = new Reclamation_PZ
+                {
+                    id_PZ_PlanZakaz = pz,
+                    id_Reclamation = id_Reclamation
+                };
+                db.Reclamation_PZ.Add(reclamation_PZ);
+                db.SaveChanges();
+            }
+            return true;
         }
     }
 }

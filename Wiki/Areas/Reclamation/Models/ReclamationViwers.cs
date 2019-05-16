@@ -20,7 +20,6 @@ namespace Wiki.Areas.Reclamation.Models
         string answers;
         string devision;
         DateTime dateCreate;
-        string answersChief;
         string userCreate;
         string userReclamation;
         string leavelReclamation;
@@ -39,7 +38,6 @@ namespace Wiki.Areas.Reclamation.Models
         public float TimeToSearch { get => timeToSearch; set => timeToSearch = value; }
         public string Close { get => close; set => close = value; }
         public string UserCreate { get => userCreate; set => userCreate = value; }
-        public string AnswersChief { get => answersChief; set => answersChief = value; }
         public string UserReclamation { get => userReclamation; set => userReclamation = value; }
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
         
@@ -50,7 +48,6 @@ namespace Wiki.Areas.Reclamation.Models
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
             GetUserReclamation(reclamation);
-            GetAnswersChief(reclamation);
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
@@ -60,7 +57,6 @@ namespace Wiki.Areas.Reclamation.Models
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
             GetUserReclamation(reclamation);
-            GetAnswersChief(reclamation);
         }
 
         string GetLeavelReclamation(Wiki.Reclamation reclamation)
@@ -95,36 +91,6 @@ namespace Wiki.Areas.Reclamation.Models
                 }
             }
             return user;
-        }
-        
-        string GetAnswersChief(Wiki.Reclamation reclamation)
-        {
-            string answer = "";
-            if (reclamation.id_DevisionReclamation == 3)
-            {
-                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "5ba3227f-ac84-4d65-ad87-632044217841").Count() > 0)
-                    answer = reclamation.Reclamation_Answer
-                        .Where(d => d.id_AspNetUsersCreate == "5ba3227f-ac84-4d65-ad87-632044217841")
-                        .OrderByDescending(d => d.dateTimeCreate)
-                        .First().answer;
-            }
-            else if (reclamation.id_DevisionReclamation == 15)
-            {
-                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "8294e987-b175-4444-b300-8cb729448b38").Count() > 0)
-                    answer = reclamation.Reclamation_Answer
-                        .Where(d => d.id_AspNetUsersCreate == "8294e987-b175-4444-b300-8cb729448b38")
-                        .OrderByDescending(d => d.dateTimeCreate)
-                        .First().answer;
-            }
-            else if (reclamation.id_DevisionReclamation == 16)
-            {
-                if (reclamation.Reclamation_Answer.Where(d => d.id_AspNetUsersCreate == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76").Count() > 0)
-                    answer = reclamation.Reclamation_Answer
-                        .Where(d => d.id_AspNetUsersCreate == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
-                        .OrderByDescending(d => d.dateTimeCreate)
-                        .First().answer;
-            }
-            return answer;
         }
 
         void GetReclamationData(Wiki.Reclamation reclamation)
