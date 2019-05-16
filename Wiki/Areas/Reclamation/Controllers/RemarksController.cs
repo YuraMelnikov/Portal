@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System;
 using Wiki.Models;
+using System.Collections.Generic;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -226,8 +227,9 @@ namespace Wiki.Areas.Reclamation.Controllers
                 dataList.id_DevisionReclamation,
                 dataList.id_Reclamation_CountErrorFirst,
                 dataList.id_Reclamation_CountErrorFinal,
-                dataList.id_AspNetUsersCreate,
+                id_AspNetUsersCreate = dataList.AspNetUsers.CiliricalName,
                 dataList.id_DevisionCreate,
+                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
                 dataList.text,
                 dataList.description,
                 dataList.timeToSearch,
@@ -237,10 +239,23 @@ namespace Wiki.Areas.Reclamation.Controllers
                 dataList.closeDevision,
                 dataList.PCAM,
                 dataList.editManufacturing,
-                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", "")
+                dataList.editManufacturingIdDevision,
+                dataList.id_PF,
+                dataList.technicalAdvice,
+                dataList.id_AspNetUsersError,
+                pZ_PlanZakaz = GetPlanZakazArray(dataList.Reclamation_PZ.ToList())
             });
-
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        string[] GetPlanZakazArray(List<Reclamation_PZ> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_PZ_PlanZakaz.ToString();
+            }
+            return pZ_PlanZakaz;
         }
 
         int GetIdDevision(string loginUser)

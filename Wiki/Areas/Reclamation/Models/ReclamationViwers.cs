@@ -51,8 +51,8 @@ namespace Wiki.Areas.Reclamation.Models
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
         {
-            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
-            editLinkJS = GetEditLink(id_Devision, reclamation.id);
+            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
         }
@@ -130,20 +130,6 @@ namespace Wiki.Areas.Reclamation.Models
             return db.Reclamation_Answer
                             .Where(d => d.id_Reclamation == id_Reclamation)
                             .ToList();
-        }
-
-        string GetEditLink(int id_Devision, int id_Reclamation)
-        {
-            string link = "";
-            if (id_Devision == 6)
-                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getOTKID('";
-            if (id_Devision == 3 || id_Devision == 15 || id_Devision == 16)
-                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getKOID('";
-            if (id_Devision > 0)
-                link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getStandartID('";
-            if (id_Devision != 0)
-                link += id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            return link;
         }
     }
 }
