@@ -16,18 +16,21 @@ namespace Wiki.Areas.Reclamation.Models
             GetCorrectFieldReclamation();
         }
 
-        public CorrectReclamation(Wiki.Reclamation reclamation, string login, string id_AspNetUsersError)
+        public CorrectReclamation(Wiki.Reclamation reclamation, string login)
         {
             this.reclamation = reclamation;
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
+            if (reclamation.id_AspNetUsersError != null)
+                this.reclamation.id_DevisionReclamation = reclamation.AspNetUsers1.Devision.Value;
             GetCorrectFieldReclamation();
-            //id_AspNetUsersError
         }
 
         bool GetCorrectFieldReclamation()
         {
+            if (reclamation.editManufacturingIdDevision == 0)
+                reclamation.editManufacturingIdDevision = null;
             if (reclamation.dateTimeCreate == null)
                 reclamation.dateTimeCreate = DateTime.Now;
             if (reclamation.text == null)

@@ -478,6 +478,7 @@
     <Compile Include="Models\COM_UploadResult.cs" />
     <Compile Include="Models\Despatching.cs" />
     <Compile Include="Models\DespatchingTmp.cs" />
+    <Compile Include="Models\DevisionsManufacturing.cs" />
     <Compile Include="Models\Dictionaries.cs" />
     <Compile Include="Models\ElementsWorkDeskOS.cs" />
     <Compile Include="Models\EmailClient.cs" />

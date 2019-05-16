@@ -13,7 +13,7 @@ namespace Wiki.Controllers
     public class UploadERController : Controller
     {
         private PortalKATEKEntities db = new PortalKATEKEntities();
-        string directory = @"\\192.168.1.30\m$\Пользователи\myi\UploadTEO\";
+        readonly string directory = @"\\192.168.1.30\m$\Пользователи\myi\UploadTEO\";
 
         public ActionResult Index()
         {
@@ -189,21 +189,23 @@ namespace Wiki.Controllers
                     }
                     else
                     {
-                        XTEO xteo = new XTEO();
-                        xteo.planZakaz = Convert.ToInt32(variable.PlanZakaz);
-                        xteo.curency = variable.Curency;
-                        xteo.dateShip = variable.DateShip;
-                        xteo.fssm = variable.FSSM;
-                        xteo.izKom = variable.IzKom;
-                        xteo.viruchka = variable.Virucha;
-                        xteo.fsspo = variable.FSSPO;
-                        xteo.oChena = variable.OChena;
-                        xteo.percKredit = variable.PercKredit;
-                        xteo.ssm = variable.SSM;
-                        xteo.sspo = variable.SSPO;
-                        xteo.pi = variable.PI;
-                        xteo.valut = variable.Valut;
-                        xteo.dateOpen = variable.DateOpen;
+                        XTEO xteo = new XTEO
+                        {
+                            planZakaz = Convert.ToInt32(variable.PlanZakaz),
+                            curency = variable.Curency,
+                            dateShip = variable.DateShip,
+                            fssm = variable.FSSM,
+                            izKom = variable.IzKom,
+                            viruchka = variable.Virucha,
+                            fsspo = variable.FSSPO,
+                            oChena = variable.OChena,
+                            percKredit = variable.PercKredit,
+                            ssm = variable.SSM,
+                            sspo = variable.SSPO,
+                            pi = variable.PI,
+                            valut = variable.Valut,
+                            dateOpen = variable.DateOpen
+                        };
                         db.XTEO.Add(xteo);
                         db.SaveChanges();
                     }

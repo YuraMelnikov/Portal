@@ -66,11 +66,11 @@
                 <hr />
                 <div class="row">
                     <div class="col-lg-3">
-                        <label>Ответственное СП:</label>
+                        <label onclick="clearid_DevisionReclamation()">Ответственное СП (click - очистить): </label>
                         @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-3">
-                        <label>Ответственный сотрудник:</label>
+                        <label onclick="clearid_AspNetUsersError()">Ответственный сотрудник (click - очистить): </label>
                         @Html.DropDownList("id_AspNetUsersError", ViewBag.id_AspNetUsersError as MultiSelectList, new { @class = "form-control" })
                     </div>
 
@@ -120,11 +120,11 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label>Ответ:</label>
-                        <input type="text" id="answerText" class = "form-control" rows = 8 } />
+                        <textarea name="answerText" id="answerText" class="form-control" rows=8></textarea>
                     </div>
                     <div class="col-lg-6">
                         <label>История переписки:</label>
-                        <input type="text" id="answerHistiryText" class="form-control" rows=8 } />
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=8></textarea>
                     </div>
                 </div>
                 <hr />
@@ -138,8 +138,19 @@
                     <div class="col-lg-1">
                         <input type="checkbox" id="reload" />
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-1">
+                        <label>Исправить ПО: </label>
+                    </div>
+                    <div class="col-lg-1">
+                        @Html.DropDownList("editManufacturingIdDevision", ViewBag.DevisionsManufacturing as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="editManufacturing" />
+                    </div>
 
+                    <div class="col-lg-2">
+                        <label>На техсовет: </label>
+                        <input type="checkbox" id="technicalAdvice" />
                     </div>
                     <div class="col-lg-2">
                         <label>ГИП: </label>
@@ -148,10 +159,6 @@
                     <div class="col-lg-2">
                         <label>Шум: </label>
                         <input type="checkbox" id="trash" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Исправить на произв.: </label>
-                        <input type="checkbox" id="editManufacturing" />
                     </div>
                 </div>
             </div>

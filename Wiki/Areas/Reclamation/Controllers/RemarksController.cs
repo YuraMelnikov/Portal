@@ -3,6 +3,7 @@ using Wiki.Areas.Reclamation.Models;
 using System.Linq;
 using Newtonsoft.Json;
 using System;
+using Wiki.Models;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -15,10 +16,15 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             int id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
+            ViewBag.DevisionsManufacturing = new SelectList(new DevisionsManufacturing().Devisions.OrderBy(d => d.name), "id", "name");
+            if (id_Devision == 16 || id_Devision == 3)
+                ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != 3 && d.id != 16).OrderBy(d => d.name), "id", "name");
+            else
+                ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != id_Devision).OrderBy(d => d.name), "id", "name");
             if (login == "fvs@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
+                    .Where(d => d.Devision == 3 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
@@ -26,24 +32,24 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (login == "nrf@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
-                                        .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 15)
+                    .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
             else if (login == "myi@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 15 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
-                                        .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3 || id_Devision == 16)
+                    .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
             else if (login == "Kuchynski@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Email == "melnikauyi@gmail.com" || d.Email == "katekproject@gmail.com")
-                                        .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3 || d.Devision == 16)
+                    .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
@@ -66,13 +72,9 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
-            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true)
-                .OrderBy(d => d.name), "id", "name");
-            ViewBag.id_DevisionReclamationReload = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != id_Devision)
-                .OrderBy(d => d.name), "id", "name");
-            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError
-                .Where(d => d.active == true)
-                .OrderBy(d => d.name), "id", "name");
+
+            ViewBag.id_DevisionReclamationReload = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != id_Devision).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             DateTime dateTimeSh = DateTime.Now.AddDays(-14);
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
@@ -169,12 +171,12 @@ namespace Wiki.Areas.Reclamation.Controllers
             reclamationListViewer.GetReclamation(GetIdDevision(login), true);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
-        
-        public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string id_AspNetUsersError, bool editManufacturing)
+
+        public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
         {
             string login = HttpContext.User.Identity.Name;
             reclamation.dateTimeCreate = DateTime.Now;
-            CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login, id_AspNetUsersError);
+            CorrectReclamation correctReclamation = new CorrectReclamation(reclamation, login);
             reclamation = correctReclamation.Reclamation;
             db.Reclamation.Add(reclamation);
             db.SaveChanges();
@@ -183,8 +185,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, int? id_AspNetUsersError,
-            string answerText, bool? reload, int? reloadDevision, bool? trash, bool editManufacturing)
+        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
             CorrectReclamation correctPlanZakaz = new CorrectReclamation(reclamation);
@@ -220,7 +221,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
-        
+
         int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;

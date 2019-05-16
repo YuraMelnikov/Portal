@@ -26,7 +26,6 @@ var objRemark = {
     id_DevisionReclamation: $('#id_DevisionReclamation').val(),
     id_Reclamation_CountErrorFirst: $('#id_Reclamation_CountErrorFirst').val(),
     id_Reclamation_CountErrorFinal: $('#id_Reclamation_CountErrorFinal').val(),
-    id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
     id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
     id_DevisionCreate: $('#id_DevisionCreate').val(),
     dateTimeCreate: $('#dateTimeCreate').val(),
@@ -39,8 +38,10 @@ var objRemark = {
     closeDevision: $('#closeDevision').val(),
     PCAM: $('#PCAM').val(),
     editManufacturing: $('#editManufacturing').val(),
+    editManufacturingIdDevision: $('#editManufacturingIdDevision').val(),
     id_PF: $('#id_PF').val(),
-    pZ_PlanZakaz: $('#pZ_PlanZakaz').val()
+    pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+    technicalAdvice: $('#technicalAdvice').val()
 };
 
 function activeReclamation() {
@@ -151,7 +152,9 @@ function Add() {
         closeDevision: $('#closeDevision').is(":checked"),
         gip: $('#gip').is(":checked"),
         trash: $('#trash').is(":checked"),
-        editManufacturing: $('#editManufacturing').is(":checked")
+        editManufacturingIdDevision: $('#editManufacturingIdDevision').val(),
+        editManufacturing: $('#editManufacturing').is(":checked"),
+        technicalAdvice: $('#technicalAdvice').is(":checked")
     };
     $.ajax({
         cache: false,
@@ -172,6 +175,22 @@ function Add() {
 
 function validate() {
     var isValid = true;
+
+    if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
+        $('#id_DevisionReclamation').css('border-color', 'Red');
+        $('#id_AspNetUsersError').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+    }
+    if ($('#editManufacturing').is(":checked") === true && $('#editManufacturingIdDevision').val() === null) {
+        $('#editManufacturingIdDevision').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+    }
     if ($('#pZ_PlanZakaz').val().length === 0) {
         $('#pZ_PlanZakaz').css('border-color', 'Red');
         isValid = false;
@@ -186,7 +205,7 @@ function validate() {
     else {
         $('#id_Reclamation_Type').css('border-color', 'lightgrey');
     }
-    if ($('#id_DevisionReclamation').val() === null) {
+    if ($('#id_DevisionReclamation').val() === null && $('#id_AspNetUsersError').val() === null) {
         $('#id_DevisionReclamation').css('border-color', 'Red');
         isValid = false;
     }
@@ -208,6 +227,14 @@ function validate() {
         $('#id_PF').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+function clearid_AspNetUsersError() {
+    $('#id_AspNetUsersError').val("");
+}
+
+function clearid_DevisionReclamation() {
+    $('#id_DevisionReclamation').val("");
 }
 
 function clearTextBox(counterDevision) {
@@ -238,6 +265,8 @@ function clearTextBox(counterDevision) {
     $('#gip').prop('checked', false);
     $('#trash').prop('checked', false);
     $('#editManufacturing').prop('checked', false);
+    $('#editManufacturingIdDevision').val("");
+    $('#technicalAdvice').prop('checked', false);
     
     $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
     $('#closeDevision').prop('disabled', true);
@@ -251,6 +280,7 @@ function clearTextBox(counterDevision) {
         $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
+        $('#technicalAdvice').prop('disabled', true);
     }
     else if (counterDevision === 2) {
         $('#close').prop('disabled', true);
@@ -264,6 +294,7 @@ function clearTextBox(counterDevision) {
         $('#close').prop('disabled', true);
         $('#timeToSearch').prop('disabled', true);
         $('#timeToEliminate').prop('disabled', true);
+        $('#technicalAdvice').prop('disabled', true);
     }
     $('#btnUpdate').hide();
     $('#btnAdd').show();

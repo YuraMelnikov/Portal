@@ -47,7 +47,6 @@ namespace Wiki.Areas.Reclamation.Models
             editLinkJS = "";
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
-            GetUserReclamation(reclamation);
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
@@ -56,7 +55,6 @@ namespace Wiki.Areas.Reclamation.Models
             editLinkJS = GetEditLink(id_Devision, reclamation.id);
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
-            GetUserReclamation(reclamation);
         }
 
         string GetLeavelReclamation(Wiki.Reclamation reclamation)
@@ -67,30 +65,6 @@ namespace Wiki.Areas.Reclamation.Models
                 level = reclamation.Reclamation_CountError.name;
             }
             return level;
-        }
-
-        string GetUserReclamation(Wiki.Reclamation reclamation)
-        {
-            string user = "";
-            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
-            {
-                if (reclamation.Reclamation_Answer.Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation).Count() > 0)
-                    user = reclamation.Reclamation_Answer
-                        .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
-                        .OrderByDescending(d => d.dateTimeCreate)
-                        .First().AspNetUsers1.CiliricalName;
-            }
-            else if (reclamation.id_DevisionReclamation == 22 || reclamation.id_DevisionReclamation == 27 || reclamation.id_DevisionReclamation == 8 || reclamation.id_DevisionReclamation == 20 || reclamation.id_DevisionReclamation == 9 || reclamation.id_DevisionReclamation == 10)
-            {
-                if(reclamation.Reclamation_Answer.Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation).Count() > 0)
-                {
-                    user = reclamation.Reclamation_Answer
-                                .Where(d => d.AspNetUsers.Devision == reclamation.id_DevisionReclamation)
-                                .OrderByDescending(d => d.dateTimeCreate)
-                                .First().userPO;
-                }
-            }
-            return user;
         }
 
         void GetReclamationData(Wiki.Reclamation reclamation)
@@ -107,6 +81,7 @@ namespace Wiki.Areas.Reclamation.Models
             devision = reclamation.Devision.name;
             dateCreate = reclamation.dateTimeCreate;
             userCreate = reclamation.AspNetUsers.CiliricalName;
+            userReclamation = reclamation.AspNetUsers1.CiliricalName;
         }
 
         string GetPlanZakazName(List<Reclamation_PZ> reclamation_PZs)

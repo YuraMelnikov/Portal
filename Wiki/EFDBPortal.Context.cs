@@ -84,6 +84,7 @@ namespace Wiki
         public virtual DbSet<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
         public virtual DbSet<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
         public virtual DbSet<OTK_TypeReclamation> OTK_TypeReclamation { get; set; }
+        public virtual DbSet<PF> PF { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
@@ -136,6 +137,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<PF> PF { get; set; }
     }
 }

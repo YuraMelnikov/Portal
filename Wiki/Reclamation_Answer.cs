@@ -16,15 +16,12 @@ namespace Wiki
     {
         public int id { get; set; }
         public int id_Reclamation { get; set; }
-        public string id_AspNetUsersError { get; set; }
         public string id_AspNetUsersCreate { get; set; }
         public string answer { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public bool trash { get; set; }
-        public string userPO { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual Reclamation Reclamation { get; set; }
     }
 }
