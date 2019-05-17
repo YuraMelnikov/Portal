@@ -312,10 +312,13 @@ function GetReclamation(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            AllNoDisabled();
             $('#id').val(result.id);
+            
             $('#pZ_PlanZakaz').val(result.pZ_PlanZakaz);
             $('#pZ_PlanZakaz').chosen();
             $('#pZ_PlanZakaz').trigger('chosen:updated');
+            
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
@@ -388,10 +391,9 @@ function GetReclamationView(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            //$('#pZ_PlanZakaz').prop('disabled', true);
             $('#id').val(result.id);
-            $('#pZ_PlanZakaz').val(result.pZ_PlanZakaz);
-            $('#pZ_PlanZakaz').chosen();
-            $('#pZ_PlanZakaz').trigger('chosen:updated');
+
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
@@ -438,11 +440,23 @@ function GetReclamationView(id) {
             $('#reloadDevision').prop('disabled', true);
             $('#reloadDevision').prop('disabled', true);
             $('#reload').prop('disabled', true);
+            //$('#pZ_PlanZakaz').prop('disabled', true);
 
-            $('#pZ_PlanZakaz').prop('disabled', true);
             $('#answerHistiryText').prop('disabled', true);
             $('#answerText').prop('disabled', true);
             $('#trash').prop('disabled', true);
+
+            var Values = new Array();
+            for (var i = 0; i < result.pZ_PlanZakaz.length; i++) {
+                Values.push(result.pZ_PlanZakaz[i]);
+            }
+
+            $("#pZ_PlanZakaz").select2('val', Values).trigger("chosen:updated");
+            //$('#pZ_PlanZakaz').val(result.pZ_PlanZakaz);
+            //$('#pZ_PlanZakaz').chosen();
+            //$('#pZ_PlanZakaz').trigger('chosen:updated');
+
+
             
             $('#viewReclamation').modal('show');
             $('#btnUpdate').show();
@@ -494,4 +508,35 @@ function Update() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function AllNoDisabled() {
+    $('#id').prop('disabled', false);
+    $('#id_Reclamation_Type').prop('disabled', false);
+    $('#id_DevisionReclamation').prop('disabled', false);
+    $('#id_Reclamation_CountErrorFirst').prop('disabled', false);
+    $('#id_Reclamation_CountErrorFinal').prop('disabled', false);
+    $('#id_AspNetUsersCreate').prop('disabled', false);
+    $('#id_DevisionCreate').prop('disabled', false);
+    $('#dateTimeCreate').prop('disabled', false);
+    $('#text').prop('disabled', false);
+    $('#description').prop('disabled', false);
+    $('#timeToSearch').prop('disabled', false);
+    $('#timeToEliminate').prop('disabled', false);
+    $('#close').prop('disabled', false);
+    $('#gip').prop('disabled', false);
+    $('#closeDevision').prop('disabled', false);
+    $('#PCAM').prop('disabled', false);
+    $('#editManufacturing').prop('disabled', false);
+    $('#editManufacturingIdDevision').prop('disabled', false);
+    $('#id_PF').prop('disabled', false);
+    $('#technicalAdvice').prop('disabled', false);
+    $('#id_AspNetUsersError').prop('disabled', false);
+    $('#reloadDevision').prop('disabled', false);
+    $('#reloadDevision').prop('disabled', false);
+    $('#reload').prop('disabled', false);
+    $('#pZ_PlanZakaz').prop('disabled', false);
+    $('#answerHistiryText').prop('disabled', false);
+    $('#answerText').prop('disabled', false);
+    $('#trash').prop('disabled', false);
 }
