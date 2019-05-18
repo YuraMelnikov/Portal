@@ -440,7 +440,7 @@ function GetReclamationView(id) {
             $('#reloadDevision').prop('disabled', true);
             $('#reloadDevision').prop('disabled', true);
             $('#reload').prop('disabled', true);
-            //$('#pZ_PlanZakaz').prop('disabled', true);
+            $('#pZ_PlanZakaz').prop('disabled', true);
 
             $('#answerHistiryText').prop('disabled', true);
             $('#answerText').prop('disabled', true);

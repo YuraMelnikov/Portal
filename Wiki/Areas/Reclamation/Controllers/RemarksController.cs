@@ -16,7 +16,15 @@ namespace Wiki.Areas.Reclamation.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
-            int id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
+            int id_Devision = 0;
+            try
+            {
+                id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             ViewBag.DevisionsManufacturing = new SelectList(new DevisionsManufacturing().Devisions.OrderBy(d => d.name), "id", "name");
             if (id_Devision == 16 || id_Devision == 3)
                 ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != 3 && d.id != 16).OrderBy(d => d.name), "id", "name");
