@@ -27,7 +27,8 @@ namespace Wiki.Areas.Reclamation.Models
             GetCorrectFieldReclamation();
             CorrectCloseReclamation();
             ReloadReclamation(reload, reloadDevision);
-
+            this.reclamation.dateTimeCreate = GetDatetimeCreate(reclamation.id);
+            this.reclamation.id_AspNetUsersCreate = GetUserCreate(reclamation.id);
         }
 
         bool GetCorrectFieldReclamation()
@@ -65,6 +66,10 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool CorrectCloseReclamation()
         {
+            if (reclamation.editManufacturing == false)
+            {
+                reclamation.editManufacturingIdDevision = null;
+            }
             if (reclamation.id_DevisionCreate != 6)
             {
                 reclamation.closeDevision = false;
@@ -84,6 +89,16 @@ namespace Wiki.Areas.Reclamation.Models
             else if (reclamation.close == true)
                 reclamation.closeDevision = true;
             return true;
+        }
+
+        DateTime GetDatetimeCreate(int id_reclamation)
+        {
+            return db.Reclamation.Find(id_reclamation).dateTimeCreate;
+        }
+
+        string GetUserCreate(int id_reclamation)
+        {
+            return db.Reclamation.Find(id_reclamation).id_AspNetUsersCreate;
         }
     }
 }

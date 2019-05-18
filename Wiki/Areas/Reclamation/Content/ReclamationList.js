@@ -7,10 +7,10 @@ $(document).ready(function () {
 });
 
 var objRemarksList = [
+    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
     { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
     { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
     { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": false },
     { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
@@ -54,7 +54,7 @@ function activeReclamation() {
         },
         "bDestroy": true,
         "processing": true,
-        "order": [[2, "desc"]],
+        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -97,7 +97,7 @@ function closeReclamation() {
         },
         "bDestroy": true,
         "processing": true,
-        "order": [[2, "desc"]],
+        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -225,6 +225,13 @@ function validate() {
     else {
         $('#id_PF').css('border-color', 'lightgrey');
     }
+    if ($('#reloadDevision').val() === null && $('#reload').is(":checked") === true) {
+        $('#reloadDevision').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#reloadDevision').css('border-color', 'lightgrey');
+    }
     return isValid;
 }
 
@@ -312,8 +319,10 @@ function GetReclamation(id) {
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
             $('#id_Reclamation_CountErrorFinal').val(result.id_Reclamation_CountErrorFinal);
+            $('#vid_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
+            $('#vdateTimeCreate').val(result.dateTimeCreate);
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
             $('#description').val(result.description);
@@ -381,9 +390,9 @@ function GetReclamationView(id) {
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
             $('#id_Reclamation_CountErrorFinal').val(result.id_Reclamation_CountErrorFinal);
-            $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
+            $('#vid_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
-            $('#dateTimeCreate').val(result.dateTimeCreate);
+            $('#vdateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
             $('#description').val(result.description);
             $('#timeToSearch').val(result.timeToSearch);
@@ -428,7 +437,7 @@ function GetReclamationView(id) {
             $('#pZ_PlanZakaz').prop('disabled', true);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $('#viewReclamation').modal('show');
-            $('#btnUpdate').show();
+            $('#btnUpdate').hide();
             $('#btnAdd').hide();
         },
         error: function (errormessage) {
@@ -444,6 +453,13 @@ function Update() {
         return false;
     }
     var objRemark = {
+        id: $('#id').val(),
+        dateTimeCreate: $('#dateTimeCreate').val(),
+        id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
+        id_DevisionCreate: $('#id_DevisionCreate').val(),
+        reloadDevision: $('#reloadDevision').val(),
+        id_Reclamation_CountErrorFinal: $('#id_Reclamation_CountErrorFinal').val(),
+        reload: $('#reload').is(":checked"),
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
         id_Reclamation_Type: $('#id_Reclamation_Type').val(),
         close: $('#close').is(":checked"),
@@ -465,14 +481,14 @@ function Update() {
     };
     $.ajax({
         cache: false,
-        url: "/Remarks/Update",
-        data: JSON.stringify(typeObj),
+        url: "/Remarks/Update/",
+        data: JSON.stringify(objRemark),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             activeReclamation();
-            $('#orderModal').modal('hide');
+            $('#viewReclamation').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
