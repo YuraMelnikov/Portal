@@ -448,13 +448,11 @@ function GetReclamationView(id) {
 }
 
 function Update() {
-    var myVal = counterDevision;
     var res = validate();
     if (counterDevision !== 1) {
-        var tmp = $('#answerText').val();
         if ($('#answerText').val() === "") {
             $('#answerText').css('border-color', 'Red');
-            isValid = false;
+            res = false;
         }
         else {
             $('#answerText').css('border-color', 'lightgrey');
