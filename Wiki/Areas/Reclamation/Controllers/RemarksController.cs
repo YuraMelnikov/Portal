@@ -218,10 +218,27 @@ namespace Wiki.Areas.Reclamation.Controllers
         public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
-            CreateReclamation correctPlanZakaz = new CreateReclamation(reclamation, login);
+            AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
+            CreateReclamation correctPlanZakaz = new CreateReclamation(reclamation, login, reload, reloadDevision);
             reclamation = correctPlanZakaz.Reclamation;
             db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            if (aspNetUser.Devision.Value != 6 && answerText != "" && answerText != null)
+            {
+                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                {
+                    answer = answerText,
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = aspNetUser.Id,
+                    id_Reclamation = reclamation.id,
+                    trash = trash.Value
+                };
+                db.Reclamation_Answer.Add(reclamation_Answer);
+                db.SaveChanges();
+            }
+            if(reclamation.technicalAdvice == true)
+                UpdateTechnicalAdvice(reclamation.id, aspNetUser.Id);
+            UpdateReclamation_PZ(pZ_PlanZakaz, reclamation.id);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
@@ -322,6 +339,54 @@ namespace Wiki.Areas.Reclamation.Controllers
             };
             db.Reclamation_TechnicalAdvice.Add(technicalAdvice);
             db.SaveChanges();
+            return true;
+        }
+
+        bool UpdateTechnicalAdvice(int id_Reclamation, string aspNetUser)
+        {
+            if(db.Reclamation_TechnicalAdvice.Where(d => d.id_Reclamation == id_Reclamation).Count() == 0 )
+            {
+                Reclamation_TechnicalAdvice technicalAdvice = new Reclamation_TechnicalAdvice
+                {
+                    description = "",
+                    id_AspNetUsersCreate = aspNetUser,
+                    id_Reclamation = id_Reclamation,
+                    dateTimeCreate = DateTime.Now,
+                    text = ""
+                };
+                db.Reclamation_TechnicalAdvice.Add(technicalAdvice);
+                db.SaveChanges();
+            }
+
+            return true;
+        }
+
+        bool UpdateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
+        {
+            var listLastPz = db.Reclamation_PZ.Where(d => d.id_Reclamation == id_Reclamation).ToList();
+
+            foreach (var lastReclamationPZ in listLastPz)
+            {
+                if (pZ_PlanZakaz.Where(d => d == lastReclamationPZ.id_PZ_PlanZakaz).Count() == 0)
+                {
+                    db.Reclamation_PZ.Remove(lastReclamationPZ);
+                    db.SaveChanges();
+                }
+            }
+            listLastPz = db.Reclamation_PZ.Where(d => d.id_Reclamation == id_Reclamation).ToList();
+            foreach (var newReclamationPZ in pZ_PlanZakaz)
+            {
+                if (listLastPz.Where(d => d.id_PZ_PlanZakaz == newReclamationPZ).Count() == 0)
+                {
+                    Reclamation_PZ reclamation_PZ = new Reclamation_PZ
+                    {
+                        id_PZ_PlanZakaz = newReclamationPZ,
+                        id_Reclamation = id_Reclamation
+                    };
+                    db.Reclamation_PZ.Add(reclamation_PZ);
+                    db.SaveChanges();
+                }
+            }
             return true;
         }
     }

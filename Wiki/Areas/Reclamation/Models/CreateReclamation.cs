@@ -16,20 +16,18 @@ namespace Wiki.Areas.Reclamation.Models
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
-            if (reclamation.id_DevisionCreate != 6)
-            {
-                this.reclamation.closeDevision = false;
-                this.reclamation.close = true;
-            }
-            else if (reclamation.close == true)
-                this.reclamation.closeDevision = true;
+            CorrectCloseReclamation();
             GetCorrectFieldReclamation();
-            if (reclamation.id_AspNetUsersError != null)
-            {
-                this.reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
-                this.reclamation.close = true;
-                this.reclamation.closeDevision = true;
-            }
+        }
+
+        public CreateReclamation(Wiki.Reclamation reclamation, string login, bool? reload, int? reloadDevision)
+        {
+            this.reclamation = reclamation;
+            AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
+            GetCorrectFieldReclamation();
+            CorrectCloseReclamation();
+            ReloadReclamation(reload, reloadDevision);
+
         }
 
         bool GetCorrectFieldReclamation()
@@ -48,6 +46,43 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.id_Reclamation_CountErrorFirst = 1;
             if (reclamation.id_Reclamation_CountErrorFinal == 0)
                 reclamation.id_Reclamation_CountErrorFinal = 1;
+
+            return true;
+        }
+
+        bool ReloadReclamation(bool? reload, int? reloadDevision)
+        {
+            if (reload == true)
+            {
+                reclamation.id_DevisionReclamation = reloadDevision.Value;
+                reclamation.id_AspNetUsersError = null;
+                reclamation.closeDevision = false;
+                reclamation.id_Reclamation_CountErrorFinal = 1;
+                reclamation.id_Reclamation_CountErrorFirst = 1;
+            }
+            return true;
+        }
+
+        bool CorrectCloseReclamation()
+        {
+            if (reclamation.id_DevisionCreate != 6)
+            {
+                reclamation.closeDevision = false;
+                reclamation.close = true;
+            }
+            if (reclamation.id_AspNetUsersError != null)
+            {
+                reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
+                reclamation.close = true;
+                reclamation.closeDevision = true;
+            }
+            if (reclamation.id_AspNetUsersError != null)
+            {
+                reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
+                reclamation.closeDevision = true;
+            }
+            else if (reclamation.close == true)
+                reclamation.closeDevision = true;
             return true;
         }
     }
