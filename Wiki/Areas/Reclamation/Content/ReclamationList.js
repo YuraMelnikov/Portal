@@ -353,16 +353,21 @@ function GetReclamation(id) {
                 $('#trash').prop('disabled', true);
             }
             else if (counterDevision === 2) {
+                $('#description').prop('disabled', true);
                 $('#close').prop('disabled', true);
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
             }
             else {
+                $('#description').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
                 $('#close').prop('disabled', true);
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
+                $('#technicalAdvice').prop('disabled', true);
+            }
+            if ($('#technicalAdvice').is(":checked") === true) {
                 $('#technicalAdvice').prop('disabled', true);
             }
             $('#viewReclamation').modal('show');
@@ -452,7 +457,7 @@ function GetReclamationView(id) {
 function Update() {
     var res = validate();
     if (counterDevision !== 1) {
-        if ($('#answerText').val() === "") {
+        if ($('#answerText').val() === "" && $('#reload').is(":checked") === false) {
             $('#answerText').css('border-color', 'Red');
             res = false;
         }

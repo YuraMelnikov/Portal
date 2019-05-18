@@ -214,7 +214,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 CreateTechnicalAdvice(reclamation.id, reclamation.id_AspNetUsersCreate);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
@@ -236,9 +236,22 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.Reclamation_Answer.Add(reclamation_Answer);
                 db.SaveChanges();
             }
-            if(reclamation.technicalAdvice == true)
+            if (reclamation.technicalAdvice == true)
                 UpdateTechnicalAdvice(reclamation.id, aspNetUser.Id);
             UpdateReclamation_PZ(pZ_PlanZakaz, reclamation.id);
+            if (reload == true)
+            {
+                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                {
+                    answer = "Рекламация переноправлена",
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = aspNetUser.Id,
+                    id_Reclamation = reclamation.id,
+                    trash = trash.Value
+                };
+                db.Reclamation_Answer.Add(reclamation_Answer);
+                db.SaveChanges();
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
@@ -277,11 +290,11 @@ namespace Wiki.Areas.Reclamation.Controllers
         string GetAnswerText(List<Reclamation_Answer> reclamation_Answers)
         {
             string text = "";
-            if(reclamation_Answers.Count > 0)
+            if (reclamation_Answers.Count > 0)
             {
-                foreach(var data in reclamation_Answers.OrderByDescending(d => d.dateTimeCreate))
+                foreach (var data in reclamation_Answers.OrderByDescending(d => d.dateTimeCreate))
                 {
-                    text += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName + "\n";
+                    text += data.dateTimeCreate.ToString().Substring(0, 5) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName + "\n";
                 }
 
             }
@@ -359,7 +372,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         bool UpdateTechnicalAdvice(int id_Reclamation, string aspNetUser)
         {
-            if(db.Reclamation_TechnicalAdvice.Where(d => d.id_Reclamation == id_Reclamation).Count() == 0 )
+            if (db.Reclamation_TechnicalAdvice.Where(d => d.id_Reclamation == id_Reclamation).Count() == 0)
             {
                 Reclamation_TechnicalAdvice technicalAdvice = new Reclamation_TechnicalAdvice
                 {
