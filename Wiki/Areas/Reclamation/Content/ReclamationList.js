@@ -332,6 +332,7 @@ function GetReclamation(id) {
             $('#gip').prop('checked', result.gip);
             $('#closeDevision').prop('checked', result.closeDevision);
             $('#PCAM').val(result.PCAM);
+            $('#answerHistiryText').val(result.answerHistiryText);
             $('#editManufacturing').prop('checked', result.editManufacturing);
             $('#editManufacturingIdDevision').val(result.editManufacturingIdDevision);
             $('#id_PF').val(result.id_PF);
@@ -401,6 +402,7 @@ function GetReclamationView(id) {
             $('#gip').prop('checked', result.gip);
             $('#closeDevision').prop('checked', result.closeDevision);
             $('#PCAM').val(result.PCAM);
+            $('#answerHistiryText').val(result.answerHistiryText);
             $('#editManufacturing').prop('checked', result.editManufacturing);
             $('#editManufacturingIdDevision').val(result.editManufacturingIdDevision);
             $('#id_PF').val(result.id_PF);
@@ -470,6 +472,7 @@ function Update() {
         id_Reclamation_CountErrorFinal: $('#id_Reclamation_CountErrorFinal').val(),
         reload: $('#reload').is(":checked"),
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        answerText: $('#answerText').val(),
         id_Reclamation_Type: $('#id_Reclamation_Type').val(),
         close: $('#close').is(":checked"),
         id_DevisionReclamation: $('#id_DevisionReclamation').val(),

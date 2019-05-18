@@ -268,9 +268,24 @@ namespace Wiki.Areas.Reclamation.Controllers
                 dataList.id_PF,
                 dataList.technicalAdvice,
                 dataList.id_AspNetUsersError,
-                pZ_PlanZakaz = GetPlanZakazArray(dataList.Reclamation_PZ.ToList())
+                pZ_PlanZakaz = GetPlanZakazArray(dataList.Reclamation_PZ.ToList()),
+                answerHistiryText = GetAnswerText(dataList.Reclamation_Answer.ToList())
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        string GetAnswerText(List<Reclamation_Answer> reclamation_Answers)
+        {
+            string text = "";
+            if(reclamation_Answers.Count > 0)
+            {
+                foreach(var data in reclamation_Answers.OrderByDescending(d => d.dateTimeCreate))
+                {
+                    text += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName + "\n";
+                }
+
+            }
+            return text;
         }
 
         string[] GetPlanZakazArray(List<Reclamation_PZ> reclamation_PZs)
