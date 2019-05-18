@@ -49,7 +49,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (login == "myi@katek.by")
             {
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || d.Devision == 16)
+                    .Where(d => d.Devision == 15)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
