@@ -175,7 +175,6 @@ function Add() {
 
 function validate() {
     var isValid = true;
-
     if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
         $('#id_DevisionReclamation').css('border-color', 'Red');
         $('#id_AspNetUsersError').css('border-color', 'Red');
@@ -229,15 +228,8 @@ function validate() {
     return isValid;
 }
 
-function clearid_AspNetUsersError() {
-    $('#id_AspNetUsersError').val("");
-}
-
-function clearid_DevisionReclamation() {
-    $('#id_DevisionReclamation').val("");
-}
-
-function clearTextBox(counterDevision) {
+function clearTextBox() {
+    AllNoDisabled();
     $("#btnAdd").attr('disabled', false);
     $('#id').val("");
     $('#pZ_PlanZakaz').val("");
@@ -303,6 +295,7 @@ function clearTextBox(counterDevision) {
 }
 
 function GetReclamation(id) {
+    var myVal = counterDevision;
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
@@ -450,7 +443,26 @@ function Update() {
     if (res === false) {
         return false;
     }
-    objRemark;
+    var objRemark = {
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        id_Reclamation_Type: $('#id_Reclamation_Type').val(),
+        close: $('#close').is(":checked"),
+        id_DevisionReclamation: $('#id_DevisionReclamation').val(),
+        id_AspNetUsersError: $('#id_AspNetUsersError').val(),
+        id_Reclamation_CountErrorFirst: $('#id_Reclamation_CountErrorFirst').val(),
+        timeToSearch: $('#timeToSearch').val(),
+        timeToEliminate: $('#timeToEliminate').val(),
+        text: $('#text').val(),
+        description: $('#description').val(),
+        id_PF: $('#id_PF').val(),
+        PCAM: $('#PCAM').val(),
+        closeDevision: $('#closeDevision').is(":checked"),
+        gip: $('#gip').is(":checked"),
+        trash: $('#trash').is(":checked"),
+        editManufacturingIdDevision: $('#editManufacturingIdDevision').val(),
+        editManufacturing: $('#editManufacturing').is(":checked"),
+        technicalAdvice: $('#technicalAdvice').is(":checked")
+    };
     $.ajax({
         cache: false,
         url: "/Remarks/Update",
@@ -461,24 +473,6 @@ function Update() {
         success: function (result) {
             activeReclamation();
             $('#orderModal').modal('hide');
-            $('#id').val("");
-            $('#id_Reclamation_Type').val("");
-            $('#id_DevisionReclamation').val("");
-            $('#id_Reclamation_CountErrorFirst').val("");
-            $('#id_Reclamation_CountErrorFinal').val("");
-            $('#id_AspNetUsersCreate').val("");
-            $('#id_DevisionCreate').val("");
-            $('#dateTimeCreate').val("");
-            $('#text').val("");
-            $('#description').val("");
-            $('#timeToSearch').val("");
-            $('#timeToEliminate').val("");
-            $('#close').val("");
-            $('#gip').val("");
-            $('#closeDevision').val("");
-            $('#id_PF').val("");
-            $('#PCAM').val("");
-            $('#editManufacturing').val("");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -492,9 +486,7 @@ function AllNoDisabled() {
     $('#id_DevisionReclamation').prop('disabled', false);
     $('#id_Reclamation_CountErrorFirst').prop('disabled', false);
     $('#id_Reclamation_CountErrorFinal').prop('disabled', false);
-    $('#id_AspNetUsersCreate').prop('disabled', false);
     $('#id_DevisionCreate').prop('disabled', false);
-    $('#dateTimeCreate').prop('disabled', false);
     $('#text').prop('disabled', false);
     $('#description').prop('disabled', false);
     $('#timeToSearch').prop('disabled', false);
@@ -515,4 +507,12 @@ function AllNoDisabled() {
     $('#answerHistiryText').prop('disabled', false);
     $('#answerText').prop('disabled', false);
     $('#trash').prop('disabled', false);
+}
+
+function clearid_AspNetUsersError() {
+    $('#id_AspNetUsersError').val("");
+}
+
+function clearid_DevisionReclamation() {
+    $('#id_DevisionReclamation').val("");
 }
