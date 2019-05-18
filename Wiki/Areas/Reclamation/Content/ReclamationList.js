@@ -391,9 +391,7 @@ function GetReclamationView(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            //$('#pZ_PlanZakaz').prop('disabled', true);
             $('#id').val(result.id);
-
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
@@ -438,10 +436,8 @@ function GetReclamationView(id) {
             $('#technicalAdvice').prop('disabled', true);
             $('#id_AspNetUsersError').prop('disabled', true);
             $('#reloadDevision').prop('disabled', true);
-            $('#reloadDevision').prop('disabled', true);
             $('#reload').prop('disabled', true);
             $('#pZ_PlanZakaz').prop('disabled', true);
-
             $('#answerHistiryText').prop('disabled', true);
             $('#answerText').prop('disabled', true);
             $('#trash').prop('disabled', true);
@@ -450,14 +446,8 @@ function GetReclamationView(id) {
             for (var i = 0; i < result.pZ_PlanZakaz.length; i++) {
                 Values.push(result.pZ_PlanZakaz[i]);
             }
+            $("#pZ_PlanZakaz").val(Values).trigger("chosen:updated");
 
-            $("#pZ_PlanZakaz").select2('val', Values).trigger("chosen:updated");
-            //$('#pZ_PlanZakaz').val(result.pZ_PlanZakaz);
-            //$('#pZ_PlanZakaz').chosen();
-            //$('#pZ_PlanZakaz').trigger('chosen:updated');
-
-
-            
             $('#viewReclamation').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
