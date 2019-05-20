@@ -16,7 +16,7 @@ namespace Wiki.Areas.Reclamation.Models
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
-            CorrectCloseReclamation();
+            CorrectAddCloseReclamation();
             GetCorrectFieldReclamation();
         }
 
@@ -33,6 +33,10 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool GetCorrectFieldReclamation()
         {
+            if (reclamation.editManufacturing == false)
+            {
+                reclamation.editManufacturingIdDevision = null;
+            }
             if (reclamation.editManufacturingIdDevision == 0)
                 reclamation.editManufacturingIdDevision = null;
             if (reclamation.dateTimeCreate == null)
@@ -64,12 +68,8 @@ namespace Wiki.Areas.Reclamation.Models
             return true;
         }
 
-        bool CorrectCloseReclamation()
+        bool CorrectAddCloseReclamation()
         {
-            if (reclamation.editManufacturing == false)
-            {
-                reclamation.editManufacturingIdDevision = null;
-            }
             if (reclamation.id_DevisionCreate != 6)
             {
                 reclamation.closeDevision = false;
@@ -80,12 +80,16 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
                 reclamation.closeDevision = true;
             }
-            if (reclamation.id_DevisionCreate != 6 && reclamation.closeDevision == true)
+            return true;
+        }
+
+        bool CorrectCloseReclamation()
+        {
+            if (reclamation.id_AspNetUsersError != null)
             {
-                reclamation.close = true;
-            }
-            if (reclamation.close == true)
+                reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
                 reclamation.closeDevision = true;
+            }
             return true;
         }
 

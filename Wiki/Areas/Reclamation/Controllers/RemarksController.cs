@@ -16,6 +16,8 @@ namespace Wiki.Areas.Reclamation.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
+
+            ViewBag.ButtonAddActivation = 0;
             int id_Devision = 0;
             try
             {
@@ -32,6 +34,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != id_Devision).OrderBy(d => d.name), "id", "name");
             if (login == "fvs@katek.by")
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
@@ -40,6 +43,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (login == "nrf@katek.by")
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 15)
                     .Where(d => d.LockoutEnabled == true)
@@ -48,6 +52,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (login == "myi@katek.by")
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 15)
                     .Where(d => d.LockoutEnabled == true)
@@ -56,6 +61,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (login == "Kuchynski@katek.by")
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
@@ -64,6 +70,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == id_Devision).Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
@@ -76,6 +83,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             if (id_Devision == 6)
             {
+                ViewBag.ButtonAddActivation = 1;
                 ViewBag.CRUDCounter = '1';
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             }
@@ -189,8 +197,16 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs(GetIdDevision(login));
+            planZakazListViewers.GetPlanZakazs();
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
+        }
+
+        public JsonResult AllReclamation()
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation(GetIdDevision(login));
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
         public JsonResult CloseReclamation()

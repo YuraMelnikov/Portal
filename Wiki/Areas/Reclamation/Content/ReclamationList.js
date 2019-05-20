@@ -3,8 +3,36 @@
 //'2' - Manager KO
 
 $(document).ready(function () {
-    activeReclamation();
+    startMenu();
+    $('#pageData').hide();
+    if (buttonAddActivation === 0)
+        $('#btnAddNewReclamation').hide();
 });
+
+function loadData(listId) {
+    document.getElementById('pageData').innerHTML = listId;
+    if (listId === 1) {
+        activeReclamation();
+    }
+    else if (listId === 2) {
+        closeReclamation();
+    }
+    else if (listId === 3) {
+        allReclamation();
+    }
+    else if (listId === 4) {
+        planZakazDevisionNotSh();
+    }
+    else if (listId === 5) {
+        planZakazDevisionSh();
+    }
+    else if (listId === 6) {
+        planZakazDevisionAll();
+    }
+    else {
+        activeReclamation();
+    }
+}
 
 var objRemarksList = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
@@ -44,7 +72,53 @@ var objRemark = {
     technicalAdvice: $('#technicalAdvice').val()
 };
 
+function startMenu() {
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/ActiveReclamation",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        //"order": [[2, "desc"]],
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        },
+        initComplete: function () {
+            this.api().columns([2, 9, 10, 11]).every(function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            });
+        }
+    });
+}
+
 function activeReclamation() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
@@ -88,10 +162,59 @@ function activeReclamation() {
 }
 
 function closeReclamation() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/Remarks/CloseReclamation",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        //"order": [[2, "desc"]],
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        },
+        initComplete: function () {
+            this.api().columns([2, 9, 10, 11]).every(function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            });
+        }
+    });
+}
+
+function allReclamation() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/AllReclamation",
             "type": "POST",
             "datatype": "json"
         },
@@ -164,7 +287,7 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            activeReclamation();
+            loadData(document.getElementById('pageData').innerHTML);
             $('#viewReclamation').modal('hide');
         },
         error: function (errormessage) {
@@ -504,7 +627,7 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            activeReclamation();
+            loadData(document.getElementById('pageData').innerHTML);
             $('#viewReclamation').modal('hide');
         },
         error: function (errormessage) {
@@ -548,4 +671,119 @@ function clearid_AspNetUsersError() {
 
 function clearid_DevisionReclamation() {
     $('#id_DevisionReclamation').val("");
+}
+
+var objOrder = [
+    { "title": "См.", "data": "OpenLinkJS", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
+    { "title": "Ошибок", "data": "ReclamationCount", "autowidth": true, "bSortable": true },
+    { "title": "Активных", "data": "ReclamationActive", "autowidth": true, "bSortable": true },
+    { "title": "Закрытых", "data": "ReclamationClose", "autowidth": true, "bSortable": true },
+    { "title": "Контрактное наименование", "data": "ContractName", "autowidth": true, "bSortable": false },
+    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": false },
+    { "title": "Заказчик", "data": "Client", "autowidth": true, "bSortable": true },
+    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": false },
+    { "title": "ОЛ №", "data": "Ol", "autowidth": true, "bSortable": true }
+];
+
+function planZakazDevisionNotSh() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/PlanZakazDevisionNotSh",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "order": [[1, "desc"]],
+        "rowCallback": function (row, data, index) {
+            if (data.ReclamationActive > 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
+        "columns": objOrder,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function planZakazDevisionSh() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/PlanZakazDevisionSh",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "order": [[1, "desc"]],
+        "rowCallback": function (row, data, index) {
+            if (data.ReclamationActive > 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
+        "columns": objOrder,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function planZakazDevisionAll() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/PlanZakazDevisionAll",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "order": [[1, "desc"]],
+        "columns": objOrder,
+        "rowCallback": function (row, data, index) {
+            if (data.ReclamationActive > 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }

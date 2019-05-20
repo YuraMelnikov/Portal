@@ -16,6 +16,15 @@ namespace Wiki.Areas.Reclamation.Models
 
         public List<Wiki.Reclamation> Reclamations { get => reclamations; set => reclamations = value; }
 
+        public void GetReclamation(int id_Devision)
+        {
+            Initialization();
+            if(id_Devision == 6)
+                Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == id_Devision).ToList();
+            else
+                Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == id_Devision).ToList();
+        }
+
         public void GetReclamation(int id_Devision, bool active)
         {
             Initialization();

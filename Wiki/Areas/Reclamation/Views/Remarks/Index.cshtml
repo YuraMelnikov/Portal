@@ -8,9 +8,30 @@
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
 </head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Активные рекламации</a></li>
+            <li><a onclick="return loadData(2);">Закрытые рекламации</a></li>
+            <li><a onclick="return loadData(3);">Все рекламации</a></li>
+            <li><a onclick="return loadData(4);">Рекламации по неотгруженным заказам</a></li>
+            <li><a onclick="return loadData(5);">Рекламации по отгруженным заказам</a></li>
+            <li><a onclick="return loadData(6);">Чек-листы</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "Remarks"); }
+                </a>
+            </li>
+            <li><a id="pageData"></a></li>
+        </ul>
+    </div>
+</nav>
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
+        <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;">
@@ -195,4 +216,5 @@
 
 <script>
     var counterDevision = @ViewBag.CRUDCounter;
+    var buttonAddActivation = @ViewBag.ButtonAddActivation;
 </script>
