@@ -34,23 +34,7 @@
         <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
-        <table id="myTable" class="table table-hover table-striped" style="width:100%;">
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
 <div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false">
@@ -64,6 +48,7 @@
                 @Html.HiddenFor(model => model.id_AspNetUsersCreate)
                 @Html.HiddenFor(model => model.dateTimeCreate)
                 @Html.HiddenFor(model => model.id_DevisionCreate)
+                @Html.HiddenFor(model => model.closeMKO)
                 <div class="row">
                     <div class="col-lg-6">
                         <label>План-Заказ/ы №№:</label>

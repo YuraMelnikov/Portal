@@ -740,6 +740,7 @@
           <Property Name="id_PF" Type="int" Nullable="false" />
           <Property Name="technicalAdvice" Type="bit" Nullable="false" />
           <Property Name="id_AspNetUsersError" Type="nvarchar" MaxLength="128" />
+          <Property Name="closeMKO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -1220,7 +1221,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1247,7 +1248,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1257,7 +1258,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1267,7 +1268,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1278,7 +1279,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -5144,6 +5145,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id_PF" Type="Int32" Nullable="false" />
           <Property Name="technicalAdvice" Type="Boolean" Nullable="false" />
           <Property Name="id_AspNetUsersError" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="closeMKO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers1" FromRole="Reclamation" ToRole="AspNetUsers" />
           <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Reclamation" ToRole="Devision" />
@@ -5199,9 +5201,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="dateTimeClose" Type="DateTime" Precision="3" />
           <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
           <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
         </EntityType>
         <EntityType Name="Reclamation_Type">
           <Key>
@@ -8035,6 +8037,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="closeMKO" ColumnName="closeMKO" />
                 <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
                 <ScalarProperty Name="technicalAdvice" ColumnName="technicalAdvice" />
                 <ScalarProperty Name="id_PF" ColumnName="id_PF" />

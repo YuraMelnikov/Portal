@@ -30,7 +30,7 @@ namespace Wiki.Areas.Reclamation.Models
             Initialization();
             if (id_Devision == 6)
             {
-                DateTime dateCerrect = DateTime.Now.AddDays(-10);
+                DateTime dateCerrect = DateTime.Now.AddDays(-30);
                 Reclamations = db.Reclamation
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
@@ -55,6 +55,25 @@ namespace Wiki.Areas.Reclamation.Models
                 Reclamations = db.Reclamation
                     .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
+                    .ToList();
+            }
+        }
+
+        public void GetReclamation(int id_Devision, bool active, string login)
+        {
+            Initialization();
+            if (login == "nrf@katek.by")
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.closeMKO == active)
+                    .Where(d => d.id_DevisionReclamation == id_Devision)
+                    .ToList();
+            }
+            else
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.closeMKO == active)
+                    .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
                     .ToList();
             }
         }

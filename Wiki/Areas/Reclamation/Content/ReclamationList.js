@@ -62,6 +62,7 @@ var objRemark = {
     timeToSearch: $('#timeToSearch').val(),
     timeToEliminate: $('#timeToEliminate').val(),
     close: $('#close').val(),
+    closeMKO: $('#closeMKO').val(),
     gip: $('gip').val(),
     closeDevision: $('#closeDevision').val(),
     PCAM: $('#PCAM').val(),
@@ -273,6 +274,7 @@ function Add() {
         id_PF: $('#id_PF').val(),
         PCAM: $('#PCAM').val(),
         closeDevision: $('#closeDevision').is(":checked"),
+        closeMKO: $('#closeMKO').val(),
         gip: $('#gip').is(":checked"),
         trash: $('#trash').is(":checked"),
         editManufacturingIdDevision: $('#editManufacturingIdDevision').val(),
@@ -446,6 +448,7 @@ function GetReclamation(id) {
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
+            closeMKO: $('#closeMKO').val(result.closeMKO),
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
             $('#description').val(result.description);
@@ -597,6 +600,7 @@ function Update() {
     }
     var objRemark = {
         id: $('#id').val(),
+        closeMKO: $('#closeMKO').val(),
         dateTimeCreate: $('#dateTimeCreate').val(),
         id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
         id_DevisionCreate: $('#id_DevisionCreate').val(),

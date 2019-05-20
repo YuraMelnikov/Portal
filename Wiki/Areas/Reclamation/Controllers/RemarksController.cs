@@ -173,7 +173,10 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(GetIdDevision(login), false);
+            if(login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "myi@katek.by")
+                reclamationListViewer.GetReclamation(GetIdDevision(login), false, login);
+            else
+                reclamationListViewer.GetReclamation(GetIdDevision(login), false);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 

@@ -18,6 +18,7 @@ namespace Wiki.Areas.Reclamation.Models
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
             CorrectAddCloseReclamation();
             GetCorrectFieldReclamation();
+            GetCloseMKO(login);
         }
 
         public CreateReclamation(Wiki.Reclamation reclamation, string login, bool? reload, int? reloadDevision)
@@ -29,6 +30,7 @@ namespace Wiki.Areas.Reclamation.Models
             ReloadReclamation(reload, reloadDevision);
             this.reclamation.dateTimeCreate = GetDatetimeCreate(reclamation.id);
             this.reclamation.id_AspNetUsersCreate = GetUserCreate(reclamation.id);
+            GetCloseMKO(login);
         }
 
         bool GetCorrectFieldReclamation()
@@ -101,6 +103,16 @@ namespace Wiki.Areas.Reclamation.Models
         string GetUserCreate(int id_reclamation)
         {
             return db.Reclamation.Find(id_reclamation).id_AspNetUsersCreate;
+        }
+
+        bool GetCloseMKO(string login)
+        {
+            if (login == "fvs@katek.by" || login == "nrf@katek.by" || login == "Kuchynski@katek.by")
+            {
+                reclamation.closeMKO = true;
+                reclamation.closeDevision = true;
+            }
+            return true;
         }
     }
 }
