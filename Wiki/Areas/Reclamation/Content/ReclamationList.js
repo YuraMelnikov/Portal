@@ -300,13 +300,25 @@ function Add() {
 
 function validate() {
     var isValid = true;
-    if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
-        $('#id_DevisionReclamation').css('border-color', 'Red');
-        $('#id_AspNetUsersError').css('border-color', 'Red');
-        isValid = false;
+    if (counterDevision !== 1) {
+        if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
+            $('#id_DevisionReclamation').css('border-color', 'Red');
+            $('#id_AspNetUsersError').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+        }
     }
-    else {
-        $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+    if ($('#reload').val() === false) {
+        if ($('#id_DevisionReclamation').val() === null && $('#id_AspNetUsersError').val() === null) {
+            $('#id_DevisionReclamation').css('border-color', 'Red');
+            $('#id_AspNetUsersError').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_DevisionReclamation').css('border-color', 'lightgrey');
+        }
     }
     if ($('#editManufacturing').is(":checked") === true && $('#editManufacturingIdDevision').val() === null) {
         $('#editManufacturingIdDevision').css('border-color', 'Red');
@@ -328,13 +340,6 @@ function validate() {
     }
     else {
         $('#id_Reclamation_Type').css('border-color', 'lightgrey');
-    }
-    if ($('#id_DevisionReclamation').val() === null && $('#id_AspNetUsersError').val() === null) {
-        $('#id_DevisionReclamation').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#id_DevisionReclamation').css('border-color', 'lightgrey');
     }
     if ($('#text').val().trim() === "") {
         $('#text').css('border-color', 'Red');
@@ -391,7 +396,7 @@ function clearTextBox() {
     $('#editManufacturing').prop('checked', false);
     $('#editManufacturingIdDevision').val("");
     $('#technicalAdvice').prop('checked', false);
-    
+
     $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
     $('#closeDevision').prop('disabled', true);
     $('#answerText').prop('disabled', true);
@@ -448,7 +453,8 @@ function GetReclamation(id) {
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
-            closeMKO: $('#closeMKO').val(result.closeMKO),
+            $('#closeMKO').val(result.closeMKO);
+            $('#answerText').val("");
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
             $('#description').val(result.description);
