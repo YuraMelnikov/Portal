@@ -11,22 +11,22 @@ $(document).ready(function () {
 
 function loadData(listId) {
     document.getElementById('pageData').innerHTML = listId;
-    if (listId === 1) {
+    if (listId === 1 || listId === "1") {
         activeReclamation();
     }
-    else if (listId === 2) {
+    else if (listId === 2 || listId === "2") {
         closeReclamation();
     }
-    else if (listId === 3) {
+    else if (listId === 3 || listId === "3") {
         allReclamation();
     }
-    else if (listId === 4) {
+    else if (listId === 4 || listId === "4") {
         planZakazDevisionNotSh();
     }
-    else if (listId === 5) {
+    else if (listId === 5 || listId === "5") {
         planZakazDevisionSh();
     }
-    else if (listId === 6) {
+    else if (listId === 6 || listId === "6") {
         planZakazDevisionAll();
     }
     else {
@@ -476,12 +476,16 @@ function GetReclamation(id) {
                 $('#trash').prop('disabled', true);
             }
             else if (counterDevision === 2) {
+                if ($('#id_DevisionCreate').val() !== devisionUser) {
+                    $('#text').prop('disabled', true);
+                }
                 $('#description').prop('disabled', true);
                 $('#close').prop('disabled', true);
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
             }
             else {
+                $('#text').prop('disabled', true);
                 $('#description').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
@@ -627,8 +631,8 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
             $('#viewReclamation').modal('hide');
+            loadData(document.getElementById('pageData').innerHTML);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

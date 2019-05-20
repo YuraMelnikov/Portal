@@ -16,9 +16,9 @@ namespace Wiki.Areas.Reclamation.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
-
             ViewBag.ButtonAddActivation = 0;
             int id_Devision = 0;
+            ViewBag.Devision = id_Devision;
             try
             {
                 id_Devision = db.AspNetUsers.FirstOrDefault(d => d.Email == login).Devision.Value;
@@ -50,15 +50,15 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            else if (login == "myi@katek.by")
-            {
-                ViewBag.ButtonAddActivation = 1;
-                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 15)
-                    .Where(d => d.LockoutEnabled == true)
-                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
-                ViewBag.CRUDCounter = '2';
-            }
+            //else if (login == "myi@katek.by")
+            //{
+            //    ViewBag.ButtonAddActivation = 1;
+            //    ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+            //        .Where(d => d.Devision == 15)
+            //        .Where(d => d.LockoutEnabled == true)
+            //        .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            //    ViewBag.CRUDCounter = '2';
+            //}
             else if (login == "Kuchynski@katek.by")
             {
                 ViewBag.ButtonAddActivation = 1;
@@ -259,7 +259,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
-                    answer = "Рекламация переноправлена",
+                    answer = "Рекламация переноправлена на " + db.Devision.Find(reloadDevision).name,
                     dateTimeCreate = DateTime.Now,
                     id_AspNetUsersCreate = aspNetUser.Id,
                     id_Reclamation = reclamation.id,
