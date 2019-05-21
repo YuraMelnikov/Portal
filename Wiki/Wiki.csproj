@@ -271,6 +271,7 @@
     <Compile Include="Areas\PZ\Models\NewPlanZakaz.cs" />
     <Compile Include="Areas\PZ\PZAreaRegistration.cs" />
     <Compile Include="Areas\Reclamation\Controllers\RemarksController.cs" />
+    <Compile Include="Areas\Reclamation\Controllers\TechnicalAdviceController.cs" />
     <Compile Include="Areas\Reclamation\Models\CreateReclamation.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
@@ -803,7 +804,6 @@
     <Content Include="Areas\PZ\Contant\OperatorList.js" />
     <Content Include="Areas\PZ\Contant\OrdersList.js" />
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
-    <Content Include="Areas\Reclamation\Content\ReclamationsOrders.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />
@@ -1334,7 +1334,6 @@
     <Content Include="Areas\Reclamation\Views\web.config" />
     <Content Include="Areas\Reclamation\Views\Shared\_LayoutReclamationOTK.cshtml" />
     <Content Include="Areas\Reclamation\Views\Remarks\Index.cshtml" />
-    <Content Include="Areas\Reclamation\Views\Remarks\IndexOrders.cshtml" />
     <Content Include="Content\bootstrap-select\i18n\defaults-am_ET.js.map" />
     <Content Include="Content\bootstrap-select\i18n\defaults-ar_AR.js.map" />
     <Content Include="Content\bootstrap-select\i18n\defaults-bg_BG.js.map" />
@@ -1373,6 +1372,7 @@
     <Content Include="Content\bootstrap-select\i18n\defaults-vi_VN.js.map" />
     <Content Include="Content\bootstrap-select\i18n\defaults-zh_CN.js.map" />
     <Content Include="Content\bootstrap-select\i18n\defaults-zh_TW.js.map" />
+    <Content Include="Areas\Reclamation\Views\TechnicalAdvice\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

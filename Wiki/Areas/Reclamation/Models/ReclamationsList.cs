@@ -19,7 +19,7 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetReclamation(int id_Devision)
         {
             Initialization();
-            if(id_Devision == 6)
+            if (id_Devision == 6)
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == id_Devision).ToList();
             else
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == id_Devision).ToList();

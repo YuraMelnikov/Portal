@@ -23,7 +23,8 @@ namespace Wiki.Areas.Reclamation.Models
         string userCreate;
         string userReclamation;
         string leavelReclamation;
-        
+        string lastLeavelReclamation;
+
         public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
         public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
         public string PlanZakaz { get => planZakaz; set => planZakaz = value; }
@@ -40,7 +41,8 @@ namespace Wiki.Areas.Reclamation.Models
         public string UserCreate { get => userCreate; set => userCreate = value; }
         public string UserReclamation { get => userReclamation; set => userReclamation = value; }
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
-        
+        public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
+
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {
             viewLinkJS = "";
@@ -55,6 +57,7 @@ namespace Wiki.Areas.Reclamation.Models
             editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
+            GetLastLeavelReclamation(reclamation);
         }
 
         string GetLeavelReclamation(Wiki.Reclamation reclamation)
@@ -63,6 +66,16 @@ namespace Wiki.Areas.Reclamation.Models
             if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
             {
                 level = reclamation.Reclamation_CountError.name;
+            }
+            return level;
+        }
+
+        string GetLastLeavelReclamation(Wiki.Reclamation reclamation)
+        {
+            string level = "";
+            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
+            {
+                level = reclamation.Reclamation_CountError1.name;
             }
             return level;
         }
