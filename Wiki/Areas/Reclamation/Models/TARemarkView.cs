@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Wiki.Areas.Reclamation.Models;
-using System.Web.Mvc;
 
 namespace Wiki.Areas.Reclamation.Models
 {
@@ -26,6 +22,7 @@ namespace Wiki.Areas.Reclamation.Models
         string secondPartLinkToEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
         string firstPartLinkToView = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTAView('";
         string secondPartLinkToView = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+        string firstPartLinkToEditCounter = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return editExpert('";
 
         public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
         public string LinkToEdit { get => linkToEdit; set => linkToEdit = value; }
@@ -56,6 +53,23 @@ namespace Wiki.Areas.Reclamation.Models
             devisionReclamation = reclamation.Reclamation.Devision.name;
             leavelReclamation = reclamation.Reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation.Reclamation_CountError1.name;
+        }
+
+        public TARemarkView(Wiki.Reclamation reclamation)
+        {
+            id_Reclamation = reclamation.id;
+            linkToEdit = firstPartLinkToEditCounter + reclamation.id + secondPartLinkToEdit;
+            linkToView = "";
+            orders = GetOrders(reclamation.Reclamation_PZ.ToList());
+            textReclamation = reclamation.text;
+            descriptionReclamation = reclamation.description;
+            answers = GetAnswers(reclamation.Reclamation_Answer.OrderByDescending(d => d.dateTimeCreate).ToList());
+            decision = reclamation.text;
+            userToTA = "";
+            userCreate = reclamation.AspNetUsers.CiliricalName;
+            devisionReclamation = reclamation.Devision.name;
+            leavelReclamation = reclamation.Reclamation_CountError.name;
+            lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
         }
 
         string GetOrders(List<Reclamation_PZ> reclamation)

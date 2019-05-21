@@ -29,6 +29,12 @@ function loadData(listId) {
     else if (listId === 6 || listId === "6") {
         planZakazDevisionAll();
     }
+    else if (listId === 7 || listId === "7") {
+        reclamationOTK();
+    }
+    else if (listId === 8 || listId === "8") {
+        reclamationPO();
+    }
     else {
         activeReclamation();
     }
@@ -806,6 +812,75 @@ function planZakazDevisionAll() {
                 $('td', row).css('color', 'white');
             }
         },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+var objRemarksListExpert = [
+    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
+    { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
+    { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Ответственное СП", "data": "Devision", "autowidth": true, "bSortable": false },
+    { "title": "Оценка Рук. КБ", "data": "LeavelReclamation", "autowidth": true, "bSortable": true },
+    { "title": "Оценка эксперта", "data": "LastLeavelReclamation", "autowidth": true, "bSortable": true }
+];
+
+
+function reclamationOTK() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/GetRemarksOTK",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objRemarksListExpert,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function reclamationPO() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/GetRemarksPO",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objRemarksListExpert,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

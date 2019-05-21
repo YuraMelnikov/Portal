@@ -33,7 +33,7 @@ namespace Wiki.Areas.Reclamation.Models
         public List<TARemarkView> GetRemarksOTK()
         {
             InitializationList();
-            foreach (var data in db.Reclamation_TechnicalAdvice.ToList())
+            foreach (var data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate == 6).ToList())
             {
                 TARemarkViews.Add(new TARemarkView(data));
             }
@@ -42,7 +42,7 @@ namespace Wiki.Areas.Reclamation.Models
         public List<TARemarkView> GetRemarksPO()
         {
             InitializationList();
-            foreach (var data in db.Reclamation_TechnicalAdvice.ToList())
+            foreach (var data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate != 6).ToList())
             {
                 TARemarkViews.Add(new TARemarkView(data));
             }

@@ -367,5 +367,17 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             return true;
         }
+
+        public JsonResult GetRemarksOTK()
+        {
+            var data = new TARemarksListView().GetRemarksOTK();
+            return Json(new { data });
+        }
+
+        public JsonResult GetRemarksPO()
+        {
+            var data = new TARemarksListView().GetRemarksPO();
+            return Json(new { data });
+        }
     }
 }
