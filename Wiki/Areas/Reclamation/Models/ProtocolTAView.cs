@@ -26,15 +26,7 @@
             dateProtocol = protocol.date.ToString().Substring(0, 10);
             countReclamation = protocol.Reclamation_TechnicalAdviceProtocolPosition.Count;
             linkToView = firstPartLink + id_Protocol + secondPartLink;
-            linkToWord = GetLinkToWord(id_Protocol);
+            linkToWord = firstPartLinkToWord + id_Protocol + secondPartLinkToWord;
         }
-
-        string GetLinkToWord(int id_Reclamation)
-        {
-            string link = "";
-            //< button type = "button" class="btn-xs btn-primary" data-toggle="modal" data-target="#tablesModal" onclick="clearTextBoxTableOrders();">Сформировать таблички</button>
-            return link;
-        }
-
     }
 }

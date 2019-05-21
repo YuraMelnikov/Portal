@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Wiki.Areas.Reclamation.Models
 {
@@ -17,7 +15,7 @@ namespace Wiki.Areas.Reclamation.Models
             protocolTAViews = new List<ProtocolTAView>();
             foreach(var data in db.Reclamation_TechnicalAdviceProtocol.ToList())
             {
-
+                ProtocolTAViews.Add(new ProtocolTAView(data));
             }
         }
     }
