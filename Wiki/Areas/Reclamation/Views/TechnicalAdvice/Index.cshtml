@@ -4,9 +4,7 @@
     Layout = "~/Areas/Reclamation/Views/Shared/_LayoutReclamationOTK.cshtml";
 }
 <head>
-    <script src="~/Areas/Reclamation/Content/ReclamationList.js"></script>
-    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
-    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <script src="~/Areas/Reclamation/Content/TechnicalAdvice.js"></script>
 </head>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -14,11 +12,11 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);">Рекламации ОТК</a></li>
-            <li><a onclick="return loadData(2);">Рекламации ПО</a></li>
-            <li><a onclick="return loadData(3);">Список на заседание ТС</a></li>
-            <li><a onclick="return loadData(4);">Протоколы ТС</a></li>
-            <li><a onclick="return loadData(4);">Список решений ТС</a></li>
+            <li><a onclick="return loadData(1);">Список на заседание ТС</a></li>
+            <li><a onclick="return loadData(2);">Протоколы ТС</a></li>
+            <li><a onclick="return loadData(3);">Список решений ТС</a></li>
+            <li><a onclick="return loadData(4);">Рекламации ОТК</a></li>
+            <li><a onclick="return loadData(5);">Рекламации ПО</a></li>
             <li><a href="/Reclamation/Remarks/Index/">Рекламации</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -29,3 +27,9 @@
         </ul>
     </div>
 </nav>
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>

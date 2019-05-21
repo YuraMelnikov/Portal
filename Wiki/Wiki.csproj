@@ -275,10 +275,12 @@
     <Compile Include="Areas\Reclamation\Models\CreateReclamation.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\ProtocolTAView.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationCRUD.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
     <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
@@ -803,6 +805,7 @@
     <Content Include="Areas\PZ\Contant\Kurator.js" />
     <Content Include="Areas\PZ\Contant\OperatorList.js" />
     <Content Include="Areas\PZ\Contant\OrdersList.js" />
+    <Content Include="Areas\Reclamation\Content\TechnicalAdvice.js" />
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
