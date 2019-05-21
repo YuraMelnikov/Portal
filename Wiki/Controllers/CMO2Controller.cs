@@ -38,6 +38,8 @@ namespace Wiki.Controllers
                 return RedirectToAction("WorkDeskKO", "CMO2");
             else if (data == 13)
                 return RedirectToAction("Report", "CMO2");
+            else if (data == 18)
+                return RedirectToAction("WorkDeskKO", "CMO2");
             else
                 return RedirectToAction("ReportSmall", "CMO2");
         }

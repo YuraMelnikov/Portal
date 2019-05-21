@@ -275,6 +275,7 @@
     <Compile Include="Areas\Reclamation\Models\CreateReclamation.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\ProtocolTAListView.cs" />
     <Compile Include="Areas\Reclamation\Models\ProtocolTAView.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationCRUD.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
@@ -614,6 +615,12 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Reclamation_TechnicalAdvice.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reclamation_TechnicalAdviceProtocol.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reclamation_TechnicalAdviceProtocolPosition.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Reclamation_Type.cs">

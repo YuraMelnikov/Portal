@@ -241,6 +241,12 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocol" Width="1.5" PointX="10.5" PointY="76.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocolPosition" Width="1.5" PointX="12.75" PointY="67.25" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
