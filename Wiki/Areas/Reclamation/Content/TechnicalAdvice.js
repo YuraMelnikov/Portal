@@ -220,6 +220,18 @@ function reclamationPO() {
     });
 }
 
-function downloadProtocol() {
+function downloadProtocol(id) {
+
+}
+
+function getProtocol(id) {
+
+}
+
+function getTAEdit(id) {
+
+}
+
+function getTAView(id) {
 
 }

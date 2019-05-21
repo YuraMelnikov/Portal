@@ -53,7 +53,8 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.id_Reclamation_CountErrorFirst = 1;
             if (reclamation.id_Reclamation_CountErrorFinal == 0)
                 reclamation.id_Reclamation_CountErrorFinal = 1;
-
+            if (reclamation.id_Reclamation_CountErrorFinal == 0)
+                reclamation.id_Reclamation_CountErrorFinal = 1;
             return true;
         }
 

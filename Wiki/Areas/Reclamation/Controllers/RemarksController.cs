@@ -210,6 +210,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.id,
+                dataList.fixedExpert,
                 dataList.id_Reclamation_Type,
                 dataList.id_DevisionReclamation,
                 dataList.id_Reclamation_CountErrorFirst,

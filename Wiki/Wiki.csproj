@@ -281,6 +281,7 @@
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\TARemarksListView.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />

@@ -8,7 +8,7 @@
         string dateProtocol;
         int countReclamation;
 
-        string firstPartLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('";
+        string firstPartLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getProtocol('";
         string secondPartLink = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         string firstPartLinkToWord = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return downloadProtocol('";
         string secondPartLinkToWord = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-download-alt" + '\u0022' + "></span></a></td>";

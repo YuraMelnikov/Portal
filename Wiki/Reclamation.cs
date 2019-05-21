@@ -46,6 +46,7 @@ namespace Wiki
         public bool technicalAdvice { get; set; }
         public string id_AspNetUsersError { get; set; }
         public bool closeMKO { get; set; }
+        public bool fixedExpert { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

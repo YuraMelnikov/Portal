@@ -29,95 +29,97 @@
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_MatchingType" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="PortalKATEKModel.PostMatching" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" />
-        <EntityTypeShape EntityType="PortalKATEKModel.AspNetRoles" Width="1.5" PointX="3.75" PointY="57" />
-        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUserClaims" Width="1.5" PointX="8.25" PointY="96.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUserLogins" Width="1.5" PointX="8.25" PointY="93.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUsers" Width="1.5" PointX="6" PointY="57.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Company" Width="1.5" PointX="9" PointY="39.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_CompanyMailList" Width="1.5" PointX="11.25" PointY="36.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_FileOrder" Width="1.5" PointX="13.5" PointY="43.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_HoureTender" Width="1.5" PointX="9" PointY="42.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Mail" Width="1.5" PointX="18.5" PointY="34.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Order" Width="1.5" PointX="11.25" PointY="39.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PositionOrder" Width="1.5" PointX="13.5" PointY="45.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PositionPreOrder" Width="1.5" PointX="16.5" PointY="43.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PreOrder" Width="1.5" PointX="14.25" PointY="30.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Tender" Width="1.5" PointX="13.5" PointY="39.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_TypeProduct" Width="1.5" PointX="14.25" PointY="33.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_TypeTask" Width="1.5" PointX="16.25" PointY="22" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMO_UploadResult" Width="1.5" PointX="21.75" PointY="39.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_CMR" Width="1.5" PointX="15.75" PointY="40.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_CostUpdate" Width="1.5" PointX="13.5" PointY="63.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_DataReportOprih" Width="1.5" PointX="21.75" PointY="48.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_IstPost" Width="1.5" PointX="15.75" PointY="60.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_Name" Width="1.5" PointX="18.75" PointY="46.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PeriodReportOprih" Width="1.5" PointX="19.5" PointY="37.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_Platform" Width="1.5" PointX="13.5" PointY="86.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOffType" Width="1.5" PointX="19.5" PointY="44.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOnType" Width="1.5" PointX="19.5" PointY="41.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_TN" Width="1.5" PointX="15.75" PointY="63.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Debit_WorkBit" Width="1.5" PointX="13.5" PointY="48.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DebitReclamation" Width="1.5" PointX="13.5" PointY="94.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Devision" Width="1.5" PointX="0.75" PointY="59.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ChaeckList" Width="1.5" PointX="16.5" PointY="54.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_CounterErrorKO" Width="1.5" PointX="21.75" PointY="69" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_Reclamation" Width="1.5" PointX="18.75" PointY="60.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ReclamationAnswer" Width="1.5" PointX="24" PointY="61" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ReclamationKO" Width="1.5" PointX="13.5" PointY="53.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.OTK_TypeReclamation" Width="1.5" PointX="16.5" PointY="72.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PF" Width="1.5" PointX="6" PointY="51.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PostAlertShip" Width="1.5" PointX="15.75" PointY="36.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Client" Width="1.5" PointX="9" PointY="47.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Currency" Width="1.5" PointX="17.25" PointY="67.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Dostavka" Width="1.5" PointX="9" PointY="53.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_FIO" Width="1.5" PointX="9" PointY="67.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_OperatorDogovora" Width="1.5" PointX="9" PointY="45.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_PlanZakaz" Width="1.5" PointX="11.25" PointY="46.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_ProductType" Width="1.5" PointX="9" PointY="51.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Setup" Width="1.5" PointX="16.5" PointY="50.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_TEO" Width="1.5" PointX="19.5" PointY="50.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PZ_TypeShip" Width="1.5" PointX="9" PointY="70.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation" Width="1.5" PointX="8.25" PointY="57.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Answer" Width="1.5" PointX="13.5" PointY="59.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CountError" Width="1.5" PointX="6" PointY="68.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_PZ" Width="1.5" PointX="16.5" PointY="57.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" Width="1.5" PointX="10.5" PointY="63.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Type" Width="1.5" PointX="6" PointY="65.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Despatching" Width="1.5" PointX="21.75" PointY="56.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_FileMailVersion" Width="1.5" PointX="29.25" PointY="55.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_GIP" Width="1.5" PointX="21.75" PointY="59.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Institute" Width="1.5" PointX="17.25" PointY="70.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Mail_TimeForComplited" Width="1.5" PointX="29.25" PointY="58.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Mail_Version" Width="1.5" PointX="27" PointY="56.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Order" Width="1.5" PointX="19.5" PointY="56.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_PostList" Width="1.5" PointX="27" PointY="53" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Question" Width="1.5" PointX="21.75" PointY="62.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_QuestionData" Width="1.5" PointX="27" PointY="60.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Task" Width="1.5" PointX="21.75" PointY="65.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_TaskVersion" Width="1.5" PointX="30" PointY="60.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_TypeTask" Width="1.5" PointX="3" PointY="71.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Version" Width="1.5" PointX="24.75" PointY="56.25" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_VersionDay" Width="1.5" PointX="22.5" PointY="53.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.RKD_VersionWork" Width="1.5" PointX="22.5" PointY="45.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_Reclamation" Width="1.5" PointX="14.25" PointY="24.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationAddOrder" Width="1.5" PointX="16.5" PointY="28.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.AspNetRoles" Width="1.5" PointX="3.75" PointY="57.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUserClaims" Width="1.5" PointX="8.25" PointY="94" />
+        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUserLogins" Width="1.5" PointX="8.25" PointY="96.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.AspNetUsers" Width="1.5" PointX="6" PointY="57.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Company" Width="1.5" PointX="12" PointY="83.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_CompanyMailList" Width="1.5" PointX="14.25" PointY="86.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_FileOrder" Width="1.5" PointX="16.5" PointY="85.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_HoureTender" Width="1.5" PointX="12" PointY="80.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Mail" Width="1.5" PointX="16.5" PointY="87.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Order" Width="1.5" PointX="14.25" PointY="81" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PositionOrder" Width="1.5" PointX="16.5" PointY="64.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PositionPreOrder" Width="1.5" PointX="19.5" PointY="52.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_PreOrder" Width="1.5" PointX="17.25" PointY="45.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_Tender" Width="1.5" PointX="22.5" PointY="81.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_TypeProduct" Width="1.5" PointX="17.25" PointY="48.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_TypeTask" Width="1.5" PointX="20.25" PointY="90.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO_UploadResult" Width="1.5" PointX="24.75" PointY="82" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_CMR" Width="1.5" PointX="15.75" PointY="78.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_CostUpdate" Width="1.5" PointX="13.5" PointY="94.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_DataReportOprih" Width="1.5" PointX="21.75" PointY="70.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_IstPost" Width="1.5" PointX="15.75" PointY="71.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_Name" Width="1.5" PointX="19.5" PointY="63.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PeriodReportOprih" Width="1.5" PointX="19.5" PointY="82.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_Platform" Width="1.5" PointX="13.5" PointY="97.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOffType" Width="1.5" PointX="19.5" PointY="87.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_PostingOnType" Width="1.5" PointX="19.5" PointY="85.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_TN" Width="1.5" PointX="15.75" PointY="68.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Debit_WorkBit" Width="1.5" PointX="13.5" PointY="67.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DebitReclamation" Width="1.5" PointX="13.5" PointY="92.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Devision" Width="1.5" PointX="0.75" PointY="59.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ChaeckList" Width="1.5" PointX="13.5" PointY="59.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_CounterErrorKO" Width="1.5" PointX="21.75" PointY="50" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_Reclamation" Width="1.5" PointX="18.75" PointY="58.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ReclamationAnswer" Width="1.5" PointX="24" PointY="59" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_ReclamationKO" Width="1.5" PointX="16.5" PointY="58.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OTK_TypeReclamation" Width="1.5" PointX="16.5" PointY="52" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PF" Width="1.5" PointX="12" PointY="51.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PostAlertShip" Width="1.5" PointX="15.75" PointY="75.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Client" Width="1.5" PointX="9" PointY="52.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Currency" Width="1.5" PointX="17.25" PointY="81.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Dostavka" Width="1.5" PointX="9" PointY="75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_FIO" Width="1.5" PointX="9" PointY="69.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_OperatorDogovora" Width="1.5" PointX="9" PointY="50" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_PlanZakaz" Width="1.5" PointX="11.25" PointY="55" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_ProductType" Width="1.5" PointX="9" PointY="72.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Setup" Width="1.5" PointX="21.5" PointY="59.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_TEO" Width="1.5" PointX="19.5" PointY="67.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_TypeShip" Width="1.5" PointX="9" PointY="67.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation" Width="1.5" PointX="14.25" PointY="51.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Answer" Width="1.5" PointX="8.25" PointY="56.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CountError" Width="1.5" PointX="12" PointY="45.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_PZ" Width="1.5" PointX="22.5" PointY="56.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" Width="1.5" PointX="16.5" PointY="54.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocol" Width="1.5" PointX="19.5" PointY="50.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocolPosition" Width="1.5" PointX="21.75" PointY="53.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_Type" Width="1.5" PointX="12" PointY="48.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Despatching" Width="1.5" PointX="24.75" PointY="55.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_FileMailVersion" Width="1.5" PointX="29.25" PointY="62.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_GIP" Width="1.5" PointX="21.75" PointY="67.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Institute" Width="1.5" PointX="11.25" PointY="68.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Mail_TimeForComplited" Width="1.5" PointX="29.25" PointY="65.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Mail_Version" Width="1.5" PointX="27" PointY="63.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Order" Width="1.5" PointX="13.5" PointY="63.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_PostList" Width="1.5" PointX="27" PointY="72.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Question" Width="1.5" PointX="24.75" PointY="64.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_QuestionData" Width="1.5" PointX="27" PointY="59.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Task" Width="1.5" PointX="18.75" PointY="73.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_TaskVersion" Width="1.5" PointX="24" PointY="68.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_TypeTask" Width="1.5" PointX="3" PointY="71.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_Version" Width="1.5" PointX="21.75" PointY="63.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_VersionDay" Width="1.5" PointX="19.5" PointY="76.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.RKD_VersionWork" Width="1.5" PointX="19.5" PointY="79.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_Reclamation" Width="1.5" PointX="0.75" PointY="54" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationAddOrder" Width="1.5" PointX="3" PointY="47.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationAnswerDevision" Width="1.5" PointX="3" PointY="59.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationCorrespondence" Width="1.5" PointX="19.5" PointY="22.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationCounterError" Width="1.5" PointX="3" PointY="50.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationInfo" Width="1.5" PointX="16.5" PointY="25.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationMonthDoc" Width="1.5" PointX="3" PointY="52.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationMonthResult" Width="1.5" PointX="5.25" PointY="53.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationPZ" Width="1.5" PointX="16.5" PointY="46.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationType" Width="1.5" PointX="19.5" PointY="25.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationWhoAdd" Width="1.5" PointX="12" PointY="24.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeCorrespondence" Width="1.5" PointX="17.25" PointY="19" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeReclamation" Width="1.5" PointX="17.25" PointY="32" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeReclamationDocument" Width="1.5" PointX="12" PointY="27.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.TaskForPZ" Width="1.5" PointX="11.25" PointY="59.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.TypeRKD_Mail_Version" Width="1.5" PointX="24.75" PointY="53" />
-        <EntityTypeShape EntityType="PortalKATEKModel.TypeTaskForPZ" Width="1.5" PointX="9" PointY="74.125" />
-        <EntityTypeShape EntityType="PortalKATEKModel.VV_Position" Width="1.5" PointX="15.75" PointY="90.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.VVPZ" Width="1.5" PointX="13.5" PointY="89.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationCorrespondence" Width="1.5" PointX="3" PointY="53.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationCounterError" Width="1.5" PointX="6" PointY="66.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationInfo" Width="1.5" PointX="3" PointY="66.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationMonthDoc" Width="1.5" PointX="6" PointY="53.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationMonthResult" Width="1.5" PointX="8.25" PointY="59.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationPZ" Width="1.5" PointX="19.5" PointY="56" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationType" Width="1.5" PointX="4" PointY="51" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_ReclamationWhoAdd" Width="1.5" PointX="1.5" PointY="63.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeCorrespondence" Width="1.5" PointX="0.75" PointY="48.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeReclamation" Width="1.5" PointX="1.75" PointY="44.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Service_TypeReclamationDocument" Width="1.5" PointX="1.5" PointY="50.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.TaskForPZ" Width="1.5" PointX="8.25" PointY="63.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.TypeRKD_Mail_Version" Width="1.5" PointX="24.75" PointY="72.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.TypeTaskForPZ" Width="1.5" PointX="6" PointY="69.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.VV_Position" Width="1.5" PointX="15.75" PointY="101.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.VVPZ" Width="1.5" PointX="13.5" PointY="100.375" />
         <AssociationConnector Association="PortalKATEKModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="PortalKATEKModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="PortalKATEKModel.FK_AspNetUsers_Devision" />
@@ -133,6 +135,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_AspNetUsers1" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBE" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBM" />
@@ -208,6 +212,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_Reclamation_Type" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_Despatching_RKD_Order" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_FileMailVersion_RKD_Mail_Version" />
         <AssociationConnector Association="PortalKATEKModel.FK_RKD_GIP_RKD_Order" />
@@ -241,12 +247,6 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocol" Width="1.5" PointX="10.5" PointY="76.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocolPosition" Width="1.5" PointX="12.75" PointY="67.25" />
-        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" />
-        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" />
-        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" />
-        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

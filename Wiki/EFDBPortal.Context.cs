@@ -101,6 +101,8 @@ namespace Wiki
         public virtual DbSet<Reclamation_CountError> Reclamation_CountError { get; set; }
         public virtual DbSet<Reclamation_PZ> Reclamation_PZ { get; set; }
         public virtual DbSet<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
+        public virtual DbSet<Reclamation_TechnicalAdviceProtocol> Reclamation_TechnicalAdviceProtocol { get; set; }
+        public virtual DbSet<Reclamation_TechnicalAdviceProtocolPosition> Reclamation_TechnicalAdviceProtocolPosition { get; set; }
         public virtual DbSet<Reclamation_Type> Reclamation_Type { get; set; }
         public virtual DbSet<RKD_Despatching> RKD_Despatching { get; set; }
         public virtual DbSet<RKD_FileMailVersion> RKD_FileMailVersion { get; set; }
@@ -137,7 +139,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<Reclamation_TechnicalAdviceProtocol> Reclamation_TechnicalAdviceProtocol { get; set; }
-        public virtual DbSet<Reclamation_TechnicalAdviceProtocolPosition> Reclamation_TechnicalAdviceProtocolPosition { get; set; }
     }
 }

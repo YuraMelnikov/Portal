@@ -459,6 +459,7 @@ function GetReclamation(id) {
         success: function (result) {
             AllNoDisabled();
             $('#id').val(result.id);
+            $('#fixedExpert').val(result.fixedExpert);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
@@ -621,6 +622,7 @@ function Update() {
     }
     var objRemark = {
         id: $('#id').val(),
+        fixedExpert: $('#fixedExpert').val(),
         closeMKO: $('#closeMKO').val(),
         dateTimeCreate: $('#dateTimeCreate').val(),
         id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
@@ -791,40 +793,6 @@ function planZakazDevisionAll() {
         "ajax": {
             "cache": false,
             "url": "/Remarks/PlanZakazDevisionAll",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "bDestroy": true,
-        "processing": true,
-        "order": [[1, "desc"]],
-        "columns": objOrder,
-        "rowCallback": function (row, data, index) {
-            if (data.ReclamationActive > 0) {
-                $('td', row).css('background-color', '#d9534f');
-                $('td', row).css('color', 'white');
-            }
-        },
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
-    });
-}
-
-function technicalAdvice() {
-    var table = $('#myTable').DataTable();
-    table.destroy();
-    $('#myTable').empty();
-    $("#myTable").DataTable({
-        "ajax": {
-            "cache": false,
-            "url": "/Remarks/TechnicalAdvice",
             "type": "POST",
             "datatype": "json"
         },
