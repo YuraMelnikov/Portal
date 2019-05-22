@@ -51,6 +51,12 @@ function startMenu() {
         },
         "bDestroy": true,
         "processing": true,
+        "rowCallback": function (row, data, index) {
+            if (data.Decision === "") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -78,6 +84,12 @@ function activeTA() {
         },
         "bDestroy": true,
         "processing": true,
+        "rowCallback": function (row, data, index) {
+            if (data.Decision === "") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
