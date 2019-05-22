@@ -1,10 +1,13 @@
 ﻿using Wiki.Areas.Reclamation.Models;
 using System.Web.Mvc;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
     public class TechnicalAdviceController : Controller
     {
+        PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
         {
             return View();
@@ -28,42 +31,50 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data });
         }
 
-        //public JsonResult GetProtocolData(int id)
+        public JsonResult GetTA(int id)
+        {
+            List<TAEdit> query = new List<TAEdit>();
+            query.Add(new TAEdit(id));
+            var data = query.Select(dataList => new
+            {
+                dataList.Reclamation_TechnicalAdvice.id,
+                userUploadReclamation = dataList.Reclamation_TechnicalAdvice.AspNetUsers.CiliricalName,
+                dataList.Reclamation_TechnicalAdvice.text,
+                dataList.Reclamation_TechnicalAdvice.description,
+                orders = dataList.Reclamation.PlanZakaz,
+                userCreateReclamation = dataList.Reclamation.UserCreate,
+                devisionReclamation = dataList.Reclamation.Devision,
+                reclamationText = dataList.Reclamation.Text,
+                answerHistiryText = dataList.Reclamation.Answers
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Update(Reclamation_TechnicalAdvice ta)
+        {
+            Reclamation_TechnicalAdvice technicalAdvice = db.Reclamation_TechnicalAdvice.Find(ta.id);
+            if(ta.text != null)
+                technicalAdvice.text = ta.text;
+            if(ta.description != null)
+                technicalAdvice.description = ta.description;
+            db.Entry(technicalAdvice).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //public JsonResult DownloadProtocol(int id)
         //{
         //    return Json(new { data });
         //}
 
-        //public JsonResult GetTA(int id)
+        //public JsonResult GetProtocol(int id)
         //{
-        //    var query = db.Reclamation.Where(d => d.id == id).ToList();
-        //    var data = query.Select(dataList => new
-        //    {
-        //        dataList.id,
-        //        dataList.fixedExpert,
-        //        dataList.id_Reclamation_Type,
-        //        dataList.id_DevisionReclamation,
-        //        dataList.id_Reclamation_CountErrorFirst,
-        //        dataList.id_Reclamation_CountErrorFinal,
-        //        id_AspNetUsersCreate = dataList.AspNetUsers.CiliricalName,
-        //        dataList.id_DevisionCreate,
-        //        dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
-        //        dataList.text,
-        //        dataList.description,
-        //        dataList.timeToSearch,
-        //        dataList.timeToEliminate,
-        //        dataList.close,
-        //        dataList.gip,
-        //        dataList.closeDevision,
-        //        dataList.PCAM,
-        //        dataList.editManufacturing,
-        //        dataList.editManufacturingIdDevision,
-        //        dataList.id_PF,
-        //        dataList.technicalAdvice,
-        //        dataList.id_AspNetUsersError,
-        //        pZ_PlanZakaz = GetPlanZakazArray(dataList.Reclamation_PZ.ToList()),
-        //        answerHistiryText = GetAnswerText(dataList.Reclamation_Answer.ToList())
-        //    });
-        //    return Json(data.First(), JsonRequestBehavior.AllowGet);
+        //    return Json(new { data });
+        //}
+
+        //public JsonResult CreateNewProtocol(int id)
+        //{
+        //    return Json(new { data });
         //}
     }
 }

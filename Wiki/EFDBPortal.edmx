@@ -782,8 +782,6 @@
           <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
-          <Property Name="id_AspNetUsersCorrect" Type="nvarchar" MaxLength="128" />
-          <Property Name="dateCorrect" Type="date" />
         </EntityType>
         <EntityType Name="Reclamation_TechnicalAdviceProtocol">
           <Key>
@@ -2306,18 +2304,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reclamation_TechnicalAdvice_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="Reclamation_TechnicalAdvice" Type="Self.Reclamation_TechnicalAdvice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_TechnicalAdvice">
-              <PropertyRef Name="id_AspNetUsersCorrect" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reclamation_TechnicalAdvice_Reclamation">
           <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="1" />
           <End Role="Reclamation_TechnicalAdvice" Type="Self.Reclamation_TechnicalAdvice" Multiplicity="*" />
@@ -3378,10 +3364,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_AspNetUsers1" Association="Self.FK_Reclamation_TechnicalAdvice_AspNetUsers1">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
-          </AssociationSet>
           <AssociationSet Name="FK_Reclamation_TechnicalAdvice_Reclamation" Association="Self.FK_Reclamation_TechnicalAdvice_Reclamation">
             <End Role="Reclamation" EntitySet="Reclamation" />
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
@@ -3943,10 +3925,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_TechnicalAdvice_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_TechnicalAdvice_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
@@ -4562,7 +4540,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdvice" />
-          <NavigationProperty Name="Reclamation_TechnicalAdvice1" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="RKD_Despatching" Relationship="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Despatching" />
           <NavigationProperty Name="RKD_GIP" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBE" FromRole="AspNetUsers" ToRole="RKD_GIP" />
           <NavigationProperty Name="RKD_GIP1" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBM" FromRole="AspNetUsers" ToRole="RKD_GIP" />
@@ -5309,10 +5286,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_AspNetUsersCorrect" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateCorrect" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" FromRole="Reclamation_TechnicalAdvice" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" FromRole="Reclamation_TechnicalAdvice" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation_TechnicalAdviceProtocolPosition" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation_TechnicalAdviceProtocolPosition" />
         </EntityType>
@@ -5967,18 +5941,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="Reclamation_TechnicalAdvice">
               <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_TechnicalAdvice_AspNetUsers1">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_TechnicalAdvice">
-              <PropertyRef Name="id_AspNetUsersCorrect" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8277,8 +8239,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation_TechnicalAdvice">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdvice">
               <MappingFragment StoreEntitySet="Reclamation_TechnicalAdvice">
-                <ScalarProperty Name="dateCorrect" ColumnName="dateCorrect" />
-                <ScalarProperty Name="id_AspNetUsersCorrect" ColumnName="id_AspNetUsersCorrect" />
                 <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
                 <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
                 <ScalarProperty Name="description" ColumnName="description" />

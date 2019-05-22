@@ -260,7 +260,6 @@ function allReclamation() {
         },
         "bDestroy": true,
         "processing": true,
-        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,

@@ -45,11 +45,11 @@ namespace Wiki.Areas.Reclamation.Models
             linkToView = firstPartLinkToView + reclamation.id + secondPartLinkToView;
             orders = GetOrders(reclamation.Reclamation.Reclamation_PZ.ToList());
             textReclamation = reclamation.Reclamation.text;
-            descriptionReclamation = reclamation.Reclamation.description;
+            descriptionReclamation = reclamation.description;
             answers = GetAnswers(reclamation.Reclamation.Reclamation_Answer.OrderByDescending(d => d.dateTimeCreate).ToList());
             decision = reclamation.text;
-            userToTA = reclamation.AspNetUsers1.CiliricalName;
-            userCreate = reclamation.AspNetUsers.CiliricalName;
+            userCreate = reclamation.Reclamation.AspNetUsers.CiliricalName;
+            userToTA = reclamation.AspNetUsers.CiliricalName;
             devisionReclamation = reclamation.Reclamation.Devision.name;
             leavelReclamation = reclamation.Reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation.Reclamation_CountError1.name;

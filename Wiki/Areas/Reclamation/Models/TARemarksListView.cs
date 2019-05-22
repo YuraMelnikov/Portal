@@ -23,7 +23,7 @@ namespace Wiki.Areas.Reclamation.Models
         public List<TARemarkView> GetAllRemarks()
         {
             InitializationList();
-            foreach (var data in db.Reclamation_TechnicalAdvice.ToList())
+            foreach (var data in db.Reclamation_TechnicalAdvice.Where(d => d.dateTimeClose != null).ToList())
             {
                 TARemarkViews.Add(new TARemarkView(data));
             }

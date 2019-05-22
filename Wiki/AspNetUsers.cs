@@ -32,7 +32,6 @@ namespace Wiki
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
             this.Reclamation_TechnicalAdvice = new HashSet<Reclamation_TechnicalAdvice>();
-            this.Reclamation_TechnicalAdvice1 = new HashSet<Reclamation_TechnicalAdvice>();
             this.RKD_Despatching = new HashSet<RKD_Despatching>();
             this.RKD_GIP = new HashSet<RKD_GIP>();
             this.RKD_GIP1 = new HashSet<RKD_GIP>();
@@ -90,8 +89,6 @@ namespace Wiki
         public virtual ICollection<Reclamation> Reclamation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Despatching> RKD_Despatching { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

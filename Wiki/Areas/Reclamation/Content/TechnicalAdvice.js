@@ -21,19 +21,17 @@ function loadData(listId) {
 
 var objRemarksList = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
-    { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
-    { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
-    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
+    { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
+    { "title": "См", "data": "LinkToView", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
+    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Решение", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Направил на ТС", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Ответственное СП", "data": "Devision", "autowidth": true, "bSortable": false }
+    { "title": "Решение", "data": "Decision", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
+    { "title": "Направил на ТС", "data": "UserToTA", "autowidth": true, "bSortable": true },
+    { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true },
+    { "title": "Ответственное СП", "data": "DevisionReclamation", "autowidth": true, "bSortable": true }
 ];
-
-
 
 var objProtocol = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
@@ -149,11 +147,59 @@ function allDataProtocols() {
 }
 
 function getTAEdit(id) {
-
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/GetTA/" + id,
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            disabledFalse();
+            $('#id').val(result.id);
+            $('#userUploadReclamation').val(result.userUploadReclamation);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#orders').val(result.orders);
+            $('#userCreateReclamation').val(result.userCreateReclamation);
+            $('#devisionReclamation').val(result.devisionReclamation);
+            $('#reclamationText').val(result.reclamationText);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#viewReclamation').modal('show');
+            $('#btnUpdate').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
 
 function getTAView(id) {
-
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/GetTA/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            disabledTrue();
+            $('#id').val(result.Reclamation_TechnicalAdvice.id);
+            $('#userUploadReclamation').val(result.Reclamation_TechnicalAdvice.AspNetUsers.CiliricalName);
+            $('#text').val(result.Reclamation_TechnicalAdvice.text);
+            $('#description').val(result.Reclamation_TechnicalAdvice.description);
+            $('#orders').val(result.ReclamationViwers.PlanZakaz);
+            $('#userCreateReclamation').val(result.ReclamationViwers.UserCreate);
+            $('#devisionReclamation').val(result.ReclamationViwers.Devision);
+            $('#reclamationText').val(result.ReclamationViwers.Text);
+            $('#answerHistiryText').val(result.ReclamationViwers.Answers);
+            $('#viewReclamation').modal('show');
+            $('#btnUpdate').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
 
 function downloadProtocol(id) {
@@ -162,4 +208,45 @@ function downloadProtocol(id) {
 
 function getProtocol(id) {
 
+}
+
+function createNewProtocol() {
+
+}
+
+function update() {
+    var objRemark = {
+        id: $('#id').val(),
+        text: $('#text').val(),
+        description: $('#description').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/Update/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#viewReclamation').modal('hide');
+            loadData(document.getElementById('pageData').innerHTML);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function disabledFalse() {
+    $('#text').prop('disabled', false);
+    $('#description').prop('disabled', false);
+    $('#id_AspNetUsersCorrect').prop('disabled', false);
+    $('#dateCorrect').prop('disabled', false);
+}
+
+function disabledTrue() {
+    $('#text').prop('disabled', true);
+    $('#description').prop('disabled', true);
+    $('#id_AspNetUsersCorrect').prop('disabled', true);
+    $('#dateCorrect').prop('disabled', true);
 }

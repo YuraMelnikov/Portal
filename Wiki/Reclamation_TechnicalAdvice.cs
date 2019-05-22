@@ -27,11 +27,8 @@ namespace Wiki
         public string description { get; set; }
         public string id_AspNetUsersCreate { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
-        public string id_AspNetUsersCorrect { get; set; }
-        public Nullable<System.DateTime> dateCorrect { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual Reclamation Reclamation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdviceProtocolPosition> Reclamation_TechnicalAdviceProtocolPosition { get; set; }
