@@ -55,6 +55,18 @@ namespace Wiki.Areas.Reclamation.Models
             return tARemarkViews;
         }
 
+        public List<TARemarkView> GetRemarksProtocol(int id_protocol)
+        {
+            InitializationList();
+            foreach (var data in db.Reclamation_TechnicalAdvice
+                .Where(d => d.Reclamation_TechnicalAdviceProtocolPosition.FirstOrDefault().id_Reclamation_TechnicalAdviceProtocol == id_protocol)
+                .ToList())
+            {
+                TARemarkViews.Add(new TARemarkView(data));
+            }
+            return tARemarkViews;
+        }
+
         bool InitializationList()
         {
             tARemarkViews = new List<TARemarkView>();

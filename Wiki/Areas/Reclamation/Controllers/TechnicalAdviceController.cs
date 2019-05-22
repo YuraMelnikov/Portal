@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -62,19 +63,35 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult DownloadProtocol(int id)
-        //{
-        //    return Json(new { data });
-        //}
+        [HttpPost]
+        public JsonResult CreateNewProtocol()
+        {
+            DateTime dateClose = DateTime.Now;
+            Reclamation_TechnicalAdviceProtocol protocol = new Reclamation_TechnicalAdviceProtocol();
+            protocol.date = dateClose;
+            protocol.number = db.Reclamation_TechnicalAdviceProtocol.Select(p => p.number).DefaultIfEmpty(0).Max() + 1;
+            db.Reclamation_TechnicalAdviceProtocol.Add(protocol);
+            db.SaveChanges();
+            foreach(var data in db.Reclamation_TechnicalAdvice.Where(d => d.dateTimeClose == null).ToList())
+            {
+                Reclamation_TechnicalAdvice ta = db.Reclamation_TechnicalAdvice.Find(data.id);
+                ta.dateTimeClose = dateClose;
+                db.Entry(ta).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                Reclamation_TechnicalAdviceProtocolPosition position = new Reclamation_TechnicalAdviceProtocolPosition();
+                position.id_Reclamation_TechnicalAdvice = ta.id;
+                position.id_Reclamation_TechnicalAdviceProtocol = protocol.id;
+                db.Reclamation_TechnicalAdviceProtocolPosition.Add(position);
+                db.SaveChanges();
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
 
-        //public JsonResult GetProtocol(int id)
-        //{
-        //    return Json(new { data });
-        //}
-
-        //public JsonResult CreateNewProtocol(int id)
-        //{
-        //    return Json(new { data });
-        //}
+        [HttpPost]
+        public JsonResult GetProtocol(int id)
+        {
+            var data = new TARemarksListView().GetRemarksProtocol(id);
+            return Json(new { data });
+        }
     }
 }
