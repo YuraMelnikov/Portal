@@ -20,8 +20,8 @@
             <li><a onclick="return loadData(4);">Рекламации по неотгруженным заказам</a></li>
             <li><a onclick="return loadData(5);">Рекламации по отгруженным заказам</a></li>
             <li><a onclick="return loadData(6);">Чек-листы</a></li>
-            <li><a onclick="return loadData(7);">Чек-листы</a></li>
-            <li><a onclick="return loadData(8);">Чек-листы</a></li>
+            <li><a onclick="return loadData(7);">Итоги ОТК</a></li>
+            <li><a onclick="return loadData(8);">Итоги ПО</a></li>
             <li><a href="/Reclamation/TechnicalAdvice/Index/">Техсовет</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -29,6 +29,7 @@
                 </a>
             </li>
             <li><a id="pageData"></a></li>
+            <li><a id="expertData"></a></li>
         </ul>
     </div>
 </nav>
@@ -36,6 +37,9 @@
     <div class="col-md-12">
         <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <button id="btnExpert" type="button" class="btn-xs btn-primary" onclick=expertComplitedAll()>
+            Подтвердить оценки КО и заявки на техсовет
         </button>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>

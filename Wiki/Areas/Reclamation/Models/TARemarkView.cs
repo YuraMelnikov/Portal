@@ -22,7 +22,7 @@ namespace Wiki.Areas.Reclamation.Models
         string secondPartLinkToEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
         string firstPartLinkToView = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTAView('";
         string secondPartLinkToView = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
-        string firstPartLinkToEditCounter = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return editExpert('";
+        string firstPartLinkToEditCounter = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationExpert('";
 
         public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
         public string LinkToEdit { get => linkToEdit; set => linkToEdit = value; }
@@ -79,7 +79,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 ordersName += data.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
-            return "";
+            return ordersName;
         }
 
         string GetAnswers(List<Reclamation_Answer> answer)
@@ -89,7 +89,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 answers += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName;
             }
-            return "";
+            return answers;
         }
     }
 }

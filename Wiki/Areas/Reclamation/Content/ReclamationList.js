@@ -4,7 +4,9 @@
 
 $(document).ready(function () {
     startMenu();
+    expertHide();
     $('#pageData').hide();
+    $('#expertData').hide();
     if (buttonAddActivation === 0)
         $('#btnAddNewReclamation').hide();
 });
@@ -12,32 +14,51 @@ $(document).ready(function () {
 function loadData(listId) {
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
+        expertHide();
         activeReclamation();
     }
     else if (listId === 2 || listId === "2") {
+        expertHide();
         closeReclamation();
     }
     else if (listId === 3 || listId === "3") {
+        expertHide();
         allReclamation();
     }
     else if (listId === 4 || listId === "4") {
+        expertHide();
         planZakazDevisionNotSh();
     }
     else if (listId === 5 || listId === "5") {
+        expertHide();
         planZakazDevisionSh();
     }
     else if (listId === 6 || listId === "6") {
+        expertHide();
         planZakazDevisionAll();
     }
     else if (listId === 7 || listId === "7") {
+        expertShow();
         reclamationOTK();
     }
     else if (listId === 8 || listId === "8") {
+        expertShow();
         reclamationPO();
     }
     else {
+        expertHide();
         activeReclamation();
     }
+}
+
+function expertHide() {
+    document.getElementById('expertData').innerHTML = 0;
+    $('#btnExpert').hide();
+}
+
+function expertShow() {
+    document.getElementById('expertData').innerHTML = 1;
+    $('#btnExpert').show();
 }
 
 var objRemarksList = [
@@ -104,7 +125,6 @@ function startMenu() {
         },
         "bDestroy": true,
         "processing": true,
-        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -150,7 +170,6 @@ function activeReclamation() {
         },
         "bDestroy": true,
         "processing": true,
-        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -196,7 +215,6 @@ function closeReclamation() {
         },
         "bDestroy": true,
         "processing": true,
-        //"order": [[2, "desc"]],
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
@@ -331,7 +349,7 @@ function validate() {
             $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
         }
     }
-    if ($('#reload').val() === false) {
+    if ($('#reload').is(":checked") === false) {
         if ($('#id_DevisionReclamation').val() === null && $('#id_AspNetUsersError').val() === null) {
             $('#id_DevisionReclamation').css('border-color', 'Red');
             $('#id_AspNetUsersError').css('border-color', 'Red');
@@ -623,6 +641,9 @@ function Update() {
             $('#answerText').css('border-color', 'lightgrey');
         }
     }
+    if (document.getElementById('expertData').innerHTML === "1") {
+        $('#fixedExpert').val(true);
+    }
     if (res === false) {
         return false;
     }
@@ -827,14 +848,13 @@ function planZakazDevisionAll() {
 
 var objRemarksListExpert = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
-    { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
-    { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
-    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
+    { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Ответственное СП", "data": "Devision", "autowidth": true, "bSortable": false },
+    { "title": "Ответственное СП", "data": "DevisionReclamation", "autowidth": true, "bSortable": false },
     { "title": "Оценка Рук. КБ", "data": "LeavelReclamation", "autowidth": true, "bSortable": true },
     { "title": "Оценка эксперта", "data": "LastLeavelReclamation", "autowidth": true, "bSortable": true }
 ];
@@ -890,6 +910,104 @@ function reclamationPO() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        }
+    });
+}
+
+function GetReclamationExpert(id) {
+    var myVal = counterDevision;
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/Remarks/GetReclamation/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#id').prop('disabled', true);
+            $('#id_Reclamation_CountErrorFinal').prop('disabled', false);
+            $('#id_Reclamation_Type').prop('disabled', true);
+            $('#id_DevisionReclamation').prop('disabled', true);
+            $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
+            $('#id_AspNetUsersCreate').prop('disabled', true);
+            $('#id_DevisionCreate').prop('disabled', true);
+            $('#dateTimeCreate').prop('disabled', true);
+            $('#text').prop('disabled', true);
+            $('#description').prop('disabled', true);
+            $('#timeToSearch').prop('disabled', true);
+            $('#timeToEliminate').prop('disabled', true);
+            $('#close').prop('disabled', true);
+            $('#gip').prop('disabled', true);
+            $('#closeDevision').prop('disabled', true);
+            $('#PCAM').prop('disabled', true);
+            $('#editManufacturing').prop('disabled', true);
+            $('#editManufacturingIdDevision').prop('disabled', true);
+            $('#id_PF').prop('disabled', true);
+            $('#technicalAdvice').prop('disabled', true);
+            if (result.technicalAdvice !== true) {
+                $('#technicalAdvice').prop('disabled', false);
+            }
+            $('#id_AspNetUsersError').prop('disabled', true);
+            $('#reloadDevision').prop('disabled', true);
+            $('#reload').prop('disabled', true);
+            $('#answerHistiryText').prop('disabled', true);
+            $('#answerText').prop('disabled', true);
+            $('#trash').prop('disabled', true);
+            $('#pZ_PlanZakaz').prop('disabled', true);
+            $('#id').val(result.id);
+            $('#fixedExpert').val(result.fixedExpert);
+            $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
+            $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
+            $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
+            $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
+            $('#id_Reclamation_CountErrorFinal').val(result.id_Reclamation_CountErrorFinal);
+            $('#vid_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
+            $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
+            $('#id_DevisionCreate').val(result.id_DevisionCreate);
+            $('#vdateTimeCreate').val(result.dateTimeCreate);
+            $('#closeMKO').val(result.closeMKO);
+            $('#answerText').val("");
+            $('#dateTimeCreate').val(result.dateTimeCreate);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#timeToSearch').val(result.timeToSearch);
+            $('#timeToEliminate').val(result.timeToEliminate);
+            $('#close').prop('checked', result.close);
+            $('#gip').prop('checked', result.gip);
+            $('#closeDevision').prop('checked', result.closeDevision);
+            $('#PCAM').val(result.PCAM);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#editManufacturing').prop('checked', result.editManufacturing);
+            $('#editManufacturingIdDevision').val(result.editManufacturingIdDevision);
+            $('#id_PF').val(result.id_PF);
+            $('#technicalAdvice').prop('checked', result.technicalAdvice);
+            $('#id_AspNetUsersError').val(result.id_AspNetUsersError);
+            $('#reloadDevision').val("");
+            $('#viewReclamation').modal('show');
+            $('#btnUpdate').show();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function expertComplitedAll() {
+    $.ajax({
+        cache: false,
+        url: "/Remarks/ExpertComplitedAll",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData(document.getElementById('pageData').innerHTML);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

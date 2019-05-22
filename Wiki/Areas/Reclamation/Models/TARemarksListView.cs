@@ -49,6 +49,12 @@ namespace Wiki.Areas.Reclamation.Models
             return tARemarkViews;
         }
 
+        public List<TARemarkView> GetRemarksNull ()
+        {
+            InitializationList();
+            return tARemarkViews;
+        }
+
         bool InitializationList()
         {
             tARemarkViews = new List<TARemarkView>();

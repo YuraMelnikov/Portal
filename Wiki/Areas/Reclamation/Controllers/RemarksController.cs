@@ -370,14 +370,60 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksOTK()
         {
-            var data = new TARemarksListView().GetRemarksOTK();
-            return Json(new { data });
+            if(HttpContext.User.Identity.Name == "pev@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
+            {
+                var data = new TARemarksListView().GetRemarksOTK();
+                return Json(new { data });
+            }
+            else
+            {
+                var data = new TARemarksListView().GetRemarksNull();
+                return Json(new { data });
+            }
         }
 
         public JsonResult GetRemarksPO()
         {
-            var data = new TARemarksListView().GetRemarksPO();
-            return Json(new { data });
+            if (HttpContext.User.Identity.Name == "antipov@katek.by")
+            {
+                var data = new TARemarksListView().GetRemarksPO();
+                return Json(new { data });
+            }
+            else
+            {
+                var data = new TARemarksListView().GetRemarksNull();
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult ExpertComplitedAll()
+        {
+            if(HttpContext.User.Identity.Name == "pev@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
+            {
+                foreach(Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate == 6))
+                {
+                    Wiki.Reclamation reclamation = data;
+                    reclamation.fixedExpert = true;
+                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                }
+                db.SaveChanges();
+                return GetRemarksOTK();
+            }
+            else if(HttpContext.User.Identity.Name == "antipov@katek.by")
+            {
+                foreach (Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate != 6))
+                {
+                    Wiki.Reclamation reclamation = data;
+                    reclamation.fixedExpert = true;
+                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                }
+                db.SaveChanges();
+                return GetRemarksPO();
+            }
+            else
+            {
+                return GetRemarksPO();
+            }
         }
     }
 }
