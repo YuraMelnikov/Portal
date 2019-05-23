@@ -101,6 +101,7 @@ function activeTA() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[2, "desc"]],
         "processing": true,
         "rowCallback": function (row, data, index) {
             if (data.Decision === "") {
@@ -166,6 +167,7 @@ function allDataProtocols() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objRemarksListNoEdit,
         "scrollY": '75vh',

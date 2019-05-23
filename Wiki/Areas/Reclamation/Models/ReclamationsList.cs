@@ -9,6 +9,8 @@ namespace Wiki.Areas.Reclamation.Models
         PortalKATEKEntities db = new PortalKATEKEntities();
         List<Wiki.Reclamation> reclamations;
 
+        DateTime dateDeactiveOTK = DateTime.Now.AddDays(-15);
+
         public ReclamationsList()
         {
             List<Wiki.Reclamation> reclamations = new List<Wiki.Reclamation>();
@@ -30,11 +32,10 @@ namespace Wiki.Areas.Reclamation.Models
             Initialization();
             if (id_Devision == 6)
             {
-                DateTime dateCerrect = DateTime.Now.AddDays(-30);
                 Reclamations = db.Reclamation
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateCerrect)
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .ToList();
             }
             else if (id_Devision == 3 || id_Devision == 16)
@@ -83,7 +84,7 @@ namespace Wiki.Areas.Reclamation.Models
             Initialization();
             Reclamations = db.Reclamation
                 .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                 .ToList();
         }
 
@@ -94,7 +95,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.id_DevisionCreate == 6)
                     .ToList();
             }
@@ -102,7 +103,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
                     .ToList();
             }
@@ -110,14 +111,14 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .ToList();
             }
             else
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .ToList();
             }
@@ -130,7 +131,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
                     .ToList();
@@ -139,7 +140,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
                     .ToList();
@@ -148,7 +149,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
                     .ToList();
             }
@@ -156,7 +157,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
-                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now.AddDays(-10))
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .ToList();

@@ -124,6 +124,7 @@ function startMenu() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -135,24 +136,6 @@ function startMenu() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
         }
     });
 }
@@ -169,6 +152,7 @@ function activeReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -180,24 +164,6 @@ function activeReclamation() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
         }
     });
 }
@@ -214,6 +180,7 @@ function closeReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -225,24 +192,6 @@ function closeReclamation() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
         }
     });
 }
@@ -259,6 +208,7 @@ function allReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -270,24 +220,6 @@ function allReclamation() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
-        },
-        initComplete: function () {
-            this.api().columns([2, 9, 10, 11]).every(function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
         }
     });
 }

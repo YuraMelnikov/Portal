@@ -429,7 +429,7 @@ function validate() {
     else {
         $('#Name').css('border-color', 'lightgrey');
     }
-    
+
     if ($('#DateShipping').val().trim() === "") {
         $('#DateShipping').css('border-color', 'Red');
         isValid = false;
@@ -461,7 +461,7 @@ function validate() {
     else {
         $('#Cost').css('border-color', 'lightgrey');
     }
-    
+
     if ($('#ProductType').val() === null) {
         $('#ProductType').css('border-color', 'Red');
         isValid = false;
@@ -469,7 +469,7 @@ function validate() {
     else {
         $('#ProductType').css('border-color', 'lightgrey');
     }
-    
+
     if ($('#Zapros').val().trim() === "") {
         $('#Zapros').css('border-color', 'Red');
         isValid = false;
