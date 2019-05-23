@@ -49,6 +49,10 @@ function loadData(listId) {
         expertShow();
         myReclamation();
     }
+    else if (listId === 10 || listId === "10") {
+        expertShow();
+        editManufList();
+    }
     else {
         expertHide();
         activeReclamation();
@@ -1018,6 +1022,47 @@ function myReclamation() {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+var objRemarksListView = [
+    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
+    { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
+    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": false },
+    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },
+    { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
+];
+
+function editManufList() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/EditManufList/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "desc"]],
+        "processing": true,
+        "columns": objRemarksListView,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

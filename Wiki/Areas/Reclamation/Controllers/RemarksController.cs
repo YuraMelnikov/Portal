@@ -166,6 +166,14 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+        public JsonResult EditManufList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation();
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
         public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
         {
 

@@ -45,7 +45,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {
-            viewLinkJS = "";
+            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = "";
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);

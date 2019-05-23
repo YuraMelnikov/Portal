@@ -18,6 +18,12 @@ namespace Wiki.Areas.Reclamation.Models
 
         public List<Wiki.Reclamation> Reclamations { get => reclamations; set => reclamations = value; }
 
+        public void GetReclamation()
+        {
+            Initialization();
+            Reclamations = db.Reclamation.Where(d => d.editManufacturing == true).ToList();
+        }
+
         public void GetReclamation(string login)
         {
             string id_User = db.AspNetUsers.First(d => d.Email == login).Id;
