@@ -52,7 +52,6 @@ var objRemarksListNoEdit = [
 var objProtocol = [
     { "title": "№", "data": "Id_Protocol", "autowidth": true, "bSortable": true },
     { "title": "См", "data": "LinkToView", "autowidth": true, "bSortable": false },
-    //{ "title": "Word", "data": "LinkToWord", "autowidth": true, "bSortable": false },
     { "title": "Дата заседания", "data": "DateProtocol", "autowidth": true, "bSortable": true },
     { "title": "Кол-во рекламаций", "data": "CountReclamation", "autowidth": true, "bSortable": true }
 ];

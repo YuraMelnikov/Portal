@@ -1647,10 +1647,6 @@
     <Content Include="Views\Devisions\Edit.cshtml" />
     <Content Include="Views\Devisions\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartialAdmin.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\RolesUsers.cshtml" />
-    <Content Include="Views\Admin\OTK.cshtml" />
-    <Content Include="Views\Admin\OP.cshtml" />
     <Content Include="Views\Shared\_LayoutDAteTime.cshtml" />
     <Content Include="Scripts\select2-3.5.4\.gitignore" />
     <Content Include="Scripts\select2-3.5.4\bower.json" />
@@ -1830,7 +1826,6 @@
     <Content Include="Views\OTK_ChaeckList\QuaReport.cshtml" />
     <Content Include="Views\OTK_ReclamationAnswer\EditKOPartial.cshtml" />
     <Content Include="Views\OTK_ReclamationAnswer\EditPartial.cshtml" />
-    <Content Include="Views\Admin\Debug.cshtml" />
     <Content Include="Views\UploadER\UploadFoundationNorm.cshtml" />
     <Content Include="Views\UploadER\Index.cshtml" />
     <Content Include="Views\RKD\DetailsClose.cshtml" />

@@ -51,6 +51,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "TA")]
         public JsonResult Update(Reclamation_TechnicalAdvice ta)
         {
             Reclamation_TechnicalAdvice technicalAdvice = db.Reclamation_TechnicalAdvice.Find(ta.id);
@@ -63,6 +64,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "TA")]
         [HttpPost]
         public JsonResult CreateNewProtocol()
         {
