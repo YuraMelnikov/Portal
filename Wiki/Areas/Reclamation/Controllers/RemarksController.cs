@@ -99,6 +99,24 @@ namespace Wiki.Areas.Reclamation.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult ReclamationsPlanZakaz(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamationPlanZakaz(GetIdDevision(login), id);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
+        [HttpPost]
+        public JsonResult ChackList(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamationPlanZakaz(id);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
         public JsonResult ActiveReclamation()
         {
             string login = HttpContext.User.Identity.Name;

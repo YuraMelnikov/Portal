@@ -40,7 +40,7 @@ namespace Wiki.Areas.Reclamation.Models
             ReclamationCount = pZ_PlanZakaz.Reclamation_PZ.Count;
             ReclamationActive = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == false).Count();
             ReclamationClose = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == true).Count();
-            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
         public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision)
@@ -55,7 +55,7 @@ namespace Wiki.Areas.Reclamation.Models
             ReclamationCount = GetReclamationCount(pZ_PlanZakaz, id_Devision);
             ReclamationActive = GetReclamationActive(pZ_PlanZakaz, id_Devision, false);
             ReclamationClose = GetReclamationActive(pZ_PlanZakaz, id_Devision, true);
-            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getID('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return reclamationsPlanZakaz('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
         int GetReclamationCount(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision)
