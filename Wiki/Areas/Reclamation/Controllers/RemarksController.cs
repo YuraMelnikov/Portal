@@ -101,10 +101,17 @@ namespace Wiki.Areas.Reclamation.Controllers
         [HttpPost]
         public JsonResult ChackList(int id)
         {
-            string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetReclamationPlanZakaz(id);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
+        public JsonResult PlanZakazDevisionAll()
+        {
+            string login = HttpContext.User.Identity.Name;
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs();
+            return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
         public JsonResult ActiveReclamation()
@@ -131,14 +138,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
             planZakazListViewers.GetPlanZakazs(GetIdDevision(login), true);
-            return Json(new { data = planZakazListViewers.PlanZakazViwers });
-        }
-
-        public JsonResult PlanZakazDevisionAll()
-        {
-            string login = HttpContext.User.Identity.Name;
-            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
-            planZakazListViewers.GetPlanZakazs();
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 

@@ -5,6 +5,7 @@
 $(document).ready(function () {
     startMenu();
     expertHide();
+    $('#zakazId').hide();
     $('#pageData').hide();
     $('#expertData').hide();
     if (buttonAddActivation === 0)
@@ -15,48 +16,67 @@ function loadData(listId) {
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         expertHide();
+        nullpz();
         activeReclamation();
     }
     else if (listId === 2 || listId === "2") {
         expertHide();
+        nullpz();
         closeReclamation();
     }
     else if (listId === 3 || listId === "3") {
         expertHide();
+        nullpz();
         allReclamation();
     }
     else if (listId === 4 || listId === "4") {
         expertHide();
+        nullpz();
         planZakazDevisionNotSh();
     }
     else if (listId === 5 || listId === "5") {
         expertHide();
+        nullpz();
         planZakazDevisionSh();
     }
     else if (listId === 6 || listId === "6") {
         expertHide();
+        nullpz();
         planZakazDevisionAll();
     }
     else if (listId === 7 || listId === "7") {
         expertShow();
+        nullpz();
         reclamationOTK();
     }
     else if (listId === 8 || listId === "8") {
         expertShow();
+        nullpz();
         reclamationPO();
     }
     else if (listId === 9 || listId === "9") {
-        expertShow();
+        expertHide();
+        nullpz();
         myReclamation();
     }
     else if (listId === 10 || listId === "10") {
-        expertShow();
+        expertHide();
+        nullpz();
         editManufList();
     }
     else {
         expertHide();
+        nullpz();
         activeReclamation();
     }
+}
+
+function pz(id) {
+    document.getElementById('zakazId').innerHTML = id;
+}
+
+function nullpz() {
+    document.getElementById('zakazId').innerHTML = "";
 }
 
 function expertHide() {
@@ -277,6 +297,8 @@ function Add() {
 }
 
 function validate() {
+    $('#id_DevisionReclamation').css('border-color', 'lightgrey');
+    $('#id_AspNetUsersError').css('border-color', 'lightgrey');
     var isValid = true;
     if (counterDevision !== 1) {
         if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
@@ -586,6 +608,8 @@ function Update() {
     if (res === false) {
         return false;
     }
+    var id = $('#id').val();
+    var pz = document.getElementById('zakazId').innerHTML;
     var objRemark = {
         id: $('#id').val(),
         fixedExpert: $('#fixedExpert').val(),
@@ -625,7 +649,13 @@ function Update() {
         dataType: "json",
         success: function (result) {
             $('#viewReclamation').modal('hide');
-            loadData(document.getElementById('pageData').innerHTML);
+            if (pz === "")
+                loadData(document.getElementById('pageData').innerHTML);
+            else {
+                var id = document.getElementById('zakazId').innerHTML;
+                reclamationsPlanZakaz(id);
+            }
+
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -684,6 +714,7 @@ var objOrder = [
 ];
 
 function planZakazDevisionNotSh() {
+    pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -718,6 +749,7 @@ function planZakazDevisionNotSh() {
 }
 
 function planZakazDevisionSh() {
+    pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -752,6 +784,7 @@ function planZakazDevisionSh() {
 }
 
 function planZakazDevisionAll() {
+    pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -952,6 +985,7 @@ function expertComplitedAll() {
 }
 
 function reclamationsPlanZakaz(id) {
+    pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -980,6 +1014,7 @@ function reclamationsPlanZakaz(id) {
 }
 
 function chackList(id) {
+    pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -993,7 +1028,7 @@ function chackList(id) {
         "bDestroy": true,
         "order": [[3, "desc"]],
         "processing": true,
-        "columns": objRemarksList,
+        "columns": objRemarksListView,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
