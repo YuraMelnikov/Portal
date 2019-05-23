@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Models
 {
@@ -12,6 +13,19 @@ namespace Wiki.Areas.Reclamation.Models
         void InitializationList()
         {
             reclamationsListView = new List<ReclamationViwers>();
+        }
+
+        public void GetReclamation(string login)
+        {
+            InitializationList();
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamation(login);
+            int id_Devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            foreach (var data in reclamations.Reclamations)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
+                ReclamationsListView.Add(reclamation);
+            }
         }
 
         public void GetReclamation(int id_Devision)

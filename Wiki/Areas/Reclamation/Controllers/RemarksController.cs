@@ -158,8 +158,17 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+        public JsonResult MyReclamation()
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation(login);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
         public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
         {
+
             string login = HttpContext.User.Identity.Name;
             reclamation.dateTimeCreate = DateTime.Now;
             CreateReclamation correctReclamation = new CreateReclamation(reclamation, login);
@@ -169,6 +178,29 @@ namespace Wiki.Areas.Reclamation.Controllers
             CreateReclamation_PZ(pZ_PlanZakaz, reclamation.id);
             if (reclamation.technicalAdvice == true)
                 CreateTechnicalAdvice(reclamation.id, reclamation.id_AspNetUsersCreate);
+            int id_Devision = reclamation.id_DevisionCreate;
+            if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
+            {
+                if(reclamation.editManufacturing == true)
+                {
+                    try
+                    {
+                        TaskForPWA pwa = new TaskForPWA();
+                        string reclamationNumAndText = reclamation.id.ToString() + " " + reclamation.text;
+                        var projects = reclamation.Reclamation_PZ.ToList();
+                        foreach (var data in projects)
+                        {
+                            var projectUid = db.PZ_PlanZakaz.Find(data.id_PZ_PlanZakaz).ProjectUID;
+                            if (projectUid != null)
+                                pwa.CreateTaskOTK_PO((Guid)projectUid, reclamationNumAndText, login);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 

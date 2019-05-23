@@ -45,6 +45,10 @@ function loadData(listId) {
         expertShow();
         reclamationPO();
     }
+    else if (listId === 9 || listId === "9") {
+        expertShow();
+        myReclamation();
+    }
     else {
         expertHide();
         activeReclamation();
@@ -979,6 +983,34 @@ function chackList(id) {
         "ajax": {
             "cache": false,
             "url": "/Remarks/ChackList/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[3, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function myReclamation() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/MyReclamation/",
             "type": "POST",
             "datatype": "json"
         },
