@@ -669,10 +669,10 @@ var objOrder = [
     { "title": "Активных", "data": "ReclamationActive", "autowidth": true, "bSortable": true },
     { "title": "Закрытых", "data": "ReclamationClose", "autowidth": true, "bSortable": true },
     { "title": "Контрактное наименование", "data": "ContractName", "autowidth": true, "bSortable": false },
-    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": false },
-    { "title": "Заказчик", "data": "Client", "autowidth": true, "bSortable": true },
-    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": false },
-    { "title": "ОЛ №", "data": "Ol", "autowidth": true, "bSortable": true }
+    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Заказчик", "data": "Client", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "ОЛ №", "data": "Ol", "autowidth": true, "bSortable": true, "class": 'colu-200' }
 ];
 
 function planZakazDevisionNotSh() {
