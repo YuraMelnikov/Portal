@@ -208,6 +208,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     }
                 }
             }
+            EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 1);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
@@ -231,6 +232,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 };
                 db.Reclamation_Answer.Add(reclamation_Answer);
                 db.SaveChanges();
+                if(reload != true)
+                {
+                    EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 3);
+                }
             }
             if (reclamation.technicalAdvice == true)
                 UpdateTechnicalAdvice(reclamation.id, aspNetUser.Id);
@@ -247,6 +252,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 };
                 db.Reclamation_Answer.Add(reclamation_Answer);
                 db.SaveChanges();
+                EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 2);
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }

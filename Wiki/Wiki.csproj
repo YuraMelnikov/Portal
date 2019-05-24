@@ -273,6 +273,7 @@
     <Compile Include="Areas\Reclamation\Controllers\RemarksController.cs" />
     <Compile Include="Areas\Reclamation\Controllers\TechnicalAdviceController.cs" />
     <Compile Include="Areas\Reclamation\Models\CreateReclamation.cs" />
+    <Compile Include="Areas\Reclamation\Models\EmailReclamation.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazListViewers.cs" />
     <Compile Include="Areas\Reclamation\Models\PlanZakazViwers.cs" />
     <Compile Include="Areas\Reclamation\Models\ProtocolTAListView.cs" />
