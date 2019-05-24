@@ -143,7 +143,6 @@ insert into [PortalKATEK_TEST].[dbo].[Reclamation_Answer]
 select 
 [PortalKATEK_TEST].[dbo].[Reclamation].id
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate as [data]
---,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].UserUpdate
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].[Text]
 ,[PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].DateUpdate
 ,0
