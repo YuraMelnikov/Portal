@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using Wiki.Models;
 
@@ -15,7 +16,7 @@ namespace Wiki.Areas.Reclamation.Models
         string subject;
         string body;
         string login;
-        //List<string> mailToList;
+        List<string> mailToList;
         Wiki.Reclamation reclamation;
         readonly PortalKATEKEntities db = new PortalKATEKEntities();
         public EmailReclamation(Wiki.Reclamation reclamation, string login, int stepNumber)
@@ -24,7 +25,7 @@ namespace Wiki.Areas.Reclamation.Models
             this.stepNumber = stepNumber;
             this.reclamation = db.Reclamation.Find(reclamation.id);
             mail.From = new MailAddress(login);
-            //mailToList = new List<string>();
+            GetMailList();
             GetSubject();
             GetBody();
             SendEmail();
@@ -32,7 +33,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         void SendEmail()
         {
-            mail.To.Add(new MailAddress("myi@katek.by"));
+
             mail.IsBodyHtml = true;
             mail.Subject = subject;
             mail.Body = body;
@@ -87,6 +88,31 @@ namespace Wiki.Areas.Reclamation.Models
                 body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> История переписки: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + reclamationViwers.Answers;
             }
             body += @"</table>";
+            return true;
+        }
+
+        bool GetMailList()
+        {
+            mailToList = new List<string>();
+            mailToList.Add("myi@katek.by");
+            if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
+            {
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16 && d.LockoutEnabled == true))
+                {
+                    mail.To.Add(new MailAddress(data.Email));
+                }
+            }
+            else
+            {
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation && d.LockoutEnabled == true))
+                {
+                    mail.To.Add(new MailAddress(data.Email));
+                }
+            }
+            foreach(var dataList in mailToList)
+            {
+                mail.To.Add(new MailAddress(dataList));
+            }
             return true;
         }
     }
