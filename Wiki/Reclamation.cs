@@ -36,8 +36,6 @@ namespace Wiki
         public double timeToEliminate { get; set; }
         public bool close { get; set; }
         public bool gip { get; set; }
-        public Nullable<int> timePO { get; set; }
-        public Nullable<int> timeOTK { get; set; }
         public bool closeDevision { get; set; }
         public string PCAM { get; set; }
         public bool editManufacturing { get; set; }

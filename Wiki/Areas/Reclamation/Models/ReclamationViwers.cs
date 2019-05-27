@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Models
 {
-    public struct ReclamationViwers
+    public class ReclamationViwers
     {
-        PortalKATEKEntities db;
+        PortalKATEKEntities db = new PortalKATEKEntities();
         string editLinkJS;
         string viewLinkJS;
         int id_Reclamation;
@@ -43,58 +43,30 @@ namespace Wiki.Areas.Reclamation.Models
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
         public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation) : this()
+        public ReclamationViwers(Wiki.Reclamation reclamation) 
         {
-            db = new PortalKATEKEntities();
             viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = "";
-            GetReclamationData(reclamation);
-            GetLeavelReclamation(reclamation);
-        }
-
-        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision) : this()
-        {
-            db = new PortalKATEKEntities();
-            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
-            editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            if (id_Devision == 6 && reclamation.Reclamation_PZ.Max(d => d.PZ_PlanZakaz.dataOtgruzkiBP) < DateTime.Now.AddDays(-15))
-                editLinkJS = "";
-            GetReclamationData(reclamation);
-            GetLeavelReclamation(reclamation);
-            GetLastLeavelReclamation(reclamation);
-        }
-
-        string GetLeavelReclamation(Wiki.Reclamation reclamation)
-        {
-            string level = "";
-            if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
-            {
-                level = reclamation.Reclamation_CountError.name;
-            }
-            return level;
-        }
-
-        string GetLastLeavelReclamation(Wiki.Reclamation reclamation)
-        {
-            string level = "";
-            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
-            {
-                level = reclamation.Reclamation_CountError1.name;
-            }
-            return level;
-        }
-
-        bool GetReclamationData(Wiki.Reclamation reclamation)
-        {
             this.id_Reclamation = reclamation.id;
-            this.planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
+            planZakaz = "";
+            foreach (var data in reclamation.Reclamation_PZ.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
+            {
+                planZakaz += data.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
+            }
             this.type = reclamation.Reclamation_Type.name;
-            this.close = GetClose(reclamation.close);
+            if(reclamation.close == true)
+                this.close = "активная";
+            else
+                this.close = "закрытая";
             this.text = reclamation.text;
             this.description = reclamation.description;
             this.timeToSearch = (float)reclamation.timeToSearch;
             this.timeToEliminate = (float)reclamation.timeToEliminate;
-            this.answers = GetAnswer(GetAnswerList(reclamation.id));
+            answers = "";
+            foreach (var data in reclamation.Reclamation_Answer.OrderByDescending(d => d.dateTimeCreate))
+            {
+                answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "<br>";
+            }
             this.devision = reclamation.Devision.name;
             this.dateCreate = reclamation.dateTimeCreate;
             this.userCreate = reclamation.AspNetUsers.CiliricalName;
@@ -106,50 +78,46 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 this.userReclamation = "";
             }
-            return true;
         }
 
-        string GetPlanZakazName(List<Reclamation_PZ> reclamation_PZs)
+        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision) 
         {
-            string pzNames = "";
-            int count = reclamation_PZs.Count;
-            if (count > 0)
+            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            if (id_Devision == 6 && reclamation.Reclamation_PZ.Max(d => d.PZ_PlanZakaz.dataOtgruzkiBP) < DateTime.Now.AddDays(-15))
+                editLinkJS = "";
+            else
+                editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            this.id_Reclamation = reclamation.id;
+            planZakaz = "";
+            foreach (var data in reclamation.Reclamation_PZ.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
             {
-                foreach (var planZakaz in reclamation_PZs)
-                {
-                    pzNames += planZakaz.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
-                }
+                planZakaz += data.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
-            return pzNames;
-        }
-
-        string GetClose(bool close)
-        {
-            string closeName = "активная";
-            if (close == true)
-                closeName = "закрыта";
-            return closeName;
-        }
-
-        string GetAnswer(List<Reclamation_Answer> reclamations)
-        {
-            string answers = "";
-            int count = reclamations.Count;
-            if (count > 0)
+            this.type = reclamation.Reclamation_Type.name;
+            if (reclamation.close == true)
+                this.close = "активная";
+            else
+                this.close = "закрытая";
+            this.text = reclamation.text;
+            this.description = reclamation.description;
+            this.timeToSearch = (float)reclamation.timeToSearch;
+            this.timeToEliminate = (float)reclamation.timeToEliminate;
+            answers = "";
+            foreach (var data in reclamation.Reclamation_Answer.OrderByDescending(d => d.dateTimeCreate))
             {
-                foreach (var data in reclamations.OrderByDescending(d => d.dateTimeCreate))
-                {
-                    answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "<br>";
-                }
+                answers += data.AspNetUsers.CiliricalName + " : " + data.answer + "<br>";
             }
-            return answers;
-        }
-
-        List<Reclamation_Answer> GetAnswerList(int id_Reclamation)
-        {
-            return db.Reclamation_Answer
-                            .Where(d => d.id_Reclamation == id_Reclamation)
-                            .ToList();
+            this.devision = reclamation.Devision.name;
+            this.dateCreate = reclamation.dateTimeCreate;
+            this.userCreate = reclamation.AspNetUsers.CiliricalName;
+            try
+            {
+                this.userReclamation = reclamation.AspNetUsers1.CiliricalName;
+            }
+            catch
+            {
+                this.userReclamation = "";
+            }
         }
     }
 }

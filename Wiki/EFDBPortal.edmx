@@ -731,8 +731,6 @@
           <Property Name="timeToEliminate" Type="float" Nullable="false" />
           <Property Name="close" Type="bit" Nullable="false" />
           <Property Name="gip" Type="bit" Nullable="false" />
-          <Property Name="timePO" Type="int" />
-          <Property Name="timeOTK" Type="int" />
           <Property Name="closeDevision" Type="bit" Nullable="false" />
           <Property Name="PCAM" Type="varchar(max)" Nullable="false" />
           <Property Name="editManufacturing" Type="bit" Nullable="false" />
@@ -1238,7 +1236,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1265,7 +1263,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1275,7 +1273,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1285,7 +1283,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1296,7 +1294,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -5218,8 +5216,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="timeToEliminate" Type="Double" Nullable="false" />
           <Property Name="close" Type="Boolean" Nullable="false" />
           <Property Name="gip" Type="Boolean" Nullable="false" />
-          <Property Name="timePO" Type="Int32" />
-          <Property Name="timeOTK" Type="Int32" />
           <Property Name="closeDevision" Type="Boolean" Nullable="false" />
           <Property Name="PCAM" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="editManufacturing" Type="Boolean" Nullable="false" />
@@ -8186,8 +8182,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="editManufacturing" ColumnName="editManufacturing" />
                 <ScalarProperty Name="PCAM" ColumnName="PCAM" />
                 <ScalarProperty Name="closeDevision" ColumnName="closeDevision" />
-                <ScalarProperty Name="timeOTK" ColumnName="timeOTK" />
-                <ScalarProperty Name="timePO" ColumnName="timePO" />
                 <ScalarProperty Name="gip" ColumnName="gip" />
                 <ScalarProperty Name="close" ColumnName="close" />
                 <ScalarProperty Name="timeToEliminate" ColumnName="timeToEliminate" />
