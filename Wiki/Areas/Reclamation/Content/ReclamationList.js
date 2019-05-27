@@ -13,6 +13,7 @@ $(document).ready(function () {
 });
 
 function loadData(listId) {
+    clearTextBox();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         expertHide();
@@ -94,7 +95,7 @@ var objRemarksList = [
     { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
     { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": false },
+    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
@@ -108,7 +109,7 @@ var objRemarksListTA = [
     { "title": "Ред", "data": "EditLinkJS", "autowidth": true, "bSortable": false },
     { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": false },
+    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
@@ -366,8 +367,11 @@ function validate() {
 }
 
 function clearTextBox() {
+    clearColor();
     AllNoDisabled();
     $("#btnAdd").attr('disabled', false);
+    $('#vid_AspNetUsersCreate').val("");
+    $('#vdateTimeCreate').val("");
     $('#id').val("");
     $('#pZ_PlanZakaz').val("");
     $('#pZ_PlanZakaz').chosen();
@@ -432,6 +436,7 @@ function clearTextBox() {
 }
 
 function GetReclamation(id) {
+    clearTextBox();
     var myVal = counterDevision;
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
@@ -493,6 +498,7 @@ function GetReclamation(id) {
                 $('#close').prop('disabled', true);
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
+                $('#trash').prop('disabled', false);
             }
             else {
                 $('#text').prop('disabled', true);
@@ -503,6 +509,7 @@ function GetReclamation(id) {
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
                 $('#technicalAdvice').prop('disabled', true);
+                $('#trash').prop('disabled', true);
             }
             if ($('#technicalAdvice').is(":checked") === true) {
                 $('#technicalAdvice').prop('disabled', true);
@@ -519,6 +526,7 @@ function GetReclamation(id) {
 }
 
 function GetReclamationView(id) {
+    clearTextBox();
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
     $.ajax({
@@ -707,9 +715,9 @@ var objOrder = [
     { "title": "Активных", "data": "ReclamationActive", "autowidth": true, "bSortable": true },
     { "title": "Закрытых", "data": "ReclamationClose", "autowidth": true, "bSortable": true },
     { "title": "Контрактное наименование", "data": "ContractName", "autowidth": true, "bSortable": false },
-    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Наименование по ТУ", "data": "TuName", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Заказчик", "data": "Client", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "МТР №", "data": "Mtr", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "ОЛ №", "data": "Ol", "autowidth": true, "bSortable": true, "class": 'colu-200' }
 ];
 
@@ -822,15 +830,14 @@ var objRemarksListExpert = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
     { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
-    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": true },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Ответственное СП", "data": "DevisionReclamation", "autowidth": true, "bSortable": false },
+    { "title": "Ответственное СП", "data": "DevisionReclamation", "autowidth": true, "bSortable": true },
     { "title": "Оценка Рук. КБ", "data": "LeavelReclamation", "autowidth": true, "bSortable": true },
     { "title": "Оценка эксперта", "data": "LastLeavelReclamation", "autowidth": true, "bSortable": true }
 ];
-
 
 function reclamationOTK() {
     var table = $('#myTable').DataTable();
@@ -1074,10 +1081,10 @@ var objRemarksListView = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
     { "title": "См", "data": "ViewLinkJS", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": false },
-    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
-    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": true },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },
     { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
@@ -1109,4 +1116,17 @@ function editManufList() {
             "search": "Поиск"
         }
     });
+}
+
+function clearColor() {
+    $('#id_DevisionReclamation').css('border-color', 'lightgrey');
+    $('#id_AspNetUsersError').css('border-color', 'lightgrey');
+    $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+    $('#id_DevisionReclamation').css('border-color', 'lightgrey');
+    $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
+    $('#pZ_PlanZakaz').css('border-color', 'lightgrey');
+    $('#id_Reclamation_Type').css('border-color', 'lightgrey');
+    $('#text').css('border-color', 'lightgrey');
+    $('#id_PF').css('border-color', 'lightgrey');
+    $('#reloadDevision').css('border-color', 'lightgrey');
 }

@@ -38,6 +38,17 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
+
+            else if (login == "myi@katek.by")
+            {
+                ViewBag.ButtonAddActivation = 1;
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15)
+                    .Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+                ViewBag.CRUDCounter = '2';
+            }
+
             else if (login == "nrf@katek.by")
             {
                 ViewBag.ButtonAddActivation = 1;

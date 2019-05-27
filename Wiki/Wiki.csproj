@@ -1174,6 +1174,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\VBA\TextFile1.txt" />
     <Content Include="datatables.mvc5.0.1.0\lib\net45\DataTables.Mvc.dll" />
     <Content Include="EFDBPortal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

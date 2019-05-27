@@ -338,3 +338,91 @@ update [PortalKATEK_TEST].[dbo].[Reclamation] set
   where id_DevisionReclamation = 16 and [timeOTK] is not null
   and [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].userError is not null
   and [PortalKATEK_TEST].[dbo].[OTK_ReclamationAnswer].countError is not null
+
+--update [PortalKATEK_TEST].[dbo].[Reclamation]
+--set [PortalKATEK_TEST].[dbo].[Reclamation].id_AspNetUsersError = null
+--where [id_Reclamation_CountErrorFirst] = 4 and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 16
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 15
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 16
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 12
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 15
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 12
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 3
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 15
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 3
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 18
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 15
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 18
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_DevisionReclamation = 12
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 16
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 12
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
+
+update [PortalKATEK_TEST].[dbo].[Reclamation]
+set [PortalKATEK_TEST].[dbo].[Reclamation].id_AspNetUsersError = null
+  FROM [PortalKATEK_TEST].[dbo].[Reclamation] left join 
+  [PortalKATEK_TEST].[dbo].Reclamation_PZ on [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_Reclamation = [PortalKATEK_TEST].[dbo].Reclamation.id left join
+  [PortalKATEK_TEST].[dbo].PZ_PlanZakaz on PZ_PlanZakaz.id = [PortalKATEK_TEST].[dbo].Reclamation_PZ.id_PZ_PlanZakaz left join
+  [PortalKATEK_TEST].[dbo].AspNetUsers on AspNetUsers.id = [PortalKATEK_TEST].[dbo].Reclamation.id_AspNetUsersError left join
+  [PortalKATEK_TEST].[dbo].Reclamation_CountError on [PortalKATEK_TEST].[dbo].Reclamation_CountError.id = [PortalKATEK_TEST].[dbo].Reclamation.id_Reclamation_CountErrorFirst left join
+  [PortalKATEK_TEST].[dbo].Devision on Devision.id = Reclamation.id_DevisionReclamation
+where 
+[PortalKATEK_TEST].[dbo].Devision.id != [PortalKATEK_TEST].[dbo].AspNetUsers.Devision
+  and [PortalKATEK_TEST].[dbo].Devision.id = 16
+  and [PortalKATEK_TEST].[dbo].AspNetUsers.Devision = 15
+and [PortalKATEK_TEST].[dbo].[Reclamation].timeOTK is not null
