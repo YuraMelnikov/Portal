@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Models
 {
-    public class ReclamationViwers
+    public struct ReclamationViwers
     {
-        PortalKATEKEntities db = new PortalKATEKEntities();
+        PortalKATEKEntities db;
         string editLinkJS;
         string viewLinkJS;
         int id_Reclamation;
@@ -43,16 +43,18 @@ namespace Wiki.Areas.Reclamation.Models
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
         public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation)
+        public ReclamationViwers(Wiki.Reclamation reclamation) : this()
         {
+            db = new PortalKATEKEntities();
             viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = "";
             GetReclamationData(reclamation);
             GetLeavelReclamation(reclamation);
         }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
+        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision) : this()
         {
+            db = new PortalKATEKEntities();
             viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             if (id_Devision == 6 && reclamation.Reclamation_PZ.Max(d => d.PZ_PlanZakaz.dataOtgruzkiBP) < DateTime.Now.AddDays(-15))
@@ -82,34 +84,36 @@ namespace Wiki.Areas.Reclamation.Models
             return level;
         }
 
-        void GetReclamationData(Wiki.Reclamation reclamation)
+        bool GetReclamationData(Wiki.Reclamation reclamation)
         {
-            id_Reclamation = reclamation.id;
-            planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
-            type = reclamation.Reclamation_Type.name;
-            close = GetClose(reclamation.close);
-            text = reclamation.text;
-            description = reclamation.description;
-            timeToSearch = (float)reclamation.timeToSearch;
-            timeToEliminate = (float)reclamation.timeToEliminate;
-            answers = GetAnswer(GetAnswerList(reclamation.id));
-            devision = reclamation.Devision.name;
-            dateCreate = reclamation.dateTimeCreate;
-            userCreate = reclamation.AspNetUsers.CiliricalName;
+            this.id_Reclamation = reclamation.id;
+            this.planZakaz = GetPlanZakazName(reclamation.Reclamation_PZ.ToList());
+            this.type = reclamation.Reclamation_Type.name;
+            this.close = GetClose(reclamation.close);
+            this.text = reclamation.text;
+            this.description = reclamation.description;
+            this.timeToSearch = (float)reclamation.timeToSearch;
+            this.timeToEliminate = (float)reclamation.timeToEliminate;
+            this.answers = GetAnswer(GetAnswerList(reclamation.id));
+            this.devision = reclamation.Devision.name;
+            this.dateCreate = reclamation.dateTimeCreate;
+            this.userCreate = reclamation.AspNetUsers.CiliricalName;
             try
             {
-                userReclamation = reclamation.AspNetUsers1.CiliricalName;
+                this.userReclamation = reclamation.AspNetUsers1.CiliricalName;
             }
             catch
             {
-                userReclamation = "";
+                this.userReclamation = "";
             }
+            return true;
         }
 
         string GetPlanZakazName(List<Reclamation_PZ> reclamation_PZs)
         {
             string pzNames = "";
-            if(reclamation_PZs.Count > 0)
+            int count = reclamation_PZs.Count;
+            if (count > 0)
             {
                 foreach (var planZakaz in reclamation_PZs)
                 {
@@ -130,7 +134,8 @@ namespace Wiki.Areas.Reclamation.Models
         string GetAnswer(List<Reclamation_Answer> reclamations)
         {
             string answers = "";
-            if(reclamations.Count > 0)
+            int count = reclamations.Count;
+            if (count > 0)
             {
                 foreach (var data in reclamations.OrderByDescending(d => d.dateTimeCreate))
                 {

@@ -1,11 +1,14 @@
 ﻿Sub Macro1()
     Dim dateNow As Date
     Dim counterStep As Integer
-    dateNow = "27.05.2019"
+    Dim power As Integer
+    dateNow = "28.05.2019"
     For i = 1 To 25
         SelectResourceField Row:=1, Column:="Åäèíèöû èçìåðåíèÿ ìàòåðèàëîâ"
+        power = ActiveSelection.Resources(1).Availabilities(1).AvailableUnit
         ActiveSelection.Resources(1).Availabilities(1).AvailableFrom = dateNow
         ActiveSelection.Resources(1).Availabilities(1).AvailableTo = "ÍÄ"
         ActiveSelection.Resources(1).Availabilities(1).AvailableUnit = 1
+        ActiveSelection.Resources(1).Availabilities(1).AvailableUnit = power
     Next i
 End Sub
