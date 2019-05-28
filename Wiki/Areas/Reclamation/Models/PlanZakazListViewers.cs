@@ -20,7 +20,8 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetPlanZakazs()
         {
             InitializationList();
-            foreach (var data in db.PZ_PlanZakaz.ToList())
+            var dataList = db.PZ_PlanZakaz.Include(d => d.PZ_Client).Include(d => d.Reclamation_PZ.Select(s => s.Reclamation)).ToList();
+            foreach (var data in dataList)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data);
                 AddPlanZakazViwersList(planZakazViwers);
@@ -30,7 +31,8 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetPlanZakazs(int id_Devision)
         {
             InitializationList();
-            foreach (var data in db.PZ_PlanZakaz.ToList())
+            var dataList = db.PZ_PlanZakaz.Include(d => d.PZ_Client).Include(d => d.Reclamation_PZ.Select(s => s.Reclamation)).ToList();
+            foreach (var data in dataList)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);
                 AddPlanZakazViwersList(planZakazViwers);
@@ -42,9 +44,9 @@ namespace Wiki.Areas.Reclamation.Models
             InitializationList();
             List<PZ_PlanZakaz> list = new List<PZ_PlanZakaz>();
             if (sh == true)
-                list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP < DateTime.Now).ToList();
+                list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP < DateTime.Now).Include(d => d.PZ_Client).Include(d => d.Reclamation_PZ.Select(s => s.Reclamation)).ToList();
             else
-                list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP >= DateTime.Now).ToList();
+                list = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP >= DateTime.Now).Include(d => d.PZ_Client).Include(d => d.Reclamation_PZ.Select(s => s.Reclamation)).ToList();
             foreach (var data in list)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);

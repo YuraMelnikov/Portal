@@ -121,7 +121,6 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult PlanZakazDevisionAll()
         {
-            string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
             planZakazListViewers.GetPlanZakazs();
             return Json(new { data = planZakazListViewers.PlanZakazViwers });

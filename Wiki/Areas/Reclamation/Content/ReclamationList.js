@@ -485,6 +485,17 @@ function GetReclamation(id) {
                 $('#timeToEliminate').prop('disabled', true);
                 $('#trash').prop('disabled', false);
             }
+            else if (counterDevision === 3) {
+                $('#text').prop('disabled', true);
+                $('#description').prop('disabled', true);
+                $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
+                $('#gip').prop('disabled', true);
+                $('#close').prop('disabled', true);
+                $('#timeToSearch').prop('disabled', true);
+                $('#timeToEliminate').prop('disabled', true);
+                $('#technicalAdvice').prop('disabled', true);
+                $('#trash').prop('disabled', false);
+            }
             else {
                 $('#text').prop('disabled', true);
                 $('#description').prop('disabled', true);
