@@ -95,7 +95,7 @@ namespace Wiki.Areas.Reclamation.Models
             InitializationList(count);
             for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[0]);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i]);
                 reclamationsListView[i] = reclamation;
             }
         }

@@ -28,7 +28,7 @@ namespace Wiki.Areas.Reclamation.Models
         public int ReclamationClose { get => reclamationClose; set => reclamationClose = value; }
         public string OpenLinkJS { get => openLinkJS; set => openLinkJS = value; }
 
-        public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz)
+        public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz) 
         {
             Id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
             PlanZakaz = pZ_PlanZakaz.PlanZakaz;
@@ -43,7 +43,7 @@ namespace Wiki.Areas.Reclamation.Models
             OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
-        public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision)
+        public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision) 
         {
             Id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
             PlanZakaz = pZ_PlanZakaz.PlanZakaz;
