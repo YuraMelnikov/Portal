@@ -21,19 +21,25 @@ namespace Wiki.Areas.Reclamation.Models
         readonly PortalKATEKEntities db = new PortalKATEKEntities();
         public EmailReclamation(Wiki.Reclamation reclamation, string login, int stepNumber)
         {
-            this.login = login;
-            this.stepNumber = stepNumber;
-            this.reclamation = db.Reclamation.Find(reclamation.id);
-            mail.From = new MailAddress(login);
-            GetMailList();
-            GetSubject();
-            GetBody();
-            SendEmail();
+            try
+            {
+                this.login = login;
+                this.stepNumber = stepNumber;
+                this.reclamation = db.Reclamation.Find(reclamation.id);
+                mail.From = new MailAddress(login);
+                GetMailList();
+                GetSubject();
+                GetBody();
+                SendEmail();
+            }
+            catch
+            {
+
+            }
         }
 
         void SendEmail()
         {
-
             mail.IsBodyHtml = true;
             mail.Subject = subject;
             mail.Body = body;
@@ -97,14 +103,14 @@ namespace Wiki.Areas.Reclamation.Models
             mailToList.Add("myi@katek.by");
             if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
             {
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16 && d.LockoutEnabled == true))
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
                 {
                     mail.To.Add(new MailAddress(data.Email));
                 }
             }
             else
             {
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation && d.LockoutEnabled == true))
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
                 {
                     mail.To.Add(new MailAddress(data.Email));
                 }

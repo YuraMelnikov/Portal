@@ -310,7 +310,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                 {
                     text += data.dateTimeCreate.ToString().Substring(0, 5) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName + "\n";
                 }
-
             }
             return text;
         }
@@ -399,7 +398,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.Reclamation_TechnicalAdvice.Add(technicalAdvice);
                 db.SaveChanges();
             }
-
             return true;
         }
 

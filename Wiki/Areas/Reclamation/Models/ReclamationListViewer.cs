@@ -1,114 +1,110 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Models
 {
-    public class ReclamationListViewer
+    public struct ReclamationListViewer
     {
-        readonly PortalKATEKEntities db = new PortalKATEKEntities();
-        List<ReclamationViwers> reclamationsListView = new List<ReclamationViwers>();
+        PortalKATEKEntities db;
+        ReclamationViwers[] reclamationsListView;
 
-        public List<ReclamationViwers> ReclamationsListView { get => reclamationsListView; set => reclamationsListView = value; }
+        public ReclamationViwers[] ReclamationsListView { get => reclamationsListView; set => reclamationsListView = value; }
 
-        void InitializationList()
+        void InitializationList(int count)
         {
-            reclamationsListView = new List<ReclamationViwers>();
+            db = new PortalKATEKEntities();
+            reclamationsListView = new ReclamationViwers[count];
         }
 
         public void GetReclamation()
         {
-            InitializationList();
+            
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamation();
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[0]);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamation(string login)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamation(login);
             int id_Devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamation(int id_Devision)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamation(id_Devision);
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamation(int id_Devision, bool active)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamation(id_Devision, active);
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamation(int id_Devision, bool active, string login)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamation(id_Devision, active, login);
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamationPlanZakaz(int id_PZ_PlanZakaz)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamationPlanZakaz(id_PZ_PlanZakaz);
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[0]);
+                reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamationPlanZakaz(int id_Devision, int id_PZ_PlanZakaz)
         {
-            InitializationList();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamationPlanZakaz(id_Devision, id_PZ_PlanZakaz);
-            foreach (var data in reclamations.Reclamations)
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
-            }
-        }
-        
-        public void GetReclamationPlanZakaz(int id_Devision, bool active, int id_PZ_PlanZakaz)
-        {
-            InitializationList();
-            ReclamationsList reclamations = new ReclamationsList();
-            reclamations.GetReclamationPlanZakaz(id_Devision, active, id_PZ_PlanZakaz);
-            foreach (var data in reclamations.Reclamations)
-            {
-                ReclamationViwers reclamation = new ReclamationViwers(data, id_Devision);
-                ReclamationsListView.Add(reclamation);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
             }
         }
     }
