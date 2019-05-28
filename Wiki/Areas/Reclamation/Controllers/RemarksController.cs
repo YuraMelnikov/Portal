@@ -89,8 +89,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.CRUDCounter = '1';
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             }
-            else
+            else if(id_Devision == 3 || id_Devision == 16 || id_Devision == 15)
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
+            else
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_DevisionReclamationReload = new SelectList(db.Devision.Where(d => d.OTK == true && d.id != id_Devision).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
