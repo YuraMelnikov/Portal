@@ -26,7 +26,7 @@ namespace Wiki.Areas.CMO.Controllers
                 ViewBag.userGroupId = 4;
             else
                 ViewBag.userGroupId = 5;
-
+            ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
 
             return View();
         }
