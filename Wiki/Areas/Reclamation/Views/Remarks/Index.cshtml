@@ -61,7 +61,7 @@
                 @Html.HiddenFor(model => model.closeMKO)
                 @Html.HiddenFor(model => model.fixedExpert)
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <label>План-Заказ/ы №№:</label>
                         @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
@@ -73,7 +73,7 @@
                         <label>Автор рекламации:</label>
                         <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <label>Создана:</label>
                         <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
                     </div>

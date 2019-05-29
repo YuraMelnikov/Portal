@@ -11,7 +11,7 @@ namespace Wiki.Areas.Reclamation.Controllers
     public class RemarksController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
-        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
         public ActionResult Index()
         {
