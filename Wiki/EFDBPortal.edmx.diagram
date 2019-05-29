@@ -246,6 +246,13 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO2_Order" Width="1.5" PointX="27.25" PointY="52.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMO2_Position" Width="1.5" PointX="29.5" PointY="58.125" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMO2_Order_CMO_Company" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

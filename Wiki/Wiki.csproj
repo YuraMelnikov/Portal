@@ -252,6 +252,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
+    <Compile Include="Areas\CMO\Controllers\CMOController.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -326,6 +328,12 @@
     <Compile Include="Classes\RKDWork.cs" />
     <Compile Include="Classes\RKDWorkFactory.cs" />
     <Compile Include="Classes\UploadHTEO.cs" />
+    <Compile Include="CMO2_Order.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMO2_Position.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMO_Company.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -754,6 +762,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\Deb\Contant\Archive.js" />
     <Content Include="Areas\Deb\Contant\DSetup.js" />
     <Content Include="Areas\Deb\Contant\NewPlus.js" />
@@ -1380,6 +1389,9 @@
     <Content Include="Content\bootstrap-select\i18n\defaults-zh_CN.js.map" />
     <Content Include="Content\bootstrap-select\i18n\defaults-zh_TW.js.map" />
     <Content Include="Areas\Reclamation\Views\TechnicalAdvice\Index.cshtml" />
+    <Content Include="Areas\CMO\Views\web.config" />
+    <Content Include="Areas\CMO\Views\Shared\_LayoutCMO.cshtml" />
+    <Content Include="Areas\CMO\Views\CMO\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1815,6 +1827,7 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\CMO\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

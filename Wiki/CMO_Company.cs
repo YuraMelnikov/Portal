@@ -20,6 +20,7 @@ namespace Wiki
             this.CMO_CompanyMailList = new HashSet<CMO_CompanyMailList>();
             this.CMO_Order = new HashSet<CMO_Order>();
             this.CMO_UploadResult = new HashSet<CMO_UploadResult>();
+            this.CMO2_Order = new HashSet<CMO2_Order>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,7 @@ namespace Wiki
         public virtual ICollection<CMO_Order> CMO_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO_UploadResult> CMO_UploadResult { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
     }
 }

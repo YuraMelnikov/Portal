@@ -201,6 +201,39 @@
           <Property Name="day" Type="int" />
           <Property Name="winnerBit" Type="bit" />
         </EntityType>
+        <EntityType Name="CMO2_Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers_Create" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="workIn" Type="bit" Nullable="false" />
+          <Property Name="workDateTime" Type="datetime" Nullable="false" />
+          <Property Name="workComplitet" Type="bit" Nullable="false" />
+          <Property Name="workCost" Type="float" Nullable="false" />
+          <Property Name="manufIn" Type="bit" Nullable="false" />
+          <Property Name="manufDate" Type="date" Nullable="false" />
+          <Property Name="manufComplited" Type="bit" Nullable="false" />
+          <Property Name="manufCost" Type="float" Nullable="false" />
+          <Property Name="finIn" Type="bit" Nullable="false" />
+          <Property Name="finDate" Type="date" Nullable="false" />
+          <Property Name="finComplited" Type="bit" Nullable="false" />
+          <Property Name="finCost" Type="float" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="reOrder" Type="bit" Nullable="false" />
+          <Property Name="id_CMO_Company" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMO2_Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_CMO2" Type="int" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_CMO_TypeProduct" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardKO_Quartal">
           <Key>
             <PropertyRef Name="id" />
@@ -1523,6 +1556,66 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="CMO_UploadResult">
               <PropertyRef Name="id_CMO_Tender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Order_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMO2_Order" Type="Self.CMO2_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMO2_Order">
+              <PropertyRef Name="id_AspNetUsers_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Order_CMO_Company">
+          <End Role="CMO_Company" Type="Self.CMO_Company" Multiplicity="1" />
+          <End Role="CMO2_Order" Type="Self.CMO2_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Order">
+              <PropertyRef Name="id_CMO_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_CMO_TypeProduct">
+          <End Role="CMO_TypeProduct" Type="Self.CMO_TypeProduct" Multiplicity="1" />
+          <End Role="CMO2_Position" Type="Self.CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_CMO2_Order">
+          <End Role="CMO2_Order" Type="Self.CMO2_Order" Multiplicity="1" />
+          <End Role="CMO2_Position" Type="Self.CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO2_Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_CMO2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="CMO2_Position" Type="Self.CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2886,6 +2979,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMO_TypeProduct" EntityType="Self.CMO_TypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_TypeTask" EntityType="Self.CMO_TypeTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_UploadResult" EntityType="Self.CMO_UploadResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMO2_Order" EntityType="Self.CMO2_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMO2_Position" EntityType="Self.CMO2_Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CMR" EntityType="Self.Debit_CMR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CostUpdate" EntityType="Self.Debit_CostUpdate" Schema="dbo" store:Type="Tables" />
@@ -3105,6 +3200,26 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_CMO_UploadResult_CMO_Tender" Association="Self.FK_CMO_UploadResult_CMO_Tender">
             <End Role="CMO_Tender" EntitySet="CMO_Tender" />
             <End Role="CMO_UploadResult" EntitySet="CMO_UploadResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Order_AspNetUsers" Association="Self.FK_CMO2_Order_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Order_CMO_Company" Association="Self.FK_CMO2_Order_CMO_Company">
+            <End Role="CMO_Company" EntitySet="CMO_Company" />
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_CMO_TypeProduct" Association="Self.FK_CMO2_Position_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_CMO2_Order" Association="Self.FK_CMO2_Position_CMO2_Order">
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_PZ_PlanZakaz" Association="Self.FK_CMO2_Position_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4366,6 +4481,28 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="CMO2_Order" EntityType="PortalKATEKModel.CMO2_Order" />
+          <EntitySet Name="CMO2_Position" EntityType="PortalKATEKModel.CMO2_Position" />
+          <AssociationSet Name="FK_CMO2_Order_AspNetUsers" Association="PortalKATEKModel.FK_CMO2_Order_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Order_CMO_Company" Association="PortalKATEKModel.FK_CMO2_Order_CMO_Company">
+            <End Role="CMO_Company" EntitySet="CMO_Company" />
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_CMO_TypeProduct" Association="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_CMO2_Order" Association="PortalKATEKModel.FK_CMO2_Position_CMO2_Order">
+            <End Role="CMO2_Order" EntitySet="CMO2_Order" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMO2_Position_PZ_PlanZakaz" Association="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4546,6 +4683,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" FromRole="AspNetUsers" ToRole="CMO2_Order" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -4557,6 +4695,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="CMO_CompanyMailList" Relationship="PortalKATEKModel.FK_CMO_CompanyMailList_CMO_Company" FromRole="CMO_Company" ToRole="CMO_CompanyMailList" />
           <NavigationProperty Name="CMO_Order" Relationship="PortalKATEKModel.FK_CMO_Order_CMO_Company" FromRole="CMO_Company" ToRole="CMO_Order" />
           <NavigationProperty Name="CMO_UploadResult" Relationship="PortalKATEKModel.FK_CMO_UploadResult_CMO_Company" FromRole="CMO_Company" ToRole="CMO_UploadResult" />
+          <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_CMO_Company" FromRole="CMO_Company" ToRole="CMO2_Order" />
         </EntityType>
         <EntityType Name="CMO_CompanyMailList">
           <Key>
@@ -4685,6 +4824,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO_PositionPreOrder" />
+          <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO2_Position" />
         </EntityType>
         <EntityType Name="CMO_TypeTask">
           <Key>
@@ -5137,6 +5277,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
+          <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO2_Position" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -7252,6 +7393,105 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="CMO2_Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsers_Create" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="workIn" Type="Boolean" Nullable="false" />
+          <Property Name="workDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="workComplitet" Type="Boolean" Nullable="false" />
+          <Property Name="workCost" Type="Double" Nullable="false" />
+          <Property Name="manufIn" Type="Boolean" Nullable="false" />
+          <Property Name="manufDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="manufComplited" Type="Boolean" Nullable="false" />
+          <Property Name="manufCost" Type="Double" Nullable="false" />
+          <Property Name="finIn" Type="Boolean" Nullable="false" />
+          <Property Name="finDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="finComplited" Type="Boolean" Nullable="false" />
+          <Property Name="finCost" Type="Double" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="reOrder" Type="Boolean" Nullable="false" />
+          <Property Name="id_CMO_Company" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" FromRole="CMO2_Order" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CMO_Company" Relationship="PortalKATEKModel.FK_CMO2_Order_CMO_Company" FromRole="CMO2_Order" ToRole="CMO_Company" />
+          <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" FromRole="CMO2_Order" ToRole="CMO2_Position" />
+        </EntityType>
+        <EntityType Name="CMO2_Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_CMO2" Type="Int32" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_CMO_TypeProduct" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CMO_TypeProduct" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct" FromRole="CMO2_Position" ToRole="CMO_TypeProduct" />
+          <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" FromRole="CMO2_Position" ToRole="CMO2_Order" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="CMO2_Position" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_CMO2_Order_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMO2_Order" Role="CMO2_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMO2_Order">
+              <PropertyRef Name="id_AspNetUsers_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Order_CMO_Company">
+          <End Type="PortalKATEKModel.CMO_Company" Role="CMO_Company" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMO2_Order" Role="CMO2_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Order">
+              <PropertyRef Name="id_CMO_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_CMO_TypeProduct">
+          <End Type="PortalKATEKModel.CMO_TypeProduct" Role="CMO_TypeProduct" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMO2_Position" Role="CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_CMO2_Order">
+          <End Type="PortalKATEKModel.CMO2_Order" Role="CMO2_Order" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMO2_Position" Role="CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO2_Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_CMO2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMO2_Position_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMO2_Position" Role="CMO2_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8666,6 +8906,41 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CMO2_Order">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMO2_Order">
+              <MappingFragment StoreEntitySet="CMO2_Order">
+                <ScalarProperty Name="id_CMO_Company" ColumnName="id_CMO_Company" />
+                <ScalarProperty Name="reOrder" ColumnName="reOrder" />
+                <ScalarProperty Name="folder" ColumnName="folder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="finCost" ColumnName="finCost" />
+                <ScalarProperty Name="finComplited" ColumnName="finComplited" />
+                <ScalarProperty Name="finDate" ColumnName="finDate" />
+                <ScalarProperty Name="finIn" ColumnName="finIn" />
+                <ScalarProperty Name="manufCost" ColumnName="manufCost" />
+                <ScalarProperty Name="manufComplited" ColumnName="manufComplited" />
+                <ScalarProperty Name="manufDate" ColumnName="manufDate" />
+                <ScalarProperty Name="manufIn" ColumnName="manufIn" />
+                <ScalarProperty Name="workCost" ColumnName="workCost" />
+                <ScalarProperty Name="workComplitet" ColumnName="workComplitet" />
+                <ScalarProperty Name="workDateTime" ColumnName="workDateTime" />
+                <ScalarProperty Name="workIn" ColumnName="workIn" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id_AspNetUsers_Create" ColumnName="id_AspNetUsers_Create" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMO2_Position">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMO2_Position">
+              <MappingFragment StoreEntitySet="CMO2_Position">
+                <ScalarProperty Name="id_CMO_TypeProduct" ColumnName="id_CMO_TypeProduct" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id_CMO2" ColumnName="id_CMO2" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
