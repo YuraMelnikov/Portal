@@ -225,6 +225,12 @@ function allReclamation() {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -1002,6 +1008,12 @@ function reclamationsPlanZakaz(id) {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -1031,6 +1043,12 @@ function chackList(id) {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksListView,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -1059,6 +1077,12 @@ function myReclamation() {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

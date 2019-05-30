@@ -35,6 +35,7 @@ namespace Wiki.Areas.CMO.Controllers
 
             return View();
         }
+
         //Get(id)
         //Update(id)
 

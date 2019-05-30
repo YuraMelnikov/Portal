@@ -13,6 +13,7 @@ namespace Wiki.Areas.Reclamation.Models
         public CreateReclamation(Wiki.Reclamation reclamation, string login)
         {
             this.reclamation = reclamation;
+            this.reclamation.text = reclamation.text.Replace("!", "");
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             this.reclamation.id_AspNetUsersCreate = aspNetUsers.Id;
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
