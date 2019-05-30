@@ -28,27 +28,28 @@ function loadData(listId) {
 }
 
 var objSmallReport = [
-    { "title": "Позиция", "data": "Id_Reclamation", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Подрядчик", "data": "EditLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Изг. дн.", "data": "ViewLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Дата размещения", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Дата исполнения", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Дата поступления", "data": "Text", "autowidth": true, "bSortable": true },
-    { "title": "№ заявки", "data": "Description", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "Answers", "autowidth": true, "bSortable": true }
+    { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true },
+    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true },
+    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true },
+    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
 var objFullReport = [
-    { "title": "Позиция", "data": "Id_Reclamation", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Подрядчик", "data": "EditLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Изг. дн.", "data": "ViewLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Дата размещения", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Цена, б/НДС (BYN)", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Дата исполнения", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Дата поступления", "data": "Text", "autowidth": true, "bSortable": true },
-    { "title": "Стоимость, б/НДС (BYN)", "data": "Text", "autowidth": true, "bSortable": true },
-    { "title": "№ заявки", "data": "Description", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "Answers", "autowidth": true, "bSortable": true }
+    { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true },
+    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true },
+    { "title": "Начальная цена, б/НДС (BYN)", "data": "workCost", "autowidth": true, "bSortable": true },
+    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true },
+    { "title": "Подтвержденная цена, б/НДС (BYN)", "data": "manufCost", "autowidth": true, "bSortable": true },
+    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "Стоимость, б/НДС (BYN)", "data": "finCost", "autowidth": true, "bSortable": true },
+    { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
 var objWork = [

@@ -254,6 +254,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
+    <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -505,6 +506,7 @@
     <Compile Include="Models\ExceptionFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IExceptionFilter.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ManufacturingHoure.cs" />
     <Compile Include="Models\OTKReclamationKoReportQuart.cs" />
@@ -527,6 +529,7 @@
     <Compile Include="Models\ViewRKD_Question.cs" />
     <Compile Include="Models\WordDocumentAttribute.cs" />
     <Compile Include="Models\WorkDeskKO.cs" />
+    <Compile Include="Models\WorkingDays.cs" />
     <Compile Include="OTKMultiSelectList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1827,7 +1830,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\CMO\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

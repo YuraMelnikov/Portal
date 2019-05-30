@@ -1,17 +1,24 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Wiki.Areas.CMO.Models;
+using Wiki.Models;
 
 namespace Wiki.Areas.CMO.Controllers
 {
     public class CMOAreaController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
+
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
             int devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
-
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
             if (devisionUser == 7)
@@ -28,15 +35,172 @@ namespace Wiki.Areas.CMO.Controllers
 
             return View();
         }
-
-        //ReportTable
-        //ToWork
-        //ToManuf
-        //ToClose
         //Get(id)
-        //AddOrder
-        //AddReOrder
         //Update(id)
+
+        [HttpPost]
+        public JsonResult ReportTable()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                dataList.CMO_Company.name,
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult ToWork()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Where(d => d.workIn == false && d.reOrder == false)
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                dataList.CMO_Company.name,
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult ToManuf()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == false)
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                dataList.CMO_Company.name,
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult ToClose()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == true)
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                dataList.CMO_Company.name,
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        public JsonResult AddOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct)
+        {
+            string login = HttpContext.User.Identity.Name;
+            new CMOOrederValid().CreateOrder(id_PlanZakaz, id_CMO_TypeProduct, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AddReOrder(int[] id_PlanZakaz, int id_CMO_Company)
+        {
+            string login = HttpContext.User.Identity.Name;
+            new CMOOrederValid().CreateReOrder(id_PlanZakaz, id_CMO_Company, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        string GetPositionName(List<CMO2_Position> positionsList)
+        {
+            string positions = "";
+            foreach (var data in positionsList.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
+            {
+                positions += data.PZ_PlanZakaz.PlanZakaz + " - " + data.CMO_TypeProduct.name + ";" + "</br>";
+            }
+            return positions;
+        }
 
         public string RenderUserMenu()
         {
