@@ -24,21 +24,20 @@ namespace Wiki
         public string id_AspNetUsers_Create { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public bool workIn { get; set; }
-        public System.DateTime workDateTime { get; set; }
+        public Nullable<System.DateTime> workDateTime { get; set; }
         public bool workComplitet { get; set; }
         public double workCost { get; set; }
         public bool manufIn { get; set; }
-        public System.DateTime manufDate { get; set; }
+        public Nullable<System.DateTime> manufDate { get; set; }
         public bool manufComplited { get; set; }
         public double manufCost { get; set; }
         public bool finIn { get; set; }
-        public System.DateTime finDate { get; set; }
+        public Nullable<System.DateTime> finDate { get; set; }
         public bool finComplited { get; set; }
         public double finCost { get; set; }
-        public string description { get; set; }
         public string folder { get; set; }
         public bool reOrder { get; set; }
-        public int id_CMO_Company { get; set; }
+        public Nullable<int> id_CMO_Company { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual CMO_Company CMO_Company { get; set; }

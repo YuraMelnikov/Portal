@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
+            this.CMO2_Order = new HashSet<CMO2_Order>();
             this.OTK_ChaeckList = new HashSet<OTK_ChaeckList>();
             this.OTK_Reclamation = new HashSet<OTK_Reclamation>();
             this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
@@ -40,7 +41,6 @@ namespace Wiki
             this.RKD_QuestionData1 = new HashSet<RKD_QuestionData>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.CMO2_Order = new HashSet<CMO2_Order>();
         }
     
         public string Id { get; set; }
@@ -64,6 +64,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual Devision Devision1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_ChaeckList> OTK_ChaeckList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -106,7 +108,5 @@ namespace Wiki
         public virtual ICollection<TaskForPZ> TaskForPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
     }
 }

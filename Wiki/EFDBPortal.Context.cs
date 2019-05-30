@@ -65,6 +65,8 @@ namespace Wiki
         public virtual DbSet<CMO_TypeProduct> CMO_TypeProduct { get; set; }
         public virtual DbSet<CMO_TypeTask> CMO_TypeTask { get; set; }
         public virtual DbSet<CMO_UploadResult> CMO_UploadResult { get; set; }
+        public virtual DbSet<CMO2_Order> CMO2_Order { get; set; }
+        public virtual DbSet<CMO2_Position> CMO2_Position { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
@@ -139,7 +141,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<CMO2_Order> CMO2_Order { get; set; }
-        public virtual DbSet<CMO2_Position> CMO2_Position { get; set; }
     }
 }

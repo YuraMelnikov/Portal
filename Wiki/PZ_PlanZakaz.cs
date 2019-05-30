@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.CMO_PositionOrder = new HashSet<CMO_PositionOrder>();
             this.CMO_PositionPreOrder = new HashSet<CMO_PositionPreOrder>();
+            this.CMO2_Position = new HashSet<CMO2_Position>();
             this.Debit_CostUpdate = new HashSet<Debit_CostUpdate>();
             this.Debit_Name = new HashSet<Debit_Name>();
             this.Debit_Platform = new HashSet<Debit_Platform>();
@@ -32,7 +33,6 @@ namespace Wiki
             this.RKD_Order = new HashSet<RKD_Order>();
             this.Service_ReclamationPZ = new HashSet<Service_ReclamationPZ>();
             this.VVPZ = new HashSet<VVPZ>();
-            this.CMO2_Position = new HashSet<CMO2_Position>();
         }
     
         public int Id { get; set; }
@@ -86,6 +86,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO_PositionPreOrder> CMO_PositionPreOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMO2_Position> CMO2_Position { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_Name> Debit_Name { get; set; }
@@ -117,7 +119,5 @@ namespace Wiki
         public virtual ICollection<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VVPZ> VVPZ { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMO2_Position> CMO2_Position { get; set; }
     }
 }

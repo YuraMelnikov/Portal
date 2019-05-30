@@ -51,7 +51,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -79,7 +79,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -107,7 +107,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -135,7 +135,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate, dataList.finDate),
+                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
