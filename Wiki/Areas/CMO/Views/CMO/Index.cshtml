@@ -15,10 +15,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a onclick="return loadData(1);">Отчет</a></li>
-            <li><a onclick="return loadData(2);">Создание заказа</a></li>
-            <li><a onclick="return loadData(3);">Отдел снабжения</a></li>
-            <li><a onclick="return loadData(4);">Созданные мной</a></li>
-            <li><a onclick="return loadData(5);">Архив отчетов (до июня 2019) </a></li>
+            <li><a onclick="return loadData(2);">Отдел снабжения</a></li>
+            <li><a href="http://pserver/CMO2/Report">Архив отчетов (до июня 2019) </a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "Remarks"); }
@@ -30,9 +28,8 @@
 </nav>
 <div class="row">
     <div class="col-md-12">
-        <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
+        <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
+        <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
         <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
         <table id="toManufTable" class="table table-hover table-striped" style="width:100%;"></table>
         <table id="toCloseTable" class="table table-hover table-striped" style="width:100%;"></table>
@@ -62,7 +59,7 @@
                             <label>Загрузка файлов:</label>
                             <input accept="file/*" id="File1" multiple="multiple" name="File1" type="file" />
                             <br />
-                            <input type="submit" value="Отправить" />
+                            <input type="submit" value="Отправить" onclick="addOrder()"/>
                         </form>
                     </div>
                 </div>
@@ -87,7 +84,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Выберете подрядчика:</label>
-                        @Html.DropDownList("id_CMO_TypeProduct", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "form-control" })
+                        @Html.DropDownList("id_CMO_Company", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label>Загрузка файлов:</label>
@@ -95,7 +92,7 @@
                             <label>Загрузка файлов:</label>
                             <input accept="file/*" id="File1" multiple="multiple" name="File1" type="file" />
                             <br />
-                            <input type="submit" value="Отправить" />
+                            <input type="submit" value="Отправить"  onclick="addReOrder()"/>
                         </form>
                     </div>
                 </div>
@@ -141,7 +138,7 @@
                     <label>Сформировать заказ поставщику:</label>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
-                        <input type="checkbox" id="workIn" disabled="disabled" />
+                        <input type="checkbox" id="workIn" />
                     </div>
                     <div class="col-lg-2">
                         <label>Требуемое время получения ответа:</label>
@@ -153,7 +150,7 @@
                     </div>
                     <div class="col-lg-1">
                         <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="workComplitet" disabled="disabled" />
+                        <input type="checkbox" id="workComplitet" />
                     </div>
                 </div>
                 <hr />
@@ -161,7 +158,7 @@
                     <label>Подтвердить запуск заказа в работу:</label>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
-                        <input type="checkbox" id="manufIn" disabled="disabled" />
+                        <input type="checkbox" id="manufIn" />
                     </div>
                     <div class="col-lg-2">
                         <label>Плановая дата поступления:</label>
@@ -173,7 +170,7 @@
                     </div>
                     <div class="col-lg-1">
                         <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="manufComplited" disabled="disabled" />
+                        <input type="checkbox" id="manufComplited" />
                     </div>
                 </div>
                 <hr />
@@ -181,7 +178,7 @@
                     <label>Подтвердить поступление железа:</label>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
-                        <input type="checkbox" id="finIn" disabled="disabled" />
+                        <input type="checkbox" id="finIn" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата поступления:</label>
@@ -193,7 +190,7 @@
                     </div>
                     <div class="col-lg-1">
                         <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="finComplited" disabled="disabled" />
+                        <input type="checkbox" id="finComplited" />
                     </div>
                 </div>
                 <hr />

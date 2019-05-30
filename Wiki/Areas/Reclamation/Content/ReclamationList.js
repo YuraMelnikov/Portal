@@ -659,7 +659,6 @@ function Update() {
                 var id = document.getElementById('zakazId').innerHTML;
                 reclamationsPlanZakaz(id);
             }
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

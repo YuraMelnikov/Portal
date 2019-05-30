@@ -253,7 +253,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
-    <Compile Include="Areas\CMO\Controllers\CMOController.cs" />
+    <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />

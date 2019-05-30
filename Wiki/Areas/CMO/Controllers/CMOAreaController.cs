@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Wiki.Areas.CMO.Controllers
 {
-    public class CMOController : Controller
+    public class CMOAreaController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
@@ -30,6 +28,15 @@ namespace Wiki.Areas.CMO.Controllers
 
             return View();
         }
+
+        //ReportTable
+        //ToWork
+        //ToManuf
+        //ToClose
+        //Get(id)
+        //AddOrder
+        //AddReOrder
+        //Update(id)
 
         public string RenderUserMenu()
         {
