@@ -569,14 +569,52 @@ function update(id) {
 }
 
 function validateUpdate() {
-    if ($('#manufIn').is(":checked") === false) {
+    if ($('#workIn').is(":checked") === false) {
         if ($('#workDateTime').val().length === 0) {
-            $('#workDateTime').css('border-color', 'Red');
             $('#workDateTime').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#workDateTime').css('border-color', 'lightgrey');
+        }
+        if ($('#workCost').val().length === 0) {
+            $('#workCost').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#workCost').css('border-color', 'lightgrey');
+        }
+    }
+    else if ($('#manufIn').is(":checked") === false) {
+        if ($('#manufDate').val().length === 0) {
+            $('#manufDate').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#manufDate').css('border-color', 'lightgrey');
+        }
+        if ($('#manufCost').val().length === 0) {
+            $('#manufCost').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#manufCost').css('border-color', 'lightgrey');
+        }
+    }
+    else if ($('#finIn').is(":checked") === false) {
+        if ($('#finDate').val().length === 0) {
+            $('#finDate').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#finDate').css('border-color', 'lightgrey');
+        }
+        if ($('#finCost').val().length === 0) {
+            $('#finCost').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#finCost').css('border-color', 'lightgrey');
         }
     }
 }
