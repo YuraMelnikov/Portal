@@ -189,7 +189,13 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
-        //Update(id)
+        public JsonResult Update(CMO2_Order cMO2_Order)
+        {
+            string login = HttpContext.User.Identity.Name;
+            new CMOOrederValid().UpdateOrder(cMO2_Order);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
         string GetPositionName(List<CMO2_Position> positionsList)
         {
             string positions = "";

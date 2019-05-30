@@ -11,6 +11,35 @@ namespace Wiki.Areas.CMO.Models
         int id_TypeReOrder = 10;
         CMO2_Order cMO2_Order;
         private HttpPostedFileBase[] fileUploadArray;
+
+        public void UpdateOrder(CMO2_Order cMO2_Order)
+        {
+            CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
+            if (cMO2_Order.workIn == false)
+            {
+                order.workIn = true;
+                order.workDateTime = cMO2_Order.workDateTime;
+                order.workCost = cMO2_Order.workCost;
+            }
+            else if (cMO2_Order.manufIn == false)
+            {
+                order.manufIn = true;
+                order.manufDate = cMO2_Order.manufDate;
+                order.manufCost = cMO2_Order.manufCost;
+            }
+            else if (cMO2_Order.finIn == false)
+            {
+                order.finIn = true;
+                order.finDate = cMO2_Order.finDate;
+                order.finCost = cMO2_Order.finCost;
+            }
+            else
+            {
+
+            }
+            db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
         public void CreateOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, string login, HttpPostedFileBase[] fileUploadArray)
         {
             this.fileUploadArray = fileUploadArray;

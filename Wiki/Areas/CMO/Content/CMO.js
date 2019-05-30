@@ -530,31 +530,29 @@ function deactivatedModalOS(countDA) {
     }
 }
 
-function update(id) {
+function update() {
     var res = validateUpdate();
     if (res === false) {
         return false;
     }
     var typeObj = {
         id_CMO_Company: $('#id_CMO_Company').val(),
-
         workIn: $('#workIn').is(":checked"),
         workDateTime: $('#workDateTime').val(),
         workCost: $('#workCost').val(),
         workComplitet: $('#workComplitet').is(":checked"),
-
         manufIn: $('#manufIn').is(":checked"),
         manufDate: $('#manufDate').val(),
         manufCost: $('#manufCost').val(),
         manufComplited: $('#manufComplited').is(":checked"),
-
         finIn: $('#finIn').is(":checked"),
         finDate: $('#finDate').val(),
         finCost: $('#finCost').val(),
         finComplited: $('#finComplited').is(":checked")
     };
     $.ajax({
-        url: "/CMOArea/Update" + id,
+        cache: false,
+        url: "/CMOArea/Update",
         data: JSON.stringify(typeObj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
