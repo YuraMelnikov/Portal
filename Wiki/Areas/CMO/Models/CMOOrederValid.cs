@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using Wiki.Models;
 
 namespace Wiki.Areas.CMO.Models
@@ -8,8 +10,10 @@ namespace Wiki.Areas.CMO.Models
         PortalKATEKEntities db = new PortalKATEKEntities();
         int id_TypeReOrder = 10;
         CMO2_Order cMO2_Order;
-        public void CreateOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, string login)
+        private HttpPostedFileBase[] fileUploadArray;
+        public void CreateOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, string login, HttpPostedFileBase[] fileUploadArray)
         {
+            this.fileUploadArray = fileUploadArray;
             GetBasicFuild(login);
             GetDefaultWork();
             GetDefaultManuf();
@@ -17,7 +21,8 @@ namespace Wiki.Areas.CMO.Models
             cMO2_Order.reOrder = false;
             db.CMO2_Order.Add(cMO2_Order);
             db.SaveChanges();
-            foreach(var dataPZ in id_PlanZakaz)
+            CreateFolderAndFileForPreOrder(cMO2_Order.id);
+            foreach (var dataPZ in id_PlanZakaz)
             {
                 foreach (var dataType in id_CMO_TypeProduct)
                 {
@@ -31,8 +36,9 @@ namespace Wiki.Areas.CMO.Models
             db.SaveChanges();
         }
 
-        public void CreateReOrder(int[] id_PlanZakaz, int id_CMO_Company, string login)
+        public void CreateReOrder(int[] id_PlanZakaz, int id_CMO_Company, string login, HttpPostedFileBase[] fileUploadArray)
         {
+            this.fileUploadArray = fileUploadArray;
             GetBasicFuild(login);
             GetDefaultWork();
             GetDefaultManuf();
@@ -41,6 +47,7 @@ namespace Wiki.Areas.CMO.Models
             cMO2_Order.id_CMO_Company = id_CMO_Company;
             db.CMO2_Order.Add(cMO2_Order);
             db.SaveChanges();
+            CreateFolderAndFileForPreOrder(cMO2_Order.id);
             foreach (var dataPZ in id_PlanZakaz)
             {
                 CMO2_Position cMO2_Position = new CMO2_Position();
@@ -85,6 +92,38 @@ namespace Wiki.Areas.CMO.Models
             cMO2_Order.finIn = false;
             cMO2_Order.finCost = 0;
             return true;
+        }
+
+        private void CreateFolderAndFileForPreOrder(int id)
+        {
+            string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\OrderCMO\\NewOrders\\" + id.ToString() + "\\";
+            Directory.CreateDirectory(directory);
+            SaveFileToServer(directory);
+        }
+
+        private void SaveFileToServer(string folderAdress)
+        {
+            for (int i = 0; i < fileUploadArray.Length; i++)
+            {
+                string fileReplace = Path.GetFileName(fileUploadArray[i].FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", folderAdress, fileReplace);
+                fileUploadArray[i].SaveAs(fileName);
+            }
+        }
+
+        private string ToSafeFileName(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
         }
     }
 }

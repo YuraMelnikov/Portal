@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.CMO.Models;
 using Wiki.Models;
@@ -35,9 +36,6 @@ namespace Wiki.Areas.CMO.Controllers
 
             return View();
         }
-
-        //Get(id)
-        //Update(id)
 
         [HttpPost]
         public JsonResult ReportTable()
@@ -150,17 +148,17 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(new { data });
         }
 
-        public JsonResult AddOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct)
+        public JsonResult AddOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, HttpPostedFileBase[] file1)
         {
             string login = HttpContext.User.Identity.Name;
-            new CMOOrederValid().CreateOrder(id_PlanZakaz, id_CMO_TypeProduct, login);
+            new CMOOrederValid().CreateOrder(id_PlanZakaz, id_CMO_TypeProduct, login, file1);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddReOrder(int[] id_PlanZakaz, int id_CMO_Company)
+        public JsonResult AddReOrder(int[] id_PlanZakaz, int id_CMO_Company, HttpPostedFileBase[] file1)
         {
             string login = HttpContext.User.Identity.Name;
-            new CMOOrederValid().CreateReOrder(id_PlanZakaz, id_CMO_Company, login);
+            new CMOOrederValid().CreateReOrder(id_PlanZakaz, id_CMO_Company, login, file1);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
@@ -168,28 +166,8 @@ namespace Wiki.Areas.CMO.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //Get(id)
+        //Update(id)
 
 
 
