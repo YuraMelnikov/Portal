@@ -162,15 +162,34 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Get(int id)
+        {
+            var query = db.CMO2_Order.Where(d => d.id == id).ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.id,
+                dataList.id_AspNetUsers_Create,
+                dataList.dateTimeCreate,
+                dataList.workIn,
+                dataList.workDateTime,
+                dataList.workComplitet,
+                dataList.workCost,
+                dataList.manufIn,
+                dataList.manufDate,
+                dataList.manufComplited,
+                dataList.manufCost,
+                dataList.finIn,
+                dataList.finDate,
+                dataList.finComplited,
+                dataList.finCost,
+                dataList.folder,
+                dataList.reOrder,
+                dataList.id_CMO_Company
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
 
-
-
-
-        //Get(id)
         //Update(id)
-
-
-
         string GetPositionName(List<CMO2_Position> positionsList)
         {
             string positions = "";
