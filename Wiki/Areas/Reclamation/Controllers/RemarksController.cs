@@ -246,7 +246,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.SaveChanges();
                 if(reload != true)
                 {
-                    EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 3);
+                    if(answerText != "-")
+                    {
+                        EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 3);
+                    }
                 }
             }
             if (reclamation.technicalAdvice == true)
