@@ -43,7 +43,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 15)
+                    .Where(d => d.Devision == 3 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
@@ -130,7 +130,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by")
+            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "myi@katek.by")
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false, login);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false);
