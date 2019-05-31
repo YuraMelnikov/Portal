@@ -43,15 +43,15 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.CMO2_Order
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
                 .Include(d => d.CMO_Company)
                 .OrderByDescending(d => d.dateTimeCreate)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
-                dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -62,6 +62,22 @@ namespace Wiki.Areas.CMO.Controllers
                 dataList.folder
             });
             return Json(new { data });
+        }
+
+        int GetDay(DateTime? from, DateTime? to)
+        {
+            if (from == null || to == null)
+                return 0;
+            else
+                return new WorkingDays().GetWorkingDays((DateTime)from, (DateTime)to);
+        }
+
+        string GetCompanyName(CMO_Company company)
+        {
+            if (company != null)
+                return company.name;
+            else
+                return "";
         }
 
         [HttpPost]
@@ -192,7 +208,7 @@ namespace Wiki.Areas.CMO.Controllers
         public JsonResult Update(CMO2_Order cMO2_Order)
         {
             string login = HttpContext.User.Identity.Name;
-            new CMOOrederValid().UpdateOrder(cMO2_Order);
+            new CMOOrederValid().UpdateOrder(cMO2_Order, login);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 

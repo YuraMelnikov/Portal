@@ -10,7 +10,7 @@
 </head>
 <body>
 <h2>Оформить дозаказ железа</h2>
-@using (Html.BeginForm("CreateOrderDefault", "CMO", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateOrderDefault", "CMO2", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <hr />
@@ -21,7 +21,7 @@
         <h4>Выберете подрядчика</h4>
         @Html.ListBox("CMO_Company1", ViewBag.CMO_Company as MultiSelectList, new { @class = "chosen-select" })
         <hr />
-        <form action="/CMO/CreateOrderDefault" enctype="multipart/form-data" method="post">
+        <form action="/CMO2/CreateOrderDefault" enctype="multipart/form-data" method="post">
             <label>Загрузка файлов:</label>
             <input accept="file/*" id="File1" multiple="multiple" name="File1" type="file" />
             <br />

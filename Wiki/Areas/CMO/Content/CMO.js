@@ -30,10 +30,10 @@ function loadData(listId) {
 var objSmallReport = [
     { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
-    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true },
-    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true },
-    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true },
-    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
@@ -41,12 +41,12 @@ var objSmallReport = [
 var objFullReport = [
     { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
-    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true },
-    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true },
+    { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Начальная цена, б/НДС (BYN)", "data": "workCost", "autowidth": true, "bSortable": true },
-    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true },
+    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Подтвержденная цена, б/НДС (BYN)", "data": "manufCost", "autowidth": true, "bSortable": true },
-    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Стоимость, б/НДС (BYN)", "data": "finCost", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
@@ -58,14 +58,79 @@ var objWork = [
     { "title": "Подрядчик", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
     { "title": "Срок", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "Цена/стоимость", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Дата/время размещения", "data": "ViewLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Дата/время создания", "data": "ViewLinkJS", "autowidth": true, "bSortable": true },
+    { "title": "Дата/время размещения", "data": "ViewLinkJS", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата/время создания", "data": "ViewLinkJS", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Кто разместил", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "Excel", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "Devision", "autowidth": true, "bSortable": true }
 ];
 
 function startMenu() {
+    if (userGroupId === 4 || userGroupId ===2) {
+        $('#btnAddOrder').show();
+        $('#btnReOrder').show();
+    }
+    $("#reportTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/ReportTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objSmallReport,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+
+    $("#reportTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/ReportTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objSmallReport,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#reportTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/ReportTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objSmallReport,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     $("#reportTable").DataTable({
         "ajax": {
             "cache": false,
@@ -615,5 +680,21 @@ function validateUpdate() {
         else {
             $('#finCost').css('border-color', 'lightgrey');
         }
+    }
+}
+
+function processNull(data) {
+    if (data === 'null') {
+        return '';
+    } else {
+        return data;
+    }
+}
+
+function processZero(data) {
+    if (data === 0) {
+        return '';
+    } else {
+        return data;
     }
 }

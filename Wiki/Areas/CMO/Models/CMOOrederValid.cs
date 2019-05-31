@@ -12,7 +12,7 @@ namespace Wiki.Areas.CMO.Models
         CMO2_Order cMO2_Order;
         private HttpPostedFileBase[] fileUploadArray;
 
-        public void UpdateOrder(CMO2_Order cMO2_Order)
+        public void UpdateOrder(CMO2_Order cMO2_Order, string login)
         {
             CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
             if (cMO2_Order.workIn == false)
@@ -20,12 +20,14 @@ namespace Wiki.Areas.CMO.Models
                 order.workIn = true;
                 order.workDateTime = cMO2_Order.workDateTime;
                 order.workCost = cMO2_Order.workCost;
+                new EmailCMO(cMO2_Order, login, 2);
             }
             else if (cMO2_Order.manufIn == false)
             {
                 order.manufIn = true;
                 order.manufDate = cMO2_Order.manufDate;
                 order.manufCost = cMO2_Order.manufCost;
+                new EmailCMO(cMO2_Order, login, 3);
             }
             else if (cMO2_Order.finIn == false)
             {
@@ -63,6 +65,7 @@ namespace Wiki.Areas.CMO.Models
                 }
             }
             db.SaveChanges();
+            new EmailCMO(cMO2_Order, login, 1);
         }
 
         public void CreateReOrder(int[] id_PlanZakaz, int id_CMO_Company, string login, HttpPostedFileBase[] fileUploadArray)
@@ -86,6 +89,7 @@ namespace Wiki.Areas.CMO.Models
                 db.CMO2_Position.Add(cMO2_Position);
             }
             db.SaveChanges();
+            new EmailCMO(cMO2_Order, login, 4);
         }
 
         public CMO2_Order CMO2_Order { get => cMO2_Order; set => cMO2_Order = value; }
@@ -128,6 +132,9 @@ namespace Wiki.Areas.CMO.Models
             string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\OrderCMO\\NewOrders\\" + id.ToString() + "\\";
             Directory.CreateDirectory(directory);
             SaveFileToServer(directory);
+            cMO2_Order.folder = directory;
+            db.Entry(cMO2_Order).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
         }
 
         private void SaveFileToServer(string folderAdress)
