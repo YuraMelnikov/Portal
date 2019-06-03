@@ -267,6 +267,10 @@
                         <input type="checkbox" id="finComplited" />
                     </div>
                 </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -275,7 +279,7 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
                     </div>
                 </div>
             </div>
@@ -299,9 +303,8 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        $('#datetime').datetimepicker({
+        $('#workDateTime').datetimepicker({
             locale: 'ru',
-            format: 'L',
             calendarWeeks: true,
             showTodayButton: true
         });
@@ -319,7 +322,7 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        $('#finComplited').datetimepicker({
+        $('#finDate').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

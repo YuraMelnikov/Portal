@@ -17,6 +17,7 @@ namespace Wiki.Areas.CMO.Models
             CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
             if (cMO2_Order.workIn == false)
             {
+                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.workIn = true;
                 order.workDateTime = cMO2_Order.workDateTime;
                 order.workCost = cMO2_Order.workCost;
@@ -24,6 +25,7 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (cMO2_Order.manufIn == false)
             {
+                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.manufIn = true;
                 order.manufDate = cMO2_Order.manufDate;
                 order.manufCost = cMO2_Order.manufCost;
@@ -31,6 +33,7 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (cMO2_Order.finIn == false)
             {
+                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.finIn = true;
                 order.finDate = cMO2_Order.finDate;
                 order.finCost = cMO2_Order.finCost;

@@ -63,6 +63,17 @@ var objWork = [
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
+var objWorkManuf = [
+    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": true },
+    { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true },
+    { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Срок", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
+];
+
 function startMenu() {
     if (userGroupId === 4 || userGroupId ===2) {
         $('#btnAddOrder').show();
@@ -216,11 +227,8 @@ function toWork() {
         },
         "processing": true,
         "columns": objWork,
-        //"scrollY": '75vh',
-        //"scrollX": true,
         "paging": false,
         "info": false,
-        //"scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -241,7 +249,7 @@ function toManuf() {
             "datatype": "json"
         },
         "processing": true,
-        "columns": objWork,
+        "columns": objWorkManuf,
         "paging": false,
         "info": false,
         "language": {
@@ -415,33 +423,39 @@ function get(id) {
             $('#id_CMO_Company').val(result.id_CMO_Company);
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#id_AspNetUsers_Create').val(result.id_AspNetUsers_Create);
-            $("#workIn").val(result.workIn).trigger("chosen:updated");
+            $('#workIn').prop('checked', result.workIn);
             $('#workDateTime').val(result.workDateTime);
             $('#workCost').val(result.workCost);
-            $("#workComplitet").val(result.workComplitet).trigger("chosen:updated");
-            $("#manufIn").val(result.manufIn).trigger("chosen:updated");
+            $('#workComplitet').prop('checked', result.workComplitet);
+            $('#manufIn').prop('checked', result.manufIn);
             $('#manufDate').val(result.manufDate);
             $('#manufCost').val(result.manufCost);
-            $("#manufComplited").val(result.manufComplited).trigger("chosen:updated");
-            $("#finIn").val(result.finIn).trigger("chosen:updated");
+            $('#manufComplited').prop('checked', result.manufComplited);
+            $('#finIn').prop('checked', result.finIn);
+            $('#id').val(result.id);
             $('#finDate').val(result.finDate);
             $('#finCost').val(result.finCost);
-            $("#finComplited").val(result.finComplited).trigger("chosen:updated");
+            $('#finComplited').prop('checked', result.finComplited);
             $('#osModal').modal('show');
             $('#btnUpdate').show();
+            var countDA = 0;
+            var tmp = $('#workIn').is(":checked");
+            if ($('#workIn').is(":checked") === false)
+                countDA = 1;
+            else if ($('#manufIn').is(":checked") === false)
+                countDA = 2;
+            else if ($('#finIn').is(":checked") === false)
+                countDA = 3;
+            deactivatedModalOS(countDA);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
+
     });
-    var countDA = 0;
-    if ($('#workIn').is(":checked") === true)
-        countDA = 1;
-    else if ($('#manufIn').is(":checked") === true)
-        countDA = 2;
-    else if ($('#finIn').is(":checked") === true)
-        countDA = 3;
-    deactivatedModalOS(countDA);
+
+
+
     return false;
 }
 
@@ -510,6 +524,7 @@ function update() {
         return false;
     }
     var typeObj = {
+        id: $('#id').val(),
         id_CMO_Company: $('#id_CMO_Company').val(),
         workIn: $('#workIn').is(":checked"),
         workDateTime: $('#workDateTime').val(),
@@ -542,54 +557,79 @@ function update() {
 }
 
 function validateUpdate() {
+    isValid = true;
     if ($('#workIn').is(":checked") === false) {
-        if ($('#workDateTime').val().length === 0) {
+        if ($('#workDateTime').val().length < 5) {
             $('#workDateTime').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#workDateTime').css('border-color', 'lightgrey');
         }
-        if ($('#workCost').val().length === 0) {
+        if ($('#workCost').val() < 1) {
             $('#workCost').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#workCost').css('border-color', 'lightgrey');
         }
+
+        var tmp = $('#id_CMO_Company').val();
+        if ($('#id_CMO_Company').val() === null) {
+            $('#id_CMO_Company').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_CMO_Company').css('border-color', 'lightgrey');
+        }
     }
     else if ($('#manufIn').is(":checked") === false) {
-        if ($('#manufDate').val().length === 0) {
+        if ($('#manufDate').val().length < 5) {
             $('#manufDate').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#manufDate').css('border-color', 'lightgrey');
         }
-        if ($('#manufCost').val().length === 0) {
+        if ($('#manufCost').val() < 1) {
             $('#manufCost').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#manufCost').css('border-color', 'lightgrey');
         }
+        if ($('#id_CMO_Company').val().length === 0) {
+            $('#id_CMO_Company').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_CMO_Company').css('border-color', 'lightgrey');
+        }
     }
     else if ($('#finIn').is(":checked") === false) {
-        if ($('#finDate').val().length === 0) {
+        if ($('#finDate').val().length < 5) {
             $('#finDate').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#finDate').css('border-color', 'lightgrey');
         }
-        if ($('#finCost').val().length === 0) {
+        if ($('#finCost').val() < 1) {
             $('#finCost').css('border-color', 'Red');
             isValid = false;
         }
         else {
             $('#finCost').css('border-color', 'lightgrey');
         }
+        if ($('#id_CMO_Company').val().length === 0) {
+            $('#id_CMO_Company').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_CMO_Company').css('border-color', 'lightgrey');
+        }
     }
+    return isValid;
 }
 
 function processNull(data) {
