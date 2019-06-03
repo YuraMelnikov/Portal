@@ -28,29 +28,25 @@
 </nav>
 <div class="row">
     <div class="col-md-12">
-
         <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
         <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
-
         <div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
-
         <div id="dToManuf">
             <label>Подтвердить запуск заказа в работу</label>
             <table id="toManufTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
-
         <div id="dToCompl">
             <label>Подтвердить поступление железа</label>
             <table id="toCloseTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
-
         <div id="dReport">
+            <label>Отчет</label>
             <table id="reportTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
@@ -185,16 +181,18 @@
                         <label>№заказа/ов:</label>
                         @Html.ListBox("id_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <label>Тип/ы заказываемых ТМЦ:</label>
                         @Html.ListBox("id_CMO_TypeProduct", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "chosen-select" })
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-2">
                         <label>Подрядчик:</label>
                         @Html.DropDownList("id_CMO_Company", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
                         <input type="checkbox" id="reloadCompany" disabled="disabled" />
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <label>Создана:</label>
                         <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
                     </div>
@@ -205,7 +203,9 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <label>Сформировать заказ поставщику:</label>
+                    <div class="col-lg-1">
+                        <label>Сформировать заказ поставщику:</label>
+                    </div>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
                         <input type="checkbox" id="workIn" />
@@ -225,7 +225,9 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <label>Подтвердить запуск заказа в работу:</label>
+                    <div class="col-lg-1">
+                        <label>Подтвердить запуск заказа в работу:</label>
+                    </div>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
                         <input type="checkbox" id="manufIn" />
@@ -245,7 +247,9 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <label>Подтвердить поступление железа:</label>
+                    <div class="col-lg-1">
+                        <label>Подтвердить поступление железа:</label>
+                    </div>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
                         <input type="checkbox" id="finIn" />
@@ -263,7 +267,6 @@
                         <input type="checkbox" id="finComplited" />
                     </div>
                 </div>
-                <hr />
             </div>
             <div class="modal-footer">
                 <div class="row">

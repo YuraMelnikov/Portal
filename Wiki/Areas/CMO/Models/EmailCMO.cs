@@ -162,7 +162,8 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (stepNumber == 4)
             {
-                body = "Добрый день!</br>";
+                body = "Добрый день!";
+                body += "</br>";
                 body += "Размещаем дозаказ деталей №: " + order.id;
                 subject = "Размещаем дозаказ деталей №: " + order.id;
             }

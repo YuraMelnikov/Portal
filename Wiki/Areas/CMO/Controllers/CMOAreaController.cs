@@ -77,6 +77,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.manufDate, dataList.finDate),
@@ -88,7 +89,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dataList.finCost,
                 dataList.id,
                 dataList.folder
-            });
+            }); 
             return Json(new { data });
         }
 
@@ -105,6 +106,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.manufDate, dataList.finDate),
@@ -133,6 +135,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.manufDate, dataList.finDate),
@@ -176,25 +179,47 @@ namespace Wiki.Areas.CMO.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.id,
-                dataList.id_AspNetUsers_Create,
-                dataList.dateTimeCreate,
+                id_AspNetUsers_Create = dataList.AspNetUsers.CiliricalName,
+                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dataList.workIn,
-                dataList.workDateTime,
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workComplitet,
                 dataList.workCost,
                 dataList.manufIn,
-                dataList.manufDate,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                 dataList.manufComplited,
                 dataList.manufCost,
                 dataList.finIn,
-                dataList.finDate,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finComplited,
                 dataList.finCost,
                 dataList.folder,
                 dataList.reOrder,
+                id_PlanZakaz = GetPlanZakazArray(dataList.CMO2_Position.ToList()),
+                id_CMO_TypeProduct = GetTypesArray(dataList.CMO2_Position.ToList()),
                 dataList.id_CMO_Company
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        string[] GetPlanZakazArray(List<CMO2_Position> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_PZ_PlanZakaz.ToString();
+            }
+            return pZ_PlanZakaz;
+        }
+
+        string[] GetTypesArray(List<CMO2_Position> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_CMO_TypeProduct.ToString();
+            }
+            return pZ_PlanZakaz;
         }
 
         public JsonResult Update(CMO2_Order cMO2_Order)
