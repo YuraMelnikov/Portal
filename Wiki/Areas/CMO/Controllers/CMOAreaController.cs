@@ -64,22 +64,6 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(new { data });
         }
 
-        int GetDay(DateTime? from, DateTime? to)
-        {
-            if (from == null || to == null)
-                return 0;
-            else
-                return new WorkingDays().GetWorkingDays((DateTime)from, (DateTime)to);
-        }
-
-        string GetCompanyName(CMO_Company company)
-        {
-            if (company != null)
-                return company.name;
-            else
-                return "";
-        }
-
         [HttpPost]
         public JsonResult ToWork()
         {
@@ -87,15 +71,15 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.CMO2_Order
                 .Where(d => d.workIn == false && d.reOrder == false)
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
                 .Include(d => d.CMO_Company)
                 .OrderByDescending(d => d.dateTimeCreate)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
-                dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -115,15 +99,15 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.CMO2_Order
                 .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == false)
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
                 .Include(d => d.CMO_Company)
                 .OrderByDescending(d => d.dateTimeCreate)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
-                dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -143,15 +127,15 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.CMO2_Order
                 .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == true)
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position))
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
                 .Include(d => d.CMO_Company)
                 .OrderByDescending(d => d.dateTimeCreate)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
-                dataList.CMO_Company.name,
-                day = new WorkingDays().GetWorkingDays(dataList.manufDate.Value, dataList.finDate.Value),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -168,14 +152,56 @@ namespace Wiki.Areas.CMO.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             new CMOOrederValid().CreateOrder(id_PlanZakaz, id_CMO_TypeProduct, login, file1);
-            return Json(1, JsonRequestBehavior.AllowGet);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
         }
 
         public JsonResult AddReOrder(int[] id_PlanZakaz, int id_CMO_Company, HttpPostedFileBase[] file1)
         {
             string login = HttpContext.User.Identity.Name;
             new CMOOrederValid().CreateReOrder(id_PlanZakaz, id_CMO_Company, login, file1);
-            return Json(1, JsonRequestBehavior.AllowGet);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.manufDate, dataList.finDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                dataList.folder
+            });
+            return Json(new { data });
         }
 
         public JsonResult Get(int id)
@@ -235,6 +261,22 @@ namespace Wiki.Areas.CMO.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+        int GetDay(DateTime? from, DateTime? to)
+        {
+            if (from == null || to == null)
+                return 0;
+            else
+                return new WorkingDays().GetWorkingDays((DateTime)from, (DateTime)to);
+        }
+
+        string GetCompanyName(CMO_Company company)
+        {
+            if (company != null)
+                return company.name;
+            else
+                return "";
         }
     }
 }

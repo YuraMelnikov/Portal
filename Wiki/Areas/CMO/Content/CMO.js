@@ -8,9 +8,9 @@ $(document).ready(function () {
     $('#pageId').hide();
     $('#btnAddOrder').hide();
     $('#btnReOrder').hide();
-    $('#toWorkTable').hide();
-    $('#toManufTable').hide();
-    $('#toCloseTable').hide();
+    $('#dToWork').hide();
+    $('#dToManuf').hide();
+    $('#dToCompl').hide();
     startMenu();
 });
 
@@ -54,15 +54,15 @@ var objFullReport = [
 
 var objWork = [
     { "title": "Ред", "data": "Id_Reclamation", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Описание заявки", "data": "EditLinkJS", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Срок", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Цена/стоимость", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Дата/время размещения", "data": "ViewLinkJS", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Дата/время создания", "data": "ViewLinkJS", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Кто разместил", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "Excel", "data": "Devision", "autowidth": true, "bSortable": true },
-    { "title": "№ заявки", "data": "Devision", "autowidth": true, "bSortable": true }
+    { "title": "Описание заявки", "data": "position", "autowidth": true, "bSortable": true },
+    { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Срок", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "Цена/стоимость", "finDate": "Devision", "autowidth": true, "bSortable": true },
+    { "title": "Дата/время размещения", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата/время создания", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Кто разместил", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "Excel", "data": "finDate", "autowidth": true, "bSortable": true },
+    { "title": "№ заявки", "data": "finDate", "autowidth": true, "bSortable": true }
 ];
 
 function startMenu() {
@@ -91,10 +91,10 @@ function startMenu() {
         }
     });
 
-    $("#reportTable").DataTable({
+    $("#toWorkTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOArea/ReportTable",
+            "url": "/CMOArea/ToWork",
             "type": "POST",
             "datatype": "json"
         },
@@ -111,10 +111,10 @@ function startMenu() {
             "search": "Поиск"
         }
     });
-    $("#reportTable").DataTable({
+    $("#toManufTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOArea/ReportTable",
+            "url": "/CMOArea/ToManuf",
             "type": "POST",
             "datatype": "json"
         },
@@ -131,10 +131,10 @@ function startMenu() {
             "search": "Поиск"
         }
     });
-    $("#reportTable").DataTable({
+    $("#toCloseTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOArea/ReportTable",
+            "url": "/CMOArea/ToClose",
             "type": "POST",
             "datatype": "json"
         },
@@ -218,11 +218,11 @@ function toWork() {
         },
         "processing": true,
         "columns": objWork,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
+        //"scrollY": '75vh',
+        //"scrollX": true,
+        //"paging": false,
+        //"info": false,
+        //"scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -244,11 +244,11 @@ function toManuf() {
         },
         "processing": true,
         "columns": objWork,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
+        //"scrollY": '75vh',
+        //"scrollX": true,
+        //"paging": false,
+        //"info": false,
+        //"scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -270,11 +270,11 @@ function toClose() {
         },
         "processing": true,
         "columns": objWork,
-        "scrollY": '75vh',
-        "scrollX": true,
-        "paging": false,
-        "info": false,
-        "scrollCollapse": true,
+        //"scrollY": '75vh',
+        //"scrollX": true,
+        //"paging": false,
+        //"info": false,
+        //"scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -292,30 +292,30 @@ function desckTopOS() {
 
 function loadReport() {
     if (userGroupId < 4) {
-        $('#toWorkTable').hide();
-        $('#toManufTable').hide();
-        $('#toCloseTable').hide();
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
         fullReport();
     }
     else {
-        $('#toWorkTable').hide();
-        $('#toManufTable').hide();
-        $('#toCloseTable').hide();
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
         smallReport();
     }
 }
 
 function loadOS() {
     if (userGroupId === 1) {
-        $('#toWorkTable').show();
-        $('#toManufTable').show();
-        $('#toCloseTable').show();
+        $('#dToWork').show();
+        $('#dToManuf').show();
+        $('#dToCompl').show();
         desckTopOS();
     }
     else {
-        $('#toWorkTable').hide();
-        $('#toManufTable').hide();
-        $('#toCloseTable').hide();
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
         smallReport();
     }
 }
@@ -395,7 +395,7 @@ function addOrder() {
     var objRemark = {
         id_PlanZakaz: $('#id_PlanZakaz').val(),
         id_CMO_TypeProduct: $('#id_CMO_TypeProduct').val(),
-        File1: $('#File1').val()
+        file1: $('#file1').val()
     };
     $.ajax({
         cache: false,
@@ -415,6 +415,7 @@ function addOrder() {
 }
 
 function validateCreateOrder() {
+    isValid = true;
     if ($('#id_PlanZakaz').val().length === 0) {
         $('#id_PlanZakaz').css('border-color', 'Red');
         isValid = false;
@@ -429,13 +430,14 @@ function validateCreateOrder() {
     else {
         $('#id_CMO_TypeProduct').css('border-color', 'lightgrey');
     }
-    if ($('#File1').val().length === 0) {
-        $('#File1').css('border-color', 'Red');
+    if ($('#file1').val().length === 0) {
+        $('#file1').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#File1').css('border-color', 'lightgrey');
+        $('#file1').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function addReOrder() {
@@ -447,7 +449,7 @@ function addReOrder() {
     var objRemark = {
         id_PlanZakaz: $('#id_PlanZakaz').val(),
         id_CMO_Company: $('#id_CMO_Company').val(),
-        File1: $('#File1').val()
+        file1: $('#file1').val()
     };
     $.ajax({
         cache: false,
@@ -467,6 +469,7 @@ function addReOrder() {
 }
 
 function validateCreateReOrder() {
+    isValid = true;
     if ($('#id_PlanZakaz').val().length === 0) {
         $('#id_PlanZakaz').css('border-color', 'Red');
         isValid = false;
@@ -488,6 +491,7 @@ function validateCreateReOrder() {
     else {
         $('#File1').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function get(id) {
