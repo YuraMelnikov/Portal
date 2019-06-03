@@ -351,6 +351,21 @@ function clearTextBox() {
     $('#finDate').val("");
     $('#finCost').val("");
     $('#finComplited').prop('checked', false);
+
+    $('#oid_PlanZakaz').val("");
+    $('#oid_PlanZakaz').chosen();
+    $('#oid_PlanZakaz').trigger('chosen:updated');
+    $('#oid_CMO_TypeProduct').val("");
+    $('#oid_CMO_TypeProduct').chosen();
+    $('#oid_CMO_TypeProduct').trigger('chosen:updated');
+
+
+
+    $('#Ofile1').val("");
+    $('#roid_PlanZakaz').val("");
+    $('#roid_CMO_TypeProduct').val("");
+    $('#rofile1').val("");
+    
 }
 
 function clearTextBoxUpdate() {
@@ -384,114 +399,12 @@ function clearTextBoxUpdate() {
     $('#finDate').val("");
     $('#finCost').val("");
     $('#finComplited').prop('checked', false);
-}
-
-function addOrder() {
-    var res = validateCreateOrder();
-    if (res === false) {
-        return false;
-    }
-    $("#btnAddOrder").attr('disabled', true);
-    var objRemark = {
-        id_PlanZakaz: $('#id_PlanZakaz').val(),
-        id_CMO_TypeProduct: $('#id_CMO_TypeProduct').val(),
-        file1: $('#file1').val()
-    };
-    $.ajax({
-        cache: false,
-        url: "/CMOArea/AddOrder",
-        data: JSON.stringify(objRemark),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadData(document.getElementById('pageId').innerHTML);
-            $('#createOrderModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function validateCreateOrder() {
-    isValid = true;
-    if ($('#id_PlanZakaz').val().length === 0) {
-        $('#id_PlanZakaz').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#id_PlanZakaz').css('border-color', 'lightgrey');
-    }
-    if ($('#id_CMO_TypeProduct').val().length === 0) {
-        $('#id_CMO_TypeProduct').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#id_CMO_TypeProduct').css('border-color', 'lightgrey');
-    }
-    if ($('#file1').val().length === 0) {
-        $('#file1').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#file1').css('border-color', 'lightgrey');
-    }
-    return isValid;
-}
-
-function addReOrder() {
-    var res = validateCreateReOrder();
-    if (res === false) {
-        return false;
-    }
-    $("#btnAddOrder").attr('disabled', true);
-    var objRemark = {
-        id_PlanZakaz: $('#id_PlanZakaz').val(),
-        id_CMO_Company: $('#id_CMO_Company').val(),
-        file1: $('#file1').val()
-    };
-    $.ajax({
-        cache: false,
-        url: "/CMOArea/AddReOrder",
-        data: JSON.stringify(objRemark),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            loadData(document.getElementById('pageId').innerHTML);
-            $('#createReOrderModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function validateCreateReOrder() {
-    isValid = true;
-    if ($('#id_PlanZakaz').val().length === 0) {
-        $('#id_PlanZakaz').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#id_PlanZakaz').css('border-color', 'lightgrey');
-    }
-    if ($('#id_CMO_Company').val().length === 0) {
-        $('#id_CMO_Company').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#id_CMO_Company').css('border-color', 'lightgrey');
-    }
-    if ($('#File1').val().length === 0) {
-        $('#File1').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#File1').css('border-color', 'lightgrey');
-    }
-    return isValid;
+    $('#oid_PlanZakaz').val("");
+    $('#oid_CMO_TypeProduct').val("");
+    $('#ofile1').val("");
+    $('#roid_PlanZakaz').val("");
+    $('#roid_CMO_TypeProduct').val("");
+    $('#rofile1').val("");
 }
 
 function get(id) {

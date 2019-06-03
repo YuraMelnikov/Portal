@@ -148,60 +148,26 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(new { data });
         }
 
-        public JsonResult AddOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, HttpPostedFileBase[] file1)
+        [HttpPost]
+        public ActionResult AddOrder(int[] oid_PlanZakaz, int[] oid_CMO_TypeProduct, HttpPostedFileBase[] ofile1)
         {
-            string login = HttpContext.User.Identity.Name;
-            new CMOOrederValid().CreateOrder(id_PlanZakaz, id_CMO_TypeProduct, login, file1);
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            var query = db.CMO2_Order
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
-                .Include(d => d.CMO_Company)
-                .OrderByDescending(d => d.dateTimeCreate)
-                .ToList();
-            var data = query.Select(dataList => new
+            if(ofile1[0] != null && oid_PlanZakaz != null && oid_CMO_TypeProduct != null)
             {
-                position = GetPositionName(dataList.CMO2_Position.ToList()),
-                name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
-                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
-                dataList.workCost,
-                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
-                dataList.manufCost,
-                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
-                dataList.finCost,
-                dataList.id,
-                dataList.folder
-            });
-            return Json(new { data });
+                string login = HttpContext.User.Identity.Name;
+                new CMOOrederValid().CreateOrder(oid_PlanZakaz, oid_CMO_TypeProduct, login, ofile1);
+            }
+            return RedirectToAction("Index");
         }
 
-        public JsonResult AddReOrder(int[] id_PlanZakaz, int id_CMO_Company, HttpPostedFileBase[] file1)
+        [HttpPost]
+        public ActionResult AddReOrder(int[] roid_PlanZakaz, int roid_CMO_Company, HttpPostedFileBase[] rofile1)
         {
-            string login = HttpContext.User.Identity.Name;
-            new CMOOrederValid().CreateReOrder(id_PlanZakaz, id_CMO_Company, login, file1);
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            var query = db.CMO2_Order
-                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
-                .Include(d => d.CMO_Company)
-                .OrderByDescending(d => d.dateTimeCreate)
-                .ToList();
-            var data = query.Select(dataList => new
+            if (rofile1[0] != null && roid_PlanZakaz != null && roid_CMO_Company != 0)
             {
-                position = GetPositionName(dataList.CMO2_Position.ToList()),
-                name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
-                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
-                dataList.workCost,
-                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
-                dataList.manufCost,
-                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
-                dataList.finCost,
-                dataList.id,
-                dataList.folder
-            });
-            return Json(new { data });
+                string login = HttpContext.User.Identity.Name;
+                new CMOOrederValid().CreateReOrder(roid_PlanZakaz, roid_CMO_Company, login, rofile1);
+            }
+            return RedirectToAction("Index");
         }
 
         public JsonResult Get(int id)
