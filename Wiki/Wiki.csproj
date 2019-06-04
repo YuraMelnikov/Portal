@@ -758,6 +758,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CMO\Content\CMO.js" />
+    <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\Deb\Contant\Archive.js" />
     <Content Include="Areas\Deb\Contant\DSetup.js" />
     <Content Include="Areas\Deb\Contant\NewPlus.js" />
