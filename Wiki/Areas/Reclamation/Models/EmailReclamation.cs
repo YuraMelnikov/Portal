@@ -121,6 +121,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 mail.To.Add(new MailAddress(dataList));
             }
+            mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).CiliricalName);
             return true;
         }
     }

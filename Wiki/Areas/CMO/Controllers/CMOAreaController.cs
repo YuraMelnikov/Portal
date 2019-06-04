@@ -159,6 +159,35 @@ namespace Wiki.Areas.CMO.Controllers
         }
 
         [HttpPost]
+        public JsonResult ToReOrder()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMO2_Order
+                .Where(d => d.manufIn == false && d.reOrder == true)
+                .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
+                .Include(d => d.CMO_Company)
+                .OrderByDescending(d => d.dateTimeCreate)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                position = GetPositionName(dataList.CMO2_Position.ToList()),
+                name = GetCompanyName(dataList.CMO_Company),
+                day = GetDay(dataList.workDateTime, dataList.manufDate),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
+                dataList.workCost,
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                dataList.manufCost,
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.finCost,
+                dataList.id,
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
         public ActionResult AddOrder(int[] oid_PlanZakaz, int[] oid_CMO_TypeProduct, HttpPostedFileBase[] ofile1)
         {
             if(ofile1[0] != null && oid_PlanZakaz != null && oid_CMO_TypeProduct != null)
@@ -233,6 +262,15 @@ namespace Wiki.Areas.CMO.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateReOrder(CMO2_Order cMO2_Order)
+        {
+            CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
+            order.manufIn = true;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 

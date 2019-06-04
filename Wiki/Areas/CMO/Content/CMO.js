@@ -11,6 +11,7 @@ $(document).ready(function () {
     $('#dToWork').hide();
     $('#dToManuf').hide();
     $('#dToCompl').hide();
+    $('#dReOrder').hide();
     startMenu();
 });
 
@@ -98,7 +99,26 @@ function startMenu() {
             "search": "Поиск"
         }
     });
-
+    $("#reOrderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/ToReOrder",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objSmallReport,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     $("#toWorkTable").DataTable({
         "ajax": {
             "cache": false,
@@ -287,11 +307,36 @@ function toClose() {
     });
 }
 
+function toReOrder() {
+    var table = $('#reOrderTable').DataTable();
+    table.destroy();
+    $('#reOrderTable').empty();
+    $("#reOrderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/ToReOrder",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objWork,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
 function desckTopOS() {
     fullReport();
     toWork();
     toManuf();
     toClose();
+    toReOrder();
 }
 
 function loadReport() {
@@ -299,12 +344,14 @@ function loadReport() {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
+        $('#dReOrder').hide();
         fullReport();
     }
     else {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
+        $('#dReOrder').hide();
         smallReport();
     }
 }
@@ -314,12 +361,14 @@ function loadOS() {
         $('#dToWork').show();
         $('#dToManuf').show();
         $('#dToCompl').show();
+        $('#dReOrder').show();
         desckTopOS();
     }
     else {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
+        $('#dReOrder').hide();
         smallReport();
     }
 }
@@ -457,9 +506,6 @@ function get(id) {
         }
 
     });
-
-
-
     return false;
 }
 
@@ -553,6 +599,27 @@ function update() {
         success: function (result) {
             loadOS();
             $('#osModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function updateReOrder() {
+    var typeObj = {
+        id: $('#id').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/UpdateReOrder",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadOS();
+            $('#reOrderModalClose').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
