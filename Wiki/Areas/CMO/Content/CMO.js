@@ -58,7 +58,6 @@ var objWork = [
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
@@ -69,7 +68,6 @@ var objWorkManuf = [
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Срок", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
@@ -607,20 +605,6 @@ function validateUpdate() {
         }
     }
     else if ($('#finIn').is(":checked") === false) {
-        if ($('#finDate').val().length < 5) {
-            $('#finDate').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#finDate').css('border-color', 'lightgrey');
-        }
-        if ($('#finCost').val() < 1) {
-            $('#finCost').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#finCost').css('border-color', 'lightgrey');
-        }
         if ($('#id_CMO_Company').val().length === 0) {
             $('#id_CMO_Company').css('border-color', 'Red');
             isValid = false;

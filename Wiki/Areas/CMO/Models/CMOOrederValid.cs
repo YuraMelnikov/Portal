@@ -21,22 +21,33 @@ namespace Wiki.Areas.CMO.Models
                 order.workIn = true;
                 order.workDateTime = cMO2_Order.workDateTime;
                 order.workCost = cMO2_Order.workCost;
+                order.workComplitet = true;
                 new EmailCMO(cMO2_Order, login, 2);
             }
             else if (cMO2_Order.manufIn == false)
             {
                 order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.manufIn = true;
+                order.workDateTime = DateTime.Now;
                 order.manufDate = cMO2_Order.manufDate;
                 order.manufCost = cMO2_Order.manufCost;
+                order.manufComplited = true;
                 new EmailCMO(cMO2_Order, login, 3);
             }
             else if (cMO2_Order.finIn == false)
             {
-                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
-                order.finIn = true;
-                order.finDate = cMO2_Order.finDate;
-                order.finCost = cMO2_Order.finCost;
+                if (cMO2_Order.finDate == null)
+                {
+                    order.id_CMO_Company = cMO2_Order.id_CMO_Company;
+                }
+                else
+                {
+                    order.id_CMO_Company = cMO2_Order.id_CMO_Company;
+                    order.finIn = true;
+                    order.finDate = cMO2_Order.finDate;
+                    order.finCost = cMO2_Order.finCost;
+                    order.finComplited = true;
+                }
             }
             else
             {
