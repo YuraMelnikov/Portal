@@ -84,6 +84,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objSmallReport,
         "scrollY": '75vh',
@@ -171,6 +172,7 @@ function smallReport() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objSmallReport,
         "scrollY": '75vh',
@@ -197,6 +199,7 @@ function fullReport() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objFullReport,
         "scrollY": '75vh',
@@ -223,6 +226,7 @@ function toWork() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objWork,
         "paging": false,
@@ -246,6 +250,7 @@ function toManuf() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objWorkManuf,
         "paging": false,
@@ -269,6 +274,7 @@ function toClose() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objWork,
         "paging": false,

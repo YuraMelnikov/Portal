@@ -41,7 +41,6 @@ namespace Wiki.Areas.CMO.Controllers
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
-
             return View();
         }
 
@@ -59,7 +58,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
+                day = GetDay(dataList.workDateTime, dataList.manufDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -67,7 +66,7 @@ namespace Wiki.Areas.CMO.Controllers
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finCost,
                 dataList.id,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -88,7 +87,7 @@ namespace Wiki.Areas.CMO.Controllers
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
+                day = GetDay(dataList.workDateTime, dataList.manufDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -96,7 +95,7 @@ namespace Wiki.Areas.CMO.Controllers
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finCost,
                 dataList.id,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             }); 
             return Json(new { data });
         }
@@ -117,7 +116,7 @@ namespace Wiki.Areas.CMO.Controllers
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
+                day = GetDay(dataList.workDateTime, dataList.manufDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -125,7 +124,7 @@ namespace Wiki.Areas.CMO.Controllers
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finCost,
                 dataList.id,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -146,7 +145,7 @@ namespace Wiki.Areas.CMO.Controllers
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
-                day = GetDay(dataList.manufDate, dataList.finDate),
+                day = GetDay(dataList.workDateTime, dataList.manufDate),
                 workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
@@ -154,7 +153,7 @@ namespace Wiki.Areas.CMO.Controllers
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finCost,
                 dataList.id,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
