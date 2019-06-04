@@ -421,6 +421,7 @@ function clearTextBox() {
         $('#technicalAdvice').prop('disabled', true);
     }
     $('#btnUpdate').hide();
+    $('#btnRemove').hide();
     $('#btnAdd').show();
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
@@ -473,7 +474,11 @@ function GetReclamation(id) {
             $('#closeDevision').prop('disabled', true);
             $('#answerHistiryText').prop('disabled', true);
             $('#id_DevisionReclamation').prop('disabled', true);
+            $('#btnRemove').hide();
             if (counterDevision === 1) {
+                if (result.answerHistiryText.length === 0) {
+                    $('#btnRemove').show();
+                }
                 $('#id_AspNetUsersError').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
@@ -490,6 +495,7 @@ function GetReclamation(id) {
                 $('#timeToSearch').prop('disabled', true);
                 $('#timeToEliminate').prop('disabled', true);
                 $('#trash').prop('disabled', false);
+                $('#btnRemove').hide();
             }
             else if (counterDevision === 3) {
                 $('#text').prop('disabled', true);
@@ -501,6 +507,7 @@ function GetReclamation(id) {
                 $('#timeToEliminate').prop('disabled', true);
                 $('#technicalAdvice').prop('disabled', true);
                 $('#trash').prop('disabled', false);
+                $('#btnRemove').hide();
             }
             else {
                 $('#text').prop('disabled', true);
@@ -512,6 +519,7 @@ function GetReclamation(id) {
                 $('#timeToEliminate').prop('disabled', true);
                 $('#technicalAdvice').prop('disabled', true);
                 $('#trash').prop('disabled', true);
+                $('#btnRemove').hide();
             }
             if ($('#technicalAdvice').is(":checked") === true) {
                 $('#technicalAdvice').prop('disabled', true);
@@ -599,6 +607,47 @@ function GetReclamationView(id) {
         }
     });
     return false;
+}
+
+function remove() {
+    if (counterDevision !== 1) {
+        if ($('#answerText').val() === "" && $('#reload').is(":checked") === false) {
+            $('#answerText').css('border-color', 'Red');
+            res = false;
+        }
+        else {
+            $('#answerText').css('border-color', 'lightgrey');
+        }
+    }
+    if (document.getElementById('expertData').innerHTML === "1") {
+        $('#fixedExpert').val(true);
+    }
+    var id = $('#id').val();
+    var pz = document.getElementById('zakazId').innerHTML;
+
+    var objRemark = {
+        id: $('#id').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Remarks/DeleteOrder/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#viewReclamation').modal('hide');
+            if (pz === "")
+                loadData(document.getElementById('pageData').innerHTML);
+            else {
+                var id = document.getElementById('zakazId').innerHTML;
+                reclamationsPlanZakaz(id);
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
 
 function Update() {

@@ -231,6 +231,17 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        //DeleteOrder
+        public JsonResult DeleteOrder(Wiki.Reclamation reclamation)
+        {
+            string login = HttpContext.User.Identity.Name;
+            Wiki.Reclamation order = db.Reclamation.Find(reclamation.id);
+            _ = new EmailReclamation(order, login, 4);
+            db.Reclamation.Remove(order);
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
