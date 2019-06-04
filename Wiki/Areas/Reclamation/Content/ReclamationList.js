@@ -483,7 +483,7 @@ function GetReclamation(id) {
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
                 $('#technicalAdvice').prop('disabled', true);
-                $('#answerText').prop('disabled', true);
+                $('#answerText').prop('disabled', false);
                 $('#trash').prop('disabled', true);
             }
             else if (counterDevision === 2) {

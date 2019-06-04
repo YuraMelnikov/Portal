@@ -250,6 +250,25 @@ namespace Wiki.Areas.Reclamation.Controllers
             reclamation = correctPlanZakaz.Reclamation;
             db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            if (aspNetUser.Devision.Value == 6 && answerText != "" && answerText != null)
+            {
+                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                {
+                    answer = answerText,
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = aspNetUser.Id,
+                    id_Reclamation = reclamation.id,
+                    trash = trash.Value
+                };
+                db.Reclamation_Answer.Add(reclamation_Answer);
+                db.SaveChanges();
+                if(reclamation.close != true)
+                {
+                    reclamation.closeDevision = false;
+                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
             if (aspNetUser.Devision.Value != 6 && answerText != "" && answerText != null)
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
