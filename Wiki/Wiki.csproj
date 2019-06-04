@@ -379,9 +379,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CMO2Controller.cs" />
-    <Compile Include="Controllers\CMO3Controller.cs" />
-    <Compile Include="Controllers\CMOController.cs" />
     <Compile Include="Controllers\Debit_CMRController.cs" />
     <Compile Include="Controllers\Debit_CostUpdateController.cs" />
     <Compile Include="Controllers\Debit_IstPostController.cs" />
@@ -480,12 +477,6 @@
     <Compile Include="ModelIdentity\AppRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointments.cs" />
-    <Compile Include="Models\CMO\CMO_ReportList.cs" />
-    <Compile Include="Models\CMO_Create.cs" />
-    <Compile Include="Models\CMO_Description.cs" />
-    <Compile Include="Models\CMO_PreOrderView.cs" />
-    <Compile Include="Models\CMO_View.cs" />
-    <Compile Include="Models\COM_UploadResult.cs" />
     <Compile Include="Models\Despatching.cs" />
     <Compile Include="Models\DespatchingTmp.cs" />
     <Compile Include="Models\DevisionsManufacturing.cs" />
@@ -1741,19 +1732,6 @@
     <Content Include="Views\Debit_Platform\Debit.cshtml" />
     <Content Include="Views\ReclamationPO\Index.cshtml" />
     <Content Include="Views\ReclamationOTK\Index.cshtml" />
-    <Content Include="Views\CMO\CreateOrder.cshtml" />
-    <Content Include="Views\CMO\ViewStartMenuOS.cshtml" />
-    <Content Include="Views\CMO\StartFirstTender.cshtml" />
-    <Content Include="Views\CMO\UploadDataCompany.cshtml" />
-    <Content Include="Views\CMO\CloseFirstTender.cshtml" />
-    <Content Include="Views\CMO\FinishFirstTender.cshtml" />
-    <Content Include="Views\CMO\FinishSecondTender.cshtml" />
-    <Content Include="Views\CMO\Index.cshtml" />
-    <Content Include="Views\CMO\ViewStartMenuKO.cshtml" />
-    <Content Include="Views\CMO\CreateOrderDefault.cshtml" />
-    <Content Include="Views\CMO\TestTableOS.cshtml" />
-    <Content Include="Views\CMO\CloseOrder.cshtml" />
-    <Content Include="Views\CMO\Error.cshtml" />
     <Content Include="Views\RKD\Index.cshtml" />
     <Content Include="Views\RKD\Error.cshtml" />
     <Content Include="Views\RKD\Edit.cshtml" />
@@ -1773,13 +1751,10 @@
     <Content Include="Views\RKD\Details.cshtml" />
     <Content Include="Views\RKD\Debug.cshtml" />
     <Content Include="Views\RKD\UploadNewVersionRDK.cshtml" />
-    <Content Include="Views\CMO\EditUploadResult.cshtml" />
-    <Content Include="Views\CMO\Test.cshtml" />
     <Content Include="Views\Debit_CostUpdate\EditPartial.cshtml" />
     <Content Include="Views\Debit_WorkBit\ReportBasic.cshtml" />
     <Content Include="Views\RKD\SeachTP.cshtml" />
     <Content Include="Views\RKD\UploadVersionRDK.cshtml" />
-    <Content Include="Views\CMO\TestTableOS2.cshtml" />
     <Content Include="Views\RKD\PlusClientDay.cshtml" />
     <Content Include="Views\RKD\GetInfClient.cshtml" />
     <Content Include="Views\RKD\GetGoodList.cshtml" />
@@ -1802,15 +1777,6 @@
     <Content Include="Views\UploadER\UploadFoundationNorm.cshtml" />
     <Content Include="Views\UploadER\Index.cshtml" />
     <Content Include="Views\RKD\DetailsClose.cshtml" />
-    <Content Include="Views\CMO2\WorkDeskOS.cshtml" />
-    <Content Include="Views\CMO2\WorkDeskKO.cshtml" />
-    <Content Include="Views\CMO2\CreateOrder.cshtml" />
-    <Content Include="Views\CMO2\CreateOrderDefault.cshtml" />
-    <Content Include="Views\CMO2\Report.cshtml" />
-    <Content Include="Views\CMO2\ReportSmall.cshtml" />
-    <Content Include="Views\CMO2\CloseOrder.cshtml" />
-    <Content Include="Views\CMO2\StartTender.cshtml" />
-    <Content Include="Views\CMO2\UploadTenderProtocol.cshtml" />
     <Content Include="Views\Shared\_LayoutService.cshtml" />
     <Content Include="Views\Shared\_LayoutServiceReclamation.cshtml" />
     <Content Include="Views\Exception\Index.cshtml" />
@@ -1822,12 +1788,6 @@
     <Content Include="Views\ReclamationOTK\ListActiveWork.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\CMO\AppDefaultOrder.cshtml" />
-    <Content Include="Views\CMO3\ViewStartMenuOS.cshtml" />
-    <Content Include="Views\CMO3\StartFirstTender.cshtml" />
-    <Content Include="Views\CMO3\Error.cshtml" />
-    <Content Include="Views\CMO3\UploadDataCompany.cshtml" />
-    <Content Include="Views\CMO3\UpdateCloseOrder.cshtml" />
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
