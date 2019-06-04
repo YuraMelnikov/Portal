@@ -19,7 +19,15 @@ namespace Wiki.Areas.CMO.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
-            int devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            int devisionUser = 0;
+            try
+            {
+                devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
             if (devisionUser == 7)
@@ -128,7 +136,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.CMO2_Order
-                .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == true)
+                .Where(d => d.workIn == true && d.reOrder == false && d.manufIn == true && d.finComplited == false)
                 .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
                 .Include(d => d.CMO_Company)
                 .OrderByDescending(d => d.dateTimeCreate)

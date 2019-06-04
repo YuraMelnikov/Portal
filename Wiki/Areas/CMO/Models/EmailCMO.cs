@@ -8,12 +8,6 @@ namespace Wiki.Areas.CMO.Models
 {
     public class EmailCMO : EmailClient
     {
-        //Stepnumber:
-        //Create - 1
-        //work - 2
-        //manuf - 3
-        //Create ReOrder - 4
-
         int stepNumber;
         string subject;
         string body;
@@ -29,23 +23,27 @@ namespace Wiki.Areas.CMO.Models
                 this.stepNumber = stepNumber;
                 this.order = db.CMO2_Order.Find(order.id);
                 mail.From = new MailAddress(login);
-                if (stepNumber == 1)
+                if (stepNumber == 1) //Create - 1
                 {
                     //GetMailListCreate();
                 }
-                else if(stepNumber == 4)
+                else if (stepNumber == 2) //work - 2
                 {
                     //GetMailList();
                     //GetMailClient();
                 }
-                else if (stepNumber == 5)
+                else if (stepNumber == 3) //manuf - 3
                 {
-                    //GetMailPM();
+                    //GetMailList();
+                    //GetMailClient();
+                }
+                else if(stepNumber == 4) // Create ReOrder - 4
+                {
+                    //GetMailListCreate();
+                    //GetMailClient();
                 }
                 else
                 {
-                    //GetMailList();
-                    //GetMailClient();
                 }
                 GetSubject();
                 GetBody();
@@ -122,92 +120,82 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (stepNumber == 2)
             {
-                body = "Добрый день!</br>";
-                body += "Размещаем заказ деталей №: " + order.id + "</br>";
-                body += @"<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 style='mso-cellspacing:0cm;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'><tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'><td colspan=2 style='background:#124280;padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif;color:white'>";
-                body += subject;
-                body += @"</span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr>";
-                body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> Описание заявки: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + GetPlanZakazs();
-                body += @"</table>";
-                body += @"</br></br></br>";
-                body += @"Прошу прислать сроки готовности заказа: " + order.workDateTime.ToString();
-                body += "</br></br></br>";
-                body += "С уважением," + "</br>";
-                body += "Гришель Дмитрий Петрович" + "</br>";
-                body += "Начальник отдела по материально - техническому снабжению" + "</br>";
-                body += "Тел: +375 17 366 90 67(вн. 329)" + "</br>";
-                body += "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "</br>";
-                body += "Skype: sitek_dima" + "</br>";
-                body += "gdp@katek.by" + "</br>";
+                body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + order.id + "<br/>";
+
+                body += GetPlanZakazs() + "<br/>";
+                body += "Прошу прислать сроки готовности заказа: " + order.workDateTime.ToString().Substring(0, 16) + "<br/>" + "<br/>";
+
+                body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
+                        "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
+                        "gdp@katek.by";
             }
             else if(stepNumber == 3)
             {
-                body = "Добрый день!</br>";
-                body += "Запускаем заказ в работу: ";
+                body = "<p>Добрый день!</p>";
+                body += "<p>Запускаем заказ в работу: </p>";
                 body += @"<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 style='mso-cellspacing:0cm;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'><tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'><td colspan=2 style='background:#124280;padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif;color:white'>";
                 body += subject;
                 body += @"</span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr>";
                 body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> Описание заявки: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + GetPlanZakazs();
                 body += @"</table>";
-                body += @"</br></br></br>";
+                body += "<p></p><p></p><p></p>";
                 body += @"Требуемая дата изготовления: " + order.manufDate.ToString().Substring(0, 10);
-                body += "</br></br></br>";
-                body += "С уважением," + "</br>";
-                body += "Гришель Дмитрий Петрович" + "</br>";
-                body += "Начальник отдела по материально - техническому снабжению" + "</br>";
-                body += "Тел: +375 17 366 90 67(вн. 329)" + "</br>";
-                body += "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "</br>";
-                body += "Skype: sitek_dima" + "</br>";
-                body += "gdp@katek.by" + "</br>";
+                body += "<p></p><p></p><p></p>";
+                body += "<p>С уважением,</p>";
+                body += "<p>Гришель Дмитрий Петрович</p>";
+                body += "<p>Начальник отдела по материально - техническому снабжению</p>";
+                body += "<p>Тел: +375 17 366 90 67(вн. 329)</p>";
+                body += "<p>Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35</p>";
+                body += "<p>Skype: sitek_dima</p>";
+                body += "<p>gdp@katek.by</p>";
             }
             else if (stepNumber == 4)
             {
-                body = "Добрый день!";
-                body += "</br>";
+                body = "<p>Добрый день!</p>";
                 body += "Размещаем дозаказ деталей №: " + order.id;
                 subject = "Размещаем дозаказ деталей №: " + order.id;
             }
             return true;
         }
 
-        //bool GetMailListCreate()
-        //{
-        //    mailToList = new List<string>();
-        //    mailToList.Add("myi@katek.by");
-        //    mailToList.Add("gdp@katek.by");
-        //    mailToList.Add("Antipov@katek.by");
-        //    mailToList.Add("vi@katek.by");
-        //    mailToList.Add("yaa@katek.by");
-        //    mailToList.Add("nrf@katek.by");
-        //    return true;
-        //}
+        bool GetMailListCreate()
+        {
+            mailToList = new List<string>();
+            mailToList.Add("myi@katek.by");
+            mailToList.Add("gdp@katek.by");
+            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("vi@katek.by");
+            mailToList.Add("yaa@katek.by");
+            mailToList.Add("nrf@katek.by");
+            return true;
+        }
 
-        //bool GetMailList()
-        //{
-        //    mailToList = new List<string>();
-        //    mailToList.Add("myi@katek.by");
-        //    mailToList.Add("gdp@katek.by");
-        //    mailToList.Add("Antipov@katek.by");
-        //    return true;
-        //}
+        bool GetMailList()
+        {
+            mailToList = new List<string>();
+            mailToList.Add("myi@katek.by");
+            mailToList.Add("gdp@katek.by");
+            mailToList.Add("Antipov@katek.by");
+            return true;
+        }
 
-        //bool GetMailClient()
-        //{
-        //    var query = db.CMO_CompanyMailList.Where(d => d.id_CMO_Company == order.id && d.active == true).ToList();
-        //    foreach (var data in query)
-        //    {
-        //        mailToList.Add(data.email);
-        //    }
-        //    return true;
-        //}
+        bool GetMailClient()
+        {
+            var query = db.CMO_CompanyMailList.Where(d => d.id_CMO_Company == order.id_CMO_Company && d.active == true).ToList();
+            foreach (var data in query)
+            {
+                mailToList.Add(data.email);
+            }
+            return true;
+        }
 
-        //bool GetMailPM()
-        //{
-        //    mailToList = new List<string>();
-        //    mailToList.Add("myi@katek.by");
-        //    mailToList.Add("gea@katek.by");
-        //    return true;
-        //}
+        bool GetMailPM()
+        {
+            mailToList = new List<string>();
+            mailToList.Add("myi@katek.by");
+            mailToList.Add("gea@katek.by");
+            return true;
+        }
 
         private List<string> GetFileArray()
         {

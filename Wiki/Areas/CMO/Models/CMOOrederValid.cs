@@ -22,6 +22,8 @@ namespace Wiki.Areas.CMO.Models
                 order.workDateTime = cMO2_Order.workDateTime;
                 order.workCost = cMO2_Order.workCost;
                 order.workComplitet = true;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
                 new EmailCMO(cMO2_Order, login, 2);
             }
             else if (cMO2_Order.manufIn == false)
@@ -32,6 +34,8 @@ namespace Wiki.Areas.CMO.Models
                 order.manufDate = cMO2_Order.manufDate;
                 order.manufCost = cMO2_Order.manufCost;
                 order.manufComplited = true;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
                 new EmailCMO(cMO2_Order, login, 3);
             }
             else if (cMO2_Order.finIn == false)
@@ -47,14 +51,14 @@ namespace Wiki.Areas.CMO.Models
                     order.finDate = cMO2_Order.finDate;
                     order.finCost = cMO2_Order.finCost;
                     order.finComplited = true;
+                    db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
             else
             {
 
             }
-            db.Entry(order).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
         }
         public void CreateOrder(int[] id_PlanZakaz, int[] id_CMO_TypeProduct, string login, HttpPostedFileBase[] fileUploadArray)
         {
