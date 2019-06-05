@@ -1388,6 +1388,7 @@
     <Content Include="Areas\CMO\Views\web.config" />
     <Content Include="Areas\CMO\Views\Shared\_LayoutCMO.cshtml" />
     <Content Include="Areas\CMO\Views\CMOArea\Index.cshtml" />
+    <Content Include="Areas\CMO\Content\Табл ЦМО.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
