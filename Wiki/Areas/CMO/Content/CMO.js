@@ -13,6 +13,9 @@ $(document).ready(function () {
     $('#dToCompl').hide();
     $('#dReOrder').hide();
     startMenu();
+    if (userGroupId == 1) {
+        loadData(2);
+    }
 });
 
 function loadData(listId) {
@@ -36,6 +39,7 @@ var objSmallReport = [
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Статус", "data": "status", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
@@ -44,12 +48,13 @@ var objFullReport = [
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
     { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Начальная цена, б/НДС (BYN)", "data": "workCost", "autowidth": true, "bSortable": true },
+    { "title": "Нач. цена, б/НДС (BYN)", "data": "workCost", "autowidth": true, "bSortable": true },
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Подтвержденная цена, б/НДС (BYN)", "data": "manufCost", "autowidth": true, "bSortable": true },
+    { "title": "Подтв. цена, б/НДС (BYN)", "data": "manufCost", "autowidth": true, "bSortable": true },
     { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Стоимость, б/НДС (BYN)", "data": "finCost", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Статус", "data": "status", "autowidth": true, "bSortable": true },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
@@ -74,7 +79,7 @@ var objWorkManuf = [
 ];
 
 function startMenu() {
-    if (userGroupId === 4 || userGroupId ===2) {
+    if (userGroupId === 4 || userGroupId === 2) {
         $('#btnAddOrder').show();
         $('#btnReOrder').show();
     }
@@ -88,6 +93,17 @@ function startMenu() {
         "order": [[0, "desc"]],
         "processing": true,
         "columns": objSmallReport,
+        "rowCallback": function (row, data, index) {
+            if (data.status === "Не отправлен") {
+                $('td', row).css('background-color', '#ebaca2');
+            }
+            else if (data.status === "Ожидание сроков") {
+                $('td', row).css('background-color', '#ffc87c');
+            }
+            else if (data.status === "Производится") {
+                $('td', row).css('background-color', '#a6e9d7');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -106,13 +122,11 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
-        "columns": objSmallReport,
-        "scrollY": '75vh',
-        "scrollX": true,
+        "columns": objWork,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -126,13 +140,11 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
-        "columns": objSmallReport,
-        "scrollY": '75vh',
-        "scrollX": true,
+        "columns": objWork,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -146,13 +158,11 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
-        "columns": objSmallReport,
-        "scrollY": '75vh',
-        "scrollX": true,
+        "columns": objWorkManuf,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -166,13 +176,11 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
+        "order": [[1, "desc"]],
         "processing": true,
-        "columns": objSmallReport,
-        "scrollY": '75vh',
-        "scrollX": true,
+        "columns": objWork,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -195,6 +203,17 @@ function smallReport() {
         "order": [[0, "desc"]],
         "processing": true,
         "columns": objSmallReport,
+        "rowCallback": function (row, data, index) {
+            if (data.status === "Не отправлен") {
+                $('td', row).css('background-color', '#ebaca2');
+            }
+            else if (data.status === "Ожидание сроков") {
+                $('td', row).css('background-color', '#ffc87c');
+            }
+            else if (data.status === "Производится") {
+                $('td', row).css('background-color', '#a6e9d7');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -222,6 +241,17 @@ function fullReport() {
         "order": [[0, "desc"]],
         "processing": true,
         "columns": objFullReport,
+        "rowCallback": function (row, data, index) {
+            if (data.status === "Не отправлен") {
+                $('td', row).css('background-color', '#ebaca2');
+            }
+            else if (data.status === "Ожидание сроков") {
+                $('td', row).css('background-color', '#ffc87c');
+            }
+            else if (data.status === "Производится") {
+                $('td', row).css('background-color', '#a6e9d7');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

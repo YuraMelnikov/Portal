@@ -13,7 +13,7 @@ namespace Wiki.Areas.CMO.Controllers
     public class CMOAreaController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
-        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
         public ActionResult Index()
@@ -66,7 +66,8 @@ namespace Wiki.Areas.CMO.Controllers
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
                 dataList.finCost,
                 dataList.id,
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                status = GetStatuName(dataList)
             });
             return Json(new { data });
         }
@@ -313,6 +314,28 @@ namespace Wiki.Areas.CMO.Controllers
                 return company.name;
             else
                 return "";
+        }
+
+        string GetStatuName(CMO2_Order oreder)
+        {
+            string name = "";
+            if (oreder.workDateTime == null)
+            {
+                name = "Не отправлен";
+            }
+            else if (oreder.manufDate == null)
+            {
+                name = "Ожидание сроков";
+            }
+            else if (oreder.finDate == null)
+            {
+                name = "Производится";
+            }
+            else 
+            {
+                name = "Оприходован";
+            }
+            return name;
         }
     }
 }
