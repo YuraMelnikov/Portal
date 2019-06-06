@@ -819,6 +819,7 @@
     <Content Include="Areas\PZ\Contant\OrdersList.js" />
     <Content Include="Areas\Reclamation\Content\TechnicalAdvice.js" />
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
+    <Content Include="Areas\Reclamation\migrate db\addNewUserManuf.sql" />
     <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
     <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />

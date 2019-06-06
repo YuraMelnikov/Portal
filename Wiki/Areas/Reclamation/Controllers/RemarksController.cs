@@ -67,7 +67,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == id_Devision).Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == id_Devision)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '3';
                 ViewBag.DevisionsManufacturing = new SelectList(db.Devision.Where(d => d.id == id_Devision), "id", "name");
