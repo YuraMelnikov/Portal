@@ -6,6 +6,7 @@ $(document).ready(function () {
     startMenu();
     expertHide();
     $('#zakazId').hide();
+    $('#toExcelModal').hide();
     $('#pageData').hide();
     $('#expertData').hide();
     if (buttonAddActivation === 0)
@@ -1200,29 +1201,33 @@ function clearColor() {
 
 function clearBox(data) {
     if (data === 1) {
-        $('#myDevisionReport').prop('checked', false);
-        $('#myRemarkReport').prop('checked', false);
-        $('#myReport').prop('checked', false);
+        $('#closeDevision').prop('checked', false);
+        $('#closeMKO').prop('checked', false);
+        $('#gip').prop('checked', false);
     }
     else if (data === 2) {
-        $('#allReport').prop('checked', false);
-        $('#myRemarkReport').prop('checked', false);
-        $('#myReport').prop('checked', false);
+        $('#close').prop('checked', false);
+        $('#closeMKO').prop('checked', false);
+        $('#gip').prop('checked', false);
     }
     else if (data === 3) {
-        $('#allReport').prop('checked', false);
-        $('#myDevisionReport').prop('checked', false);
-        $('#myReport').prop('checked', false);
+        $('#close').prop('checked', false);
+        $('#closeDevision').prop('checked', false);
+        $('#gip').prop('checked', false);
     }
     else if (data === 4) {
-        $('#allReport').prop('checked', false);
-        $('#myDevisionReport').prop('checked', false);
-        $('#myRemarkReport').prop('checked', false);
+        $('#close').prop('checked', false);
+        $('#closeDevision').prop('checked', false);
+        $('#closeMKO').prop('checked', false);
     }
     else  {
-        $('#allReport').prop('checked', false);
-        $('#myDevisionReport').prop('checked', false);
-        $('#myRemarkReport').prop('checked', false);
-        $('#myReport').prop('checked', false);
+        $('#close').prop('checked', false);
+        $('#closeDevision').prop('checked', false);
+        $('#closeMKO').prop('checked', false);
+        $('#gip').prop('checked', false);
     }
+}
+
+function disabledBtnCreateReport () {
+    $("#btnCreateReport").attr("disabled", "disabled"); 
 }

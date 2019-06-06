@@ -35,18 +35,20 @@ var objSmallReport = [
     { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Дата создания", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Дата поступления", "data": "finDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Статус", "data": "status", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
+    { "title": "Папка заказа", "data": "folder", "autowidth": true }
 ];
 
 var objFullReport = [
     { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Изг. дн.", "data": "day", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Дата создания", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Дата размещения", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Нач. цена, б/НДС (BYN)", "data": "workCost", "autowidth": true, "bSortable": true },
     { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
@@ -55,7 +57,7 @@ var objFullReport = [
     { "title": "Стоимость, б/НДС (BYN)", "data": "finCost", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Статус", "data": "status", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
+    { "title": "Папка заказа", "data": "folder", "autowidth": true }
 ];
 
 var objWork = [

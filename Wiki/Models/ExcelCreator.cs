@@ -22,18 +22,24 @@ namespace Wiki.Models
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
             int row = 1;
+            int step = 0;
             int countColumn = excelRow[0].CountData;
             foreach (var data in excelRow)
             {
                 for (int i = 0; i < countColumn; i++)
                 {
-                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Value = data;
+                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Value = data.GetData(step);
                     ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    row++;
+                    step++;
                 }
                 row++;
+                step = 0;
             }
-            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            for (int i = 0; i < countColumn; i++)
+            {
+                ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFitColumns();
+                ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFilter = true;
+            }
             context.Response.Clear();
             context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             context.Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
@@ -41,5 +47,4 @@ namespace Wiki.Models
             context.Response.End();
         }
     }
-
 }

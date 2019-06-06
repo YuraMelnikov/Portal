@@ -56,6 +56,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
+                dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.workDateTime, dataList.manufDate),
