@@ -68,7 +68,7 @@
                         <label>План-Заказ/ы №№:</label>
                         @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                    <div class="col-lg-2" id='nav_div'>
+                    <div class="col-lg-2">
                         <label>Тип рекламации:</label>
                         @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
                     </div>
@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label onclick="clearid_DevisionReclamation()">Ответственное СП (click - очистить): </label>
-                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control" })
+                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id="id_DevisionReclamationTest" })
                     </div>
                     <div class="col-lg-3">
                         <label onclick="clearid_AspNetUsersError()">Ответственный сотрудник (click - очистить): </label>

@@ -630,13 +630,20 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetDevisionList(string id)
         {
-            var tmp = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name).ToList();
-            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name");
-            //if(id == "Дефектные комплектующие")
-            //{
-            //    return Json(new { success = true, id_DevisionReclamation = ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name") });
-            //}
-            return Json(new { success = true, display = ViewBag.id_DevisionReclamation });
+            //var tmp = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name).ToList();
+            //ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name");
+            ////if(id == "Дефектные комплектующие")
+            ////{
+            ////    return Json(new { success = true, id_DevisionReclamation = ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name") });
+            ////}
+            //return Json(new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name"), JsonRequestBehavior.AllowGet);
+            var sucursalList = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name);
+            var data = sucursalList.Select(m => new SelectListItem()
+            {
+                Text = m.name,
+                Value = m.id.ToString(),
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
     
