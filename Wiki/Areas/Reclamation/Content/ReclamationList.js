@@ -1226,3 +1226,23 @@ function clearBox4() {
 function disabledBtnCreateReport () {
     document.location.reload(true);
 }
+
+function UpdateDevisionListOTK(data) {
+    var id = $('#id_Reclamation_Type').find('option:selected').text();
+    if (counterDevision === 1 || counterDevision === '1') {
+        $.ajax({
+            cache: false,
+            url: "/Remarks/GetDevisionList/" + id,
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}

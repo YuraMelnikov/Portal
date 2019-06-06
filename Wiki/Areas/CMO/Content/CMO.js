@@ -326,7 +326,7 @@ function toClose() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objWork,
         "paging": false,

@@ -148,7 +148,7 @@ namespace Wiki.Areas.CMO.Controllers
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.workDateTime, dataList.manufDate),
-                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
                 dataList.workCost,
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                 dataList.manufCost,

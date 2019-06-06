@@ -619,6 +619,25 @@ namespace Wiki.Areas.Reclamation.Controllers
                 Response.End();
             }
         }
+
+
+
+
+
+
+
+
+
+        public JsonResult GetDevisionList(string id)
+        {
+            var tmp = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name).ToList();
+            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name");
+            //if(id == "Дефектные комплектующие")
+            //{
+            //    return Json(new { success = true, id_DevisionReclamation = ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name") });
+            //}
+            return Json(new { success = true, display = ViewBag.id_DevisionReclamation });
+        }
     }
     
 }

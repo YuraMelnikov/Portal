@@ -68,9 +68,9 @@
                         <label>План-Заказ/ы №№:</label>
                         @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2" id='nav_div'>
                         <label>Тип рекламации:</label>
-                        @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control" })
+                        @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
                     </div>
                     <div class="col-lg-2">
                         <label>Автор рекламации:</label>
