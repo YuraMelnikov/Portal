@@ -1199,35 +1199,30 @@ function clearColor() {
     $('#reloadDevision').css('border-color', 'lightgrey');
 }
 
-function clearBox(data) {
-    if (data === 1) {
-        $('#closeDevision').prop('checked', false);
-        $('#closeMKO').prop('checked', false);
-        $('#gip').prop('checked', false);
-    }
-    else if (data === 2) {
-        $('#close').prop('checked', false);
-        $('#closeMKO').prop('checked', false);
-        $('#gip').prop('checked', false);
-    }
-    else if (data === 3) {
-        $('#close').prop('checked', false);
-        $('#closeDevision').prop('checked', false);
-        $('#gip').prop('checked', false);
-    }
-    else if (data === 4) {
-        $('#close').prop('checked', false);
-        $('#closeDevision').prop('checked', false);
-        $('#closeMKO').prop('checked', false);
-    }
-    else  {
-        $('#close').prop('checked', false);
-        $('#closeDevision').prop('checked', false);
-        $('#closeMKO').prop('checked', false);
-        $('#gip').prop('checked', false);
-    }
+function clearBox1() {
+    $('[name="closeDevision"]:checked').prop('checked', false);
+    $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="gip"]:checked').prop('checked', false);
+}
+
+function clearBox2() {
+    $('[name="close"]:checked').prop('checked', false);
+    $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="gip"]:checked').prop('checked', false);
+}
+
+function clearBox3() {
+    $('[name="close"]:checked').prop('checked', false);
+    $('[name="closeDevision"]:checked').prop('checked', false);
+    $('[name="gip"]:checked').prop('checked', false);
+}
+
+function clearBox4() {
+    $('[name="close"]:checked').prop('checked', false);
+    $('[name="closeDevision"]:checked').prop('checked', false);
+    $('[name="closeMKO"]:checked').prop('checked', false);
 }
 
 function disabledBtnCreateReport () {
-    $("#btnCreateReport").attr("disabled", "disabled"); 
+    document.location.reload(true);
 }

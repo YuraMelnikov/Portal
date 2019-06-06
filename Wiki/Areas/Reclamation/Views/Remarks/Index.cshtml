@@ -210,31 +210,31 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-2">
-                            @Html.EditorFor(x => x.close, new { @onclick = "clearBox(1)" })
-                            <label>Все рекламации</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2">
-                            @Html.EditorFor(x => x.closeDevision, new { @onclick = "clearBox(2)" })
+                            @Html.CheckBox("closeDevision", new { @onclick = "clearBox2();", htmlAttributes = new { @class = "form-control" } })
                             <label>Только мое СП</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-2">
-                            @Html.EditorFor(x => x.closeMKO, new { @onclick = "clearBox(3)" })
+                            @Html.CheckBox("closeMKO", new { @onclick = "clearBox3();", htmlAttributes = new { @class = "form-control" } })
                             <label>Только мои рекламации (автор) </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-5">
-                            @Html.EditorFor(x => x.gip, new { @onclick = "clearBox(4)" })
+                            @Html.CheckBox("gip", new { @onclick = "clearBox4();", htmlAttributes = new { @class = "form-control" } })
                             <label>Только моя ответственность (ответственный за рекламацию</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.CheckBox("close", new { @onclick = "clearBox1();", htmlAttributes = new { @class = "form-control" } })
+                            <label>Все рекламации</label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" id="btnCreateReport" value="Сформировать" class="btn btn-primary" />
+                    <input type="submit" id="btnCreateReport" value="Сформировать" class="btn btn-primary" onclick="disabledBtnCreateReport()"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
                 </div>
             }

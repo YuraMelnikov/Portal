@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System;
 using Wiki.Models;
 using System.Collections.Generic;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -529,77 +531,94 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
         }
 
-        public ActionResult CreateExcelReport(Wiki.Reclamation reclamation)
+        public void CreateExcelReport(Wiki.Reclamation reclamation)
         {
-            try
+            string login = HttpContext.User.Identity.Name;
+            AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
+            List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
+            if (reclamation.close == true)
             {
-                string login = HttpContext.User.Identity.Name;
-                AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
-                List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
-                if (reclamation.close == true)
-                {
-                    list = db.Reclamation.ToList();
-                }
-                else if (reclamation.closeDevision == true)
-                {
-                    list = db.Reclamation.Where(d => d.id_DevisionReclamation == user.Devision).ToList();
-                }
-                else if (reclamation.closeMKO == true)
-                {
-                    list = db.Reclamation.Where(d => d.id_AspNetUsersCreate == user.Id).ToList();
-                }
-                else if (reclamation.gip == true)
-                {
-                    list = db.Reclamation.Where(d => d.id_AspNetUsersError == user.Id).ToList();
-                }
-                else
-                {
+                list = db.Reclamation.ToList();
+            }
+            else if (reclamation.closeDevision == true)
+            {
+                list = db.Reclamation.Where(d => d.id_DevisionReclamation == user.Devision).ToList();
+            }
+            else if (reclamation.closeMKO == true)
+            {
+                list = db.Reclamation.Where(d => d.id_AspNetUsersCreate == user.Id).ToList();
+            }
+            else if (reclamation.gip == true)
+            {
+                list = db.Reclamation.Where(d => d.id_AspNetUsersError == user.Id).ToList();
+            }
+            else
+            {
 
-                }
-                if (list.Count != 0)
+            }
+            if (list.Count != 0)
+            {
+                List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
+                Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор рекламации", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
+                    "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст рекламации", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
+                    "", "", "", "", "", "", "", "", "", 17);
+                excelRows.Add(excelRow);
+                foreach (var data in list)
                 {
-                    List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
-                    Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор рекламации", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
-                        "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст рекламации", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
-                        "", "", "", "", "", "", "", "", "", 17);
-                    excelRows.Add(excelRow);
-                    foreach (var data in list)
+                    string ordersName = "";
+                    foreach (var dataOrders in data.Reclamation_PZ)
                     {
-                        string ordersName = "";
-                        foreach (var dataOrders in data.Reclamation_PZ)
-                        {
-                            ordersName += dataOrders.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
-                        }
-                        string history = "";
-                        foreach (var dataAnswer in data.Reclamation_Answer)
-                        {
-                            history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
-                        }
-                        string userError = "";
-                        try
-                        {
-                            userError = data.AspNetUsers1.CiliricalName;
-                        }
-                        catch
-                        {
-
-                        }
-                        Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
-                                data.Devision1.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
-                                data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
-                                data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
-                        excelRows.Add(excelRow1);
+                        ordersName += dataOrders.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
                     }
-                    var x = this.HttpContext.ApplicationInstance.Context;
-                    ExcelCreator excelCreator = new ExcelCreator(excelRows, this.HttpContext.ApplicationInstance.Context);
-                    excelCreator.GetReport();
-                }
-            }
-            catch
-            {
+                    string history = "";
+                    foreach (var dataAnswer in data.Reclamation_Answer)
+                    {
+                        history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
+                    }
+                    string userError = "";
+                    try
+                    {
+                        userError = data.AspNetUsers1.CiliricalName;
+                    }
+                    catch
+                    {
 
+                    }
+                    Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
+                            data.Devision1.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
+                            data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
+                            data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
+                    excelRows.Add(excelRow1);
+                }
+                Wiki.Models.ExcelColumn excelColumnIndex = new Wiki.Models.ExcelColumn();
+                ExcelPackage pck = new ExcelPackage();
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+                int row = 1;
+                int step = 0;
+                int countColumn = excelRows[0].CountData;
+                foreach (var data in excelRows)
+                {
+                    for (int i = 0; i < countColumn; i++)
+                    {
+                        ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Value = data.GetData(step);
+                        ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                        step++;
+                    }
+                    row++;
+                    step = 0;
+                }
+                for (int i = 0; i < countColumn; i++)
+                {
+                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFitColumns();
+                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFilter = true;
+                }
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+                Response.BinaryWrite(pck.GetAsByteArray());
+                Response.End();
             }
-            return RedirectToAction("Index", "Remarks", new { area = "Reclamation" });
         }
     }
+    
 }

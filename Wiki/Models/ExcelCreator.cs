@@ -16,7 +16,7 @@ namespace Wiki.Models
             this.excelRow = excelRow;
         }
 
-        public void GetReport()
+        public ActionResult GetReport()
         {
             ExcelColumn excelColumnIndex = new ExcelColumn();
             ExcelPackage pck = new ExcelPackage();
@@ -44,7 +44,8 @@ namespace Wiki.Models
             context.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             context.Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
             context.Response.BinaryWrite(pck.GetAsByteArray());
-            context.Response.End();
+            //context.Response.End();
+            return RedirectToAction("Index", "Remarks", new { area = "Reclamation" });
         }
     }
 }
