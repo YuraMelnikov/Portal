@@ -36,6 +36,7 @@ namespace Wiki.Areas.CMO.Models
                 {
                     GetMailList();
                     GetMailClient();
+                    GetMailPM();
                 }
                 else if(stepNumber == 4) // Create ReOrder - 4
                 {
@@ -172,7 +173,6 @@ namespace Wiki.Areas.CMO.Models
         bool GetMailPM()
         {
             mailToList = new List<string>();
-            mailToList.Add("myi@katek.by");
             mailToList.Add("gea@katek.by");
             return true;
         }

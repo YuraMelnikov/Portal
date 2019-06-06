@@ -624,7 +624,6 @@ function remove() {
     }
     var id = $('#id').val();
     var pz = document.getElementById('zakazId').innerHTML;
-
     var objRemark = {
         id: $('#id').val()
     };
@@ -1197,4 +1196,33 @@ function clearColor() {
     $('#text').css('border-color', 'lightgrey');
     $('#id_PF').css('border-color', 'lightgrey');
     $('#reloadDevision').css('border-color', 'lightgrey');
+}
+
+function clearBox(data) {
+    if (data === 1) {
+        $('#myDevisionReport').prop('checked', false);
+        $('#myRemarkReport').prop('checked', false);
+        $('#myReport').prop('checked', false);
+    }
+    else if (data === 2) {
+        $('#allReport').prop('checked', false);
+        $('#myRemarkReport').prop('checked', false);
+        $('#myReport').prop('checked', false);
+    }
+    else if (data === 3) {
+        $('#allReport').prop('checked', false);
+        $('#myDevisionReport').prop('checked', false);
+        $('#myReport').prop('checked', false);
+    }
+    else if (data === 4) {
+        $('#allReport').prop('checked', false);
+        $('#myDevisionReport').prop('checked', false);
+        $('#myRemarkReport').prop('checked', false);
+    }
+    else  {
+        $('#allReport').prop('checked', false);
+        $('#myDevisionReport').prop('checked', false);
+        $('#myRemarkReport').prop('checked', false);
+        $('#myReport').prop('checked', false);
+    }
 }

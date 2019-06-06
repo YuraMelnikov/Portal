@@ -286,6 +286,7 @@
     <Compile Include="Areas\Reclamation\Models\ReclamationListViewer.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationsList.cs" />
     <Compile Include="Areas\Reclamation\Models\ReclamationViwers.cs" />
+    <Compile Include="Areas\Reclamation\Models\RemarkReportExcel.cs" />
     <Compile Include="Areas\Reclamation\Models\TAEdit.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarksListView.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
@@ -493,8 +494,11 @@
     <Compile Include="Models\EmailSuccessRKD.cs" />
     <Compile Include="Models\EmailToTPVersion.cs" />
     <Compile Include="Models\EmailVersion.cs" />
+    <Compile Include="Models\ExcelCreator.cs" />
+    <Compile Include="Models\ExcelColumn.cs" />
     <Compile Include="Models\ExcelFile.cs" />
     <Compile Include="Models\ExcelParserCMO.cs" />
+    <Compile Include="Models\ExcelRow.cs" />
     <Compile Include="Models\ExceptionFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IExceptionFilter.cs" />

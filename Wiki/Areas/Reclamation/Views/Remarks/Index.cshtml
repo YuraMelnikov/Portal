@@ -44,6 +44,9 @@
         <button id="btnExpert" type="button" class="btn-xs btn-primary" onclick=expertComplitedAll()>
             Подтвердить оценки КО и заявки на техсовет
         </button>
+        <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
+            to Excel
+        </button>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
@@ -92,7 +95,6 @@
                         <label onclick="clearid_AspNetUsersError()">Ответственный сотрудник (click - очистить): </label>
                         @Html.DropDownList("id_AspNetUsersError", ViewBag.id_AspNetUsersError as MultiSelectList, new { @class = "form-control" })
                     </div>
-
                     <div class="col-lg-2">
                         <label>Критерий ошибки:</label>
                         @Html.DropDownList("id_Reclamation_CountErrorFirst", ViewBag.id_Reclamation_CountErrorFirst as MultiSelectList, new { @class = "form-control" })
@@ -197,6 +199,50 @@
     </div>
 </div>
 
+<div id="toExcelModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateExcelReport", "Remarks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.EditorFor(x => x.close, new { @onclick = "clearBox(1)" })
+                            <label>Все рекламации</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.EditorFor(x => x.closeDevision, new { @onclick = "clearBox(2)" })
+                            <label>Только мое СП</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.EditorFor(x => x.closeMKO, new { @onclick = "clearBox(3)" })
+                            <label>Только мои рекламации (автор) </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            @Html.EditorFor(x => x.gip, new { @onclick = "clearBox(4)" })
+                            <label>Только моя ответственность (ответственный за рекламацию</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Сформировать" class="btn btn-primary" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
@@ -215,4 +261,15 @@
     var counterDevision = @ViewBag.CRUDCounter;
     var buttonAddActivation = @ViewBag.ButtonAddActivation;
     var devisionUser = @ViewBag.Devision;
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateReport').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
 </script>

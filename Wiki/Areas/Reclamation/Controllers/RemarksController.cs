@@ -296,7 +296,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
-                    answer = "Рекламация переноправлена на " + db.Devision.Find(reloadDevision).name,
+                    answer = "Рекламация перенаправлена на " + db.Devision.Find(reloadDevision).name,
                     dateTimeCreate = DateTime.Now,
                     id_AspNetUsersCreate = aspNetUser.Id,
                     id_Reclamation = reclamation.id,
@@ -527,6 +527,78 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 return GetRemarksPO();
             }
+        }
+
+        public ActionResult CreateExcelReport(Wiki.Reclamation reclamation)
+        {
+            try
+            {
+                string login = HttpContext.User.Identity.Name;
+                AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
+                List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
+                if (reclamation.close == true)
+                {
+                    list = db.Reclamation.ToList();
+                }
+                else if (reclamation.closeDevision == true)
+                {
+                    list = db.Reclamation.Where(d => d.id_DevisionReclamation == user.Devision).ToList();
+                }
+                else if (reclamation.closeMKO == true)
+                {
+                    list = db.Reclamation.Where(d => d.id_AspNetUsersCreate == user.Id).ToList();
+                }
+                else if (reclamation.gip == true)
+                {
+                    list = db.Reclamation.Where(d => d.id_AspNetUsersError == user.Id).ToList();
+                }
+                else
+                {
+
+                }
+                if (list.Count != 0)
+                {
+                    List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
+                    Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор рекламации", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
+                        "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст рекламации", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
+                        "Шум", "", "", "", "", "", "", "", "", 26);
+                    excelRows.Add(excelRow);
+                    foreach (var data in list)
+                    {
+                        string ordersName = "";
+                        foreach (var dataOrders in data.Reclamation_PZ)
+                        {
+                            ordersName += dataOrders.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
+                        }
+                        string history = "";
+                        foreach (var dataAnswer in data.Reclamation_Answer)
+                        {
+                            history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
+                        }
+                        string userError = "";
+                        try
+                        {
+                            userError = data.AspNetUsers1.CiliricalName;
+                        }
+                        catch
+                        {
+
+                        }
+                        Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
+                                data.Devision1.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
+                                data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
+                                data.gip.ToString(), "", "", "", "", "", "", "", "", "", 26);
+                        excelRows.Add(excelRow1);
+                    }
+                    ExcelCreator excelCreator = new ExcelCreator(excelRows, this.HttpContext.ApplicationInstance.Context);
+                    excelCreator.GetReport();
+                }
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Index");
         }
     }
 }
