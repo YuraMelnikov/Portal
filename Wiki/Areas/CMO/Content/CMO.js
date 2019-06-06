@@ -92,7 +92,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objSmallReport,
         "rowCallback": function (row, data, index) {
@@ -202,7 +202,7 @@ function smallReport() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objSmallReport,
         "rowCallback": function (row, data, index) {
@@ -240,7 +240,7 @@ function fullReport() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objFullReport,
         "rowCallback": function (row, data, index) {
