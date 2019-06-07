@@ -5,6 +5,7 @@
 $(document).ready(function () {
     startMenu();
     expertHide();
+    $('#btnCloseOrder').hide();
     $('#tableCloseOrders').hide();
     $('#zakazId').hide();
     $('#toExcelModal').hide();
@@ -141,6 +142,28 @@ function startMenu() {
         },
         "bDestroy": true,
         "order": [[3, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#tableNoCloseOrders").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/TableNoCloseOrders",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -1250,4 +1273,38 @@ function UpdateDevisionListOTK(data) {
             }
         });
     }
+}
+
+var objNoClosedListView = [
+    { "title": "№", "data": "editLink", "autowidth": true, "bSortable": true },
+    { "title": "См", "data": "order", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "dateClosePlan", "autowidth": true, "bSortable": true }];
+
+function tableNoCloseOrders() {
+    var table = $('#tableCloseOrders').DataTable();
+    table.destroy();
+    $('#tableCloseOrders').empty();
+    $("#tableCloseOrders").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/TableNoCloseOrders",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "asc"]],
+        "processing": true,
+        "columns": objNoClosedListView,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#tableCloseOrders').show();
 }

@@ -58,39 +58,55 @@ namespace Wiki.Areas.PZ.Models
             };
             db.PZ_PlanZakaz.Add(newPZ_PlanZakaz);
             db.SaveChanges();
-            PZ_TEO pZ_TEO = new PZ_TEO();
-            pZ_TEO.Currency = 1;
-            pZ_TEO.NDS = 0;
-            pZ_TEO.Rate = 0;
-            pZ_TEO.SSM = 0;
-            pZ_TEO.SSR = 0;
-            pZ_TEO.IzdKom = 0;
-            pZ_TEO.IzdPPKredit = 0;
-            pZ_TEO.PI = 0;
-            pZ_TEO.NOP = 0;
-            pZ_TEO.KI_S = 0;
-            pZ_TEO.KI_prochee = 0;
-            pZ_TEO.Id_PlanZakaz = newPZ_PlanZakaz.Id;
+            Reclamation_CloseOrder reclamation_CloseOrder = new Reclamation_CloseOrder
+            {
+                close = false,
+                dateTimeClose = DateTime.Now,
+                description = "",
+                id_PZ_PlanZakaz = newPZ_PlanZakaz.Id,
+                userClose = newPZ_PlanZakaz.Manager
+            };
+            db.Reclamation_CloseOrder.Add(reclamation_CloseOrder);
+            db.SaveChanges();
+            PZ_TEO pZ_TEO = new PZ_TEO
+            {
+                Currency = 1,
+                NDS = 0,
+                Rate = 0,
+                SSM = 0,
+                SSR = 0,
+                IzdKom = 0,
+                IzdPPKredit = 0,
+                PI = 0,
+                NOP = 0,
+                KI_S = 0,
+                KI_prochee = 0,
+                Id_PlanZakaz = newPZ_PlanZakaz.Id
+            };
             db.PZ_TEO.Add(pZ_TEO);
             db.SaveChanges();
-            PZ_Setup pZ_Setup = new PZ_Setup();
-            pZ_Setup.KolVoDneyNaPrijemku = 0;
-            pZ_Setup.PunktDogovoraOSrokahPriemki = "";
-            pZ_Setup.RassmotrenieRKD = 0;
-            pZ_Setup.SrokZamechanieRKD = 0;
-            pZ_Setup.TimeNaRKD = 0;
-            pZ_Setup.UslovieOplatyInt = 0;
-            pZ_Setup.UslovieOplatyText = "";
-            pZ_Setup.id_PZ_PlanZakaz = newPZ_PlanZakaz.Id;
+            PZ_Setup pZ_Setup = new PZ_Setup
+            {
+                KolVoDneyNaPrijemku = 0,
+                PunktDogovoraOSrokahPriemki = "",
+                RassmotrenieRKD = 0,
+                SrokZamechanieRKD = 0,
+                TimeNaRKD = 0,
+                UslovieOplatyInt = 0,
+                UslovieOplatyText = "",
+                id_PZ_PlanZakaz = newPZ_PlanZakaz.Id
+            };
             db.PZ_Setup.Add(pZ_Setup);
             db.SaveChanges();
-            Debit_Platform debit_Platform = new Debit_Platform();
-            debit_Platform.id_PlanZakaz = newPZ_PlanZakaz.Id;
-            debit_Platform.countPlatform = 0;
-            debit_Platform.gabar = "";
-            debit_Platform.massa = 0;
-            debit_Platform.numPlatform = "";
-            debit_Platform.numPlomb = "";
+            Debit_Platform debit_Platform = new Debit_Platform
+            {
+                id_PlanZakaz = newPZ_PlanZakaz.Id,
+                countPlatform = 0,
+                gabar = "",
+                massa = 0,
+                numPlatform = "",
+                numPlomb = ""
+            };
             db.Debit_Platform.Add(debit_Platform);
             db.SaveChanges();
             if(addDebitWork == true)

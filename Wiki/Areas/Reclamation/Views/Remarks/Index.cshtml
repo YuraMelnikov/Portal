@@ -44,6 +44,9 @@
         <button id="btnExpert" type="button" class="btn-xs btn-primary" onclick=expertComplitedAll()>
             Подтвердить оценки КО и заявки на техсовет
         </button>
+        <button id="btnCloseOrder" type="button" class="btn-xs btn-danger" onclick=closeOrderOTK()>
+            Проверка изделия завершена
+        </button>
         <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
             to Excel
         </button>
@@ -262,6 +265,7 @@
     var counterDevision = @ViewBag.CRUDCounter;
     var buttonAddActivation = @ViewBag.ButtonAddActivation;
     var devisionUser = @ViewBag.Devision;
+    var closePZReclamation = @ViewBag.ClosePZReclamation;
 </script>
 
 <script type="text/javascript">

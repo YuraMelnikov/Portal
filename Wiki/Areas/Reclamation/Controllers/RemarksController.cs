@@ -7,6 +7,7 @@ using Wiki.Models;
 using System.Collections.Generic;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.Data.Entity;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -110,6 +111,15 @@ namespace Wiki.Areas.Reclamation.Controllers
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            if (login == "pev@katek.by")
+            {
+                ViewBag.ClosePZReclamation = 1;
+            }
+            else
+            {
+                ViewBag.ClosePZReclamation = 0;
+            }
+
             return View();
         }
 
@@ -806,33 +816,23 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
         }
 
-        //[HttpPost]
-        //public JsonResult TableCloseOrders()
-        //{
-        //    db.Configuration.ProxyCreationEnabled = false;
-        //    db.Configuration.LazyLoadingEnabled = false;
-        //    var query = db.
-        //        .Where(d => d.workIn == false && d.reOrder == false)
-        //        .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
-        //        .Include(d => d.CMO_Company)
-        //        .OrderByDescending(d => d.dateTimeCreate)
-        //        .ToList();
-        //    var data = query.Select(dataList => new
-        //    {
-        //        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-        //        position = GetPositionName(dataList.CMO2_Position.ToList()),
-        //        name = GetCompanyName(dataList.CMO_Company),
-        //        day = GetDay(dataList.workDateTime, dataList.manufDate),
-        //        workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
-        //        dataList.workCost,
-        //        manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
-        //        dataList.manufCost,
-        //        finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
-        //        dataList.finCost,
-        //        dataList.id,
-        //        folder = @"<a href =" + dataList.folder + "> Папка </a>"
-        //    });
-        //    return Json(new { data });
-        //}
+        [HttpPost]
+        public JsonResult TableNoCloseOrders()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.Reclamation_CloseOrder.AsNoTracking()
+                .Where(d => d.close == false)
+                .Include(d => d.PZ_PlanZakaz)
+                .OrderBy(d => d.PZ_PlanZakaz.dataOtgruzkiBP)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return reclamationsPlanZakaz('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                order = dataList.PZ_PlanZakaz.PlanZakaz,
+                dateClosePlan = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, shortSetting).Replace(@"""", "")
+            });
+            return Json(new { data });
+        }
     }
 }

@@ -370,7 +370,6 @@ namespace Wiki.Areas.PZ.Controllers
             {
                 NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz, true);
             }
-
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
