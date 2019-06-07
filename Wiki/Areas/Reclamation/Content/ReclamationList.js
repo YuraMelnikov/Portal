@@ -6,7 +6,7 @@ $(document).ready(function () {
     startMenu();
     expertHide();
     $('#btnCloseOrder').hide();
-    $('#tableCloseOrders').hide();
+    $('#tableCloseOrdersDiv').hide();
     $('#zakazId').hide();
     $('#toExcelModal').hide();
     $('#pageData').hide();
@@ -52,6 +52,7 @@ function loadData(listId) {
         expertShow();
         nullpz();
         reclamationOTK();
+        //tableNoCloseOrders();
     }
     else if (listId === 8 || listId === "8") {
         expertShow();
@@ -155,7 +156,7 @@ function startMenu() {
             "search": "Поиск"
         }
     });
-    $("#tableNoCloseOrders").DataTable({
+    $("#tableCloseOrders").DataTable({
         "ajax": {
             "cache": false,
             "url": "/Remarks/TableNoCloseOrders",
@@ -165,10 +166,10 @@ function startMenu() {
         "bDestroy": true,
         "order": [[2, "desc"]],
         "processing": true,
-        "columns": objRemarksList,
+        "columns": objNoClosedListView,
         "scrollY": '75vh',
         "scrollX": true,
-        "paging": false,
+        "paging": false,   
         "info": false,
         "scrollCollapse": true,
         "language": {
@@ -938,6 +939,34 @@ function reclamationOTK() {
             "search": "Поиск"
         }
     });
+
+    var table1 = $('#tableCloseOrders').DataTable();
+    table1.destroy();
+    $('#tableCloseOrders').empty();
+    $("#tableCloseOrders").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/TableNoCloseOrders",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "asc"]],
+        "processing": true,
+        "columns": objNoClosedListView,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+
+    $('#tableCloseOrdersDiv').show();
 }
 
 function reclamationPO() {
@@ -1098,6 +1127,11 @@ function reclamationsPlanZakaz(id) {
             "search": "Поиск"
         }
     });
+    $('#tableCloseOrdersDiv').hide();
+    if (closePZReclamation === 1 || closePZReclamation === '1') {
+        $('#btnCloseOrder').show();
+        $('#btnExpert').hide();
+    }
 }
 
 function chackList(id) {
@@ -1278,9 +1312,11 @@ function UpdateDevisionListOTK(data) {
 var objNoClosedListView = [
     { "title": "№", "data": "editLink", "autowidth": true, "bSortable": true },
     { "title": "См", "data": "order", "autowidth": true, "bSortable": false },
-    { "title": "Заказ", "data": "dateClosePlan", "autowidth": true, "bSortable": true }];
+    { "title": "Заказ", "data": "dateClosePlan", "autowidth": true, "bSortable": true }
+];
 
 function tableNoCloseOrders() {
+    $('#tableCloseOrdersDiv').show();
     var table = $('#tableCloseOrders').DataTable();
     table.destroy();
     $('#tableCloseOrders').empty();
@@ -1292,7 +1328,7 @@ function tableNoCloseOrders() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        //"order": [[2, "asc"]],
         "processing": true,
         "columns": objNoClosedListView,
         "scrollY": '75vh',
@@ -1306,5 +1342,8 @@ function tableNoCloseOrders() {
             "search": "Поиск"
         }
     });
-    $('#tableCloseOrders').show();
+}
+
+function closeOrderOTK() {
+
 }

@@ -13,6 +13,7 @@ namespace Wiki.Areas.CMO.Controllers
     public class CMOAreaController : Controller
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
@@ -218,17 +219,17 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 dataList.id,
                 id_AspNetUsers_Create = dataList.AspNetUsers.CiliricalName,
-                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortDefaultSetting).Replace(@"""", ""),
                 dataList.workIn,
-                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortSetting).Replace(@"""", ""),
+                workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, shortDefaultSetting).Replace(@"""", ""),
                 dataList.workComplitet,
                 dataList.workCost,
                 dataList.manufIn,
-                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
                 dataList.manufComplited,
                 dataList.manufCost,
                 dataList.finIn,
-                finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
                 dataList.finComplited,
                 dataList.finCost,
                 dataList.folder,

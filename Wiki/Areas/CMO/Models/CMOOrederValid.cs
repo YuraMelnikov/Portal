@@ -28,6 +28,9 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (cMO2_Order.manufIn == false)
             {
+                bool pushMail = true;
+                if (order.manufComplited == true)
+                    pushMail = false;
                 order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.manufIn = true;
                 order.workDateTime = DateTime.Now;
@@ -36,9 +39,10 @@ namespace Wiki.Areas.CMO.Models
                 order.manufComplited = true;
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                new EmailCMO(cMO2_Order, login, 3);
+                if(pushMail == true)
+                    new EmailCMO(cMO2_Order, login, 3);
             }
-            else if (cMO2_Order.finIn == false)
+            else if (cMO2_Order.finIn == false && cMO2_Order.finDate != null)
             {
                 if (cMO2_Order.finDate == null)
                 {
@@ -54,6 +58,13 @@ namespace Wiki.Areas.CMO.Models
                     db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
+            }
+            else if (cMO2_Order.finIn == false && cMO2_Order.finDate == null && cMO2_Order.manufDate != null)
+            {
+                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
+                order.manufDate = cMO2_Order.manufDate;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
             }
             else
             {

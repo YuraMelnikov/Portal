@@ -111,7 +111,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
-            if (login == "pev@katek.by")
+            if (login == "pev@katek.by" || login == "myi@katek.by")
             {
                 ViewBag.ClosePZReclamation = 1;
             }

@@ -17,6 +17,7 @@ namespace Wiki.Areas.CMO.Models
         readonly PortalKATEKEntities db = new PortalKATEKEntities();
         public EmailCMO(CMO2_Order order, string login, int stepNumber)
         {
+            mailToList = new List<string>();
             try
             {
                 this.login = login;
@@ -141,7 +142,6 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailListCreate()
         {
-            mailToList = new List<string>();
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
             mailToList.Add("Antipov@katek.by");
@@ -153,7 +153,6 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailList()
         {
-            mailToList = new List<string>();
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
             mailToList.Add("Antipov@katek.by");

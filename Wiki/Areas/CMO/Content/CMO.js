@@ -576,7 +576,7 @@ function deactivatedModalOS(countDA) {
         $('#workCost').prop('disabled', true);
         $('#workComplitet').prop('disabled', true);
         $('#manufIn').prop('disabled', true);
-        $('#manufDate').prop('disabled', true);
+        //$('#manufDate').prop('disabled', true);
         $('#manufCost').prop('disabled', true);
         $('#manufComplited').prop('disabled', true);
         $('#finIn').prop('disabled', true);
