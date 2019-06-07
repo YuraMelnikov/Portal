@@ -19,6 +19,7 @@ namespace Wiki
         public System.DateTime dateTimeClose { get; set; }
         public string description { get; set; }
         public int id_PZ_PlanZakaz { get; set; }
+        public bool close { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
