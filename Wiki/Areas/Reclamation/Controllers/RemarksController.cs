@@ -20,6 +20,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult Index()
         {
+            @ViewBag.idPZ = 0;
             string login = HttpContext.User.Identity.Name;
             ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 0).OrderBy(d => d.name), "id", "name");
             ViewBag.ButtonAddActivation = 0;
@@ -126,6 +127,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         [HttpPost]
         public JsonResult ReclamationsPlanZakaz(int id)
         {
+            @ViewBag.idPZ = id;
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetReclamationPlanZakaz(GetIdDevision(login), id);
@@ -833,6 +835,19 @@ namespace Wiki.Areas.Reclamation.Controllers
                 dateClosePlan = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, shortSetting).Replace(@"""", "")
             });
             return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult CloseOrderOTK(int id)
+        {
+            //string login = HttpContext.User.Identity.Name;
+            //Reclamation_CloseOrder reclamation_CloseOrder = db.Reclamation_CloseOrder.Find(idPZ);
+            //reclamation_CloseOrder.close = true;
+            //reclamation_CloseOrder.dateTimeClose = DateTime.Now;
+            //reclamation_CloseOrder.userClose = db.AspNetUsers.First(d => d.Email == login).Id;
+            //db.Entry(reclamation_CloseOrder).State = EntityState.Modified;
+            //db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

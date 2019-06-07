@@ -1095,6 +1095,7 @@ function expertComplitedAll() {
 }
 
 function reclamationsPlanZakaz(id) {
+    idPZ = id;
     pz(id);
     var table = $('#myTable').DataTable();
     table.destroy();
@@ -1328,7 +1329,7 @@ function tableNoCloseOrders() {
             "datatype": "json"
         },
         "bDestroy": true,
-        //"order": [[2, "asc"]],
+        "order": [[2, "asc"]],
         "processing": true,
         "columns": objNoClosedListView,
         "scrollY": '75vh',
@@ -1344,6 +1345,19 @@ function tableNoCloseOrders() {
     });
 }
 
-function closeOrderOTK() {
+function closeOrderOTK(id) {
+    $.ajax({
+        cache: false,
+        url: "/Remarks/CloseOrderOTK/" + id,
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
 
+        success: function (result) {
+            var tmp = result;
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
