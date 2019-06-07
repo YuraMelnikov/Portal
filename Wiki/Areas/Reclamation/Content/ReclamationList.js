@@ -5,6 +5,7 @@
 $(document).ready(function () {
     startMenu();
     expertHide();
+    $('#tableCloseOrders').hide();
     $('#zakazId').hide();
     $('#toExcelModal').hide();
     $('#pageData').hide();
@@ -1228,7 +1229,7 @@ function disabledBtnCreateReport () {
 }
 
 function UpdateDevisionListOTK(data) {
-    var selectedDevision = $('#id_DevisionReclamationTest').find('option:selected').text();
+    var selectedDevision = $('#id_DevisionReclamation').find('option:selected').text();
     var id = $('#id_Reclamation_Type').find('option:selected').text();
     if (counterDevision === 1 || counterDevision === '1') {
         $.ajax({
@@ -1238,13 +1239,13 @@ function UpdateDevisionListOTK(data) {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (data) {
-                var x = document.getElementById("id_DevisionReclamationTest");
+                var x = document.getElementById("id_DevisionReclamation");
                 for (var i = x.children.length; i >= 0; i--) {
                     x.remove(i);
                 }
                 for (var j = 0; j < data.length; j++) {
                     var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
-                    $("#id_DevisionReclamationTest").append(optionhtml);
+                    $("#id_DevisionReclamation").append(optionhtml);
                 }
             }
         });

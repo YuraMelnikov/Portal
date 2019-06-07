@@ -14,6 +14,8 @@ namespace Wiki.Areas.Reclamation.Controllers
     {
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
+        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
         public ActionResult Index()
         {
@@ -803,6 +805,34 @@ namespace Wiki.Areas.Reclamation.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //[HttpPost]
+        //public JsonResult TableCloseOrders()
+        //{
+        //    db.Configuration.ProxyCreationEnabled = false;
+        //    db.Configuration.LazyLoadingEnabled = false;
+        //    var query = db.
+        //        .Where(d => d.workIn == false && d.reOrder == false)
+        //        .Include(d => d.CMO2_Position.Select(s => s.PZ_PlanZakaz).Select(s => s.CMO2_Position.Select(p => p.CMO_TypeProduct)))
+        //        .Include(d => d.CMO_Company)
+        //        .OrderByDescending(d => d.dateTimeCreate)
+        //        .ToList();
+        //    var data = query.Select(dataList => new
+        //    {
+        //        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+        //        position = GetPositionName(dataList.CMO2_Position.ToList()),
+        //        name = GetCompanyName(dataList.CMO_Company),
+        //        day = GetDay(dataList.workDateTime, dataList.manufDate),
+        //        workDateTime = JsonConvert.SerializeObject(dataList.workDateTime, longSetting).Replace(@"""", ""),
+        //        dataList.workCost,
+        //        manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+        //        dataList.manufCost,
+        //        finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+        //        dataList.finCost,
+        //        dataList.id,
+        //        folder = @"<a href =" + dataList.folder + "> Папка </a>"
+        //    });
+        //    return Json(new { data });
+        //}
     }
-    
 }

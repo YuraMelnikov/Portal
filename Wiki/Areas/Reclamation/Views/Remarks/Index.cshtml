@@ -47,6 +47,7 @@
         <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
             to Excel
         </button>
+        <table id="tableCloseOrders" class="table table-hover table-striped" style="width:100%;"></table>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
@@ -89,7 +90,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label onclick="clearid_DevisionReclamation()">Ответственное СП (click - очистить): </label>
-                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id="id_DevisionReclamationTest" })
+                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id="id_DevisionReclamation" })
                     </div>
                     <div class="col-lg-3">
                         <label onclick="clearid_AspNetUsersError()">Ответственный сотрудник (click - очистить): </label>
