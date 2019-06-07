@@ -253,6 +253,9 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CloseOrder" Width="1.5" PointX="22.5" PointY="52.5" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

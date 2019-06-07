@@ -614,6 +614,9 @@
     <Compile Include="Reclamation_Answer.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reclamation_CloseOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reclamation_CountError.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

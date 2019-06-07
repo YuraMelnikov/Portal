@@ -784,6 +784,16 @@
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
           <Property Name="trash" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reclamation_CloseOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userClose" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dateTimeClose" Type="datetime" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
             <PropertyRef Name="id" />
@@ -2286,6 +2296,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_CloseOrder_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation_CloseOrder" Type="Self.Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="userClose" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="Reclamation_CloseOrder" Type="Self.Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reclamation_Devision">
           <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
           <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
@@ -3024,6 +3058,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PZ_TypeShip" EntityType="Self.PZ_TypeShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation" EntityType="Self.Reclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_Answer" EntityType="Self.Reclamation_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_CloseOrder" EntityType="Self.Reclamation_CloseOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_CountError" EntityType="Self.Reclamation_CountError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_PZ" EntityType="Self.Reclamation_PZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="Self.Reclamation_TechnicalAdvice" Schema="dbo" store:Type="Tables" />
@@ -3439,6 +3474,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_Reclamation_AspNetUsers1" Association="Self.FK_Reclamation_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_CloseOrder_AspNetUsers" Association="Self.FK_Reclamation_CloseOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz" Association="Self.FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Devision" Association="Self.FK_Reclamation_Devision">
             <End Role="Devision" EntitySet="Devision" />
@@ -4502,6 +4545,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Reclamation_CloseOrder" EntityType="PortalKATEKModel.Reclamation_CloseOrder" />
+          <AssociationSet Name="FK_Reclamation_CloseOrder_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4683,6 +4735,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_CloseOrder" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -5315,6 +5368,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
+          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_CloseOrder" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -7490,6 +7544,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="Reclamation_CloseOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userClose" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="Reclamation_CloseOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="Reclamation_CloseOrder" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_Reclamation_CloseOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="userClose" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8938,6 +9028,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Reclamation_CloseOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CloseOrder">
+              <MappingFragment StoreEntitySet="Reclamation_CloseOrder">
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
+                <ScalarProperty Name="userClose" ColumnName="userClose" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
