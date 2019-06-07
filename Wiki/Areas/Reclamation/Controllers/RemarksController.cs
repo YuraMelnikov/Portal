@@ -620,30 +620,188 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
         }
 
-
-
-
-
-
-
-
-
         public JsonResult GetDevisionList(string id)
         {
-            //var tmp = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name).ToList();
-            //ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name");
-            ////if(id == "Дефектные комплектующие")
-            ////{
-            ////    return Json(new { success = true, id_DevisionReclamation = ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name") });
-            ////}
-            //return Json(new SelectList(db.Devision.Where(d => d.id == 7).OrderBy(d => d.name), "id", "name"), JsonRequestBehavior.AllowGet);
-            var sucursalList = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name);
-            var data = sucursalList.Select(m => new SelectListItem()
+            if (id == "Дефектные комплектующие")
             {
-                Text = m.name,
-                Value = m.id.ToString(),
-            });
-            return Json(data, JsonRequestBehavior.AllowGet);
+                var sucursalList = db.Devision.Where(d => d.id == 7 || d.id == 9).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Документация на иностранном языке")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Оборудование не опробавано")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 6).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Отсутствие документов")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 7).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Отсутствие маркировки")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10 || d.id == 27).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Дефицит")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 7 || d.id == 9).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Отсутствие/повреждение ЛКП")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10 || d.id == 27).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Ошибка коммутации")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 10).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Ошибка маркировки")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10 || d.id == 27 || d.id == 16).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Ошибка монтажа")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Ошибка проектирования")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 18 || d.id == 12).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Ошибка сборки")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Производственный мусор")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10 || d.id == 27).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Не заложено в 1с")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 18 || d.id == 12).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Несоответствие 1с схемам")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 18 || d.id == 12).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Несоответствие КД - ТНПА")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 18 || d.id == 12).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else if (id == "Несоответствие РКД")
+            {
+                var sucursalList = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 18 || d.id == 12).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var sucursalList = db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
     

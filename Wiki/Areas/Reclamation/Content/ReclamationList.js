@@ -1227,33 +1227,8 @@ function disabledBtnCreateReport () {
     document.location.reload(true);
 }
 
-//function UpdateDevisionListOTK(data) {
-//    var tmp = $('#id_DevisionReclamation').val();
-//    var id = $('#id_Reclamation_Type').find('option:selected').text();
-//    if (counterDevision === 1 || counterDevision === '1') {
-//        $.ajax({
-//            cache: false,
-//            url: "/Remarks/GetDevisionList/" + id,
-//            type: "POST",
-//            contentType: "application/json;charset=utf-8",
-//            dataType: "json",
-//            success: function (data) {
-//                $('#id_DevisionReclamation').val(data);
-//                //$(result).each(function () {
-//                //    ddl.append(
-//                //        $('<option/>').html(this.Text)
-//                //    );
-//                //});
-//            },
-//            error: function (errormessage) {
-//                alert(errormessage.responseText);
-//            }
-//        });
-//    }
-//}
-
 function UpdateDevisionListOTK(data) {
-    var tmp = $("#id_DevisionReclamationTest").html();
+    var selectedDevision = $('#id_DevisionReclamationTest').find('option:selected').text();
     var id = $('#id_Reclamation_Type').find('option:selected').text();
     if (counterDevision === 1 || counterDevision === '1') {
         $.ajax({
@@ -1267,8 +1242,10 @@ function UpdateDevisionListOTK(data) {
                 for (var i = x.children.length; i >= 0; i--) {
                     x.remove(i);
                 }
-                var optionhtml = '<option value="' + data[0].Value + '">' + data[0].Text + '</option>';
-                $("#id_DevisionReclamationTest").append(optionhtml);
+                for (var j = 0; j < data.length; j++) {
+                    var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                    $("#id_DevisionReclamationTest").append(optionhtml);
+                }
             }
         });
     }
