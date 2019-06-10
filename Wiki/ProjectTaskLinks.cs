@@ -12,9 +12,13 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Project_WBSLevelStruct
+    public partial class ProjectTaskLinks
     {
         public int id { get; set; }
-        public int levelStruct { get; set; }
+        public int id_ProjectTaskPredecessor { get; set; }
+        public int id_ProjectTaskSuccessor { get; set; }
+    
+        public virtual ProjectTask ProjectTask { get; set; }
+        public virtual ProjectTask ProjectTask1 { get; set; }
     }
 }

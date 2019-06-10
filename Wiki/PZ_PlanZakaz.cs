@@ -34,6 +34,7 @@ namespace Wiki
             this.Service_ReclamationPZ = new HashSet<Service_ReclamationPZ>();
             this.VVPZ = new HashSet<VVPZ>();
             this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
+            this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
         }
     
         public int Id { get; set; }
@@ -122,5 +123,7 @@ namespace Wiki
         public virtual ICollection<VVPZ> VVPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
     }
 }

@@ -407,6 +407,15 @@
     <Compile Include="Controllers\UploadERController.cs" />
     <Compile Include="Controllers\VVPZsController.cs" />
     <Compile Include="Controllers\VV_PositionController.cs" />
+    <Compile Include="DashboardBP_ProjectList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardBP_State.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardBP_TasksList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardKO_Quartal.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -570,10 +579,10 @@
     <Compile Include="ProjectServer_UpdateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProjectWBS.cs">
+    <Compile Include="ProjectTask.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project_WBSLevelStruct.cs">
+    <Compile Include="ProjectTaskLinks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

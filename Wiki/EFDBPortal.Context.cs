@@ -31,10 +31,8 @@ namespace Wiki
         public virtual DbSet<Folder> Folder { get; set; }
         public virtual DbSet<FolderDocument> FolderDocument { get; set; }
         public virtual DbSet<Post> Post { get; set; }
-        public virtual DbSet<Project_WBSLevelStruct> Project_WBSLevelStruct { get; set; }
         public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
         public virtual DbSet<ProjectServer_UpdateTasks> ProjectServer_UpdateTasks { get; set; }
-        public virtual DbSet<ProjectWBS> ProjectWBS { get; set; }
         public virtual DbSet<RKD_FailBPlan> RKD_FailBPlan { get; set; }
         public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
@@ -142,5 +140,10 @@ namespace Wiki
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
         public virtual DbSet<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
+        public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
+        public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
+        public virtual DbSet<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
+        public virtual DbSet<ProjectTask> ProjectTask { get; set; }
+        public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace Wiki
             this.Reclamation1 = new HashSet<Reclamation>();
             this.RKD_TypeTask = new HashSet<RKD_TypeTask>();
             this.Service_ReclamationAnswerDevision = new HashSet<Service_ReclamationAnswerDevision>();
+            this.ProjectTask = new HashSet<ProjectTask>();
         }
     
         public int id { get; set; }
@@ -44,5 +45,7 @@ namespace Wiki
         public virtual ICollection<RKD_TypeTask> RKD_TypeTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service_ReclamationAnswerDevision> Service_ReclamationAnswerDevision { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectTask> ProjectTask { get; set; }
     }
 }

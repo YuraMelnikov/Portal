@@ -11,10 +11,8 @@
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="118.75" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.FolderDocument" Width="1.5" PointX="107.5" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Post" Width="1.5" PointX="109.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Project_WBSLevelStruct" Width="1.5" PointX="121.125" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_CreateTasks" Width="1.5" PointX="110.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_UpdateTasks" Width="1.5" PointX="111.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.ProjectWBS" Width="1.5" PointX="123.125" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_FailBPlan" Width="1.5" PointX="109.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_HistoryTaskVersion" Width="1.5" PointX="111.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.sysdiagrams" Width="1.5" PointX="113.5" PointY="6.75" IsExpanded="true" />
@@ -256,6 +254,19 @@
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_CloseOrder" Width="1.5" PointX="22.5" PointY="52.5" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_ProjectList" Width="1.5" PointX="16.5" PointY="73.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_State" Width="1.5" PointX="14.25" PointY="75.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_TasksList" Width="1.5" PointX="24.75" PointY="56.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ProjectTask" Width="1.5" PointX="3" PointY="70.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ProjectTaskLinks" Width="1.5" PointX="5.25" PointY="70.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ProjectTask_Devision" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
