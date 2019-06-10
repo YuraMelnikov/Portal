@@ -261,6 +261,8 @@
     <Compile Include="Areas\CMO\Models\EmailCMO.cs" />
     <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
+    <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
+    <Compile Include="Areas\DashboardBP\Models\State.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -537,6 +539,7 @@
     <Compile Include="Models\ViewPostShipment.cs" />
     <Compile Include="Models\ViewRKD.cs" />
     <Compile Include="Models\ViewRKD_Question.cs" />
+    <Compile Include="Models\WeekNumber.cs" />
     <Compile Include="Models\WordDocumentAttribute.cs" />
     <Compile Include="Models\WorkDeskKO.cs" />
     <Compile Include="Models\WorkingDays.cs" />
@@ -2552,7 +2555,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\DashboardBP\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

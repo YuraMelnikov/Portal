@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Wiki.Areas.DashboardBP.Models;
 
 namespace Wiki.Areas.DashboardBP.Controllers
 {
@@ -12,6 +9,13 @@ namespace Wiki.Areas.DashboardBP.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateBasicPlan()
+        {
+            NewBP bp = new NewBP();
+            return View();
+        }
+
         public string RenderUserMenu()
         {
             string login = "Войти";
