@@ -259,6 +259,8 @@
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
     <Compile Include="Areas\CMO\Models\EmailCMO.cs" />
+    <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
+    <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -2134,6 +2136,9 @@
     <Content Include="Content\Highcharts-7.1.2\code\themes\sand-signika.js.map" />
     <Content Include="Content\Highcharts-7.1.2\code\themes\skies.js.map" />
     <Content Include="Content\Highcharts-7.1.2\code\themes\sunset.js.map" />
+    <Content Include="Areas\DashboardBP\Views\web.config" />
+    <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBP.cshtml" />
+    <Content Include="Areas\DashboardBP\Views\BP\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2538,6 +2543,7 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\DashboardBP\Models\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
