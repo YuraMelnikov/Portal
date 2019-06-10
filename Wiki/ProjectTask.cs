@@ -29,7 +29,7 @@ namespace Wiki
         public string sName { get; set; }
         public string description { get; set; }
         public bool taskIsSummary { get; set; }
-        public Nullable<int> parentProjectTask { get; set; }
+        public int parentProjectTask { get; set; }
         public bool isActiveBP { get; set; }
         public Nullable<int> id_Devision { get; set; }
     

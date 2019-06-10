@@ -646,7 +646,7 @@ warning 6013: The table/view 'PortalKATEK_TEST.dbo.importDataStruct' does not ha
           <Property Name="sName" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="taskIsSummary" Type="bit" Nullable="false" />
-          <Property Name="parentProjectTask" Type="int" />
+          <Property Name="parentProjectTask" Type="int" Nullable="false" />
           <Property Name="isActiveBP" Type="bit" Nullable="false" />
           <Property Name="id_Devision" Type="int" />
         </EntityType>
@@ -2215,7 +2215,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectTask_ProjectTask">
-          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="0..1" />
+          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
           <End Role="ProjectTask1" Type="Self.ProjectTask" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectTask">
@@ -2226,7 +2226,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask">
+        <Association Name="FK_ProjectTaskLinks_ProjectTaskPredecessor">
           <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
           <End Role="ProjectTaskLinks" Type="Self.ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2238,7 +2238,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
+        <Association Name="FK_ProjectTaskLinks_ProjectTaskSuccessor">
           <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
           <End Role="ProjectTaskLinks" Type="Self.ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3604,11 +3604,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTask1" EntitySet="ProjectTask" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="Self.FK_ProjectTaskLinks_ProjectTask">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskPredecessor" Association="Self.FK_ProjectTaskLinks_ProjectTaskPredecessor">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="Self.FK_ProjectTaskLinks_ProjectTask1">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskSuccessor" Association="Self.FK_ProjectTaskLinks_ProjectTaskSuccessor">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
@@ -4112,6 +4112,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="VV_infPost" EntityType="PortalKATEKModel.VV_infPost" />
           <EntitySet Name="OTKMultiSelectList" EntityType="PortalKATEKModel.OTKMultiSelectList" />
           <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
+          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
+          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
+          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
+            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
+            <End Role="PostMatching" EntitySet="PostMatching" />
+          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
@@ -4138,7 +4144,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
           <EntitySet Name="Debit_IstPost" EntityType="PortalKATEKModel.Debit_IstPost" />
-          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
           <EntitySet Name="Debit_Name" EntityType="PortalKATEKModel.Debit_Name" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="PortalKATEKModel.Debit_PeriodReportOprih" />
           <EntitySet Name="Debit_Platform" EntityType="PortalKATEKModel.Debit_Platform" />
@@ -4156,7 +4161,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="OTK_TypeReclamation" EntityType="PortalKATEKModel.OTK_TypeReclamation" />
           <EntitySet Name="PF" EntityType="PortalKATEKModel.PF" />
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
-          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
           <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
           <EntitySet Name="ProjectTaskLinks" EntityType="PortalKATEKModel.ProjectTaskLinks" />
           <EntitySet Name="PZ_Client" EntityType="PortalKATEKModel.PZ_Client" />
@@ -4441,10 +4445,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_IstPost" EntitySet="Debit_IstPost" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
-            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
-            <End Role="PostMatching" EntitySet="PostMatching" />
-          </AssociationSet>
           <AssociationSet Name="FK_Debit_Name_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_Name_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_Name" EntitySet="Debit_Name" />
@@ -4545,11 +4545,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTask1" EntitySet="ProjectTask" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskPredecessor" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskSuccessor" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
@@ -4863,6 +4863,35 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="ProjectUID" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Debit_MatchingType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
+        </EntityType>
+        <EntityType Name="PostMatching">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
+          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
+        </EntityType>
+        <Association Name="FK_PostMatching_Debit_MatchingType">
+          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_MatchingType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PostMatching">
+              <PropertyRef Name="id_MatchingType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -5251,14 +5280,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="currency" Type="Int32" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit" FromRole="Debit_IstPost" ToRole="Debit_WorkBit" />
         </EntityType>
-        <EntityType Name="Debit_MatchingType">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
-        </EntityType>
         <EntityType Name="Debit_Name">
           <Key>
             <PropertyRef Name="id" />
@@ -5503,15 +5524,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="datePrihod" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
         </EntityType>
-        <EntityType Name="PostMatching">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
-          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
-        </EntityType>
         <EntityType Name="ProjectTask">
           <Key>
             <PropertyRef Name="id" />
@@ -5522,15 +5534,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="sName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="taskIsSummary" Type="Boolean" Nullable="false" />
-          <Property Name="parentProjectTask" Type="Int32" />
+          <Property Name="parentProjectTask" Type="Int32" Nullable="false" />
           <Property Name="isActiveBP" Type="Boolean" Nullable="false" />
           <Property Name="id_Devision" Type="Int32" />
           <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="ProjectTask" ToRole="DashboardBP_TasksList" />
           <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="ProjectTask" ToRole="Devision" />
           <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTask1" />
           <NavigationProperty Name="ProjectTask2" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask1" ToRole="ProjectTask" />
-          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
-          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
         </EntityType>
         <EntityType Name="ProjectTaskLinks">
           <Key>
@@ -5539,8 +5551,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_ProjectTaskPredecessor" Type="Int32" Nullable="false" />
           <Property Name="id_ProjectTaskSuccessor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
-          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -6979,18 +6991,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostMatching_Debit_MatchingType">
-          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
-          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_MatchingType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PostMatching">
-              <PropertyRef Name="id_MatchingType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Debit_Name_debit_WorkBit">
           <End Type="PortalKATEKModel.Debit_WorkBit" Role="Debit_WorkBit" Multiplicity="1" />
           <End Type="PortalKATEKModel.Debit_Name" Role="Debit_Name" Multiplicity="*" />
@@ -7280,7 +7280,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectTask_ProjectTask">
-          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectTask">
@@ -7291,7 +7291,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask">
+        <Association Name="FK_ProjectTaskLinks_ProjectTaskPredecessor">
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -7303,7 +7303,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
+        <Association Name="FK_ProjectTaskLinks_ProjectTaskSuccessor">
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -8265,6 +8265,23 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Debit_MatchingType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
+              <MappingFragment StoreEntitySet="Debit_MatchingType">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostMatching">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
+              <MappingFragment StoreEntitySet="PostMatching">
+                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
+                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="PortalKATEKModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -8595,14 +8612,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Debit_MatchingType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
-              <MappingFragment StoreEntitySet="Debit_MatchingType">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Debit_Name">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_Name">
               <MappingFragment StoreEntitySet="Debit_Name">
@@ -8811,15 +8820,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="numPost" ColumnName="numPost" />
                 <ScalarProperty Name="datePost" ColumnName="datePost" />
                 <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PostMatching">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
-              <MappingFragment StoreEntitySet="PostMatching">
-                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
-                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

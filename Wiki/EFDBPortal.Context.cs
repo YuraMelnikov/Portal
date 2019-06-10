@@ -44,6 +44,8 @@ namespace Wiki
         public virtual DbSet<VV_infPost> VV_infPost { get; set; }
         public virtual DbSet<OTKMultiSelectList> OTKMultiSelectList { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
+        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
+        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -70,7 +72,6 @@ namespace Wiki
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
         public virtual DbSet<Debit_IstPost> Debit_IstPost { get; set; }
-        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Debit_Name> Debit_Name { get; set; }
         public virtual DbSet<Debit_PeriodReportOprih> Debit_PeriodReportOprih { get; set; }
         public virtual DbSet<Debit_Platform> Debit_Platform { get; set; }
@@ -88,7 +89,6 @@ namespace Wiki
         public virtual DbSet<OTK_TypeReclamation> OTK_TypeReclamation { get; set; }
         public virtual DbSet<PF> PF { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
-        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<ProjectTask> ProjectTask { get; set; }
         public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
