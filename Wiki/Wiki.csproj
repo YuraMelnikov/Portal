@@ -783,6 +783,7 @@
   <ItemGroup>
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
+    <Content Include="Areas\DashboardBP\Content\Admin.js" />
     <Content Include="Areas\Deb\Contant\Archive.js" />
     <Content Include="Areas\Deb\Contant\DSetup.js" />
     <Content Include="Areas\Deb\Contant\NewPlus.js" />
@@ -2151,6 +2152,8 @@
     <Content Include="Areas\DashboardBP\Views\web.config" />
     <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBP.cshtml" />
     <Content Include="Areas\DashboardBP\Views\BP\Index.cshtml" />
+    <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBPAdmin.cshtml" />
+    <Content Include="Areas\DashboardBP\Views\BP\Admin.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -7,12 +7,11 @@ namespace Wiki.Models
     {
         public short GetNowWeekNumber()
         {
-
             CultureInfo myCI = new CultureInfo("en-US");
-            Calendar myCal = new Calendar();
+            System.Globalization.Calendar myCal = CultureInfo.InvariantCulture.Calendar;
             CalendarWeekRule myCWR = myCI.DateTimeFormat.CalendarWeekRule;
             DayOfWeek myFirstDOW = myCI.DateTimeFormat.FirstDayOfWeek;
-            return myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW);
+            return (short)myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW);
         }
     }
 }

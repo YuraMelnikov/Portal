@@ -20,6 +20,7 @@ namespace Wiki
             this.CMO_PositionOrder = new HashSet<CMO_PositionOrder>();
             this.CMO_PositionPreOrder = new HashSet<CMO_PositionPreOrder>();
             this.CMO2_Position = new HashSet<CMO2_Position>();
+            this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
             this.Debit_CostUpdate = new HashSet<Debit_CostUpdate>();
             this.Debit_Name = new HashSet<Debit_Name>();
             this.Debit_Platform = new HashSet<Debit_Platform>();
@@ -29,12 +30,11 @@ namespace Wiki
             this.OTK_ReclamationKO = new HashSet<OTK_ReclamationKO>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
             this.PZ_TEO = new HashSet<PZ_TEO>();
+            this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.RKD_Order = new HashSet<RKD_Order>();
             this.Service_ReclamationPZ = new HashSet<Service_ReclamationPZ>();
             this.VVPZ = new HashSet<VVPZ>();
-            this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
-            this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
         }
     
         public int Id { get; set; }
@@ -90,6 +90,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO2_Position> CMO2_Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_Name> Debit_Name { get; set; }
@@ -114,6 +116,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_TEO> PZ_TEO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_PZ> Reclamation_PZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Order> RKD_Order { get; set; }
@@ -121,9 +125,5 @@ namespace Wiki
         public virtual ICollection<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VVPZ> VVPZ { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
     }
 }

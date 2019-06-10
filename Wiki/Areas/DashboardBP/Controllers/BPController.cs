@@ -10,6 +10,11 @@ namespace Wiki.Areas.DashboardBP.Controllers
             return View();
         }
 
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
         public ActionResult CreateBasicPlan()
         {
             NewBP bp = new NewBP();

@@ -44,8 +44,6 @@ namespace Wiki
         public virtual DbSet<VV_infPost> VV_infPost { get; set; }
         public virtual DbSet<OTKMultiSelectList> OTKMultiSelectList { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
-        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
-        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -65,10 +63,14 @@ namespace Wiki
         public virtual DbSet<CMO_UploadResult> CMO_UploadResult { get; set; }
         public virtual DbSet<CMO2_Order> CMO2_Order { get; set; }
         public virtual DbSet<CMO2_Position> CMO2_Position { get; set; }
+        public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
+        public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
+        public virtual DbSet<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
         public virtual DbSet<Debit_IstPost> Debit_IstPost { get; set; }
+        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Debit_Name> Debit_Name { get; set; }
         public virtual DbSet<Debit_PeriodReportOprih> Debit_PeriodReportOprih { get; set; }
         public virtual DbSet<Debit_Platform> Debit_Platform { get; set; }
@@ -86,6 +88,9 @@ namespace Wiki
         public virtual DbSet<OTK_TypeReclamation> OTK_TypeReclamation { get; set; }
         public virtual DbSet<PF> PF { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
+        public virtual DbSet<PostMatching> PostMatching { get; set; }
+        public virtual DbSet<ProjectTask> ProjectTask { get; set; }
+        public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }
@@ -98,6 +103,7 @@ namespace Wiki
         public virtual DbSet<PZ_TypeShip> PZ_TypeShip { get; set; }
         public virtual DbSet<Reclamation> Reclamation { get; set; }
         public virtual DbSet<Reclamation_Answer> Reclamation_Answer { get; set; }
+        public virtual DbSet<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
         public virtual DbSet<Reclamation_CountError> Reclamation_CountError { get; set; }
         public virtual DbSet<Reclamation_PZ> Reclamation_PZ { get; set; }
         public virtual DbSet<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
@@ -139,11 +145,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
-        public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
-        public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
-        public virtual DbSet<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
-        public virtual DbSet<ProjectTask> ProjectTask { get; set; }
-        public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
     }
 }

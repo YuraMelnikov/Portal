@@ -20,6 +20,7 @@ namespace Wiki
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.CMO2_Order = new HashSet<CMO2_Order>();
+            this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
             this.OTK_ChaeckList = new HashSet<OTK_ChaeckList>();
             this.OTK_Reclamation = new HashSet<OTK_Reclamation>();
             this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
@@ -32,6 +33,7 @@ namespace Wiki
             this.Reclamation_Answer = new HashSet<Reclamation_Answer>();
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
+            this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
             this.Reclamation_TechnicalAdvice = new HashSet<Reclamation_TechnicalAdvice>();
             this.RKD_Despatching = new HashSet<RKD_Despatching>();
             this.RKD_GIP = new HashSet<RKD_GIP>();
@@ -41,8 +43,6 @@ namespace Wiki
             this.RKD_QuestionData1 = new HashSet<RKD_QuestionData>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
-            this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
         }
     
         public string Id { get; set; }
@@ -69,6 +69,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_ChaeckList> OTK_ChaeckList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OTK_Reclamation> OTK_Reclamation { get; set; }
@@ -93,6 +95,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation> Reclamation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Despatching> RKD_Despatching { get; set; }
@@ -110,9 +114,5 @@ namespace Wiki
         public virtual ICollection<TaskForPZ> TaskForPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation_CloseOrder> Reclamation_CloseOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
     }
 }

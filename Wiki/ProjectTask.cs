@@ -18,6 +18,7 @@ namespace Wiki
         public ProjectTask()
         {
             this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
+            this.ProjectTask1 = new HashSet<ProjectTask>();
             this.ProjectTaskLinks = new HashSet<ProjectTaskLinks>();
             this.ProjectTaskLinks1 = new HashSet<ProjectTaskLinks>();
         }
@@ -28,13 +29,16 @@ namespace Wiki
         public string sName { get; set; }
         public string description { get; set; }
         public bool taskIsSummary { get; set; }
-        public int parentProjectTask { get; set; }
+        public Nullable<int> parentProjectTask { get; set; }
         public bool isActiveBP { get; set; }
         public Nullable<int> id_Devision { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
         public virtual Devision Devision { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectTask> ProjectTask1 { get; set; }
+        public virtual ProjectTask ProjectTask2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTaskLinks> ProjectTaskLinks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

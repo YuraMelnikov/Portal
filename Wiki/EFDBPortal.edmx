@@ -476,6 +476,19 @@
           <Property Name="adres" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PortalKATEK_TEST.dbo.importDataStruct' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="importDataStruct">
+          <Property Name="id" Type="int" />
+          <Property Name="id_TASK_WBS" Type="varchar(max)" />
+          <Property Name="name" Type="varchar(max)" />
+          <Property Name="sName" Type="varchar(max)" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="taskIsSummary" Type="int" />
+          <Property Name="parentProjectTask" Type="int" />
+          <Property Name="isActiveBP" Type="int" />
+          <Property Name="id_Devision" Type="int" />
+        </EntityType>-->
         <EntityType Name="OTK_ChaeckList">
           <Key>
             <PropertyRef Name="id" />
@@ -633,7 +646,7 @@
           <Property Name="sName" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="taskIsSummary" Type="bit" Nullable="false" />
-          <Property Name="parentProjectTask" Type="int" Nullable="false" />
+          <Property Name="parentProjectTask" Type="int" />
           <Property Name="isActiveBP" Type="bit" Nullable="false" />
           <Property Name="id_Devision" Type="int" />
         </EntityType>
@@ -1327,7 +1340,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1354,7 +1367,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1364,7 +1377,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1374,7 +1387,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1385,7 +1398,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -2198,6 +2211,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="ProjectTask">
               <PropertyRef Name="id_Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_ProjectTask">
+          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="0..1" />
+          <End Role="ProjectTask1" Type="Self.ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTask1">
+              <PropertyRef Name="parentProjectTask" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3575,6 +3600,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="Devision" EntitySet="Devision" />
             <End Role="ProjectTask" EntitySet="ProjectTask" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_ProjectTask" Association="Self.FK_ProjectTask_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTask1" EntitySet="ProjectTask" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="Self.FK_ProjectTaskLinks_ProjectTask">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
@@ -4083,12 +4112,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="VV_infPost" EntityType="PortalKATEKModel.VV_infPost" />
           <EntitySet Name="OTKMultiSelectList" EntityType="PortalKATEKModel.OTKMultiSelectList" />
           <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
-          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
-          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
-          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
-            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
-            <End Role="PostMatching" EntitySet="PostMatching" />
-          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
@@ -4108,10 +4131,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMO_UploadResult" EntityType="PortalKATEKModel.CMO_UploadResult" />
           <EntitySet Name="CMO2_Order" EntityType="PortalKATEKModel.CMO2_Order" />
           <EntitySet Name="CMO2_Position" EntityType="PortalKATEKModel.CMO2_Position" />
+          <EntitySet Name="DashboardBP_ProjectList" EntityType="PortalKATEKModel.DashboardBP_ProjectList" />
+          <EntitySet Name="DashboardBP_State" EntityType="PortalKATEKModel.DashboardBP_State" />
+          <EntitySet Name="DashboardBP_TasksList" EntityType="PortalKATEKModel.DashboardBP_TasksList" />
           <EntitySet Name="Debit_CMR" EntityType="PortalKATEKModel.Debit_CMR" />
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
           <EntitySet Name="Debit_IstPost" EntityType="PortalKATEKModel.Debit_IstPost" />
+          <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
           <EntitySet Name="Debit_Name" EntityType="PortalKATEKModel.Debit_Name" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="PortalKATEKModel.Debit_PeriodReportOprih" />
           <EntitySet Name="Debit_Platform" EntityType="PortalKATEKModel.Debit_Platform" />
@@ -4129,6 +4156,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="OTK_TypeReclamation" EntityType="PortalKATEKModel.OTK_TypeReclamation" />
           <EntitySet Name="PF" EntityType="PortalKATEKModel.PF" />
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
+          <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
+          <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
+          <EntitySet Name="ProjectTaskLinks" EntityType="PortalKATEKModel.ProjectTaskLinks" />
           <EntitySet Name="PZ_Client" EntityType="PortalKATEKModel.PZ_Client" />
           <EntitySet Name="PZ_Currency" EntityType="PortalKATEKModel.PZ_Currency" />
           <EntitySet Name="PZ_Dostavka" EntityType="PortalKATEKModel.PZ_Dostavka" />
@@ -4141,6 +4171,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PZ_TypeShip" EntityType="PortalKATEKModel.PZ_TypeShip" />
           <EntitySet Name="Reclamation" EntityType="PortalKATEKModel.Reclamation" />
           <EntitySet Name="Reclamation_Answer" EntityType="PortalKATEKModel.Reclamation_Answer" />
+          <EntitySet Name="Reclamation_CloseOrder" EntityType="PortalKATEKModel.Reclamation_CloseOrder" />
           <EntitySet Name="Reclamation_CountError" EntityType="PortalKATEKModel.Reclamation_CountError" />
           <EntitySet Name="Reclamation_PZ" EntityType="PortalKATEKModel.Reclamation_PZ" />
           <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="PortalKATEKModel.Reclamation_TechnicalAdvice" />
@@ -4198,6 +4229,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CMO2_Order" EntitySet="CMO2_Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_TasksList_AspNetUsers" Association="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
+          </AssociationSet>
           <AssociationSet Name="FK_OTK_ChaeckList_AspNetUsers" Association="PortalKATEKModel.FK_OTK_ChaeckList_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
@@ -4245,6 +4280,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_Reclamation_AspNetUsers1" Association="PortalKATEKModel.FK_Reclamation_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_CloseOrder_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_TechnicalAdvice_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4358,6 +4397,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMO2_Position" EntitySet="CMO2_Position" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_ProjectList_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_ProjectList_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList" Association="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList">
+            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
+            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_TasksList_ProjectTask" Association="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
+          </AssociationSet>
           <AssociationSet Name="FK_Debit_CMR_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_CMR_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_CMR" EntitySet="Debit_CMR" />
@@ -4385,6 +4440,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_Debit_IstPost_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_IstPost" EntitySet="Debit_IstPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
+            <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
+            <End Role="PostMatching" EntitySet="PostMatching" />
           </AssociationSet>
           <AssociationSet Name="FK_Debit_Name_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_Name_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
@@ -4425,6 +4484,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_OTK_ReclamationAnswer_Devision" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_Devision" Association="PortalKATEKModel.FK_ProjectTask_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Devision" Association="PortalKATEKModel.FK_Reclamation_Devision">
             <End Role="Devision" EntitySet="Devision" />
@@ -4478,6 +4541,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PF" EntitySet="PF" />
             <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_ProjectTask" Association="PortalKATEKModel.FK_ProjectTask_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTask1" EntitySet="ProjectTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
+          </AssociationSet>
           <AssociationSet Name="FK_PZ_Client_PZ_Client" Association="PortalKATEKModel.FK_PZ_Client_PZ_Client">
             <End Role="PZ_Client" EntitySet="PZ_Client" />
             <End Role="PZ_Client1" EntitySet="PZ_Client" />
@@ -4525,6 +4600,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_PZ_TEO_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_TEO" EntitySet="PZ_TEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_PZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4706,52 +4785,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Reclamation_CloseOrder" EntityType="PortalKATEKModel.Reclamation_CloseOrder" />
-          <AssociationSet Name="FK_Reclamation_CloseOrder_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="Reclamation_CloseOrder" EntitySet="Reclamation_CloseOrder" />
-          </AssociationSet>
-          <EntitySet Name="DashboardBP_ProjectList" EntityType="PortalKATEKModel.DashboardBP_ProjectList" />
-          <EntitySet Name="DashboardBP_State" EntityType="PortalKATEKModel.DashboardBP_State" />
-          <EntitySet Name="DashboardBP_TasksList" EntityType="PortalKATEKModel.DashboardBP_TasksList" />
-          <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
-          <EntitySet Name="ProjectTaskLinks" EntityType="PortalKATEKModel.ProjectTaskLinks" />
-          <AssociationSet Name="FK_DashboardBP_TasksList_AspNetUsers" Association="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_ProjectList_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State">
-            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
-            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_ProjectList_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList" Association="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList">
-            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_TasksList_ProjectTask" Association="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask">
-            <End Role="ProjectTask" EntitySet="ProjectTask" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectTask_Devision" Association="PortalKATEKModel.FK_ProjectTask_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="ProjectTask" EntitySet="ProjectTask" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask">
-            <End Role="ProjectTask" EntitySet="ProjectTask" />
-            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1">
-            <End Role="ProjectTask" EntitySet="ProjectTask" />
-            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4830,35 +4863,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="ProjectUID" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Debit_MatchingType">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
-        </EntityType>
-        <EntityType Name="PostMatching">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
-          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
-        </EntityType>
-        <Association Name="FK_PostMatching_Debit_MatchingType">
-          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
-          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_MatchingType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PostMatching">
-              <PropertyRef Name="id_MatchingType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -4912,6 +4916,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetUserLogins" Relationship="PortalKATEKModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="AspNetUsers" ToRole="Devision" />
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" FromRole="AspNetUsers" ToRole="CMO2_Order" />
+          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBP_TasksList" />
           <NavigationProperty Name="OTK_ChaeckList" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_ChaeckList" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_Reclamation" />
           <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_ReclamationAnswer" />
@@ -4924,6 +4929,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_CloseOrder" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="RKD_Despatching" Relationship="PortalKATEKModel.FK_RKD_Despatching_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Despatching" />
           <NavigationProperty Name="RKD_GIP" Relationship="PortalKATEKModel.FK_RKD_GIP_AspNetUsersKBE" FromRole="AspNetUsers" ToRole="RKD_GIP" />
@@ -4933,8 +4939,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_CloseOrder" />
-          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBP_TasksList" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -5140,6 +5144,56 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" FromRole="CMO2_Position" ToRole="CMO2_Order" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="CMO2_Position" ToRole="PZ_PlanZakaz" />
         </EntityType>
+        <EntityType Name="DashboardBP_ProjectList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="contractDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="planDateComplited" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_State" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="DashboardBP_ProjectList" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_TasksList" />
+        </EntityType>
+        <EntityType Name="DashboardBP_State">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="numberWeek" Type="Int16" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_ProjectList" />
+        </EntityType>
+        <EntityType Name="DashboardBP_TasksList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ProjectTask" Type="Int32" Nullable="false" />
+          <Property Name="id_DashboardBP_ProjectList" Type="Int32" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="finishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="bStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="bFinishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="duration" Type="Double" Nullable="false" />
+          <Property Name="bDuration" Type="Double" Nullable="false" />
+          <Property Name="work" Type="Double" Nullable="false" />
+          <Property Name="bWork" Type="Double" Nullable="false" />
+          <Property Name="actualWork" Type="Double" Nullable="false" />
+          <Property Name="remainingWork" Type="Double" Nullable="false" />
+          <Property Name="percentCompleted" Type="Double" Nullable="false" />
+          <Property Name="percentWorkCompleted" Type="Double" Nullable="false" />
+          <Property Name="isCritical" Type="Boolean" Nullable="false" />
+          <Property Name="priority" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="DashboardBP_TasksList" ToRole="AspNetUsers" />
+          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_TasksList" ToRole="DashboardBP_ProjectList" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="DashboardBP_TasksList" ToRole="ProjectTask" />
+        </EntityType>
         <EntityType Name="Debit_CMR">
           <Key>
             <PropertyRef Name="id" />
@@ -5196,6 +5250,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="ndsSum" Type="Double" Nullable="false" />
           <Property Name="currency" Type="Int32" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit" FromRole="Debit_IstPost" ToRole="Debit_WorkBit" />
+        </EntityType>
+        <EntityType Name="Debit_MatchingType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PostMatching" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="Debit_MatchingType" ToRole="PostMatching" />
         </EntityType>
         <EntityType Name="Debit_Name">
           <Key>
@@ -5306,11 +5368,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
           <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_Devision" FromRole="Devision" ToRole="OTK_Reclamation" />
           <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="Devision" ToRole="OTK_ReclamationAnswer" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
           <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Devision" ToRole="Service_ReclamationAnswerDevision" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
         </EntityType>
         <EntityType Name="OTK_ChaeckList">
           <Key>
@@ -5441,6 +5503,45 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="datePrihod" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_PostAlertShip_debit_WorkBit" FromRole="PostAlertShip" ToRole="Debit_WorkBit" />
         </EntityType>
+        <EntityType Name="PostMatching">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_MatchingType" Type="Int32" Nullable="false" />
+          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debit_MatchingType" Relationship="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" FromRole="PostMatching" ToRole="Debit_MatchingType" />
+        </EntityType>
+        <EntityType Name="ProjectTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_TASK_WBS" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="taskIsSummary" Type="Boolean" Nullable="false" />
+          <Property Name="parentProjectTask" Type="Int32" />
+          <Property Name="isActiveBP" Type="Boolean" Nullable="false" />
+          <Property Name="id_Devision" Type="Int32" />
+          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="ProjectTask" ToRole="DashboardBP_TasksList" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="ProjectTask" ToRole="Devision" />
+          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTask1" />
+          <NavigationProperty Name="ProjectTask2" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask1" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+        </EntityType>
+        <EntityType Name="ProjectTaskLinks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ProjectTaskPredecessor" Type="Int32" Nullable="false" />
+          <Property Name="id_ProjectTaskSuccessor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+        </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
             <PropertyRef Name="id" />
@@ -5549,6 +5650,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionPreOrder" />
           <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO2_Position" />
+          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_ProjectList" />
           <NavigationProperty Name="Debit_CostUpdate" Relationship="PortalKATEKModel.FK_Debit_CostUpdate_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_CostUpdate" />
           <NavigationProperty Name="Debit_Name" Relationship="PortalKATEKModel.FK_Debit_Name_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Name" />
           <NavigationProperty Name="Debit_Platform" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Platform" />
@@ -5564,12 +5666,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="PZ_TypeShip" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" FromRole="PZ_PlanZakaz" ToRole="PZ_TypeShip" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_Setup" />
           <NavigationProperty Name="PZ_TEO" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_TEO" />
+          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_CloseOrder" />
           <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
-          <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_CloseOrder" />
-          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_ProjectList" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -5682,6 +5783,19 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="trash" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="Reclamation_Answer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Answer_Reclamation" FromRole="Reclamation_Answer" ToRole="Reclamation" />
+        </EntityType>
+        <EntityType Name="Reclamation_CloseOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userClose" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="close" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="Reclamation_CloseOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="Reclamation_CloseOrder" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="Reclamation_CountError">
           <Key>
@@ -6229,6 +6343,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBP_TasksList_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBP_TasksList">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OTK_ChaeckList_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="PortalKATEKModel.OTK_ChaeckList" Role="OTK_ChaeckList" Multiplicity="*" />
@@ -6370,6 +6496,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="Reclamation">
               <PropertyRef Name="id_AspNetUsersError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_CloseOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="userClose" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6709,6 +6847,54 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBP_ProjectList_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_ProjectList">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_ProjectList_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBP_ProjectList">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList">
+          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_ProjectList">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_TasksList">
+              <PropertyRef Name="id_DashboardBP_ProjectList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_TasksList_ProjectTask">
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_TasksList">
+              <PropertyRef Name="id_ProjectTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Debit_CMR_debit_WorkBit">
           <End Type="PortalKATEKModel.Debit_WorkBit" Role="Debit_WorkBit" Multiplicity="1" />
           <End Type="PortalKATEKModel.Debit_CMR" Role="Debit_CMR" Multiplicity="*" />
@@ -6790,6 +6976,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="Debit_IstPost">
               <PropertyRef Name="id_DebitTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostMatching_Debit_MatchingType">
+          <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debit_MatchingType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PostMatching">
+              <PropertyRef Name="id_MatchingType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6910,6 +7108,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="OTK_ReclamationAnswer">
               <PropertyRef Name="Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_Devision">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTask">
+              <PropertyRef Name="id_Devision" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7069,6 +7279,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProjectTask_ProjectTask">
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTask1">
+              <PropertyRef Name="parentProjectTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTaskLinks_ProjectTask">
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTaskLinks">
+              <PropertyRef Name="id_ProjectTaskPredecessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
+          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTaskLinks">
+              <PropertyRef Name="id_ProjectTaskSuccessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PZ_Client_PZ_Client">
           <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client" Multiplicity="1" />
           <End Type="PortalKATEKModel.PZ_Client" Role="PZ_Client1" Multiplicity="*" />
@@ -7210,6 +7456,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="PZ_TEO">
               <PropertyRef Name="Id_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_CloseOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7745,217 +8003,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="Reclamation_CloseOrder">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userClose" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateTimeClose" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_AspNetUsers" FromRole="Reclamation_CloseOrder" ToRole="AspNetUsers" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="Reclamation_CloseOrder" ToRole="PZ_PlanZakaz" />
-          <Property Name="close" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Reclamation_CloseOrder_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_CloseOrder">
-              <PropertyRef Name="userClose" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reclamation_CloseOrder_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Reclamation_CloseOrder" Role="Reclamation_CloseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reclamation_CloseOrder">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DashboardBP_ProjectList">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="contractDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="planDateComplited" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_State" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="DashboardBP_ProjectList" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_TasksList" />
-        </EntityType>
-        <EntityType Name="DashboardBP_State">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="numberWeek" Type="Int16" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_ProjectList" />
-        </EntityType>
-        <EntityType Name="DashboardBP_TasksList">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ProjectTask" Type="Int32" Nullable="false" />
-          <Property Name="id_DashboardBP_ProjectList" Type="Int32" Nullable="false" />
-          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="finishDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="bStartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="bFinishDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="duration" Type="Double" Nullable="false" />
-          <Property Name="bDuration" Type="Double" Nullable="false" />
-          <Property Name="work" Type="Double" Nullable="false" />
-          <Property Name="bWork" Type="Double" Nullable="false" />
-          <Property Name="actualWork" Type="Double" Nullable="false" />
-          <Property Name="remainingWork" Type="Double" Nullable="false" />
-          <Property Name="percentCompleted" Type="Double" Nullable="false" />
-          <Property Name="percentWorkCompleted" Type="Double" Nullable="false" />
-          <Property Name="isCritical" Type="Boolean" Nullable="false" />
-          <Property Name="priority" Type="Int32" Nullable="false" />
-          <Property Name="id_AspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="DashboardBP_TasksList" ToRole="AspNetUsers" />
-          <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_TasksList" ToRole="DashboardBP_ProjectList" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="DashboardBP_TasksList" ToRole="ProjectTask" />
-        </EntityType>
-        <EntityType Name="ProjectTask">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_TASK_WBS" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="sName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="taskIsSummary" Type="Boolean" Nullable="false" />
-          <Property Name="parentProjectTask" Type="Int32" Nullable="false" />
-          <Property Name="isActiveBP" Type="Boolean" Nullable="false" />
-          <Property Name="id_Devision" Type="Int32" />
-          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="ProjectTask" ToRole="DashboardBP_TasksList" />
-          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="ProjectTask" ToRole="Devision" />
-          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
-          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
-        </EntityType>
-        <EntityType Name="ProjectTaskLinks">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ProjectTaskPredecessor" Type="Int32" Nullable="false" />
-          <Property Name="id_ProjectTaskSuccessor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
-          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
-        </EntityType>
-        <Association Name="FK_DashboardBP_TasksList_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_ProjectList_DashboardBP_State">
-          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_State">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_ProjectList">
-              <PropertyRef Name="id_DashboardBP_State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_ProjectList_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBP_ProjectList">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList">
-          <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_ProjectList">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_DashboardBP_ProjectList" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_TasksList_ProjectTask">
-          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectTask">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_ProjectTask" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectTask_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ProjectTask">
-              <PropertyRef Name="id_Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask">
-          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectTask">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ProjectTaskLinks">
-              <PropertyRef Name="id_ProjectTaskPredecessor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
-          <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectTask">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ProjectTaskLinks">
-              <PropertyRef Name="id_ProjectTaskSuccessor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8218,23 +8265,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Debit_MatchingType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
-              <MappingFragment StoreEntitySet="Debit_MatchingType">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PostMatching">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
-              <MappingFragment StoreEntitySet="PostMatching">
-                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
-                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="PortalKATEKModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -8465,6 +8495,52 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_ProjectList">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_ProjectList">
+              <MappingFragment StoreEntitySet="DashboardBP_ProjectList">
+                <ScalarProperty Name="planDateComplited" ColumnName="planDateComplited" />
+                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_State">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_State">
+              <MappingFragment StoreEntitySet="DashboardBP_State">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="numberWeek" ColumnName="numberWeek" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_TasksList">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_TasksList">
+              <MappingFragment StoreEntitySet="DashboardBP_TasksList">
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="isCritical" ColumnName="isCritical" />
+                <ScalarProperty Name="percentWorkCompleted" ColumnName="percentWorkCompleted" />
+                <ScalarProperty Name="percentCompleted" ColumnName="percentCompleted" />
+                <ScalarProperty Name="remainingWork" ColumnName="remainingWork" />
+                <ScalarProperty Name="actualWork" ColumnName="actualWork" />
+                <ScalarProperty Name="bWork" ColumnName="bWork" />
+                <ScalarProperty Name="work" ColumnName="work" />
+                <ScalarProperty Name="bDuration" ColumnName="bDuration" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="bFinishDate" ColumnName="bFinishDate" />
+                <ScalarProperty Name="bStartDate" ColumnName="bStartDate" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="finishDate" ColumnName="finishDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="id_DashboardBP_ProjectList" ColumnName="id_DashboardBP_ProjectList" />
+                <ScalarProperty Name="id_ProjectTask" ColumnName="id_ProjectTask" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Debit_CMR">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_CMR">
               <MappingFragment StoreEntitySet="Debit_CMR">
@@ -8515,6 +8591,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="numberOrder" ColumnName="numberOrder" />
                 <ScalarProperty Name="transportSum" ColumnName="transportSum" />
                 <ScalarProperty Name="id_DebitTask" ColumnName="id_DebitTask" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debit_MatchingType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_MatchingType">
+              <MappingFragment StoreEntitySet="Debit_MatchingType">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -8731,6 +8815,39 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PostMatching">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PostMatching">
+              <MappingFragment StoreEntitySet="PostMatching">
+                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
+                <ScalarProperty Name="id_MatchingType" ColumnName="id_MatchingType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTask">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTask">
+              <MappingFragment StoreEntitySet="ProjectTask">
+                <ScalarProperty Name="id_Devision" ColumnName="id_Devision" />
+                <ScalarProperty Name="isActiveBP" ColumnName="isActiveBP" />
+                <ScalarProperty Name="parentProjectTask" ColumnName="parentProjectTask" />
+                <ScalarProperty Name="taskIsSummary" ColumnName="taskIsSummary" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_TASK_WBS" ColumnName="id_TASK_WBS" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTaskLinks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTaskLinks">
+              <MappingFragment StoreEntitySet="ProjectTaskLinks">
+                <ScalarProperty Name="id_ProjectTaskSuccessor" ColumnName="id_ProjectTaskSuccessor" />
+                <ScalarProperty Name="id_ProjectTaskPredecessor" ColumnName="id_ProjectTaskPredecessor" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PZ_Client">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_Client">
               <MappingFragment StoreEntitySet="PZ_Client">
@@ -8926,6 +9043,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="answer" ColumnName="answer" />
                 <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
                 <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_CloseOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CloseOrder">
+              <MappingFragment StoreEntitySet="Reclamation_CloseOrder">
+                <ScalarProperty Name="close" ColumnName="close" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
+                <ScalarProperty Name="userClose" ColumnName="userClose" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9385,88 +9514,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Reclamation_CloseOrder">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_CloseOrder">
-              <MappingFragment StoreEntitySet="Reclamation_CloseOrder">
-                <ScalarProperty Name="close" ColumnName="close" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="dateTimeClose" ColumnName="dateTimeClose" />
-                <ScalarProperty Name="userClose" ColumnName="userClose" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardBP_ProjectList">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_ProjectList">
-              <MappingFragment StoreEntitySet="DashboardBP_ProjectList">
-                <ScalarProperty Name="planDateComplited" ColumnName="planDateComplited" />
-                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardBP_State">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_State">
-              <MappingFragment StoreEntitySet="DashboardBP_State">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="numberWeek" ColumnName="numberWeek" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardBP_TasksList">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_TasksList">
-              <MappingFragment StoreEntitySet="DashboardBP_TasksList">
-                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
-                <ScalarProperty Name="priority" ColumnName="priority" />
-                <ScalarProperty Name="isCritical" ColumnName="isCritical" />
-                <ScalarProperty Name="percentWorkCompleted" ColumnName="percentWorkCompleted" />
-                <ScalarProperty Name="percentCompleted" ColumnName="percentCompleted" />
-                <ScalarProperty Name="remainingWork" ColumnName="remainingWork" />
-                <ScalarProperty Name="actualWork" ColumnName="actualWork" />
-                <ScalarProperty Name="bWork" ColumnName="bWork" />
-                <ScalarProperty Name="work" ColumnName="work" />
-                <ScalarProperty Name="bDuration" ColumnName="bDuration" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
-                <ScalarProperty Name="bFinishDate" ColumnName="bFinishDate" />
-                <ScalarProperty Name="bStartDate" ColumnName="bStartDate" />
-                <ScalarProperty Name="deadline" ColumnName="deadline" />
-                <ScalarProperty Name="finishDate" ColumnName="finishDate" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="id_DashboardBP_ProjectList" ColumnName="id_DashboardBP_ProjectList" />
-                <ScalarProperty Name="id_ProjectTask" ColumnName="id_ProjectTask" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectTask">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTask">
-              <MappingFragment StoreEntitySet="ProjectTask">
-                <ScalarProperty Name="id_Devision" ColumnName="id_Devision" />
-                <ScalarProperty Name="isActiveBP" ColumnName="isActiveBP" />
-                <ScalarProperty Name="parentProjectTask" ColumnName="parentProjectTask" />
-                <ScalarProperty Name="taskIsSummary" ColumnName="taskIsSummary" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sName" ColumnName="sName" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id_TASK_WBS" ColumnName="id_TASK_WBS" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectTaskLinks">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTaskLinks">
-              <MappingFragment StoreEntitySet="ProjectTaskLinks">
-                <ScalarProperty Name="id_ProjectTaskSuccessor" ColumnName="id_ProjectTaskSuccessor" />
-                <ScalarProperty Name="id_ProjectTaskPredecessor" ColumnName="id_ProjectTaskPredecessor" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
