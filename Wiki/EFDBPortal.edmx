@@ -1384,6 +1384,73 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6013: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="PWA_TasksForBP">
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProjectPercentCompleted" Type="smallint" />
+          <Property Name="TaskParentUID" Type="uniqueidentifier" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" />
+          <Property Name="TaskUID" Type="uniqueidentifier" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TaskIsProjectSummary" Type="bit" />
+          <Property Name="TaskIsCritical" Type="bit" />
+          <Property Name="TaskIsSummary" Type="bit" />
+          <Property Name="TaskWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDurationVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDuration" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualDuration" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+          <Property Name="TaskActualStartDate" Type="datetime" />
+          <Property Name="TaskActualFinishDate" Type="datetime" />
+          <Property Name="TaskPercentCompleted" Type="smallint" />
+          <Property Name="TaskPercentWorkCompleted" Type="smallint" />
+          <Property Name="TaskPhysicalPercentCompleted" Type="smallint" />
+          <Property Name="TaskPriority" Type="smallint" />
+          <Property Name="TaskDeadline" Type="datetime" />
+          <Property Name="TaskIsExternal" Type="bit" />
+          <Property Name="TaskEarlyFinish" Type="datetime" />
+          <Property Name="TaskEarlyStart" Type="datetime" />
+          <Property Name="TaskLateFinish" Type="datetime" />
+          <Property Name="TaskLateStart" Type="datetime" />
+          <Property Name="TaskWorkVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskIsActive" Type="bit" />
+          <Property Name="TaskWBS" Type="ntext" />
+          <Property Name="TaskRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskActualRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingRegularWork" Type="decimal" Precision="27" Scale="6" />
+          <Property Name="TaskRemainingDuration" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskBaseline0Work" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskBaseline0StartDate" Type="datetime" />
+          <Property Name="TaskBaseline0FinishDate" Type="datetime" />
+          <Property Name="TaskBaseline0Duration" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentActualWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPercentWorkCompleted" Type="smallint" />
+          <Property Name="AssignmentStartDate" Type="datetime" />
+          <Property Name="AssignmentFinishDate" Type="datetime" />
+          <Property Name="AssignmentActualStartDate" Type="datetime" />
+          <Property Name="AssignmentActualFinishDate" Type="datetime" />
+          <Property Name="AssignmentDelay" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentStartVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentFinishVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWorkVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPeakUnits" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentActualRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingRegularWork" Type="decimal" Precision="27" Scale="6" />
+          <Property Name="AssignmentBaseline0Work" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentBaseline0StartDate" Type="datetime" />
+          <Property Name="AssignmentBaseline0FinishDate" Type="datetime" />
+          <Property Name="СДРес_Р" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ResourceUID" Type="uniqueidentifier" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
