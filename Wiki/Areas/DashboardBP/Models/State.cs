@@ -15,9 +15,16 @@ namespace Wiki.Areas.DashboardBP.Models
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                DashboardBP_State state = db.DashboardBP_State.First(d => d.active == true);
-                db.Entry(state).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    DashboardBP_State state = db.DashboardBP_State.First(d => d.active == true);
+                    db.Entry(state).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch
+                {
+
+                }
             }
             return true;
         }

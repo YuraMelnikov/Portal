@@ -46,6 +46,7 @@ namespace Wiki
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
         public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<PostMatching> PostMatching { get; set; }
+        public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -146,6 +147,5 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
     }
 }

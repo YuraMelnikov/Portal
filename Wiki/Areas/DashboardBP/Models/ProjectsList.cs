@@ -22,7 +22,7 @@ namespace Wiki.Areas.DashboardBP.Models
                     };
                     db.DashboardBP_ProjectList.Add(project);
                     db.SaveChanges();
-                    new TasksList().CreateTask(project.PZ_PlanZakaz.ProjectUID.Value, project.id);
+                    new TasksList().CreateTask(data.ProjectUID.Value, project.id);
                 }
             }
             return true;

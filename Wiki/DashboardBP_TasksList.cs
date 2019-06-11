@@ -19,7 +19,7 @@ namespace Wiki
         public int id_DashboardBP_ProjectList { get; set; }
         public System.DateTime startDate { get; set; }
         public System.DateTime finishDate { get; set; }
-        public System.DateTime deadline { get; set; }
+        public Nullable<System.DateTime> deadline { get; set; }
         public System.DateTime bStartDate { get; set; }
         public System.DateTime bFinishDate { get; set; }
         public double duration { get; set; }

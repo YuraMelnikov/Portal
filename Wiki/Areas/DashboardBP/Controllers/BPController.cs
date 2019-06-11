@@ -7,19 +7,14 @@ namespace Wiki.Areas.DashboardBP.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 
-        public ActionResult Admin()
-        {
-            return View();
-        }
-
-        public ActionResult CreateBasicPlan()
+        bool CreateNewBP()
         {
             NewBP bp = new NewBP();
-            
-            return View();
+            return true;
         }
 
         public string RenderUserMenu()

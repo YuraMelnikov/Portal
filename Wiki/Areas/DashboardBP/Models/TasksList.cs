@@ -10,42 +10,62 @@ namespace Wiki.Areas.DashboardBP.Models
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                var tasksPWAList = db.PWA_TasksForBP.AsNoTracking().Where(d => d.ProjectUID == projectUID).ToList();
-                var tasksBPList = db.ProjectTask.Where(d => d.isActiveBP).ToList();
-                foreach (var dataBP in tasksBPList)
+                db.Configuration.AutoDetectChangesEnabled = false;
+                var tasksBPList = db.ProjectTask.AsNoTracking().Where(d => d.isActiveBP).ToList();
+                foreach (ProjectTask dataBP in tasksBPList)
                 {
-                    if(db.PWA_TasksForBP.Where(d => d.TaskWBS == dataBP.id_TASK_WBS).Count() > 0)
+                    if (db.PWA_TasksForBP.AsNoTracking().Where(d => d.TaskWBS == dataBP.id_TASK_WBS && d.ProjectUID == projectUID).Count() > 0)
                     {
-                        PWA_TasksForBP taskPWA = db.PWA_TasksForBP.First(d => d.TaskWBS == dataBP.id_TASK_WBS);
+                        PWA_TasksForBP taskPWA = db.PWA_TasksForBP.AsNoTracking().First(d => d.TaskWBS == dataBP.id_TASK_WBS && d.ProjectUID == projectUID);
                         DashboardBP_TasksList task = new DashboardBP_TasksList
                         {
                             id_ProjectTask = dataBP.id,
                             id_DashboardBP_ProjectList = id_DashboardBP_ProjectList,
                             startDate = taskPWA.TaskStartDate.Value,
                             finishDate = taskPWA.TaskFinishDate.Value,
-                            deadline = taskPWA.TaskDeadline.Value,
-                            bStartDate = taskPWA.TaskBaseline0StartDate.Value,
-                            bFinishDate = taskPWA.TaskBaseline0FinishDate.Value,
                             duration = (double)taskPWA.TaskDuration,
-                            bDuration = (double)taskPWA.TaskBaseline0Duration,
                             work = (double)taskPWA.TaskWork,
-                            bWork = (double)taskPWA.TaskBaseline0Work,
                             actualWork = (double)taskPWA.TaskActualWork,
                             remainingWork = (double)taskPWA.TaskRemainingWork,
                             percentCompleted = (double)taskPWA.TaskPercentCompleted,
                             percentWorkCompleted = (double)taskPWA.TaskPercentWorkCompleted,
                             isCritical = taskPWA.TaskIsCritical.Value,
-                            priority = (int)taskPWA.TaskPriority,
-                            id_AspNetUsers = taskPWA.ResourceUID.ToString()
+                            priority = (int)taskPWA.TaskPriority
                         };
-                        db.DashboardBP_TasksList.Add(task);
-                        db.SaveChanges();
-                    }
+                        try
+                        {
+                            task.bStartDate = taskPWA.TaskBaseline0StartDate.Value;
+                            task.bFinishDate = taskPWA.TaskBaseline0FinishDate.Value;
+                            task.bWork = (double)taskPWA.TaskBaseline0Work;
+                            task.bDuration = (double)taskPWA.TaskBaseline0Duration;
+                        }
+                        catch
+                        {
 
+                        }
+                        try
+                        {
+                            task.id_AspNetUsers = db.AspNetUsers.First(d => d.ResourceUID == taskPWA.ResourceUID).Id;
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            task.deadline = taskPWA.TaskDeadline.Value;
+                        }
+                        catch
+                        {
+                            task.deadline = null;
+                        }
+                        db.DashboardBP_TasksList.Add(task);
+                    }
                 }
+                db.SaveChanges();
+                db.ChangeTracker.DetectChanges();
             }
             return true; 
         } 
-
     }
 }
