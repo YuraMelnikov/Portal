@@ -476,19 +476,6 @@
           <Property Name="adres" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PortalKATEK_TEST.dbo.importDataStruct' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="importDataStruct">
-          <Property Name="id" Type="int" />
-          <Property Name="id_TASK_WBS" Type="varchar(max)" />
-          <Property Name="name" Type="varchar(max)" />
-          <Property Name="sName" Type="varchar(max)" />
-          <Property Name="description" Type="varchar(max)" />
-          <Property Name="taskIsSummary" Type="int" />
-          <Property Name="parentProjectTask" Type="int" />
-          <Property Name="isActiveBP" Type="int" />
-          <Property Name="id_Devision" Type="int" />
-        </EntityType>-->
         <EntityType Name="OTK_ChaeckList">
           <Key>
             <PropertyRef Name="id" />
@@ -657,6 +644,16 @@ warning 6013: The table/view 'PortalKATEK_TEST.dbo.importDataStruct' does not ha
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_ProjectTaskPredecessor" Type="int" Nullable="false" />
           <Property Name="id_ProjectTaskSuccessor" Type="int" Nullable="false" />
+          <Property Name="id_ProjectTypesLine" Type="int" Nullable="false" />
+          <Property Name="lag" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectTypesLine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="sName" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -1340,7 +1337,7 @@ warning 6013: The table/view 'PortalKATEK_TEST.dbo.importDataStruct' does not ha
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1367,7 +1364,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1377,7 +1374,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1387,7 +1384,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1398,7 +1395,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -2226,7 +2223,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTaskPredecessor">
+        <Association Name="FK_ProjectTaskLinks_ProjectTask">
           <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
           <End Role="ProjectTaskLinks" Type="Self.ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2238,7 +2235,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTaskSuccessor">
+        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
           <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
           <End Role="ProjectTaskLinks" Type="Self.ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2247,6 +2244,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="ProjectTaskLinks">
               <PropertyRef Name="id_ProjectTaskSuccessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTaskLinks_ProjectTypesLine">
+          <End Role="ProjectTypesLine" Type="Self.ProjectTypesLine" Multiplicity="1" />
+          <End Role="ProjectTaskLinks" Type="Self.ProjectTaskLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTypesLine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTaskLinks">
+              <PropertyRef Name="id_ProjectTypesLine" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3219,6 +3228,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="ProjectServer_UpdateTasks" EntityType="Self.ProjectServer_UpdateTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTaskLinks" EntityType="Self.ProjectTaskLinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTypesLine" EntityType="Self.ProjectTypesLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Client" EntityType="Self.PZ_Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Currency" EntityType="Self.PZ_Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Dostavka" EntityType="Self.PZ_Dostavka" Schema="dbo" store:Type="Tables" />
@@ -3604,12 +3614,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTask1" EntitySet="ProjectTask" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskPredecessor" Association="Self.FK_ProjectTaskLinks_ProjectTaskPredecessor">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="Self.FK_ProjectTaskLinks_ProjectTask">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskSuccessor" Association="Self.FK_ProjectTaskLinks_ProjectTaskSuccessor">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="Self.FK_ProjectTaskLinks_ProjectTask1">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTypesLine" Association="Self.FK_ProjectTaskLinks_ProjectTypesLine">
+            <End Role="ProjectTypesLine" EntitySet="ProjectTypesLine" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_Client_PZ_Client" Association="Self.FK_PZ_Client_PZ_Client">
@@ -4163,6 +4177,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
           <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
           <EntitySet Name="ProjectTaskLinks" EntityType="PortalKATEKModel.ProjectTaskLinks" />
+          <EntitySet Name="ProjectTypesLine" EntityType="PortalKATEKModel.ProjectTypesLine" />
           <EntitySet Name="PZ_Client" EntityType="PortalKATEKModel.PZ_Client" />
           <EntitySet Name="PZ_Currency" EntityType="PortalKATEKModel.PZ_Currency" />
           <EntitySet Name="PZ_Dostavka" EntityType="PortalKATEKModel.PZ_Dostavka" />
@@ -4545,12 +4560,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTask1" EntitySet="ProjectTask" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskPredecessor" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTaskSuccessor" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor">
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTask1" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTaskLinks_ProjectTypesLine" Association="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTypesLine">
+            <End Role="ProjectTypesLine" EntitySet="ProjectTypesLine" />
             <End Role="ProjectTaskLinks" EntitySet="ProjectTaskLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_Client_PZ_Client" Association="PortalKATEKModel.FK_PZ_Client_PZ_Client">
@@ -5541,8 +5560,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="ProjectTask" ToRole="Devision" />
           <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTask1" />
           <NavigationProperty Name="ProjectTask2" Relationship="PortalKATEKModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask1" ToRole="ProjectTask" />
-          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
-          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
+          <NavigationProperty Name="ProjectTaskLinks1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTask" ToRole="ProjectTaskLinks" />
         </EntityType>
         <EntityType Name="ProjectTaskLinks">
           <Key>
@@ -5551,8 +5570,20 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_ProjectTaskPredecessor" Type="Int32" Nullable="false" />
           <Property Name="id_ProjectTaskSuccessor" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskPredecessor" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
-          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTaskSuccessor" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <Property Name="id_ProjectTypesLine" Type="Int32" Nullable="false" />
+          <Property Name="lag" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTask1" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTask1" FromRole="ProjectTaskLinks" ToRole="ProjectTask" />
+          <NavigationProperty Name="ProjectTypesLine" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTypesLine" FromRole="ProjectTaskLinks" ToRole="ProjectTypesLine" />
+        </EntityType>
+        <EntityType Name="ProjectTypesLine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sName" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProjectTaskLinks" Relationship="PortalKATEKModel.FK_ProjectTaskLinks_ProjectTypesLine" FromRole="ProjectTypesLine" ToRole="ProjectTaskLinks" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -7291,7 +7322,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTaskPredecessor">
+        <Association Name="FK_ProjectTaskLinks_ProjectTask">
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -7303,7 +7334,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectTaskLinks_ProjectTaskSuccessor">
+        <Association Name="FK_ProjectTaskLinks_ProjectTask1">
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -7312,6 +7343,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="ProjectTaskLinks">
               <PropertyRef Name="id_ProjectTaskSuccessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTaskLinks_ProjectTypesLine">
+          <End Type="PortalKATEKModel.ProjectTypesLine" Role="ProjectTypesLine" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ProjectTaskLinks" Role="ProjectTaskLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTypesLine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProjectTaskLinks">
+              <PropertyRef Name="id_ProjectTypesLine" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8842,8 +8885,19 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="ProjectTaskLinks">
             <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTaskLinks">
               <MappingFragment StoreEntitySet="ProjectTaskLinks">
+                <ScalarProperty Name="lag" ColumnName="lag" />
+                <ScalarProperty Name="id_ProjectTypesLine" ColumnName="id_ProjectTypesLine" />
                 <ScalarProperty Name="id_ProjectTaskSuccessor" ColumnName="id_ProjectTaskSuccessor" />
                 <ScalarProperty Name="id_ProjectTaskPredecessor" ColumnName="id_ProjectTaskPredecessor" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTypesLine">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectTypesLine">
+              <MappingFragment StoreEntitySet="ProjectTypesLine">
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

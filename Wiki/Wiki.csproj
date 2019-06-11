@@ -588,6 +588,9 @@
     <Compile Include="ProjectTaskLinks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectTypesLine.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA_EmpProject.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>

@@ -91,6 +91,7 @@ namespace Wiki
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
         public virtual DbSet<ProjectTask> ProjectTask { get; set; }
         public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
+        public virtual DbSet<ProjectTypesLine> ProjectTypesLine { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }
