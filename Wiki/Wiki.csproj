@@ -597,6 +597,9 @@
     <Compile Include="PWA_EmpProject.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="PWA_TasksForBP.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PZ_Client.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

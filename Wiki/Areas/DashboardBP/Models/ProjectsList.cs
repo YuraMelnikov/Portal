@@ -21,8 +21,9 @@ namespace Wiki.Areas.DashboardBP.Models
                         planDateComplited = data.dataOtgruzkiBP
                     };
                     db.DashboardBP_ProjectList.Add(project);
+                    db.SaveChanges();
+                    new TasksList().CreateTask(project.PZ_PlanZakaz.ProjectUID.Value, project.id);
                 }
-                db.SaveChanges();
             }
             return true;
         }

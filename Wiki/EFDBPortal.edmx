@@ -1384,8 +1384,12 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TaskUID" Type="uniqueidentifier" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" />
           <Property Name="ProjectPercentCompleted" Type="smallint" />
@@ -1449,7 +1453,7 @@ warning 6013: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a pr
           <Property Name="AssignmentBaseline0FinishDate" Type="datetime" />
           <Property Name="СДРес_Р" Type="nvarchar" MaxLength="4000" />
           <Property Name="ResourceUID" Type="uniqueidentifier" />
-        </EntityType>-->
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
@@ -3389,6 +3393,74 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
     [PWA_EmpProject].[ProjectName] AS [ProjectName]
     FROM [dbo].[PWA_EmpProject] AS [PWA_EmpProject]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="PWA_TasksForBP" EntityType="Self.PWA_TasksForBP" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PWA_TasksForBP].[PK] AS [PK], 
+    [PWA_TasksForBP].[TaskUID] AS [TaskUID], 
+    [PWA_TasksForBP].[ProjectName] AS [ProjectName], 
+    [PWA_TasksForBP].[ProjectPercentCompleted] AS [ProjectPercentCompleted], 
+    [PWA_TasksForBP].[TaskParentUID] AS [TaskParentUID], 
+    [PWA_TasksForBP].[ProjectUID] AS [ProjectUID], 
+    [PWA_TasksForBP].[TaskName] AS [TaskName], 
+    [PWA_TasksForBP].[TaskIsProjectSummary] AS [TaskIsProjectSummary], 
+    [PWA_TasksForBP].[TaskIsCritical] AS [TaskIsCritical], 
+    [PWA_TasksForBP].[TaskIsSummary] AS [TaskIsSummary], 
+    [PWA_TasksForBP].[TaskWork] AS [TaskWork], 
+    [PWA_TasksForBP].[TaskActualWork] AS [TaskActualWork], 
+    [PWA_TasksForBP].[TaskDurationVariance] AS [TaskDurationVariance], 
+    [PWA_TasksForBP].[TaskStartVariance] AS [TaskStartVariance], 
+    [PWA_TasksForBP].[TaskFinishVariance] AS [TaskFinishVariance], 
+    [PWA_TasksForBP].[TaskDuration] AS [TaskDuration], 
+    [PWA_TasksForBP].[TaskActualDuration] AS [TaskActualDuration], 
+    [PWA_TasksForBP].[TaskStartDate] AS [TaskStartDate], 
+    [PWA_TasksForBP].[TaskFinishDate] AS [TaskFinishDate], 
+    [PWA_TasksForBP].[TaskActualStartDate] AS [TaskActualStartDate], 
+    [PWA_TasksForBP].[TaskActualFinishDate] AS [TaskActualFinishDate], 
+    [PWA_TasksForBP].[TaskPercentCompleted] AS [TaskPercentCompleted], 
+    [PWA_TasksForBP].[TaskPercentWorkCompleted] AS [TaskPercentWorkCompleted], 
+    [PWA_TasksForBP].[TaskPhysicalPercentCompleted] AS [TaskPhysicalPercentCompleted], 
+    [PWA_TasksForBP].[TaskPriority] AS [TaskPriority], 
+    [PWA_TasksForBP].[TaskDeadline] AS [TaskDeadline], 
+    [PWA_TasksForBP].[TaskIsExternal] AS [TaskIsExternal], 
+    [PWA_TasksForBP].[TaskEarlyFinish] AS [TaskEarlyFinish], 
+    [PWA_TasksForBP].[TaskEarlyStart] AS [TaskEarlyStart], 
+    [PWA_TasksForBP].[TaskLateFinish] AS [TaskLateFinish], 
+    [PWA_TasksForBP].[TaskLateStart] AS [TaskLateStart], 
+    [PWA_TasksForBP].[TaskWorkVariance] AS [TaskWorkVariance], 
+    [PWA_TasksForBP].[TaskIsActive] AS [TaskIsActive], 
+    [PWA_TasksForBP].[TaskWBS] AS [TaskWBS], 
+    [PWA_TasksForBP].[TaskRegularWork] AS [TaskRegularWork], 
+    [PWA_TasksForBP].[TaskRemainingWork] AS [TaskRemainingWork], 
+    [PWA_TasksForBP].[TaskActualRegularWork] AS [TaskActualRegularWork], 
+    [PWA_TasksForBP].[TaskRemainingRegularWork] AS [TaskRemainingRegularWork], 
+    [PWA_TasksForBP].[TaskRemainingDuration] AS [TaskRemainingDuration], 
+    [PWA_TasksForBP].[TaskBaseline0Work] AS [TaskBaseline0Work], 
+    [PWA_TasksForBP].[TaskBaseline0StartDate] AS [TaskBaseline0StartDate], 
+    [PWA_TasksForBP].[TaskBaseline0FinishDate] AS [TaskBaseline0FinishDate], 
+    [PWA_TasksForBP].[TaskBaseline0Duration] AS [TaskBaseline0Duration], 
+    [PWA_TasksForBP].[AssignmentWork] AS [AssignmentWork], 
+    [PWA_TasksForBP].[AssignmentActualWork] AS [AssignmentActualWork], 
+    [PWA_TasksForBP].[AssignmentPercentWorkCompleted] AS [AssignmentPercentWorkCompleted], 
+    [PWA_TasksForBP].[AssignmentStartDate] AS [AssignmentStartDate], 
+    [PWA_TasksForBP].[AssignmentFinishDate] AS [AssignmentFinishDate], 
+    [PWA_TasksForBP].[AssignmentActualStartDate] AS [AssignmentActualStartDate], 
+    [PWA_TasksForBP].[AssignmentActualFinishDate] AS [AssignmentActualFinishDate], 
+    [PWA_TasksForBP].[AssignmentDelay] AS [AssignmentDelay], 
+    [PWA_TasksForBP].[AssignmentStartVariance] AS [AssignmentStartVariance], 
+    [PWA_TasksForBP].[AssignmentFinishVariance] AS [AssignmentFinishVariance], 
+    [PWA_TasksForBP].[AssignmentWorkVariance] AS [AssignmentWorkVariance], 
+    [PWA_TasksForBP].[AssignmentPeakUnits] AS [AssignmentPeakUnits], 
+    [PWA_TasksForBP].[AssignmentRegularWork] AS [AssignmentRegularWork], 
+    [PWA_TasksForBP].[AssignmentRemainingWork] AS [AssignmentRemainingWork], 
+    [PWA_TasksForBP].[AssignmentActualRegularWork] AS [AssignmentActualRegularWork], 
+    [PWA_TasksForBP].[AssignmentRemainingRegularWork] AS [AssignmentRemainingRegularWork], 
+    [PWA_TasksForBP].[AssignmentBaseline0Work] AS [AssignmentBaseline0Work], 
+    [PWA_TasksForBP].[AssignmentBaseline0StartDate] AS [AssignmentBaseline0StartDate], 
+    [PWA_TasksForBP].[AssignmentBaseline0FinishDate] AS [AssignmentBaseline0FinishDate], 
+    [PWA_TasksForBP].[СДРес_Р] AS [СДРес_Р], 
+    [PWA_TasksForBP].[ResourceUID] AS [ResourceUID]
+    FROM [dbo].[PWA_TasksForBP] AS [PWA_TasksForBP]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="RKD_TaskUIDProjectUD" EntityType="Self.RKD_TaskUIDProjectUD" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [RKD_TaskUIDProjectUD].[TaskUID] AS [TaskUID], 
@@ -4871,6 +4943,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8113,6 +8186,75 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="PWA_TasksForBP">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskUID" Type="Guid" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectPercentCompleted" Type="Int16" />
+          <Property Name="TaskParentUID" Type="Guid" />
+          <Property Name="ProjectUID" Type="Guid" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskIsProjectSummary" Type="Boolean" />
+          <Property Name="TaskIsCritical" Type="Boolean" />
+          <Property Name="TaskIsSummary" Type="Boolean" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDurationVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskActualFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskPercentCompleted" Type="Int16" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="TaskPhysicalPercentCompleted" Type="Int16" />
+          <Property Name="TaskPriority" Type="Int16" />
+          <Property Name="TaskDeadline" Type="DateTime" Precision="3" />
+          <Property Name="TaskIsExternal" Type="Boolean" />
+          <Property Name="TaskEarlyFinish" Type="DateTime" Precision="3" />
+          <Property Name="TaskEarlyStart" Type="DateTime" Precision="3" />
+          <Property Name="TaskLateFinish" Type="DateTime" Precision="3" />
+          <Property Name="TaskLateStart" Type="DateTime" Precision="3" />
+          <Property Name="TaskWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskIsActive" Type="Boolean" />
+          <Property Name="TaskWBS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaskRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
+          <Property Name="TaskRemainingDuration" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskBaseline0Duration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentActualWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPercentWorkCompleted" Type="Int16" />
+          <Property Name="AssignmentStartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentActualFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentDelay" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentStartVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentFinishVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPeakUnits" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
+          <Property Name="AssignmentBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentBaseline0StartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="СДРес_Р" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ResourceUID" Type="Guid" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9635,6 +9777,76 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PWA_TasksForBP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_TasksForBP">
+              <MappingFragment StoreEntitySet="PWA_TasksForBP">
+                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
+                <ScalarProperty Name="СДРес_Р" ColumnName="СДРес_Р" />
+                <ScalarProperty Name="AssignmentBaseline0FinishDate" ColumnName="AssignmentBaseline0FinishDate" />
+                <ScalarProperty Name="AssignmentBaseline0StartDate" ColumnName="AssignmentBaseline0StartDate" />
+                <ScalarProperty Name="AssignmentBaseline0Work" ColumnName="AssignmentBaseline0Work" />
+                <ScalarProperty Name="AssignmentRemainingRegularWork" ColumnName="AssignmentRemainingRegularWork" />
+                <ScalarProperty Name="AssignmentActualRegularWork" ColumnName="AssignmentActualRegularWork" />
+                <ScalarProperty Name="AssignmentRemainingWork" ColumnName="AssignmentRemainingWork" />
+                <ScalarProperty Name="AssignmentRegularWork" ColumnName="AssignmentRegularWork" />
+                <ScalarProperty Name="AssignmentPeakUnits" ColumnName="AssignmentPeakUnits" />
+                <ScalarProperty Name="AssignmentWorkVariance" ColumnName="AssignmentWorkVariance" />
+                <ScalarProperty Name="AssignmentFinishVariance" ColumnName="AssignmentFinishVariance" />
+                <ScalarProperty Name="AssignmentStartVariance" ColumnName="AssignmentStartVariance" />
+                <ScalarProperty Name="AssignmentDelay" ColumnName="AssignmentDelay" />
+                <ScalarProperty Name="AssignmentActualFinishDate" ColumnName="AssignmentActualFinishDate" />
+                <ScalarProperty Name="AssignmentActualStartDate" ColumnName="AssignmentActualStartDate" />
+                <ScalarProperty Name="AssignmentFinishDate" ColumnName="AssignmentFinishDate" />
+                <ScalarProperty Name="AssignmentStartDate" ColumnName="AssignmentStartDate" />
+                <ScalarProperty Name="AssignmentPercentWorkCompleted" ColumnName="AssignmentPercentWorkCompleted" />
+                <ScalarProperty Name="AssignmentActualWork" ColumnName="AssignmentActualWork" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TaskBaseline0Duration" ColumnName="TaskBaseline0Duration" />
+                <ScalarProperty Name="TaskBaseline0FinishDate" ColumnName="TaskBaseline0FinishDate" />
+                <ScalarProperty Name="TaskBaseline0StartDate" ColumnName="TaskBaseline0StartDate" />
+                <ScalarProperty Name="TaskBaseline0Work" ColumnName="TaskBaseline0Work" />
+                <ScalarProperty Name="TaskRemainingDuration" ColumnName="TaskRemainingDuration" />
+                <ScalarProperty Name="TaskRemainingRegularWork" ColumnName="TaskRemainingRegularWork" />
+                <ScalarProperty Name="TaskActualRegularWork" ColumnName="TaskActualRegularWork" />
+                <ScalarProperty Name="TaskRemainingWork" ColumnName="TaskRemainingWork" />
+                <ScalarProperty Name="TaskRegularWork" ColumnName="TaskRegularWork" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskIsActive" ColumnName="TaskIsActive" />
+                <ScalarProperty Name="TaskWorkVariance" ColumnName="TaskWorkVariance" />
+                <ScalarProperty Name="TaskLateStart" ColumnName="TaskLateStart" />
+                <ScalarProperty Name="TaskLateFinish" ColumnName="TaskLateFinish" />
+                <ScalarProperty Name="TaskEarlyStart" ColumnName="TaskEarlyStart" />
+                <ScalarProperty Name="TaskEarlyFinish" ColumnName="TaskEarlyFinish" />
+                <ScalarProperty Name="TaskIsExternal" ColumnName="TaskIsExternal" />
+                <ScalarProperty Name="TaskDeadline" ColumnName="TaskDeadline" />
+                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
+                <ScalarProperty Name="TaskPhysicalPercentCompleted" ColumnName="TaskPhysicalPercentCompleted" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskPercentCompleted" ColumnName="TaskPercentCompleted" />
+                <ScalarProperty Name="TaskActualFinishDate" ColumnName="TaskActualFinishDate" />
+                <ScalarProperty Name="TaskActualStartDate" ColumnName="TaskActualStartDate" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskActualDuration" ColumnName="TaskActualDuration" />
+                <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
+                <ScalarProperty Name="TaskFinishVariance" ColumnName="TaskFinishVariance" />
+                <ScalarProperty Name="TaskStartVariance" ColumnName="TaskStartVariance" />
+                <ScalarProperty Name="TaskDurationVariance" ColumnName="TaskDurationVariance" />
+                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskIsSummary" ColumnName="TaskIsSummary" />
+                <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
+                <ScalarProperty Name="TaskIsProjectSummary" ColumnName="TaskIsProjectSummary" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
+                <ScalarProperty Name="ProjectPercentCompleted" ColumnName="ProjectPercentCompleted" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
