@@ -1386,11 +1386,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
         <!--Errors Found During Generation:
 warning 6013: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="PWA_TasksForBP">
+          <Property Name="TaskUID" Type="uniqueidentifier" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" />
           <Property Name="ProjectPercentCompleted" Type="smallint" />
           <Property Name="TaskParentUID" Type="uniqueidentifier" />
           <Property Name="ProjectUID" Type="uniqueidentifier" />
-          <Property Name="TaskUID" Type="uniqueidentifier" />
           <Property Name="TaskName" Type="nvarchar" MaxLength="255" />
           <Property Name="TaskIsProjectSummary" Type="bit" />
           <Property Name="TaskIsCritical" Type="bit" />
