@@ -5,6 +5,7 @@
         public NewBP()
         {
             new State().UpdateBP();
+            new ProjectsList().CreatePZList();
         }
     }
 }
