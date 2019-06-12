@@ -21,7 +21,6 @@ namespace Wiki.Areas.DashboardBP.Controllers
             return true;
         }
 
-        [HttpGet]
         public JsonResult GetProjectsPortfolio()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -30,45 +29,57 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardBP_ProjectList
                     .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz.AspNetUsers)
                     .Include(d => d.DashboardBP_State)
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.ProjectTask))
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.AspNetUsers))
-                    .Include(d => d.PZ_PlanZakaz)
                     .Where(d => d.DashboardBP_State.active == true)
                     .ToList();
                 var data = GetGanttData(query);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
-        Project[] GetGanttData(List<DashboardBP_ProjectList> listTasks)
+        DataGanttProjectsPortfolio GetGanttData(List<DashboardBP_ProjectList> listTasks)
         {
-            int counter = listTasks.Count;
-            Project[] arrayTasks = new Project[counter];
-            for (int i = 0; i < counter; i++)
+            int projectsCounter = listTasks.Count;
+            Project[] projectsArray = new Project[projectsCounter];
+            int countTasks = 0;
+            foreach (var data in listTasks)
+            {
+                countTasks += data.DashboardBP_TasksList.Count;
+            }
+            Task[] tasksArray = new Task[countTasks];
+
+            for (int i = 0; i < projectsCounter; i++)
             {
                 Project project = new Project();
-                project.Name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
-                int counterTasks = listTasks[i].DashboardBP_TasksList.Count;
-                Task[] tasks = new Task[counterTasks];
-                counterTasks = 0;
-                foreach (var data in listTasks[i].DashboardBP_TasksList.ToList())
+                project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
+                project.id = listTasks[i].id.ToString();
+                project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
+                projectsArray[i] = project;
+            }
+            countTasks = 0;
+            foreach (var data in listTasks)
+            {
+                foreach (var dataTasksList in data.DashboardBP_TasksList.ToList())
                 {
                     Task task = new Task();
-                    task.Name = data.ProjectTask.sName;
-                    task.Id = data.ProjectTask.id_TASK_WBS;
-                    //task.Parent = data.ProjectTask.sName;
-                    task.Start = data.startDate.ToShortDateString();
-                    task.End = data.finishDate.ToShortDateString();
-                    task.Completed = (int)data.percentWorkCompleted;
-                    //task.Owner = data.AspNetUsers.CiliricalName;
-                    tasks[counterTasks] = task;
-                    counterTasks++;
+                    task.id = dataTasksList.id.ToString() + dataTasksList.ProjectTask.id_TASK_WBS;
+                    task.completed = (int)dataTasksList.percentWorkCompleted;
+                    task.end = dataTasksList.finishDate.ToShortDateString();
+                    task.name = dataTasksList.ProjectTask.sName;
+                    task.owner = "";
+                    task.parent = dataTasksList.id_DashboardBP_ProjectList.ToString();
+                    task.start = dataTasksList.startDate.ToShortDateString();
+                    tasksArray[countTasks] = task;
+                    countTasks++;
                 }
-                project.Tasks = tasks;
-                arrayTasks[i] = project;
             }
-            return arrayTasks;
+
+            DataGanttProjectsPortfolio portfolio = new DataGanttProjectsPortfolio();
+            portfolio.projects = projectsArray;
+            portfolio.tasks = tasksArray;
+            return portfolio;
         }
 
         public string RenderUserMenu()
