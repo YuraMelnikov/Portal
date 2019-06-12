@@ -262,8 +262,10 @@
     <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
     <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
+    <Compile Include="Areas\DashboardBP\Models\Project.cs" />
     <Compile Include="Areas\DashboardBP\Models\ProjectsList.cs" />
     <Compile Include="Areas\DashboardBP\Models\State.cs" />
+    <Compile Include="Areas\DashboardBP\Models\Task.cs" />
     <Compile Include="Areas\DashboardBP\Models\TasksList.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
