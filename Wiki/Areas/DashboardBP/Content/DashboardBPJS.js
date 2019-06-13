@@ -8,8 +8,12 @@ function loadData() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var myJSON = JSON.stringify(result);
+            var arrayProject = result.projects;
+            var arrayTasks = result.tasks;
+            var arrayToJSON = arrayProject.concat(arrayTasks);
+            var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
             Highcharts.setOptions({
+                colors: ['#058DC7'],
                 lang: {
                     loading: 'Загрузка...',
                     months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
@@ -45,38 +49,10 @@ function loadData() {
             today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
                 series: [{
-                    data: [{
-                        name: 'Order1',
-                        id: 'order1',
-                        owner: 'Manager1'
-                    }, {
-                        name: 'Task1',
-                        id: 'prepare_building',
-                        parent: 'order1',
-                        start: today - 2 * day,
-                        end: today + 6 * day,
-                        completed: {
-                            amount: 0.2
-                        },
-                        owner: 'Linda'
-                    }, {
-                        name: 'Task2',
-                        id: 'inspect_building',
-                        dependency: 'prepare_building',
-                        parent: 'order1',
-                        start: today + 6 * day,
-                        end: today + 8 * day,
-                        owner: 'Ivy'
-                    }, {
-                        name: 'Task3',
-                        id: 'passed_inspection',
-                        dependency: 'inspect_building',
-                        parent: 'order1',
-                        start: today + 9.5 * day,
-                        milestone: true,
-                        owner: 'Peter'
-                    }]
+                    name: 'Заказ',
+                    data: myJSON
                 }],
+ 
                 tooltip: {
                     pointFormatter: function () {
                         var point = this,
@@ -116,6 +92,16 @@ function loadData() {
                 title: {
                     text: 'Портфель проектов'
                 },
+                yAxis: {
+                    showLastLabel: false,
+                    scrollbar: {
+                        enabled: true,
+                        showFull: false
+                    },
+                    max: 10,
+                    visible: true,
+                    x: 5
+                },
                 xAxis: {
                     currentDateIndicator: true,
                     min: today - 7 * day,
@@ -123,12 +109,19 @@ function loadData() {
                     labels: {
                         format: '{value:%W}'
                     },
-                    tickInterval: 1000 * 60 * 60 * 24 * 7 // week
+                    tickInterval: 1000 * 60 * 60 * 24 * 7
                 }
+
             });
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+}
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }

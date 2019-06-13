@@ -37,6 +37,30 @@ namespace Wiki.Areas.Reclamation.Controllers
             ViewBag.DevisionsManufacturing = new SelectList(new DevisionsManufacturing().Devisions.OrderBy(d => d.name), "id", "name");
             if (login == "fvs@katek.by")
             {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
+
+                ViewBag.ButtonAddActivation = 1;
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16)
+                    .Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+                ViewBag.CRUDCounter = '2';
+            }
+            if (login == "myi@katek.by")
+            {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16)
@@ -46,6 +70,13 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (login == "nrf@katek.by")
             {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 15)
@@ -55,6 +86,13 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (login == "Kuchynski@katek.by")
             {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
                     .Where(d => d.Devision == 3 || d.Devision == 16)

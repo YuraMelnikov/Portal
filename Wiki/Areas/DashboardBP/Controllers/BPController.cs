@@ -4,12 +4,29 @@ using System.Data.Entity;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System;
+using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Wiki.Areas.DashboardBP.Controllers
 {
     public class BPController : Controller
     {
         readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+
+        static readonly long DATE1970_TICKS = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).Ticks;
+        static readonly Regex DATE_SERIALIZATION_REGEX = new Regex(@"\\/Date\((?<ticks>-?\d+)\)\\/", RegexOptions.Compiled);
+
+
+        static string ISO8601Serialization(string input)
+        {
+            return DATE_SERIALIZATION_REGEX.Replace(input, match =>
+            {
+                var ticks = long.Parse(match.Groups["ticks"].Value) * 10000;
+                return new DateTime(ticks + DATE1970_TICKS).ToLocalTime().ToString("yyyy-MM-ddTHH:mm:ss.fff");
+            });
+        }
         public ActionResult Index()
         {
             return View();
@@ -34,6 +51,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.ProjectTask))
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.AspNetUsers))
                     .Where(d => d.DashboardBP_State.active == true)
+                    .OrderBy(d => d.PZ_PlanZakaz.dataOtgruzkiBP)
                     .ToList();
                 var data = GetGanttData(query);
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -55,7 +73,13 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 Project project = new Project();
                 project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
                 project.id = listTasks[i].id.ToString();
+                project.complited = "1";
                 project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
+
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(DateTime.Now).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 projectsArray[i] = project;
             }
             countTasks = 0;
@@ -63,14 +87,15 @@ namespace Wiki.Areas.DashboardBP.Controllers
             {
                 foreach (var dataTasksList in data.DashboardBP_TasksList.ToList())
                 {
+                    JavaScriptSerializer js = new JavaScriptSerializer();
                     Task task = new Task();
                     task.id = dataTasksList.id.ToString() + dataTasksList.ProjectTask.id_TASK_WBS;
-                    task.completed = (int)dataTasksList.percentWorkCompleted;
-                    task.end = dataTasksList.finishDate.ToShortDateString();
+                    task.completed = dataTasksList.percentWorkCompleted.ToString();
+                    task.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.finishDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                     task.name = dataTasksList.ProjectTask.sName;
                     task.owner = "";
                     task.parent = dataTasksList.id_DashboardBP_ProjectList.ToString();
-                    task.start = dataTasksList.startDate.ToShortDateString();
+                    task.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.startDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                     tasksArray[countTasks] = task;
                     countTasks++;
                 }

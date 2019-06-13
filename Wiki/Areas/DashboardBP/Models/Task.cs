@@ -5,9 +5,9 @@
         public string name;
         public string id;
         public string parent;
-        public string start;
-        public string end;
-        public int completed;
+        public ulong start;
+        public ulong end;
+        public string completed;
         public string owner;
     }
 }
