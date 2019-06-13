@@ -20,10 +20,10 @@ namespace Wiki
         public System.DateTime startDate { get; set; }
         public System.DateTime finishDate { get; set; }
         public Nullable<System.DateTime> deadline { get; set; }
-        public System.DateTime bStartDate { get; set; }
-        public System.DateTime bFinishDate { get; set; }
+        public Nullable<System.DateTime> bStartDate { get; set; }
+        public Nullable<System.DateTime> bFinishDate { get; set; }
         public double duration { get; set; }
-        public double bDuration { get; set; }
+        public Nullable<double> bDuration { get; set; }
         public double work { get; set; }
         public double bWork { get; set; }
         public double actualWork { get; set; }

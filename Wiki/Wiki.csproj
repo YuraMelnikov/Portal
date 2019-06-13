@@ -582,6 +582,9 @@
     <Compile Include="PostMatching.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectMSP_EpmProject_UserView.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectServer_CreateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

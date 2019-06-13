@@ -271,6 +271,7 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" Width="1.5" PointX="3.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

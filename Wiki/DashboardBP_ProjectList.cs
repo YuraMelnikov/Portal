@@ -25,6 +25,9 @@ namespace Wiki
         public int id_DashboardBP_State { get; set; }
         public System.DateTime contractDate { get; set; }
         public System.DateTime planDateComplited { get; set; }
+        public System.DateTime planDateStart { get; set; }
+        public int planDuration { get; set; }
+        public int planProjectPercentCompleted { get; set; }
     
         public virtual DashboardBP_State DashboardBP_State { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }

@@ -13,12 +13,16 @@ namespace Wiki.Areas.DashboardBP.Models
                 int idState = db.DashboardBP_State.AsNoTracking().First(d => d.active == true).id;
                 foreach (var data in list)
                 {
+                    ProjectMSP_EpmProject_UserView projectMSP_EpmProject_UserView = db.ProjectMSP_EpmProject_UserView.Find(data.ProjectUID);
                     DashboardBP_ProjectList project = new DashboardBP_ProjectList
                     {
                         id_PZ_PlanZakaz = data.Id,
                         id_DashboardBP_State = idState,
                         contractDate = data.DateSupply,
-                        planDateComplited = data.dataOtgruzkiBP
+                        planDateComplited = data.dataOtgruzkiBP,
+                        planDateStart = projectMSP_EpmProject_UserView.ProjectStartDate.Value,
+                        planDuration = (int)projectMSP_EpmProject_UserView.ProjectDuration,
+                        planProjectPercentCompleted = projectMSP_EpmProject_UserView.ProjectPercentCompleted.Value
                     };
                     db.DashboardBP_ProjectList.Add(project);
                     db.SaveChanges();
