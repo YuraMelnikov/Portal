@@ -2,6 +2,60 @@
     loadGantt();
 });
 
+
+
+function loadProjectPortfolio() {
+    $.ajax({
+        url: "/BP/GetProjectsPortfolio/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var arrayToJSON = result.projects;
+            var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
+            Highcharts.chart('projectPortfolio', {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Портфель проектов'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                },
+                yAxis: {
+                    title: {
+                        text: '№ недели'
+                    }
+                },
+                legend: {
+                    reversed: true
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2]
+                }, {
+                    name: 'Jane',
+                    data: [2, 2, 3, 2, 1]
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5]
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
 function loadGantt() {
     $.ajax({
         url: "/BP/GetProjectsPortfolio/",
@@ -10,6 +64,7 @@ function loadGantt() {
         success: function (result) {
             var arrayToJSON = result.projects;
             var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
+            var countLine = myJSON.length;
             Highcharts.setOptions({
                 colors: ['#058DC7'],
                 lang: {
@@ -46,6 +101,9 @@ function loadGantt() {
             today.setUTCMilliseconds(0);
             today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
+                chart: {
+                    height: countLine + '%'
+                },
                 series: [{
                     pointWidth: 7,
                     name: 'Заказ',
@@ -87,27 +145,33 @@ function loadGantt() {
                         }, '');
                     }
                 },
-                title: {
-                    text: 'Портфель проектов'
-                },
                 yAxis: {
-                    title: {
-                        text: 'Заказ'
+                    grid: {
                     },
                     labels: {
                         style: {
-                            color: '#525151',
-                            font: '10px Helvetica',
-                            fontWeight: 'bold'
+                            "color": "#666666",
+                            "fontSize": "10px"
                         }
                     }
                 },
                 xAxis: {
+                    margin: 0,
+                    min: today - 7 * day,
+                    max: today + 120 * day,
+                    grid: {
+
+                    },
+                    title: {
+                        margin: 0
+                    },
                     labels: {
+                        indentation: 0,
+                        height: 0,
                         style: {
-                            color: '#525151',
-                            font: '10px Helvetica',
-                            fontWeight: 'bold'
+                            "color": "#666666",
+                            "fontSize": "10px",
+                            "max-height": "3px"
                         }
                     }
                 }
