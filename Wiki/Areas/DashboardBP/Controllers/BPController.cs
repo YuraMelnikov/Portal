@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
-using Newtonsoft.Json.Converters;
 
 namespace Wiki.Areas.DashboardBP.Controllers
 {
@@ -61,12 +60,17 @@ namespace Wiki.Areas.DashboardBP.Controllers
         {
             int projectsCounter = listTasks.Count;
             Project[] projectsArray = new Project[projectsCounter];
-            int countTasks = 0;
-            foreach (var data in listTasks)
-            {
-                countTasks += data.DashboardBP_TasksList.Count;
-            }
-            Task[] tasksArray = new Task[countTasks];
+            //int countTasks = 0;
+            //foreach (var data in listTasks)
+            //{
+            //    countTasks += data.DashboardBP_TasksList.Count;
+            //}
+            //Task[] tasksArray = new Task[countTasks];
+            Marker marker = new Marker();
+            marker.lineWidth = 0.01;
+            Marker[] markerArray = new Marker[1];
+            markerArray[0] = marker;
+
 
             for (int i = 0; i < projectsCounter; i++)
             {
@@ -75,35 +79,33 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 project.id = listTasks[i].id.ToString();
                 project.complited = "1";
                 project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
-
-
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(DateTime.Now).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.marker = markerArray;
                 projectsArray[i] = project;
             }
-            countTasks = 0;
-            foreach (var data in listTasks)
-            {
-                foreach (var dataTasksList in data.DashboardBP_TasksList.ToList())
-                {
-                    JavaScriptSerializer js = new JavaScriptSerializer();
-                    Task task = new Task();
-                    task.id = dataTasksList.id.ToString() + dataTasksList.ProjectTask.id_TASK_WBS;
-                    task.completed = dataTasksList.percentWorkCompleted.ToString();
-                    task.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.finishDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                    task.name = dataTasksList.ProjectTask.sName;
-                    task.owner = "";
-                    task.parent = dataTasksList.id_DashboardBP_ProjectList.ToString();
-                    task.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.startDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                    tasksArray[countTasks] = task;
-                    countTasks++;
-                }
-            }
-
+            //countTasks = 0;
+            //foreach (var data in listTasks)
+            //{
+            //    foreach (var dataTasksList in data.DashboardBP_TasksList.ToList())
+            //    {
+            //        JavaScriptSerializer js = new JavaScriptSerializer();
+            //        Task task = new Task();
+            //        task.id = dataTasksList.id.ToString() + dataTasksList.ProjectTask.id_TASK_WBS;
+            //        task.completed = dataTasksList.percentWorkCompleted.ToString();
+            //        task.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.finishDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+            //        task.name = dataTasksList.ProjectTask.sName;
+            //        task.owner = "";
+            //        task.parent = dataTasksList.id_DashboardBP_ProjectList.ToString();
+            //        task.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(dataTasksList.startDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+            //        tasksArray[countTasks] = task;
+            //        countTasks++;
+            //    }
+            //}
             DataGanttProjectsPortfolio portfolio = new DataGanttProjectsPortfolio();
             portfolio.projects = projectsArray;
-            portfolio.tasks = tasksArray;
+            //portfolio.tasks = tasksArray;
             return portfolio;
         }
 

@@ -1,16 +1,14 @@
 ﻿$(document).ready(function () {
-    loadData();
+    loadGantt();
 });
 
-function loadData() {
+function loadGantt() {
     $.ajax({
         url: "/BP/GetProjectsPortfolio/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var arrayProject = result.projects;
-            var arrayTasks = result.tasks;
-            var arrayToJSON = arrayProject.concat(arrayTasks);
+            var arrayToJSON = result.projects;
             var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
             Highcharts.setOptions({
                 colors: ['#058DC7'],
@@ -49,10 +47,10 @@ function loadData() {
             today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
                 series: [{
+                    pointWidth: 7,
                     name: 'Заказ',
                     data: myJSON
                 }],
- 
                 tooltip: {
                     pointFormatter: function () {
                         var point = this,
@@ -93,35 +91,30 @@ function loadData() {
                     text: 'Портфель проектов'
                 },
                 yAxis: {
-                    showLastLabel: false,
-                    scrollbar: {
-                        enabled: true,
-                        showFull: false
+                    title: {
+                        text: 'Заказ'
                     },
-                    max: 10,
-                    visible: true,
-                    x: 5
+                    labels: {
+                        style: {
+                            color: '#525151',
+                            font: '10px Helvetica',
+                            fontWeight: 'bold'
+                        }
+                    }
                 },
                 xAxis: {
-                    currentDateIndicator: true,
-                    min: today - 7 * day,
-                    max: today + 116 * day,
                     labels: {
-                        format: '{value:%W}'
-                    },
-                    tickInterval: 1000 * 60 * 60 * 24 * 7
+                        style: {
+                            color: '#525151',
+                            font: '10px Helvetica',
+                            fontWeight: 'bold'
+                        }
+                    }
                 }
-
             });
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
-}
-
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
 }
