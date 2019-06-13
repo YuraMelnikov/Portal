@@ -1,7 +1,7 @@
 ﻿namespace Wiki.Areas.DashboardBP.Models
 {
-    public struct Marker
+    public struct Complited
     {
-        public double lineWidth;
+        public double amount;
     }
 }

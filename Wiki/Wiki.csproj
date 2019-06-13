@@ -261,8 +261,8 @@
     <Compile Include="Areas\CMO\Models\EmailCMO.cs" />
     <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
+    <Compile Include="Areas\DashboardBP\Models\Complited.cs" />
     <Compile Include="Areas\DashboardBP\Models\DataGanttProjectsPortfolio.cs" />
-    <Compile Include="Areas\DashboardBP\Models\Marker.cs" />
     <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
     <Compile Include="Areas\DashboardBP\Models\ProjectsList.cs" />

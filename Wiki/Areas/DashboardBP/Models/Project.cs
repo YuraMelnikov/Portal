@@ -9,7 +9,6 @@ namespace Wiki.Areas.DashboardBP.Models
         public string owner;
         public ulong start;
         public ulong end;
-        public string complited;
-        public Marker[] marker;
+        public Complited completed;
     }
 }

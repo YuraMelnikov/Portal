@@ -13,7 +13,7 @@ namespace Wiki.Areas.DashboardBP.Models
                 int idState = db.DashboardBP_State.AsNoTracking().First(d => d.active == true).id;
                 foreach (var data in list)
                 {
-                    ProjectMSP_EpmProject_UserView projectMSP_EpmProject_UserView = db.ProjectMSP_EpmProject_UserView.Find(data.ProjectUID);
+                    ProjectMSP_EpmProject_UserView projectMSP_EpmProject_UserView = db.ProjectMSP_EpmProject_UserView.First(d => d.ProjectUID == data.ProjectUID);
                     DashboardBP_ProjectList project = new DashboardBP_ProjectList
                     {
                         id_PZ_PlanZakaz = data.Id,

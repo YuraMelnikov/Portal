@@ -28,12 +28,13 @@ namespace Wiki.Areas.DashboardBP.Controllers
         }
         public ActionResult Index()
         {
+            CreateNewBP();
             return View();
         }
 
         bool CreateNewBP()
         {
-            NewBP bp = new NewBP();
+            //NewBP bp = new NewBP();
             return true;
         }
 
@@ -50,6 +51,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.ProjectTask))
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.AspNetUsers))
                     .Where(d => d.DashboardBP_State.active == true)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                     .OrderBy(d => d.PZ_PlanZakaz.dataOtgruzkiBP)
                     .ToList();
                 var data = GetGanttData(query);
@@ -66,23 +68,16 @@ namespace Wiki.Areas.DashboardBP.Controllers
             //    countTasks += data.DashboardBP_TasksList.Count;
             //}
             //Task[] tasksArray = new Task[countTasks];
-            Marker marker = new Marker();
-            marker.lineWidth = 0.01;
-            Marker[] markerArray = new Marker[1];
-            markerArray[0] = marker;
-
-
             for (int i = 0; i < projectsCounter; i++)
             {
                 Project project = new Project();
                 project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
                 project.id = listTasks[i].id.ToString();
-                project.complited = "1";
+                project.completed = new Complited { amount = listTasks[i].planProjectPercentCompleted / 100.0 };
                 project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(DateTime.Now).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].planDateStart).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                project.marker = markerArray;
                 projectsArray[i] = project;
             }
             //countTasks = 0;

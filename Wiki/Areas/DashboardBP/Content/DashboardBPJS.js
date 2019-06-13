@@ -2,66 +2,13 @@
     loadGantt();
 });
 
-
-
-function loadProjectPortfolio() {
-    $.ajax({
-        url: "/BP/GetProjectsPortfolio/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var arrayToJSON = result.projects;
-            var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
-            Highcharts.chart('projectPortfolio', {
-                credits: {
-                    enabled: false
-                },
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Портфель проектов'
-                },
-                xAxis: {
-                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-                },
-                yAxis: {
-                    title: {
-                        text: '№ недели'
-                    }
-                },
-                legend: {
-                    reversed: true
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'normal'
-                    }
-                },
-                series: [{
-                    name: 'John',
-                    data: [5, 3, 4, 7, 2]
-                }, {
-                    name: 'Jane',
-                    data: [2, 2, 3, 2, 1]
-                }, {
-                    name: 'Joe',
-                    data: [3, 4, 4, 2, 5]
-                }]
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
 function loadGantt() {
     $.ajax({
         url: "/BP/GetProjectsPortfolio/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var tmp = JSON.stringify(result.projects);
             var arrayToJSON = result.projects;
             var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
             var countLine = myJSON.length;
@@ -105,7 +52,7 @@ function loadGantt() {
                     height: countLine + '%'
                 },
                 series: [{
-                    pointWidth: 7,
+                    pointWidth: 15,
                     name: 'Заказ',
                     data: myJSON
                 }],
