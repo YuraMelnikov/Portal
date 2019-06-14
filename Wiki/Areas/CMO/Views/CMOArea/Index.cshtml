@@ -314,25 +314,22 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                @Html.HiddenFor(model => model.id)
-                <div class="row">
-                    <div class="col-lg-4">
-                        <label>№заказа/ов:</label>
-                        @Html.ListBox("id_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
-                    </div>
-                    <div class="col-lg-4">
-                        <label>Тип/ы заказываемых ТМЦ:</label>
-                        @Html.ListBox("id_CMO_TypeProduct", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "chosen-select" })
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-lg-2">
+                        <label>№ дозаказа:</label>
+                        <input type="text" class="form-control" id="Reid" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>№заказа/ов:</label>
+                        @Html.ListBox("Reid_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-2">
                         <label>Создана:</label>
-                        <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="RedateTimeCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Автор заявки:</label>
-                        <input type="text" class="form-control" id="id_AspNetUsers_Create" disabled="disabled" />
+                        <input type="text" class="form-control" id="Reid_AspNetUsers_Create" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -343,7 +340,7 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="updateReOrder();">Дозаказ принят в работу</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateRe" style="display:none;" onclick="updateReOrder();">Дозаказ принят в работу</button>
                     </div>
                 </div>
             </div>

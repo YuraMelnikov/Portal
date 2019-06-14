@@ -15,7 +15,11 @@ namespace Wiki.Areas.CMO.Models
         public void UpdateOrder(CMO2_Order cMO2_Order, string login)
         {
             CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
-            if (cMO2_Order.workIn == false)
+            if(order.reOrder == true)
+            {
+
+            }
+            else if (cMO2_Order.workIn == false)
             {
                 order.id_CMO_Company = cMO2_Order.id_CMO_Company;
                 order.workIn = true;

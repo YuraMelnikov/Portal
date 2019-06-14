@@ -541,6 +541,41 @@ function get(id) {
     return false;
 }
 
+function getRe(id) {
+    clearTextBoxUpdate();
+    $('#name').css('border-color', 'lightgrey');
+    $('#active').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/Get/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("#Reid_PlanZakaz").val(result.id_PlanZakaz).trigger("chosen:updated");
+            $('#Reid').val(result.id);
+            $('#RedateTimeCreate').val(result.dateTimeCreate);
+            $('#Reid_AspNetUsers_Create').val(result.id_AspNetUsers_Create);
+            $('#reOrderModalClose').modal('show');
+            $('#btnUpdateRe').show();
+            var countDA = 0;
+            var tmp = $('#workIn').is(":checked");
+            if ($('#workIn').is(":checked") === false)
+                countDA = 1;
+            else if ($('#manufIn').is(":checked") === false)
+                countDA = 2;
+            else if ($('#finIn').is(":checked") === false)
+                countDA = 3;
+            deactivatedModalOS(countDA);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+
+    });
+    return false;
+}
+
 function deactivatedModalOS(countDA) {
     if (countDA === 1) {
         $('#workIn').prop('disabled', true);
@@ -639,15 +674,12 @@ function update() {
 }
 
 function updateReOrder() {
-    var typeObj = {
-        id: $('#id').val()
-    };
+    var id = $('#Reid').val();
     $.ajax({
         cache: false,
-        url: "/CMOArea/UpdateReOrder",
-        data: JSON.stringify(typeObj),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
+        url: "/CMOArea/UpdateReOrder/" + id,
+        typr: "post",
+        contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             loadOS();

@@ -174,7 +174,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getRe('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 position = GetPositionName(dataList.CMO2_Position.ToList()),
                 name = GetCompanyName(dataList.CMO_Company),
                 day = GetDay(dataList.workDateTime, dataList.manufDate),
@@ -268,9 +268,10 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateReOrder(CMO2_Order cMO2_Order)
+
+        public JsonResult UpdateReOrder(int id)
         {
-            CMO2_Order order = db.CMO2_Order.Find(cMO2_Order.id);
+            CMO2_Order order = db.CMO2_Order.Find(id);
             order.manufIn = true;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
