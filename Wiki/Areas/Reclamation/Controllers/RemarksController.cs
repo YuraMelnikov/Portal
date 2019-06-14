@@ -203,7 +203,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "myi@katek.by")
+            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by")
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false, login);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false);
@@ -335,7 +335,26 @@ namespace Wiki.Areas.Reclamation.Controllers
                     db.SaveChanges();
                 }
             }
-            if (aspNetUser.Devision.Value != 6 && answerText != "" && answerText != null)
+            if (aspNetUser.Devision.Value == 28 && answerText != "" && answerText != null)
+            {
+                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                {
+                    answer = answerText,
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = aspNetUser.Id,
+                    id_Reclamation = reclamation.id,
+                    trash = trash.Value
+                };
+                db.Reclamation_Answer.Add(reclamation_Answer);
+                db.SaveChanges();
+                if (reclamation.close != true)
+                {
+                    reclamation.closeDevision = false;
+                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            if (aspNetUser.Devision.Value != 6 && aspNetUser.Devision.Value != 28 && answerText != "" && answerText != null)
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {

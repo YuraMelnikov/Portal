@@ -62,6 +62,16 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
+            else if (id_Devision == 28)
+                Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == id_Devision)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
             else
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == id_Devision)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
@@ -82,6 +92,21 @@ namespace Wiki.Areas.Reclamation.Models
                 Reclamations = db.Reclamation
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
+            else if (id_Devision == 28)
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.close == active)
+                    .Where(d => d.id_DevisionCreate == 28)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -200,6 +225,20 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
+            else if (id_Devision == 28)
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
+                    .Where(d => d.id_DevisionCreate == 28)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
             else if (id_Devision == 3 || id_Devision == 16)
             {
                 Reclamations = db.Reclamation
@@ -253,6 +292,22 @@ namespace Wiki.Areas.Reclamation.Models
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
                     .Where(d => d.id_DevisionCreate == 6)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
+            else if (id_Devision == 28)
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
+                    .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
+                    .Where(d => d.close == active)
+                    .Where(d => d.id_DevisionCreate == 28)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
