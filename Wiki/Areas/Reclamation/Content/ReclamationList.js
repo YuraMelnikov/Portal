@@ -515,6 +515,7 @@ function GetReclamation(id) {
             else if (counterDevision === 2) {
                 if ($('#id_DevisionCreate').val() !== devisionUser) {
                     $('#text').prop('disabled', true);
+                    $('#id_DevisionReclamation').val("");
                 }
                 $('#description').prop('disabled', true);
                 $('#close').prop('disabled', true);

@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#dToCompl').hide();
     $('#dReOrder').hide();
     startMenu();
-    if (userGroupId == 1) {
+    if (userGroupId === 1) {
         loadData(2);
     }
 });
