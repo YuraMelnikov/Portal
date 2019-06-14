@@ -275,7 +275,6 @@ function Add() {
     if (res === false) {
         return false;
     }
-
     $("#btnAdd").attr('disabled', true);
     var objRemark = {
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
@@ -418,7 +417,6 @@ function clearTextBox() {
     $('#editManufacturing').prop('checked', false);
     $('#editManufacturingIdDevision').val("");
     $('#technicalAdvice').prop('checked', false);
-
     $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
     $('#closeDevision').prop('disabled', true);
     $('#answerText').prop('disabled', true);
@@ -431,8 +429,6 @@ function clearTextBox() {
         $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
-        $('#technicalAdvice').prop('disabled', true);
-        $('#technicalAdvice').prop('disabled', false);
     }
     else if (counterDevision === 2) {
         $('#close').prop('disabled', true);

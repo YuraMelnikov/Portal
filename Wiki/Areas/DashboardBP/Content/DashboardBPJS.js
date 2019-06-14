@@ -113,6 +113,7 @@ function loadGantt() {
                         margin: 0
                     },
                     labels: {
+                        format: '{value:%w}',
                         indentation: 0,
                         height: 0,
                         style: {

@@ -34,7 +34,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
 
         bool CreateNewBP()
         {
-            //NewBP bp = new NewBP();
+            NewBP bp = new NewBP();
             return true;
         }
 

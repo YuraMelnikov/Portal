@@ -18,6 +18,7 @@ namespace Wiki.Areas.DashboardBP.Models
                 try
                 {
                     DashboardBP_State state = db.DashboardBP_State.First(d => d.active == true);
+                    state.active = false;
                     db.Entry(state).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
