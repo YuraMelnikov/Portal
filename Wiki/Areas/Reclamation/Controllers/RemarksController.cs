@@ -147,7 +147,8 @@ namespace Wiki.Areas.Reclamation.Controllers
             ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
-            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            //ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             if (login == "pev@katek.by" || login == "myi@katek.by")
             {
@@ -885,6 +886,24 @@ namespace Wiki.Areas.Reclamation.Controllers
                 });
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult UpdatePZList(int id)
+        {
+            DateTime dateDeactiveOTK = DateTime.Now.AddDays(-15);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var sucursalList = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateDeactiveOTK).ToList();
+            foreach(var dataList in db.Reclamation_PZ.Include(s => s.PZ_PlanZakaz).Where(d => d.id == id && d.PZ_PlanZakaz.dataOtgruzkiBP < dateDeactiveOTK).ToList())
+            {
+                sucursalList.Add(dataList.PZ_PlanZakaz);
+            }
+            var data = sucursalList.Select(m => new SelectListItem()
+            {
+                Text = m.PlanZakaz.ToString(),
+                Value = m.Id.ToString(),
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

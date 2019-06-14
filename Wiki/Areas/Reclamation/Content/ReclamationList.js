@@ -169,7 +169,7 @@ function startMenu() {
         "columns": objNoClosedListView,
         "scrollY": '75vh',
         "scrollX": true,
-        "paging": false,   
+        "paging": false,
         "info": false,
         "scrollCollapse": true,
         "language": {
@@ -637,6 +637,33 @@ function GetReclamationView(id) {
     return false;
 }
 
+//function UpdatePZList(id) {
+//    var selectedDevision = $('#pZ_PlanZakaz').find('option:selected').text();
+//    $.ajax({
+//        cache: false,
+//        url: "/Remarks/UpdatePZList/" + id,
+//        type: "POST",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (data) {
+//            if (data.length > 0) {
+//                var x = document.getElementById("pZ_PlanZakaz");
+//                for (var i = x.children.length; i >= 0; i--) {
+//                    x.remove(i);
+//                }
+//                var chosen = $(".chosen-select").chosen();
+//                for (var j = 0; j < data.length; j++) {
+//                    var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+//                    chosen.append(optionhtml);
+//                    console.log(optionhtml);
+//                    console.log($('#pZ_PlanZakaz').val());
+//                }
+//                chosen.trigger("chosen:updated");
+//            }
+//        }
+//    });
+//}
+
 function remove() {
     if (counterDevision !== 1) {
         if ($('#answerText').val() === "" && $('#reload').is(":checked") === false) {
@@ -999,6 +1026,7 @@ function reclamationPO() {
 }
 
 function GetReclamationExpert(id) {
+    UpdatePZList();
     var myVal = counterDevision;
     $('#name').css('border-color', 'lightgrey');
     $('#active').css('border-color', 'lightgrey');
@@ -1284,7 +1312,7 @@ function clearBox4() {
     $('[name="closeMKO"]:checked').prop('checked', false);
 }
 
-function disabledBtnCreateReport () {
+function disabledBtnCreateReport() {
     document.location.reload(true);
 }
 
