@@ -275,6 +275,7 @@ function Add() {
     if (res === false) {
         return false;
     }
+
     $("#btnAdd").attr('disabled', true);
     var objRemark = {
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
@@ -431,6 +432,7 @@ function clearTextBox() {
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
         $('#technicalAdvice').prop('disabled', true);
+        $('#technicalAdvice').prop('disabled', false);
     }
     else if (counterDevision === 2) {
         $('#close').prop('disabled', true);
@@ -508,7 +510,6 @@ function GetReclamation(id) {
                 $('#id_AspNetUsersError').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
-                $('#technicalAdvice').prop('disabled', true);
                 $('#answerText').prop('disabled', false);
                 $('#trash').prop('disabled', true);
             }
