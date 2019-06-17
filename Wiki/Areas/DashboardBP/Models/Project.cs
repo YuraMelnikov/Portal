@@ -10,5 +10,7 @@ namespace Wiki.Areas.DashboardBP.Models
         public ulong start;
         public ulong end;
         public Complited completed;
+        public ulong contractDate;
+        public int y;
     }
 }

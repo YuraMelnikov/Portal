@@ -78,6 +78,8 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].planDateStart).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.contractDate = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.y = i;
                 projectsArray[i] = project;
             }
             //countTasks = 0;

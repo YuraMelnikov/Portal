@@ -49,13 +49,82 @@ function loadGantt() {
             today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
                 chart: {
-                    height: countLine + '%'
+                    height: '900px'
                 },
                 series: [{
                     pointWidth: 15,
                     name: 'Заказ',
                     data: myJSON
                 }],
+                xAxis: {
+                    scrollbar: {
+                        enabled: true
+                    },
+                    min: today - 7 * day,
+                    max: today + 120 * day,
+                    grid: {
+
+                    },
+                    title: {
+                        margin: 0
+                    },
+                    labels: {
+                        format: '{value:Нед.%W}',
+                        indentation: 0,
+                        height: 0,
+                        style: {
+                            "color": "#666666",
+                            "fontSize": "10px",
+                            "max-height": "3px"
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    grid: {
+                        columns: [{
+                            title: {
+                                text: 'Заказ'
+                            },
+                            labels: {
+                                format: '{point.name}'
+                            }
+                        }, {
+                            title: {
+                                text: 'Контракт'
+                            },
+                            labels: {
+                                format: '{point.contractDate:%e. %b}'
+                            }
+                        }, {
+                            title: {
+                                text: 'План'
+                            },
+                            labels: {
+                                format: '{point.end}'
+                            }
+                        }, {
+                            title: {
+                                text: 'Откл.'
+                            },
+                            labels: {
+                                format: '{point.end}'
+                            }
+                        }]
+                    },
+
+                    scrollbar: {
+                        enabled: true
+                    },
+                    min: 0,
+                    max: 40,
+                    labels: {
+                        style: {
+                            "color": "#666666",
+                            "fontSize": "10px"
+                        }
+                    }
+                },
                 tooltip: {
                     pointFormatter: function () {
                         var point = this,
@@ -76,6 +145,10 @@ function loadGantt() {
                             title: 'Окончание',
                             value: dateFormat(format, point.end)
                         }, {
+                            visible: !options.milestone,
+                            title: 'Контрактный срок',
+                            value: dateFormat(format, point.contractDate)
+                        }, {
                             title: '% зав.',
                             value: status
                         }, {
@@ -91,37 +164,6 @@ function loadGantt() {
                             return str + s;
                         }, '');
                     }
-                },
-                yAxis: {
-                    grid: {
-                    },
-                    labels: {
-                        style: {
-                            "color": "#666666",
-                            "fontSize": "10px"
-                        }
-                    }
-                },
-                xAxis: {
-                    margin: 0,
-                    min: today - 7 * day,
-                    max: today + 120 * day,
-                    grid: {
-
-                    },
-                    title: {
-                        margin: 0
-                    },
-                    labels: {
-                        format: '{value:%w}',
-                        indentation: 0,
-                        height: 0,
-                        style: {
-                            "color": "#666666",
-                            "fontSize": "10px",
-                            "max-height": "3px"
-                        }
-                    }
                 }
             });
         },
@@ -130,3 +172,4 @@ function loadGantt() {
         }
     });
 }
+
