@@ -82,12 +82,18 @@ function loadGantt() {
                 yAxis: {
                     type: 'category',
                     grid: {
+                        scrollbar: {
+                            enabled: false
+                        },
                         columns: [{
                             title: {
                                 text: 'Заказ'
                             },
                             labels: {
                                 format: '{point.name}'
+                            },
+                            scrollbar: {
+                                enabled: false
                             }
                         }, {
                             title: {
@@ -95,24 +101,39 @@ function loadGantt() {
                             },
                             labels: {
                                 format: '{point.contractDate:%e. %b}'
+                            },
+                            scrollbar: {
+                                enabled: false
                             }
+
                         }, {
                             title: {
                                 text: 'План'
                             },
                             labels: {
-                                format: '{point.end}'
+                                format: '{point.end:%e. %b}'
+                            },
+                            scrollbar: {
+                                enabled: false
                             }
                         }, {
                             title: {
                                 text: 'Откл.'
                             },
                             labels: {
-                                format: '{point.end}'
+                                formatter: function () {
+                                    var point = this.point,
+                                        days = 1000 * 60 * 60 * 24,
+                                        number = (point.contractDate - point.end) / days;
+                                    if (Math.round(number * 100) / 100 > 0) {
+                                        return '<span style="fill: red; font-weight:bold;">' + Math.round(number * 100) / 100 + '</span>';
+                                    } else {
+                                        return Math.round(number * 100) / 100;
+                                    }
+                                }
                             }
                         }]
                     },
-
                     scrollbar: {
                         enabled: true
                     },
