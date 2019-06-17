@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav">
             <li><a onclick="return loadData(1);">Активные</a></li>
             <li><a onclick="return loadData(2);">Закрытые</a></li>
-            <li><a onclick="return loadData(3);">Все рекламации</a></li>
+            <li><a onclick="return loadData(3);">Все замечания</a></li>
             <li><a onclick="return loadData(9);">Созданные мной</a></li>
             <li><a onclick="return loadData(4);">Неотгруженные заказы</a></li>
             <li><a onclick="return loadData(5);">Отгруженные заказы</a></li>
@@ -75,11 +75,11 @@
                         @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-2">
-                        <label>Тип рекламации:</label>
+                        <label>Тип замечания:</label>
                         @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
                     </div>
                     <div class="col-lg-2">
-                        <label>Автор рекламации:</label>
+                        <label>Автор замечания:</label>
                         <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
@@ -121,7 +121,7 @@
                 <hr />
                 <div class="row">
                     <div class="col-lg-6">
-                        <label>Текст рекламации:</label>
+                        <label>Текст замечания:</label>
                         @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 9 })
                     </div>
                     <div class="col-lg-6">
@@ -223,19 +223,19 @@
                     <div class="row">
                         <div class="col-lg-2">
                             @Html.CheckBox("closeMKO", new { @onclick = "clearBox3();", htmlAttributes = new { @class = "form-control" } })
-                            <label>Только мои рекламации (автор) </label>
+                            <label>Только мои замеча (автор) </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-5">
                             @Html.CheckBox("gip", new { @onclick = "clearBox4();", htmlAttributes = new { @class = "form-control" } })
-                            <label>Только моя ответственность (ответственный за рекламацию</label>
+                            <label>Только моя ответственность (ответственный за замечание</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-2">
                             @Html.CheckBox("close", new { @onclick = "clearBox1();", htmlAttributes = new { @class = "form-control" } })
-                            <label>Все рекламации</label>
+                            <label>Все замечания</label>
                         </div>
                     </div>
                 </div>
