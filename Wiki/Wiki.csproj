@@ -304,27 +304,6 @@
     <Compile Include="Areas\Reclamation\Models\TARemarksListView.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
-    <Compile Include="Areas\Service\Controllers\ServiceAdminController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_ReclamationController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_ReclamationCounterErrorController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_ReclamationWhoAddController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_TypeCorrespondenceController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_TypeReclamationController.cs" />
-    <Compile Include="Areas\Service\Controllers\Service_TypeReclamationDocumentController.cs" />
-    <Compile Include="Areas\Service\Models\Service_ReclamationCounterErrorCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Service_ReclamationCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Service_ReclamationInfoR.cs" />
-    <Compile Include="Areas\Service\Models\Service_ReclamationU.cs" />
-    <Compile Include="Areas\Service\Models\Service_ReclamationWhoAddCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Service_Service_TypeReclamationDocumentCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Service_TypeCorrespondenceCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Service_TypeReclamationCRUD.cs" />
-    <Compile Include="Areas\Service\Models\Thead.cs" />
-    <Compile Include="Areas\Service\Models\TheadBasicNames.cs" />
-    <Compile Include="Areas\Service\Models\TheadNamesForReclamationTable.cs" />
-    <Compile Include="Areas\Service\Models\TheadReclamation.cs" />
-    <Compile Include="Areas\Service\Models\ViewReclamationAll.cs" />
-    <Compile Include="Areas\Service\ServiceAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -410,7 +389,6 @@
     <Compile Include="Controllers\RKDController.cs" />
     <Compile Include="Controllers\RKD_GIPController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Areas\Service\Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UploadDocumentController.cs" />
     <Compile Include="Controllers\UploadERController.cs" />
     <Compile Include="Controllers\VVPZsController.cs" />
@@ -856,14 +834,6 @@
     <Content Include="Areas\Reclamation\Content\TechnicalAdvice.js" />
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
     <Content Include="Areas\Reclamation\migrate db\addNewUserManuf.sql" />
-    <Content Include="Areas\Service\Content\Scripts\Service_Reclamation.js" />
-    <Content Include="Areas\Service\Content\Scripts\Service_ReclamationCounterErrorCRUD.js" />
-    <Content Include="Areas\Service\Content\Scripts\Service_ReclamationWhoAddCRUD.js" />
-    <Content Include="Areas\Service\Content\Scripts\Service_TypeCorrespondenceCRUD.js" />
-    <Content Include="Areas\Service\Content\Scripts\TypeReclamationCRUD.js" />
-    <Content Include="Areas\Service\Content\Scripts\TypeReclamationDocumentCRUD.js" />
-    <Content Include="Areas\Service\Content\tmp.jpg" />
-    <Content Include="Areas\Service\Content\underConst.png" />
     <Content Include="Areas\Reclamation\migrate db\importDataNewStruct.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
@@ -1910,20 +1880,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Service\Views\ServiceReclamation\Index.cshtml" />
-    <Content Include="Areas\Service\Views\web.config" />
-    <Content Include="Areas\Service\Views\Shared\_LayoutServiceReclamation.cshtml" />
-    <Content Include="Areas\Service\Views\Shared\_LayoutService.cshtml" />
-    <Content Include="Areas\Service\Views\Service\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Shared\_LayoutServiceAdmin.cshtml" />
-    <Content Include="Areas\Service\Views\ServiceAdmin\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Shared\_LayoutServiceAdminCard.cshtml" />
-    <Content Include="Areas\Service\Views\Service_TypeReclamation\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Service_TypeReclamationDocument\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Service_TypeCorrespondence\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Service_ReclamationWhoAdd\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Service_ReclamationCounterError\Index.cshtml" />
-    <Content Include="Areas\Service\Views\Service_Reclamation\Index.cshtml" />
     <EntityDeploy Include="EFDBPortal.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EFDBPortal.Designer.cs</LastGenOutput>
