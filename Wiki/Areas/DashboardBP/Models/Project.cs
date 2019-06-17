@@ -9,8 +9,9 @@ namespace Wiki.Areas.DashboardBP.Models
         public string owner;
         public ulong start;
         public ulong end;
-        public Complited completed;
+        public Complited? completed;
         public ulong contractDate;
         public int y;
+        public bool milestone;
     }
 }

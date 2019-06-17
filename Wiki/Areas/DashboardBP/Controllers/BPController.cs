@@ -60,7 +60,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
         }
         DataGanttProjectsPortfolio GetGanttData(List<DashboardBP_ProjectList> listTasks)
         {
-            int projectsCounter = listTasks.Count;
+            int projectsCounter = listTasks.Count * 2;
             Project[] projectsArray = new Project[projectsCounter];
             //int countTasks = 0;
             //foreach (var data in listTasks)
@@ -68,8 +68,9 @@ namespace Wiki.Areas.DashboardBP.Controllers
             //    countTasks += data.DashboardBP_TasksList.Count;
             //}
             //Task[] tasksArray = new Task[countTasks];
-            for (int i = 0; i < projectsCounter; i++)
+            for (int i = 0, j = 0; i < projectsCounter / 2; i++)
             {
+
                 Project project = new Project();
                 project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
                 project.id = listTasks[i].id.ToString();
@@ -80,7 +81,22 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 project.contractDate = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
                 project.y = i;
-                projectsArray[i] = project;
+                project.milestone = false;
+                projectsArray[j] = project;
+                j++;
+                project = new Project();
+
+                project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
+                project.id = listTasks[i].id.ToString() + "ms";
+                project.completed = null;
+                project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
+                project.milestone = true;
+                project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.contractDate = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
+                project.y = i;
+                projectsArray[j] = project;
+                j++;
             }
             //countTasks = 0;
             //foreach (var data in listTasks)

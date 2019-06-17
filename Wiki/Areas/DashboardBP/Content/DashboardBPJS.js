@@ -125,7 +125,7 @@ function loadGantt() {
                                     var point = this.point,
                                         days = 1000 * 60 * 60 * 24,
                                         number = (point.contractDate - point.end) / days;
-                                    if (Math.round(number * 100) / 100 > 0) {
+                                    if (Math.round(number * 100) / 100 < 0) {
                                         return '<span style="fill: red; font-weight:bold;">' + Math.round(number * 100) / 100 + '</span>';
                                     } else {
                                         return Math.round(number * 100) / 100;
@@ -169,9 +169,6 @@ function loadGantt() {
                             visible: !options.milestone,
                             title: 'Контрактный срок',
                             value: dateFormat(format, point.contractDate)
-                        }, {
-                            title: '% зав.',
-                            value: status
                         }, {
                             title: 'Владелец',
                             value: options.owner || 'unassigned'
