@@ -1169,7 +1169,7 @@
           <Property Name="userCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="dateOpen" Type="date" Nullable="false" />
           <Property Name="datePutToService" Type="date" Nullable="false" />
-          <Property Name="dateClose" Type="date" Nullable="false" />
+          <Property Name="dateClose" Type="date" />
         </EntityType>
         <EntityType Name="ServiceRemarksActions">
           <Key>
@@ -8569,7 +8569,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="datePutToService" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="dateClose" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateClose" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksCauses" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksPlanZakazs" />

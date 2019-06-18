@@ -318,6 +318,9 @@
     <Compile Include="Areas\Reclamation\Models\TARemarksListView.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
+    <Compile Include="Areas\ServiceReclamations\Controllers\MarksController.cs" />
+    <Compile Include="Areas\ServiceReclamations\Models\ReclamationsList.cs" />
+    <Compile Include="Areas\ServiceReclamations\Models\ReclamationView.cs" />
     <Compile Include="Areas\ServiceReclamations\ServiceReclamationsAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -892,6 +895,7 @@
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
     <Content Include="Areas\Reclamation\migrate db\addNewUserManuf.sql" />
     <Content Include="Areas\Reclamation\migrate db\importDataNewStruct.sql" />
+    <Content Include="Areas\ServiceReclamations\Content\Remarks.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css" />
@@ -2184,6 +2188,8 @@
     <Content Include="Areas\DashboardBP\Views\BP\Index.cshtml" />
     <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBPAdmin.cshtml" />
     <Content Include="Areas\ServiceReclamations\Views\web.config" />
+    <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutServiceReclamations.cshtml" />
+    <Content Include="Areas\ServiceReclamations\Views\Marks\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2592,9 +2598,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\ServiceReclamations\Controllers\" />
-    <Folder Include="Areas\ServiceReclamations\Models\" />
-    <Folder Include="Areas\ServiceReclamations\Views\Shared\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

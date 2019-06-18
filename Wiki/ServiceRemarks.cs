@@ -31,7 +31,7 @@ namespace Wiki
         public string userCreate { get; set; }
         public System.DateTime dateOpen { get; set; }
         public System.DateTime datePutToService { get; set; }
-        public System.DateTime dateClose { get; set; }
+        public Nullable<System.DateTime> dateClose { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksActions> ServiceRemarksActions { get; set; }

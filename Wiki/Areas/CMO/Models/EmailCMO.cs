@@ -146,6 +146,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailListCreate()
         {
+            mailToList.Add("xan@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
             mailToList.Add("Antipov@katek.by");
@@ -157,6 +158,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailList()
         {
+            mailToList.Add("xan@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
             mailToList.Add("Antipov@katek.by");
