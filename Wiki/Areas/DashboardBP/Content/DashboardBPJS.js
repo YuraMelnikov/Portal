@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     loadGantt();
+    getPeriodReport();
 });
 
 function loadGantt() {
@@ -181,4 +182,69 @@ function loadGantt() {
     });
 }
 
-//periodReport
+function getPeriodReport() {
+    $.ajax({
+        url: "/BP/GetPeriodReport/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var tmp = result;
+            document.getElementById("periodReportString").textContent = result;
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getHSSPlanToYear() {
+    $.ajax({
+        url: "/BP/GetHSSPlanToYear/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+
+            Highcharts.chart('hSSPlanToYear', {
+                chart: {
+                    type: 'bar'
+                },
+                //title: {
+                //    text: 'Stacked bar chart'
+                //},
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                },
+                yAxis: {
+                    min: 0,
+                    //title: {
+                    //    text: 'Total fruit consumption'
+                    //}
+                },
+                legend: {
+                    reversed: true
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2]
+                }, {
+                    name: 'Jane',
+                    data: [2, 2, 3, 2, 1]
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5]
+                }]
+            });
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}

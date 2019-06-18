@@ -38,6 +38,17 @@ namespace Wiki.Areas.DashboardBP.Controllers
             return true;
         }
 
+        public JsonResult GetPeriodReport()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string query = "Отчет по состоянию на: " + db.DashboardBP_State.First(d => d.active == true).datetime.ToLongDateString() + " " + db.DashboardBP_State.First(d => d.active == true).datetime.ToShortTimeString();
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetProjectsPortfolio()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -51,6 +62,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.ProjectTask))
                     .Include(d => d.DashboardBP_TasksList.Select(s => s.AspNetUsers))
                     .Where(d => d.DashboardBP_State.active == true)
+                    .Where(d => d.PZ_PlanZakaz.Client != 39)
                     .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                     .OrderBy(d => d.PZ_PlanZakaz.dataOtgruzkiBP)
                     .ToList();
