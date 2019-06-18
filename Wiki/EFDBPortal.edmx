@@ -233,6 +233,42 @@
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="id_CMO_TypeProduct" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBP_HSSPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_DashboardBP_State" Type="int" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="taskUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="taskName" Type="varchar(max)" Nullable="false" />
+          <Property Name="timeByDay" Type="datetime" Nullable="false" />
+          <Property Name="assignmentWork" Type="float" Nullable="false" />
+          <Property Name="rateUSD" Type="float" Nullable="false" />
+          <Property Name="ssmPlan" Type="float" Nullable="false" />
+          <Property Name="ssmFact" Type="float" Nullable="false" />
+          <Property Name="ssrPlan" Type="float" Nullable="false" />
+          <Property Name="ik" Type="float" Nullable="false" />
+          <Property Name="ppk" Type="float" Nullable="false" />
+          <Property Name="pi" Type="float" Nullable="false" />
+          <Property Name="nop" Type="float" Nullable="false" />
+          <Property Name="rateHoure" Type="float" Nullable="false" />
+          <Property Name="ssmPlanHoure" Type="float" Nullable="false" />
+          <Property Name="ssmFactHoure" Type="float" Nullable="false" />
+          <Property Name="ssrHoure" Type="float" Nullable="false" />
+          <Property Name="ikHoure" Type="float" Nullable="false" />
+          <Property Name="ppkHoure" Type="float" Nullable="false" />
+          <Property Name="piHoure" Type="float" Nullable="false" />
+          <Property Name="nopHoure" Type="float" Nullable="false" />
+          <Property Name="xReate" Type="float" Nullable="false" />
+          <Property Name="xSsm" Type="float" Nullable="false" />
+          <Property Name="xSsmFact" Type="float" Nullable="false" />
+          <Property Name="xSsr" Type="float" Nullable="false" />
+          <Property Name="xIk" Type="float" Nullable="false" />
+          <Property Name="xPpk" Type="float" Nullable="false" />
+          <Property Name="xPi" Type="float" Nullable="false" />
+          <Property Name="xNop" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
             <PropertyRef Name="id" />
@@ -1392,6 +1428,44 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="PlanFinishWork2" Type="date" />
           <Property Name="FactFinishDate" Type="date" />
           <Property Name="folder" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="HSSPO">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderPZ" Type="nvarchar" MaxLength="4000" />
+          <Property Name="TaskUID" Type="uniqueidentifier" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="CountPO" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="RatePlan" Type="float" />
+          <Property Name="SSMPlan" Type="float" />
+          <Property Name="SSMFact" Type="float" />
+          <Property Name="SSRPlan" Type="float" />
+          <Property Name="ik" Type="float" />
+          <Property Name="ppk" Type="float" />
+          <Property Name="pi" Type="float" />
+          <Property Name="nop" Type="float" />
+          <Property Name="RateHoure" Type="float" />
+          <Property Name="ssmHoure" Type="float" />
+          <Property Name="ssmFactHoure" Type="float" />
+          <Property Name="ssrHoure" Type="float" />
+          <Property Name="ikHoure" Type="float" />
+          <Property Name="ppkHoure" Type="float" />
+          <Property Name="piHoure" Type="float" />
+          <Property Name="nopHoure" Type="float" />
+          <Property Name="xRate" Type="float" />
+          <Property Name="xSSM" Type="float" />
+          <Property Name="xSSMFact" Type="float" />
+          <Property Name="xSSR" Type="float" />
+          <Property Name="xIK" Type="float" />
+          <Property Name="xPPK" Type="float" />
+          <Property Name="xPI" Type="float" />
+          <Property Name="xNOP" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3352,6 +3426,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="CMO_UploadResult" EntityType="Self.CMO_UploadResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO2_Order" EntityType="Self.CMO2_Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO2_Position" EntityType="Self.CMO2_Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBP_HSSPO" EntityType="Self.DashboardBP_HSSPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_ProjectList" EntityType="Self.DashboardBP_ProjectList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_State" EntityType="Self.DashboardBP_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_TasksList" EntityType="Self.DashboardBP_TasksList" Schema="dbo" store:Type="Tables" />
@@ -3471,6 +3546,41 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
     [CMO_Report].[FactFinishDate] AS [FactFinishDate], 
     [CMO_Report].[folder] AS [folder]
     FROM [dbo].[CMO_Report] AS [CMO_Report]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="HSSPO" EntityType="Self.HSSPO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [HSSPO].[PK] AS [PK], 
+    [HSSPO].[OrderPZ] AS [OrderPZ], 
+    [HSSPO].[TaskUID] AS [TaskUID], 
+    [HSSPO].[TaskName] AS [TaskName], 
+    [HSSPO].[TimeByDay] AS [TimeByDay], 
+    [HSSPO].[AssignmentWork] AS [AssignmentWork], 
+    [HSSPO].[CountPO] AS [CountPO], 
+    [HSSPO].[RatePlan] AS [RatePlan], 
+    [HSSPO].[SSMPlan] AS [SSMPlan], 
+    [HSSPO].[SSMFact] AS [SSMFact], 
+    [HSSPO].[SSRPlan] AS [SSRPlan], 
+    [HSSPO].[ik] AS [ik], 
+    [HSSPO].[ppk] AS [ppk], 
+    [HSSPO].[pi] AS [pi], 
+    [HSSPO].[nop] AS [nop], 
+    [HSSPO].[RateHoure] AS [RateHoure], 
+    [HSSPO].[ssmHoure] AS [ssmHoure], 
+    [HSSPO].[ssmFactHoure] AS [ssmFactHoure], 
+    [HSSPO].[ssrHoure] AS [ssrHoure], 
+    [HSSPO].[ikHoure] AS [ikHoure], 
+    [HSSPO].[ppkHoure] AS [ppkHoure], 
+    [HSSPO].[piHoure] AS [piHoure], 
+    [HSSPO].[nopHoure] AS [nopHoure], 
+    [HSSPO].[xRate] AS [xRate], 
+    [HSSPO].[xSSM] AS [xSSM], 
+    [HSSPO].[xSSMFact] AS [xSSMFact], 
+    [HSSPO].[xSSR] AS [xSSR], 
+    [HSSPO].[xIK] AS [xIK], 
+    [HSSPO].[xPPK] AS [xPPK], 
+    [HSSPO].[xPI] AS [xPI], 
+    [HSSPO].[xNOP] AS [xNOP]
+    FROM [dbo].[HSSPO] AS [HSSPO]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OTKMultiSelectList" EntityType="Self.OTKMultiSelectList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -5081,6 +5191,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
             <End Role="DashboardRemaining" EntitySet="DashboardRemaining" />
           </AssociationSet>
+          <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
+          <EntitySet Name="HSSPO" EntityType="PortalKATEKModel.HSSPO" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8484,6 +8596,78 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardBP_HSSPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="taskUID" Type="Guid" Nullable="false" />
+          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="timeByDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="assignmentWork" Type="Double" Nullable="false" />
+          <Property Name="rateUSD" Type="Double" Nullable="false" />
+          <Property Name="ssmPlan" Type="Double" Nullable="false" />
+          <Property Name="ssmFact" Type="Double" Nullable="false" />
+          <Property Name="ssrPlan" Type="Double" Nullable="false" />
+          <Property Name="ik" Type="Double" Nullable="false" />
+          <Property Name="ppk" Type="Double" Nullable="false" />
+          <Property Name="pi" Type="Double" Nullable="false" />
+          <Property Name="nop" Type="Double" Nullable="false" />
+          <Property Name="rateHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmPlanHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmFactHoure" Type="Double" Nullable="false" />
+          <Property Name="ssrHoure" Type="Double" Nullable="false" />
+          <Property Name="ikHoure" Type="Double" Nullable="false" />
+          <Property Name="ppkHoure" Type="Double" Nullable="false" />
+          <Property Name="piHoure" Type="Double" Nullable="false" />
+          <Property Name="nopHoure" Type="Double" Nullable="false" />
+          <Property Name="xReate" Type="Double" Nullable="false" />
+          <Property Name="xSsm" Type="Double" Nullable="false" />
+          <Property Name="xSsmFact" Type="Double" Nullable="false" />
+          <Property Name="xSsr" Type="Double" Nullable="false" />
+          <Property Name="xIk" Type="Double" Nullable="false" />
+          <Property Name="xPpk" Type="Double" Nullable="false" />
+          <Property Name="xPi" Type="Double" Nullable="false" />
+          <Property Name="xNop" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HSSPO">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderPZ" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TaskUID" Type="Guid" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="CountPO" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="RatePlan" Type="Double" />
+          <Property Name="SSMPlan" Type="Double" />
+          <Property Name="SSMFact" Type="Double" />
+          <Property Name="SSRPlan" Type="Double" />
+          <Property Name="ik" Type="Double" />
+          <Property Name="ppk" Type="Double" />
+          <Property Name="pi" Type="Double" />
+          <Property Name="nop" Type="Double" />
+          <Property Name="RateHoure" Type="Double" />
+          <Property Name="ssmHoure" Type="Double" />
+          <Property Name="ssmFactHoure" Type="Double" />
+          <Property Name="ssrHoure" Type="Double" />
+          <Property Name="ikHoure" Type="Double" />
+          <Property Name="ppkHoure" Type="Double" />
+          <Property Name="piHoure" Type="Double" />
+          <Property Name="nopHoure" Type="Double" />
+          <Property Name="xRate" Type="Double" />
+          <Property Name="xSSM" Type="Double" />
+          <Property Name="xSSMFact" Type="Double" />
+          <Property Name="xSSR" Type="Double" />
+          <Property Name="xIK" Type="Double" />
+          <Property Name="xPPK" Type="Double" />
+          <Property Name="xPI" Type="Double" />
+          <Property Name="xNOP" Type="Double" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10126,6 +10310,80 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="hss" ColumnName="hss" />
                 <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_HSSPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
+              <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
+                <ScalarProperty Name="xNop" ColumnName="xNop" />
+                <ScalarProperty Name="xPi" ColumnName="xPi" />
+                <ScalarProperty Name="xPpk" ColumnName="xPpk" />
+                <ScalarProperty Name="xIk" ColumnName="xIk" />
+                <ScalarProperty Name="xSsr" ColumnName="xSsr" />
+                <ScalarProperty Name="xSsmFact" ColumnName="xSsmFact" />
+                <ScalarProperty Name="xSsm" ColumnName="xSsm" />
+                <ScalarProperty Name="xReate" ColumnName="xReate" />
+                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
+                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
+                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
+                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
+                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
+                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
+                <ScalarProperty Name="ssmPlanHoure" ColumnName="ssmPlanHoure" />
+                <ScalarProperty Name="rateHoure" ColumnName="rateHoure" />
+                <ScalarProperty Name="nop" ColumnName="nop" />
+                <ScalarProperty Name="pi" ColumnName="pi" />
+                <ScalarProperty Name="ppk" ColumnName="ppk" />
+                <ScalarProperty Name="ik" ColumnName="ik" />
+                <ScalarProperty Name="ssrPlan" ColumnName="ssrPlan" />
+                <ScalarProperty Name="ssmFact" ColumnName="ssmFact" />
+                <ScalarProperty Name="ssmPlan" ColumnName="ssmPlan" />
+                <ScalarProperty Name="rateUSD" ColumnName="rateUSD" />
+                <ScalarProperty Name="assignmentWork" ColumnName="assignmentWork" />
+                <ScalarProperty Name="timeByDay" ColumnName="timeByDay" />
+                <ScalarProperty Name="taskName" ColumnName="taskName" />
+                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HSSPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.HSSPO">
+              <MappingFragment StoreEntitySet="HSSPO">
+                <ScalarProperty Name="xNOP" ColumnName="xNOP" />
+                <ScalarProperty Name="xPI" ColumnName="xPI" />
+                <ScalarProperty Name="xPPK" ColumnName="xPPK" />
+                <ScalarProperty Name="xIK" ColumnName="xIK" />
+                <ScalarProperty Name="xSSR" ColumnName="xSSR" />
+                <ScalarProperty Name="xSSMFact" ColumnName="xSSMFact" />
+                <ScalarProperty Name="xSSM" ColumnName="xSSM" />
+                <ScalarProperty Name="xRate" ColumnName="xRate" />
+                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
+                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
+                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
+                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
+                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
+                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
+                <ScalarProperty Name="ssmHoure" ColumnName="ssmHoure" />
+                <ScalarProperty Name="RateHoure" ColumnName="RateHoure" />
+                <ScalarProperty Name="nop" ColumnName="nop" />
+                <ScalarProperty Name="pi" ColumnName="pi" />
+                <ScalarProperty Name="ppk" ColumnName="ppk" />
+                <ScalarProperty Name="ik" ColumnName="ik" />
+                <ScalarProperty Name="SSRPlan" ColumnName="SSRPlan" />
+                <ScalarProperty Name="SSMFact" ColumnName="SSMFact" />
+                <ScalarProperty Name="SSMPlan" ColumnName="SSMPlan" />
+                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
+                <ScalarProperty Name="CountPO" ColumnName="CountPO" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+                <ScalarProperty Name="OrderPZ" ColumnName="OrderPZ" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

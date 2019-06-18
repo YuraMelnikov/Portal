@@ -278,6 +278,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_HSSPO" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.HSSPO" Width="1.5" PointX="7.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

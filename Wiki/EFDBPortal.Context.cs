@@ -151,5 +151,7 @@ namespace Wiki
         public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
+        public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
+        public virtual DbSet<HSSPO> HSSPO { get; set; }
     }
 }

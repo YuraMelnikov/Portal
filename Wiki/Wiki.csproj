@@ -266,9 +266,12 @@
     <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
     <Compile Include="Areas\DashboardBP\Models\ProjectsList.cs" />
+    <Compile Include="Areas\DashboardBP\Models\RatePlan.cs" />
+    <Compile Include="Areas\DashboardBP\Models\RemainingHSS.cs" />
     <Compile Include="Areas\DashboardBP\Models\State.cs" />
     <Compile Include="Areas\DashboardBP\Models\Task.cs" />
     <Compile Include="Areas\DashboardBP\Models\TasksList.cs" />
+    <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -393,6 +396,9 @@
     <Compile Include="Controllers\UploadERController.cs" />
     <Compile Include="Controllers\VVPZsController.cs" />
     <Compile Include="Controllers\VV_PositionController.cs" />
+    <Compile Include="DashboardBP_HSSPO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardBP_ProjectList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -482,6 +488,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HSSPO.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelIdentity\AppRole.cs" />
