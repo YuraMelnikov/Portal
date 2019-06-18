@@ -286,6 +286,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_DashboardBP_State" Type="int" Nullable="false" />
           <Property Name="hss" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKO_Quartal">
           <Key>
@@ -304,6 +305,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_DashboardBP_State" Type="int" Nullable="false" />
           <Property Name="rate" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardRemaining">
           <Key>
@@ -312,6 +314,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_DashboardBP_State" Type="int" Nullable="false" />
           <Property Name="hss" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Debit_CMR">
           <Key>
@@ -8423,6 +8426,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
           <Property Name="hss" Type="Double" Nullable="false" />
           <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" FromRole="DashboardHSSPlan" ToRole="DashboardBP_State" />
+          <Property Name="plan" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardRatePlan">
           <Key>
@@ -8432,6 +8436,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
           <Property Name="rate" Type="Double" Nullable="false" />
           <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" FromRole="DashboardRatePlan" ToRole="DashboardBP_State" />
+          <Property Name="plan" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardRemaining">
           <Key>
@@ -8441,6 +8446,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
           <Property Name="hss" Type="Double" Nullable="false" />
           <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" FromRole="DashboardRemaining" ToRole="DashboardBP_State" />
+          <Property Name="plan" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="FK_DashboardHSSPlan_DashboardBP_State">
           <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
@@ -10096,6 +10102,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="DashboardHSSPlan">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardHSSPlan">
               <MappingFragment StoreEntitySet="DashboardHSSPlan">
+                <ScalarProperty Name="plan" ColumnName="plan" />
                 <ScalarProperty Name="hss" ColumnName="hss" />
                 <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -10105,6 +10112,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="DashboardRatePlan">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRatePlan">
               <MappingFragment StoreEntitySet="DashboardRatePlan">
+                <ScalarProperty Name="plan" ColumnName="plan" />
                 <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -10114,6 +10122,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="DashboardRemaining">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRemaining">
               <MappingFragment StoreEntitySet="DashboardRemaining">
+                <ScalarProperty Name="plan" ColumnName="plan" />
                 <ScalarProperty Name="hss" ColumnName="hss" />
                 <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
                 <ScalarProperty Name="id" ColumnName="id" />

@@ -28,7 +28,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
         }
         public ActionResult Index()
         {
-            //CreateNewBP();
+            CreateNewBP();
             return View();
         }
 
