@@ -5,14 +5,12 @@
         public NewBP()
         {
             new State().UpdateBP();
-            //updatedbPZ
+            //update PZ dateShPlan & ProjectUID
             new ProjectsList().CreatePZList();
             new RatePlan().CreateNewRatePlan();
-            //new remaining hss
-            //new hss plan
-
-
-            //tableManufacturingPO, short & long
+            new HSSPO().CreateNew();
+            new RemainingHSS().CreateNew();
+            new HssPlan().CreateNew();
         }
     }
 }

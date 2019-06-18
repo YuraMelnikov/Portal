@@ -3,21 +3,21 @@ using System.Linq;
 
 namespace Wiki.Areas.DashboardBP.Models
 {
-    public class RemainingHSS
+    public class HssPlan
     {
-        private readonly double plan = 3000000.0;
+        private readonly double plan = 10000000.0;
 
         public void CreateNew()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                DashboardRemaining remainingHss = new DashboardRemaining
+                DashboardHSSPlan hssPlan = new DashboardHSSPlan
                 {
                     plan = plan,
                     id_DashboardBP_State = db.DashboardBP_State.First(d => d.active == true).id,
-                    hss = new TEOData().GetRemainingHSS()
+                    hss = new TEOData().GetHSSToYear(DateTime.Now.Year)
                 };
-                db.DashboardRemaining.Add(remainingHss);
+                db.DashboardHSSPlan.Add(hssPlan);
                 db.SaveChanges();
             }
         }

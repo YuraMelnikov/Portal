@@ -263,6 +263,8 @@
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
     <Compile Include="Areas\DashboardBP\Models\Complited.cs" />
     <Compile Include="Areas\DashboardBP\Models\DataGanttProjectsPortfolio.cs" />
+    <Compile Include="Areas\DashboardBP\Models\HssPlan.cs" />
+    <Compile Include="Areas\DashboardBP\Models\HSSPO.cs" />
     <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
     <Compile Include="Areas\DashboardBP\Models\ProjectsList.cs" />
