@@ -604,7 +604,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 {
                     Wiki.Reclamation reclamation = data;
                     reclamation.fixedExpert = true;
-                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(reclamation).State = EntityState.Modified;
                 }
                 db.SaveChanges();
                 return GetRemarksPO();

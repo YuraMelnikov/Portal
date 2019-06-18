@@ -12,23 +12,19 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Reclamation_Type
+    public partial class ServiceRemarksCause
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Reclamation_Type()
+        public ServiceRemarksCause()
         {
-            this.Reclamation = new HashSet<Reclamation>();
-            this.ServiceRemarksTypes = new HashSet<ServiceRemarksTypes>();
+            this.ServiceRemarksCauses = new HashSet<ServiceRemarksCauses>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
-        public bool activeOTK { get; set; }
-        public bool activePO { get; set; }
+        public bool active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation> Reclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceRemarksTypes> ServiceRemarksTypes { get; set; }
+        public virtual ICollection<ServiceRemarksCauses> ServiceRemarksCauses { get; set; }
     }
 }

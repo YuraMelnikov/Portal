@@ -70,9 +70,9 @@ namespace Wiki.Areas.Reclamation.Models
         {
             string name = "";
             if (stepNumber == 1)
-                name = "создана";
+                name = "создано";
             else if (stepNumber == 2)
-                name = "перенаправлена";
+                name = "перенаправлено";
             else if (stepNumber == 3)
                 name = "направлен ответ";
             else if (stepNumber == 4)

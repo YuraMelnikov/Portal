@@ -153,5 +153,12 @@ namespace Wiki
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
         public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
         public virtual DbSet<HSSPO> HSSPO { get; set; }
+        public virtual DbSet<ServiceRemarks> ServiceRemarks { get; set; }
+        public virtual DbSet<ServiceRemarksActions> ServiceRemarksActions { get; set; }
+        public virtual DbSet<ServiceRemarksCause> ServiceRemarksCause { get; set; }
+        public virtual DbSet<ServiceRemarksCauses> ServiceRemarksCauses { get; set; }
+        public virtual DbSet<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
+        public virtual DbSet<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
+        public virtual DbSet<ServiceRemarksTypes> ServiceRemarksTypes { get; set; }
     }
 }

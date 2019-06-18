@@ -280,6 +280,23 @@
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_HSSPO" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.HSSPO" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarks" Width="1.5" PointX="3.375" PointY="13" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksActions" Width="1.5" PointX="7.875" PointY="43.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksCause" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksCauses" Width="1.5" PointX="5.625" PointY="13.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksPlanZakazs" Width="1.5" PointX="16.125" PointY="44.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksReclamations" Width="1.5" PointX="10.125" PointY="40.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksTypes" Width="1.5" PointX="7.875" PointY="36.375" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

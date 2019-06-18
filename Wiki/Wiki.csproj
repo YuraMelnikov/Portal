@@ -318,6 +318,7 @@
     <Compile Include="Areas\Reclamation\Models\TARemarksListView.cs" />
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
+    <Compile Include="Areas\ServiceReclamations\ServiceReclamationsAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -731,6 +732,27 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="RKD_VersionWork.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksActions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksCause.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksCauses.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksPlanZakazs.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksReclamations.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRemarksTypes.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Service_Reclamation.cs">
@@ -2161,6 +2183,7 @@
     <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBP.cshtml" />
     <Content Include="Areas\DashboardBP\Views\BP\Index.cshtml" />
     <Content Include="Areas\DashboardBP\Views\Shared\_LayoutDashboardBPAdmin.cshtml" />
+    <Content Include="Areas\ServiceReclamations\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2569,6 +2592,9 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ServiceReclamations\Controllers\" />
+    <Folder Include="Areas\ServiceReclamations\Models\" />
+    <Folder Include="Areas\ServiceReclamations\Views\Shared\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
