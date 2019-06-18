@@ -70,8 +70,8 @@ namespace Wiki.Areas.DashboardBP.Controllers
             //Task[] tasksArray = new Task[countTasks];
             for (int i = 0, j = 0; i < projectsCounter / 2; i++)
             {
-
                 Project project = new Project();
+                project.color = "#058DC7";
                 project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
                 project.id = listTasks[i].id.ToString();
                 project.completed = new Complited { amount = listTasks[i].planProjectPercentCompleted / 100.0 };
@@ -85,8 +85,11 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 projectsArray[j] = project;
                 j++;
                 project = new Project();
-
                 project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
+                if(listTasks[i].contractDate < listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP)
+                    project.color = "#e64219";
+                else
+                    project.color = "#19e694";
                 project.id = listTasks[i].id.ToString() + "ms";
                 project.completed = null;
                 project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;

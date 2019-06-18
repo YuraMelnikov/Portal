@@ -13,7 +13,6 @@ function loadGantt() {
             var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
             var countLine = myJSON.length;
             Highcharts.setOptions({
-                colors: ['#058DC7'],
                 lang: {
                     loading: 'Загрузка...',
                     months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
@@ -48,37 +47,28 @@ function loadGantt() {
             today.setUTCMilliseconds(0);
             today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
-                chart: {
-                    height: '900px'
-                },
-                series: [{
-                    pointWidth: 15,
-                    name: 'Заказ',
-                    data: myJSON
-                }],
                 xAxis: {
                     scrollbar: {
                         enabled: true
                     },
+                    currentDateIndicator: true,
                     min: today - 7 * day,
                     max: today + 120 * day,
-                    grid: {
-
-                    },
-                    title: {
-                        margin: 0
-                    },
                     labels: {
-                        format: '{value:Нед.%W}',
-                        indentation: 0,
-                        height: 0,
                         style: {
                             "color": "#666666",
-                            "fontSize": "10px",
-                            "max-height": "3px"
+                            "fontSize": "13px"
                         }
                     }
                 },
+                chart: {
+                    height: '900px'
+                },
+                series: [{
+                    pointWidth: 13,
+                    name: 'Заказ',
+                    data: myJSON
+                }],
                 yAxis: {
                     type: 'category',
                     grid: {
@@ -191,3 +181,4 @@ function loadGantt() {
     });
 }
 
+//periodReport

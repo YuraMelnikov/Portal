@@ -13,5 +13,6 @@ namespace Wiki.Areas.DashboardBP.Models
         public ulong contractDate;
         public int y;
         public bool milestone;
+        public string color;
     }
 }

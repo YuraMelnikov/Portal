@@ -26,21 +26,25 @@ namespace Wiki.Areas.CMO.Models
                 mail.From = new MailAddress(login);
                 if (stepNumber == 1) //Create - 1
                 {
+                    //mailToList.Add("myi@katek.by");
                     GetMailListCreate();
                 }
                 else if (stepNumber == 2) //work - 2
                 {
+                    //mailToList.Add("myi@katek.by");
                     GetMailList();
                     GetMailClient();
                 }
                 else if (stepNumber == 3) //manuf - 3
                 {
+                    //mailToList.Add("myi@katek.by");
                     GetMailList();
                     GetMailClient();
                     GetMailPM();
                 }
-                else if(stepNumber == 4) // Create ReOrder - 4
+                else if (stepNumber == 4) // Create ReOrder - 4
                 {
+                    //mailToList.Add("myi@katek.by");
                     GetMailListCreate();
                     GetMailClient();
                 }
