@@ -66,6 +66,7 @@ namespace Wiki.Areas.CMO.Controllers
                 manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                 dataList.manufCost,
                 finDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
+                dataList.reOrder,
                 dataList.finCost,
                 dataList.id,
                 folder = @"<a href =" + dataList.folder + "> Папка </a>",
@@ -322,7 +323,11 @@ namespace Wiki.Areas.CMO.Controllers
         string GetStatuName(CMO2_Order oreder)
         {
             string name = "";
-            if (oreder.workDateTime == null)
+            if (oreder.reOrder == true)
+            {
+                name = "Дозаказ";
+            }
+            else if (oreder.workDateTime == null)
             {
                 name = "Не отправлен";
             }

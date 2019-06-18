@@ -382,7 +382,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
-                    answer = "Рекламация перенаправлена на " + db.Devision.Find(reloadDevision).name,
+                    answer = "Замечание перенаправлена на " + db.Devision.Find(reloadDevision).name,
                     dateTimeCreate = DateTime.Now,
                     id_AspNetUsersCreate = aspNetUser.Id,
                     id_Reclamation = reclamation.id,
@@ -643,8 +643,8 @@ namespace Wiki.Areas.Reclamation.Controllers
             if (list.Count != 0)
             {
                 List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
-                Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор рекламации", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
-                    "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст рекламации", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
+                Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор замечания", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
+                    "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст замечания", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
                     "", "", "", "", "", "", "", "", "", 17);
                 excelRows.Add(excelRow);
                 foreach (var data in list)
