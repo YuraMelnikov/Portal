@@ -18,6 +18,9 @@ namespace Wiki
         public DashboardBP_State()
         {
             this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
+            this.DashboardHSSPlan = new HashSet<DashboardHSSPlan>();
+            this.DashboardRatePlan = new HashSet<DashboardRatePlan>();
+            this.DashboardRemaining = new HashSet<DashboardRemaining>();
         }
     
         public int id { get; set; }
@@ -27,5 +30,11 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardHSSPlan> DashboardHSSPlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardRatePlan> DashboardRatePlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardRemaining> DashboardRemaining { get; set; }
     }
 }

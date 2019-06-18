@@ -148,5 +148,8 @@ namespace Wiki
         public virtual DbSet<VV_Position> VV_Position { get; set; }
         public virtual DbSet<VVPZ> VVPZ { get; set; }
         public virtual DbSet<ProjectMSP_EpmProject_UserView> ProjectMSP_EpmProject_UserView { get; set; }
+        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
+        public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
+        public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
     }
 }

@@ -272,6 +272,12 @@
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardHSSPlan" Width="1.5" PointX="22.125" PointY="96.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRatePlan" Width="1.5" PointX="22.125" PointY="100.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRemaining" Width="1.5" PointX="22.125" PointY="98.5" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
