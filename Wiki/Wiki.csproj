@@ -853,6 +853,7 @@
     <Content Include="Areas\Reclamation\migrate db\addNewUserManuf.sql" />
     <Content Include="Areas\Reclamation\migrate db\importDataNewStruct.sql" />
     <Content Include="Areas\ServiceReclamations\Content\Remarks.js" />
+    <Content Include="Areas\ServiceReclamations\migrate db\importListsPWASC.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css" />
