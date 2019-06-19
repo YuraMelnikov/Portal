@@ -283,5 +283,31 @@ function getView(id){
 }
 
 function update() {
-
+    var objRemark = {
+        id: $('#id').val(),
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        id_Reclamation_Type: $('#id_Reclamation_Type').val(),
+        id_ServiceRemarksCause: $('#id_ServiceRemarksCause').val(),
+        datePutToService: $('#datePutToService').val(),
+        dateClose: $('#dateClose').val(),
+        folder: $('#folder').val(),
+        text: $('#text').val(),
+        description: $('#description').val(),
+        answerText: $('#answerText').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Marks/Update/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#reclamationModal').modal('hide');
+            loadData(document.getElementById('pageData').innerHTML);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

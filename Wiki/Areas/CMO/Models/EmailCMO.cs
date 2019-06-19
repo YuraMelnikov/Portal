@@ -148,7 +148,7 @@ namespace Wiki.Areas.CMO.Models
             else if (stepNumber == 5)
             {
                 body = "Добрый день!" + "<br/>";
-                body += "Запускаем заказ в работу, требуемая дата изготовления: " + order.manufDate.ToString().Substring(0, 10) + "<br/>" + "<br/>";
+                body += "Изменена плановая дата изготовления: " + order.manufDate.ToString().Substring(0, 10) + "<br/>" + "<br/>";
                 body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                         "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
                         "gdp@katek.by";
@@ -189,6 +189,8 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailPM()
         {
+            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("myi@katek.by");
             mailToList.Add("gea@katek.by");
             return true;
         }

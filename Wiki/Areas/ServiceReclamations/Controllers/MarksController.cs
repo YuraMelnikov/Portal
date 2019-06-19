@@ -191,13 +191,112 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     db.ServiceRemarksActions.Add(serviceRemarksActions);
                     db.SaveChanges();
                 }
+                UpdatePZList(pZ_PlanZakaz, beforeUpdateRemark.id);
+                UpdateTypes(id_Reclamation_Type, beforeUpdateRemark.id);
+                UpdateCause(id_ServiceRemarksCause, beforeUpdateRemark.id);
             }
-            //pZ_PlanZakaz
-            //id_Reclamation_Type
-            //id_ServiceRemarksCause
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        bool UpdateCause(int[] pZ_PlanZakaz, int id_Reclamation)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var listLastPz = db.ServiceRemarksCauses.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+                foreach (var lastReclamationPZ in listLastPz)
+                {
+                    if (pZ_PlanZakaz.Where(d => d == lastReclamationPZ.id_ServiceRemarksCause).Count() == 0)
+                    {
+                        db.ServiceRemarksCauses.Remove(lastReclamationPZ);
+                        db.SaveChanges();
+                    }
+                }
+                listLastPz = db.ServiceRemarksCauses.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+                foreach (var newReclamationPZ in pZ_PlanZakaz)
+                {
+                    if (listLastPz.Where(d => d.id_ServiceRemarksCause == newReclamationPZ).Count() == 0)
+                    {
+                        ServiceRemarksCauses reclamation_PZ = new ServiceRemarksCauses
+                        {
+                            id_ServiceRemarksCause = newReclamationPZ,
+                            id_ServiceRemarks = id_Reclamation
+                        };
+                        db.ServiceRemarksCauses.Add(reclamation_PZ);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return true;
+        }
+
+        bool UpdateTypes(int[] pZ_PlanZakaz, int id_Reclamation)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var listLastPz = db.ServiceRemarksTypes.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+                foreach (var lastReclamationPZ in listLastPz)
+                {
+                    if (pZ_PlanZakaz.Where(d => d == lastReclamationPZ.id_Reclamation_Type).Count() == 0)
+                    {
+                        db.ServiceRemarksTypes.Remove(lastReclamationPZ);
+                        db.SaveChanges();
+                    }
+                }
+                listLastPz = db.ServiceRemarksTypes.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+                foreach (var newReclamationPZ in pZ_PlanZakaz)
+                {
+                    if (listLastPz.Where(d => d.id_Reclamation_Type == newReclamationPZ).Count() == 0)
+                    {
+                        ServiceRemarksTypes reclamation_PZ = new ServiceRemarksTypes
+                        {
+                            id_Reclamation_Type = newReclamationPZ,
+                            id_ServiceRemarks = id_Reclamation
+                        };
+                        db.ServiceRemarksTypes.Add(reclamation_PZ);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return true;
+        }
+
+        bool UpdatePZList(int[] pZ_PlanZakaz, int id_Reclamation)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var listLastPz = db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+
+                foreach (var lastReclamationPZ in listLastPz)
+                {
+                    if (pZ_PlanZakaz.Where(d => d == lastReclamationPZ.id_PZ_PlanZakaz).Count() == 0)
+                    {
+                        db.ServiceRemarksPlanZakazs.Remove(lastReclamationPZ);
+                        db.SaveChanges();
+                    }
+                }
+                listLastPz = db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == id_Reclamation).ToList();
+                foreach (var newReclamationPZ in pZ_PlanZakaz)
+                {
+                    if (listLastPz.Where(d => d.id_PZ_PlanZakaz == newReclamationPZ).Count() == 0)
+                    {
+                        ServiceRemarksPlanZakazs reclamation_PZ = new ServiceRemarksPlanZakazs
+                        {
+                            id_PZ_PlanZakaz = newReclamationPZ,
+                            id_ServiceRemarks = id_Reclamation
+                        };
+                        db.ServiceRemarksPlanZakazs.Add(reclamation_PZ);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return true;
+        }
 
         [HttpPost]
         public JsonResult ActiveList()
