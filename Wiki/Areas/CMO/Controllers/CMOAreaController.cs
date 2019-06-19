@@ -269,7 +269,6 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult UpdateReOrder(int id)
         {
             CMO2_Order order = db.CMO2_Order.Find(id);

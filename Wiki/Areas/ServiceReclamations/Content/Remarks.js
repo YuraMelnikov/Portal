@@ -211,10 +211,77 @@ function validate() {
     return isValid;
 }
 
-//get(id)
+function get(id) {
+    clearTextBox();
+    var myVal = userGroupId;
+    $.ajax({
+        cache: false,
+        url: "/Marks/Get/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
+            $("#id_Reclamation_Type").val(result.id_Reclamation_Type).trigger("chosen:updated");
+            $("#id_ServiceRemarksCause").val(result.id_ServiceRemarksCause).trigger("chosen:updated");
+            $('#numberReclamation').val(result.numberReclamation);
+            $('#dateTimeCreate').val(result.dateTimeCreate);
+            $('#userCreate').val(result.userCreate);
+            $('#datePutToService').val(result.datePutToService);
+            $('#dateClose').val(result.dateClose);
+            $('#folder').val(result.folder);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#answerText').val(result.answerText);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#reclamationModal').modal('show');
+            if (userGroupId === 1 || userGroupId === '1')
+                $('#btnUpdate').show();
+            else
+                $('#btnUpdate').hide();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
 
-//getView(id)
+function getView(id){
+    clearTextBox();
+    var myVal = userGroupId;
+    $.ajax({
+        cache: false,
+        url: "/Marks/Get/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
+            $("#id_Reclamation_Type").val(result.id_Reclamation_Type).trigger("chosen:updated");
+            $("#id_ServiceRemarksCause").val(result.id_ServiceRemarksCause).trigger("chosen:updated");
+            $('#numberReclamation').val(result.numberReclamation);
+            $('#dateTimeCreate').val(result.dateTimeCreate);
+            $('#userCreate').val(result.userCreate);
+            $('#datePutToService').val(result.datePutToService);
+            $('#dateClose').val(result.dateClose);
+            $('#folder').val(result.folder);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#answerText').val(result.answerText);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#reclamationModal').modal('show');
+            $('#btnUpdate').hide();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
 
-//update
+function update() {
 
-//?NewReclamation
+}

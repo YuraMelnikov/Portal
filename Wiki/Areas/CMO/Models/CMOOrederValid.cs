@@ -45,6 +45,8 @@ namespace Wiki.Areas.CMO.Models
                 db.SaveChanges();
                 if(pushMail == true)
                     new EmailCMO(cMO2_Order, login, 3);
+                else
+                    new EmailCMO(cMO2_Order, login, 5);
             }
             else if (cMO2_Order.finIn == false && cMO2_Order.finDate != null)
             {

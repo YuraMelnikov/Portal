@@ -4,12 +4,14 @@ using Wiki.Areas.ServiceReclamations.Models;
 using System.Data.Entity;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Wiki.Areas.ServiceReclamations.Controllers
 {
     public class MarksController : Controller
     {
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
         public ActionResult Index()
         {
@@ -81,8 +83,121 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //Get(int id)
-        //Update(????)
+        public JsonResult Get(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.ServiceRemarks
+                    .Include(d => d.ServiceRemarksPlanZakazs)
+                    .Include(d => d.ServiceRemarksTypes)
+                    .Include(d => d.ServiceRemarksCauses)
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    numberReclamation = dataList.id,
+                    dataList.id,
+                    pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
+                    id_Reclamation_Type = GetTypesArray(dataList.ServiceRemarksTypes.ToList()),
+                    id_ServiceRemarksCause = GetCausesArray(dataList.ServiceRemarksCauses.ToList()),
+                    dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
+                    userCreate = dataList.AspNetUsers.CiliricalName,
+                    datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, settings).Replace(@"""", ""),
+                    dateClose = JsonConvert.SerializeObject(dataList.dateClose, settings).Replace(@"""", ""),
+                    dataList.folder,
+                    dataList.text,
+                    dataList.description,
+                    answerHistiryText = GetHistoryText(dataList.id)
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        string GetHistoryText(int id)
+        {
+            string answer = "";
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var listAnswers = db.ServiceRemarksActions
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_ServiceRemarks == id)
+                    .ToList();
+                foreach (var data in listAnswers)
+                {
+                    answer += data.dateTimeCreate.ToShortDateString() + "|" + data.AspNetUsers.CiliricalName + " | " + data.text + "</br>";
+                }
+            }
+            return answer;
+        }
+
+        string[] GetPlanZakazArray(List<ServiceRemarksPlanZakazs> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_PZ_PlanZakaz.ToString();
+            }
+            return pZ_PlanZakaz;
+        }
+
+        string[] GetTypesArray(List<ServiceRemarksTypes> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_Reclamation_Type.ToString();
+            }
+            return pZ_PlanZakaz;
+        }
+
+        string[] GetCausesArray(List<ServiceRemarksCauses> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_ServiceRemarksCause.ToString();
+            }
+            return pZ_PlanZakaz;
+        }
+
+        public JsonResult Update(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause, string answerText)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ServiceRemarks beforeUpdateRemark = db.ServiceRemarks.Find(reclamation.id);
+                beforeUpdateRemark.dateClose = reclamation.dateClose;
+                beforeUpdateRemark.datePutToService = reclamation.datePutToService;
+                if (reclamation.description != null)
+                    beforeUpdateRemark.description = reclamation.description = "";
+                if (reclamation.folder != null)
+                    beforeUpdateRemark.folder = reclamation.folder = "";
+                beforeUpdateRemark.text = reclamation.text;
+                db.Entry(beforeUpdateRemark).State = EntityState.Modified;
+                db.SaveChanges();
+                if(answerText != null || answerText != "")
+                {
+                    string login = HttpContext.User.Identity.Name;
+                    ServiceRemarksActions serviceRemarksActions = new ServiceRemarksActions();
+                    serviceRemarksActions.dateTimeCreate = DateTime.Now;
+                    serviceRemarksActions.id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == login).Id;
+                    serviceRemarksActions.id_ServiceRemarks = beforeUpdateRemark.id;
+                    serviceRemarksActions.text = answerText;
+                    db.ServiceRemarksActions.Add(serviceRemarksActions);
+                    db.SaveChanges();
+                }
+            }
+            //pZ_PlanZakaz
+            //id_Reclamation_Type
+            //id_ServiceRemarksCause
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult ActiveList()
@@ -92,7 +207,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             {
                 dataList.id,
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 orders = GetOrdersName(dataList.id),
                 client = GetClient(dataList.id),
                 dataList.text,
@@ -115,7 +230,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             {
                 dataList.id,
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 orders = GetOrdersName(dataList.id),
                 client = GetClient(dataList.id),
                 dataList.text,
@@ -138,7 +253,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             {
                 dataList.id,
                 editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 orders = GetOrdersName(dataList.id),
                 client = GetClient(dataList.id),
                 dataList.text,
