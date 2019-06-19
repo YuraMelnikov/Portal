@@ -22,10 +22,10 @@ function loadData(listId) {
 }
 
 var objViewList = [
-    { "title": "№", "data": "id", "autowidth": true, "bSortable": true },
-    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "См", "data": "viewLink", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа/ов", "data": "orders", "autowidth": true, "bSortable": true },
+    { "title": "№", "data": "id", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "См", "data": "viewLink", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Заказ/ы", "data": "orders", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Покупатель", "data": "client", "autowidth": true, "bSortable": true },
     { "title": "Тип", "data": "types", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
@@ -129,6 +129,12 @@ function allReclamation() {
         "bDestroy": true,
         "processing": true,
         "columns": objViewList,
+        "rowCallback": function (row, data, index) {
+            if (data.dateClose === 'null') {
+                $('td', row).css('background-color', '#ebaca2');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -330,6 +336,10 @@ function getView(id){
 }
 
 function update() {
+    var res = validate();
+    if (res === false) {
+        return false;
+    }
     var tmp = document.getElementById('id').innerHTML;
     var objRemark = {
         id: $('#id').val(),

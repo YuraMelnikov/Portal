@@ -10,6 +10,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 {
     public class MarksController : Controller
     {
+        readonly JsonSerializerSettings shortSettingLeftRight = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
@@ -19,7 +20,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
                 ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
                 string login = HttpContext.User.Identity.Name;
@@ -44,11 +45,19 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                if (reclamation.description == null)
+                    reclamation.description = "";
+                if (reclamation.folder == null)
+                    reclamation.folder = "";
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 string login = HttpContext.User.Identity.Name;
                 reclamation.dateTimeCreate = DateTime.Now;
                 reclamation.userCreate = db.AspNetUsers.First(d => d.Email == login).Id;
+                if (reclamation.description == null)
+                    reclamation.description = "";
+                if (reclamation.folder == null)
+                    reclamation.folder = "";
                 db.ServiceRemarks.Add(reclamation);
                 db.SaveChanges();
                 foreach (var data in pZ_PlanZakaz)
@@ -100,8 +109,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     id_ServiceRemarksCause = GetCausesArray(dataList.ServiceRemarksCauses.ToList()),
                     dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
                     userCreate = dataList.AspNetUsers.CiliricalName,
-                    datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
-                    dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
+                    datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, shortSettingLeftRight).Replace(@"""", ""),
+                    dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSettingLeftRight).Replace(@"""", ""),
                     dataList.folder,
                     dataList.text,
                     dataList.description,
@@ -121,6 +130,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 var listAnswers = db.ServiceRemarksActions
                     .Include(d => d.AspNetUsers)
                     .Where(d => d.id_ServiceRemarks == id)
+                    .OrderByDescending(d => d.dateTimeCreate)
                     .ToList();
                 foreach (var data in listAnswers)
                 {
@@ -175,9 +185,13 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 {
 
                 }
+                if (reclamation.description == null)
+                    reclamation.description = "";
+                if (reclamation.folder == null)
+                    reclamation.folder = "";
                 beforeUpdateRemark.datePutToService = reclamation.datePutToService;
-                beforeUpdateRemark.description = reclamation.description = "";
-                beforeUpdateRemark.folder = reclamation.folder = "";
+                beforeUpdateRemark.description = reclamation.description;
+                beforeUpdateRemark.folder = reclamation.folder;
                 beforeUpdateRemark.text = reclamation.text;
                 db.Entry(beforeUpdateRemark).State = EntityState.Modified;
                 db.SaveChanges();
@@ -317,7 +331,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -340,7 +354,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -363,7 +377,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
