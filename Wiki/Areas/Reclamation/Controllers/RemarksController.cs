@@ -315,7 +315,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
             CreateReclamation correctPlanZakaz = new CreateReclamation(reclamation, login, reload, reloadDevision);
             reclamation = correctPlanZakaz.Reclamation;
-            db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(reclamation).State = EntityState.Modified;
             db.SaveChanges();
             if (aspNetUser.Devision.Value == 6 && answerText != "" && answerText != null)
             {
@@ -332,7 +332,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 if(reclamation.close != true)
                 {
                     reclamation.closeDevision = false;
-                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(reclamation).State = EntityState.Modified;
                     db.SaveChanges();
                 }
             }
@@ -351,7 +351,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 if (reclamation.close != true)
                 {
                     reclamation.closeDevision = false;
-                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(reclamation).State = EntityState.Modified;
                     db.SaveChanges();
                 }
             }

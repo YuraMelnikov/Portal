@@ -49,10 +49,6 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 string login = HttpContext.User.Identity.Name;
                 reclamation.dateTimeCreate = DateTime.Now;
                 reclamation.userCreate = db.AspNetUsers.First(d => d.Email == login).Id;
-                if (reclamation.description == null)
-                    reclamation.description = "";
-                if (reclamation.folder == null)
-                    reclamation.folder = "";
                 db.ServiceRemarks.Add(reclamation);
                 db.SaveChanges();
                 foreach (var data in pZ_PlanZakaz)
@@ -97,15 +93,15 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     .Where(d => d.id == id).ToList();
                 var data = query.Select(dataList => new
                 {
-                    numberReclamation = "Рекламация №: " + dataList.id + "000",
+                    numberReclamation = "Рекламация №: " + dataList.id,
                     dataList.id,
                     pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
                     id_Reclamation_Type = GetTypesArray(dataList.ServiceRemarksTypes.ToList()),
                     id_ServiceRemarksCause = GetCausesArray(dataList.ServiceRemarksCauses.ToList()),
                     dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
                     userCreate = dataList.AspNetUsers.CiliricalName,
-                    datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, settings).Replace(@"""", ""),
-                    dateClose = JsonConvert.SerializeObject(dataList.dateClose, settings).Replace(@"""", ""),
+                    datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
+                    dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
                     dataList.folder,
                     dataList.text,
                     dataList.description,
@@ -128,7 +124,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     .ToList();
                 foreach (var data in listAnswers)
                 {
-                    answer += data.dateTimeCreate.ToShortDateString() + "|" + data.AspNetUsers.CiliricalName + " | " + data.text + "</br>";
+                    answer += data.dateTimeCreate.ToShortDateString() + " | " + data.AspNetUsers.CiliricalName + " | " + data.text + "\n";
                 }
             }
             return answer;
@@ -171,16 +167,21 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 ServiceRemarks beforeUpdateRemark = db.ServiceRemarks.Find(reclamation.id);
-                beforeUpdateRemark.dateClose = reclamation.dateClose;
+                try
+                {
+                    beforeUpdateRemark.dateClose = reclamation.dateClose;
+                }
+                catch
+                {
+
+                }
                 beforeUpdateRemark.datePutToService = reclamation.datePutToService;
-                if (reclamation.description != null)
-                    beforeUpdateRemark.description = reclamation.description = "";
-                if (reclamation.folder != null)
-                    beforeUpdateRemark.folder = reclamation.folder = "";
+                beforeUpdateRemark.description = reclamation.description = "";
+                beforeUpdateRemark.folder = reclamation.folder = "";
                 beforeUpdateRemark.text = reclamation.text;
                 db.Entry(beforeUpdateRemark).State = EntityState.Modified;
                 db.SaveChanges();
-                if(answerText != null || answerText != "")
+                if(answerText != "")
                 {
                     string login = HttpContext.User.Identity.Name;
                     ServiceRemarksActions serviceRemarksActions = new ServiceRemarksActions();

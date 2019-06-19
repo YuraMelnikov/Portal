@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $('#pageData').hide();
+    $('#intHide').hide();
     if (userGroupId !== 1) {
         $('#btnAddNewReclamations').hide();
     }
@@ -30,9 +31,9 @@ var objViewList = [
     { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Причина возникновения", "data": "causes", "autowidth": true, "bSortable": false },
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Дата открытия", "data": "dateOpen", "autowidth": true, "bSortable": true },
-    { "title": "Дата получения", "data": "dateGet", "autowidth": true, "bSortable": true },
-    { "title": "Дата закрытия", "data": "dateClose", "autowidth": true, "bSortable": true },
+    { "title": "Дата открытия", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Дата получения", "data": "dateGet", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Дата закрытия", "data": "dateClose", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull  },
     { "title": "Папка (IE)", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
@@ -248,6 +249,7 @@ function validate() {
 }
 
 function get(id) {
+    
     clearTextBox();
     var myVal = userGroupId;
     $.ajax({
@@ -265,8 +267,12 @@ function get(id) {
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#userCreate').val(result.userCreate);
             $('#datePutToService').val(result.datePutToService);
-            $('#dateClose').val(result.dateClose);
+            if (result.dateClose !== 'null')
+                $('#dateClose').val(result.dateClose);
+            else
+                $('#dateClose').val("");
             $('#folder').val(result.folder);
+            $('#id').val(result.id);
             $('#text').val(result.text);
             $('#description').val(result.description);
             $('#answerText').val(result.answerText);
@@ -295,6 +301,10 @@ function getView(id){
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            if (result.dateClose === null)
+                $('#dateClose').val(result.dateClose);
+            else
+                $('#dateClose').val("");
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $("#id_Reclamation_Type").val(result.id_Reclamation_Type).trigger("chosen:updated");
             $("#id_ServiceRemarksCause").val(result.id_ServiceRemarksCause).trigger("chosen:updated");
@@ -320,6 +330,7 @@ function getView(id){
 }
 
 function update() {
+    var tmp = document.getElementById('id').innerHTML;
     var objRemark = {
         id: $('#id').val(),
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
@@ -347,4 +358,12 @@ function update() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function processNull(data) {
+    if (data === 'null') {
+        return '';
+    } else {
+        return data;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -48,7 +49,18 @@ namespace Wiki.Areas.PZ.Controllers
         [HttpPost]
         public JsonResult OrdersListInManufacturing()
         {
-            var query = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_PlanZakaz
+                .AsNoTracking()
+                .Include(d => d.PZ_ProductType)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.PZ_OperatorDogovora)
+                .Include(d => d.PZ_FIO)
+                .Include(d => d.PZ_Dostavka)
+                .Include(d => d.PZ_Client)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now)
+                .ToList();
             string login = "";
             try
             {
@@ -136,7 +148,19 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult OrdersList()
         {
             int countLastOrdersView = 200;
-            var query = db.PZ_PlanZakaz.OrderByDescending(d => d.DateCreate).Take(countLastOrdersView).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_PlanZakaz
+                .AsNoTracking()
+                .Include(d => d.PZ_ProductType)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.PZ_OperatorDogovora)
+                .Include(d => d.PZ_FIO)
+                .Include(d => d.PZ_Dostavka)
+                .Include(d => d.PZ_Client)
+                .OrderByDescending(d => d.DateCreate)
+                .Take(countLastOrdersView)
+                .ToList();
             string login = "";
             try
             {
@@ -212,7 +236,17 @@ namespace Wiki.Areas.PZ.Controllers
         [HttpPost]
         public JsonResult OrdersListLY(int yearCreateOrder)
         {
-            var query = db.PZ_PlanZakaz.Where(d => d.DateCreate.Year == yearCreateOrder).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_PlanZakaz
+                .AsNoTracking()
+                .Include(d => d.PZ_ProductType)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.PZ_OperatorDogovora)
+                .Include(d => d.PZ_FIO)
+                .Include(d => d.PZ_Dostavka)
+                .Include(d => d.PZ_Client)
+                .Where(d => d.DateCreate.Year == yearCreateOrder).ToList();
             string login = "";
             try
             {
@@ -288,7 +322,17 @@ namespace Wiki.Areas.PZ.Controllers
         [HttpPost]
         public JsonResult OrdersListALL()
         {
-            var query = db.PZ_PlanZakaz.ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_PlanZakaz
+                .AsNoTracking()
+                .Include(d => d.PZ_ProductType)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.PZ_OperatorDogovora)
+                .Include(d => d.PZ_FIO)
+                .Include(d => d.PZ_Dostavka)
+                .Include(d => d.PZ_Client)
+                .ToList();
             string login = "";
             try
             {
