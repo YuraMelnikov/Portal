@@ -320,7 +320,6 @@
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\ServiceReclamations\Controllers\MarksController.cs" />
     <Compile Include="Areas\ServiceReclamations\Models\ReclamationsList.cs" />
-    <Compile Include="Areas\ServiceReclamations\Models\ReclamationView.cs" />
     <Compile Include="Areas\ServiceReclamations\ServiceReclamationsAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>

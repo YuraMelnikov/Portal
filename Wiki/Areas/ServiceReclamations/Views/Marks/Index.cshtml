@@ -23,11 +23,51 @@
                 </a>
             </li>
             <li><a id="pageData"></a></li>
-            <li><a id="zakazId"></a></li>
-            <li><a id="expertData"></a></li>
         </ul>
     </div>
 </nav>
+<button id="btnAddNewReclamations" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Зарегистрировать рекламацию</button>
 
 
-@*btnAddNewReclamations*@
+<div id="reclamationModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>№заказа/ов:</label>
+                        @Html.ListBox("id_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Тип/ы заказываемых ТМЦ:</label>
+                        @Html.ListBox("id_CMO_TypeProduct", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <hr />
+
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var userGroupId = @ViewBag.userGroupId;
+</script>

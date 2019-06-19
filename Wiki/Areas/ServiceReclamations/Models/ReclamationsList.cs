@@ -12,7 +12,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
-                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
                 .Where(d => d.dateClose == null)
@@ -24,7 +24,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
-                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
                 .Where(d => d.dateClose != null)
@@ -36,7 +36,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
-                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
                 .ToList();

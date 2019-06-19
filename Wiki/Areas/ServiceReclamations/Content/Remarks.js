@@ -2,7 +2,7 @@
     if (userGroupId !== 1) {
         $('#btnAddNewReclamations').hide();
     }
-    startMenu();
+    activeReclamation();
 });
 
 function loadData(listId) {
@@ -20,16 +20,22 @@ function loadData(listId) {
 }
 
 var objViewList = [
-    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": true },
-    { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "name", "autowidth": true, "bSortable": true },
-    { "title": "Срок", "data": "workDateTime", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Дата исполнения", "data": "manufDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
+    { "title": "№", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "См", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа/ов", "data": "orders", "autowidth": true, "bSortable": true },
+    { "title": "Покупатель", "data": "client", "autowidth": true, "bSortable": true },
+    { "title": "Тип", "data": "types", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Причина возникновения", "data": "causes", "autowidth": true, "bSortable": false },
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Дата открытия", "data": "dateOpen", "autowidth": true, "bSortable": true },
+    { "title": "Дата получения", "data": "dateGet", "autowidth": true, "bSortable": true },
+    { "title": "Дата закрытия", "data": "dateClose", "autowidth": true, "bSortable": true },
+    { "title": "Папка (IE)", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
-function startMenu() {
+function activeReclamation() {
     $("#reclamationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -37,20 +43,8 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        //"order": [[3, "desc"]],
         "processing": true,
         "columns": objViewList,
-        //"rowCallback": function (row, data, index) {
-        //    if (data.status === "Не отправлен") {
-        //        $('td', row).css('background-color', '#ebaca2');
-        //    }
-        //    else if (data.status === "Ожидание сроков") {
-        //        $('td', row).css('background-color', '#ffc87c');
-        //    }
-        //    else if (data.status === "Производится") {
-        //        $('td', row).css('background-color', '#a6e9d7');
-        //    }
-        //},
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -63,3 +57,65 @@ function startMenu() {
         }
     });
 }
+
+function closeReclamation() {
+    $("#reclamationTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/CloseList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objViewList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function allReclamation() {
+    $("#reclamationTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/AllList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objViewList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+//reclamationModal
+
+//clearTextBox
+
+//add
+
+//get(id)
+
+//getView(id)
+
+//update
+
+//validate
+
+//?NewReclamation
