@@ -16,7 +16,10 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             int devisionUser = 0;
             try
             {
-                devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+                }
             }
             catch
             {
