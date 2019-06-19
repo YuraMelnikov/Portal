@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Wiki.Areas.ServiceReclamations.Models
@@ -8,17 +9,37 @@ namespace Wiki.Areas.ServiceReclamations.Models
         PortalKATEKEntities db = new PortalKATEKEntities();
         public List<ServiceRemarks> GetActive()
         {
-            return db.ServiceRemarks.Where(d => d.dateClose == null).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            return db.ServiceRemarks
+                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
+                .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
+                .Where(d => d.dateClose == null)
+                .ToList();
         }
 
         public List<ServiceRemarks> GetClose()
         {
-            return db.ServiceRemarks.Where(d => d.dateClose != null).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            return db.ServiceRemarks
+                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
+                .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
+                .Where(d => d.dateClose != null)
+                .ToList();
         }
 
         public List<ServiceRemarks> GetAll()
         {
-            return db.ServiceRemarks.ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            return db.ServiceRemarks
+                .Include(d => d.ServiceRemarksPlanZakazs.Select(s => s.PZ_PlanZakaz.Client))
+                .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
+                .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
+                .ToList();
         }
     }
 }

@@ -13,6 +13,9 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return View();
         }
 
+        //ActiveList
+        //CloseList
+        //AllList
 
 
 

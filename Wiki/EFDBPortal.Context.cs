@@ -47,6 +47,9 @@ namespace Wiki
         public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
+        public virtual DbSet<ProjectMSP_EpmProject_UserView> ProjectMSP_EpmProject_UserView { get; set; }
+        public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
+        public virtual DbSet<HSSPO> HSSPO { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -69,6 +72,9 @@ namespace Wiki
         public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
         public virtual DbSet<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
+        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
+        public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
+        public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
@@ -128,31 +134,6 @@ namespace Wiki
         public virtual DbSet<RKD_Version> RKD_Version { get; set; }
         public virtual DbSet<RKD_VersionDay> RKD_VersionDay { get; set; }
         public virtual DbSet<RKD_VersionWork> RKD_VersionWork { get; set; }
-        public virtual DbSet<Service_Reclamation> Service_Reclamation { get; set; }
-        public virtual DbSet<Service_ReclamationAddOrder> Service_ReclamationAddOrder { get; set; }
-        public virtual DbSet<Service_ReclamationAnswerDevision> Service_ReclamationAnswerDevision { get; set; }
-        public virtual DbSet<Service_ReclamationCorrespondence> Service_ReclamationCorrespondence { get; set; }
-        public virtual DbSet<Service_ReclamationCounterError> Service_ReclamationCounterError { get; set; }
-        public virtual DbSet<Service_ReclamationInfo> Service_ReclamationInfo { get; set; }
-        public virtual DbSet<Service_ReclamationMonthDoc> Service_ReclamationMonthDoc { get; set; }
-        public virtual DbSet<Service_ReclamationMonthResult> Service_ReclamationMonthResult { get; set; }
-        public virtual DbSet<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
-        public virtual DbSet<Service_ReclamationType> Service_ReclamationType { get; set; }
-        public virtual DbSet<Service_ReclamationWhoAdd> Service_ReclamationWhoAdd { get; set; }
-        public virtual DbSet<Service_TypeCorrespondence> Service_TypeCorrespondence { get; set; }
-        public virtual DbSet<Service_TypeReclamation> Service_TypeReclamation { get; set; }
-        public virtual DbSet<Service_TypeReclamationDocument> Service_TypeReclamationDocument { get; set; }
-        public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
-        public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
-        public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
-        public virtual DbSet<VV_Position> VV_Position { get; set; }
-        public virtual DbSet<VVPZ> VVPZ { get; set; }
-        public virtual DbSet<ProjectMSP_EpmProject_UserView> ProjectMSP_EpmProject_UserView { get; set; }
-        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
-        public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
-        public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
-        public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
-        public virtual DbSet<HSSPO> HSSPO { get; set; }
         public virtual DbSet<ServiceRemarks> ServiceRemarks { get; set; }
         public virtual DbSet<ServiceRemarksActions> ServiceRemarksActions { get; set; }
         public virtual DbSet<ServiceRemarksCause> ServiceRemarksCause { get; set; }
@@ -160,5 +141,10 @@ namespace Wiki
         public virtual DbSet<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         public virtual DbSet<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
         public virtual DbSet<ServiceRemarksTypes> ServiceRemarksTypes { get; set; }
+        public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
+        public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
+        public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
+        public virtual DbSet<VV_Position> VV_Position { get; set; }
+        public virtual DbSet<VVPZ> VVPZ { get; set; }
     }
 }

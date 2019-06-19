@@ -33,9 +33,8 @@ namespace Wiki
             this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.RKD_Order = new HashSet<RKD_Order>();
-            this.Service_ReclamationPZ = new HashSet<Service_ReclamationPZ>();
-            this.VVPZ = new HashSet<VVPZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
+            this.VVPZ = new HashSet<VVPZ>();
         }
     
         public int Id { get; set; }
@@ -123,10 +122,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Order> RKD_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service_ReclamationPZ> Service_ReclamationPZ { get; set; }
+        public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VVPZ> VVPZ { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
     }
 }

@@ -1329,7 +1329,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1356,7 +1356,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="HSSPO">
           <Key>
             <PropertyRef Name="PK" />
@@ -1394,7 +1394,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primar
           <Property Name="xNOP" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1404,7 +1404,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1426,7 +1426,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1436,7 +1436,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1507,7 +1507,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1518,7 +1518,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -4342,6 +4342,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PostMatching" EntitySet="PostMatching" />
           </AssociationSet>
           <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
+          <EntitySet Name="ProjectMSP_EpmProject_UserView" EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" />
+          <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
+          <EntitySet Name="HSSPO" EntityType="PortalKATEKModel.HSSPO" />
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
@@ -4364,6 +4367,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="DashboardBP_ProjectList" EntityType="PortalKATEKModel.DashboardBP_ProjectList" />
           <EntitySet Name="DashboardBP_State" EntityType="PortalKATEKModel.DashboardBP_State" />
           <EntitySet Name="DashboardBP_TasksList" EntityType="PortalKATEKModel.DashboardBP_TasksList" />
+          <EntitySet Name="DashboardHSSPlan" EntityType="PortalKATEKModel.DashboardHSSPlan" />
+          <EntitySet Name="DashboardRatePlan" EntityType="PortalKATEKModel.DashboardRatePlan" />
+          <EntitySet Name="DashboardRemaining" EntityType="PortalKATEKModel.DashboardRemaining" />
           <EntitySet Name="Debit_CMR" EntityType="PortalKATEKModel.Debit_CMR" />
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
@@ -4423,20 +4429,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="RKD_Version" EntityType="PortalKATEKModel.RKD_Version" />
           <EntitySet Name="RKD_VersionDay" EntityType="PortalKATEKModel.RKD_VersionDay" />
           <EntitySet Name="RKD_VersionWork" EntityType="PortalKATEKModel.RKD_VersionWork" />
-          <EntitySet Name="Service_Reclamation" EntityType="PortalKATEKModel.Service_Reclamation" />
-          <EntitySet Name="Service_ReclamationAddOrder" EntityType="PortalKATEKModel.Service_ReclamationAddOrder" />
-          <EntitySet Name="Service_ReclamationAnswerDevision" EntityType="PortalKATEKModel.Service_ReclamationAnswerDevision" />
-          <EntitySet Name="Service_ReclamationCorrespondence" EntityType="PortalKATEKModel.Service_ReclamationCorrespondence" />
-          <EntitySet Name="Service_ReclamationCounterError" EntityType="PortalKATEKModel.Service_ReclamationCounterError" />
-          <EntitySet Name="Service_ReclamationInfo" EntityType="PortalKATEKModel.Service_ReclamationInfo" />
-          <EntitySet Name="Service_ReclamationMonthDoc" EntityType="PortalKATEKModel.Service_ReclamationMonthDoc" />
-          <EntitySet Name="Service_ReclamationMonthResult" EntityType="PortalKATEKModel.Service_ReclamationMonthResult" />
-          <EntitySet Name="Service_ReclamationPZ" EntityType="PortalKATEKModel.Service_ReclamationPZ" />
-          <EntitySet Name="Service_ReclamationType" EntityType="PortalKATEKModel.Service_ReclamationType" />
-          <EntitySet Name="Service_ReclamationWhoAdd" EntityType="PortalKATEKModel.Service_ReclamationWhoAdd" />
-          <EntitySet Name="Service_TypeCorrespondence" EntityType="PortalKATEKModel.Service_TypeCorrespondence" />
-          <EntitySet Name="Service_TypeReclamation" EntityType="PortalKATEKModel.Service_TypeReclamation" />
-          <EntitySet Name="Service_TypeReclamationDocument" EntityType="PortalKATEKModel.Service_TypeReclamationDocument" />
+          <EntitySet Name="ServiceRemarks" EntityType="PortalKATEKModel.ServiceRemarks" />
+          <EntitySet Name="ServiceRemarksActions" EntityType="PortalKATEKModel.ServiceRemarksActions" />
+          <EntitySet Name="ServiceRemarksCause" EntityType="PortalKATEKModel.ServiceRemarksCause" />
+          <EntitySet Name="ServiceRemarksCauses" EntityType="PortalKATEKModel.ServiceRemarksCauses" />
+          <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="PortalKATEKModel.ServiceRemarksPlanZakazs" />
+          <EntitySet Name="ServiceRemarksReclamations" EntityType="PortalKATEKModel.ServiceRemarksReclamations" />
+          <EntitySet Name="ServiceRemarksTypes" EntityType="PortalKATEKModel.ServiceRemarksTypes" />
           <EntitySet Name="TaskForPZ" EntityType="PortalKATEKModel.TaskForPZ" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="PortalKATEKModel.TypeRKD_Mail_Version" />
           <EntitySet Name="TypeTaskForPZ" EntityType="PortalKATEKModel.TypeTaskForPZ" />
@@ -4542,6 +4541,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RKD_QuestionData" EntitySet="RKD_QuestionData" />
           </AssociationSet>
+          <AssociationSet Name="FK_ServiceRemarksActions_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ServiceRemarksActions" EntitySet="ServiceRemarksActions" />
+          </AssociationSet>
           <AssociationSet Name="FK_TaskForPZ_AspNetUsers" Association="PortalKATEKModel.FK_TaskForPZ_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="TaskForPZ" EntitySet="TaskForPZ" />
@@ -4638,6 +4641,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
             <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardHSSPlan_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardHSSPlan" EntitySet="DashboardHSSPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardRatePlan_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardRatePlan" EntitySet="DashboardRatePlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardRemaining_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardRemaining" EntitySet="DashboardRemaining" />
+          </AssociationSet>
           <AssociationSet Name="FK_DashboardBP_TasksList_ProjectTask" Association="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask">
             <End Role="ProjectTask" EntitySet="ProjectTask" />
             <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
@@ -4725,10 +4740,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_RKD_TypeTask_Devision" Association="PortalKATEKModel.FK_RKD_TypeTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="RKD_TypeTask" EntitySet="RKD_TypeTask" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationAnswerDevision_Devision" Association="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="Service_ReclamationAnswerDevision" EntitySet="Service_ReclamationAnswerDevision" />
           </AssociationSet>
           <AssociationSet Name="FK_OTK_ChaeckList_PZ_PlanZakaz" Association="PortalKATEKModel.FK_OTK_ChaeckList_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4842,9 +4853,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="RKD_Order" EntitySet="RKD_Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationPZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz">
+          <AssociationSet Name="FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" Association="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="Service_ReclamationPZ" EntitySet="Service_ReclamationPZ" />
+            <End Role="ServiceRemarksPlanZakazs" EntitySet="ServiceRemarksPlanZakazs" />
           </AssociationSet>
           <AssociationSet Name="FK_VVPZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4874,6 +4885,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Reclamation" EntitySet="Reclamation" />
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
           </AssociationSet>
+          <AssociationSet Name="FK_ServiceRemarksReclamations_Reclamation" Association="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="ServiceRemarksReclamations" EntitySet="ServiceRemarksReclamations" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice">
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
             <End Role="Reclamation_TechnicalAdviceProtocolPosition" EntitySet="Reclamation_TechnicalAdviceProtocolPosition" />
@@ -4881,6 +4896,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol">
             <End Role="Reclamation_TechnicalAdviceProtocol" EntitySet="Reclamation_TechnicalAdviceProtocol" />
             <End Role="Reclamation_TechnicalAdviceProtocolPosition" EntitySet="Reclamation_TechnicalAdviceProtocolPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceRemarksTypes_Reclamation_Type" Association="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type">
+            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
+            <End Role="ServiceRemarksTypes" EntitySet="ServiceRemarksTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_Despatching_RKD_Order" Association="PortalKATEKModel.FK_RKD_Despatching_RKD_Order">
             <End Role="RKD_Order" EntitySet="RKD_Order" />
@@ -4950,111 +4969,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="RKD_VersionWork" EntitySet="RKD_VersionWork" />
             <End Role="RKD_Version" EntitySet="RKD_Version" />
           </AssociationSet>
-          <AssociationSet Name="FK_Service_Reclamation_Service_ReclamationWhoAdd" Association="PortalKATEKModel.FK_Service_Reclamation_Service_ReclamationWhoAdd">
-            <End Role="Service_ReclamationWhoAdd" EntitySet="Service_ReclamationWhoAdd" />
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_Reclamation_Service_TypeReclamationDocument" Association="PortalKATEKModel.FK_Service_Reclamation_Service_TypeReclamationDocument">
-            <End Role="Service_TypeReclamationDocument" EntitySet="Service_TypeReclamationDocument" />
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationAddOrder_Service_Reclamation" Association="PortalKATEKModel.FK_Service_ReclamationAddOrder_Service_Reclamation">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationAddOrder" EntitySet="Service_ReclamationAddOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationAnswerDevision_Service_Reclamation" Association="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Service_Reclamation">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationAnswerDevision" EntitySet="Service_ReclamationAnswerDevision" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationCorrespondence_Service_Reclamation" Association="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Reclamation">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationCorrespondence" EntitySet="Service_ReclamationCorrespondence" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationInfo_Service_Reclamation" Association="PortalKATEKModel.FK_Service_ReclamationInfo_Service_Reclamation">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationInfo" EntitySet="Service_ReclamationInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationPZ_Service_Reclamation1" Association="PortalKATEKModel.FK_Service_ReclamationPZ_Service_Reclamation1">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationPZ" EntitySet="Service_ReclamationPZ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationType_Service_Reclamation" Association="PortalKATEKModel.FK_Service_ReclamationType_Service_Reclamation">
-            <End Role="Service_Reclamation" EntitySet="Service_Reclamation" />
-            <End Role="Service_ReclamationType" EntitySet="Service_ReclamationType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationMonthResult_Service_ReclamationAnswerDevision" Association="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationAnswerDevision">
-            <End Role="Service_ReclamationAnswerDevision" EntitySet="Service_ReclamationAnswerDevision" />
-            <End Role="Service_ReclamationMonthResult" EntitySet="Service_ReclamationMonthResult" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationCorrespondence_Service_Service_TypeCorrespondence" Association="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Service_TypeCorrespondence">
-            <End Role="Service_TypeCorrespondence" EntitySet="Service_TypeCorrespondence" />
-            <End Role="Service_ReclamationCorrespondence" EntitySet="Service_ReclamationCorrespondence" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationMonthResult_Service_ReclamationCounterError" Association="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationCounterError">
-            <End Role="Service_ReclamationCounterError" EntitySet="Service_ReclamationCounterError" />
-            <End Role="Service_ReclamationMonthResult" EntitySet="Service_ReclamationMonthResult" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationMonthResult_Service_ReclamationMonthDoc" Association="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationMonthDoc">
-            <End Role="Service_ReclamationMonthDoc" EntitySet="Service_ReclamationMonthDoc" />
-            <End Role="Service_ReclamationMonthResult" EntitySet="Service_ReclamationMonthResult" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_ReclamationType_Service_TypeReclamation" Association="PortalKATEKModel.FK_Service_ReclamationType_Service_TypeReclamation">
-            <End Role="Service_TypeReclamation" EntitySet="Service_TypeReclamation" />
-            <End Role="Service_ReclamationType" EntitySet="Service_ReclamationType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TaskForPZ_TypeTaskForPZ" Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ">
-            <End Role="TypeTaskForPZ" EntitySet="TypeTaskForPZ" />
-            <End Role="TaskForPZ" EntitySet="TaskForPZ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VV_Position_VVPZ" Association="PortalKATEKModel.FK_VV_Position_VVPZ">
-            <End Role="VVPZ" EntitySet="VVPZ" />
-            <End Role="VV_Position" EntitySet="VV_Position" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="ProjectMSP_EpmProject_UserView" EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" />
-          <EntitySet Name="DashboardHSSPlan" EntityType="PortalKATEKModel.DashboardHSSPlan" />
-          <EntitySet Name="DashboardRatePlan" EntityType="PortalKATEKModel.DashboardRatePlan" />
-          <EntitySet Name="DashboardRemaining" EntityType="PortalKATEKModel.DashboardRemaining" />
-          <AssociationSet Name="FK_DashboardHSSPlan_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State">
-            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
-            <End Role="DashboardHSSPlan" EntitySet="DashboardHSSPlan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardRatePlan_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State">
-            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
-            <End Role="DashboardRatePlan" EntitySet="DashboardRatePlan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardRemaining_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State">
-            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
-            <End Role="DashboardRemaining" EntitySet="DashboardRemaining" />
-          </AssociationSet>
-          <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
-          <EntitySet Name="HSSPO" EntityType="PortalKATEKModel.HSSPO" />
-          <EntitySet Name="ServiceRemarks" EntityType="PortalKATEKModel.ServiceRemarks" />
-          <EntitySet Name="ServiceRemarksActions" EntityType="PortalKATEKModel.ServiceRemarksActions" />
-          <EntitySet Name="ServiceRemarksCause" EntityType="PortalKATEKModel.ServiceRemarksCause" />
-          <EntitySet Name="ServiceRemarksCauses" EntityType="PortalKATEKModel.ServiceRemarksCauses" />
-          <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="PortalKATEKModel.ServiceRemarksPlanZakazs" />
-          <EntitySet Name="ServiceRemarksReclamations" EntityType="PortalKATEKModel.ServiceRemarksReclamations" />
-          <EntitySet Name="ServiceRemarksTypes" EntityType="PortalKATEKModel.ServiceRemarksTypes" />
-          <AssociationSet Name="FK_ServiceRemarksActions_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="ServiceRemarksActions" EntitySet="ServiceRemarksActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" Association="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="ServiceRemarksPlanZakazs" EntitySet="ServiceRemarksPlanZakazs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServiceRemarksReclamations_Reclamation" Association="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation">
-            <End Role="Reclamation" EntitySet="Reclamation" />
-            <End Role="ServiceRemarksReclamations" EntitySet="ServiceRemarksReclamations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServiceRemarksTypes_Reclamation_Type" Association="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type">
-            <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
-            <End Role="ServiceRemarksTypes" EntitySet="ServiceRemarksTypes" />
-          </AssociationSet>
           <AssociationSet Name="FK_ServiceRemarksActions_ServiceRemarks" Association="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks">
             <End Role="ServiceRemarks" EntitySet="ServiceRemarks" />
             <End Role="ServiceRemarksActions" EntitySet="ServiceRemarksActions" />
@@ -5078,6 +4992,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_ServiceRemarksCauses_ServiceRemarksCause" Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause">
             <End Role="ServiceRemarksCause" EntitySet="ServiceRemarksCause" />
             <End Role="ServiceRemarksCauses" EntitySet="ServiceRemarksCauses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskForPZ_TypeTaskForPZ" Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ">
+            <End Role="TypeTaskForPZ" EntitySet="TypeTaskForPZ" />
+            <End Role="TaskForPZ" EntitySet="TaskForPZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VV_Position_VVPZ" Association="PortalKATEKModel.FK_VV_Position_VVPZ">
+            <End Role="VVPZ" EntitySet="VVPZ" />
+            <End Role="VV_Position" EntitySet="VV_Position" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -5255,6 +5181,98 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="СДРес_Р" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="ResourceUID" Type="Guid" />
         </EntityType>
+        <EntityType Name="ProjectMSP_EpmProject_UserView">
+          <Key>
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectDurationVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="ProjectStartVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="ProjectFinishVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="ProjectDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="ProjectActualDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="ProjectActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectActualFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectPercentCompleted" Type="Int16" />
+          <Property Name="ProjectPercentWorkCompleted" Type="Int16" />
+          <Property Name="ProjectWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+        </EntityType>
+        <EntityType Name="DashboardBP_HSSPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="taskUID" Type="Guid" Nullable="false" />
+          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="timeByDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="assignmentWork" Type="Double" Nullable="false" />
+          <Property Name="rateUSD" Type="Double" Nullable="false" />
+          <Property Name="ssmPlan" Type="Double" Nullable="false" />
+          <Property Name="ssmFact" Type="Double" Nullable="false" />
+          <Property Name="ssrPlan" Type="Double" Nullable="false" />
+          <Property Name="ik" Type="Double" Nullable="false" />
+          <Property Name="ppk" Type="Double" Nullable="false" />
+          <Property Name="pi" Type="Double" Nullable="false" />
+          <Property Name="nop" Type="Double" Nullable="false" />
+          <Property Name="rateHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmPlanHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmFactHoure" Type="Double" Nullable="false" />
+          <Property Name="ssrHoure" Type="Double" Nullable="false" />
+          <Property Name="ikHoure" Type="Double" Nullable="false" />
+          <Property Name="ppkHoure" Type="Double" Nullable="false" />
+          <Property Name="piHoure" Type="Double" Nullable="false" />
+          <Property Name="nopHoure" Type="Double" Nullable="false" />
+          <Property Name="xReate" Type="Double" Nullable="false" />
+          <Property Name="xSsm" Type="Double" Nullable="false" />
+          <Property Name="xSsmFact" Type="Double" Nullable="false" />
+          <Property Name="xSsr" Type="Double" Nullable="false" />
+          <Property Name="xIk" Type="Double" Nullable="false" />
+          <Property Name="xPpk" Type="Double" Nullable="false" />
+          <Property Name="xPi" Type="Double" Nullable="false" />
+          <Property Name="xNop" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HSSPO">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderPZ" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TaskUID" Type="Guid" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="CountPO" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="RatePlan" Type="Double" />
+          <Property Name="SSMPlan" Type="Double" />
+          <Property Name="SSMFact" Type="Double" />
+          <Property Name="SSRPlan" Type="Double" />
+          <Property Name="ik" Type="Double" />
+          <Property Name="ppk" Type="Double" />
+          <Property Name="pi" Type="Double" />
+          <Property Name="nop" Type="Double" />
+          <Property Name="RateHoure" Type="Double" />
+          <Property Name="ssmHoure" Type="Double" />
+          <Property Name="ssmFactHoure" Type="Double" />
+          <Property Name="ssrHoure" Type="Double" />
+          <Property Name="ikHoure" Type="Double" />
+          <Property Name="ppkHoure" Type="Double" />
+          <Property Name="piHoure" Type="Double" />
+          <Property Name="nopHoure" Type="Double" />
+          <Property Name="xRate" Type="Double" />
+          <Property Name="xSSM" Type="Double" />
+          <Property Name="xSSMFact" Type="Double" />
+          <Property Name="xSSR" Type="Double" />
+          <Property Name="xIK" Type="Double" />
+          <Property Name="xPPK" Type="Double" />
+          <Property Name="xPI" Type="Double" />
+          <Property Name="xNOP" Type="Double" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -5329,9 +5347,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="RKD_Question" Relationship="PortalKATEKModel.FK_RKD_Question_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Question" />
           <NavigationProperty Name="RKD_QuestionData" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
+          <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -5546,12 +5564,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
           <Property Name="contractDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="planDateComplited" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_State" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="DashboardBP_ProjectList" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_TasksList" />
           <Property Name="planDateStart" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="planDuration" Type="Int32" Nullable="false" />
           <Property Name="planProjectPercentCompleted" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_State" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="DashboardBP_ProjectList" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_ProjectList" ToRole="DashboardBP_TasksList" />
         </EntityType>
         <EntityType Name="DashboardBP_State">
           <Key>
@@ -5592,6 +5610,36 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="DashboardBP_TasksList" ToRole="AspNetUsers" />
           <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_TasksList" ToRole="DashboardBP_ProjectList" />
           <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="DashboardBP_TasksList" ToRole="ProjectTask" />
+        </EntityType>
+        <EntityType Name="DashboardHSSPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="hss" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" FromRole="DashboardHSSPlan" ToRole="DashboardBP_State" />
+        </EntityType>
+        <EntityType Name="DashboardRatePlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="rate" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" FromRole="DashboardRatePlan" ToRole="DashboardBP_State" />
+        </EntityType>
+        <EntityType Name="DashboardRemaining">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="hss" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" FromRole="DashboardRemaining" ToRole="DashboardBP_State" />
         </EntityType>
         <EntityType Name="Debit_CMR">
           <Key>
@@ -5763,7 +5811,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
-          <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Devision" ToRole="Service_ReclamationAnswerDevision" />
         </EntityType>
         <EntityType Name="OTK_ChaeckList">
           <Key>
@@ -6063,9 +6110,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_CloseOrder" />
           <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
-          <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Service_ReclamationPZ" />
-          <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -6455,170 +6501,84 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="devision" Type="Int32" />
           <NavigationProperty Name="RKD_Version" Relationship="PortalKATEKModel.FK_RKD_Version_RKD_VersionWork" FromRole="RKD_VersionWork" ToRole="RKD_Version" />
         </EntityType>
-        <EntityType Name="Service_Reclamation">
+        <EntityType Name="ServiceRemarks">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_TypeDocument" Type="Int32" Nullable="false" />
-          <Property Name="dateAdd" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id_Service_ReclamationWhoAdd" Type="Int32" Nullable="false" />
-          <Property Name="numberDocument" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateDocument" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datePutToService" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="dateClose" Type="DateTime" Precision="0" />
-          <Property Name="addMission" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_ReclamationWhoAdd" Relationship="PortalKATEKModel.FK_Service_Reclamation_Service_ReclamationWhoAdd" FromRole="Service_Reclamation" ToRole="Service_ReclamationWhoAdd" />
-          <NavigationProperty Name="Service_TypeReclamationDocument" Relationship="PortalKATEKModel.FK_Service_Reclamation_Service_TypeReclamationDocument" FromRole="Service_Reclamation" ToRole="Service_TypeReclamationDocument" />
-          <NavigationProperty Name="Service_ReclamationAddOrder" Relationship="PortalKATEKModel.FK_Service_ReclamationAddOrder_Service_Reclamation" FromRole="Service_Reclamation" ToRole="Service_ReclamationAddOrder" />
-          <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Service_Reclamation" FromRole="Service_Reclamation" ToRole="Service_ReclamationAnswerDevision" />
-          <NavigationProperty Name="Service_ReclamationCorrespondence" Relationship="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Reclamation" FromRole="Service_Reclamation" ToRole="Service_ReclamationCorrespondence" />
-          <NavigationProperty Name="Service_ReclamationInfo" Relationship="PortalKATEKModel.FK_Service_ReclamationInfo_Service_Reclamation" FromRole="Service_Reclamation" ToRole="Service_ReclamationInfo" />
-          <NavigationProperty Name="Service_ReclamationPZ" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_Service_Reclamation1" FromRole="Service_Reclamation" ToRole="Service_ReclamationPZ" />
-          <NavigationProperty Name="Service_ReclamationType" Relationship="PortalKATEKModel.FK_Service_ReclamationType_Service_Reclamation" FromRole="Service_Reclamation" ToRole="Service_ReclamationType" />
+          <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksActions" />
+          <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksCauses" />
+          <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksReclamations" />
+          <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksTypes" />
         </EntityType>
-        <EntityType Name="Service_ReclamationAddOrder">
+        <EntityType Name="ServiceRemarksActions">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="userLastUpdate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateLastUpdate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="deactiveOrder" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationAddOrder_Service_Reclamation" FromRole="Service_ReclamationAddOrder" ToRole="Service_Reclamation" />
-        </EntityType>
-        <EntityType Name="Service_ReclamationAnswerDevision">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_Devision" Type="Int32" Nullable="false" />
-          <Property Name="complited" Type="Boolean" Nullable="false" />
+          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dateTimeLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="userLastUpdate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="answerText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Devision" FromRole="Service_ReclamationAnswerDevision" ToRole="Devision" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationAnswerDevision_Service_Reclamation" FromRole="Service_ReclamationAnswerDevision" ToRole="Service_Reclamation" />
-          <NavigationProperty Name="Service_ReclamationMonthResult" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationAnswerDevision" FromRole="Service_ReclamationAnswerDevision" ToRole="Service_ReclamationMonthResult" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="ServiceRemarksActions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarksActions" ToRole="ServiceRemarks" />
         </EntityType>
-        <EntityType Name="Service_ReclamationCorrespondence">
+        <EntityType Name="ServiceRemarksCause">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_Service_TypeCorrespondence" Type="Int32" Nullable="false" />
-          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateUpload" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Reclamation" FromRole="Service_ReclamationCorrespondence" ToRole="Service_Reclamation" />
-          <NavigationProperty Name="Service_TypeCorrespondence" Relationship="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Service_TypeCorrespondence" FromRole="Service_ReclamationCorrespondence" ToRole="Service_TypeCorrespondence" />
-        </EntityType>
-        <EntityType Name="Service_ReclamationCounterError">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="count" Type="Double" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_ReclamationMonthResult" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationCounterError" FromRole="Service_ReclamationCounterError" ToRole="Service_ReclamationMonthResult" />
+          <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" FromRole="ServiceRemarksCause" ToRole="ServiceRemarksCauses" />
         </EntityType>
-        <EntityType Name="Service_ReclamationInfo">
+        <EntityType Name="ServiceRemarksCauses">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="userLastUpdate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="textData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationInfo_Service_Reclamation" FromRole="Service_ReclamationInfo" ToRole="Service_Reclamation" />
+          <Property Name="id_ServiceRemarksCause" Type="Int32" Nullable="false" />
+          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarks" />
+          <NavigationProperty Name="ServiceRemarksCause" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarksCause" />
         </EntityType>
-        <EntityType Name="Service_ReclamationMonthDoc">
+        <EntityType Name="ServiceRemarksPlanZakazs">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="numberDoc" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Service_ReclamationMonthResult" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationMonthDoc" FromRole="Service_ReclamationMonthDoc" ToRole="Service_ReclamationMonthResult" />
-        </EntityType>
-        <EntityType Name="Service_ReclamationMonthResult">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_ReclamationMonthDoc" Type="Int32" Nullable="false" />
-          <Property Name="id_Service_ReclamationAnswerDevision" Type="Int32" Nullable="false" />
-          <Property Name="id_Service_ReclamationCounterError" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Service_ReclamationAnswerDevision" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationAnswerDevision" FromRole="Service_ReclamationMonthResult" ToRole="Service_ReclamationAnswerDevision" />
-          <NavigationProperty Name="Service_ReclamationCounterError" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationCounterError" FromRole="Service_ReclamationMonthResult" ToRole="Service_ReclamationCounterError" />
-          <NavigationProperty Name="Service_ReclamationMonthDoc" Relationship="PortalKATEKModel.FK_Service_ReclamationMonthResult_Service_ReclamationMonthDoc" FromRole="Service_ReclamationMonthResult" ToRole="Service_ReclamationMonthDoc" />
-        </EntityType>
-        <EntityType Name="Service_ReclamationPZ">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
           <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_PZ_PlanZakaz" FromRole="Service_ReclamationPZ" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationPZ_Service_Reclamation1" FromRole="Service_ReclamationPZ" ToRole="Service_Reclamation" />
+          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="ServiceRemarksPlanZakazs" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarksPlanZakazs" ToRole="ServiceRemarks" />
         </EntityType>
-        <EntityType Name="Service_ReclamationType">
+        <EntityType Name="ServiceRemarksReclamations">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Service_Reclamation" Type="Int32" Nullable="false" />
-          <Property Name="id_Service_TypeReclamation" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationType_Service_Reclamation" FromRole="Service_ReclamationType" ToRole="Service_Reclamation" />
-          <NavigationProperty Name="Service_TypeReclamation" Relationship="PortalKATEKModel.FK_Service_ReclamationType_Service_TypeReclamation" FromRole="Service_ReclamationType" ToRole="Service_TypeReclamation" />
+          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="ServiceRemarksReclamations" ToRole="Reclamation" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarksReclamations" ToRole="ServiceRemarks" />
         </EntityType>
-        <EntityType Name="Service_ReclamationWhoAdd">
+        <EntityType Name="ServiceRemarksTypes">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_Reclamation_Service_ReclamationWhoAdd" FromRole="Service_ReclamationWhoAdd" ToRole="Service_Reclamation" />
-        </EntityType>
-        <EntityType Name="Service_TypeCorrespondence">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_ReclamationCorrespondence" Relationship="PortalKATEKModel.FK_Service_ReclamationCorrespondence_Service_Service_TypeCorrespondence" FromRole="Service_TypeCorrespondence" ToRole="Service_ReclamationCorrespondence" />
-        </EntityType>
-        <EntityType Name="Service_TypeReclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_ReclamationType" Relationship="PortalKATEKModel.FK_Service_ReclamationType_Service_TypeReclamation" FromRole="Service_TypeReclamation" ToRole="Service_ReclamationType" />
-        </EntityType>
-        <EntityType Name="Service_TypeReclamationDocument">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_Reclamation" Relationship="PortalKATEKModel.FK_Service_Reclamation_Service_TypeReclamationDocument" FromRole="Service_TypeReclamationDocument" ToRole="Service_Reclamation" />
+          <Property Name="id_Reclamation_Type" Type="Int32" Nullable="false" />
+          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="ServiceRemarksTypes" ToRole="Reclamation_Type" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarksTypes" ToRole="ServiceRemarks" />
         </EntityType>
         <EntityType Name="TaskForPZ">
           <Key>
@@ -6992,6 +6952,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceRemarksActions_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ServiceRemarksActions" Role="ServiceRemarksActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceRemarksActions">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TaskForPZ_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="PortalKATEKModel.TaskForPZ" Role="TaskForPZ" Multiplicity="*" />
@@ -7280,6 +7252,42 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardHSSPlan_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardHSSPlan" Role="DashboardHSSPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardHSSPlan">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardRatePlan_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardRatePlan" Role="DashboardRatePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardRatePlan">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardRemaining_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardRemaining" Role="DashboardRemaining" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardRemaining">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardBP_TasksList_ProjectTask">
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="1" />
           <End Type="PortalKATEKModel.DashboardBP_TasksList" Role="DashboardBP_TasksList" Multiplicity="*" />
@@ -7540,18 +7548,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="RKD_TypeTask">
-              <PropertyRef Name="id_Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationAnswerDevision_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationAnswerDevision" Role="Service_ReclamationAnswerDevision" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationAnswerDevision">
               <PropertyRef Name="id_Devision" />
             </Dependent>
           </ReferentialConstraint>
@@ -7892,14 +7888,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Service_ReclamationPZ_PZ_PlanZakaz">
+        <Association Name="FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz">
           <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationPZ" Role="Service_ReclamationPZ" Multiplicity="*" />
+          <End Type="PortalKATEKModel.ServiceRemarksPlanZakazs" Role="ServiceRemarksPlanZakazs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PZ_PlanZakaz">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Service_ReclamationPZ">
+            <Dependent Role="ServiceRemarksPlanZakazs">
               <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
@@ -7988,6 +7984,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceRemarksReclamations_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ServiceRemarksReclamations" Role="ServiceRemarksReclamations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ServiceRemarksReclamations">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice">
           <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="1" />
           <End Type="PortalKATEKModel.Reclamation_TechnicalAdviceProtocolPosition" Role="Reclamation_TechnicalAdviceProtocolPosition" Multiplicity="*" />
@@ -8009,6 +8017,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="Reclamation_TechnicalAdviceProtocolPosition">
               <PropertyRef Name="id_Reclamation_TechnicalAdviceProtocol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceRemarksTypes_Reclamation_Type">
+          <End Type="PortalKATEKModel.Reclamation_Type" Role="Reclamation_Type" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ServiceRemarksTypes" Role="ServiceRemarksTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ServiceRemarksTypes">
+              <PropertyRef Name="id_Reclamation_Type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8216,475 +8236,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Service_Reclamation_Service_ReclamationWhoAdd">
-          <End Type="PortalKATEKModel.Service_ReclamationWhoAdd" Role="Service_ReclamationWhoAdd" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_ReclamationWhoAdd">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_Reclamation">
-              <PropertyRef Name="id_Service_ReclamationWhoAdd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_Reclamation_Service_TypeReclamationDocument">
-          <End Type="PortalKATEKModel.Service_TypeReclamationDocument" Role="Service_TypeReclamationDocument" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_TypeReclamationDocument">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_Reclamation">
-              <PropertyRef Name="id_Service_TypeDocument" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationAddOrder_Service_Reclamation">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationAddOrder" Role="Service_ReclamationAddOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationAddOrder">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationAnswerDevision_Service_Reclamation">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationAnswerDevision" Role="Service_ReclamationAnswerDevision" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationAnswerDevision">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationCorrespondence_Service_Reclamation">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationCorrespondence" Role="Service_ReclamationCorrespondence" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationCorrespondence">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationInfo_Service_Reclamation">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationInfo" Role="Service_ReclamationInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationInfo">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationPZ_Service_Reclamation1">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationPZ" Role="Service_ReclamationPZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationPZ">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationType_Service_Reclamation">
-          <End Type="PortalKATEKModel.Service_Reclamation" Role="Service_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationType" Role="Service_ReclamationType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationType">
-              <PropertyRef Name="id_Service_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationMonthResult_Service_ReclamationAnswerDevision">
-          <End Type="PortalKATEKModel.Service_ReclamationAnswerDevision" Role="Service_ReclamationAnswerDevision" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationMonthResult" Role="Service_ReclamationMonthResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_ReclamationAnswerDevision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationMonthResult">
-              <PropertyRef Name="id_Service_ReclamationAnswerDevision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationCorrespondence_Service_Service_TypeCorrespondence">
-          <End Type="PortalKATEKModel.Service_TypeCorrespondence" Role="Service_TypeCorrespondence" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationCorrespondence" Role="Service_ReclamationCorrespondence" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_TypeCorrespondence">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationCorrespondence">
-              <PropertyRef Name="id_Service_TypeCorrespondence" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationMonthResult_Service_ReclamationCounterError">
-          <End Type="PortalKATEKModel.Service_ReclamationCounterError" Role="Service_ReclamationCounterError" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationMonthResult" Role="Service_ReclamationMonthResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_ReclamationCounterError">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationMonthResult">
-              <PropertyRef Name="id_Service_ReclamationCounterError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationMonthResult_Service_ReclamationMonthDoc">
-          <End Type="PortalKATEKModel.Service_ReclamationMonthDoc" Role="Service_ReclamationMonthDoc" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationMonthResult" Role="Service_ReclamationMonthResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_ReclamationMonthDoc">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationMonthResult">
-              <PropertyRef Name="id_Service_ReclamationMonthDoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_ReclamationType_Service_TypeReclamation">
-          <End Type="PortalKATEKModel.Service_TypeReclamation" Role="Service_TypeReclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Service_ReclamationType" Role="Service_ReclamationType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service_TypeReclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Service_ReclamationType">
-              <PropertyRef Name="id_Service_TypeReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TaskForPZ_TypeTaskForPZ">
-          <End Type="PortalKATEKModel.TypeTaskForPZ" Role="TypeTaskForPZ" Multiplicity="1" />
-          <End Type="PortalKATEKModel.TaskForPZ" Role="TaskForPZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeTaskForPZ">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TaskForPZ">
-              <PropertyRef Name="id_TypeTaskForPZ" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VV_Position_VVPZ">
-          <End Type="PortalKATEKModel.VVPZ" Role="VVPZ" Multiplicity="1" />
-          <End Type="PortalKATEKModel.VV_Position" Role="VV_Position" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VVPZ">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="VV_Position">
-              <PropertyRef Name="id_VVPZ" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
-        <EntityType Name="ProjectMSP_EpmProject_UserView">
-          <Key>
-            <PropertyRef Name="ProjectUID" />
-            <PropertyRef Name="ProjectName" />
-          </Key>
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ProjectStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectDurationVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="ProjectStartVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="ProjectFinishVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="ProjectDuration" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="ProjectActualDuration" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="ProjectActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectActualFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectPercentCompleted" Type="Int16" />
-          <Property Name="ProjectPercentWorkCompleted" Type="Int16" />
-          <Property Name="ProjectWorkVariance" Type="Decimal" Precision="25" Scale="6" />
-        </EntityType>
-        <EntityType Name="DashboardHSSPlan">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="hss" Type="Double" Nullable="false" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" FromRole="DashboardHSSPlan" ToRole="DashboardBP_State" />
-          <Property Name="plan" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DashboardRatePlan">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="rate" Type="Double" Nullable="false" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" FromRole="DashboardRatePlan" ToRole="DashboardBP_State" />
-          <Property Name="plan" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DashboardRemaining">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="hss" Type="Double" Nullable="false" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" FromRole="DashboardRemaining" ToRole="DashboardBP_State" />
-          <Property Name="plan" Type="Double" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_DashboardHSSPlan_DashboardBP_State">
-          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardHSSPlan" Role="DashboardHSSPlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_State">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardHSSPlan">
-              <PropertyRef Name="id_DashboardBP_State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardRatePlan_DashboardBP_State">
-          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardRatePlan" Role="DashboardRatePlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_State">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardRatePlan">
-              <PropertyRef Name="id_DashboardBP_State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardRemaining_DashboardBP_State">
-          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardRemaining" Role="DashboardRemaining" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_State">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardRemaining">
-              <PropertyRef Name="id_DashboardBP_State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DashboardBP_HSSPO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="taskUID" Type="Guid" Nullable="false" />
-          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="timeByDay" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="assignmentWork" Type="Double" Nullable="false" />
-          <Property Name="rateUSD" Type="Double" Nullable="false" />
-          <Property Name="ssmPlan" Type="Double" Nullable="false" />
-          <Property Name="ssmFact" Type="Double" Nullable="false" />
-          <Property Name="ssrPlan" Type="Double" Nullable="false" />
-          <Property Name="ik" Type="Double" Nullable="false" />
-          <Property Name="ppk" Type="Double" Nullable="false" />
-          <Property Name="pi" Type="Double" Nullable="false" />
-          <Property Name="nop" Type="Double" Nullable="false" />
-          <Property Name="rateHoure" Type="Double" Nullable="false" />
-          <Property Name="ssmPlanHoure" Type="Double" Nullable="false" />
-          <Property Name="ssmFactHoure" Type="Double" Nullable="false" />
-          <Property Name="ssrHoure" Type="Double" Nullable="false" />
-          <Property Name="ikHoure" Type="Double" Nullable="false" />
-          <Property Name="ppkHoure" Type="Double" Nullable="false" />
-          <Property Name="piHoure" Type="Double" Nullable="false" />
-          <Property Name="nopHoure" Type="Double" Nullable="false" />
-          <Property Name="xReate" Type="Double" Nullable="false" />
-          <Property Name="xSsm" Type="Double" Nullable="false" />
-          <Property Name="xSsmFact" Type="Double" Nullable="false" />
-          <Property Name="xSsr" Type="Double" Nullable="false" />
-          <Property Name="xIk" Type="Double" Nullable="false" />
-          <Property Name="xPpk" Type="Double" Nullable="false" />
-          <Property Name="xPi" Type="Double" Nullable="false" />
-          <Property Name="xNop" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HSSPO">
-          <Key>
-            <PropertyRef Name="PK" />
-          </Key>
-          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrderPZ" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="TaskUID" Type="Guid" />
-          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="CountPO" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="RatePlan" Type="Double" />
-          <Property Name="SSMPlan" Type="Double" />
-          <Property Name="SSMFact" Type="Double" />
-          <Property Name="SSRPlan" Type="Double" />
-          <Property Name="ik" Type="Double" />
-          <Property Name="ppk" Type="Double" />
-          <Property Name="pi" Type="Double" />
-          <Property Name="nop" Type="Double" />
-          <Property Name="RateHoure" Type="Double" />
-          <Property Name="ssmHoure" Type="Double" />
-          <Property Name="ssmFactHoure" Type="Double" />
-          <Property Name="ssrHoure" Type="Double" />
-          <Property Name="ikHoure" Type="Double" />
-          <Property Name="ppkHoure" Type="Double" />
-          <Property Name="piHoure" Type="Double" />
-          <Property Name="nopHoure" Type="Double" />
-          <Property Name="xRate" Type="Double" />
-          <Property Name="xSSM" Type="Double" />
-          <Property Name="xSSMFact" Type="Double" />
-          <Property Name="xSSR" Type="Double" />
-          <Property Name="xIK" Type="Double" />
-          <Property Name="xPPK" Type="Double" />
-          <Property Name="xPI" Type="Double" />
-          <Property Name="xNOP" Type="Double" />
-        </EntityType>
-        <EntityType Name="ServiceRemarks">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="datePutToService" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="dateClose" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksActions" />
-          <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksCauses" />
-          <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksPlanZakazs" />
-          <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksReclamations" />
-          <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksTypes" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksActions">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
-          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="ServiceRemarksActions" ToRole="AspNetUsers" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarksActions" ToRole="ServiceRemarks" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksCause">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" FromRole="ServiceRemarksCause" ToRole="ServiceRemarksCauses" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksCauses">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ServiceRemarksCause" Type="Int32" Nullable="false" />
-          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarks" />
-          <NavigationProperty Name="ServiceRemarksCause" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarksCause" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksPlanZakazs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="ServiceRemarksPlanZakazs" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarksPlanZakazs" ToRole="ServiceRemarks" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksReclamations">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
-          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="ServiceRemarksReclamations" ToRole="Reclamation" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarksReclamations" ToRole="ServiceRemarks" />
-        </EntityType>
-        <EntityType Name="ServiceRemarksTypes">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Reclamation_Type" Type="Int32" Nullable="false" />
-          <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="ServiceRemarksTypes" ToRole="Reclamation_Type" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarksTypes" ToRole="ServiceRemarks" />
-        </EntityType>
-        <Association Name="FK_ServiceRemarksActions_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ServiceRemarksActions" Role="ServiceRemarksActions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ServiceRemarksActions">
-              <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ServiceRemarksPlanZakazs" Role="ServiceRemarksPlanZakazs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ServiceRemarksPlanZakazs">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ServiceRemarksReclamations_Reclamation">
-          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ServiceRemarksReclamations" Role="ServiceRemarksReclamations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ServiceRemarksReclamations">
-              <PropertyRef Name="id_Reclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ServiceRemarksTypes_Reclamation_Type">
-          <End Type="PortalKATEKModel.Reclamation_Type" Role="Reclamation_Type" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ServiceRemarksTypes" Role="ServiceRemarksTypes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reclamation_Type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ServiceRemarksTypes">
-              <PropertyRef Name="id_Reclamation_Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServiceRemarksActions_ServiceRemarks">
           <End Type="PortalKATEKModel.ServiceRemarks" Role="ServiceRemarks" Multiplicity="1" />
           <End Type="PortalKATEKModel.ServiceRemarksActions" Role="ServiceRemarksActions" Multiplicity="*" />
@@ -8756,6 +8307,34 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <PropertyRef Name="id_ServiceRemarksCause" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskForPZ_TypeTaskForPZ">
+          <End Type="PortalKATEKModel.TypeTaskForPZ" Role="TypeTaskForPZ" Multiplicity="1" />
+          <End Type="PortalKATEKModel.TaskForPZ" Role="TaskForPZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeTaskForPZ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TaskForPZ">
+              <PropertyRef Name="id_TypeTaskForPZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VV_Position_VVPZ">
+          <End Type="PortalKATEKModel.VVPZ" Role="VVPZ" Multiplicity="1" />
+          <End Type="PortalKATEKModel.VV_Position" Role="VV_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VVPZ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="VV_Position">
+              <PropertyRef Name="id_VVPZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -9106,6 +8685,100 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMSP_EpmProject_UserView">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectMSP_EpmProject_UserView">
+              <MappingFragment StoreEntitySet="ProjectMSP_EpmProject_UserView">
+                <ScalarProperty Name="ProjectWorkVariance" ColumnName="ProjectWorkVariance" />
+                <ScalarProperty Name="ProjectPercentWorkCompleted" ColumnName="ProjectPercentWorkCompleted" />
+                <ScalarProperty Name="ProjectPercentCompleted" ColumnName="ProjectPercentCompleted" />
+                <ScalarProperty Name="ProjectActualFinishDate" ColumnName="ProjectActualFinishDate" />
+                <ScalarProperty Name="ProjectActualStartDate" ColumnName="ProjectActualStartDate" />
+                <ScalarProperty Name="ProjectActualDuration" ColumnName="ProjectActualDuration" />
+                <ScalarProperty Name="ProjectDuration" ColumnName="ProjectDuration" />
+                <ScalarProperty Name="ProjectFinishVariance" ColumnName="ProjectFinishVariance" />
+                <ScalarProperty Name="ProjectStartVariance" ColumnName="ProjectStartVariance" />
+                <ScalarProperty Name="ProjectDurationVariance" ColumnName="ProjectDurationVariance" />
+                <ScalarProperty Name="ProjectFinishDate" ColumnName="ProjectFinishDate" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_HSSPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
+              <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
+                <ScalarProperty Name="xNop" ColumnName="xNop" />
+                <ScalarProperty Name="xPi" ColumnName="xPi" />
+                <ScalarProperty Name="xPpk" ColumnName="xPpk" />
+                <ScalarProperty Name="xIk" ColumnName="xIk" />
+                <ScalarProperty Name="xSsr" ColumnName="xSsr" />
+                <ScalarProperty Name="xSsmFact" ColumnName="xSsmFact" />
+                <ScalarProperty Name="xSsm" ColumnName="xSsm" />
+                <ScalarProperty Name="xReate" ColumnName="xReate" />
+                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
+                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
+                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
+                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
+                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
+                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
+                <ScalarProperty Name="ssmPlanHoure" ColumnName="ssmPlanHoure" />
+                <ScalarProperty Name="rateHoure" ColumnName="rateHoure" />
+                <ScalarProperty Name="nop" ColumnName="nop" />
+                <ScalarProperty Name="pi" ColumnName="pi" />
+                <ScalarProperty Name="ppk" ColumnName="ppk" />
+                <ScalarProperty Name="ik" ColumnName="ik" />
+                <ScalarProperty Name="ssrPlan" ColumnName="ssrPlan" />
+                <ScalarProperty Name="ssmFact" ColumnName="ssmFact" />
+                <ScalarProperty Name="ssmPlan" ColumnName="ssmPlan" />
+                <ScalarProperty Name="rateUSD" ColumnName="rateUSD" />
+                <ScalarProperty Name="assignmentWork" ColumnName="assignmentWork" />
+                <ScalarProperty Name="timeByDay" ColumnName="timeByDay" />
+                <ScalarProperty Name="taskName" ColumnName="taskName" />
+                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HSSPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.HSSPO">
+              <MappingFragment StoreEntitySet="HSSPO">
+                <ScalarProperty Name="xNOP" ColumnName="xNOP" />
+                <ScalarProperty Name="xPI" ColumnName="xPI" />
+                <ScalarProperty Name="xPPK" ColumnName="xPPK" />
+                <ScalarProperty Name="xIK" ColumnName="xIK" />
+                <ScalarProperty Name="xSSR" ColumnName="xSSR" />
+                <ScalarProperty Name="xSSMFact" ColumnName="xSSMFact" />
+                <ScalarProperty Name="xSSM" ColumnName="xSSM" />
+                <ScalarProperty Name="xRate" ColumnName="xRate" />
+                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
+                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
+                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
+                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
+                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
+                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
+                <ScalarProperty Name="ssmHoure" ColumnName="ssmHoure" />
+                <ScalarProperty Name="RateHoure" ColumnName="RateHoure" />
+                <ScalarProperty Name="nop" ColumnName="nop" />
+                <ScalarProperty Name="pi" ColumnName="pi" />
+                <ScalarProperty Name="ppk" ColumnName="ppk" />
+                <ScalarProperty Name="ik" ColumnName="ik" />
+                <ScalarProperty Name="SSRPlan" ColumnName="SSRPlan" />
+                <ScalarProperty Name="SSMFact" ColumnName="SSMFact" />
+                <ScalarProperty Name="SSMPlan" ColumnName="SSMPlan" />
+                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
+                <ScalarProperty Name="CountPO" ColumnName="CountPO" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+                <ScalarProperty Name="OrderPZ" ColumnName="OrderPZ" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="PortalKATEKModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -9381,6 +9054,36 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="startDate" ColumnName="startDate" />
                 <ScalarProperty Name="id_DashboardBP_ProjectList" ColumnName="id_DashboardBP_ProjectList" />
                 <ScalarProperty Name="id_ProjectTask" ColumnName="id_ProjectTask" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardHSSPlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardHSSPlan">
+              <MappingFragment StoreEntitySet="DashboardHSSPlan">
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="hss" ColumnName="hss" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRatePlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRatePlan">
+              <MappingFragment StoreEntitySet="DashboardRatePlan">
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRemaining">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRemaining">
+              <MappingFragment StoreEntitySet="DashboardRemaining">
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="hss" ColumnName="hss" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10129,6 +9832,76 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarks">
+              <MappingFragment StoreEntitySet="ServiceRemarks">
+                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
+                <ScalarProperty Name="datePutToService" ColumnName="datePutToService" />
+                <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
+                <ScalarProperty Name="userCreate" ColumnName="userCreate" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksActions">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksActions">
+              <MappingFragment StoreEntitySet="ServiceRemarksActions">
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksCause">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksCause">
+              <MappingFragment StoreEntitySet="ServiceRemarksCause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksCauses">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksCauses">
+              <MappingFragment StoreEntitySet="ServiceRemarksCauses">
+                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
+                <ScalarProperty Name="id_ServiceRemarksCause" ColumnName="id_ServiceRemarksCause" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksPlanZakazs">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksPlanZakazs">
+              <MappingFragment StoreEntitySet="ServiceRemarksPlanZakazs">
+                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksReclamations">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksReclamations">
+              <MappingFragment StoreEntitySet="ServiceRemarksReclamations">
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceRemarksTypes">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksTypes">
+              <MappingFragment StoreEntitySet="ServiceRemarksTypes">
+                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
+                <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaskForPZ">
             <EntityTypeMapping TypeName="PortalKATEKModel.TaskForPZ">
               <MappingFragment StoreEntitySet="TaskForPZ">
@@ -10201,200 +9974,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="ProjectMSP_EpmProject_UserView">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectMSP_EpmProject_UserView">
-              <MappingFragment StoreEntitySet="ProjectMSP_EpmProject_UserView">
-                <ScalarProperty Name="ProjectWorkVariance" ColumnName="ProjectWorkVariance" />
-                <ScalarProperty Name="ProjectPercentWorkCompleted" ColumnName="ProjectPercentWorkCompleted" />
-                <ScalarProperty Name="ProjectPercentCompleted" ColumnName="ProjectPercentCompleted" />
-                <ScalarProperty Name="ProjectActualFinishDate" ColumnName="ProjectActualFinishDate" />
-                <ScalarProperty Name="ProjectActualStartDate" ColumnName="ProjectActualStartDate" />
-                <ScalarProperty Name="ProjectActualDuration" ColumnName="ProjectActualDuration" />
-                <ScalarProperty Name="ProjectDuration" ColumnName="ProjectDuration" />
-                <ScalarProperty Name="ProjectFinishVariance" ColumnName="ProjectFinishVariance" />
-                <ScalarProperty Name="ProjectStartVariance" ColumnName="ProjectStartVariance" />
-                <ScalarProperty Name="ProjectDurationVariance" ColumnName="ProjectDurationVariance" />
-                <ScalarProperty Name="ProjectFinishDate" ColumnName="ProjectFinishDate" />
-                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardHSSPlan">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardHSSPlan">
-              <MappingFragment StoreEntitySet="DashboardHSSPlan">
-                <ScalarProperty Name="plan" ColumnName="plan" />
-                <ScalarProperty Name="hss" ColumnName="hss" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardRatePlan">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRatePlan">
-              <MappingFragment StoreEntitySet="DashboardRatePlan">
-                <ScalarProperty Name="plan" ColumnName="plan" />
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardRemaining">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRemaining">
-              <MappingFragment StoreEntitySet="DashboardRemaining">
-                <ScalarProperty Name="plan" ColumnName="plan" />
-                <ScalarProperty Name="hss" ColumnName="hss" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardBP_HSSPO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
-              <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
-                <ScalarProperty Name="xNop" ColumnName="xNop" />
-                <ScalarProperty Name="xPi" ColumnName="xPi" />
-                <ScalarProperty Name="xPpk" ColumnName="xPpk" />
-                <ScalarProperty Name="xIk" ColumnName="xIk" />
-                <ScalarProperty Name="xSsr" ColumnName="xSsr" />
-                <ScalarProperty Name="xSsmFact" ColumnName="xSsmFact" />
-                <ScalarProperty Name="xSsm" ColumnName="xSsm" />
-                <ScalarProperty Name="xReate" ColumnName="xReate" />
-                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
-                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
-                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
-                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
-                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
-                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
-                <ScalarProperty Name="ssmPlanHoure" ColumnName="ssmPlanHoure" />
-                <ScalarProperty Name="rateHoure" ColumnName="rateHoure" />
-                <ScalarProperty Name="nop" ColumnName="nop" />
-                <ScalarProperty Name="pi" ColumnName="pi" />
-                <ScalarProperty Name="ppk" ColumnName="ppk" />
-                <ScalarProperty Name="ik" ColumnName="ik" />
-                <ScalarProperty Name="ssrPlan" ColumnName="ssrPlan" />
-                <ScalarProperty Name="ssmFact" ColumnName="ssmFact" />
-                <ScalarProperty Name="ssmPlan" ColumnName="ssmPlan" />
-                <ScalarProperty Name="rateUSD" ColumnName="rateUSD" />
-                <ScalarProperty Name="assignmentWork" ColumnName="assignmentWork" />
-                <ScalarProperty Name="timeByDay" ColumnName="timeByDay" />
-                <ScalarProperty Name="taskName" ColumnName="taskName" />
-                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HSSPO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.HSSPO">
-              <MappingFragment StoreEntitySet="HSSPO">
-                <ScalarProperty Name="xNOP" ColumnName="xNOP" />
-                <ScalarProperty Name="xPI" ColumnName="xPI" />
-                <ScalarProperty Name="xPPK" ColumnName="xPPK" />
-                <ScalarProperty Name="xIK" ColumnName="xIK" />
-                <ScalarProperty Name="xSSR" ColumnName="xSSR" />
-                <ScalarProperty Name="xSSMFact" ColumnName="xSSMFact" />
-                <ScalarProperty Name="xSSM" ColumnName="xSSM" />
-                <ScalarProperty Name="xRate" ColumnName="xRate" />
-                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
-                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
-                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
-                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
-                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
-                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
-                <ScalarProperty Name="ssmHoure" ColumnName="ssmHoure" />
-                <ScalarProperty Name="RateHoure" ColumnName="RateHoure" />
-                <ScalarProperty Name="nop" ColumnName="nop" />
-                <ScalarProperty Name="pi" ColumnName="pi" />
-                <ScalarProperty Name="ppk" ColumnName="ppk" />
-                <ScalarProperty Name="ik" ColumnName="ik" />
-                <ScalarProperty Name="SSRPlan" ColumnName="SSRPlan" />
-                <ScalarProperty Name="SSMFact" ColumnName="SSMFact" />
-                <ScalarProperty Name="SSMPlan" ColumnName="SSMPlan" />
-                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
-                <ScalarProperty Name="CountPO" ColumnName="CountPO" />
-                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
-                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-                <ScalarProperty Name="OrderPZ" ColumnName="OrderPZ" />
-                <ScalarProperty Name="PK" ColumnName="PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarks">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarks">
-              <MappingFragment StoreEntitySet="ServiceRemarks">
-                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
-                <ScalarProperty Name="datePutToService" ColumnName="datePutToService" />
-                <ScalarProperty Name="dateOpen" ColumnName="dateOpen" />
-                <ScalarProperty Name="userCreate" ColumnName="userCreate" />
-                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksActions">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksActions">
-              <MappingFragment StoreEntitySet="ServiceRemarksActions">
-                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
-                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksCause">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksCause">
-              <MappingFragment StoreEntitySet="ServiceRemarksCause">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksCauses">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksCauses">
-              <MappingFragment StoreEntitySet="ServiceRemarksCauses">
-                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
-                <ScalarProperty Name="id_ServiceRemarksCause" ColumnName="id_ServiceRemarksCause" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksPlanZakazs">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksPlanZakazs">
-              <MappingFragment StoreEntitySet="ServiceRemarksPlanZakazs">
-                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksReclamations">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksReclamations">
-              <MappingFragment StoreEntitySet="ServiceRemarksReclamations">
-                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
-                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceRemarksTypes">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksTypes">
-              <MappingFragment StoreEntitySet="ServiceRemarksTypes">
-                <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
-                <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

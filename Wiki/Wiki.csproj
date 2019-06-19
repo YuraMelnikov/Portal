@@ -758,48 +758,6 @@
     <Compile Include="ServiceRemarksTypes.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Service_Reclamation.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationAddOrder.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationAnswerDevision.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationCorrespondence.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationCounterError.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationInfo.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationMonthDoc.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationMonthResult.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationPZ.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationType.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_ReclamationWhoAdd.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_TypeCorrespondence.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_TypeReclamation.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service_TypeReclamationDocument.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
