@@ -972,6 +972,7 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="activeOTK" Type="bit" Nullable="false" />
           <Property Name="activePO" Type="bit" Nullable="false" />
+          <Property Name="activeService" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -1329,7 +1330,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1356,7 +1357,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="HSSPO">
           <Key>
             <PropertyRef Name="PK" />
@@ -1394,7 +1395,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primar
           <Property Name="xNOP" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1404,7 +1405,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1426,7 +1427,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1436,7 +1437,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1507,7 +1508,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1518,7 +1519,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -6325,6 +6326,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="activePO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
           <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="Reclamation_Type" ToRole="ServiceRemarksTypes" />
+          <Property Name="activeService" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -9687,6 +9689,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="Reclamation_Type">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_Type">
               <MappingFragment StoreEntitySet="Reclamation_Type">
+                <ScalarProperty Name="activeService" ColumnName="activeService" />
                 <ScalarProperty Name="activePO" ColumnName="activePO" />
                 <ScalarProperty Name="activeOTK" ColumnName="activeOTK" />
                 <ScalarProperty Name="name" ColumnName="name" />

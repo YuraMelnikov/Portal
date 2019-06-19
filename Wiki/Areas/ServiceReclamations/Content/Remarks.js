@@ -1,12 +1,13 @@
 ﻿$(document).ready(function () {
+    $('#pageData').hide();
     if (userGroupId !== 1) {
         $('#btnAddNewReclamations').hide();
     }
-    activeReclamation();
+    document.getElementById('pageData').innerHTML = 1;
+    startPage();
 });
 
 function loadData(listId) {
-    clearTextBox();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         activeReclamation();
@@ -35,7 +36,7 @@ var objViewList = [
     { "title": "Папка (IE)", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
-function activeReclamation() {
+function startPage() {
     $("#reclamationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -43,6 +44,34 @@ function activeReclamation() {
             "type": "POST",
             "datatype": "json"
         },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objViewList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function activeReclamation() {
+    var table = $('#reclamationTable').DataTable();
+    table.destroy();
+    $('#reclamationTable').empty();
+    $("#reclamationTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/ActiveList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
         "processing": true,
         "columns": objViewList,
         "scrollY": '75vh',
@@ -59,6 +88,9 @@ function activeReclamation() {
 }
 
 function closeReclamation() {
+    var table = $('#reclamationTable').DataTable();
+    table.destroy();
+    $('#reclamationTable').empty();
     $("#reclamationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -66,6 +98,7 @@ function closeReclamation() {
             "type": "POST",
             "datatype": "json"
         },
+        "bDestroy": true,
         "processing": true,
         "columns": objViewList,
         "scrollY": '75vh',
@@ -82,6 +115,9 @@ function closeReclamation() {
 }
 
 function allReclamation() {
+    var table = $('#reclamationTable').DataTable();
+    table.destroy();
+    $('#reclamationTable').empty();
     $("#reclamationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -89,6 +125,7 @@ function allReclamation() {
             "type": "POST",
             "datatype": "json"
         },
+        "bDestroy": true,
         "processing": true,
         "columns": objViewList,
         "scrollY": '75vh',
@@ -105,7 +142,6 @@ function allReclamation() {
 }
 
 function clearTextBox() {
-    $("#btnAdd").attr('disabled', false);
     $("#btnAdd").show();
     $("#btnUpdate").hide();
     clearColor();
@@ -128,7 +164,8 @@ function clearTextBox() {
     $('#id_ServiceRemarksCause').val("");
     $('#id_ServiceRemarksCause').chosen();
     $('#id_ServiceRemarksCause').trigger('chosen:updated');
-    $("#reclamationModal").show();
+    $('#answerText').prop('disabled', true);
+    $('#reclamationModal').modal('show');
 }
 
 function clearColor() {
@@ -141,7 +178,6 @@ function Add() {
     if (res === false) {
         return false;
     }
-    $("#btnAdd").attr('disabled', true);
     var objRemark = {
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
         id_Reclamation_Type: $('#id_Reclamation_Type').val(),
@@ -221,6 +257,7 @@ function get(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#answerText').prop('disabled', false);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $("#id_Reclamation_Type").val(result.id_Reclamation_Type).trigger("chosen:updated");
             $("#id_ServiceRemarksCause").val(result.id_ServiceRemarksCause).trigger("chosen:updated");

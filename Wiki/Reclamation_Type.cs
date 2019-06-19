@@ -25,6 +25,7 @@ namespace Wiki
         public string name { get; set; }
         public bool activeOTK { get; set; }
         public bool activePO { get; set; }
+        public bool activeService { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation> Reclamation { get; set; }

@@ -15,8 +15,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public ActionResult Index()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
+            PortalKATEKEntities db = new PortalKATEKEntities();
+            
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
@@ -37,7 +37,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 else
                     ViewBag.userGroupId = 0;
                 return View();
-            }
+            
         }
 
         public JsonResult Add(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause)
@@ -97,7 +97,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     .Where(d => d.id == id).ToList();
                 var data = query.Select(dataList => new
                 {
-                    numberReclamation = dataList.id,
+                    numberReclamation = "Рекламация №: " + dataList.id + "000",
                     dataList.id,
                     pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
                     id_Reclamation_Type = GetTypesArray(dataList.ServiceRemarksTypes.ToList()),
