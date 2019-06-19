@@ -104,18 +104,117 @@ function allReclamation() {
     });
 }
 
-//reclamationModal
+function clearTextBox() {
+    $("#btnAdd").attr('disabled', false);
+    $("#btnAdd").show();
+    $("#btnUpdate").hide();
+    clearColor();
+    $('#numberReclamation').val("");
+    $('#dateTimeCreate').val("");
+    $('#userCreate').val("");
+    $('#datePutToService').val("");
+    $('#dateClose').val("");
+    $('#folder').val("");
+    $('#text').val("");
+    $('#description').val("");
+    $('#answerText').val("");
+    $('#answerHistiryText').val("");
+    $('#pZ_PlanZakaz').val("");
+    $('#pZ_PlanZakaz').chosen();
+    $('#pZ_PlanZakaz').trigger('chosen:updated');
+    $('#id_Reclamation_Type').val("");
+    $('#id_Reclamation_Type').chosen();
+    $('#id_Reclamation_Type').trigger('chosen:updated');
+    $('#id_ServiceRemarksCause').val("");
+    $('#id_ServiceRemarksCause').chosen();
+    $('#id_ServiceRemarksCause').trigger('chosen:updated');
+    $("#reclamationModal").show();
+}
 
-//clearTextBox
+function clearColor() {
+    $('#datePutToService').css('border-color', 'lightgrey');
+    $('#text').css('border-color', 'lightgrey');
+}
 
-//add
+function Add() {
+    var res = validate();
+    if (res === false) {
+        return false;
+    }
+    $("#btnAdd").attr('disabled', true);
+    var objRemark = {
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        id_Reclamation_Type: $('#id_Reclamation_Type').val(),
+        id_ServiceRemarksCause: $('#id_ServiceRemarksCause').val(),
+        datePutToService: $('#datePutToService').val(),
+        dateClose: $('#dateClose').val(),
+        folder: $('#folder').val(),
+        text: $('#text').val(),
+        description: $('#description').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Marks/Add",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData(document.getElementById('pageData').innerHTML);
+            $('#reclamationModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validate() {
+    clearColor();
+    var isValid = true;
+    if ($('#pZ_PlanZakaz').val().length === 0) {
+        $('#pZ_PlanZakaz').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#pZ_PlanZakaz').css('border-color', 'lightgrey');
+    }
+    if ($('#id_Reclamation_Type').val().length === 0) {
+        $('#id_Reclamation_Type').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_Reclamation_Type').css('border-color', 'lightgrey');
+    }
+    if ($('#id_ServiceRemarksCause').val().length === 0) {
+        $('#id_ServiceRemarksCause').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_ServiceRemarksCause').css('border-color', 'lightgrey');
+    }
+
+    if ($('#datePutToService').val().trim() === "") {
+        $('#datePutToService').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#datePutToService').css('border-color', 'lightgrey');
+    }
+    if ($('#text').val().trim() === "") {
+        $('#text').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#text').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
 
 //get(id)
 
 //getView(id)
 
 //update
-
-//validate
 
 //?NewReclamation

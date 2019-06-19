@@ -55,34 +55,34 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label>Создана:</label>
-                        <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Кем создана:</label>
-                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="userCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата получения:</label>
-                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="datePutToService" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата закрытия:</label>
-                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="dateClose" />
                     </div>
                     <div class="col-lg-4">
                         <label>Ссылка на папку:</label>
-                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                        <input type="text" class="form-control" id="folder" />
                     </div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6">
                         <label>Описание:</label>
-                        <textarea name="answerText" id="answerText" class="form-control" rows=8></textarea>
+                        <textarea name="text" id="text" class="form-control" rows=8></textarea>
                     </div>
                     <div class="col-lg-6">
                         <label>Прим.:</label>
-                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=8></textarea>
+                        <textarea name="description" id="description" class="form-control" rows=8></textarea>
                     </div>
                 </div>
                 <hr />
@@ -106,16 +106,33 @@
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnAdd" style="display:none;" onclick="add();">Добавить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 <script>
     var userGroupId = @ViewBag.userGroupId;
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datePutToService').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateClose').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
 </script>

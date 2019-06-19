@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Wiki.Areas.ServiceReclamations.Models;
 using System.Data.Entity;
 using Newtonsoft.Json;
+using System;
 
 namespace Wiki.Areas.ServiceReclamations.Controllers
 {
@@ -12,30 +13,74 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public ActionResult Index()
         {
-            //ViewBag.PZ_PlanZakaz
-            //ViewBag.id_Reclamation_Type
-            //ViewBag.id_ServiceRemarksCause
-            string login = HttpContext.User.Identity.Name;
-            int devisionUser = 0;
-            try
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
+                ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+                string login = HttpContext.User.Identity.Name;
+                int devisionUser = 0;
+                try
                 {
                     devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
                 }
-            }
-            catch
-            {
+                catch
+                {
 
+                }
+                if (devisionUser == 28)
+                    ViewBag.userGroupId = 1;
+                else
+                    ViewBag.userGroupId = 0;
+                return View();
             }
-            if (devisionUser == 28)
-                ViewBag.userGroupId = 1;
-            else
-                ViewBag.userGroupId = 0;
-            return View();
         }
 
-        //Add
+        public JsonResult Add(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string login = HttpContext.User.Identity.Name;
+                reclamation.dateTimeCreate = DateTime.Now;
+                reclamation.userCreate = db.AspNetUsers.First(d => d.Email == login).Id;
+                if (reclamation.description == null)
+                    reclamation.description = "";
+                if (reclamation.folder == null)
+                    reclamation.folder = "";
+                db.ServiceRemarks.Add(reclamation);
+                db.SaveChanges();
+                foreach (var data in pZ_PlanZakaz)
+                {
+                    ServiceRemarksPlanZakazs remarkOrder = new ServiceRemarksPlanZakazs();
+                    remarkOrder.id_ServiceRemarks = reclamation.id;
+                    remarkOrder.id_PZ_PlanZakaz = data;
+                    db.ServiceRemarksPlanZakazs.Add(remarkOrder);
+                    db.SaveChanges();
+                }
+                foreach (var data in id_Reclamation_Type)
+                {
+                    ServiceRemarksTypes remarkOrder = new ServiceRemarksTypes();
+                    remarkOrder.id_ServiceRemarks = reclamation.id;
+                    remarkOrder.id_Reclamation_Type = data;
+                    db.ServiceRemarksTypes.Add(remarkOrder);
+                    db.SaveChanges();
+                }
+                foreach (var data in id_ServiceRemarksCause)
+                {
+                    ServiceRemarksCauses remarkOrder = new ServiceRemarksCauses();
+                    remarkOrder.id_ServiceRemarks = reclamation.id;
+                    remarkOrder.id_ServiceRemarksCause = data;
+                    db.ServiceRemarksCauses.Add(remarkOrder);
+                    db.SaveChanges();
+                }
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
         //Get(int id)
         //Update(????)
 
@@ -54,7 +99,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dataList.description,
                 types = GetTypes(dataList.id),
                 causes = GetCauses(dataList.id),
-                dateOpen = JsonConvert.SerializeObject(dataList.dateOpen, shortSetting).Replace(@"""", ""),
+                dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
                 dataList.folder
@@ -77,7 +122,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dataList.description,
                 types = GetTypes(dataList.id),
                 causes = GetCauses(dataList.id),
-                dateOpen = JsonConvert.SerializeObject(dataList.dateOpen, shortSetting).Replace(@"""", ""),
+                dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
                 dataList.folder
@@ -100,7 +145,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dataList.description,
                 types = GetTypes(dataList.id),
                 causes = GetCauses(dataList.id),
-                dateOpen = JsonConvert.SerializeObject(dataList.dateOpen, shortSetting).Replace(@"""", ""),
+                dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
                 dataList.folder
