@@ -12,6 +12,9 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public ActionResult Index()
         {
+            //ViewBag.PZ_PlanZakaz
+            //ViewBag.id_Reclamation_Type
+            //ViewBag.id_ServiceRemarksCause
             string login = HttpContext.User.Identity.Name;
             int devisionUser = 0;
             try

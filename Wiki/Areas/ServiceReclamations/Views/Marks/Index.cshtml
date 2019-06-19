@@ -27,28 +27,76 @@
     </div>
 </nav>
 <button id="btnAddNewReclamations" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Зарегистрировать рекламацию</button>
-
-
 <div id="reclamationModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <label>№ рекламации:</label>
+                <input type="text" class="form-control" id="numberReclamation" disabled="disabled" />
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 @Html.HiddenFor(model => model.id)
                 <div class="row">
                     <div class="col-lg-4">
-                        <label>№заказа/ов:</label>
-                        @Html.ListBox("id_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                        <label>План-Заказ/ы №№:</label>
+                        @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-4">
-                        <label>Тип/ы заказываемых ТМЦ:</label>
-                        @Html.ListBox("id_CMO_TypeProduct", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "chosen-select" })
+                        <label>Тип/ы возникновения:</label>
+                        @Html.ListBox("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Причина/ы возникновения:</label>
+                        @Html.ListBox("id_ServiceRemarksCause", ViewBag.id_ServiceRemarksCause as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                 </div>
                 <hr />
-
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Создана:</label>
+                        <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Кем создана:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата получения:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата закрытия:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Ссылка на папку:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Описание:</label>
+                        <textarea name="answerText" id="answerText" class="form-control" rows=8></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Прим.:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=8></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Добавить запись:</label>
+                        <textarea name="answerText" id="answerText" class="form-control" rows=8></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Ход работы:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=8></textarea>
+                    </div>
+                </div>
+                <hr />
             </div>
             <div class="modal-footer">
                 <div class="row">

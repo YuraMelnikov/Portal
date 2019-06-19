@@ -29,7 +29,6 @@ namespace Wiki
         public string description { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public string userCreate { get; set; }
-        public System.DateTime dateOpen { get; set; }
         public System.DateTime datePutToService { get; set; }
         public Nullable<System.DateTime> dateClose { get; set; }
         public string folder { get; set; }
