@@ -378,9 +378,23 @@ function processNull(data) {
         return data;
     }
 }
-
+   
 function copyLink() {
-    var copyText = document.getElementById('folder');
-    copyText.select();
-    document.execCommand("copy");
+    var urlPatch = $('#folder').val();
+    if (window.clipboardData) { // this is for Internet Explorer
+        window.clipboardData.setData("Text", urlPatch);
+    }
+    else { // this is for Edge, Firefox, Chrome and Safari; this also works with IE, but it does not work as smoothly as above code causing the page to jump around
+        var t = document.createElement("textarea"); // create textarea element
+        t.value = urlPatch; // set its value to the data to copy
+        t.style.position = "absolute";
+        t.style.display = "inline";
+        t.style.width = t.style.height = t.style.padding = 0;
+        t.setAttribute("readonly", ""); // textarea is readonly
+        document.body.appendChild(t); // append the textarea element - may be better to append to the object being clicked
+        t.select(); // select the data in the text area
+        document.execCommand("copy"); // IMPORTANT: "copy" works as a result of user events, like "click" event
+        document.body.removeChild(t); // remove the textarea element
+    }
+    return false;
 }
