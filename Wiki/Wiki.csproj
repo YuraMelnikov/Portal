@@ -853,6 +853,8 @@
     <Content Include="Areas\Reclamation\Content\ReclamationList.js" />
     <Content Include="Areas\Reclamation\migrate db\addNewUserManuf.sql" />
     <Content Include="Areas\Reclamation\migrate db\importDataNewStruct.sql" />
+    <Content Include="Areas\ServiceReclamations\Content\interior-view-steel-factory_1359-113.jpg" />
+    <Content Include="Areas\ServiceReclamations\Content\portrait-middle-aged-businessman-with-digital-tablet-factory_52137-7803.jpg" />
     <Content Include="Areas\ServiceReclamations\Content\Remarks.js" />
     <Content Include="Areas\ServiceReclamations\migrate db\importListsPWASC.sql" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
