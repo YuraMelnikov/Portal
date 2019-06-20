@@ -5,6 +5,7 @@ using System.Data.Entity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Wiki.Areas.ServiceReclamations.Controllers
 {
@@ -59,6 +60,11 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 if (reclamation.folder == null)
                     reclamation.folder = "";
                 db.ServiceRemarks.Add(reclamation);
+                db.SaveChanges();
+                string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + reclamation.id.ToString();
+                Directory.CreateDirectory(directory);
+                reclamation.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + reclamation.id.ToString() + @"\";
+                db.Entry(reclamation).State = EntityState.Modified;
                 db.SaveChanges();
                 foreach (var data in pZ_PlanZakaz)
                 {
@@ -331,9 +337,16 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                 dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
                 dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = GetFolderLink(dataList.folder)
             });
             return Json(new { data });
+        }
+
+        string GetFolderLink(string folder)
+        {
+            string folderLink = "";
+            folderLink = @"<a href =" + folder + " target='_explorer.exe'> Папка </a>";
+            return folderLink;
         }
 
         [HttpPost]

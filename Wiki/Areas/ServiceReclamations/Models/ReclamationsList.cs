@@ -12,6 +12,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
+                .AsNoTracking()
                 .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
@@ -24,6 +25,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
+                .AsNoTracking()
                 .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))
@@ -36,6 +38,7 @@ namespace Wiki.Areas.ServiceReclamations.Models
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             return db.ServiceRemarks
+                .AsNoTracking()
                 .Include(d => d.ServiceRemarksPlanZakazs)
                 .Include(d => d.ServiceRemarksTypes.Select(s => s.Reclamation_Type))
                 .Include(d => d.ServiceRemarksCauses.Select(s => s.ServiceRemarksCause))

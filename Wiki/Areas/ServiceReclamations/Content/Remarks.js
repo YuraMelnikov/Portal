@@ -378,3 +378,9 @@ function processNull(data) {
         return data;
     }
 }
+
+function copyLink() {
+    var copyText = document.getElementById('folder');
+    copyText.select();
+    document.execCommand("copy");
+}

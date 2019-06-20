@@ -69,9 +69,14 @@
                     </div>
                     <div class="col-lg-6">
                         <label>Ссылка на папку:</label>
-                        <input type="text" class="form-control" id="folder" />
+                        <div class="input-group control-group after-add-more">
+                            <input type="text" class="form-control" id="folder" disabled="disabled" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus" onclick="copyLink();"></i> Скопировать</button>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6">
