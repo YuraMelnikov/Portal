@@ -9,9 +9,9 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);">Активные</a></li>
-            <li><a onclick="return loadData(2);">Закрытые</a></li>
-            <li><a onclick="return loadData(3);">Все</a></li>
+            <li><a onclick="return loadData(1);"><p id="idActiveList">Активные</p></a></li>
+            <li><a onclick="return loadData(2);"><p id="idCloseList">Закрытые</p></a></li>
+            <li><a onclick="return loadData(3);"><p id="idAllList">Все</p></a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "Marks"); }
