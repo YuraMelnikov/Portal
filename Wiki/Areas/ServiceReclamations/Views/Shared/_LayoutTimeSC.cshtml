@@ -29,7 +29,9 @@
         <div id="allSharePoint">
             <div id="lentSharepoint">
                 <div id="textSharePointLent">
-                    SharePoint
+                    @*<a style="color: white" href="/Account/Login/">
+                        @{Html.RenderAction("RenderUserMenu", "Home"); }
+                    </a>*@
                 </div>
             </div>
             <div id="lentBrown">
@@ -58,11 +60,11 @@
                 </ul>
             </div>
         </div>
+        <div id="content">
 
+                @RenderBody()
 
-
-            @RenderBody()
-
+        </div>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

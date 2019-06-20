@@ -319,6 +319,7 @@
     <Compile Include="Areas\Reclamation\Models\TARemarkView.cs" />
     <Compile Include="Areas\Reclamation\ReclamationAreaRegistration.cs" />
     <Compile Include="Areas\ServiceReclamations\Controllers\MarksController.cs" />
+    <Compile Include="Areas\ServiceReclamations\Controllers\SCController.cs" />
     <Compile Include="Areas\ServiceReclamations\Models\ReclamationsList.cs" />
     <Compile Include="Areas\ServiceReclamations\ServiceReclamationsAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
@@ -2148,6 +2149,8 @@
     <Content Include="Areas\ServiceReclamations\Views\web.config" />
     <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutServiceReclamations.cshtml" />
     <Content Include="Areas\ServiceReclamations\Views\Marks\Index.cshtml" />
+    <Content Include="Areas\ServiceReclamations\Views\SC\Index.cshtml" />
+    <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutTimeSC.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

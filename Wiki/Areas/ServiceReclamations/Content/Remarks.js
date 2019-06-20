@@ -127,6 +127,7 @@ function allReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[11, "asc"]],
         "processing": true,
         "columns": objViewList,
         "rowCallback": function (row, data, index) {
