@@ -36,7 +36,7 @@ namespace Wiki.Areas.Deb.Controllers
         public JsonResult List()
         {
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
-            var query = db.Debit_DataReportOprih.Where(d => d.id_Debit_PeriodReportOprih == debit_PeriodReportOprih.id).ToList();
+            var query = db.Debit_DataReportOprih.AsNoTracking().Where(d => d.id_Debit_PeriodReportOprih == debit_PeriodReportOprih.id).ToList();
             string login = HttpContext.User.Identity.Name;
             int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             string linkPartOne = "";
@@ -73,6 +73,7 @@ namespace Wiki.Areas.Deb.Controllers
         {
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
             var query = db.Debit_DataReportOprih
+                .AsNoTracking()
                 .Where(d => d.id_Debit_PeriodReportOprih == debit_PeriodReportOprih.id)
                 .Where(d => d.oprihClose == false)
                 .ToList();
@@ -138,7 +139,6 @@ namespace Wiki.Areas.Deb.Controllers
                 conditionAcceptOrder,
                 conditionPay
             });
-
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 

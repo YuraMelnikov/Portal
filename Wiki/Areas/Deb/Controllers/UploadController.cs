@@ -21,7 +21,8 @@ namespace Wiki.Areas.Deb.Controllers
 
         public JsonResult List()
         {
-            var query = db.Debit_WorkBit.Where(d => d.id_TaskForPZ == 15 || d.id_TaskForPZ == 38).ToList();
+            var query = db.Debit_WorkBit
+                .Where(d => d.id_TaskForPZ == 15 || d.id_TaskForPZ == 38).ToList();
             var data = query.Select(dataList => new
             {
                 status = GetStatusName(dataList),

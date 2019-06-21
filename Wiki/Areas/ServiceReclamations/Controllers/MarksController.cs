@@ -21,7 +21,6 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
         public ActionResult Index()
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
-
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
@@ -487,11 +486,43 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public JsonResult CreateAnClosePZ(int[] npZ_PlanZakaz)
         {
-            ToExcel(npZ_PlanZakaz);
-            return Json(null);
+            var query = new ReclamationsList().GetActive();
+            var data = query.Select(dataList => new
+            {
+                dataList.id,
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                orders = GetOrdersName(dataList.id),
+                client = GetClient(dataList.id),
+                dataList.text,
+                dataList.description,
+                types = GetTypes(dataList.id),
+                causes = GetCauses(dataList.id),
+                dateOpen = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                dateGet = JsonConvert.SerializeObject(dataList.datePutToService, shortSetting).Replace(@"""", ""),
+                dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSetting).Replace(@"""", ""),
+                folder = GetFolderLink(dataList.folder)
+            });
+            return Json(new { data });
         }
 
-        public void ToExcel(int[] npZ_PlanZakaz)
+
+
+
+
+
+        public ActionResult ToExcel()
+        {
+            PortalKATEKEntities db = new PortalKATEKEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            return View();
+        }
+            
+        
+        [HttpPost]
+        public ActionResult ToExcel(int[] npZ_PlanZakaz)
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
             db.Configuration.ProxyCreationEnabled = false;
@@ -536,22 +567,13 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                         rowNum++;
                     }
                 }
-                byte[] downloadBytes = excel.GetAsByteArray();
-                Response.ClearContent();
-                Response.ClearHeaders();
-                Response.Buffer = true;
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("Content-Length", downloadBytes.Length.ToString());
-                Response.AddHeader("Content-Disposition", "attachment; filename=myFile.pdf");
-                Response.BinaryWrite(downloadBytes);
-                Response.Flush();
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+                Response.BinaryWrite(excel.GetAsByteArray());
                 Response.End();
-                //Response.Clear();
-                //Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                //Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
-                //Response.BinaryWrite(excel.GetAsByteArray());
-                //Response.End();
             }
+            return RedirectToAction("Index");
         }
     }
 }

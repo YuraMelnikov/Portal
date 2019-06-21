@@ -16,7 +16,6 @@ function loadData() {
             { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
             , { "title": "Менеджер", "data": "Manager", "autowidth": true }
             , { "title": "Заказчик", "data": "Client", "autowidth": true }
-
             , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
             , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
             , { "title": "Условия оплаты", "data": "UslovieOplatyText", "autowidth": true }

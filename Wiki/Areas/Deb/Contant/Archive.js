@@ -50,9 +50,9 @@ function loadData() {
 
 function localRUStatus(data) {
     if (data === true) {
-        return 'Открыт';
-    } else {
         return 'Закрыт';
+    } else {
+        return 'Открыт';
     }
 }
 

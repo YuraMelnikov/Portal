@@ -13,11 +13,11 @@ function loadData() {
         "bAutoWidth": false,
         "columns": [
             { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
+            , { "title": "Менеджер", "data": "Manager", "autowidth": true, "class": 'colu-200' }
+            , { "title": "Заказчик", "data": "Client", "autowidth": true, "class": 'colu-200' }
             , { "title": "Наименование", "data": "Name", "autowidth": true, "bSortable": false }
-            , { "title": "Менеджер", "data": "Manager", "autowidth": true }
-            , { "title": "Заказчик", "data": "Client", "autowidth": true }
-            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false }
-            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false }
+            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": true, "className": 'text-center' }
+            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": true, "className": 'text-center' }
              ],
         "scrollY": '75vh',
         "scrollX": true,
