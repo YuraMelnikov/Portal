@@ -21,28 +21,28 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
         public ActionResult Index()
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
-            
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
-                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
-                ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
-                string login = HttpContext.User.Identity.Name;
-                int devisionUser = 0;
-                try
-                {
-                    devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
-                }
-                catch
-                {
 
-                }
-                if (devisionUser == 28)
-                    ViewBag.userGroupId = 1;
-                else
-                    ViewBag.userGroupId = 0;
-                return View();
-            
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            string login = HttpContext.User.Identity.Name;
+            int devisionUser = 0;
+            try
+            {
+                devisionUser = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
+            if (devisionUser == 28)
+                ViewBag.userGroupId = 1;
+            else
+                ViewBag.userGroupId = 0;
+            return View();
+
         }
 
         public JsonResult Add(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause)
@@ -204,7 +204,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 beforeUpdateRemark.text = reclamation.text;
                 db.Entry(beforeUpdateRemark).State = EntityState.Modified;
                 db.SaveChanges();
-                if(answerText != "")
+                if (answerText != "")
                 {
                     string login = HttpContext.User.Identity.Name;
                     ServiceRemarksActions serviceRemarksActions = new ServiceRemarksActions();
@@ -424,7 +424,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int idPz =  db.ServiceRemarksPlanZakazs
+                int idPz = db.ServiceRemarksPlanZakazs
                     .First(d => d.id_ServiceRemarks == id)
                     .id_PZ_PlanZakaz;
                 clientName = db.PZ_PlanZakaz.Include(d => d.PZ_Client).First(d => d.Id == idPz).PZ_Client.NameSort;
@@ -487,6 +487,12 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public JsonResult CreateAnClosePZ(int[] npZ_PlanZakaz)
         {
+            ToExcel(npZ_PlanZakaz);
+            return Json(null);
+        }
+
+        public void ToExcel(int[] npZ_PlanZakaz)
+        {
             PortalKATEKEntities db = new PortalKATEKEntities();
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
@@ -530,14 +536,22 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                         rowNum++;
                     }
                 }
-
-
-                System.IO.File.WriteAllText(Server.MapPath(@"~/Areas/ServiceReclamations/Content/" + DateTime.Now.ToLongDateString() + ".xlsx"), excel.ToString()); // for save file on server but this is not working
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;  filename=Qa_Report.xlsx");
-                Response.BinaryWrite(excel.GetAsByteArray());
+                byte[] downloadBytes = excel.GetAsByteArray();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.Buffer = true;
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("Content-Length", downloadBytes.Length.ToString());
+                Response.AddHeader("Content-Disposition", "attachment; filename=myFile.pdf");
+                Response.BinaryWrite(downloadBytes);
+                Response.Flush();
+                Response.End();
+                //Response.Clear();
+                //Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                //Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+                //Response.BinaryWrite(excel.GetAsByteArray());
+                //Response.End();
             }
-            return Json(null);
         }
     }
 }

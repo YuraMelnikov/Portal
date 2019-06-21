@@ -2501,8 +2501,6 @@
     <Content Include="Views\Debit_CostUpdate\Index.cshtml" />
     <Content Include="Views\Debit_CostUpdate\NewPlus.cshtml" />
     <Content Include="Views\Debit_Platform\Debit.cshtml" />
-    <Content Include="Views\ReclamationPO\Index.cshtml" />
-    <Content Include="Views\ReclamationOTK\Index.cshtml" />
     <Content Include="Views\RKD\Index.cshtml" />
     <Content Include="Views\RKD\Error.cshtml" />
     <Content Include="Views\RKD\Edit.cshtml" />
@@ -2542,9 +2540,6 @@
     <Content Include="Views\RKD\CreateQuestionOnOrder.cshtml" />
     <Content Include="Views\RKD\ErrorNewVersionRDK.cshtml" />
     <Content Include="Views\UploadDocument\AlertOpenOrderInManuf.cshtml" />
-    <Content Include="Views\ReclamationOTK\ChackLists.cshtml" />
-    <Content Include="Views\ReclamationOTK\IndexCheckList.cshtml" />
-    <Content Include="Views\ReclamationOTK\ActiveReclamation.cshtml" />
     <Content Include="Views\UploadER\UploadFoundationNorm.cshtml" />
     <Content Include="Views\UploadER\Index.cshtml" />
     <Content Include="Views\RKD\DetailsClose.cshtml" />
@@ -2556,7 +2551,6 @@
     <Content Include="Views\RKD\IndexComplited.cshtml" />
     <Content Include="Views\Shared\_LayoutReceivables.cshtml" />
     <Content Include="Views\Receivables\Index.cshtml" />
-    <Content Include="Views\ReclamationOTK\ListActiveWork.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Shared\_Layout3.cshtml" />
