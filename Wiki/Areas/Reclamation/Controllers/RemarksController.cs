@@ -428,7 +428,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
-        string GetAnswerText(List<Reclamation_Answer> reclamation_Answers)
+        public string GetAnswerText(List<Reclamation_Answer> reclamation_Answers)
         {
             string text = "";
             if (reclamation_Answers.Count > 0)

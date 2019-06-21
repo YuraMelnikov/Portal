@@ -256,7 +256,6 @@ function validate() {
 }
 
 function get(id) {
-    
     clearTextBox();
     var myVal = userGroupId;
     $.ajax({
@@ -405,4 +404,40 @@ function openNoCloseModal() {
     $('#npZ_PlanZakaz').chosen();
     $('#npZ_PlanZakaz').trigger('chosen:updated');
     $('#excelNoCloseReclamatonModal').modal('show');
+}
+
+function createAnClosePZ(){
+    var res = validatePZList();
+    if (res === false) {
+        return false;
+    }
+    var objRemark = {
+        npZ_PlanZakaz: $('#npZ_PlanZakaz').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Marks/CreateAnClosePZ/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function () {
+            $('#excelNoCloseReclamatonModal').modal('hide');
+        },
+        error: function () {
+            $('#excelNoCloseReclamatonModal').modal('hide');
+        }
+    });
+}
+
+function validatePZList() {
+    var isValid = true;
+    if ($('#npZ_PlanZakaz').val().length === 0) {
+        $('#npZ_PlanZakaz').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#npZ_PlanZakaz').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

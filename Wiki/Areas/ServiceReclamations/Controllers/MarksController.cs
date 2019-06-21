@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using OfficeOpenXml;
+using System.Drawing;
+using Wiki.Areas.Reclamation.Controllers;
 
 namespace Wiki.Areas.ServiceReclamations.Controllers
 {
@@ -480,6 +483,61 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+        public JsonResult CreateAnClosePZ(int[] npZ_PlanZakaz)
+        {
+            PortalKATEKEntities db = new PortalKATEKEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                excel.Workbook.Worksheets.Add("Worksheet1");
+                var excelWorksheet = excel.Workbook.Worksheets["Worksheet1"];
+                List<string[]> headerRow = new List<string[]>()
+                {
+                  new string[] { "№", "Текст", "Прим.", "История переписк", "Ответственное СП", "Полуфабрикат", "РСАМ", "Автор замечания" }
+                };
+                int rowNum = 1;
+                string headerRange = "A" + rowNum.ToString() + ":" + char.ConvertFromUtf32(headerRow[0].Length + 64) + rowNum.ToString();
+                var worksheet = excel.Workbook.Worksheets["Worksheet1"];
+                worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+                worksheet.Cells[headerRange].Style.Font.Bold = true;
+                worksheet.Cells[headerRange].Style.Font.Size = 14;
+                worksheet.Cells[headerRange].Style.Font.Color.SetColor(Color.Blue);
+                rowNum++;
+                foreach (var data in npZ_PlanZakaz)
+                {
+                    var listReclamation = db.Reclamation
+                        .Include(d => d.Reclamation_PZ)
+                        .Include(d => d.AspNetUsers)
+                        .Include(d => d.Devision)
+                        .Include(d => d.PF)
+                        .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                        .Where(d => d.Reclamation_PZ.Where(sd => sd.id_PZ_PlanZakaz == data).Count() > 0)
+                        .ToList();
+                    foreach (var dataReclamation in listReclamation)
+                    {
+                        headerRow = new List<string[]>()
+                        {
+                          new string[] { dataReclamation.id.ToString(), dataReclamation.text, dataReclamation.description, new RemarksController().GetAnswerText(dataReclamation.Reclamation_Answer.ToList()), dataReclamation.Devision.name, dataReclamation.PF.name, dataReclamation.PCAM, dataReclamation.AspNetUsers.CiliricalName }
+                        };
+                        headerRange = "A" + rowNum.ToString() + ":" + char.ConvertFromUtf32(headerRow[0].Length + 64) + rowNum.ToString();
+                        worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+                        worksheet.Cells[headerRange].Style.Font.Bold = true;
+                        worksheet.Cells[headerRange].Style.Font.Size = 14;
+                        worksheet.Cells[headerRange].Style.Font.Color.SetColor(Color.Blue);
+                        rowNum++;
+                    }
+                }
+
+
+                System.IO.File.WriteAllText(Server.MapPath(@"~/Areas/ServiceReclamations/Content/" + DateTime.Now.ToLongDateString() + ".xlsx"), excel.ToString()); // for save file on server but this is not working
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;  filename=Qa_Report.xlsx");
+                Response.BinaryWrite(excel.GetAsByteArray());
+            }
+            return Json(null);
         }
     }
 }
