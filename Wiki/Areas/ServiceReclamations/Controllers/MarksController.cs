@@ -22,7 +22,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
-                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
+                ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
                 ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
                 string login = HttpContext.User.Identity.Name;
                 int devisionUser = 0;

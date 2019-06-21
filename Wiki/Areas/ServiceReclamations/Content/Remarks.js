@@ -398,3 +398,11 @@ function copyLink() {
     }
     return false;
 }
+
+function openNoCloseModal() {
+    $('#btnGetExcelNoCloseReclamation').show();
+    $('#npZ_PlanZakaz').val("");
+    $('#npZ_PlanZakaz').chosen();
+    $('#npZ_PlanZakaz').trigger('chosen:updated');
+    $('#excelNoCloseReclamatonModal').modal('show');
+}

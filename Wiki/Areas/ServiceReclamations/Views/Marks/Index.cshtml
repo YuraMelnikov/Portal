@@ -9,9 +9,11 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);"><p id="idActiveList">Активные</p></a></li>
-            <li><a onclick="return loadData(2);"><p id="idCloseList">Закрытые</p></a></li>
-            <li><a onclick="return loadData(3);"><p id="idAllList">Все</p></a></li>
+            <li><a onclick="return loadData(1);">Активные</a></li>
+            <li><a onclick="return loadData(2);">Закрытые</a></li>
+            <li><a onclick="return loadData(3);">Все</a></li>
+            <li><a href="~/Areas/ServiceReclamations/Content/АнализРекламаций.xlsx">to Excel</a></li>
+            <li><a onclick="return openNoCloseModal();">Незакрытые замечания</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "Marks"); }
@@ -115,6 +117,54 @@
         </div>
     </div>
 </div>
+
+
+<div id="excelNoCloseReclamatonModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Укажите заказ/ы по которым необходимо получить перечень незакрытых замечаний при отгрузке изделия:</label>
+                        @Html.ListBox("npZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnGetExcelNoCloseReclamation" style="display:none;" onclick="createAnClosePZ();">Сформировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     var userGroupId = @ViewBag.userGroupId;
 </script>

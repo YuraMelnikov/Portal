@@ -2153,6 +2153,7 @@
     <Content Include="Areas\ServiceReclamations\Views\Marks\Index.cshtml" />
     <Content Include="Areas\ServiceReclamations\Views\SC\Index.cshtml" />
     <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutTimeSC.cshtml" />
+    <Content Include="Areas\ServiceReclamations\Content\АнализРекламаций.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
