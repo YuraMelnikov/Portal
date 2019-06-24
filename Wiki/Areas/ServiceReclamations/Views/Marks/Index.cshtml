@@ -113,36 +113,39 @@
                     </div>
                 </div>
             </div>
-            <div class="partRem">
-                <hr />
-                <div class="row">
-                    <div class="col-lg-2">
-                        <label>Тип:</label>
-                        @Html.DropDownList("typeRem", ViewBag.typeRem as MultiSelectList, new { @class = "form-control" })
+            <div class="modal-body">
+                <div class="partRem">
+                    <hr />
+                    <label>Замечания для СП по рекламации:</label>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Тип:</label>
+                            @Html.DropDownList("typeRem", ViewBag.typeRem as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="col-lg-1">
+                            <label>СП: </label>
+                            @Html.DropDownList("devRem", ViewBag.devRem as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Текст:</label>
+                            <input type="text" class="form-control" id="textRem" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Полуфабрикат:</label>
+                            @Html.DropDownList("pfRem", ViewBag.pfRem as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="col-lg-1">
+                            <label>На техсовет: </label>
+                            <input type="checkbox" id="technicalAdviceRem" />
+                            <button class="btn btn-primary add-more" id="btnAddOtkRem" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
+                        </div>
                     </div>
-                    <div class="col-lg-1">
-                        <label>СП: </label>
-                        @Html.DropDownList("devRem", ViewBag.devRem as MultiSelectList, new { @class = "form-control" })
-                    </div>
-                    <div class="col-lg-6">
-                        <label>Текст:</label>
-                        <input type="text" class="form-control" id="textRem" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Полуфабрикат:</label>
-                        @Html.DropDownList("pfRem", ViewBag.pfRem as MultiSelectList, new { @class = "form-control" })
-                    </div>
-                    <div class="col-lg-1">
-                        <label>На техсовет: </label>
-                        <input type="checkbox" id="technicalAdviceRem" />
-                        <button class="btn btn-primary add-more" id="btnAddOtkRem" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
-                    </div>
+                    <hr />
+                    <table id="tableRem" class="table table-hover table-striped" style="width:100%;"></table>
                 </div>
-                <hr />
-                <table id="tableRem" class="table table-hover table-striped" style="width:100%;"></table>
+                </div>
             </div>
         </div>
-    </div>
 </div>
 <div id="excelNoCloseReclamatonModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">

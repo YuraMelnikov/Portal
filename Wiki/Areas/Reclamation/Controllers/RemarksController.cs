@@ -122,7 +122,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             if (id_Devision == 6)
             {
-                List<Devision> devisions = db.Devision.Where(d => d.OTK == true && d.id != 6).ToList();
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 foreach (var data in devisions)
                 {
                     if (data.id == 16)
