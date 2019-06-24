@@ -1,0 +1,31 @@
+﻿@model Wiki.CMO2_Order
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AccountsReceivable/Views/Shared/_LayoutAccountsReceivable.cshtml";
+}
+<head>
+    <script src="~/Areas/CMO/Content/CMO.js"></script>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Активные задачи</a></li>
+            <li><a onclick="return loadData(2);">Мои задачи</a></li>
+            <li><a onclick="return loadData(2);">Закрытые задачи</a></li>
+            <li><a onclick="return loadData(2);">ТЭО</a></li>
+            <li><a onclick="return loadData(2);">Договорные условия</a></li>
+            <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "CMOArea"); }
+                </a>
+            </li>
+            <li><a id="pageId"></a></li>
+        </ul>
+    </div>
+</nav>

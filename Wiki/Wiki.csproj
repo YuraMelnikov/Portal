@@ -793,6 +793,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
@@ -2157,6 +2158,8 @@
     <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutTimeSC.cshtml" />
     <Content Include="Areas\ServiceReclamations\Content\АнализРекламаций.xlsx" />
     <Content Include="Areas\AccountsReceivable\Views\web.config" />
+    <Content Include="Areas\AccountsReceivable\Views\Shared\_LayoutAccountsReceivable.cshtml" />
+    <Content Include="Areas\AccountsReceivable\Views\AccountsReceivables\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2560,8 +2563,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AccountsReceivable\Models\" />
-    <Folder Include="Areas\AccountsReceivable\Views\AccountsReceivables\" />
-    <Folder Include="Areas\AccountsReceivable\Views\Shared\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
