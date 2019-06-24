@@ -96,7 +96,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     db.SaveChanges();
                 }
             }
-            return Json(1, JsonRequestBehavior.AllowGet);
+            return Json(reclamation.id, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Get(int id)
@@ -220,8 +220,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 UpdatePZList(pZ_PlanZakaz, beforeUpdateRemark.id);
                 UpdateTypes(id_Reclamation_Type, beforeUpdateRemark.id);
                 UpdateCause(id_ServiceRemarksCause, beforeUpdateRemark.id);
+                return Json(beforeUpdateRemark.id, JsonRequestBehavior.AllowGet);
             }
-            return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         bool UpdateCause(int[] pZ_PlanZakaz, int id_Reclamation)
@@ -509,11 +509,6 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return Json(new { data });
         }
 
-
-
-
-
-
         public ActionResult ToExcel()
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
@@ -523,7 +518,6 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return View();
         }
             
-        
         [HttpPost]
         public ActionResult ToExcel(int[] npZ_PlanZakaz)
         {
@@ -578,5 +572,77 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public JsonResult RemList(int id)
+        {
+            using (PortalKATEKEntities dbc = new PortalKATEKEntities())
+            {
+                dbc.Configuration.ProxyCreationEnabled = false;
+                dbc.Configuration.LazyLoadingEnabled = false;
+                var query = dbc.ServiceRemarksReclamations
+                    .AsNoTracking()
+                    .Include(d => d.Reclamation.Reclamation_Type)
+                    .Include(d => d.Reclamation.PF)
+                    .Include(d => d.Reclamation.Devision)
+                    .Where(d => d.id_ServiceRemarks == id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    dataList.Reclamation.id,
+                    devision = dataList.Reclamation.Devision.name,
+                    dataList.Reclamation.text
+                });
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult AddRem(int id, int[] pZ_PlanZakaz, int typeRem, int devRem, string textRem,
+            int pfRem, bool technicalAdviceRem)
+        {
+            string login = HttpContext.User.Identity.Name;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                Wiki.Reclamation reclamation = new Wiki.Reclamation
+                {
+                    id_Reclamation_Type = typeRem,
+                    id_DevisionReclamation = devRem,
+                    id_Reclamation_CountErrorFinal = 1,
+                    id_Reclamation_CountErrorFirst = 1,
+                    id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == login).Id,
+                    id_DevisionCreate = db.AspNetUsers.First(d => d.Email == login).Devision.Value,
+                    dateTimeCreate = DateTime.Now,
+                    text = textRem,
+                    description = "",
+                    timeToSearch = 0,
+                    timeToEliminate = 0,
+                    close = true,
+                    gip = false,
+                    closeDevision = false,
+                    PCAM = "",
+                    editManufacturing = false,
+                    id_PF = pfRem,
+                    technicalAdvice = technicalAdviceRem,
+                    closeMKO = false,
+                    fixedExpert = false
+                };
+                db.Reclamation.Add(reclamation);
+                db.SaveChanges();
+                foreach (var data in pZ_PlanZakaz)
+                {
+                    Reclamation_PZ reclamation_PZ = new Reclamation_PZ
+                    {
+                        id_PZ_PlanZakaz = data,
+                        id_Reclamation = reclamation.id
+                    };
+                    db.Reclamation_PZ.Add(reclamation_PZ);
+                    db.SaveChanges();
+                }
+            }
+            return Json(id, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

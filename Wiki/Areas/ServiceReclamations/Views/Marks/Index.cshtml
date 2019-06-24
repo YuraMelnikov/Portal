@@ -76,8 +76,8 @@
                                 <button class="btn btn-primary add-more" type="button"><i class="glyphicon glyphicon-copy" onclick="copyLink();"></i> </button>
                             </div>
                         </div>
-                        </div>
                     </div>
+                </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6">
@@ -103,36 +103,29 @@
                 <hr />
                 <div class="row">
                     <div class="col-lg-2">
-                        <label>Тип замечания:</label>
-                        @Html.DropDownList("typeRem", ViewBag.typeRem as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                        <label>Тип:</label>
+                        @Html.DropDownList("typeRem", ViewBag.typeRem as MultiSelectList, new { @class = "form-control" })
                     </div>
-                    <div class="col-lg-3">
-                        <label onclick="clearid_DevisionReclamation()">Ответственное СП (click - очистить): </label>
-                        @Html.DropDownList("devRem", ViewBag.devRem as MultiSelectList, new { @class = "form-control", @id = "id_DevisionReclamation" })
-                    </div>
-                    <div class="col-lg-6">
-                        <label>Текст замечания:</label>
-                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 9 })
+                    <div class="col-lg-1">
+                        <label>СП: </label>
+                        @Html.DropDownList("devRem", ViewBag.devRem as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-6">
-                        <label>Прим.:</label>
-                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 9 })
+                        <label>Текст:</label>
+                        <input type="text" class="form-control" id="textRem" />
                     </div>
                     <div class="col-lg-2">
                         <label>Полуфабрикат:</label>
-                        @Html.DropDownList("pfRem", ViewBag.pfRem as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                        @Html.DropDownList("pfRem", ViewBag.pfRem as MultiSelectList, new { @class = "form-control" })
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>На техсовет: </label>
-                        <input type="checkbox" id="technicalAdvice" />
-                        <div class="input-group control-group after-add-more">
-                            <input type="text" class="form-control" id="addNewRemarkOTK" disabled="disabled" />
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary add-more" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
-                            </div>
-                        </div>
+                        <input type="checkbox" id="technicalAdviceRem" />
+                        <button class="btn btn-primary add-more" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
                     </div>
                 </div>
+                <hr />
+                <table id="tableRem" class="table table-hover table-striped" style="width:100%;"></table>
             </div>
             <div class="modal-footer">
                 <div class="row">

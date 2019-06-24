@@ -37,6 +37,12 @@ var objViewList = [
     { "title": "Папка (IE)", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
+var objTableRem = [
+    { "title": "№", "data": "id", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Ответственное СП", "devision": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' }
+];
+
 function startPage() {
     $("#reclamationTable").DataTable({
         "ajax": {
@@ -48,6 +54,27 @@ function startPage() {
         "bDestroy": true,
         "processing": true,
         "columns": objViewList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#tableRem").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/RemList" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objTableRem,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -75,6 +102,33 @@ function activeReclamation() {
         "bDestroy": true,
         "processing": true,
         "columns": objViewList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function updateRemList(id) {
+    var table = $('#tableRem').DataTable();
+    table.destroy();
+    $('#tableRem').empty();
+    $("#tableRem").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/RemList" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objTableRem,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -150,9 +204,11 @@ function allReclamation() {
 }
 
 function clearTextBox() {
+    updateRemList(0);
     $("#btnAdd").show();
     $("#btnUpdate").hide();
     clearColor();
+    clearTextBoxRem();
     $('#numberReclamation').val("");
     $('#dateTimeCreate').val("");
     $('#userCreate').val("");
@@ -205,7 +261,7 @@ function Add() {
         dataType: "json",
         success: function (result) {
             loadData(document.getElementById('pageData').innerHTML);
-            $('#reclamationModal').modal('hide');
+            get(result);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -265,6 +321,7 @@ function get(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            updateRemList(id);
             $('#answerText').prop('disabled', false);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $("#id_Reclamation_Type").val(result.id_Reclamation_Type).trigger("chosen:updated");
@@ -361,7 +418,9 @@ function update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#reclamationModal').modal('hide');
+            //$('#reclamationModal').modal('hide');
+            clearTextBoxRem();
+            updateRemList(id);
             loadData(document.getElementById('pageData').innerHTML);
         },
         error: function (errormessage) {
@@ -440,4 +499,86 @@ function validatePZList() {
         $('#npZ_PlanZakaz').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+function clearTextBoxRem() {
+    clearColorRem();
+    $('#typeRem').val("");
+    $('#devRem').val("");
+    $('#textRem').val("");
+    $('#pfRem').val("");
+    $('[name="technicalAdviceRem"]:checked').prop('checked', false);
+}
+
+function clearColorRem() {
+    $('#typeRem').css('border-color', 'lightgrey');
+    $('#devRem').css('border-color', 'lightgrey');
+    $('#textRem').css('border-color', 'lightgrey');
+    $('#pfRem').css('border-color', 'lightgrey');
+}
+
+function validateRem() {
+    var isValid = true;
+    clearColorRem();
+    if ($('#typeRem').val().trim() === "") {
+        $('#typeRem').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#typeRem').css('border-color', 'lightgrey');
+    }
+    if ($('#devRem').val().trim() === "") {
+        $('#devRem').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#devRem').css('border-color', 'lightgrey');
+    }
+    if ($('#textRem').val().trim() === "") {
+        $('#textRem').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#textRem').css('border-color', 'lightgrey');
+    }
+    if ($('#pfRem').val().trim() === "") {
+        $('#pfRem').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#pfRem').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function addNewRemarkOTK() {
+    var res = validateRem();
+    if (res === false) {
+        return false;
+    }
+    var objRemark = {
+        id: $('#id').val(),
+        pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        typeRem: $('#typeRem').val(),
+        devRem: $('#devRem').val(),
+        textRem: $('#textRem').val(),
+        pfRem: $('#pfRem').val(),
+        technicalAdviceRem: $('#technicalAdviceRem').is(":checked")
+    };
+    $.ajax({
+        cache: false,
+        url: "/Marks/AddRem",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            clearTextBoxRem();
+            //loadData(document.getElementById('pageData').innerHTML);
+            updateRemList(result);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
