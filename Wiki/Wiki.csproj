@@ -264,6 +264,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Areas\AccountsReceivable\AccountsReceivableAreaRegistration.cs" />
+    <Compile Include="Areas\AccountsReceivable\Controllers\AccountsReceivablesController.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -2154,6 +2156,7 @@
     <Content Include="Areas\ServiceReclamations\Views\SC\Index.cshtml" />
     <Content Include="Areas\ServiceReclamations\Views\Shared\_LayoutTimeSC.cshtml" />
     <Content Include="Areas\ServiceReclamations\Content\АнализРекламаций.xlsx" />
+    <Content Include="Areas\AccountsReceivable\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2556,6 +2559,9 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\AccountsReceivable\Models\" />
+    <Folder Include="Areas\AccountsReceivable\Views\AccountsReceivables\" />
+    <Folder Include="Areas\AccountsReceivable\Views\Shared\" />
     <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>

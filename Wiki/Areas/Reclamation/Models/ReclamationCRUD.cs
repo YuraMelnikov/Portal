@@ -35,7 +35,7 @@ namespace Wiki.Areas.Reclamation.Models
         {
             History = "";
             var listAnswer = db.Reclamation_Answer.Where(d => d.id_Reclamation == id_Reclamation).OrderByDescending(d => d.dateTimeCreate).ToList();
-            foreach(var data in listAnswer)
+            foreach (var data in listAnswer)
             {
                 History += data.AspNetUsers.CiliricalName + " | " + data.answer + "</br>";
             }

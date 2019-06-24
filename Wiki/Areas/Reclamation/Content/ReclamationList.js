@@ -1387,3 +1387,7 @@ function closeOrderOTK(id) {
         }
     });
 }
+
+function addNewRemarkOTK(id) {
+
+}

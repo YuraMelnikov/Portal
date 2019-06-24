@@ -40,8 +40,11 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 ViewBag.userGroupId = 1;
             else
                 ViewBag.userGroupId = 0;
-            return View();
 
+            ViewBag.typeRem = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.devRem = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.pfRem = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            return View();
         }
 
         public JsonResult Add(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause)

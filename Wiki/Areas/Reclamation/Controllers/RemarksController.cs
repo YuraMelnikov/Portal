@@ -102,7 +102,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16).ToList();
-                foreach(var data in devisions)
+                foreach (var data in devisions)
                 {
                     if (data.id == 16)
                         data.name = "КБЭ";
@@ -133,7 +133,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.CRUDCounter = '1';
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             }
-            else if(id_Devision == 3 || id_Devision == 16 || id_Devision == 15)
+            else if (id_Devision == 3 || id_Devision == 16 || id_Devision == 15)
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
@@ -274,7 +274,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             int id_Devision = reclamation.id_DevisionCreate;
             if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
             {
-                if(reclamation.editManufacturing == true)
+                if (reclamation.editManufacturing == true)
                 {
                     try
                     {
@@ -313,30 +313,37 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
+            if(aspNetUser.Devision == 6)
+            {
+                bool newAnswer = db.Reclamation.Find(reclamation.id).close;
+                if(reclamation.close != newAnswer)
+                {
+                    string textAnswer = "";
+                    if(reclamation.close == true)
+                    {
+                        textAnswer = "Замечание закрыто ОТК";
+                    }
+                    else
+                    {
+                        textAnswer = "Замечание возабновлено ОТК";
+                    }
+                    Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                    {
+                        answer = textAnswer,
+                        dateTimeCreate = DateTime.Now,
+                        id_AspNetUsersCreate = aspNetUser.Id,
+                        id_Reclamation = reclamation.id,
+                        trash = false
+                    };
+                    db.Reclamation_Answer.Add(reclamation_Answer);
+                    db.SaveChanges();
+                }
+            }
             CreateReclamation correctPlanZakaz = new CreateReclamation(reclamation, login, reload, reloadDevision);
             reclamation = correctPlanZakaz.Reclamation;
             db.Entry(reclamation).State = EntityState.Modified;
             db.SaveChanges();
             if (aspNetUser.Devision.Value == 6 && answerText != "" && answerText != null)
-            {
-                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
-                {
-                    answer = answerText,
-                    dateTimeCreate = DateTime.Now,
-                    id_AspNetUsersCreate = aspNetUser.Id,
-                    id_Reclamation = reclamation.id,
-                    trash = trash.Value
-                };
-                db.Reclamation_Answer.Add(reclamation_Answer);
-                db.SaveChanges();
-                if(reclamation.close != true)
-                {
-                    reclamation.closeDevision = false;
-                    db.Entry(reclamation).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-            if (aspNetUser.Devision.Value == 28 && answerText != "" && answerText != null)
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
@@ -355,7 +362,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     db.SaveChanges();
                 }
             }
-            if (aspNetUser.Devision.Value != 6 && aspNetUser.Devision.Value != 28 && answerText != "" && answerText != null)
+            else if (aspNetUser.Devision.Value == 28 && answerText != "" && answerText != null)
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
@@ -367,9 +374,28 @@ namespace Wiki.Areas.Reclamation.Controllers
                 };
                 db.Reclamation_Answer.Add(reclamation_Answer);
                 db.SaveChanges();
-                if(reload != true)
+                if (reclamation.close != true)
                 {
-                    if(answerText != "-")
+                    reclamation.closeDevision = false;
+                    db.Entry(reclamation).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            else if (aspNetUser.Devision.Value != 6 && aspNetUser.Devision.Value != 28 && answerText != "" && answerText != null)
+            {
+                Reclamation_Answer reclamation_Answer = new Reclamation_Answer
+                {
+                    answer = answerText,
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = aspNetUser.Id,
+                    id_Reclamation = reclamation.id,
+                    trash = trash.Value
+                };
+                db.Reclamation_Answer.Add(reclamation_Answer);
+                db.SaveChanges();
+                if (reload != true)
+                {
+                    if (answerText != "-")
                     {
                         EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 3);
                     }
@@ -531,7 +557,6 @@ namespace Wiki.Areas.Reclamation.Controllers
         bool UpdateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
         {
             var listLastPz = db.Reclamation_PZ.Where(d => d.id_Reclamation == id_Reclamation).ToList();
-
             foreach (var lastReclamationPZ in listLastPz)
             {
                 if (pZ_PlanZakaz.Where(d => d == lastReclamationPZ.id_PZ_PlanZakaz).Count() == 0)
@@ -559,7 +584,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksOTK()
         {
-            if(HttpContext.User.Identity.Name == "pev@katek.by")
+            if (HttpContext.User.Identity.Name == "pev@katek.by")
             {
                 var data = new TARemarksListView().GetRemarksOTK();
                 return Json(new { data });
@@ -587,9 +612,9 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult ExpertComplitedAll()
         {
-            if(HttpContext.User.Identity.Name == "pev@katek.by")
+            if (HttpContext.User.Identity.Name == "pev@katek.by")
             {
-                foreach(Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate == 6))
+                foreach (Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate == 6))
                 {
                     Wiki.Reclamation reclamation = data;
                     reclamation.fixedExpert = true;
@@ -598,7 +623,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.SaveChanges();
                 return GetRemarksOTK();
             }
-            else if(HttpContext.User.Identity.Name == "antipov@katek.by")
+            else if (HttpContext.User.Identity.Name == "antipov@katek.by")
             {
                 foreach (Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate != 6))
                 {
@@ -894,7 +919,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var sucursalList = db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateDeactiveOTK).ToList();
-            foreach(var dataList in db.Reclamation_PZ.Include(s => s.PZ_PlanZakaz).Where(d => d.id == id && d.PZ_PlanZakaz.dataOtgruzkiBP < dateDeactiveOTK).ToList())
+            foreach (var dataList in db.Reclamation_PZ.Include(s => s.PZ_PlanZakaz).Where(d => d.id == id && d.PZ_PlanZakaz.dataOtgruzkiBP < dateDeactiveOTK).ToList())
             {
                 sucursalList.Add(dataList.PZ_PlanZakaz);
             }

@@ -100,6 +100,39 @@
                         <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=5 disabled="disabled"></textarea>
                     </div>
                 </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Тип замечания:</label>
+                        @Html.DropDownList("typeRem", ViewBag.typeRem as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                    </div>
+                    <div class="col-lg-3">
+                        <label onclick="clearid_DevisionReclamation()">Ответственное СП (click - очистить): </label>
+                        @Html.DropDownList("devRem", ViewBag.devRem as MultiSelectList, new { @class = "form-control", @id = "id_DevisionReclamation" })
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Текст замечания:</label>
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 9 })
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Прим.:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 9 })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Полуфабрикат:</label>
+                        @Html.DropDownList("pfRem", ViewBag.pfRem as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>На техсовет: </label>
+                        <input type="checkbox" id="technicalAdvice" />
+                        <div class="input-group control-group after-add-more">
+                            <input type="text" class="form-control" id="addNewRemarkOTK" disabled="disabled" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary add-more" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="row">
