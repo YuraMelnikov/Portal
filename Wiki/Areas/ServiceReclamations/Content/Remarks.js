@@ -39,11 +39,12 @@ var objViewList = [
 
 var objTableRem = [
     { "title": "№", "data": "id", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Ответственное СП", "devision": "text", "autowidth": true, "bSortable": false, "class": 'colu-200' }
+    { "title": "Описание", "data": "text", "autowidth": true, "bSortable": false },
+    { "title": "Ответственное СП", "data": "devision", "autowidth": true, "bSortable": false }
 ];
 
 function startPage() {
+    var id = 0;
     $("#reclamationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -68,7 +69,7 @@ function startPage() {
     $("#tableRem").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/Marks/RemList" + 0,
+            "url": "/Marks/RemList/" + id,
             "type": "POST",
             "datatype": "json"
         },
@@ -122,11 +123,12 @@ function updateRemList(id) {
     $("#tableRem").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/Marks/RemList" + id,
+            "url": "/Marks/RemList/" + id,
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
+        "searching": false,
         "processing": true,
         "columns": objTableRem,
         "scrollY": '75vh',
@@ -204,6 +206,9 @@ function allReclamation() {
 }
 
 function clearTextBox() {
+    $("#partRem").hide();
+
+
     updateRemList(0);
     $("#btnAdd").show();
     $("#btnUpdate").hide();
@@ -260,6 +265,7 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $("#partRem").show();
             loadData(document.getElementById('pageData').innerHTML);
             get(result);
         },
@@ -321,6 +327,7 @@ function get(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $("#partRem").show();
             updateRemList(id);
             $('#answerText').prop('disabled', false);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
@@ -341,10 +348,14 @@ function get(id) {
             $('#answerText').val(result.answerText);
             $('#answerHistiryText').val(result.answerHistiryText);
             $('#reclamationModal').modal('show');
-            if (userGroupId === 1 || userGroupId === '1')
+            if (userGroupId === 1 || userGroupId === '1') {
                 $('#btnUpdate').show();
-            else
+                $('#btnAddOtkRem').show();
+            }
+            else {
                 $('#btnUpdate').hide();
+                $('#btnAddOtkRem').hide();
+            }
             $('#btnAdd').hide();
         },
         error: function (errormessage) {
@@ -420,7 +431,7 @@ function update() {
         success: function (result) {
             //$('#reclamationModal').modal('hide');
             clearTextBoxRem();
-            updateRemList(id);
+            updateRemList(result);
             loadData(document.getElementById('pageData').innerHTML);
         },
         error: function (errormessage) {

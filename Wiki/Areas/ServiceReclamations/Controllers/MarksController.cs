@@ -37,10 +37,11 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
             }
             if (devisionUser == 28)
+            {
                 ViewBag.userGroupId = 1;
+            }
             else
                 ViewBag.userGroupId = 0;
-
             ViewBag.typeRem = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
             ViewBag.devRem = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
             ViewBag.pfRem = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
@@ -629,6 +630,13 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     fixedExpert = false
                 };
                 db.Reclamation.Add(reclamation);
+                db.SaveChanges();
+                ServiceRemarksReclamations serviceRemarksReclamations = new ServiceRemarksReclamations
+                {
+                    id_Reclamation = reclamation.id,
+                    id_ServiceRemarks = id
+                };
+                db.ServiceRemarksReclamations.Add(serviceRemarksReclamations);
                 db.SaveChanges();
                 foreach (var data in pZ_PlanZakaz)
                 {

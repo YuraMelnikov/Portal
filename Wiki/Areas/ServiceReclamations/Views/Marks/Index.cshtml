@@ -13,7 +13,7 @@
             <li><a onclick="return loadData(2);">Закрытые</a></li>
             <li><a onclick="return loadData(3);">Все</a></li>
             <li><a href="~/Areas/ServiceReclamations/Content/АнализРекламаций.xlsx">to Excel</a></li>
-            <li><a onclick="return openNoCloseModal();">Незакрытые замечания</a></li>
+            @*<li><a onclick="return openNoCloseModal();">Незакрытые замечания</a></li>*@
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "Marks"); }
@@ -100,6 +100,20 @@
                         <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=5 disabled="disabled"></textarea>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnAdd" style="display:none;" onclick="Add();">Добавить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="partRem">
                 <hr />
                 <div class="row">
                     <div class="col-lg-2">
@@ -121,23 +135,11 @@
                     <div class="col-lg-1">
                         <label>На техсовет: </label>
                         <input type="checkbox" id="technicalAdviceRem" />
-                        <button class="btn btn-primary add-more" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
+                        <button class="btn btn-primary add-more" id="btnAddOtkRem" type="button"><i class="glyphicon glyphicon-plus" onclick="addNewRemarkOTK();"></i> </button>
                     </div>
                 </div>
                 <hr />
                 <table id="tableRem" class="table table-hover table-striped" style="width:100%;"></table>
-            </div>
-            <div class="modal-footer">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
-                    </div>
-                    <div class="col-lg-8"></div>
-                    <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
-                        <button type="button" class="btn btn-primary" id="btnAdd" style="display:none;" onclick="Add();">Добавить</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
