@@ -10,12 +10,15 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[1, "desc"]],
         "columns": [
             { "title": "Cм.", "data": "id", "autowidth": true, "bSortable": false }
             , { "title": "Период", "data": "period", "autowidth": true, "bSortable": false, "className": 'text-center' }
             , { "title": "Дата открытия", "data": "dateTimeCreate", "autowidth": true, "bSortable": false, "className": 'text-center' }
             , { "title": "Дата закрытия", "data": "dateTimeClose", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
             , { "title": "Отметка о закрытии", "data": "close", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
+            , { "title": "Оприходовано", "data": "countClose", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Неоприходовано", "data": "countOpen", "autowidth": true, "bSortable": false, "className": 'text-center' }
        ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -67,21 +70,40 @@ function getbyID(id) {
         success: function (result) {
             var html1 = '';
             for (i in result) {
-                html1 += '<tr>';
-                html1 += '<td>' + result[i].PlanZakaz + '</td>';
-                html1 += '<td>' + result[i].Name + '</td>';
-                html1 += '<td>' + result[i].Manager + '</td>';
-                html1 += '<td>' + result[i].Client + '</td>';
-                html1 += '<td>' + localRUStatusTable(result[i].oprihClose) + '</td>';
-                html1 += '<td>' + result[i].dateOprihPlanFact + '</td>';
-                html1 += '<td>' + result[i].dataOtgruzkiBP + '</td>';
-                html1 += '<td>' + result[i].numberSF + '</td>';
-                html1 += '<td>' + result[i].DateSupply + '</td>';
-                html1 += '<td>' + result[i].reclamation + '</td>';
-                html1 += '<td>' + processNull(result[i].openReclamation) + '</td>';
-                html1 += '<td>' + processNull(result[i].closeReclamation) + '</td>';
-                html1 += '<td>' + result[i].description + '</td>';
-                html1 += '</tr>';
+                if (result[i].oprihClose === false) {
+                    html1 += '<tr bgcolor="#d9534f", color="white">';
+                    html1 += '<td>' + result[i].PlanZakaz + '</td>';
+                    html1 += '<td>' + result[i].Name + '</td>';
+                    html1 += '<td>' + result[i].Manager + '</td>';
+                    html1 += '<td>' + result[i].Client + '</td>';
+                    html1 += '<td>' + localRUStatusTable(result[i].oprihClose) + '</td>';
+                    html1 += '<td>' + result[i].dateOprihPlanFact + '</td>';
+                    html1 += '<td>' + result[i].dataOtgruzkiBP + '</td>';
+                    html1 += '<td>' + result[i].numberSF + '</td>';
+                    html1 += '<td>' + result[i].DateSupply + '</td>';
+                    html1 += '<td>' + result[i].reclamation + '</td>';
+                    html1 += '<td>' + processNull(result[i].openReclamation) + '</td>';
+                    html1 += '<td>' + processNull(result[i].closeReclamation) + '</td>';
+                    html1 += '<td>' + result[i].description + '</td>';
+                    html1 += '</tr>';
+                }
+                else {
+                    html1 += '<tr>';
+                    html1 += '<td>' + result[i].PlanZakaz + '</td>';
+                    html1 += '<td>' + result[i].Name + '</td>';
+                    html1 += '<td>' + result[i].Manager + '</td>';
+                    html1 += '<td>' + result[i].Client + '</td>';
+                    html1 += '<td>' + localRUStatusTable(result[i].oprihClose) + '</td>';
+                    html1 += '<td>' + result[i].dateOprihPlanFact + '</td>';
+                    html1 += '<td>' + result[i].dataOtgruzkiBP + '</td>';
+                    html1 += '<td>' + result[i].numberSF + '</td>';
+                    html1 += '<td>' + result[i].DateSupply + '</td>';
+                    html1 += '<td>' + result[i].reclamation + '</td>';
+                    html1 += '<td>' + processNull(result[i].openReclamation) + '</td>';
+                    html1 += '<td>' + processNull(result[i].closeReclamation) + '</td>';
+                    html1 += '<td>' + result[i].description + '</td>';
+                    html1 += '</tr>';
+                }
             }
             $('.tbody').html(html1);
             $('#orderModal').modal('show');

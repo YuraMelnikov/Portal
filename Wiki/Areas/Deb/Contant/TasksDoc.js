@@ -11,6 +11,7 @@ function loadData() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[1, "asc"]],
         "rowCallback": function (row, data, index) {
             if (data.id_Debit_PostingOffType === 1 && data.id_Debit_PostingOnType === 1) {
                 $('td', row).css('background-color', '#d9534f');
@@ -32,13 +33,13 @@ function loadData() {
             , { "title": "Менеджер", "data": "Manager", "autowidth": true, "class": 'colu-300'}
             , { "title": "Заказчик", "data": "Client", "autowidth": true }
             , { "title": "Заказ оприходован", "data": "oprihClose", "autowidth": true, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
-            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": false, "className": 'text-center' }
-            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": true, "className": 'text-center' }
+            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": true, "className": 'text-center'}
             , { "title": "Номер с/ф", "data": "numberSF", "autowidth": true, "bSortable": false, "className": 'text-center'}
-            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center'}
+            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": true, "className": 'text-center'}
             , { "title": "Наличие претензий", "data": "reclamation", "autowidth": true, "bSortable": false, "className": 'text-center'}
-            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
-            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
             , { "title": "Прим.:", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
         ],
         "scrollY": '75vh',
@@ -63,6 +64,7 @@ function NoOprih() {
             "datatype": "json"
         },
         "bDestroy": true,
+        "order": [[1, "asc"]],
         "rowCallback": function (row, data, index) {
             if (data.id_Debit_PostingOffType === 1 && data.id_Debit_PostingOnType === 1) {
                 $('td', row).css('background-color', '#d9534f');
@@ -84,13 +86,13 @@ function NoOprih() {
             , { "title": "Менеджер", "data": "Manager", "autowidth": true, "class": 'colu-300' }
             , { "title": "Заказчик", "data": "Client", "autowidth": true }
             , { "title": "Заказ оприходован", "data": "oprihClose", "autowidth": true, "className": 'text-center', "defaultContent": "", "render": localRUStatus }
-            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": false, "className": 'text-center' }
-            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Дата оприходования", "data": "dateOprihPlanFact", "autowidth": true, "bSortable": true, "className": 'text-center' }
+            , { "title": "Фактическая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": true, "className": 'text-center' }
             , { "title": "Номер с/ф", "data": "numberSF", "autowidth": true, "bSortable": false, "className": 'text-center' }
-            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            , { "title": "Договорная дата поставки", "data": "DateSupply", "autowidth": true, "bSortable": true, "className": 'text-center' }
             , { "title": "Наличие претензий", "data": "reclamation", "autowidth": true, "bSortable": false, "className": 'text-center' }
-            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
-            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата получения претензии", "data": "openReclamation", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
+            , { "title": "Дата закрытия претензии", "data": "closeReclamation", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
             , { "title": "Прим.:", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
         ],
         "scrollY": '75vh',
