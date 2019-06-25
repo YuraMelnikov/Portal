@@ -217,14 +217,15 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .AsNoTracking()
                     .Include(d => d.DashboardBP_State)
                     .Where(d => d.DashboardBP_State.active == true)
+                    .GroupBy(d => d.month)
+                    .Select(g => new { Month = g.Key, Value = g.Sum(x => x.xSsm) })
                     .ToList();
-                int count = query
-                    .GroupBy(d => d.timeByDay)
-                    .Count();
-
-
-                HSSToMonth[] data = new HSSToMonth[1]; 
-
+                int count = query.Count;
+                HSSToMonth[] data = new HSSToMonth[count];
+                for(int i = 0; i < count; i++)
+                {
+                    data[i] = new HSSToMonth((int)query[i].Value, query[i].Month);
+                }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

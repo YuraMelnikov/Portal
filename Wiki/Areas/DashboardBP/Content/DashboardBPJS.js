@@ -4,6 +4,7 @@
     getHSSPlanToYear();
     getRemainingHss();
     getRetePlan();
+    getHSSToMonth();
 });
 
 function loadGantt() {
@@ -538,3 +539,16 @@ function getRetePlan() {
     });
 }
 
+function getHSSToMonth() {
+    $.ajax({
+        url: "/BP/GetHSSToMonth/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
