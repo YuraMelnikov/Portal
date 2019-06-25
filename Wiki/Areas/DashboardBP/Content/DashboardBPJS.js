@@ -234,12 +234,23 @@ function getHSSPlanToYear() {
                 credits: {
                     enabled: false
                 },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: "250px"
                 },
                 title: {
-                    text: 'Плановый годовой ХСС ПО'
-                    //style
+                    text: 'Плановый годовой ХСС ПО',
+                    style: {
+                        "font-size": "10px"
+                    }
+                },
+                zAxis: {
+                    labels: false
                 },
                 xAxis: {
                     categories: ['']
@@ -254,11 +265,11 @@ function getHSSPlanToYear() {
                     }
                 },
                 series: [{
+                    name: 'Остаток',
+                    data: myJSONRemainingPlan
+                },{
                     name: 'Факт',
                     data: myJSONFact
-                },{
-                    name: 'Остаток',
-                        data: myJSONRemainingPlan
                 }]
             });
         },
