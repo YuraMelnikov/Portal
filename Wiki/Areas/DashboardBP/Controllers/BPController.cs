@@ -170,5 +170,41 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetRemainingHss()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardRemaining
+                    .AsNoTracking()
+                    .Include(d => d.DashboardBP_State)
+                    .Where(d => d.DashboardBP_State.active == true)
+                    .ToList();
+                int[] data = new int[2];
+                data[0] = (int)query[0].plan - (int)query[0].hss;
+                data[1] = (int)query[0].hss;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRetePlan()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardRatePlan
+                    .AsNoTracking()
+                    .Include(d => d.DashboardBP_State)
+                    .Where(d => d.DashboardBP_State.active == true)
+                    .ToList();
+                int[] data = new int[2];
+                data[0] = (int)query[0].plan - (int)query[0].rate;
+                data[1] = (int)query[0].rate;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
