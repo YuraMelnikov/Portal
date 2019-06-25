@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     loadGantt();
     getPeriodReport();
+    getHSSPlanToYear();
 });
 
 function loadGantt() {
@@ -9,7 +10,6 @@ function loadGantt() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var tmp = JSON.stringify(result.projects);
             var arrayToJSON = result.projects;
             var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
             var countLine = myJSON.length;
@@ -203,26 +203,50 @@ function getHSSPlanToYear() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
-
+            var myJSONRemainingPlan = new Array();
+            var myJSONFact = new Array();
+            myJSONRemainingPlan[0] = result[0];
+            myJSONFact[0] = result[1];
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
             Highcharts.chart('hSSPlanToYear', {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     type: 'bar'
                 },
-                //title: {
-                //    text: 'Stacked bar chart'
-                //},
+                title: {
+                    text: 'Плановый годовой ХСС ПО'
+                    //style
+                },
                 xAxis: {
-                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                    categories: ['']
                 },
                 yAxis: {
                     min: 0,
-                    //title: {
-                    //    text: 'Total fruit consumption'
-                    //}
-                },
-                legend: {
-                    reversed: true
+                    max: myJSONRemainingPlan[0] + myJSONFact[0]
                 },
                 plotOptions: {
                     series: {
@@ -230,18 +254,13 @@ function getHSSPlanToYear() {
                     }
                 },
                 series: [{
-                    name: 'John',
-                    data: [5, 3, 4, 7, 2]
-                }, {
-                    name: 'Jane',
-                    data: [2, 2, 3, 2, 1]
-                }, {
-                    name: 'Joe',
-                    data: [3, 4, 4, 2, 5]
+                    name: 'Факт',
+                    data: myJSONFact
+                },{
+                    name: 'Остаток',
+                        data: myJSONRemainingPlan
                 }]
             });
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

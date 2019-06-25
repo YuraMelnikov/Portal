@@ -17,7 +17,6 @@ namespace Wiki.Areas.DashboardBP.Controllers
         static readonly long DATE1970_TICKS = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).Ticks;
         static readonly Regex DATE_SERIALIZATION_REGEX = new Regex(@"\\/Date\((?<ticks>-?\d+)\)\\/", RegexOptions.Compiled);
 
-
         static string ISO8601Serialization(string input)
         {
             return DATE_SERIALIZATION_REGEX.Replace(input, match =>
@@ -26,6 +25,22 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 return new DateTime(ticks + DATE1970_TICKS).ToLocalTime().ToString("yyyy-MM-ddTHH:mm:ss.fff");
             });
         }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
+        }
+
         public ActionResult Index()
         {
             //CreateNewBP();
@@ -70,6 +85,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
         DataGanttProjectsPortfolio GetGanttData(List<DashboardBP_ProjectList> listTasks)
         {
             int projectsCounter = listTasks.Count * 2;
@@ -137,19 +153,22 @@ namespace Wiki.Areas.DashboardBP.Controllers
             return portfolio;
         }
 
-        public string RenderUserMenu()
+        public JsonResult GetHSSPlanToYear()
         {
-            string login = "Войти";
-            try
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (HttpContext.User.Identity.Name != "")
-                    login = HttpContext.User.Identity.Name;
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardHSSPlan
+                    .AsNoTracking()
+                    .Include(d => d.DashboardBP_State)
+                    .Where(d => d.DashboardBP_State.active == true)
+                    .ToList();
+                int[] data = new int[2];
+                data[0] = (int)query[0].plan - (int)query[0].hss;
+                data[1] = (int)query[0].hss;
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            catch
-            {
-                login = "Войти";
-            }
-            return login;
         }
     }
 }
