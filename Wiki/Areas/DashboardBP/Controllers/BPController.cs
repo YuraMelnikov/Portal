@@ -207,7 +207,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
             }
         }
 
-        public JsonResult GetRetePlan()
+        public JsonResult GetHSSToMonth()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -218,9 +218,13 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .Include(d => d.DashboardBP_State)
                     .Where(d => d.DashboardBP_State.active == true)
                     .ToList();
-                int[] data = new int[2];
-                data[0] = (int)query[0].plan - (int)query[0].rate;
-                data[1] = (int)query[0].rate;
+                int count = query
+                    .GroupBy(d => d.timeByDay)
+                    .Count();
+
+
+                HSSToMonth[] data = new HSSToMonth[1]; 
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

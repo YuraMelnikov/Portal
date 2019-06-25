@@ -268,6 +268,10 @@
           <Property Name="xPpk" Type="float" Nullable="false" />
           <Property Name="xPi" Type="float" Nullable="false" />
           <Property Name="xNop" Type="float" Nullable="false" />
+          <Property Name="month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="year" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="quartal" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
@@ -5299,6 +5303,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="xNop" Type="Double" Nullable="false" />
           <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_HSSPO" ToRole="DashboardBP_State" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="DashboardBP_HSSPO" ToRole="PZ_PlanZakaz" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="quartal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HSSPO">
           <Key>
@@ -8812,6 +8820,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="DashboardBP_HSSPO">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
               <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="quartal" ColumnName="quartal" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="month" ColumnName="month" />
                 <ScalarProperty Name="xNop" ColumnName="xNop" />
                 <ScalarProperty Name="xPi" ColumnName="xPi" />
                 <ScalarProperty Name="xPpk" ColumnName="xPpk" />
