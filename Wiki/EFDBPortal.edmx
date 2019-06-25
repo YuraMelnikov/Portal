@@ -1330,7 +1330,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1357,7 +1357,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="HSSPO">
           <Key>
             <PropertyRef Name="PK" />
@@ -1395,7 +1395,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.HSSPO' does not have a primary key
           <Property Name="xNOP" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1405,7 +1405,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1427,7 +1427,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' do
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1437,7 +1437,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1508,7 +1508,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a pr
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1519,7 +1519,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -1807,6 +1807,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CMO2_Position">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_HSSPO_DashboardBP_State">
+          <End Role="DashboardBP_State" Type="Self.DashboardBP_State" Multiplicity="1" />
+          <End Role="DashboardBP_HSSPO" Type="Self.DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="DashboardBP_HSSPO" Type="Self.DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
               <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
@@ -3668,6 +3692,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMO2_Position" EntitySet="CMO2_Position" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="Self.FK_DashboardBP_HSSPO_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz" Association="Self.FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
           <AssociationSet Name="FK_DashboardBP_ProjectList_DashboardBP_State" Association="Self.FK_DashboardBP_ProjectList_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
             <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
@@ -5026,6 +5058,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ServiceRemarks" EntitySet="ServiceRemarks" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5257,6 +5297,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="xPpk" Type="Double" Nullable="false" />
           <Property Name="xPi" Type="Double" Nullable="false" />
           <Property Name="xNop" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_HSSPO" ToRole="DashboardBP_State" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="DashboardBP_HSSPO" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="HSSPO">
           <Key>
@@ -5605,6 +5647,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="DashboardHSSPlan" Relationship="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardHSSPlan" />
           <NavigationProperty Name="DashboardRatePlan" Relationship="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardRatePlan" />
           <NavigationProperty Name="DashboardRemaining" Relationship="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardRemaining" />
+          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_HSSPO" />
         </EntityType>
         <EntityType Name="DashboardBP_TasksList">
           <Key>
@@ -6134,6 +6177,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
+          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_HSSPO" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -8369,6 +8413,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="ServiceRemarks">
               <PropertyRef Name="userCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_HSSPO_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

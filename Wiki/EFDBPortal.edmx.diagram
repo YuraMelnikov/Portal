@@ -269,6 +269,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_VV_Position_VVPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

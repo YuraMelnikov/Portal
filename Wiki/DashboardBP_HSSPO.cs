@@ -45,5 +45,8 @@ namespace Wiki
         public double xPpk { get; set; }
         public double xPi { get; set; }
         public double xNop { get; set; }
+    
+        public virtual DashboardBP_State DashboardBP_State { get; set; }
+        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
 }
