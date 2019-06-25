@@ -265,6 +265,7 @@ function getHSSPlanToYear() {
                     title: {
                         enabled: false
                     },
+                    tickInterval: 5,
                     visible: false
                 },
                 plotOptions: {
@@ -377,6 +378,7 @@ function getRemainingHss() {
                     title: {
                         enabled: false
                     },
+                    tickInterval: 5,
                     visible: false
                 },
                 plotOptions: {
@@ -429,10 +431,10 @@ function getRetePlan() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var myJSONRemainingPlan = new Array();
-            var myJSONFact = new Array();
-            myJSONRemainingPlan[0] = result[0];
-            myJSONFact[0] = result[1];
+            var myJSONRemainingPlan1 = new Array();
+            var myJSONFact1 = new Array();
+            myJSONRemainingPlan1[0] = result[0];
+            myJSONFact1[0] = result[1];
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
@@ -485,11 +487,12 @@ function getRetePlan() {
                 },
                 yAxis: {
                     min: 0,
-                    max: myJSONRemainingPlan[0] + myJSONFact[0],
+                    max: myJSONRemainingPlan1[0] + myJSONFact1[0],
                     title: {
                         enabled: false
                     },
-                    //visible: false
+                    tickInterval: 5,
+                    visible: false
                 },
                 plotOptions: {
                     series: {
@@ -498,7 +501,7 @@ function getRetePlan() {
                 },
                 series: [{
                     name: 'Остаток',
-                    data: myJSONRemainingPlan,
+                    data: myJSONRemainingPlan1,
                     color: '#910000',
                     dataLabels: {
                         enabled: true,
@@ -513,7 +516,7 @@ function getRetePlan() {
                     }
                 }, {
                     name: 'Факт',
-                    data: myJSONFact,
+                    data: myJSONFact1,
                     color: '#4572A7',
                     dataLabels: {
                         enabled: true,
