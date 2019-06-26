@@ -45,6 +45,7 @@ namespace Wiki
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.ServiceRemarks = new HashSet<ServiceRemarks>();
+            this.PZ_Notes = new HashSet<PZ_Notes>();
         }
     
         public string Id { get; set; }
@@ -120,5 +121,7 @@ namespace Wiki
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarks> ServiceRemarks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PZ_Notes> PZ_Notes { get; set; }
     }
 }

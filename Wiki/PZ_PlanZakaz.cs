@@ -36,6 +36,7 @@ namespace Wiki
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
             this.VVPZ = new HashSet<VVPZ>();
             this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
+            this.PZ_Notes = new HashSet<PZ_Notes>();
         }
     
         public int Id { get; set; }
@@ -128,5 +129,7 @@ namespace Wiki
         public virtual ICollection<VVPZ> VVPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PZ_Notes> PZ_Notes { get; set; }
     }
 }

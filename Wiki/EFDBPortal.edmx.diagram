@@ -271,6 +271,9 @@
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PZ_Notes" Width="1.5" PointX="21.125" PointY="87" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PZ_Notes_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

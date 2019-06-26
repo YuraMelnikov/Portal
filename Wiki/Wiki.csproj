@@ -636,6 +636,9 @@
     <Compile Include="PZ_FIO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="PZ_Notes.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PZ_OperatorDogovora.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
