@@ -545,12 +545,13 @@ function getHSSToDay() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
-
-            var myJSONRemainingPlan1 = new Array();
             var myJSONlast = new Array();
             var myJSONThis = new Array();
             var myJSONNext = new Array();
+            var now = new Date();
+            var titleThis = now.getFullYear();
+            var titleLast = titleThis - 1;
+            var titleNext = titleThis + 1;
             for (var j = 0; j < 36; j++) {
                 if (j < 12)
                     myJSONlast.push(result[j]);
@@ -559,13 +560,20 @@ function getHSSToDay() {
                 else 
                     myJSONNext.push(result[j]);
             }
-
             Highcharts.chart('containerHssHistory', {
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
                 chart: {
                     type: 'areaspline'
                 },
                 title: {
-                    text: 'ХСС ПО (в месяц)'
+                    text: 'ХСС ПО (в месяц)',
+                    style: {
+                        "font-size": "10px"
+                    }
                 },
                 legend: {
                     layout: 'vertical',
@@ -601,11 +609,12 @@ function getHSSToDay() {
                 yAxis: {
                     title: {
                         enable: false
-                    }
+                    },
+                    visible: false,
+                    min: 0
                 },
                 tooltip: {
-                    shared: true,
-                    valueSuffix: ' units'
+                    shared: true
                 },
                 credits: {
                     enabled: false
@@ -616,14 +625,14 @@ function getHSSToDay() {
                     }
                 },
                 series: [{
-                    name: 'Пердыдущий',
+                    name: titleLast,
                     data: myJSONlast
                 }, {
-                    name: Date().getFullYear(),
-                        data: myJSONThis
+                    name: titleThis,
+                    data: myJSONThis
                 }, {
-                    name: 'Следующий',
-                        data: myJSONNext
+                    name: titleNext,
+                    data: myJSONNext
                 }]
             });
         },
