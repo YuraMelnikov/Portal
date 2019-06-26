@@ -641,3 +641,91 @@ function getHSSToDay() {
         }
     });
 }
+
+function getSp() {
+    Highcharts.chart('sp1', {
+        chart: {
+            type: 'gauge',
+            plotBackgroundColor: null,
+            plotBackgroundImage: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        credits: {
+            enabled: false
+        },
+        navigation: {
+            buttonOptions: {
+                enabled: false
+            }
+        },
+        title: {
+            text: '2019.09',
+            style: {
+                "font-size": "13px"
+            }
+        },
+        pane: {
+            startAngle: -150,
+            endAngle: 150,
+            background: [{
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, '#FFF'],
+                        [1, '#333']
+                    ]
+                },
+                borderWidth: 0,
+                outerRadius: '109%'
+            }, {
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, '#333'],
+                        [1, '#FFF']
+                    ]
+                },
+                borderWidth: 1,
+                outerRadius: '107%'
+            }, {
+            }, {
+                backgroundColor: '#DDD',
+                borderWidth: 0,
+                outerRadius: '105%',
+                innerRadius: '103%'
+            }]
+        },
+        yAxis: {
+            min: 0,
+            max: 3100,
+            minorTickInterval: 'auto',
+            minorTickColor: '#666',
+            tickColor: '#666',
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            title: {
+                text: 'ХСС'
+            },
+            plotBands: [{
+                from: 2500,
+                to: 3100,
+                color: '#55BF3B' // green
+            }, {
+                from: 2001,
+                to: 2499,
+                color: '#DDDF0D' // yellow
+            }, {
+                from: 0,
+                to: 2000,
+                color: '#DF5353' // red
+            }]
+        },
+        series: [{
+            name: 'ХСС',
+            data: [2400]
+        }]
+    });
+}
