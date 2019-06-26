@@ -261,7 +261,6 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult Add(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz)
         {
-
             string login = HttpContext.User.Identity.Name;
             reclamation.dateTimeCreate = DateTime.Now;
             CreateReclamation correctReclamation = new CreateReclamation(reclamation, login);

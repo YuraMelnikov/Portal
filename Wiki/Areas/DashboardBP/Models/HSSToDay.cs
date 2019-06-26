@@ -2,16 +2,16 @@
 {
     public struct HSSToDay
     {
+        ulong xday;
         int hss;
-        ulong day;
 
-        public HSSToDay(int hss, ulong day)
+        public HSSToDay(ulong xday, int hss)
         {
+            this.xday = xday;
             this.hss = hss;
-            this.day = day;
         }
+        public ulong XDay { get => xday; set => xday = value; }
 
         public int Hss { get => hss; set => hss = value; }
-        public ulong Day { get => day; set => day = value; }
     }
 }

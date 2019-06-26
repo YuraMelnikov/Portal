@@ -5,7 +5,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
-using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
 namespace Wiki.Areas.DashboardBP.Controllers
@@ -179,6 +178,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .AsNoTracking()
                     .Include(d => d.DashboardBP_State)
                     .Where(d => d.DashboardBP_State.active == true)
+                    .OrderBy(d => d.timeByDay)
                     .GroupBy(d => d.timeByDay)
                     .Select(g => new { day = g.Key, Value = g.Sum(x => x.xSsm) })
                     .ToList();
@@ -186,7 +186,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 HSSToDay[] data = new HSSToDay[count];
                 for (int i = 0; i < count; i++)
                 {
-                    data[i] = new HSSToDay((int)query[i].Value, Convert.ToUInt64(js.DeserializeObject(js.Serialize(query[i].day).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))));
+                    data[i] = new HSSToDay(Convert.ToUInt64(js.DeserializeObject(js.Serialize(query[i].day).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))), (int)query[i].Value);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

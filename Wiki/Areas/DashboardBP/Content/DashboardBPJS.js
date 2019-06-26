@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    loadGantt();
+    getGanttProjectPortfolio();
     getPeriodReport();
     getHSSPlanToYear();
     getRemainingHss();
@@ -7,7 +7,7 @@
     getHSSToDay();
 });
 
-function loadGantt() {
+function getGanttProjectPortfolio() {
     $.ajax({
         url: "/BP/GetProjectsPortfolio/",
         contentType: "application/json;charset=UTF-8",
@@ -545,24 +545,57 @@ function getHSSToDay() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var myJSON = JSON.parse(JSON.stringify(result));
+            var json = JSON.stringify(result);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
             Highcharts.chart('containerHssHistory', {
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
                 chart: {
                     zoomType: 'x'
                 },
                 title: {
-                    text: 'title'
+                    text: '',
+                    style: {
+                        "fontSize": "0px"
+                    }
                 },
                 subtitle: {
-                    text: document.ontouchstart === undefined ?
-                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                    text: 'ХСС ПО'
                 },
                 xAxis: {
                     type: 'datetime'
                 },
                 yAxis: {
                     title: {
-                        text: 'Exchange rate'
-                    }
+                        enabled: false
+                    },
+                    min: 0
                 },
                 legend: {
                     enabled: false
@@ -596,7 +629,7 @@ function getHSSToDay() {
                 series: [{
                     type: 'area',
                     name: 'ХСС',
-                    data: data
+                    data: myJSON
                 }]
             });
 
