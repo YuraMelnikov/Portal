@@ -47,6 +47,7 @@ function loadData() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            ,{ "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -128,6 +129,7 @@ function OrdersListLY(yearCreateOrder) {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -211,6 +213,7 @@ function OrdersListALL() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -294,6 +297,7 @@ function OrdersListInManufacturing() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
+            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -332,6 +336,7 @@ function OrdersListInManufacturing() {
 }
 
 function Add() {
+    $('#partRem').hide();
     var res = validate();
     if (res === false) {
         return false;
@@ -531,8 +536,7 @@ function clearTextBox() {
 }
 
 function getbyID(Id) {
-    $('#name').css('border-color', 'lightgrey');
-    $('#active').css('border-color', 'lightgrey');
+    $('#partRem').show();
     $.ajax({
         cache: false,
         url: "/Order/GetOrder/" + Id,
@@ -583,6 +587,7 @@ function getbyID(Id) {
             $('#orderModal').modal('show');
             $('#btnUpdate').show();
             $('#btnAdd').hide();
+            getRemOrder(Id);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -772,8 +777,7 @@ function validateUpdate() {
 }
 
 function getbyReadID(Id) {
-    $('#name').css('border-color', 'lightgrey');
-    $('#active').css('border-color', 'lightgrey');
+    $('#partRem').show();
     $.ajax({
         cache: false,
         url: "/Order/GetOrder/" + Id,
@@ -825,6 +829,7 @@ function getbyReadID(Id) {
             $('#btnGetInfGP').hide();
             $('#btnUpdate').hide();
             $('#btnAdd').hide();
+            getRemOrder(Id);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -952,8 +957,6 @@ function processNull(data) {
 }
 
 function getbyKOID(Id) {
-    $('#name').css('border-color', 'lightgrey');
-    $('#active').css('border-color', 'lightgrey');
     $.ajax({
         cache: false,
         url: "/Order/GetKOOrder/" + Id,
@@ -1103,4 +1106,72 @@ function GetGPOrders(Gruzopoluchatel) {
         }
     });
     return false;
+}
+
+function getRemOrder(Id) {
+    $("#tableRem").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Order/GetRemOrder/" + Id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "desc"]],
+        "bAutoWidth": false,
+        "columns": [
+            { "title": "Создано", "data": "remCreate", "autowidth": true, "bSortable": false },
+            { "title": "Содержание", "data": "remNote", "autowidth": true, "bSortable": false },
+            { "title": "Автор", "data": "remUser", "autowidth": true, "bSortable": false }
+        ],
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function addNewRemark() {
+    var res = validRem();
+    if (res === false) {
+        return false;
+    }
+    var typeObj = {
+        Id: $('#PlanZakaz').val(),
+        textRem: $('#textRem').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Order/AddRem",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            getRemOrder(result);
+            $('#textRem').val("");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validRem() {
+    var isValid = true;
+    if ($('#textRem').val().trim() === "") {
+        $('#textRem').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#textRem').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

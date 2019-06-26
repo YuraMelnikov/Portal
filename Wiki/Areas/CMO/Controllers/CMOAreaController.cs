@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,6 +13,7 @@ namespace Wiki.Areas.CMO.Controllers
 {
     public class CMOAreaController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
@@ -42,6 +44,7 @@ namespace Wiki.Areas.CMO.Controllers
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            logger.Debug("CMO: " + login);
             return View();
         }
 
