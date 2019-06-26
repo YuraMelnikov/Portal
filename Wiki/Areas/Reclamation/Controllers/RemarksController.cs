@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Data.Entity;
+using NLog;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
     public class RemarksController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
@@ -172,6 +174,9 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
                 ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             }
+
+                logger.Debug("Reclamation: " + login);
+
             return View();
         }
 

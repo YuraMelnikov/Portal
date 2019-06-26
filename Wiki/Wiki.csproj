@@ -405,8 +405,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PZ_SetupController.cs" />
     <Compile Include="Controllers\PZ_TEOController.cs" />
-    <Compile Include="Controllers\ReclamationOTKController.cs" />
-    <Compile Include="Controllers\ReclamationPOController.cs" />
     <Compile Include="Controllers\RKDController.cs" />
     <Compile Include="Controllers\RKD_GIPController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
