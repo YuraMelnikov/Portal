@@ -33,7 +33,7 @@ namespace Wiki.Areas.PZ.Controllers
             try
             {
                 string login = HttpContext.User.Identity.Name;
-                logger.Info("PZ_List: " + login);
+                logger.Debug("PZ_List: " + login);
             }
             catch
             {

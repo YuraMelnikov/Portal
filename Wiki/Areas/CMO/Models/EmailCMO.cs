@@ -62,7 +62,7 @@ namespace Wiki.Areas.CMO.Models
                 GetBody();
                 SendEmail();
 
-                logger.Info("EmailCMO: " + order.id);
+                logger.Debug("EmailCMO: " + order.id);
             }
             catch (Exception ex)
             {

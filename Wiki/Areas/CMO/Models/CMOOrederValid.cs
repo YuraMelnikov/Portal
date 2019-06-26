@@ -30,19 +30,15 @@ namespace Wiki.Areas.CMO.Models
                 order.workComplitet = true;
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
-
                 try
                 {
                     new EmailCMO(cMO2_Order, login, 2);
-                    logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                    logger.Debug("UpdateOrder / EmailCMO: " + order.id);
                 }
                 catch (Exception ex)
                 {
                     logger.Error("UpdateOrder / EmailCMO: " + order.id + " | " + ex);
                 }
-
-
             }
             else if (cMO2_Order.manufIn == false)
             {
@@ -62,7 +58,7 @@ namespace Wiki.Areas.CMO.Models
                     try
                     {
                         new EmailCMO(cMO2_Order, login, 3);
-                        logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                        logger.Debug("UpdateOrder / EmailCMO: " + order.id);
                     }
                     catch (Exception ex)
                     {
@@ -75,7 +71,7 @@ namespace Wiki.Areas.CMO.Models
                     try
                     {
                         new EmailCMO(cMO2_Order, login, 5);
-                        logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                        logger.Debug("UpdateOrder / EmailCMO: " + order.id);
                     }
                     catch (Exception ex)
                     {
@@ -138,7 +134,7 @@ namespace Wiki.Areas.CMO.Models
             try
             {
                 new EmailCMO(cMO2_Order, login, 1);
-                logger.Info("CreateOrder / EmailCMO: " + cMO2_Order.id);
+                logger.Debug("CreateOrder / EmailCMO: " + cMO2_Order.id);
             }
             catch (Exception ex)
             {
@@ -170,7 +166,7 @@ namespace Wiki.Areas.CMO.Models
             try
             {
                 new EmailCMO(cMO2_Order, login, 4);
-                logger.Info("CreateReOrder / EmailCMO: " + cMO2_Order.id);
+                logger.Debug("CreateReOrder / EmailCMO: " + cMO2_Order.id);
             }
             catch (Exception ex)
             {
