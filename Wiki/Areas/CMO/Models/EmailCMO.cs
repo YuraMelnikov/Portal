@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NLog;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -8,6 +10,7 @@ namespace Wiki.Areas.CMO.Models
 {
     public class EmailCMO : EmailClient
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         int stepNumber;
         string subject;
         string body;
@@ -58,10 +61,12 @@ namespace Wiki.Areas.CMO.Models
                 GetSubject();
                 GetBody();
                 SendEmail();
-            }
-            catch
-            {
 
+                logger.Info("EmailCMO: " + order.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("EmailCMO: " + order.id + " | " + ex);
             }
         }
 

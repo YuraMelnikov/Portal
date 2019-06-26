@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.IO;
 using System.Web;
 using Wiki.Models;
@@ -7,6 +8,7 @@ namespace Wiki.Areas.CMO.Models
 {
     public class CMOOrederValid
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         PortalKATEKEntities db = new PortalKATEKEntities();
         int id_TypeReOrder = 10;
         CMO2_Order cMO2_Order;
@@ -28,7 +30,19 @@ namespace Wiki.Areas.CMO.Models
                 order.workComplitet = true;
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                new EmailCMO(cMO2_Order, login, 2);
+
+
+                try
+                {
+                    new EmailCMO(cMO2_Order, login, 2);
+                    logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("UpdateOrder / EmailCMO: " + order.id + " | " + ex);
+                }
+
+
             }
             else if (cMO2_Order.manufIn == false)
             {
@@ -44,9 +58,30 @@ namespace Wiki.Areas.CMO.Models
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 if(pushMail == true)
-                    new EmailCMO(cMO2_Order, login, 3);
+                {
+                    try
+                    {
+                        new EmailCMO(cMO2_Order, login, 3);
+                        logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("UpdateOrder / EmailCMO: " + order.id + " | " + ex);
+                    }
+                }
+
                 else
-                    new EmailCMO(cMO2_Order, login, 5);
+                {
+                    try
+                    {
+                        new EmailCMO(cMO2_Order, login, 5);
+                        logger.Info("UpdateOrder / EmailCMO: " + order.id);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("UpdateOrder / EmailCMO: " + order.id + " | " + ex);
+                    }
+                }
             }
             else if (cMO2_Order.finIn == false && cMO2_Order.finDate != null)
             {
@@ -100,7 +135,15 @@ namespace Wiki.Areas.CMO.Models
                 }
             }
             db.SaveChanges();
-            new EmailCMO(cMO2_Order, login, 1);
+            try
+            {
+                new EmailCMO(cMO2_Order, login, 1);
+                logger.Info("CreateOrder / EmailCMO: " + cMO2_Order.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CreateOrder / EmailCMO: " + cMO2_Order.id + " | " + ex);
+            }
         }
 
         public void CreateReOrder(int[] id_PlanZakaz, int id_CMO_Company, string login, HttpPostedFileBase[] fileUploadArray)
@@ -124,7 +167,15 @@ namespace Wiki.Areas.CMO.Models
                 db.CMO2_Position.Add(cMO2_Position);
             }
             db.SaveChanges();
-            new EmailCMO(cMO2_Order, login, 4);
+            try
+            {
+                new EmailCMO(cMO2_Order, login, 4);
+                logger.Info("CreateReOrder / EmailCMO: " + cMO2_Order.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CreateReOrder / EmailCMO: " + cMO2_Order.id + " | " + ex);
+            }
         }
 
         public CMO2_Order CMO2_Order { get => cMO2_Order; set => cMO2_Order = value; }

@@ -157,7 +157,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Excel.14.0.4760.1000\lib\net20\Office.dll</HintPath>
@@ -1248,10 +1248,6 @@
     <Content Include="Content\Chosen\package.json" />
     <Content Include="Content\tableExport.jquery.plugin-master\README.md" />
     <Content Include="Content\tableExport.jquery.plugin-master\tableExport.jquery.json" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <EntityDeploy Include="EFDBPortal.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EFDBPortal.Designer.cs</LastGenOutput>
@@ -1427,6 +1423,9 @@
     <Content Include="Areas\AccountsReceivable\Views\web.config" />
     <Content Include="Areas\AccountsReceivable\Views\Shared\_LayoutAccountsReceivable.cshtml" />
     <Content Include="Areas\AccountsReceivable\Views\AccountsReceivables\Index.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

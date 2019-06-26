@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,6 +13,7 @@ namespace Wiki.Areas.PZ.Controllers
 {
     public class OrderController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         PortalKATEKEntities db = new PortalKATEKEntities();
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('";
@@ -28,6 +30,14 @@ namespace Wiki.Areas.PZ.Controllers
             ViewBag.id_PZ_OperatorDogovora = new SelectList(db.PZ_OperatorDogovora.OrderBy(x => x.name), "id", "name");
             ViewBag.id_PZ_FIO = new SelectList(db.PZ_FIO.OrderBy(x => x.fio), "id", "fio");
             ViewBag.TypeShip = new SelectList(db.PZ_TypeShip.OrderBy(x => x.typeShip), "id", "typeShip");
+            try
+            {
+                string login = HttpContext.User.Identity.Name;
+                logger.Info("PZ_List: " + login);
+            }
+            catch
+            {
+            }
             return View();
         }
 
