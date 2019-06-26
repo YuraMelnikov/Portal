@@ -476,7 +476,7 @@ function getRetePlan() {
                     height: "100px"
                 },
                 title: {
-                    text: 'Плановый годовой объем выручки',
+                    text: 'Годовой объем выручки',
                     style: {
                         "font-size": "13px"
                     },
@@ -545,94 +545,87 @@ function getHSSToDay() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var myJSON = JSON.parse(JSON.stringify(result));
-            var json = JSON.stringify(result);
-            Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
-                credits: {
-                    enabled: false
-                }
-            });
+
+
+            var myJSONRemainingPlan1 = new Array();
+            var myJSONlast = new Array();
+            var myJSONThis = new Array();
+            var myJSONNext = new Array();
+            for (var j = 0; j < 36; j++) {
+                if (j < 12)
+                    myJSONlast.push(result[j]);
+                else if (j < 24)
+                    myJSONThis.push(result[j]);
+                else 
+                    myJSONNext.push(result[j]);
+            }
+
             Highcharts.chart('containerHssHistory', {
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
                 chart: {
-                    zoomType: 'x'
+                    type: 'areaspline'
                 },
                 title: {
-                    text: '',
-                    style: {
-                        "fontSize": "0px"
-                    }
+                    text: 'ХСС ПО (в месяц)'
                 },
-                subtitle: {
-                    text: 'ХСС ПО'
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || '#FFFFFF'
                 },
                 xAxis: {
-                    type: 'datetime'
+                    categories: [
+                        'Январь',
+                        'Февраль',
+                        'Март',
+                        'Апрель',
+                        'Май',
+                        'Июнь',
+                        'Июль',
+                        'Август',
+                        'Сентябрь',
+                        'Октябрь',
+                        'Ноябрь',
+                        'Декабрь'
+                    ],
+                    plotBands: [{
+                        from: 4.5,
+                        to: 6.5,
+                        color: 'rgba(68, 170, 213, .2)'
+                    }]
                 },
                 yAxis: {
                     title: {
-                        enabled: false
-                    },
-                    min: 0
+                        enable: false
+                    }
                 },
-                legend: {
+                tooltip: {
+                    shared: true,
+                    valueSuffix: ' units'
+                },
+                credits: {
                     enabled: false
                 },
                 plotOptions: {
-                    area: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                            ]
-                        },
-                        marker: {
-                            radius: 2
-                        },
-                        lineWidth: 1,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
+                    areaspline: {
+                        fillOpacity: 0.5
                     }
                 },
                 series: [{
-                    type: 'area',
-                    name: 'ХСС',
-                    data: myJSON
+                    name: 'Пердыдущий',
+                    data: myJSONlast
+                }, {
+                    name: Date().getFullYear(),
+                        data: myJSONThis
+                }, {
+                    name: 'Следующий',
+                        data: myJSONNext
                 }]
             });
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

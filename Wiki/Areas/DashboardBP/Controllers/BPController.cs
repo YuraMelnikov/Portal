@@ -174,19 +174,37 @@ namespace Wiki.Areas.DashboardBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
+                int yearStart = DateTime.Now.Year - 1;
                 var query = db.DashboardBP_HSSPO
                     .AsNoTracking()
                     .Include(d => d.DashboardBP_State)
                     .Where(d => d.DashboardBP_State.active == true)
-                    .OrderBy(d => d.timeByDay)
-                    .GroupBy(d => d.timeByDay)
+                    .Where(d => d.timeByDay.Year >= yearStart)
+                    .OrderBy(d => d.month)
+                    .GroupBy(d => d.month)
                     .Select(g => new { day = g.Key, Value = g.Sum(x => x.xSsm) })
                     .ToList();
-                int count = query.Count;
-                HSSToDay[] data = new HSSToDay[count];
-                for (int i = 0; i < count; i++)
+                int[] data = new int[36];
+                int countStep = 0;
+                for(int i = yearStart; i < DateTime.Now.Year + 2; i++)
                 {
-                    data[i] = new HSSToDay(Convert.ToUInt64(js.DeserializeObject(js.Serialize(query[i].day).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))), (int)query[i].Value);
+                    for (int j = 1; j <= 12; j++)
+                    {
+                        string monthFind = "";
+                        if (j.ToString().Length == 1)
+                            monthFind = i.ToString() + "." + "0" + j.ToString();
+                        else
+                            monthFind = i.ToString() + "." + j.ToString();
+                        try
+                        {
+                            data[countStep] = (int)query.First(d => d.day == monthFind).Value;
+                        }
+                        catch
+                        {
+                            data[countStep] = 0;
+                        }
+                        countStep++;
+                    }
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

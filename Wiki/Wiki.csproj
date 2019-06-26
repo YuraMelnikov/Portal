@@ -2564,7 +2564,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AccountsReceivable\Models\" />
-    <Folder Include="log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
