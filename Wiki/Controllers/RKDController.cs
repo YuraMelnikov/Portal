@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Models;
@@ -175,16 +176,20 @@ namespace Wiki.Controllers
 
         public ActionResult Debug()
         {
-            //RKD rKD = new RKD(2673);
-            //rKD.CreateRKDOrder();
-            //RKD rKD1 = new RKD(2594);
-            //rKD1.id_RKD_Order = 265;
-            //rKD1.Create_NULLRKD_TaskVersion();
-            for (int i = 2735; i < 2736; i++)
-            {
-                RKD rKD = new RKD(i);
-                rKD.CreateRKDOrder();
-            }
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz
+                .Include(d => d.RKD_Order)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.RKD_Order.Count > 0)
+                .OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Debug(int id_PlanZakaz)
+        {
+            RKD rKD = new RKD(id_PlanZakaz);
+            rKD.CreateRKDOrder();
             return RedirectToAction("Index", "RKD");
         }
 

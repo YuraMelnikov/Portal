@@ -1,7 +1,17 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Debug";
     Layout = "~/Views/Shared/_LayoutRKD.cshtml";
 }
-
-<h2>Debug</h2>
+<h2>Начать разработку РКД</h2>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-2">
+            <label>Укажите № заказа:</label>
+            @Html.DropDownList("id_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+}
