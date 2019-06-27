@@ -284,10 +284,6 @@ function processNull(data) {
     }
 }
 
-//общая форма (галочка)
-//1 - зарегистрировать ПЗ
-//3 - внести прототипы
-
 function getDefault(id) {
     $.ajax({
         cache: false,
@@ -513,9 +509,6 @@ function updateLetter() {
     });
 }
 
-//ЖДН
-//ТН
-
 function getTN(id) {
     $.ajax({
         cache: false,
@@ -578,8 +571,16 @@ function getCostSh(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $('#tnId').val("");
-            $('#tnId').val(result.id);
+            $('#costShId').val("");
+            $('#transportSum').val("");
+            $('#numberOrder').val("");
+            $('#ndsSum').val("");
+            $('#currency').val("");
+            $('#costShId').val(result.id);
+            $('#transportSum').val(result.transportSum);
+            $('#numberOrder').val(result.numberOrder);
+            $('#ndsSum').val(result.ndsSum);
+            $('#currency').val(result.currency);
             $('#costShModal').modal('show');
         },
         error: function (errormessage) {
@@ -591,7 +592,11 @@ function getCostSh(id) {
 
 function updateCostSh() {
     var objCashShData = {
-        id: $('#tnId').val(),
+        id: $('#costShId').val(),
+        transportSum: $('#transportSum').val(),
+        numberOrder: $('#numberOrder').val(),
+        ndsSum: $('#ndsSum').val(),
+        currency: $('#currency').val()
     };
     $.ajax({
         cache: false,
@@ -610,10 +615,5 @@ function updateCostSh() {
     });
 }
 
-
-
-
 //приход
-//фин. условия поставки
-
 //еще раз проверить все условия

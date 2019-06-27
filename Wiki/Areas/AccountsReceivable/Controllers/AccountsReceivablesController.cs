@@ -73,6 +73,29 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
+        public JsonResult TasksCloseList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var query = db.Debit_WorkBit
+                    .AsNoTracking()
+                    .Include(d => d.TaskForPZ.AspNetUsers)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                    .Where(d => d.close == true)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    order = dataList.PZ_PlanZakaz.PlanZakaz,
+                    dataList.TaskForPZ.taskName,
+                    client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                    user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
+                    planDate = dataList.datePlan.ToShortDateString()
+                });
+                return Json(new { data });
+            }
+        }
+
         public JsonResult MyTasksList()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -137,10 +160,42 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             return login;
         }
 
-        //TasksCloseList
-        //TEOList
-        //ContractList
-        //DebitList
+        public JsonResult DebitList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .Include(d => d.PZ_PlanZakaz.AspNetUsers)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Setup)
+                    .Where(d => d.id_TaskForPZ == 15 || d.id_TaskForPZ == 38)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    edit = "<a href =" + '\u0022' + "http://pserver/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
+                    dataList.PZ_PlanZakaz.PlanZakaz,
+                    Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                    Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().KolVoDneyNaPrijemku,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().PunktDogovoraOSrokahPriemki,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().UslovieOplatyText,
+                    status = GetStatusName(dataList)
+                });
+                return Json(new { data });
+            }
+        }
+
+        string GetStatusName(Debit_WorkBit debit_WorkBit)
+        {
+            string statusName = "Не оплачен";
+            if (debit_WorkBit.close == true)
+                statusName = "Оплачен";
+            if (debit_WorkBit.id_TaskForPZ == 38)
+                statusName = "Внести предоплату";
+            return statusName;
+        }
 
         //GetDefault(int id) - returt taskNmae + id
         //UpdateDefault(int id, bool checkedDefault)
