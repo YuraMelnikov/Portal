@@ -11,6 +11,10 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
     {
         public ActionResult Index()
         {
+            //VB - Currency to Index
+            //VB - user TP
+            //VB - orders null?
+
             return View();
         }
 
@@ -140,5 +144,17 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         //GetDefault(int id) - returt taskNmae + id
         //UpdateDefault(int id, bool checkedDefault)
+
+        //GetTEO(int id)
+        //UpdateTEO(int PZ_TEO)
+
+        //GetSetup
+        //UpdateSetup
+
+        //GetLetter
+        //UpdateLetter
+
+        //GetTN
+        //UpdateTN
     }
 }
