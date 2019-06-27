@@ -67,8 +67,6 @@ namespace Wiki.Controllers
             }
             ViewBag.userTP = new SelectList(db.AspNetUsers.Where(x => x.Devision == 4).OrderBy(x => x.CiliricalName), "id", "CiliricalName", pZ_Setup.userTP);
             PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pZ_Setup.id_PZ_PlanZakaz);
-            ViewBag.Name = pZ_PlanZakaz.Name.ToString();
-            ViewBag.NameTU = pZ_PlanZakaz.nameTU.ToString();
             ViewBag.Zakaz = pZ_PlanZakaz.PlanZakaz.ToString();
             ViewBag.id_PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz, "Id", "MTR", pZ_Setup.id_PZ_PlanZakaz);
             return View(pZ_Setup);
@@ -77,12 +75,10 @@ namespace Wiki.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(PZ_Setup pZ_Setup, bool incorrectName, bool nullTP)
+        public ActionResult Edit(PZ_Setup pZ_Setup)
         {
             if (ModelState.IsValid)
             {
-                if (nullTP == true)
-                    pZ_Setup.userTP = null;
                 if (pZ_Setup.PunktDogovoraOSrokahPriemki == null)
                     pZ_Setup.PunktDogovoraOSrokahPriemki = "";
                 if (pZ_Setup.UslovieOplatyText == null)
@@ -112,8 +108,6 @@ namespace Wiki.Controllers
                             {
                                 list.Add(data1.email);
                             }
-                            SendMail(task, " : заполнены договорные условия", list);
-
                             List<TaskForPZ> dateTaskWork = db.TaskForPZ
                                 .Where(w => w.Predecessors == 4)
                                 .Where(z => z.id_TypeTaskForPZ == 1)

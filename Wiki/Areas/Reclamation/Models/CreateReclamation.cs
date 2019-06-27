@@ -82,11 +82,6 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.closeDevision = false;
                 reclamation.close = true;
             }
-            else if (reclamation.id_DevisionCreate == 28)
-            {
-                reclamation.closeDevision = false;
-                reclamation.close = true;
-            }
             if (reclamation.id_AspNetUsersError != null)
             {
                 reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;

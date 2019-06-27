@@ -8,19 +8,22 @@
 function loadData(listId) {
     document.getElementById('pageId').innerHTML = listId;
     if (listId === 1 || listId === "1") {
-        loadData(1);
+        tasksList(1);
     }
     else if (listId === 2 || listId === "2") {
-        loadData(2);
+        myTasksList(2);
     }
     else if (listId === 3 || listId === "3") {
-        loadData(3);
+        tasksCloseList(3);
     }
     else if (listId === 4 || listId === "4") {
-        loadData(4);
+        TEOList(4);
     }
     else if (listId === 5 || listId === "5") {
-        loadData(5);
+        contractList(5);
+    }
+    else if (listId === 6 || listId === "6") {
+        debitList(6);
     }
     else {
         loadData(1);
@@ -28,7 +31,6 @@ function loadData(listId) {
 }
 
 var objTasks = [
-    { "title": "См.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "client", "autowidth": true, "bSortable": true },
@@ -38,7 +40,6 @@ var objTasks = [
 
 var objEditTasks = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "client", "autowidth": true, "bSortable": true },
@@ -70,6 +71,17 @@ var objContract = [
     , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
     , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
     , { "title": "Условия оплаты", "data": "UslovieOplatyText", "autowidth": true }
+];
+
+var objDebit = [
+     { "title": "Ред.", "data": "edit", "autowidth": true }
+    , { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
+    , { "title": "Менеджер", "data": "Manager", "autowidth": true }
+    , { "title": "Заказчик", "data": "Client", "autowidth": true }
+    , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
+    , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
+    , { "title": "Условия оплаты", "data": "UslovieOplatyText", "autowidth": true }
+    , { "title": "Статус", "data": "status", "autowidth": true }
 ];
 
 function startMenu() {
@@ -152,6 +164,34 @@ function myTasksList() {
     });
 }
 
+function tasksCloseList() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/TasksCloseList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "asc"]],
+        "processing": true,
+        "columns": objTasks,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
 function TEOList() {
     var table = $('#tableData').DataTable();
     table.destroy();
@@ -208,6 +248,34 @@ function contractList() {
     });
 }
 
+function debitList() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/DebitList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "asc"]],
+        "processing": true,
+        "columns": objDebit,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
 function processNull(data) {
     if (data === 'null') {
         return '';
@@ -216,16 +284,22 @@ function processNull(data) {
     }
 }
 
-//getTEO
-//getTask
-
-//close1OpenInSystem
-//close3Prototype
+//общая форма (галочка)
+//1 - зарегистрировать ПЗ
+//3 - внести прототипы
 
 
 
 
-//close2TEO
-//close4ContractSetting
 
 
+
+
+//ТЭО
+//договорные условия
+//загрузка письма
+//ЖДН
+//ТН
+//приход
+//фин. условия поставки
+//платформа

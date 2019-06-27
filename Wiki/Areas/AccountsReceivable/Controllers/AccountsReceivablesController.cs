@@ -132,5 +132,12 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
             return login;
         }
+
+        //TasksCloseList
+        //TEOList
+        //ContractList
+        //DebitList
+
+
     }
 }
