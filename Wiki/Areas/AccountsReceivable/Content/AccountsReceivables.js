@@ -492,14 +492,14 @@ function getLetter(id) {
 } //?несколько заказов?
 
 function updateLetter() {
-    var objDefaultData = {
+    var objLetterData = {
         id: $('#letterId').val(),
         checkedDefault: $('#checkedDefault').is(":checked")
     };
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/UpdateLetter/",
-        data: JSON.stringify(objDefaultData),
+        data: JSON.stringify(objLetterData),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -524,7 +524,15 @@ function getTN(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#tnId').val("");
             $('#tnId').val(result.id);
+            $('#tndateShip').val("");
+            $('#tnnumber').val("");
+            $('#tnnumberTN').val("");
+            $('#tndateTN').val("");
+            $('#tnnumberSF').val("");
+            $('#tndateSF').val("");
+            $('#tnSumma').val("");
             $('#tnModal').modal('show');
         },
         error: function (errormessage) {
@@ -535,13 +543,20 @@ function getTN(id) {
 } //?несколько заказов?
 
 function updateTN() {
-    var objDefaultData = {
+    var objTNData = {
         id: $('#tnId').val(),
+        tndateShip: $('#tndateShip').val(),
+        tnnumber: $('#tnnumber').val(),
+        tnnumberTN: $('#tnnumberTN').val(),
+        tndateTN: $('#tndateTN').val(),
+        tnnumberSF: $('#tnnumberSF').val(),
+        tndateSF: $('#tndateSF').val(),
+        tnSumma: $('#tnSumma').val()
     };
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/UpdateTN/",
-        data: JSON.stringify(objDefaultData),
+        data: JSON.stringify(objTNData),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -555,7 +570,45 @@ function updateTN() {
     });
 }
 
+function getCostSh(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetCostSh/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tnId').val("");
+            $('#tnId').val(result.id);
+            $('#costShModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+} //?несколько заказов?
 
+function updateCostSh() {
+    var objCashShData = {
+        id: $('#tnId').val(),
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateCostSh/",
+        data: JSON.stringify(objCashShData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData(document.getElementById('pageData').innerHTML);
+            $('#costShModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
 
 

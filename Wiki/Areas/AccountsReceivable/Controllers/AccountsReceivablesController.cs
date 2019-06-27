@@ -156,5 +156,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         //GetTN
         //UpdateTN
+
+        //GetCostSh
+        //UpdateCostSh
     }
 }
