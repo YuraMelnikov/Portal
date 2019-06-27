@@ -319,18 +319,10 @@ namespace Wiki.Areas.Reclamation.Controllers
             AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
             if(aspNetUser.Devision == 6)
             {
-                bool newAnswer = db.Reclamation.Find(reclamation.id).close;
-                if(reclamation.close != newAnswer)
+                if(reclamation.close == true)
                 {
                     string textAnswer = "";
-                    if(reclamation.close == true)
-                    {
-                        textAnswer = "Замечание закрыто ОТК";
-                    }
-                    else
-                    {
-                        textAnswer = "Замечание возабновлено ОТК";
-                    }
+                    textAnswer = "Замечание закрыто ОТК";
                     Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                     {
                         answer = textAnswer,

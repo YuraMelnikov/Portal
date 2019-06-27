@@ -138,6 +138,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         //ContractList
         //DebitList
 
-
+        //GetDefault(int id) - returt taskNmae + id
+        //UpdateDefault(int id, bool checkedDefault)
     }
 }

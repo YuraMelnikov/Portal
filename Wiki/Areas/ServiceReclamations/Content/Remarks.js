@@ -207,8 +207,6 @@ function allReclamation() {
 
 function clearTextBox() {
     $("#partRem").hide();
-
-
     updateRemList(0);
     $("#btnAdd").show();
     $("#btnUpdate").hide();

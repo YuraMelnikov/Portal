@@ -288,14 +288,96 @@ function processNull(data) {
 //1 - зарегистрировать ПЗ
 //3 - внести прототипы
 
+function getDefault(id) {
+    clearDefault();
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetDefault/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#checkedDefault').prop('checked', false);
+            $('#defaultModal').modal('show');
+            $('#defaultId').val(result.id);
+            $('#defaultTaskName').val(result.taskNmae);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
 
-
-
-
-
-
+function updateDefault() {
+    var tmp = document.getElementById('id').innerHTML;
+    var objDefaultData = {
+        id: $('#defaultId').val(),
+        checkedDefault: $('#checkedDefault').is(":checked")
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateDefault/",
+        data: JSON.stringify(objDefaultData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData(document.getElementById('pageData').innerHTML);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
 //ТЭО
+
+function getDefault(id) {
+    clearDefault();
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetDefault/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#checkedDefault').prop('checked', false);
+            $('#defaultId').val(result.id);
+            $('#defaultTaskName').val(result.taskNmae);
+            $('#defaultModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function updateDefault() {
+    var tmp = document.getElementById('id').innerHTML;
+    var objDefaultData = {
+        id: $('#defaultId').val(),
+        checkedDefault: $('#checkedDefault').is(":checked")
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateDefault/",
+        data: JSON.stringify(objDefaultData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#defaultModal').modal('hide');
+            loadData(document.getElementById('pageData').innerHTML);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+
 //договорные условия
 //загрузка письма
 //ЖДН
