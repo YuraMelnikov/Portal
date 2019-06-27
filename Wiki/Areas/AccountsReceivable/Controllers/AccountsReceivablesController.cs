@@ -11,11 +11,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
     {
         public ActionResult Index()
         {
-            //VB - Currency to Index
-            //VB - user TP
-            //VB - orders null?
-
-            return View();
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                ViewBag.userTP = new SelectList(db.AspNetUsers.Where(d => d.Devision == 4).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+                ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
+                ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+                return View();
+            }
         }
 
         public JsonResult TEOList()
@@ -197,7 +199,39 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             return statusName;
         }
 
-        //GetDefault(int id) - returt taskNmae + id
+        //public JsonResult GetDefault(int id)//GetDefault(int id) - returt taskNmae + id
+        //{
+        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
+        //    {
+        //        db.Configuration.ProxyCreationEnabled = false;
+        //        db.Configuration.LazyLoadingEnabled = false;
+        //        var query = db.ServiceRemarks
+        //            .Include(d => d.ServiceRemarksPlanZakazs)
+        //            .Include(d => d.ServiceRemarksTypes)
+        //            .Include(d => d.ServiceRemarksCauses)
+        //            .Include(d => d.AspNetUsers)
+        //            .Where(d => d.id == id).ToList();
+        //        var data = query.Select(dataList => new
+        //        {
+        //            numberReclamation = "Рекламация №: " + dataList.id,
+        //            dataList.id,
+        //            pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
+        //            id_Reclamation_Type = GetTypesArray(dataList.ServiceRemarksTypes.ToList()),
+        //            id_ServiceRemarksCause = GetCausesArray(dataList.ServiceRemarksCauses.ToList()),
+        //            dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
+        //            userCreate = dataList.AspNetUsers.CiliricalName,
+        //            datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, shortSettingLeftRight).Replace(@"""", ""),
+        //            dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSettingLeftRight).Replace(@"""", ""),
+        //            dataList.folder,
+        //            dataList.text,
+        //            dataList.description,
+        //            answerHistiryText = GetHistoryText(dataList.id)
+        //        });
+        //        return Json(data.First(), JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        
         //UpdateDefault(int id, bool checkedDefault)
 
         //GetTEO(int id)
