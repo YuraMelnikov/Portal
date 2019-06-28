@@ -29,8 +29,10 @@
         </ul>
     </div>
 </nav>
-<table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
-
+<div id="idLabelList">
+    <label id="labelList"></label>
+    <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
 <div id="defaultModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -83,7 +85,7 @@
                         <input type="text" class="form-control" id="Rate" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Себестоимость (материалы) без НДС:</label>
+                        <label>Себестоимость (мат) без НДС:</label>
                         <input type="text" class="form-control" id="SSM" />
                     </div>
                     <div class="col-lg-2">
@@ -99,7 +101,7 @@
                         <input type="text" class="form-control" id="IzdPPKredit" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Постоянные издержки (в%% от себестоимости):</label>
+                        <label>Постоянные издержки:</label>
                         <input type="text" class="form-control" id="PI" />
                     </div>
                 </div>
@@ -137,7 +139,7 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdateTEO" style="display:none;" onclick="updateTEO();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateTEO" onclick="updateTEO();">Обновить</button>
                     </div>
                 </div>
             </div>
@@ -217,7 +219,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("AddReOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UpdateLetter", "AccountsReceivables", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="row">
                         <div class="col-lg-12">
@@ -345,3 +347,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>

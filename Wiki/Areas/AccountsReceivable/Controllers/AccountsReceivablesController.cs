@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 {
     public class AccountsReceivablesController : Controller
     {
+        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         public ActionResult Index()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                ViewBag.userTP = new SelectList(db.AspNetUsers.Where(d => d.Devision == 4).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
-                ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
-                ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
-                return View();
-            }
+            PortalKATEKEntities db = new PortalKATEKEntities();
+            ViewBag.userTP = new SelectList(db.AspNetUsers.Where(d => d.Devision == 4).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
+            ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            return View();
         }
 
         public JsonResult TEOList()
@@ -63,12 +63,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                     order = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.TaskForPZ.taskName,
                     client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
                     user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
-                    planDate = dataList.datePlan.ToShortDateString()
+                    planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
                 });
                 return Json(new { data });
             }
@@ -87,11 +88,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                     order = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.TaskForPZ.taskName,
                     client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
                     user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
-                    planDate = dataList.datePlan.ToShortDateString()
+                    planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
                 });
                 return Json(new { data });
             }
@@ -116,7 +119,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     dataList.TaskForPZ.taskName,
                     client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
                     user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
-                    planDate = dataList.datePlan.ToShortDateString()
+                    planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
                 });
                 return Json(new { data });
             }
@@ -135,6 +138,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     dataList.PZ_PlanZakaz.PlanZakaz,
                     Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
                     Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,

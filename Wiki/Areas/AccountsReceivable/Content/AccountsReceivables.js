@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    document.getElementById('pageId').innerHTML = 1;
+    document.getElementById('labelList').innerHTML = "Активные задачи";
+    $('#pageId').hide();
     startMenu();
     if (userGroupId === 1) {
         loadData(2);
@@ -9,21 +12,27 @@ function loadData(listId) {
     document.getElementById('pageId').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         tasksList(1);
+        document.getElementById('labelList').innerHTML = "Активные задачи";
     }
     else if (listId === 2 || listId === "2") {
         myTasksList(2);
+        document.getElementById('labelList').innerHTML = "Мои задачи";
     }
     else if (listId === 3 || listId === "3") {
         tasksCloseList(3);
+        document.getElementById('labelList').innerHTML = "Закрытые задачи";
     }
     else if (listId === 4 || listId === "4") {
         TEOList(4);
+        document.getElementById('labelList').innerHTML = "ТЭО";
     }
     else if (listId === 5 || listId === "5") {
         contractList(5);
+        document.getElementById('labelList').innerHTML = "Договорные условия";
     }
     else if (listId === 6 || listId === "6") {
         debitList(6);
+        document.getElementById('labelList').innerHTML = "Поступление средств";
     }
     else {
         loadData(1);
@@ -65,6 +74,7 @@ var objTEO = [
 ];
 
 var objContract = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
     , { "title": "Менеджер", "data": "Manager", "autowidth": true }
     , { "title": "Заказчик", "data": "Client", "autowidth": true }
@@ -92,9 +102,9 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
-        "columns": objTasks,
+        "columns": objEditTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -120,9 +130,9 @@ function tasksList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
-        "columns": objTasks,
+        "columns": objEditTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -148,9 +158,9 @@ function myTasksList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
-        "columns": objTasks,
+        "columns": objEditTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -176,9 +186,9 @@ function tasksCloseList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
-        "columns": objTasks,
+        "columns": objEditTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -204,7 +214,7 @@ function TEOList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objTEO,
         "scrollY": '75vh',
@@ -232,7 +242,7 @@ function contractList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objContract,
         "scrollY": '75vh',
