@@ -521,6 +521,10 @@
                         <label for="nameTU">Наименование по ТУ:</label>
                         @Html.TextAreaFor(model => model.nameTU, htmlAttributes: new { @class = "form-control", @rows = 5 })
                     </div>
+                    <div class="col-lg-2">
+                        <label for="ProductType">Тип продукции:</label>
+                        @Html.DropDownList("koProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

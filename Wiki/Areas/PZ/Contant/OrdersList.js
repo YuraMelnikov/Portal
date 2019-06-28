@@ -966,6 +966,7 @@ function getbyKOID(Id) {
         success: function (result) {
             $('#Id').val(result.Id);
             $('#kPlanZakaz').val(result.PlanZakaz);
+            $('#koProductType').val(result.ProductType);
             $('#nameTU').val(result.nameTU);
             $('#orderKOModal').modal('show');
             $('#btnUpdateKO').show();
@@ -987,7 +988,8 @@ function UpdateKO() {
     var typeObj = {
         Id: $('#Id').val(),
         PlanZakaz: $('#kPlanZakaz').val(),
-        nameTU: $('#nameTU').val()
+        nameTU: $('#nameTU').val(),
+        ProductType: $('#koProductType').val()
     };
     $.ajax({
         cache: false,

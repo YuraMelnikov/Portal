@@ -695,6 +695,7 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
+                dataList.ProductType,
                 dataList.nameTU,
                 dataList.Id
             });
@@ -708,13 +709,18 @@ namespace Wiki.Areas.PZ.Controllers
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
             {
-                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
-                emailRename.SendEmail();
+                //EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
+                //emailRename.SendEmail();
                 editPZ.nameTU = pZ_PlanZakaz.nameTU;
+                editPZ.ProductType = pZ_PlanZakaz.ProductType;
+            }
+            if (editPZ.ProductType != pZ_PlanZakaz.ProductType)
+            {
+                editPZ.ProductType = pZ_PlanZakaz.ProductType;
             }
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
-            db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(editPZ).State = EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
