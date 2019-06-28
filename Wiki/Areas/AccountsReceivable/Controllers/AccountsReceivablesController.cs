@@ -254,7 +254,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 {
                     idTEO = dataList.id,
                     dataList.Currency,
-                    teoPlanZakaz = dataList.PZ_PlanZakaz.PlanZakaz,
+                    teoPlanZakaz = "Заказ №: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString(),
                     dataList.Rate,
                     dataList.SSM,
                     dataList.SSR,
@@ -266,6 +266,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     dataList.KI_prochee,
                     dataList.OtpuskChena,
                     dataList.KursValuti,
+                    dataList.Id_PlanZakaz,
                     dataList.NDS
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
@@ -274,6 +275,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         public JsonResult UpdateTEO(PZ_TEO pZ_TEO)
         {
+            pZ_TEO.KursValuti = pZ_TEO.KursValuti / 10000;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;

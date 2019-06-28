@@ -12,27 +12,27 @@
 function loadData(listId) {
     document.getElementById('pageId').innerHTML = listId;
     if (listId === 1 || listId === "1") {
-        tasksList(1);
+        tasksList();
         document.getElementById('labelList').innerHTML = "Активные задачи";
     }
     else if (listId === 2 || listId === "2") {
-        myTasksList(2);
+        myTasksList();
         document.getElementById('labelList').innerHTML = "Мои задачи";
     }
     else if (listId === 3 || listId === "3") {
-        tasksCloseList(3);
+        tasksCloseList();
         document.getElementById('labelList').innerHTML = "Закрытые задачи";
     }
     else if (listId === 4 || listId === "4") {
-        TEOList(4);
+        TEOList();
         document.getElementById('labelList').innerHTML = "ТЭО";
     }
     else if (listId === 5 || listId === "5") {
-        contractList(5);
+        contractList();
         document.getElementById('labelList').innerHTML = "Договорные условия";
     }
     else if (listId === 6 || listId === "6") {
-        debitList(6);
+        debitList();
         document.getElementById('labelList').innerHTML = "Поступление средств";
     }
     else {
@@ -352,6 +352,7 @@ function getTEO(id) {
         dataType: "json",
         success: function (result) {
             $('#idTEO').val("");
+            $('#Id_PlanZakaz').val("");
             $('#teoPlanZakaz').val("");
             $('#Currency').val("");
             $('#Rate').val("");
@@ -367,6 +368,7 @@ function getTEO(id) {
             $('#KursValuti').val("");
             $('#NDS').val("");
             $('#idTEO').val(result.idTEO);
+            $('#Id_PlanZakaz').val(result.Id_PlanZakaz);
             $('#teoPlanZakaz').val(result.teoPlanZakaz);
             $('#Currency').val(result.Currency);
             $('#Rate').val(result.Rate);
@@ -391,6 +393,8 @@ function getTEO(id) {
 }
 
 function updateTEO() {
+    var kur = $('#KursValuti').val().replace(",", ".");
+    kur = kur * 10000;
     var objTEOData = {
         id: $('#idTEO').val()
         , Currency: $('#Currency').val()
@@ -404,7 +408,8 @@ function updateTEO() {
         , KI_S: $('#KI_S').val()
         , KI_prochee: $('#KI_prochee').val()
         , OtpuskChena: $('#OtpuskChena').val()
-        , KursValuti: $('#KursValuti').val()
+        , KursValuti: kur
+        , Id_PlanZakaz: $('#Id_PlanZakaz').val()
         , NDS: $('#NDS').val()
     };
     $.ajax({
@@ -415,8 +420,8 @@ function updateTEO() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#teoModal').modal('hide');
             loadData(document.getElementById('pageData').innerHTML);
+            $('#teoModal').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
