@@ -225,7 +225,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
-                if(checkedDefault == true)
+                if (checkedDefault == true)
                 {
                     debit_WorkBit.close = true;
                     debit_WorkBit.dateClose = DateTime.Now;

@@ -1,10 +1,9 @@
-﻿@model Wiki.CMO2_Order
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/AccountsReceivable/Views/Shared/_LayoutAccountsReceivable.cshtml";
 }
 <head>
-    <script src="~/Areas/CMO/Content/CMO.js"></script>
+    <script src="~/Areas/AccountsReceivable/Content/AccountsReceivables.js"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
 </head>
@@ -33,9 +32,121 @@
 <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
 
 
-@*defaultModal*@
-@*teoModal*@
 @*setupModal*@
 @*letterModal*@
 @*tnModal*@
 @*costShModal*@
+<div id="defaultModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="defaultTaskName" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>№ задачи:</label>
+                        <input type="text" class="form-control" id="defaultId" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Кем создана:</label>
+                        <input type="checkbox" class="form-control" id="checkedDefault" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateDefault" style="display:none;" onclick="updateDefault();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="teoModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="idTEO" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Выручка без НДС:</label>
+                        <input type="text" class="form-control" id="Rate" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Себестоимость (материалы) без НДС:</label>
+                        <input type="text" class="form-control" id="SSM" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Себестоимость (зп рабочих):</label>
+                        <input type="text" class="form-control" id="SSR" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Издержки коммерческие:</label>
+                        <input type="text" class="form-control" id="IzdKom" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>% по кредиту:</label>
+                        <input type="text" class="form-control" id="IzdPPKredit" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Постоянные издержки (в%% от себестоимости):</label>
+                        <input type="text" class="form-control" id="PI" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Новая Операционная Прибыль:</label>
+                        <input type="text" class="form-control" id="NOP" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>KI_S:</label>
+                        <input type="text" class="form-control" id="KI_S" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>KI_prochee:</label>
+                        <input type="text" class="form-control" id="KI_prochee" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Отпускная цена, в валюте без НДС:</label>
+                        <input type="text" class="form-control" id="OtpuskChena" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Курс валюты контракта: </label>
+                        <input type="text" class="form-control" id="KursValuti" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Выручка без НДС:</label>
+                        <input type="text" class="form-control" id="NDS" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateDefault" style="display:none;" onclick="updateDefault();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

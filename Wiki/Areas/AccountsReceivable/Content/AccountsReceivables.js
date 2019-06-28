@@ -74,7 +74,7 @@ var objContract = [
 ];
 
 var objDebit = [
-     { "title": "Ред.", "data": "edit", "autowidth": true }
+    { "title": "Ред.", "data": "edit", "autowidth": true }
     , { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
     , { "title": "Менеджер", "data": "Manager", "autowidth": true }
     , { "title": "Заказчик", "data": "Client", "autowidth": true }
@@ -369,7 +369,7 @@ function getTEO(id) {
         }
     });
     return false;
-} 
+}
 
 function updateTEO() {
     var objTEOData = {
@@ -438,7 +438,7 @@ function getSetup(id) {
         }
     });
     return false;
-} 
+}
 
 function updateSetup() {
     var objSetupData = {
@@ -485,7 +485,7 @@ function getLetter(id) {
         }
     });
     return false;
-} 
+}
 
 function updateLetter() {
     var objLetterData = {
@@ -531,7 +531,7 @@ function getTN(id) {
         }
     });
     return false;
-} 
+}
 
 function updateTN() {
     var objTNData = {
@@ -584,7 +584,7 @@ function getCostSh(id) {
         }
     });
     return false;
-} 
+}
 
 function updateCostSh() {
     var objCashShData = {
