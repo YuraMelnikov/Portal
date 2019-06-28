@@ -31,11 +31,6 @@
 </nav>
 <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
 
-
-@*setupModal*@
-@*letterModal*@
-@*tnModal*@
-@*costShModal*@
 <div id="defaultModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -142,7 +137,7 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdateDefault" style="display:none;" onclick="updateDefault();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateTEO" style="display:none;" onclick="updateTEO();">Обновить</button>
                     </div>
                 </div>
             </div>
@@ -150,3 +145,203 @@
     </div>
 </div>
 
+<div id="setupModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="idSetup" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Кол-во дней на приемку:</label>
+                        <input type="text" class="form-control" id="KolVoDneyNaPrijemku" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Пункт договора о сроках приемки:</label>
+                        <input type="text" class="form-control" id="PunktDogovoraOSrokahPriemki" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Условие оплаты (текст):</label>
+                        <input type="text" class="form-control" id="UslovieOplatyText" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Условие оплаты (дней):</label>
+                        <input type="text" class="form-control" id="UslovieOplatyInt" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Время на подготовку РКД):</label>
+                        <input type="text" class="form-control" id="TimeNaRKD" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Время на рассмотрение РКД:</label>
+                        <input type="text" class="form-control" id="RassmotrenieRKD" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Сроки ответа на замечания по РКД:</label>
+                        <input type="text" class="form-control" id="SrokZamechanieRKD" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сотрудник подготовивший ТП:</label>
+                        <input type="text" class="form-control" id="userTP" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateSetup" style="display:none;" onclick="updateSetup();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="letterModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="letterTaskName" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddReOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Введите №заказа/ов:</label>
+                            @Html.ListBox("orders", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="rofile1" multiple="multiple" name="rofile1" type="file" />
+                            <hr />
+                            <input type="submit" id="btnLetter" value="Загрузить письмо" class="btn btn-primary" onclick="updateLetter()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tnModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="tnId" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Номер ТН:</label>
+                        <input type="text" class="form-control" id="numberTN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата ТН:</label>
+                        <input type="text" class="form-control" id="dateTN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Номер СФ:</label>
+                        <input type="text" class="form-control" id="numberSF" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата СФ:</label>
+                        <input type="text" class="form-control" id="dateSF" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сумма:</label>
+                        <input type="text" class="form-control" id="Summa" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateTN" style="display:none;" onclick="updateTN();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="costShModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="costShId" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Транспорт экспедитора (сумма):</label>
+                        <input type="text" class="form-control" id="transportSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Счет № транспорта:</label>
+                        <input type="text" class="form-control" id="numberOrder" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>НДС с суммы транспорта:</label>
+                        <input type="text" class="form-control" id="ndsSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Валюта платежа:</label>
+                        <input type="text" class="form-control" id="currency" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdatecostSh" style="display:none;" onclick="updateCostSh();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

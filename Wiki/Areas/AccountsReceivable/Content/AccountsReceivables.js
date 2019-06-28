@@ -479,6 +479,7 @@ function getLetter(id) {
         success: function (result) {
             $('#letterModal').modal('show');
             $('#letterId').val(result.id);
+            $('#letterTaskName').val(result.letterTaskName);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -490,7 +491,7 @@ function getLetter(id) {
 function updateLetter() {
     var objLetterData = {
         id: $('#letterId').val(),
-        checkedDefault: $('#checkedDefault').is(":checked")
+        orders: $('#orders').val()
     };
     $.ajax({
         cache: false,
@@ -518,12 +519,17 @@ function getTN(id) {
         dataType: "json",
         success: function (result) {
             $('#tnId').val("");
-            $('#tnId').val(result.int);
             $('#numberTN').val("");
             $('#dateTN').val("");
             $('#numberSF').val("");
             $('#dateSF').val("");
             $('#Summa').val("");
+            $('#tnId').val(result.int);
+            $('#numberTN').val(result.numberTN);
+            $('#dateTN').val(result.dateTN);
+            $('#numberSF').val(result.numberSF);
+            $('#dateSF').val(result.dateSF);
+            $('#Summa').val(result.Summa);
             $('#tnModal').modal('show');
         },
         error: function (errormessage) {

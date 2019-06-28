@@ -320,10 +320,12 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 var query = db.Debit_WorkBit
                     .Where(d => d.id == id)
                     .Include(d => d.TaskForPZ)
+                    .Include(d => d.PZ_PlanZakaz)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    letterId = dataList.id
+                    letterId = dataList.id,
+                    letterTaskName = dataList.TaskForPZ.taskName + " по заказу: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString()
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
             }
