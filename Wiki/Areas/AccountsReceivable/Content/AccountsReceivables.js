@@ -2,6 +2,7 @@
     document.getElementById('pageId').innerHTML = 1;
     document.getElementById('labelList').innerHTML = "Активные задачи";
     $('#pageId').hide();
+    $('#teoHide').hide();
     startMenu();
     if (userGroupId === 1) {
         loadData(2);
@@ -215,6 +216,12 @@ function TEOList() {
         },
         "bDestroy": true,
         "order": [[1, "desc"]],
+        "rowCallback": function (row, data, index) {
+            if (data.SSM === 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "processing": true,
         "columns": objTEO,
         "scrollY": '75vh',
@@ -345,6 +352,7 @@ function getTEO(id) {
         dataType: "json",
         success: function (result) {
             $('#idTEO').val("");
+            $('#teoPlanZakaz').val("");
             $('#Currency').val("");
             $('#Rate').val("");
             $('#SSM').val("");
@@ -358,7 +366,8 @@ function getTEO(id) {
             $('#OtpuskChena').val("");
             $('#KursValuti').val("");
             $('#NDS').val("");
-            $('#idTEO').val(result.id);
+            $('#idTEO').val(result.idTEO);
+            $('#teoPlanZakaz').val(result.teoPlanZakaz);
             $('#Currency').val(result.Currency);
             $('#Rate').val(result.Rate);
             $('#SSM').val(result.SSM);

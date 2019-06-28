@@ -246,11 +246,15 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.PZ_TEO.Where(d => d.id == id).ToList();
+                var query = db.PZ_TEO
+                    .Where(d => d.id == id)
+                    .Include(d => d.PZ_PlanZakaz)
+                    .ToList();
                 var data = query.Select(dataList => new
                 {
                     idTEO = dataList.id,
                     dataList.Currency,
+                    teoPlanZakaz = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.Rate,
                     dataList.SSM,
                     dataList.SSR,

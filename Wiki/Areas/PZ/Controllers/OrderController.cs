@@ -57,29 +57,6 @@ namespace Wiki.Areas.PZ.Controllers
             return login;
         }
 
-        string GetTextRemOrder(int id)
-        {
-            string rem = "";
-            try
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var listRem = db.PZ_Notes
-                                .Where(d => d.id_PZ_PlanZakaz == id)
-                                .Include(d => d.AspNetUsers)
-                                .ToList();
-                foreach (var data in listRem)
-                {
-                    rem += data.dateTimeCreate.ToString().Substring(0, 5) + " | " + data.note + " | " + data.AspNetUsers.CiliricalName + "\n";
-                }
-            }
-            catch
-            {
-
-            }
-            return rem;
-        }
-
         [HttpPost]
         public JsonResult OrdersListInManufacturing()
         {
@@ -134,7 +111,6 @@ namespace Wiki.Areas.PZ.Controllers
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
-                RemOrder = GetTextRemOrder(dataList.Id),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -235,7 +211,6 @@ namespace Wiki.Areas.PZ.Controllers
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
-                RemOrder = GetTextRemOrder(dataList.Id),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -322,7 +297,6 @@ namespace Wiki.Areas.PZ.Controllers
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
-                RemOrder = GetTextRemOrder(dataList.Id),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
@@ -409,7 +383,6 @@ namespace Wiki.Areas.PZ.Controllers
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 //StatusOrder = "",
                 Manager = dataList.AspNetUsers.CiliricalName,
-                RemOrder = GetTextRemOrder(dataList.Id),
                 dataList.Description,
                 dataList.MTR,
                 dataList.nomenklaturNumber,

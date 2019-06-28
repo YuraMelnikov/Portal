@@ -47,7 +47,6 @@ function loadData() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
-            ,{ "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -129,7 +128,6 @@ function OrdersListLY(yearCreateOrder) {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
-            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -213,7 +211,6 @@ function OrdersListALL() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
-            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
@@ -297,7 +294,6 @@ function OrdersListInManufacturing() {
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
-            , { "title": "Заметки", "data": "RemOrder", "autowidth": true, "bSortable": false, "class": 'colu-200' }
         ],
         "scrollY": '75vh',
         "scrollX": true,
