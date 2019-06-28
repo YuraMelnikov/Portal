@@ -369,7 +369,7 @@ function getTEO(id) {
         }
     });
     return false;
-} //?несколько заказов?
+} 
 
 function updateTEO() {
     var objTEOData = {
@@ -438,7 +438,7 @@ function getSetup(id) {
         }
     });
     return false;
-} //?несколько заказов?
+} 
 
 function updateSetup() {
     var objSetupData = {
@@ -485,7 +485,7 @@ function getLetter(id) {
         }
     });
     return false;
-} //?несколько заказов?
+} 
 
 function updateLetter() {
     var objLetterData = {
@@ -518,14 +518,12 @@ function getTN(id) {
         dataType: "json",
         success: function (result) {
             $('#tnId').val("");
-            $('#tnId').val(result.id);
-            $('#tndateShip').val("");
-            $('#tnnumber').val("");
-            $('#tnnumberTN').val("");
-            $('#tndateTN').val("");
-            $('#tnnumberSF').val("");
-            $('#tndateSF').val("");
-            $('#tnSumma').val("");
+            $('#tnId').val(result.int);
+            $('#numberTN').val("");
+            $('#dateTN').val("");
+            $('#numberSF').val("");
+            $('#dateSF').val("");
+            $('#Summa').val("");
             $('#tnModal').modal('show');
         },
         error: function (errormessage) {
@@ -533,18 +531,16 @@ function getTN(id) {
         }
     });
     return false;
-} //?несколько заказов?
+} 
 
 function updateTN() {
     var objTNData = {
         id: $('#tnId').val(),
-        tndateShip: $('#tndateShip').val(),
-        tnnumber: $('#tnnumber').val(),
-        tnnumberTN: $('#tnnumberTN').val(),
-        tndateTN: $('#tndateTN').val(),
-        tnnumberSF: $('#tnnumberSF').val(),
-        tndateSF: $('#tndateSF').val(),
-        tnSumma: $('#tnSumma').val()
+        numberTN: $('#numberTN').val(),
+        dateTN: $('#dateTN').val(),
+        numberSF: $('#numberSF').val(),
+        dateSF: $('#dateSF').val(),
+        Summa: $('#Summa').val()
     };
     $.ajax({
         cache: false,
@@ -588,7 +584,7 @@ function getCostSh(id) {
         }
     });
     return false;
-} //?несколько заказов?
+} 
 
 function updateCostSh() {
     var objCashShData = {

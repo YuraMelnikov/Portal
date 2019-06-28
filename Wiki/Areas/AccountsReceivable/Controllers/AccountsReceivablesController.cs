@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -199,54 +198,213 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             return statusName;
         }
 
-        //public JsonResult GetDefault(int id)//GetDefault(int id) - returt taskNmae + id
-        //{
-        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        var query = db.ServiceRemarks
-        //            .Include(d => d.ServiceRemarksPlanZakazs)
-        //            .Include(d => d.ServiceRemarksTypes)
-        //            .Include(d => d.ServiceRemarksCauses)
-        //            .Include(d => d.AspNetUsers)
-        //            .Where(d => d.id == id).ToList();
-        //        var data = query.Select(dataList => new
-        //        {
-        //            numberReclamation = "Рекламация №: " + dataList.id,
-        //            dataList.id,
-        //            pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
-        //            id_Reclamation_Type = GetTypesArray(dataList.ServiceRemarksTypes.ToList()),
-        //            id_ServiceRemarksCause = GetCausesArray(dataList.ServiceRemarksCauses.ToList()),
-        //            dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
-        //            userCreate = dataList.AspNetUsers.CiliricalName,
-        //            datePutToService = JsonConvert.SerializeObject(dataList.datePutToService, shortSettingLeftRight).Replace(@"""", ""),
-        //            dateClose = JsonConvert.SerializeObject(dataList.dateClose, shortSettingLeftRight).Replace(@"""", ""),
-        //            dataList.folder,
-        //            dataList.text,
-        //            dataList.description,
-        //            answerHistiryText = GetHistoryText(dataList.id)
-        //        });
-        //        return Json(data.First(), JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        public JsonResult GetDefault(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .Where(d => d.id == id)
+                    .Include(d => d.TaskForPZ)
+                    .Include(d => d.PZ_PlanZakaz)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    defaultId = dataList.id,
+                    defaultTaskName = dataList.TaskForPZ.taskName + " по заказу: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString()
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        
-        //UpdateDefault(int id, bool checkedDefault)
+        public JsonResult UpdateDefault(int id, bool checkedDefault)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
+                if(checkedDefault == true)
+                {
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        //GetTEO(int id)
-        //UpdateTEO(int PZ_TEO)
+        public JsonResult GetTEO(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.PZ_TEO.Where(d => d.id == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    idTEO = dataList.id,
+                    dataList.Currency,
+                    dataList.Rate,
+                    dataList.SSM,
+                    dataList.SSR,
+                    dataList.IzdKom,
+                    dataList.IzdPPKredit,
+                    dataList.PI,
+                    dataList.NOP,
+                    dataList.KI_S,
+                    dataList.KI_prochee,
+                    dataList.OtpuskChena,
+                    dataList.KursValuti,
+                    dataList.NDS
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        //GetSetup
-        //UpdateSetup
+        public JsonResult UpdateTEO(PZ_TEO pZ_TEO)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Entry(pZ_TEO).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        //GetLetter
-        //UpdateLetter
+        public JsonResult GetSetup(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.PZ_Setup.Where(d => d.id == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    idSetup = dataList.id,
+                    dataList.KolVoDneyNaPrijemku,
+                    dataList.PunktDogovoraOSrokahPriemki,
+                    dataList.UslovieOplatyText,
+                    dataList.UslovieOplatyInt,
+                    dataList.TimeNaRKD,
+                    dataList.RassmotrenieRKD,
+                    dataList.SrokZamechanieRKD,
+                    dataList.userTP
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        //GetTN
-        //UpdateTN
+        public JsonResult UpdateSetup(PZ_Setup pZ_Setup)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Entry(pZ_Setup).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-        //GetCostSh
-        //UpdateCostSh
+        public JsonResult GetLetter(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .Where(d => d.id == id)
+                    .Include(d => d.TaskForPZ)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    letterId = dataList.id
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateLetter(int id, HttpPostedFileBase[] ofile1)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
+                debit_WorkBit.close = true;
+                debit_WorkBit.dateClose = DateTime.Now;
+                db.Entry(debit_WorkBit).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTN(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_TN.Where(d => d.@int == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    tnId = dataList.@int,
+                    dataList.numberTN,
+                    dataList.dateTN,
+                    dataList.numberSF,
+                    dataList.dateSF,
+                    dataList.Summa
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateTN(Debit_TN debit)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Entry(debit).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetCostSh(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_IstPost.Where(d => d.id == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    costShId = dataList.id,
+                    dataList.transportSum,
+                    dataList.numberOrder,
+                    dataList.ndsSum,
+                    dataList.currency
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateCostSh(Debit_IstPost debit)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Entry(debit).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
