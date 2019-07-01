@@ -782,9 +782,9 @@ namespace Wiki.Areas.PZ.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.PZ_Notes
                 .AsNoTracking()
-                .Where(d => d.id_PZ_PlanZakaz == Id)
-                .Include(d => d.PZ_PlanZakaz)
+                .Include(d => d.PZ_PZNotes.Select(c => c.PZ_PlanZakaz))
                 .Include(d => d.AspNetUsers)
+                .Where(d => d.PZ_PZNotes.Where(c => c.id_PZ_PlanZakaz == Id).Count() > 0)
                 .ToList();
             var data = query.Select(dataList => new
             {
@@ -797,10 +797,11 @@ namespace Wiki.Areas.PZ.Controllers
 
         public JsonResult AddRem(PZ_PlanZakaz pZ_PlanZakaz, string textRem)
         {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
             int idPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.Id).Id;
             PZ_Notes pZ_Notes = new PZ_Notes
             {
-                id_PZ_PlanZakaz = idPZ,
                 note = textRem,
                 dateTimeCreate = DateTime.Now,
                 id_AspNetUsersCreate = db.AspNetUsers
@@ -808,6 +809,11 @@ namespace Wiki.Areas.PZ.Controllers
                                             .Id
             };
             db.PZ_Notes.Add(pZ_Notes);
+            db.SaveChanges();
+            PZ_PZNotes pZ_PZNotes = new PZ_PZNotes();
+            pZ_PZNotes.id_PZ_Notes = pZ_Notes.id;
+            pZ_PZNotes.id_PZ_PlanZakaz = idPZ;
+            db.PZ_PZNotes.Add(pZ_PZNotes);
             db.SaveChanges();
             return Json(idPZ, JsonRequestBehavior.AllowGet);
         }
