@@ -253,6 +253,9 @@ function fullReport() {
             else if (data.status === "Производится") {
                 $('td', row).css('background-color', '#a6e9d7');
             }
+            if (data.finCost - data.manufCost > 100) {
+                $('td', row).eq(9).addClass('highlightColor');
+            }
         },
         "scrollY": '75vh',
         "scrollX": true,
