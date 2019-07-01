@@ -18,7 +18,7 @@
             <li><a onclick="return loadData(3);">Закрытые задачи</a></li>
             <li><a onclick="return loadData(4);">ТЭО</a></li>
             <li><a onclick="return loadData(5);">Договорные условия</a></li>
-            <li><a onclick="return loadData(5);">Поступление средств</a></li>
+            <li><a onclick="return loadData(6);">Поступление средств</a></li>
             <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -155,13 +155,16 @@
         </div>
     </div>
 </div>
-
 <div id="setupModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-lg-2">
+                <div class="col-lg-2" id="divHideSetup">
                     <input type="text" class="form-control" id="idSetup" disabled="disabled" />
+                    <input type="text" class="form-control" id="id_PZ_PlanZakaz" disabled="disabled" />
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="pzSetup" disabled="disabled" />
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -172,34 +175,34 @@
                         <input type="text" class="form-control" id="KolVoDneyNaPrijemku" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Пункт договора о сроках приемки:</label>
-                        <input type="text" class="form-control" id="PunktDogovoraOSrokahPriemki" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Условие оплаты (текст):</label>
-                        <input type="text" class="form-control" id="UslovieOplatyText" />
-                    </div>
-                    <div class="col-lg-2">
                         <label>Условие оплаты (дней):</label>
                         <input type="text" class="form-control" id="UslovieOplatyInt" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Время на подготовку РКД):</label>
+                        <label>Время на подготовку РКД:</label>
                         <input type="text" class="form-control" id="TimeNaRKD" />
                     </div>
                     <div class="col-lg-2">
                         <label>Время на рассмотрение РКД:</label>
                         <input type="text" class="form-control" id="RassmotrenieRKD" />
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-2">
                         <label>Сроки ответа на замечания по РКД:</label>
                         <input type="text" class="form-control" id="SrokZamechanieRKD" />
                     </div>
                     <div class="col-lg-2">
                         <label>Сотрудник подготовивший ТП:</label>
-                        <input type="text" class="form-control" id="userTP" />
+                        @Html.DropDownList("userTP", ViewBag.userTP as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Пункт договора о сроках приемки (текст):</label>
+                        <textarea name="PunktDogovoraOSrokahPriemki" id="PunktDogovoraOSrokahPriemki" class="form-control" rows=7></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Условие оплаты (текст):</label>
+                        <textarea name="UslovieOplatyText" id="UslovieOplatyText" class="form-control" rows=7></textarea>
                     </div>
                 </div>
             </div>
@@ -210,14 +213,13 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdateSetup" style="display:none;" onclick="updateSetup();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateSetup" onclick="updateSetup();">Обновить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div id="letterModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -264,7 +266,6 @@
         </div>
     </div>
 </div>
-
 <div id="tnModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -312,7 +313,6 @@
         </div>
     </div>
 </div>
-
 <div id="costShModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -356,7 +356,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;

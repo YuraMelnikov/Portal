@@ -28,6 +28,8 @@ namespace Wiki.Areas.Reclamation.Models
         public CreateReclamation(Wiki.Reclamation reclamation, string login, bool? reload, int? reloadDevision)
         {
             this.reclamation = reclamation;
+            if(this.reclamation.id_AspNetUsersError == null)
+                this.reclamation.id_AspNetUsersError = db.Reclamation.Find(reclamation.id).id_AspNetUsersError;
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             GetCorrectFieldReclamation();
             CorrectCloseReclamation();

@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
-    document.getElementById('pageId').innerHTML = 1;
+    document.getElementById('pageId').innerHTML = "1";
     document.getElementById('labelList').innerHTML = "Активные задачи";
     $('#pageId').hide();
     $('#teoHide').hide();
+    $('#divHideSetup').hide();
     startMenu();
     if (userGroupId === 1) {
         loadData(2);
@@ -420,7 +421,7 @@ function updateTEO() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            loadData(4);
             $('#teoModal').modal('hide');
         },
         error: function (errormessage) {
@@ -437,7 +438,9 @@ function getSetup(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#pzSetup').val("");
             $('#idSetup').val("");
+            $('#id_PZ_PlanZakaz').val("");
             $('#KolVoDneyNaPrijemku').val("");
             $('#PunktDogovoraOSrokahPriemki').val("");
             $('#UslovieOplatyText').val("");
@@ -446,7 +449,9 @@ function getSetup(id) {
             $('#RassmotrenieRKD').val("");
             $('#SrokZamechanieRKD').val("");
             $('#userTP').val("");
-            $('#idSetup').val(result.id);
+            $('#idSetup').val(result.idSetup);
+            $('#id_PZ_PlanZakaz').val(result.id_PZ_PlanZakaz);
+            $('#pzSetup').val(result.pzSetup);
             $('#KolVoDneyNaPrijemku').val(result.KolVoDneyNaPrijemku);
             $('#PunktDogovoraOSrokahPriemki').val(result.PunktDogovoraOSrokahPriemki);
             $('#UslovieOplatyText').val(result.UslovieOplatyText);
@@ -475,6 +480,7 @@ function updateSetup() {
         , RassmotrenieRKD: $('#RassmotrenieRKD').val()
         , SrokZamechanieRKD: $('#SrokZamechanieRKD').val()
         , userTP: $('#userTP').val()
+        , id_PZ_PlanZakaz: $('#id_PZ_PlanZakaz').val()
     };
     $.ajax({
         cache: false,
@@ -485,7 +491,7 @@ function updateSetup() {
         dataType: "json",
         success: function (result) {
             $('#setupModal').modal('hide');
-            loadData(document.getElementById('pageData').innerHTML);
+            loadData(5);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

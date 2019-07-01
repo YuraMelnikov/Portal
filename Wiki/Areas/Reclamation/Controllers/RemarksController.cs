@@ -313,7 +313,8 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, bool? reload, int? reloadDevision, bool? trash)
+        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, 
+            bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
             AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
@@ -580,7 +581,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksOTK()
         {
-            if (HttpContext.User.Identity.Name == "pev@katek.by")
+            if (HttpContext.User.Identity.Name == "pev@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
             {
                 var data = new TARemarksListView().GetRemarksOTK();
                 return Json(new { data });
@@ -594,7 +595,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksPO()
         {
-            if (HttpContext.User.Identity.Name == "antipov@katek.by")
+            if (HttpContext.User.Identity.Name == "antipov@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
             {
                 var data = new TARemarksListView().GetRemarksPO();
                 return Json(new { data });
