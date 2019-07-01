@@ -293,6 +293,8 @@
     <Compile Include="Areas\Deb\Controllers\UploadController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\Deb\Models\EmailDeb.cs" />
+    <Compile Include="Areas\NotesOrders\Controllers\NoteOrderController.cs" />
+    <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
     <Compile Include="Areas\PZ\Controllers\OperatorController.cs" />
@@ -792,6 +794,7 @@
     <Content Include="Areas\Deb\Contant\Upload.js" />
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
+    <Content Include="Areas\NotesOrders\Content\notes.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
     <Content Include="Areas\PZ\Contant\DataTable\Scroll\dataTables.fixedColumns.min.js" />
@@ -1413,6 +1416,9 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\NotesOrders\Views\web.config" />
+    <Content Include="Areas\NotesOrders\Views\Shared\_LayoutNoteOrder.cshtml" />
+    <Content Include="Areas\NotesOrders\Views\NoteOrder\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1805,6 +1811,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\AccountsReceivable\Models\" />
+    <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
