@@ -1,1 +1,3 @@
-﻿
+﻿// loadData
+// notesTable
+// clearTextBox

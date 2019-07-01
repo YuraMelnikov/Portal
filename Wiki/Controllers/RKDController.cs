@@ -180,7 +180,7 @@ namespace Wiki.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz
                 .Include(d => d.RKD_Order)
-                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.RKD_Order.Count > 0)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.RKD_Order.Count == 0)
                 .OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             return View();
         }

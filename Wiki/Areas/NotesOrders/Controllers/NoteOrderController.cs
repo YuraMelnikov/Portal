@@ -12,7 +12,11 @@ namespace Wiki.Areas.NotesOrders.Controllers
         readonly JsonSerializerSettings settingsLong = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         public ActionResult Index()
         {
-            return View();
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                ViewBag.pz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+                return View();
+            }
         }
 
         [HttpPost]
@@ -99,29 +103,29 @@ namespace Wiki.Areas.NotesOrders.Controllers
             }
         }
 
-        public JsonResult AddRem(PZ_PlanZakaz pZ_PlanZakaz, string textRem)
+        public JsonResult AddRem(int[] pz, string textRem)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int idPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.Id).Id;
                 PZ_Notes pZ_Notes = new PZ_Notes
                 {
                     note = textRem,
                     dateTimeCreate = DateTime.Now,
-                    id_AspNetUsersCreate = db.AspNetUsers
-                                                .First(d => d.Email == HttpContext.User.Identity.Name)
-                                                .Id
+                    id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == HttpContext.User.Identity.Name).Id
                 };
                 db.PZ_Notes.Add(pZ_Notes);
                 db.SaveChanges();
-                PZ_PZNotes pZ_PZNotes = new PZ_PZNotes();
-                pZ_PZNotes.id_PZ_Notes = pZ_Notes.id;
-                pZ_PZNotes.id_PZ_PlanZakaz = idPZ;
-                db.PZ_PZNotes.Add(pZ_PZNotes);
-                db.SaveChanges();
-                return Json(idPZ, JsonRequestBehavior.AllowGet);
+                foreach(var data in pz)
+                {
+                    PZ_PZNotes pZ_PZNotes = new PZ_PZNotes();
+                    pZ_PZNotes.id_PZ_Notes = pZ_Notes.id;
+                    pZ_PZNotes.id_PZ_PlanZakaz = data;
+                    db.PZ_PZNotes.Add(pZ_PZNotes);
+                    db.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
