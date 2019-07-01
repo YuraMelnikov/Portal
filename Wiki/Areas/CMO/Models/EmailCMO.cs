@@ -17,7 +17,7 @@ namespace Wiki.Areas.CMO.Models
         string login;
         List<string> mailToList;
         CMO2_Order order;
-        readonly PortalKATEKEntities db = new PortalKATEKEntities();
+        private new readonly PortalKATEKEntities db = new PortalKATEKEntities();
         public EmailCMO(CMO2_Order order, string login, int stepNumber)
         {
             mailToList = new List<string>();

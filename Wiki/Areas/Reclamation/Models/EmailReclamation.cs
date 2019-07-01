@@ -19,7 +19,7 @@ namespace Wiki.Areas.Reclamation.Models
         string login;
         List<string> mailToList;
         Wiki.Reclamation reclamation;
-        private readonly PortalKATEKEntities db = new PortalKATEKEntities();
+        private new readonly PortalKATEKEntities db = new PortalKATEKEntities();
         public EmailReclamation(Wiki.Reclamation reclamation, string login, int stepNumber)
         {
             try

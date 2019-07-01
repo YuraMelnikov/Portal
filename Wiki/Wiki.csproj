@@ -410,8 +410,6 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadDocumentController.cs" />
     <Compile Include="Controllers\UploadERController.cs" />
-    <Compile Include="Controllers\VVPZsController.cs" />
-    <Compile Include="Controllers\VV_PositionController.cs" />
     <Compile Include="DashboardBP_HSSPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -455,9 +453,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Debit_MatchingType.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Debit_Name.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Debit_PeriodReportOprih.cs">
@@ -504,9 +499,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="HSSPO.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelIdentity\AppRole.cs" />
@@ -585,9 +577,6 @@
     <Compile Include="PF.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Post.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="PostAlertShip.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -646,6 +635,9 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PZ_ProductType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PZ_PZNotes.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PZ_Setup.cs">
@@ -778,13 +770,7 @@
     <Compile Include="UserPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="VVPZ.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="VV_infPost.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="VV_Position.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS_ClassicStruct.cs">
@@ -1717,16 +1703,6 @@
     <Content Include="Views\Debit_WorkBit\Details.cshtml" />
     <Content Include="Views\Debit_WorkBit\Edit.cshtml" />
     <Content Include="Views\Debit_WorkBit\Index.cshtml" />
-    <Content Include="Views\VVPZs\Create.cshtml" />
-    <Content Include="Views\VVPZs\Delete.cshtml" />
-    <Content Include="Views\VVPZs\Details.cshtml" />
-    <Content Include="Views\VVPZs\Edit.cshtml" />
-    <Content Include="Views\VVPZs\Index.cshtml" />
-    <Content Include="Views\VV_Position\Create.cshtml" />
-    <Content Include="Views\VV_Position\Delete.cshtml" />
-    <Content Include="Views\VV_Position\Details.cshtml" />
-    <Content Include="Views\VV_Position\Edit.cshtml" />
-    <Content Include="Views\VV_Position\Index.cshtml" />
     <Content Include="Views\PZ_TEO\Edit.cshtml" />
     <Content Include="Views\PZ_TEO\Index.cshtml" />
     <Content Include="Views\PZ_Setup\Create.cshtml" />
@@ -1738,7 +1714,6 @@
     <Content Include="Views\Shared\_LayoutUpload.cshtml" />
     <Content Include="Views\UploadDocument\UploadAlertShip.cshtml" />
     <Content Include="Views\UploadDocument\UploadMatchingShip.cshtml" />
-    <Content Include="Views\VV_Position\List.cshtml" />
     <Content Include="Views\UploadDocument\UploadCMR.cshtml" />
     <Content Include="Views\Debit_IstPost\Create.cshtml" />
     <Content Include="Views\Debit_IstPost\Delete.cshtml" />

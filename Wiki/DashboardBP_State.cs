@@ -17,11 +17,11 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DashboardBP_State()
         {
+            this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
             this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
             this.DashboardHSSPlan = new HashSet<DashboardHSSPlan>();
             this.DashboardRatePlan = new HashSet<DashboardRatePlan>();
             this.DashboardRemaining = new HashSet<DashboardRemaining>();
-            this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
         }
     
         public int id { get; set; }
@@ -30,6 +30,8 @@ namespace Wiki
         public bool active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardHSSPlan> DashboardHSSPlan { get; set; }
@@ -37,7 +39,5 @@ namespace Wiki
         public virtual ICollection<DashboardRatePlan> DashboardRatePlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardRemaining> DashboardRemaining { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
     }
 }

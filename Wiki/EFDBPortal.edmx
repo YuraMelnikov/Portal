@@ -440,17 +440,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Debit_Name">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_Debit_WorkBit" Type="int" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
-          <Property Name="nameRKD" Type="varchar(max)" Nullable="false" />
-          <Property Name="nameTableModul" Type="varchar(max)" Nullable="false" />
-          <Property Name="name1c" Type="varchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="Debit_PeriodReportOprih">
           <Key>
             <PropertyRef Name="id" />
@@ -640,16 +629,6 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="datetime" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="num" Type="varchar(max)" Nullable="false" />
-          <Property Name="dateCreate" Type="datetime" Nullable="false" />
-          <Property Name="id_userCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="PostAlertShip">
           <Key>
             <PropertyRef Name="id" />
@@ -768,7 +747,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
           <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="note" Type="varchar(max)" Nullable="false" />
@@ -836,6 +814,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tu" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PZ_PZNotes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_PZ_Notes" Type="int" />
         </EntityType>
         <EntityType Name="PZ_Setup">
           <Key>
@@ -1281,39 +1267,6 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="VV_Position">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_VVPZ" Type="int" Nullable="false" />
-          <Property Name="numMesto" Type="int" Nullable="false" />
-          <Property Name="Gabarit" Type="varchar(max)" Nullable="false" />
-          <Property Name="Description" Type="varchar(max)" Nullable="false" />
-          <Property Name="massaBrutto" Type="int" Nullable="false" />
-          <Property Name="massaNetto" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="VVPZ">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar(max)" />
-          <Property Name="description" Type="varchar(max)" />
-          <Property Name="massaBrutto" Type="int" />
-          <Property Name="massaNetto" Type="int" />
-          <Property Name="gruzopoluchatel" Type="varchar(max)" />
-          <Property Name="adresGruzo" Type="varchar(max)" />
-          <Property Name="iNNGruz" Type="varchar(max)" />
-          <Property Name="oKPOGruz" Type="varchar(max)" />
-          <Property Name="kodGruz" Type="varchar(max)" />
-          <Property Name="sTNazn" Type="varchar(max)" />
-          <Property Name="kodSt" Type="varchar(max)" />
-          <Property Name="osobieOtm" Type="varchar(max)" />
-          <Property Name="prochee" Type="varchar(max)" />
-          <Property Name="dateSh" Type="date" />
-        </EntityType>
         <EntityType Name="WBS_ClassicStruct">
           <Key>
             <PropertyRef Name="id" />
@@ -1369,44 +1322,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="PlanFinishWork2" Type="date" />
           <Property Name="FactFinishDate" Type="date" />
           <Property Name="folder" Type="varchar(max)" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.HSSPO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="HSSPO">
-          <Key>
-            <PropertyRef Name="PK" />
-          </Key>
-          <Property Name="PK" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OrderPZ" Type="nvarchar" MaxLength="4000" />
-          <Property Name="TaskUID" Type="uniqueidentifier" />
-          <Property Name="TaskName" Type="nvarchar" MaxLength="255" />
-          <Property Name="TimeByDay" Type="datetime" />
-          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
-          <Property Name="CountPO" Type="decimal" Precision="25" Scale="6" />
-          <Property Name="RatePlan" Type="float" />
-          <Property Name="SSMPlan" Type="float" />
-          <Property Name="SSMFact" Type="float" />
-          <Property Name="SSRPlan" Type="float" />
-          <Property Name="ik" Type="float" />
-          <Property Name="ppk" Type="float" />
-          <Property Name="pi" Type="float" />
-          <Property Name="nop" Type="float" />
-          <Property Name="RateHoure" Type="float" />
-          <Property Name="ssmHoure" Type="float" />
-          <Property Name="ssmFactHoure" Type="float" />
-          <Property Name="ssrHoure" Type="float" />
-          <Property Name="ikHoure" Type="float" />
-          <Property Name="ppkHoure" Type="float" />
-          <Property Name="piHoure" Type="float" />
-          <Property Name="nopHoure" Type="float" />
-          <Property Name="xRate" Type="float" />
-          <Property Name="xSSM" Type="float" />
-          <Property Name="xSSMFact" Type="float" />
-          <Property Name="xSSR" Type="float" />
-          <Property Name="xIK" Type="float" />
-          <Property Name="xPPK" Type="float" />
-          <Property Name="xPI" Type="float" />
-          <Property Name="xNOP" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2085,30 +2000,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Debit_Name_debit_WorkBit">
-          <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
-          <End Role="Debit_Name" Type="Self.Debit_Name" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_WorkBit">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Debit_Name">
-              <PropertyRef Name="id_Debit_WorkBit" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Debit_Name_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="Debit_Name" Type="Self.Debit_Name" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Debit_Name">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Debit_Platform_PZ_PlanZakaz">
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="0..1" />
           <End Role="Debit_Platform" Type="Self.Debit_Platform" Multiplicity="*" />
@@ -2505,18 +2396,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PZ_Notes_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="PZ_Notes" Type="Self.PZ_Notes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PZ_Notes">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PZ_PlanZakaz_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="*" />
@@ -2598,6 +2477,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="PZ_PlanZakaz">
               <PropertyRef Name="TypeShip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_PZNotes_PZ_Notes">
+          <End Role="PZ_Notes" Type="Self.PZ_Notes" Multiplicity="0..1" />
+          <End Role="PZ_PZNotes" Type="Self.PZ_PZNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_Notes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_PZNotes">
+              <PropertyRef Name="id_PZ_Notes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_PZNotes_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="PZ_PZNotes" Type="Self.PZ_PZNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PZ_PZNotes">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3321,30 +3224,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VV_Position_VVPZ">
-          <End Role="VVPZ" Type="Self.VVPZ" Multiplicity="1" />
-          <End Role="VV_Position" Type="Self.VV_Position" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VVPZ">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="VV_Position">
-              <PropertyRef Name="id_VVPZ" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VVPZ_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="VVPZ" Type="Self.VVPZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VVPZ">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PortalKATEKModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -3381,7 +3260,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_EmailList" EntityType="Self.Debit_EmailList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_IstPost" EntityType="Self.Debit_IstPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_MatchingType" EntityType="Self.Debit_MatchingType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Debit_Name" EntityType="Self.Debit_Name" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="Self.Debit_PeriodReportOprih" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_Platform" EntityType="Self.Debit_Platform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_PostingOffType" EntityType="Self.Debit_PostingOffType" Schema="dbo" store:Type="Tables" />
@@ -3399,7 +3277,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="OTK_ReclamationKO" EntityType="Self.OTK_ReclamationKO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OTK_TypeReclamation" EntityType="Self.OTK_TypeReclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectServer_CreateTasks" EntityType="Self.ProjectServer_CreateTasks" Schema="dbo" store:Type="Tables" />
@@ -3415,6 +3292,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PZ_OperatorDogovora" EntityType="Self.PZ_OperatorDogovora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_PlanZakaz" EntityType="Self.PZ_PlanZakaz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_ProductType" EntityType="Self.PZ_ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PZ_PZNotes" EntityType="Self.PZ_PZNotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Setup" EntityType="Self.PZ_Setup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TEO" EntityType="Self.PZ_TEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_TypeShip" EntityType="Self.PZ_TypeShip" Schema="dbo" store:Type="Tables" />
@@ -3457,8 +3335,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeTaskForPZ" EntityType="Self.TypeTaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VV_Position" EntityType="Self.VV_Position" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VVPZ" EntityType="Self.VVPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_Report" EntityType="Self.CMO_Report" store:Type="Views" store:Schema="dbo">
@@ -3481,41 +3357,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
     [CMO_Report].[FactFinishDate] AS [FactFinishDate], 
     [CMO_Report].[folder] AS [folder]
     FROM [dbo].[CMO_Report] AS [CMO_Report]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="HSSPO" EntityType="Self.HSSPO" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [HSSPO].[PK] AS [PK], 
-    [HSSPO].[OrderPZ] AS [OrderPZ], 
-    [HSSPO].[TaskUID] AS [TaskUID], 
-    [HSSPO].[TaskName] AS [TaskName], 
-    [HSSPO].[TimeByDay] AS [TimeByDay], 
-    [HSSPO].[AssignmentWork] AS [AssignmentWork], 
-    [HSSPO].[CountPO] AS [CountPO], 
-    [HSSPO].[RatePlan] AS [RatePlan], 
-    [HSSPO].[SSMPlan] AS [SSMPlan], 
-    [HSSPO].[SSMFact] AS [SSMFact], 
-    [HSSPO].[SSRPlan] AS [SSRPlan], 
-    [HSSPO].[ik] AS [ik], 
-    [HSSPO].[ppk] AS [ppk], 
-    [HSSPO].[pi] AS [pi], 
-    [HSSPO].[nop] AS [nop], 
-    [HSSPO].[RateHoure] AS [RateHoure], 
-    [HSSPO].[ssmHoure] AS [ssmHoure], 
-    [HSSPO].[ssmFactHoure] AS [ssmFactHoure], 
-    [HSSPO].[ssrHoure] AS [ssrHoure], 
-    [HSSPO].[ikHoure] AS [ikHoure], 
-    [HSSPO].[ppkHoure] AS [ppkHoure], 
-    [HSSPO].[piHoure] AS [piHoure], 
-    [HSSPO].[nopHoure] AS [nopHoure], 
-    [HSSPO].[xRate] AS [xRate], 
-    [HSSPO].[xSSM] AS [xSSM], 
-    [HSSPO].[xSSMFact] AS [xSSMFact], 
-    [HSSPO].[xSSR] AS [xSSR], 
-    [HSSPO].[xIK] AS [xIK], 
-    [HSSPO].[xPPK] AS [xPPK], 
-    [HSSPO].[xPI] AS [xPI], 
-    [HSSPO].[xNOP] AS [xNOP]
-    FROM [dbo].[HSSPO] AS [HSSPO]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OTKMultiSelectList" EntityType="Self.OTKMultiSelectList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -3815,14 +3656,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_IstPost" EntitySet="Debit_IstPost" />
           </AssociationSet>
-          <AssociationSet Name="FK_Debit_Name_debit_WorkBit" Association="Self.FK_Debit_Name_debit_WorkBit">
-            <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
-            <End Role="Debit_Name" EntitySet="Debit_Name" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Debit_Name_PZ_PlanZakaz" Association="Self.FK_Debit_Name_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="Debit_Name" EntitySet="Debit_Name" />
-          </AssociationSet>
           <AssociationSet Name="FK_Debit_Platform_PZ_PlanZakaz" Association="Self.FK_Debit_Platform_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="Debit_Platform" EntitySet="Debit_Platform" />
@@ -3955,10 +3788,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="PZ_Notes" EntitySet="PZ_Notes" />
           </AssociationSet>
-          <AssociationSet Name="FK_PZ_Notes_PZ_PlanZakaz" Association="Self.FK_PZ_Notes_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
-          </AssociationSet>
           <AssociationSet Name="FK_PZ_PlanZakaz_AspNetUsers" Association="Self.FK_PZ_PlanZakaz_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -3986,6 +3815,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_PZ_PlanZakaz_PZ_TypeShip" Association="Self.FK_PZ_PlanZakaz_PZ_TypeShip">
             <End Role="PZ_TypeShip" EntitySet="PZ_TypeShip" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_PZNotes_PZ_Notes" Association="Self.FK_PZ_PZNotes_PZ_Notes">
+            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
+            <End Role="PZ_PZNotes" EntitySet="PZ_PZNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_PZNotes_PZ_PlanZakaz" Association="Self.FK_PZ_PZNotes_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PZ_PZNotes" EntitySet="PZ_PZNotes" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_Setup_AspNetUsers" Association="Self.FK_PZ_Setup_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4227,14 +4064,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="TypeTaskForPZ" EntitySet="TypeTaskForPZ" />
             <End Role="TaskForPZ" EntitySet="TaskForPZ" />
           </AssociationSet>
-          <AssociationSet Name="FK_VV_Position_VVPZ" Association="Self.FK_VV_Position_VVPZ">
-            <End Role="VVPZ" EntitySet="VVPZ" />
-            <End Role="VV_Position" EntitySet="VV_Position" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VVPZ_PZ_PlanZakaz" Association="Self.FK_VVPZ_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="VVPZ" EntitySet="VVPZ" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -4298,16 +4127,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="num" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_userCreate" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectServer_CreateTasks">
           <Key>
@@ -4417,7 +4236,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_EmailList" EntityType="Self.Debit_EmailList" />
           <EntitySet Name="Folder" EntityType="Self.Folder" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" />
-          <EntitySet Name="Post" EntityType="Self.Post" />
           <EntitySet Name="ProjectServer_CreateTasks" EntityType="Self.ProjectServer_CreateTasks" />
           <EntitySet Name="ProjectServer_UpdateTasks" EntityType="Self.ProjectServer_UpdateTasks" />
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" />
@@ -4439,8 +4257,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           </AssociationSet>
           <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
           <EntitySet Name="ProjectMSP_EpmProject_UserView" EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" />
-          <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
-          <EntitySet Name="HSSPO" EntityType="PortalKATEKModel.HSSPO" />
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
@@ -4460,6 +4276,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="CMO_UploadResult" EntityType="PortalKATEKModel.CMO_UploadResult" />
           <EntitySet Name="CMO2_Order" EntityType="PortalKATEKModel.CMO2_Order" />
           <EntitySet Name="CMO2_Position" EntityType="PortalKATEKModel.CMO2_Position" />
+          <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
           <EntitySet Name="DashboardBP_ProjectList" EntityType="PortalKATEKModel.DashboardBP_ProjectList" />
           <EntitySet Name="DashboardBP_State" EntityType="PortalKATEKModel.DashboardBP_State" />
           <EntitySet Name="DashboardBP_TasksList" EntityType="PortalKATEKModel.DashboardBP_TasksList" />
@@ -4470,7 +4287,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
           <EntitySet Name="Debit_IstPost" EntityType="PortalKATEKModel.Debit_IstPost" />
-          <EntitySet Name="Debit_Name" EntityType="PortalKATEKModel.Debit_Name" />
           <EntitySet Name="Debit_PeriodReportOprih" EntityType="PortalKATEKModel.Debit_PeriodReportOprih" />
           <EntitySet Name="Debit_Platform" EntityType="PortalKATEKModel.Debit_Platform" />
           <EntitySet Name="Debit_PostingOffType" EntityType="PortalKATEKModel.Debit_PostingOffType" />
@@ -4494,9 +4310,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PZ_Currency" EntityType="PortalKATEKModel.PZ_Currency" />
           <EntitySet Name="PZ_Dostavka" EntityType="PortalKATEKModel.PZ_Dostavka" />
           <EntitySet Name="PZ_FIO" EntityType="PortalKATEKModel.PZ_FIO" />
+          <EntitySet Name="PZ_Notes" EntityType="PortalKATEKModel.PZ_Notes" />
           <EntitySet Name="PZ_OperatorDogovora" EntityType="PortalKATEKModel.PZ_OperatorDogovora" />
           <EntitySet Name="PZ_PlanZakaz" EntityType="PortalKATEKModel.PZ_PlanZakaz" />
           <EntitySet Name="PZ_ProductType" EntityType="PortalKATEKModel.PZ_ProductType" />
+          <EntitySet Name="PZ_PZNotes" EntityType="PortalKATEKModel.PZ_PZNotes" />
           <EntitySet Name="PZ_Setup" EntityType="PortalKATEKModel.PZ_Setup" />
           <EntitySet Name="PZ_TEO" EntityType="PortalKATEKModel.PZ_TEO" />
           <EntitySet Name="PZ_TypeShip" EntityType="PortalKATEKModel.PZ_TypeShip" />
@@ -4535,8 +4353,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="TaskForPZ" EntityType="PortalKATEKModel.TaskForPZ" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="PortalKATEKModel.TypeRKD_Mail_Version" />
           <EntitySet Name="TypeTaskForPZ" EntityType="PortalKATEKModel.TypeTaskForPZ" />
-          <EntitySet Name="VV_Position" EntityType="PortalKATEKModel.VV_Position" />
-          <EntitySet Name="VVPZ" EntityType="PortalKATEKModel.VVPZ" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="PortalKATEKModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -4584,6 +4400,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers3" Association="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_Notes_AspNetUsers" Association="PortalKATEKModel.FK_PZ_Notes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_PlanZakaz_AspNetUsers" Association="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4636,6 +4456,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_RKD_QuestionData_AspNetUsers1" Association="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RKD_QuestionData" EntitySet="RKD_QuestionData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceRemarks_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ServiceRemarks" EntitySet="ServiceRemarks" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceRemarksActions_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4725,6 +4549,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMO2_Position" EntitySet="CMO2_Position" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State">
+            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
+          </AssociationSet>
           <AssociationSet Name="FK_DashboardBP_ProjectList_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
             <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
@@ -4780,14 +4612,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_Debit_IstPost_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
             <End Role="Debit_IstPost" EntitySet="Debit_IstPost" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Debit_Name_debit_WorkBit" Association="PortalKATEKModel.FK_Debit_Name_debit_WorkBit">
-            <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
-            <End Role="Debit_Name" EntitySet="Debit_Name" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Debit_Name_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Debit_Name_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="Debit_Name" EntitySet="Debit_Name" />
           </AssociationSet>
           <AssociationSet Name="FK_Debit_Platform_PZ_PlanZakaz" Association="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4917,6 +4741,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_FIO" EntitySet="PZ_FIO" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
+          <AssociationSet Name="FK_PZ_PZNotes_PZ_Notes" Association="PortalKATEKModel.FK_PZ_PZNotes_PZ_Notes">
+            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
+            <End Role="PZ_PZNotes" EntitySet="PZ_PZNotes" />
+          </AssociationSet>
           <AssociationSet Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora" Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora">
             <End Role="PZ_OperatorDogovora" EntitySet="PZ_OperatorDogovora" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4928,6 +4756,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_PZ_PlanZakaz_PZ_TypeShip" Association="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip">
             <End Role="PZ_TypeShip" EntitySet="PZ_TypeShip" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_PZNotes_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PZ_PZNotes_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PZ_PZNotes" EntitySet="PZ_PZNotes" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_Setup_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PZ_Setup_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -4952,10 +4784,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" Association="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="ServiceRemarksPlanZakazs" EntitySet="ServiceRemarksPlanZakazs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VVPZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="VVPZ" EntitySet="VVPZ" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation">
             <End Role="Reclamation" EntitySet="Reclamation" />
@@ -5093,34 +4921,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="TypeTaskForPZ" EntitySet="TypeTaskForPZ" />
             <End Role="TaskForPZ" EntitySet="TaskForPZ" />
           </AssociationSet>
-          <AssociationSet Name="FK_VV_Position_VVPZ" Association="PortalKATEKModel.FK_VV_Position_VVPZ">
-            <End Role="VVPZ" EntitySet="VVPZ" />
-            <End Role="VV_Position" EntitySet="VV_Position" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServiceRemarks_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="ServiceRemarks" EntitySet="ServiceRemarks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State">
-            <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
-            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="DashboardBP_HSSPO" EntitySet="DashboardBP_HSSPO" />
-          </AssociationSet>
-          <EntitySet Name="PZ_Notes" EntityType="PortalKATEKModel.PZ_Notes" />
-          <AssociationSet Name="FK_PZ_Notes_AspNetUsers" Association="PortalKATEKModel.FK_PZ_Notes_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PZ_Notes_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PZ_Notes_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="PZ_Notes" EntitySet="PZ_Notes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -5318,84 +5121,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="ProjectPercentWorkCompleted" Type="Int16" />
           <Property Name="ProjectWorkVariance" Type="Decimal" Precision="25" Scale="6" />
         </EntityType>
-        <EntityType Name="DashboardBP_HSSPO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="taskUID" Type="Guid" Nullable="false" />
-          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="timeByDay" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="assignmentWork" Type="Double" Nullable="false" />
-          <Property Name="rateUSD" Type="Double" Nullable="false" />
-          <Property Name="ssmPlan" Type="Double" Nullable="false" />
-          <Property Name="ssmFact" Type="Double" Nullable="false" />
-          <Property Name="ssrPlan" Type="Double" Nullable="false" />
-          <Property Name="ik" Type="Double" Nullable="false" />
-          <Property Name="ppk" Type="Double" Nullable="false" />
-          <Property Name="pi" Type="Double" Nullable="false" />
-          <Property Name="nop" Type="Double" Nullable="false" />
-          <Property Name="rateHoure" Type="Double" Nullable="false" />
-          <Property Name="ssmPlanHoure" Type="Double" Nullable="false" />
-          <Property Name="ssmFactHoure" Type="Double" Nullable="false" />
-          <Property Name="ssrHoure" Type="Double" Nullable="false" />
-          <Property Name="ikHoure" Type="Double" Nullable="false" />
-          <Property Name="ppkHoure" Type="Double" Nullable="false" />
-          <Property Name="piHoure" Type="Double" Nullable="false" />
-          <Property Name="nopHoure" Type="Double" Nullable="false" />
-          <Property Name="xReate" Type="Double" Nullable="false" />
-          <Property Name="xSsm" Type="Double" Nullable="false" />
-          <Property Name="xSsmFact" Type="Double" Nullable="false" />
-          <Property Name="xSsr" Type="Double" Nullable="false" />
-          <Property Name="xIk" Type="Double" Nullable="false" />
-          <Property Name="xPpk" Type="Double" Nullable="false" />
-          <Property Name="xPi" Type="Double" Nullable="false" />
-          <Property Name="xNop" Type="Double" Nullable="false" />
-          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_HSSPO" ToRole="DashboardBP_State" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="DashboardBP_HSSPO" ToRole="PZ_PlanZakaz" />
-          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="quartal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="HSSPO">
-          <Key>
-            <PropertyRef Name="PK" />
-          </Key>
-          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrderPZ" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="TaskUID" Type="Guid" />
-          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="CountPO" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="RatePlan" Type="Double" />
-          <Property Name="SSMPlan" Type="Double" />
-          <Property Name="SSMFact" Type="Double" />
-          <Property Name="SSRPlan" Type="Double" />
-          <Property Name="ik" Type="Double" />
-          <Property Name="ppk" Type="Double" />
-          <Property Name="pi" Type="Double" />
-          <Property Name="nop" Type="Double" />
-          <Property Name="RateHoure" Type="Double" />
-          <Property Name="ssmHoure" Type="Double" />
-          <Property Name="ssmFactHoure" Type="Double" />
-          <Property Name="ssrHoure" Type="Double" />
-          <Property Name="ikHoure" Type="Double" />
-          <Property Name="ppkHoure" Type="Double" />
-          <Property Name="piHoure" Type="Double" />
-          <Property Name="nopHoure" Type="Double" />
-          <Property Name="xRate" Type="Double" />
-          <Property Name="xSSM" Type="Double" />
-          <Property Name="xSSMFact" Type="Double" />
-          <Property Name="xSSR" Type="Double" />
-          <Property Name="xIK" Type="Double" />
-          <Property Name="xPPK" Type="Double" />
-          <Property Name="xPI" Type="Double" />
-          <Property Name="xNOP" Type="Double" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -5457,6 +5182,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="OTK_ReclamationKO1" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers1" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="OTK_ReclamationKO2" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="OTK_ReclamationKO3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
+          <NavigationProperty Name="PZ_Notes" Relationship="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Notes" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Setup" />
           <NavigationProperty Name="Reclamation_Answer" Relationship="PortalKATEKModel.FK_Reclamation_Answer_AspNetUsers1" FromRole="AspNetUsers" ToRole="Reclamation_Answer" />
@@ -5470,11 +5196,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="RKD_Question" Relationship="PortalKATEKModel.FK_RKD_Question_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_Question" />
           <NavigationProperty Name="RKD_QuestionData" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
           <NavigationProperty Name="RKD_QuestionData1" Relationship="PortalKATEKModel.FK_RKD_QuestionData_AspNetUsers1" FromRole="AspNetUsers" ToRole="RKD_QuestionData" />
+          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarks" />
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarks" />
-          <NavigationProperty Name="PZ_Notes" Relationship="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Notes" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -5680,6 +5405,48 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" FromRole="CMO2_Position" ToRole="CMO2_Order" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="CMO2_Position" ToRole="PZ_PlanZakaz" />
         </EntityType>
+        <EntityType Name="DashboardBP_HSSPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="taskUID" Type="Guid" Nullable="false" />
+          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="timeByDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="assignmentWork" Type="Double" Nullable="false" />
+          <Property Name="rateUSD" Type="Double" Nullable="false" />
+          <Property Name="ssmPlan" Type="Double" Nullable="false" />
+          <Property Name="ssmFact" Type="Double" Nullable="false" />
+          <Property Name="ssrPlan" Type="Double" Nullable="false" />
+          <Property Name="ik" Type="Double" Nullable="false" />
+          <Property Name="ppk" Type="Double" Nullable="false" />
+          <Property Name="pi" Type="Double" Nullable="false" />
+          <Property Name="nop" Type="Double" Nullable="false" />
+          <Property Name="rateHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmPlanHoure" Type="Double" Nullable="false" />
+          <Property Name="ssmFactHoure" Type="Double" Nullable="false" />
+          <Property Name="ssrHoure" Type="Double" Nullable="false" />
+          <Property Name="ikHoure" Type="Double" Nullable="false" />
+          <Property Name="ppkHoure" Type="Double" Nullable="false" />
+          <Property Name="piHoure" Type="Double" Nullable="false" />
+          <Property Name="nopHoure" Type="Double" Nullable="false" />
+          <Property Name="xReate" Type="Double" Nullable="false" />
+          <Property Name="xSsm" Type="Double" Nullable="false" />
+          <Property Name="xSsmFact" Type="Double" Nullable="false" />
+          <Property Name="xSsr" Type="Double" Nullable="false" />
+          <Property Name="xIk" Type="Double" Nullable="false" />
+          <Property Name="xPpk" Type="Double" Nullable="false" />
+          <Property Name="xPi" Type="Double" Nullable="false" />
+          <Property Name="xNop" Type="Double" Nullable="false" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="quartal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_HSSPO" ToRole="DashboardBP_State" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="DashboardBP_HSSPO" ToRole="PZ_PlanZakaz" />
+        </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
             <PropertyRef Name="id" />
@@ -5704,11 +5471,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="numberWeek" Type="Int16" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_HSSPO" />
           <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_ProjectList" />
           <NavigationProperty Name="DashboardHSSPlan" Relationship="PortalKATEKModel.FK_DashboardHSSPlan_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardHSSPlan" />
           <NavigationProperty Name="DashboardRatePlan" Relationship="PortalKATEKModel.FK_DashboardRatePlan_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardRatePlan" />
           <NavigationProperty Name="DashboardRemaining" Relationship="PortalKATEKModel.FK_DashboardRemaining_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardRemaining" />
-          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_State" ToRole="DashboardBP_HSSPO" />
         </EntityType>
         <EntityType Name="DashboardBP_TasksList">
           <Key>
@@ -5824,19 +5591,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="currency" Type="Int32" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit" FromRole="Debit_IstPost" ToRole="Debit_WorkBit" />
         </EntityType>
-        <EntityType Name="Debit_Name">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Debit_WorkBit" Type="Int32" Nullable="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="nameRKD" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="nameTableModul" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="name1c" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_Debit_Name_debit_WorkBit" FromRole="Debit_Name" ToRole="Debit_WorkBit" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_Debit_Name_PZ_PlanZakaz" FromRole="Debit_Name" ToRole="PZ_PlanZakaz" />
-        </EntityType>
         <EntityType Name="Debit_PeriodReportOprih">
           <Key>
             <PropertyRef Name="id" />
@@ -5907,7 +5661,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Debit_CMR" Relationship="PortalKATEKModel.FK_Debit_CMR_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="Debit_CMR" />
           <NavigationProperty Name="Debit_DataReportOprih" Relationship="PortalKATEKModel.FK_Debit_DataReportOprih_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="Debit_DataReportOprih" />
           <NavigationProperty Name="Debit_IstPost" Relationship="PortalKATEKModel.FK_Debit_IstPost_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="Debit_IstPost" />
-          <NavigationProperty Name="Debit_Name" Relationship="PortalKATEKModel.FK_Debit_Name_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="Debit_Name" />
           <NavigationProperty Name="Debit_TN" Relationship="PortalKATEKModel.FK_Debit_TN_debit_WorkBit" FromRole="Debit_WorkBit" ToRole="Debit_TN" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_debit_WorkBit_PZ_PlanZakaz" FromRole="Debit_WorkBit" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_debit_WorkBit_TaskForPZ" FromRole="Debit_WorkBit" ToRole="TaskForPZ" />
@@ -6157,6 +5910,17 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="PZ_Client" Relationship="PortalKATEKModel.FK_PZ_FIO_PZ_Client" FromRole="PZ_FIO" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_FIO" FromRole="PZ_FIO" ToRole="PZ_PlanZakaz" />
         </EntityType>
+        <EntityType Name="PZ_Notes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" FromRole="PZ_Notes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PZNotes" Relationship="PortalKATEKModel.FK_PZ_PZNotes_PZ_Notes" FromRole="PZ_Notes" ToRole="PZ_PZNotes" />
+        </EntityType>
         <EntityType Name="PZ_OperatorDogovora">
           <Key>
             <PropertyRef Name="id" />
@@ -6217,9 +5981,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionPreOrder" />
           <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO2_Position" />
+          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_HSSPO" />
           <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_ProjectList" />
           <NavigationProperty Name="Debit_CostUpdate" Relationship="PortalKATEKModel.FK_Debit_CostUpdate_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_CostUpdate" />
-          <NavigationProperty Name="Debit_Name" Relationship="PortalKATEKModel.FK_Debit_Name_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Name" />
           <NavigationProperty Name="Debit_Platform" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Platform" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_debit_WorkBit_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_WorkBit" />
           <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
@@ -6231,15 +5995,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="PZ_OperatorDogovora" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_OperatorDogovora" FromRole="PZ_PlanZakaz" ToRole="PZ_OperatorDogovora" />
           <NavigationProperty Name="PZ_ProductType" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_ProductType" FromRole="PZ_PlanZakaz" ToRole="PZ_ProductType" />
           <NavigationProperty Name="PZ_TypeShip" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_TypeShip" FromRole="PZ_PlanZakaz" ToRole="PZ_TypeShip" />
+          <NavigationProperty Name="PZ_PZNotes" Relationship="PortalKATEKModel.FK_PZ_PZNotes_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_PZNotes" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_Setup" />
           <NavigationProperty Name="PZ_TEO" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_TEO" />
           <NavigationProperty Name="Reclamation_CloseOrder" Relationship="PortalKATEKModel.FK_Reclamation_CloseOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_CloseOrder" />
           <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
-          <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="VVPZ" />
-          <NavigationProperty Name="DashboardBP_HSSPO" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBP_HSSPO" />
-          <NavigationProperty Name="PZ_Notes" Relationship="PortalKATEKModel.FK_PZ_Notes_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PZ_Notes" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -6249,6 +6011,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="ProductType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="tu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_ProductType" FromRole="PZ_ProductType" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="PZ_PZNotes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_PZ_Notes" Type="Int32" />
+          <NavigationProperty Name="PZ_Notes" Relationship="PortalKATEKModel.FK_PZ_PZNotes_PZ_Notes" FromRole="PZ_PZNotes" ToRole="PZ_Notes" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PZNotes_PZ_PlanZakaz" FromRole="PZ_PZNotes" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="PZ_Setup">
           <Key>
@@ -6430,9 +6202,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="activeOTK" Type="Boolean" Nullable="false" />
           <Property Name="activePO" Type="Boolean" Nullable="false" />
+          <Property Name="activeService" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
           <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="Reclamation_Type" ToRole="ServiceRemarksTypes" />
-          <Property Name="activeService" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -6641,13 +6413,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="datePutToService" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="dateClose" Type="DateTime" Precision="0" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" FromRole="ServiceRemarks" ToRole="AspNetUsers" />
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="ServiceRemarksCauses" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksCauses" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksReclamations" />
           <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksTypes" />
-          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" FromRole="ServiceRemarks" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="ServiceRemarksActions">
           <Key>
@@ -6741,42 +6513,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" FromRole="TypeTaskForPZ" ToRole="TaskForPZ" />
-        </EntityType>
-        <EntityType Name="VV_Position">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_VVPZ" Type="Int32" Nullable="false" />
-          <Property Name="numMesto" Type="Int32" Nullable="false" />
-          <Property Name="Gabarit" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="massaBrutto" Type="Int32" Nullable="false" />
-          <Property Name="massaNetto" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VVPZ" Relationship="PortalKATEKModel.FK_VV_Position_VVPZ" FromRole="VV_Position" ToRole="VVPZ" />
-        </EntityType>
-        <EntityType Name="VVPZ">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="massaBrutto" Type="Int32" />
-          <Property Name="massaNetto" Type="Int32" />
-          <Property Name="gruzopoluchatel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="adresGruzo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="iNNGruz" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="oKPOGruz" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="kodGruz" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="sTNazn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="kodSt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="osobieOtm" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="prochee" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dateSh" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_VVPZ_PZ_PlanZakaz" FromRole="VVPZ" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="VV_Position" Relationship="PortalKATEKModel.FK_VV_Position_VVPZ" FromRole="VVPZ" ToRole="VV_Position" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -6923,6 +6659,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="OTK_ReclamationKO">
               <PropertyRef Name="userCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_Notes_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PZ_Notes" Role="PZ_Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PZ_Notes">
+              <PropertyRef Name="id_AspNetUsersCreate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7079,6 +6827,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="RKD_QuestionData">
               <PropertyRef Name="userUpload" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceRemarks_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ServiceRemarks" Role="ServiceRemarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceRemarks">
+              <PropertyRef Name="userCreate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7346,6 +7106,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBP_HSSPO_DashboardBP_State">
+          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBP_State">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
+              <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBP_HSSPO">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardBP_ProjectList_DashboardBP_State">
           <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
           <End Type="PortalKATEKModel.DashboardBP_ProjectList" Role="DashboardBP_ProjectList" Multiplicity="*" />
@@ -7511,30 +7295,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="Debit_IstPost">
               <PropertyRef Name="id_DebitTask" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Debit_Name_debit_WorkBit">
-          <End Type="PortalKATEKModel.Debit_WorkBit" Role="Debit_WorkBit" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Debit_Name" Role="Debit_Name" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Debit_WorkBit">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Debit_Name">
-              <PropertyRef Name="id_Debit_WorkBit" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Debit_Name_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.Debit_Name" Role="Debit_Name" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Debit_Name">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7922,6 +7682,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PZ_PZNotes_PZ_Notes">
+          <End Type="PortalKATEKModel.PZ_Notes" Role="PZ_Notes" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.PZ_PZNotes" Role="PZ_PZNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_Notes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_PZNotes">
+              <PropertyRef Name="id_PZ_Notes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PZ_PlanZakaz_PZ_OperatorDogovora">
           <End Type="PortalKATEKModel.PZ_OperatorDogovora" Role="PZ_OperatorDogovora" Multiplicity="1" />
           <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="*" />
@@ -7955,6 +7727,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="PZ_PlanZakaz">
               <PropertyRef Name="TypeShip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PZ_PZNotes_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PZ_PZNotes" Role="PZ_PZNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PZ_PZNotes">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8026,18 +7810,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ServiceRemarksPlanZakazs">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VVPZ_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.VVPZ" Role="VVPZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VVPZ">
               <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
@@ -8450,93 +8222,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VV_Position_VVPZ">
-          <End Type="PortalKATEKModel.VVPZ" Role="VVPZ" Multiplicity="1" />
-          <End Type="PortalKATEKModel.VV_Position" Role="VV_Position" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VVPZ">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="VV_Position">
-              <PropertyRef Name="id_VVPZ" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_ServiceRemarks_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ServiceRemarks" Role="ServiceRemarks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ServiceRemarks">
-              <PropertyRef Name="userCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_HSSPO_DashboardBP_State">
-          <End Type="PortalKATEKModel.DashboardBP_State" Role="DashboardBP_State" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_State">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_HSSPO">
-              <PropertyRef Name="id_DashboardBP_State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_HSSPO_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.DashboardBP_HSSPO" Role="DashboardBP_HSSPO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBP_HSSPO">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PZ_Notes">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" FromRole="PZ_Notes" ToRole="AspNetUsers" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_Notes_PZ_PlanZakaz" FromRole="PZ_Notes" ToRole="PZ_PlanZakaz" />
-        </EntityType>
-        <Association Name="FK_PZ_Notes_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.PZ_Notes" Role="PZ_Notes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PZ_Notes">
-              <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PZ_Notes_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.PZ_Notes" Role="PZ_Notes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PZ_Notes">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -8605,17 +8293,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="adres" ColumnName="adres" />
                 <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Post">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Post">
-              <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
-                <ScalarProperty Name="id_userCreate" ColumnName="id_userCreate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8907,84 +8584,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DashboardBP_HSSPO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
-              <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
-                <ScalarProperty Name="week" ColumnName="week" />
-                <ScalarProperty Name="quartal" ColumnName="quartal" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="month" ColumnName="month" />
-                <ScalarProperty Name="xNop" ColumnName="xNop" />
-                <ScalarProperty Name="xPi" ColumnName="xPi" />
-                <ScalarProperty Name="xPpk" ColumnName="xPpk" />
-                <ScalarProperty Name="xIk" ColumnName="xIk" />
-                <ScalarProperty Name="xSsr" ColumnName="xSsr" />
-                <ScalarProperty Name="xSsmFact" ColumnName="xSsmFact" />
-                <ScalarProperty Name="xSsm" ColumnName="xSsm" />
-                <ScalarProperty Name="xReate" ColumnName="xReate" />
-                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
-                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
-                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
-                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
-                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
-                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
-                <ScalarProperty Name="ssmPlanHoure" ColumnName="ssmPlanHoure" />
-                <ScalarProperty Name="rateHoure" ColumnName="rateHoure" />
-                <ScalarProperty Name="nop" ColumnName="nop" />
-                <ScalarProperty Name="pi" ColumnName="pi" />
-                <ScalarProperty Name="ppk" ColumnName="ppk" />
-                <ScalarProperty Name="ik" ColumnName="ik" />
-                <ScalarProperty Name="ssrPlan" ColumnName="ssrPlan" />
-                <ScalarProperty Name="ssmFact" ColumnName="ssmFact" />
-                <ScalarProperty Name="ssmPlan" ColumnName="ssmPlan" />
-                <ScalarProperty Name="rateUSD" ColumnName="rateUSD" />
-                <ScalarProperty Name="assignmentWork" ColumnName="assignmentWork" />
-                <ScalarProperty Name="timeByDay" ColumnName="timeByDay" />
-                <ScalarProperty Name="taskName" ColumnName="taskName" />
-                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HSSPO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.HSSPO">
-              <MappingFragment StoreEntitySet="HSSPO">
-                <ScalarProperty Name="xNOP" ColumnName="xNOP" />
-                <ScalarProperty Name="xPI" ColumnName="xPI" />
-                <ScalarProperty Name="xPPK" ColumnName="xPPK" />
-                <ScalarProperty Name="xIK" ColumnName="xIK" />
-                <ScalarProperty Name="xSSR" ColumnName="xSSR" />
-                <ScalarProperty Name="xSSMFact" ColumnName="xSSMFact" />
-                <ScalarProperty Name="xSSM" ColumnName="xSSM" />
-                <ScalarProperty Name="xRate" ColumnName="xRate" />
-                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
-                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
-                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
-                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
-                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
-                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
-                <ScalarProperty Name="ssmHoure" ColumnName="ssmHoure" />
-                <ScalarProperty Name="RateHoure" ColumnName="RateHoure" />
-                <ScalarProperty Name="nop" ColumnName="nop" />
-                <ScalarProperty Name="pi" ColumnName="pi" />
-                <ScalarProperty Name="ppk" ColumnName="ppk" />
-                <ScalarProperty Name="ik" ColumnName="ik" />
-                <ScalarProperty Name="SSRPlan" ColumnName="SSRPlan" />
-                <ScalarProperty Name="SSMFact" ColumnName="SSMFact" />
-                <ScalarProperty Name="SSMPlan" ColumnName="SSMPlan" />
-                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
-                <ScalarProperty Name="CountPO" ColumnName="CountPO" />
-                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
-                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-                <ScalarProperty Name="OrderPZ" ColumnName="OrderPZ" />
-                <ScalarProperty Name="PK" ColumnName="PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="PortalKATEKModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -9215,6 +8814,47 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_HSSPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
+              <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="quartal" ColumnName="quartal" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="xNop" ColumnName="xNop" />
+                <ScalarProperty Name="xPi" ColumnName="xPi" />
+                <ScalarProperty Name="xPpk" ColumnName="xPpk" />
+                <ScalarProperty Name="xIk" ColumnName="xIk" />
+                <ScalarProperty Name="xSsr" ColumnName="xSsr" />
+                <ScalarProperty Name="xSsmFact" ColumnName="xSsmFact" />
+                <ScalarProperty Name="xSsm" ColumnName="xSsm" />
+                <ScalarProperty Name="xReate" ColumnName="xReate" />
+                <ScalarProperty Name="nopHoure" ColumnName="nopHoure" />
+                <ScalarProperty Name="piHoure" ColumnName="piHoure" />
+                <ScalarProperty Name="ppkHoure" ColumnName="ppkHoure" />
+                <ScalarProperty Name="ikHoure" ColumnName="ikHoure" />
+                <ScalarProperty Name="ssrHoure" ColumnName="ssrHoure" />
+                <ScalarProperty Name="ssmFactHoure" ColumnName="ssmFactHoure" />
+                <ScalarProperty Name="ssmPlanHoure" ColumnName="ssmPlanHoure" />
+                <ScalarProperty Name="rateHoure" ColumnName="rateHoure" />
+                <ScalarProperty Name="nop" ColumnName="nop" />
+                <ScalarProperty Name="pi" ColumnName="pi" />
+                <ScalarProperty Name="ppk" ColumnName="ppk" />
+                <ScalarProperty Name="ik" ColumnName="ik" />
+                <ScalarProperty Name="ssrPlan" ColumnName="ssrPlan" />
+                <ScalarProperty Name="ssmFact" ColumnName="ssmFact" />
+                <ScalarProperty Name="ssmPlan" ColumnName="ssmPlan" />
+                <ScalarProperty Name="rateUSD" ColumnName="rateUSD" />
+                <ScalarProperty Name="assignmentWork" ColumnName="assignmentWork" />
+                <ScalarProperty Name="timeByDay" ColumnName="timeByDay" />
+                <ScalarProperty Name="taskName" ColumnName="taskName" />
+                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DashboardBP_ProjectList">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_ProjectList">
               <MappingFragment StoreEntitySet="DashboardBP_ProjectList">
@@ -9344,18 +8984,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="numberOrder" ColumnName="numberOrder" />
                 <ScalarProperty Name="transportSum" ColumnName="transportSum" />
                 <ScalarProperty Name="id_DebitTask" ColumnName="id_DebitTask" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Debit_Name">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Debit_Name">
-              <MappingFragment StoreEntitySet="Debit_Name">
-                <ScalarProperty Name="name1c" ColumnName="name1c" />
-                <ScalarProperty Name="nameTableModul" ColumnName="nameTableModul" />
-                <ScalarProperty Name="nameRKD" ColumnName="nameRKD" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id_Debit_WorkBit" ColumnName="id_Debit_WorkBit" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9637,6 +9265,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PZ_Notes">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PZ_Notes">
+              <MappingFragment StoreEntitySet="PZ_Notes">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PZ_OperatorDogovora">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_OperatorDogovora">
               <MappingFragment StoreEntitySet="PZ_OperatorDogovora">
@@ -9700,6 +9338,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <MappingFragment StoreEntitySet="PZ_ProductType">
                 <ScalarProperty Name="tu" ColumnName="tu" />
                 <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PZ_PZNotes">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PZ_PZNotes">
+              <MappingFragment StoreEntitySet="PZ_PZNotes">
+                <ScalarProperty Name="id_PZ_Notes" ColumnName="id_PZ_Notes" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10138,41 +9785,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VV_Position">
-            <EntityTypeMapping TypeName="PortalKATEKModel.VV_Position">
-              <MappingFragment StoreEntitySet="VV_Position">
-                <ScalarProperty Name="massaNetto" ColumnName="massaNetto" />
-                <ScalarProperty Name="massaBrutto" ColumnName="massaBrutto" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Gabarit" ColumnName="Gabarit" />
-                <ScalarProperty Name="numMesto" ColumnName="numMesto" />
-                <ScalarProperty Name="id_VVPZ" ColumnName="id_VVPZ" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VVPZ">
-            <EntityTypeMapping TypeName="PortalKATEKModel.VVPZ">
-              <MappingFragment StoreEntitySet="VVPZ">
-                <ScalarProperty Name="dateSh" ColumnName="dateSh" />
-                <ScalarProperty Name="prochee" ColumnName="prochee" />
-                <ScalarProperty Name="osobieOtm" ColumnName="osobieOtm" />
-                <ScalarProperty Name="kodSt" ColumnName="kodSt" />
-                <ScalarProperty Name="sTNazn" ColumnName="sTNazn" />
-                <ScalarProperty Name="kodGruz" ColumnName="kodGruz" />
-                <ScalarProperty Name="oKPOGruz" ColumnName="oKPOGruz" />
-                <ScalarProperty Name="iNNGruz" ColumnName="iNNGruz" />
-                <ScalarProperty Name="adresGruzo" ColumnName="adresGruzo" />
-                <ScalarProperty Name="gruzopoluchatel" ColumnName="gruzopoluchatel" />
-                <ScalarProperty Name="massaNetto" ColumnName="massaNetto" />
-                <ScalarProperty Name="massaBrutto" ColumnName="massaBrutto" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="PortalKATEKModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
@@ -10181,17 +9793,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="PZ_Notes">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PZ_Notes">
-              <MappingFragment StoreEntitySet="PZ_Notes">
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
-                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

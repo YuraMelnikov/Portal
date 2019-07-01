@@ -20,7 +20,6 @@ namespace Wiki
             this.Debit_CMR = new HashSet<Debit_CMR>();
             this.Debit_DataReportOprih = new HashSet<Debit_DataReportOprih>();
             this.Debit_IstPost = new HashSet<Debit_IstPost>();
-            this.Debit_Name = new HashSet<Debit_Name>();
             this.Debit_TN = new HashSet<Debit_TN>();
             this.PostAlertShip = new HashSet<PostAlertShip>();
         }
@@ -40,8 +39,6 @@ namespace Wiki
         public virtual ICollection<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_IstPost> Debit_IstPost { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Debit_Name> Debit_Name { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_TN> Debit_TN { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }

@@ -12,16 +12,13 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class VV_Position
+    public partial class PZ_PZNotes
     {
         public int id { get; set; }
-        public int id_VVPZ { get; set; }
-        public int numMesto { get; set; }
-        public string Gabarit { get; set; }
-        public string Description { get; set; }
-        public int massaBrutto { get; set; }
-        public int massaNetto { get; set; }
+        public int id_PZ_PlanZakaz { get; set; }
+        public Nullable<int> id_PZ_Notes { get; set; }
     
-        public virtual VVPZ VVPZ { get; set; }
+        public virtual PZ_Notes PZ_Notes { get; set; }
+        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
 }
