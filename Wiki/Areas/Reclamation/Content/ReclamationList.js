@@ -1233,24 +1233,35 @@ function clearBox1() {
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
+    $('[name="SMKO"]:checked').prop('checked', false);
 }
 
 function clearBox2() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
+    $('[name="SMKO"]:checked').prop('checked', false);
 }
 
 function clearBox3() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
+    $('[name="SMKO"]:checked').prop('checked', false);
 }
 
 function clearBox4() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="SMKO"]:checked').prop('checked', false);
+}
+
+function clearBox5() {
+    $('[name="close"]:checked').prop('checked', false);
+    $('[name="closeDevision"]:checked').prop('checked', false);
+    $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="gip"]:checked').prop('checked', false);
 }
 
 function disabledBtnCreateReport() {
