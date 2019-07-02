@@ -30,6 +30,8 @@ namespace Wiki.Areas.Reclamation.Models
             this.reclamation = reclamation;
             if(this.reclamation.id_AspNetUsersError == null)
                 this.reclamation.id_AspNetUsersError = db.Reclamation.Find(reclamation.id).id_AspNetUsersError;
+            if (this.reclamation.closeMKO == false)
+                this.reclamation.closeMKO = db.Reclamation.Find(reclamation.id).closeMKO;
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);
             GetCorrectFieldReclamation();
             CorrectCloseReclamation();
@@ -73,6 +75,7 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.closeDevision = false;
                 reclamation.id_Reclamation_CountErrorFinal = 1;
                 reclamation.id_Reclamation_CountErrorFirst = 1;
+                reclamation.closeMKO = false;
             }
             return true;
         }
