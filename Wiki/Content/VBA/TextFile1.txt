@@ -2,8 +2,8 @@
     Dim dateNow As Date
     Dim counterStep As Integer
     Dim power As Integer
-    dateNow = "02.07.2019"
-    For i = 1 To 25
+    dateNow = "04.07.2019"
+    For i = 1 To 26
         SelectResourceField Row:=1, Column:="Единицы измерения материалов"
         power = ActiveSelection.Resources(1).Availabilities(1).AvailableUnit
         ActiveSelection.Resources(1).Availabilities(1).AvailableFrom = dateNow

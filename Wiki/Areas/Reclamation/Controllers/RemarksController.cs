@@ -405,7 +405,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 Reclamation_Answer reclamation_Answer = new Reclamation_Answer
                 {
-                    answer = "Замечание перенаправлена на " + db.Devision.Find(reloadDevision).name,
+                    answer = "Замечание перенаправлено на " + db.Devision.Find(reloadDevision).name,
                     dateTimeCreate = DateTime.Now,
                     id_AspNetUsersCreate = aspNetUser.Id,
                     id_Reclamation = reclamation.id,
