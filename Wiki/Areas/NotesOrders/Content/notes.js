@@ -217,7 +217,7 @@ function AddRem() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $("#modalNewNote").hide();
+            $('#modalNewNote').modal('hide');
             loadData(1);
         },
         error: function (errormessage) {
