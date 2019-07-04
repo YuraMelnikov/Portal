@@ -9,14 +9,12 @@ namespace Wiki.Areas.NotesOrders.Controllers
     public class NoteOrderController : Controller
     {
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
-        readonly JsonSerializerSettings settingsLong = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        readonly JsonSerializerSettings settingsLong = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd HH:mm" };
+        PortalKATEKEntities dbc = new PortalKATEKEntities();
         public ActionResult Index()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                ViewBag.pz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
-                return View();
-            }
+            ViewBag.pz = new SelectList(dbc.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            return View();
         }
 
         [HttpPost]
@@ -29,20 +27,22 @@ namespace Wiki.Areas.NotesOrders.Controllers
                 var query = db.PZ_PlanZakaz
                     .Include(d => d.PZ_PZNotes)
                     .Include(d => d.AspNetUsers)
-                    .Include(d => d.Client)
+                    .Include(d => d.PZ_Client)
                     .Where(d => d.PZ_PZNotes.Count() > 0)
                     .OrderByDescending(d => d.PlanZakaz)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    link = "",
+                    link = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     order = dataList.PlanZakaz,
                     Manager = dataList.AspNetUsers.CiliricalName,
                     dataList.Name,
                     dataList.nameTU,
-                    client = dataList.PZ_Client.NameSort,
+                    Client = dataList.PZ_Client.NameSort,
                     dataList.MTR,
-                    dataList.Zapros
+                    dataList.Zapros,
+                    dateSh = JsonConvert.SerializeObject(dataList.dataOtgruzkiBP, settingsLong).Replace(@"""", ""),
+                    dataList.Id
                 });
                 return Json(new { data });
             }
@@ -58,23 +58,24 @@ namespace Wiki.Areas.NotesOrders.Controllers
                     .Where(d => d.Id == id)
                     .Include(d => d.PZ_PZNotes)
                     .Include(d => d.AspNetUsers)
-                    .Include(d => d.Client)
+                    .Include(d => d.PZ_Client)
                     .Include(d => d.PZ_ProductType)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
+                    dataList.Id,
                     dataList.PlanZakaz,
                     DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
-                    dataList.AspNetUsers.CiliricalName,
-                    dataList.PZ_Client.NameSort,
+                    Manager = dataList.AspNetUsers.CiliricalName,
+                    Client = dataList.PZ_Client.NameSort,
                     dataList.Name,
-                    dataList.nameTU,
                     dataList.Description,
                     dataList.MTR,
-                    dataList.PZ_ProductType.ProductType,
-                    dataList.OL,
+                    dataList.Cost,
                     dataList.Zapros,
-                    dataList.Modul
+                    dataList.Modul,
+                    dataList.PZ_ProductType.ProductType,
+                    dataList.OL
                 });
 
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
@@ -103,7 +104,7 @@ namespace Wiki.Areas.NotesOrders.Controllers
             }
         }
 
-        public JsonResult AddRem(int[] pz, string textRem)
+        public JsonResult AddRem(int[] pz, string mText)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -111,7 +112,7 @@ namespace Wiki.Areas.NotesOrders.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 PZ_Notes pZ_Notes = new PZ_Notes
                 {
-                    note = textRem,
+                    note = mText,
                     dateTimeCreate = DateTime.Now,
                     id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == HttpContext.User.Identity.Name).Id
                 };
@@ -142,6 +143,30 @@ namespace Wiki.Areas.NotesOrders.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+
+        public JsonResult AddRemToOrder(PZ_PlanZakaz pZ_PlanZakaz, string textRem)
+        {
+            using(PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                PZ_Notes pZ_Notes = new PZ_Notes
+                {
+                    note = textRem,
+                    dateTimeCreate = DateTime.Now,
+                    id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == HttpContext.User.Identity.Name).Id
+                };
+                db.PZ_Notes.Add(pZ_Notes);
+                db.SaveChanges();
+                PZ_PZNotes pZ_PZNotes = new PZ_PZNotes();
+                pZ_PZNotes.id_PZ_Notes = pZ_Notes.id;
+                pZ_PZNotes.id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
+                db.PZ_PZNotes.Add(pZ_PZNotes);
+                db.SaveChanges();
+                return Json(pZ_PlanZakaz.Id, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
