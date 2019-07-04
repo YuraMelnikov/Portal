@@ -36,6 +36,7 @@
         </ul>
     </div>
 </nav>
+
 <div class="row">
     <div class="col-md-12">
         <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
@@ -50,9 +51,12 @@
         <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
             to Excel
         </button>
+        <br />
+        <label id="labelNamePage"></label>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
+
 <div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover" >
     <div class="modal-dialog">
         <div class="modal-content">
@@ -244,7 +248,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     $(".modal-wide").on("show.bs.modal", function () {

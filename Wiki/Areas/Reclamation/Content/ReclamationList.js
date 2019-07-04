@@ -3,6 +3,7 @@
 //'2' - Manager KO
 
 $(document).ready(function () {
+    document.getElementById('labelNamePage').innerHTML = 'Активные';
     startMenu();
     expertHide();
     $('#btnCloseOrder').hide();
@@ -18,56 +19,68 @@ function loadData(listId) {
     clearTextBox();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
+        document.getElementById('labelNamePage').innerHTML = 'Активные';
+        $('#labelNamePage').val("Активные");
         expertHide();
         nullpz();
         activeReclamation();
     }
     else if (listId === 2 || listId === "2") {
+        document.getElementById('labelNamePage').innerHTML = 'Закрытые';
         expertHide();
         nullpz();
         closeReclamation();
     }
     else if (listId === 3 || listId === "3") {
+        document.getElementById('labelNamePage').innerHTML = 'Все замечания';
         expertHide();
         nullpz();
         allReclamation();
     }
     else if (listId === 4 || listId === "4") {
+        document.getElementById('labelNamePage').innerHTML = 'Неотгруженные заказы';
         expertHide();
         nullpz();
         planZakazDevisionNotSh();
     }
     else if (listId === 5 || listId === "5") {
+        document.getElementById('labelNamePage').innerHTML = 'Отгруженные заказы';
         expertHide();
         nullpz();
         planZakazDevisionSh();
     }
     else if (listId === 6 || listId === "6") {
+        document.getElementById('labelNamePage').innerHTML = 'Чек-лист';
         expertHide();
         nullpz();
         planZakazDevisionAll();
     }
     else if (listId === 7 || listId === "7") {
+        document.getElementById('labelNamePage').innerHTML = 'Итоги ОТК';
         expertShow();
         nullpz();
         reclamationOTK();
     }
     else if (listId === 8 || listId === "8") {
+        document.getElementById('labelNamePage').innerHTML = 'Итоги ПО';
         expertShow();
         nullpz();
         reclamationPO();
     }
     else if (listId === 9 || listId === "9") {
+        document.getElementById('labelNamePage').innerHTML = 'Созданные мной';
         expertHide();
         nullpz();
         myReclamation();
     }
     else if (listId === 10 || listId === "10") {
+        document.getElementById('labelNamePage').innerHTML = 'Исправления ПО';
         expertHide();
         nullpz();
         editManufList();
     }
     else {
+        document.getElementById('labelNamePage').innerHTML = 'Активные';
         expertHide();
         nullpz();
         activeReclamation();
