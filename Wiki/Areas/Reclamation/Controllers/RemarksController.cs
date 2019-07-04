@@ -122,6 +122,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers.Where(d => d.Email == login), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '4';
             }
+            if(id_Devision == 9 || id_Devision == 22)
+                ViewBag.DevisionsManufacturing = new SelectList(db.Devision.Where(d => d.id == 9 || d.id == 22), "id", "name");
+            if (id_Devision == 8 || id_Devision == 20)
+                ViewBag.DevisionsManufacturing = new SelectList(db.Devision.Where(d => d.id == 8 || d.id == 20), "id", "name");
             if (id_Devision == 6)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
@@ -280,6 +284,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 if (reclamation.editManufacturing == true)
                 {
+                    login = db.AspNetUsers.First(d => d.Devision == reclamation.editManufacturingIdDevision && d.ResourceUID != null).Email;
                     try
                     {
                         TaskForPWA pwa = new TaskForPWA();
