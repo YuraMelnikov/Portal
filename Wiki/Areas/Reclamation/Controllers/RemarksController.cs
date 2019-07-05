@@ -855,7 +855,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (id == "Ошибка программирования")
             {
-                var sucursalList = db.Devision.Where(d.id == 16).OrderBy(d => d.name);
+                var sucursalList = db.Devision.Where(d => d.id == 16).OrderBy(d => d.name);
                 var data = sucursalList.Select(m => new SelectListItem()
                 {
                     Text = m.name,
