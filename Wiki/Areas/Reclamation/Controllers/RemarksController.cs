@@ -853,6 +853,16 @@ namespace Wiki.Areas.Reclamation.Controllers
                 });
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+            else if (id == "Ошибка программирования")
+            {
+                var sucursalList = db.Devision.Where(d.id == 16).OrderBy(d => d.name);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.name,
+                    Value = m.id.ToString(),
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
             else if (id == "Производственный мусор")
             {
                 var sucursalList = db.Devision.Where(d => d.id == 8 || d.id == 20 || d.id == 9 || d.id == 10 || d.id == 27).OrderBy(d => d.name);
