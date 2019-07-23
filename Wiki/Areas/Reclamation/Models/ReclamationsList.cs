@@ -34,11 +34,12 @@ namespace Wiki.Areas.Reclamation.Models
                 .ToList();
         }
 
-        public void GetReclamation(string login)
+        public void GetReclamation(string login, bool active)
         {
             string id_User = db.AspNetUsers.First(d => d.Email == login).Id;
             Initialization();
             Reclamations = db.Reclamation.Where(d => d.id_AspNetUsersCreate == id_User)
+                .Where(d => d.close == active)
                 .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                 .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                 .Include(d => d.Devision)
@@ -364,6 +365,25 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
+        }
+
+        public void GetReclamationPlanZakaz(string login, bool active, int id_PZ_PlanZakaz)
+        {
+            Initialization();
+            string id_User = db.AspNetUsers.First(d => d.Email == login).Id;
+            Reclamations = db.Reclamation
+                .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz).Count() > 0)
+                .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
+                .Where(d => d.close == active)
+                .Where(d => d.id_AspNetUsersCreate == id_User)
+                .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                .Include(d => d.Devision)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.AspNetUsers1)
+                .Include(d => d.Reclamation_CountError)
+                .Include(d => d.Reclamation_CountError1)
+                .ToList();
         }
 
         void Initialization()

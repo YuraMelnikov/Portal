@@ -27,10 +27,10 @@ namespace Wiki.Areas.Reclamation.Models
             }
         }
 
-        public void GetReclamation(string login)
+        public void GetReclamation(string login, bool active)
         {
             ReclamationsList reclamations = new ReclamationsList();
-            reclamations.GetReclamation(login);
+            reclamations.GetReclamation(login, active);
             int id_Devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             int count = reclamations.Reclamations.Count;
             InitializationList(count);
@@ -85,6 +85,20 @@ namespace Wiki.Areas.Reclamation.Models
             string pzName = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).PlanZakaz.ToString();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamationPlanZakaz(id_PZ_PlanZakaz);
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], pzName);
+                reclamationsListView[i] = reclamation;
+            }
+        }
+
+        public void GetReclamationPlanZakaz(int id_PZ_PlanZakaz, string login, bool active)
+        {
+            string pzName = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).PlanZakaz.ToString();
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamationPlanZakaz(login, active, id_PZ_PlanZakaz);
             int count = reclamations.Reclamations.Count;
             InitializationList(count);
             for (int i = 0; i < count; i++)

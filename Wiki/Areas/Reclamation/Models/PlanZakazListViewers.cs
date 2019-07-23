@@ -28,10 +28,29 @@ namespace Wiki.Areas.Reclamation.Models
             }
         }
 
+        public void GetPlanZakazs(string login)
+        {
+            InitializationList();
+            var dataList = db.PZ_PlanZakaz
+                .Include(d => d.PZ_Client)
+                .Include(d => d.Reclamation_PZ.Select(s => s.Reclamation))
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now)
+                .Where(d => d.Reclamation_PZ.Where(s => s.Reclamation.close == false && s.Reclamation.id_AspNetUsersCreate == login).Count() > 0)
+                .ToList();
+            foreach (var data in dataList)
+            {
+                PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, login);
+                AddPlanZakazViwersList(planZakazViwers);
+            }
+        }
+
         public void GetPlanZakazs(int id_Devision)
         {
             InitializationList();
-            var dataList = db.PZ_PlanZakaz.Include(d => d.PZ_Client).Include(d => d.Reclamation_PZ.Select(s => s.Reclamation)).ToList();
+            var dataList = db.PZ_PlanZakaz
+                .Include(d => d.PZ_Client)
+                .Include(d => d.Reclamation_PZ.Select(s => s.Reclamation))
+                .ToList();
             foreach (var data in dataList)
             {
                 PlanZakazViwers planZakazViwers = new PlanZakazViwers(data, id_Devision);

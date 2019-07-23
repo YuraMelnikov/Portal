@@ -83,13 +83,13 @@ function loadData(listId) {
         document.getElementById('labelNamePage').innerHTML = 'Активные созданные мной замечания';
         expertHide();
         nullpz();
-        editManufList();
+        activeReclamationMy();
     }
     else if (listId === 12 || listId === "12") {
         document.getElementById('labelNamePage').innerHTML = 'Неотгруженные заказы (только активные созданные мной)';
         expertHide();
         nullpz();
-        editManufList();
+        planZakazDevisionMy();
     }
     else {
         document.getElementById('labelNamePage').innerHTML = 'Активные замечания';
@@ -195,6 +195,40 @@ function activeReclamation() {
         "ajax": {
             "cache": false,
             "url": "/Remarks/ActiveReclamation",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[3, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function activeReclamationMy() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/ActiveReclamationMy",
             "type": "POST",
             "datatype": "json"
         },
@@ -848,6 +882,41 @@ function planZakazDevisionNotSh() {
     });
 }
 
+function planZakazDevisionMy() {
+    pz(id);
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/PlanZakazDevisionNotShMy",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "order": [[1, "desc"]],
+        "rowCallback": function (row, data, index) {
+            if (data.ReclamationActive > 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
+        "columns": objOrder,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
 function planZakazDevisionSh() {
     pz(id);
     var table = $('#myTable').DataTable();
@@ -1092,6 +1161,47 @@ function reclamationsPlanZakaz(id) {
         "ajax": {
             "cache": false,
             "url": "/Remarks/ReclamationsPlanZakaz/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[3, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+            document.getElementById('labelNamePage').innerHTML = 'Заказ №: ' + data.OnePZName;
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    if (closePZReclamation === 1 || closePZReclamation === '1') {
+        $('#btnCloseOrder').show();
+        $('#btnExpert').hide();
+    }
+}
+
+function reclamationsPlanZakazMy(id) {
+    idPZ = id;
+    pz(id);
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Remarks/ReclamationsPlanZakazMy/" + id,
             "type": "POST",
             "datatype": "json"
         },

@@ -197,6 +197,16 @@ namespace Wiki.Areas.Reclamation.Controllers
         }
 
         [HttpPost]
+        public JsonResult ReclamationsPlanZakazMy(int id)
+        {
+            @ViewBag.idPZ = id;
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamationPlanZakaz(id, login, false);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
+        [HttpPost]
         public JsonResult ChackList(int id)
         {
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
@@ -222,11 +232,27 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
+        public JsonResult ActiveReclamationMy()
+        {
+            string login = HttpContext.User.Identity.Name;
+            ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
+            reclamationListViewer.GetReclamation(login, false);
+            return Json(new { data = reclamationListViewer.ReclamationsListView });
+        }
+
         public JsonResult PlanZakazDevisionNotSh()
         {
             string login = HttpContext.User.Identity.Name;
             PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
             planZakazListViewers.GetPlanZakazs(GetIdDevision(login), false);
+            return Json(new { data = planZakazListViewers.PlanZakazViwers });
+        }
+
+        public JsonResult PlanZakazDevisionNotShMy()
+        {
+            string login = HttpContext.User.Identity.Name;
+            PlanZakazListViewers planZakazListViewers = new PlanZakazListViewers();
+            planZakazListViewers.GetPlanZakazs(db.AspNetUsers.First(d => d.Email == login).Id);
             return Json(new { data = planZakazListViewers.PlanZakazViwers });
         }
 
@@ -258,7 +284,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(login);
+            reclamationListViewer.GetReclamation(login, true);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
