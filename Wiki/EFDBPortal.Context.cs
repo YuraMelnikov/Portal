@@ -85,12 +85,6 @@ namespace Wiki
         public virtual DbSet<Debit_WorkBit> Debit_WorkBit { get; set; }
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Devision> Devision { get; set; }
-        public virtual DbSet<OTK_ChaeckList> OTK_ChaeckList { get; set; }
-        public virtual DbSet<OTK_CounterErrorKO> OTK_CounterErrorKO { get; set; }
-        public virtual DbSet<OTK_Reclamation> OTK_Reclamation { get; set; }
-        public virtual DbSet<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
-        public virtual DbSet<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
-        public virtual DbSet<OTK_TypeReclamation> OTK_TypeReclamation { get; set; }
         public virtual DbSet<PF> PF { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
         public virtual DbSet<ProjectTask> ProjectTask { get; set; }

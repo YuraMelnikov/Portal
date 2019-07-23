@@ -535,92 +535,6 @@
           <Property Name="adres" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="OTK_ChaeckList">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="DateCreate" Type="datetime" Nullable="false" />
-          <Property Name="UserCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_CounterErrorKO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar(max)" Nullable="false" />
-          <Property Name="count" Type="float" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_Reclamation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CheckList" Type="int" Nullable="false" />
-          <Property Name="TypeReclamation" Type="int" Nullable="false" />
-          <Property Name="Complited" Type="bit" Nullable="false" />
-          <Property Name="ReclamationText" Type="varchar(max)" Nullable="false" />
-          <Property Name="Description" Type="varchar(max)" Nullable="false" />
-          <Property Name="DateTimeCreate" Type="datetime" Nullable="false" />
-          <Property Name="User" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="LaborCostManufacturing" Type="float" Nullable="false" />
-          <Property Name="LaborCostOTK" Type="float" Nullable="false" />
-          <Property Name="AnswerText" Type="varchar(max)" Nullable="false" />
-          <Property Name="AnswerUser" Type="nvarchar" MaxLength="128" />
-          <Property Name="AnswerDate" Type="datetime" />
-          <Property Name="Devision" Type="int" />
-          <Property Name="mailPost" Type="bit" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationAnswer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReclamationId" Type="int" Nullable="false" />
-          <Property Name="Text" Type="varchar(max)" Nullable="false" />
-          <Property Name="User" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Devision" Type="int" Nullable="false" />
-          <Property Name="DateCreate" Type="datetime" Nullable="false" />
-          <Property Name="Completed" Type="bit" Nullable="false" />
-          <Property Name="DateUpdate" Type="datetime" />
-          <Property Name="UserUpdate" Type="nvarchar" MaxLength="128" />
-          <Property Name="userError" Type="nvarchar" MaxLength="128" />
-          <Property Name="countError" Type="int" />
-          <Property Name="userPO" Type="int" />
-          <Property Name="descriptionManagerKO" Type="varchar(max)" />
-          <Property Name="gip" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="dateCreate" Type="datetime" Nullable="false" />
-          <Property Name="dateUpdate" Type="datetime" Nullable="false" />
-          <Property Name="userCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="userUpdate" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="order" Type="int" Nullable="false" />
-          <Property Name="typeReclamation" Type="int" Nullable="false" />
-          <Property Name="countError" Type="int" Nullable="false" />
-          <Property Name="shippedOrder" Type="bit" Nullable="false" />
-          <Property Name="clouseReclamation" Type="bit" Nullable="false" />
-          <Property Name="userError" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="textReclamation" Type="varchar(max)" Nullable="false" />
-          <Property Name="textAnswer" Type="varchar(max)" Nullable="false" />
-          <Property Name="time" Type="float" />
-          <Property Name="aplayResylt" Type="bit" />
-          <Property Name="descriptionManagerKO" Type="varchar(max)" />
-          <Property Name="gip" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OTK_TypeReclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="KO" Type="bit" />
-        </EntityType>
         <EntityType Name="PF">
           <Key>
             <PropertyRef Name="id" />
@@ -2060,210 +1974,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_ChaeckList_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_ChaeckList" Type="Self.OTK_ChaeckList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ChaeckList">
-              <PropertyRef Name="UserCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ChaeckList_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="OTK_ChaeckList" Type="Self.OTK_ChaeckList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ChaeckList">
-              <PropertyRef Name="Order" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_Reclamation" Type="Self.OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_Devision">
-          <End Role="Devision" Type="Self.Devision" Multiplicity="0..1" />
-          <End Role="OTK_Reclamation" Type="Self.OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_OTK_ChaeckList">
-          <End Role="OTK_ChaeckList" Type="Self.OTK_ChaeckList" Multiplicity="1" />
-          <End Role="OTK_Reclamation" Type="Self.OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ChaeckList">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="CheckList" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_OTK_TypeReclamation">
-          <End Role="OTK_TypeReclamation" Type="Self.OTK_TypeReclamation" Multiplicity="1" />
-          <End Role="OTK_Reclamation" Type="Self.OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_TypeReclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="TypeReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="OTK_ReclamationAnswer" Type="Self.OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_Devision">
-          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
-          <End Role="OTK_ReclamationAnswer" Type="Self.OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_OTK_CounterErrorKO">
-          <End Role="OTK_CounterErrorKO" Type="Self.OTK_CounterErrorKO" Multiplicity="0..1" />
-          <End Role="OTK_ReclamationAnswer" Type="Self.OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="countError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_OTK_Reclamation">
-          <End Role="OTK_Reclamation" Type="Self.OTK_Reclamation" Multiplicity="1" />
-          <End Role="OTK_ReclamationAnswer" Type="Self.OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_Reclamation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="ReclamationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers2">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers3">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO">
-          <End Role="OTK_CounterErrorKO" Type="Self.OTK_CounterErrorKO" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="countError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_OTK_TypeReclamation">
-          <End Role="OTK_TypeReclamation" Type="Self.OTK_TypeReclamation" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_TypeReclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="typeReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="OTK_ReclamationKO" Type="Self.OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="order" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PostAlertShip_debit_WorkBit">
           <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
           <End Role="PostAlertShip" Type="Self.PostAlertShip" Multiplicity="*" />
@@ -3270,12 +2980,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Devision" EntityType="Self.Devision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ChaeckList" EntityType="Self.OTK_ChaeckList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_CounterErrorKO" EntityType="Self.OTK_CounterErrorKO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_Reclamation" EntityType="Self.OTK_Reclamation" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationAnswer" EntityType="Self.OTK_ReclamationAnswer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_ReclamationKO" EntityType="Self.OTK_ReclamationKO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OTK_TypeReclamation" EntityType="Self.OTK_TypeReclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
@@ -3675,74 +3379,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="Self.FK_DebitReclamation_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ChaeckList_AspNetUsers" Association="Self.FK_OTK_ChaeckList_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ChaeckList_PZ_PlanZakaz" Association="Self.FK_OTK_ChaeckList_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_AspNetUsers" Association="Self.FK_OTK_Reclamation_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_Devision" Association="Self.FK_OTK_Reclamation_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_OTK_ChaeckList" Association="Self.FK_OTK_Reclamation_OTK_ChaeckList">
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_OTK_TypeReclamation" Association="Self.FK_OTK_Reclamation_OTK_TypeReclamation">
-            <End Role="OTK_TypeReclamation" EntitySet="OTK_TypeReclamation" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_AspNetUsers" Association="Self.FK_OTK_ReclamationAnswer_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_Devision" Association="Self.FK_OTK_ReclamationAnswer_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" Association="Self.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_OTK_Reclamation" Association="Self.FK_OTK_ReclamationAnswer_OTK_Reclamation">
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers" Association="Self.FK_OTK_ReclamationKO_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers1" Association="Self.FK_OTK_ReclamationKO_AspNetUsers1">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers2" Association="Self.FK_OTK_ReclamationKO_AspNetUsers2">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers3" Association="Self.FK_OTK_ReclamationKO_AspNetUsers3">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO" Association="Self.FK_OTK_ReclamationKO_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_OTK_TypeReclamation" Association="Self.FK_OTK_ReclamationKO_OTK_TypeReclamation">
-            <End Role="OTK_TypeReclamation" EntitySet="OTK_TypeReclamation" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_PZ_PlanZakaz" Association="Self.FK_OTK_ReclamationKO_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
           </AssociationSet>
           <AssociationSet Name="FK_PostAlertShip_debit_WorkBit" Association="Self.FK_PostAlertShip_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
@@ -4295,12 +3931,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_WorkBit" EntityType="PortalKATEKModel.Debit_WorkBit" />
           <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
           <EntitySet Name="Devision" EntityType="PortalKATEKModel.Devision" />
-          <EntitySet Name="OTK_ChaeckList" EntityType="PortalKATEKModel.OTK_ChaeckList" />
-          <EntitySet Name="OTK_CounterErrorKO" EntityType="PortalKATEKModel.OTK_CounterErrorKO" />
-          <EntitySet Name="OTK_Reclamation" EntityType="PortalKATEKModel.OTK_Reclamation" />
-          <EntitySet Name="OTK_ReclamationAnswer" EntityType="PortalKATEKModel.OTK_ReclamationAnswer" />
-          <EntitySet Name="OTK_ReclamationKO" EntityType="PortalKATEKModel.OTK_ReclamationKO" />
-          <EntitySet Name="OTK_TypeReclamation" EntityType="PortalKATEKModel.OTK_TypeReclamation" />
           <EntitySet Name="PF" EntityType="PortalKATEKModel.PF" />
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
           <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
@@ -4372,34 +4002,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_DashboardBP_TasksList_AspNetUsers" Association="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ChaeckList_AspNetUsers" Association="PortalKATEKModel.FK_OTK_ChaeckList_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_AspNetUsers" Association="PortalKATEKModel.FK_OTK_Reclamation_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_AspNetUsers" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers" Association="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers1" Association="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers1">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers2" Association="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_AspNetUsers3" Association="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_Notes_AspNetUsers" Association="PortalKATEKModel.FK_PZ_Notes_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4637,14 +4239,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_Devision" Association="PortalKATEKModel.FK_OTK_Reclamation_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_Devision" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProjectTask_Devision" Association="PortalKATEKModel.FK_ProjectTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="ProjectTask" EntitySet="ProjectTask" />
@@ -4660,38 +4254,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_RKD_TypeTask_Devision" Association="PortalKATEKModel.FK_RKD_TypeTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="RKD_TypeTask" EntitySet="RKD_TypeTask" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ChaeckList_PZ_PlanZakaz" Association="PortalKATEKModel.FK_OTK_ChaeckList_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_OTK_ChaeckList" Association="PortalKATEKModel.FK_OTK_Reclamation_OTK_ChaeckList">
-            <End Role="OTK_ChaeckList" EntitySet="OTK_ChaeckList" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO" Association="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO">
-            <End Role="OTK_CounterErrorKO" EntitySet="OTK_CounterErrorKO" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_Reclamation_OTK_TypeReclamation" Association="PortalKATEKModel.FK_OTK_Reclamation_OTK_TypeReclamation">
-            <End Role="OTK_TypeReclamation" EntitySet="OTK_TypeReclamation" />
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationAnswer_OTK_Reclamation" Association="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation">
-            <End Role="OTK_Reclamation" EntitySet="OTK_Reclamation" />
-            <End Role="OTK_ReclamationAnswer" EntitySet="OTK_ReclamationAnswer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_OTK_TypeReclamation" Association="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation">
-            <End Role="OTK_TypeReclamation" EntitySet="OTK_TypeReclamation" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OTK_ReclamationKO_PZ_PlanZakaz" Association="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="OTK_ReclamationKO" EntitySet="OTK_ReclamationKO" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_PF" Association="PortalKATEKModel.FK_Reclamation_PF">
             <End Role="PF" EntitySet="PF" />
@@ -5175,13 +4737,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="AspNetUsers" ToRole="Devision" />
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" FromRole="AspNetUsers" ToRole="CMO2_Order" />
           <NavigationProperty Name="DashboardBP_TasksList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBP_TasksList" />
-          <NavigationProperty Name="OTK_ChaeckList" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_ChaeckList" />
-          <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_Reclamation" />
-          <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_ReclamationAnswer" />
-          <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
-          <NavigationProperty Name="OTK_ReclamationKO1" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers1" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
-          <NavigationProperty Name="OTK_ReclamationKO2" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
-          <NavigationProperty Name="OTK_ReclamationKO3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="AspNetUsers" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="PZ_Notes" Relationship="PortalKATEKModel.FK_PZ_Notes_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Notes" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="PZ_Setup" Relationship="PortalKATEKModel.FK_PZ_Setup_AspNetUsers" FromRole="AspNetUsers" ToRole="PZ_Setup" />
@@ -5684,121 +5239,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="OTK" Type="Boolean" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
-          <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_Devision" FromRole="Devision" ToRole="OTK_Reclamation" />
-          <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="Devision" ToRole="OTK_ReclamationAnswer" />
           <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
-        </EntityType>
-        <EntityType Name="OTK_ChaeckList">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UserCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_AspNetUsers" FromRole="OTK_ChaeckList" ToRole="AspNetUsers" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_PZ_PlanZakaz" FromRole="OTK_ChaeckList" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_OTK_ChaeckList" FromRole="OTK_ChaeckList" ToRole="OTK_Reclamation" />
-        </EntityType>
-        <EntityType Name="OTK_CounterErrorKO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="count" Type="Double" Nullable="false" />
-          <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationAnswer" />
-          <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_CounterErrorKO" ToRole="OTK_ReclamationKO" />
-        </EntityType>
-        <EntityType Name="OTK_Reclamation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CheckList" Type="Int32" Nullable="false" />
-          <Property Name="TypeReclamation" Type="Int32" Nullable="false" />
-          <Property Name="Complited" Type="Boolean" Nullable="false" />
-          <Property Name="ReclamationText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="LaborCostManufacturing" Type="Double" Nullable="false" />
-          <Property Name="LaborCostOTK" Type="Double" Nullable="false" />
-          <Property Name="AnswerText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="AnswerUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="AnswerDate" Type="DateTime" Precision="3" />
-          <Property Name="Devision" Type="Int32" />
-          <Property Name="mailPost" Type="Boolean" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_Reclamation_AspNetUsers" FromRole="OTK_Reclamation" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_OTK_Reclamation_Devision" FromRole="OTK_Reclamation" ToRole="Devision" />
-          <NavigationProperty Name="OTK_ChaeckList" Relationship="PortalKATEKModel.FK_OTK_Reclamation_OTK_ChaeckList" FromRole="OTK_Reclamation" ToRole="OTK_ChaeckList" />
-          <NavigationProperty Name="OTK_TypeReclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_OTK_TypeReclamation" FromRole="OTK_Reclamation" ToRole="OTK_TypeReclamation" />
-          <NavigationProperty Name="OTK_ReclamationAnswer" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation" FromRole="OTK_Reclamation" ToRole="OTK_ReclamationAnswer" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationAnswer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReclamationId" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Devision" Type="Int32" Nullable="false" />
-          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Completed" Type="Boolean" Nullable="false" />
-          <Property Name="DateUpdate" Type="DateTime" Precision="3" />
-          <Property Name="UserUpdate" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="userError" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="countError" Type="Int32" />
-          <Property Name="userPO" Type="Int32" />
-          <Property Name="descriptionManagerKO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_AspNetUsers" FromRole="OTK_ReclamationAnswer" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_Devision" FromRole="OTK_ReclamationAnswer" ToRole="Devision" />
-          <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_CounterErrorKO" FromRole="OTK_ReclamationAnswer" ToRole="OTK_CounterErrorKO" />
-          <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationAnswer_OTK_Reclamation" FromRole="OTK_ReclamationAnswer" ToRole="OTK_Reclamation" />
-        </EntityType>
-        <EntityType Name="OTK_ReclamationKO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dateUpdate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="userCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="userUpdate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="order" Type="Int32" Nullable="false" />
-          <Property Name="typeReclamation" Type="Int32" Nullable="false" />
-          <Property Name="countError" Type="Int32" Nullable="false" />
-          <Property Name="shippedOrder" Type="Boolean" Nullable="false" />
-          <Property Name="clouseReclamation" Type="Boolean" Nullable="false" />
-          <Property Name="userError" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="textReclamation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="textAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="time" Type="Double" />
-          <Property Name="aplayResylt" Type="Boolean" />
-          <Property Name="descriptionManagerKO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="gip" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers1" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers2" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers2" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers3" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_AspNetUsers3" FromRole="OTK_ReclamationKO" ToRole="AspNetUsers" />
-          <NavigationProperty Name="OTK_CounterErrorKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_CounterErrorKO" FromRole="OTK_ReclamationKO" ToRole="OTK_CounterErrorKO" />
-          <NavigationProperty Name="OTK_TypeReclamation" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation" FromRole="OTK_ReclamationKO" ToRole="OTK_TypeReclamation" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="OTK_ReclamationKO" ToRole="PZ_PlanZakaz" />
-        </EntityType>
-        <EntityType Name="OTK_TypeReclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="KO" Type="Boolean" />
-          <NavigationProperty Name="OTK_Reclamation" Relationship="PortalKATEKModel.FK_OTK_Reclamation_OTK_TypeReclamation" FromRole="OTK_TypeReclamation" ToRole="OTK_Reclamation" />
-          <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_OTK_TypeReclamation" FromRole="OTK_TypeReclamation" ToRole="OTK_ReclamationKO" />
         </EntityType>
         <EntityType Name="PF">
           <Key>
@@ -5987,8 +5431,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Debit_Platform" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Platform" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_debit_WorkBit_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_WorkBit" />
           <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
-          <NavigationProperty Name="OTK_ChaeckList" Relationship="PortalKATEKModel.FK_OTK_ChaeckList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OTK_ChaeckList" />
-          <NavigationProperty Name="OTK_ReclamationKO" Relationship="PortalKATEKModel.FK_OTK_ReclamationKO_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OTK_ReclamationKO" />
           <NavigationProperty Name="PZ_Client" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Client" FromRole="PZ_PlanZakaz" ToRole="PZ_Client" />
           <NavigationProperty Name="PZ_Dostavka" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_Dostavka" FromRole="PZ_PlanZakaz" ToRole="PZ_Dostavka" />
           <NavigationProperty Name="PZ_FIO" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_PZ_FIO" FromRole="PZ_PlanZakaz" ToRole="PZ_FIO" />
@@ -6575,90 +6017,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="DashboardBP_TasksList">
               <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ChaeckList_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ChaeckList" Role="OTK_ChaeckList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ChaeckList">
-              <PropertyRef Name="UserCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationAnswer" Role="OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers1">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers2">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_AspNetUsers3">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="userCreate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7370,30 +6728,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OTK_Reclamation_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationAnswer" Role="OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProjectTask_Devision">
           <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="*" />
@@ -7439,102 +6773,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="RKD_TypeTask">
               <PropertyRef Name="id_Devision" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ChaeckList_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ChaeckList" Role="OTK_ChaeckList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ChaeckList">
-              <PropertyRef Name="Order" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_OTK_ChaeckList">
-          <End Type="PortalKATEKModel.OTK_ChaeckList" Role="OTK_ChaeckList" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_ChaeckList">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="CheckList" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_OTK_CounterErrorKO">
-          <End Type="PortalKATEKModel.OTK_CounterErrorKO" Role="OTK_CounterErrorKO" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationAnswer" Role="OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="countError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_OTK_CounterErrorKO">
-          <End Type="PortalKATEKModel.OTK_CounterErrorKO" Role="OTK_CounterErrorKO" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_CounterErrorKO">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="countError" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_Reclamation_OTK_TypeReclamation">
-          <End Type="PortalKATEKModel.OTK_TypeReclamation" Role="OTK_TypeReclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_TypeReclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_Reclamation">
-              <PropertyRef Name="TypeReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationAnswer_OTK_Reclamation">
-          <End Type="PortalKATEKModel.OTK_Reclamation" Role="OTK_Reclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationAnswer" Role="OTK_ReclamationAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_Reclamation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationAnswer">
-              <PropertyRef Name="ReclamationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_OTK_TypeReclamation">
-          <End Type="PortalKATEKModel.OTK_TypeReclamation" Role="OTK_TypeReclamation" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OTK_TypeReclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="typeReclamation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OTK_ReclamationKO_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
-          <End Type="PortalKATEKModel.OTK_ReclamationKO" Role="OTK_ReclamationKO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OTK_ReclamationKO">
-              <PropertyRef Name="order" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9072,98 +8310,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <MappingFragment StoreEntitySet="Devision">
                 <ScalarProperty Name="OTK" ColumnName="OTK" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ChaeckList">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ChaeckList">
-              <MappingFragment StoreEntitySet="OTK_ChaeckList">
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_CounterErrorKO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_CounterErrorKO">
-              <MappingFragment StoreEntitySet="OTK_CounterErrorKO">
-                <ScalarProperty Name="count" ColumnName="count" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_Reclamation">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_Reclamation">
-              <MappingFragment StoreEntitySet="OTK_Reclamation">
-                <ScalarProperty Name="mailPost" ColumnName="mailPost" />
-                <ScalarProperty Name="Devision" ColumnName="Devision" />
-                <ScalarProperty Name="AnswerDate" ColumnName="AnswerDate" />
-                <ScalarProperty Name="AnswerUser" ColumnName="AnswerUser" />
-                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
-                <ScalarProperty Name="LaborCostOTK" ColumnName="LaborCostOTK" />
-                <ScalarProperty Name="LaborCostManufacturing" ColumnName="LaborCostManufacturing" />
-                <ScalarProperty Name="User" ColumnName="User" />
-                <ScalarProperty Name="DateTimeCreate" ColumnName="DateTimeCreate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ReclamationText" ColumnName="ReclamationText" />
-                <ScalarProperty Name="Complited" ColumnName="Complited" />
-                <ScalarProperty Name="TypeReclamation" ColumnName="TypeReclamation" />
-                <ScalarProperty Name="CheckList" ColumnName="CheckList" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationAnswer">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationAnswer">
-              <MappingFragment StoreEntitySet="OTK_ReclamationAnswer">
-                <ScalarProperty Name="gip" ColumnName="gip" />
-                <ScalarProperty Name="descriptionManagerKO" ColumnName="descriptionManagerKO" />
-                <ScalarProperty Name="userPO" ColumnName="userPO" />
-                <ScalarProperty Name="countError" ColumnName="countError" />
-                <ScalarProperty Name="userError" ColumnName="userError" />
-                <ScalarProperty Name="UserUpdate" ColumnName="UserUpdate" />
-                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-                <ScalarProperty Name="Devision" ColumnName="Devision" />
-                <ScalarProperty Name="User" ColumnName="User" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ReclamationId" ColumnName="ReclamationId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_ReclamationKO">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_ReclamationKO">
-              <MappingFragment StoreEntitySet="OTK_ReclamationKO">
-                <ScalarProperty Name="gip" ColumnName="gip" />
-                <ScalarProperty Name="descriptionManagerKO" ColumnName="descriptionManagerKO" />
-                <ScalarProperty Name="aplayResylt" ColumnName="aplayResylt" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="textAnswer" ColumnName="textAnswer" />
-                <ScalarProperty Name="textReclamation" ColumnName="textReclamation" />
-                <ScalarProperty Name="userError" ColumnName="userError" />
-                <ScalarProperty Name="clouseReclamation" ColumnName="clouseReclamation" />
-                <ScalarProperty Name="shippedOrder" ColumnName="shippedOrder" />
-                <ScalarProperty Name="countError" ColumnName="countError" />
-                <ScalarProperty Name="typeReclamation" ColumnName="typeReclamation" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="userUpdate" ColumnName="userUpdate" />
-                <ScalarProperty Name="userCreate" ColumnName="userCreate" />
-                <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
-                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OTK_TypeReclamation">
-            <EntityTypeMapping TypeName="PortalKATEKModel.OTK_TypeReclamation">
-              <MappingFragment StoreEntitySet="OTK_TypeReclamation">
-                <ScalarProperty Name="KO" ColumnName="KO" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

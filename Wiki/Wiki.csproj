@@ -558,24 +558,6 @@
     <Compile Include="OTKMultiSelectList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="OTK_ChaeckList.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_CounterErrorKO.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_Reclamation.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_ReclamationAnswer.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_ReclamationKO.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OTK_TypeReclamation.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="PF.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1804,7 +1786,6 @@
     <Content Include="Views\Shared\_LayoutWord.cshtml" />
     <Content Include="Views\RKD\IndexComplited.cshtml" />
     <Content Include="Views\Shared\_LayoutReceivables.cshtml" />
-    <Content Include="Views\Receivables\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Shared\_Layout3.cshtml" />

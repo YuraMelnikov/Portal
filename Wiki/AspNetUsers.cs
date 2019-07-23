@@ -21,13 +21,6 @@ namespace Wiki
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.CMO2_Order = new HashSet<CMO2_Order>();
             this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
-            this.OTK_ChaeckList = new HashSet<OTK_ChaeckList>();
-            this.OTK_Reclamation = new HashSet<OTK_Reclamation>();
-            this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
-            this.OTK_ReclamationKO = new HashSet<OTK_ReclamationKO>();
-            this.OTK_ReclamationKO1 = new HashSet<OTK_ReclamationKO>();
-            this.OTK_ReclamationKO2 = new HashSet<OTK_ReclamationKO>();
-            this.OTK_ReclamationKO3 = new HashSet<OTK_ReclamationKO>();
             this.PZ_Notes = new HashSet<PZ_Notes>();
             this.PZ_PlanZakaz = new HashSet<PZ_PlanZakaz>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
@@ -73,20 +66,6 @@ namespace Wiki
         public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ChaeckList> OTK_ChaeckList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_Reclamation> OTK_Reclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_Notes> PZ_Notes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

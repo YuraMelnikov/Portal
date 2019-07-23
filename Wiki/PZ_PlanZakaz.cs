@@ -26,8 +26,6 @@ namespace Wiki
             this.Debit_Platform = new HashSet<Debit_Platform>();
             this.Debit_WorkBit = new HashSet<Debit_WorkBit>();
             this.DebitReclamation = new HashSet<DebitReclamation>();
-            this.OTK_ChaeckList = new HashSet<OTK_ChaeckList>();
-            this.OTK_ReclamationKO = new HashSet<OTK_ReclamationKO>();
             this.PZ_PZNotes = new HashSet<PZ_PZNotes>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
             this.PZ_TEO = new HashSet<PZ_TEO>();
@@ -101,10 +99,6 @@ namespace Wiki
         public virtual ICollection<Debit_WorkBit> Debit_WorkBit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DebitReclamation> DebitReclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ChaeckList> OTK_ChaeckList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationKO> OTK_ReclamationKO { get; set; }
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
         public virtual PZ_FIO PZ_FIO { get; set; }

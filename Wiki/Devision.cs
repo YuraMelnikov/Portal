@@ -18,8 +18,6 @@ namespace Wiki
         public Devision()
         {
             this.AspNetUsers = new HashSet<AspNetUsers>();
-            this.OTK_Reclamation = new HashSet<OTK_Reclamation>();
-            this.OTK_ReclamationAnswer = new HashSet<OTK_ReclamationAnswer>();
             this.ProjectTask = new HashSet<ProjectTask>();
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
@@ -32,10 +30,6 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_Reclamation> OTK_Reclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OTK_ReclamationAnswer> OTK_ReclamationAnswer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTask> ProjectTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
