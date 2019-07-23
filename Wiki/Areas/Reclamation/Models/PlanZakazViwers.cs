@@ -30,6 +30,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz) 
         {
+            int active = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == false).Count();
             Id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
             PlanZakaz = pZ_PlanZakaz.PlanZakaz;
             ContractName = pZ_PlanZakaz.Name;
@@ -38,13 +39,17 @@ namespace Wiki.Areas.Reclamation.Models
             Mtr = pZ_PlanZakaz.MTR;
             Ol = pZ_PlanZakaz.OL;
             ReclamationCount = pZ_PlanZakaz.Reclamation_PZ.Count;
-            ReclamationActive = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == false).Count();
+            ReclamationActive = active;
             ReclamationClose = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == true).Count();
-            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            if(active > 0)
+                OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt colorWhite" + '\u0022' + "></span></a></td>";
+            else
+                OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
         public PlanZakazViwers(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision) 
         {
+            int active = GetReclamationActive(pZ_PlanZakaz, id_Devision, false);
             Id_PZ_PlanZakaz = pZ_PlanZakaz.Id;
             PlanZakaz = pZ_PlanZakaz.PlanZakaz;
             ContractName = pZ_PlanZakaz.Name;
@@ -55,7 +60,10 @@ namespace Wiki.Areas.Reclamation.Models
             ReclamationCount = GetReclamationCount(pZ_PlanZakaz, id_Devision);
             ReclamationActive = GetReclamationActive(pZ_PlanZakaz, id_Devision, false);
             ReclamationClose = GetReclamationActive(pZ_PlanZakaz, id_Devision, true);
-            OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return reclamationsPlanZakaz('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            if (active > 0)
+                OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return reclamationsPlanZakaz('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt colorWhite" + '\u0022' + "></span></a></td>";
+            else
+                OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return reclamationsPlanZakaz('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         }
 
         int GetReclamationCount(PZ_PlanZakaz pZ_PlanZakaz, int id_Devision)

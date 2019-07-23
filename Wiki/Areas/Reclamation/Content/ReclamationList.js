@@ -168,6 +168,12 @@ function startMenu() {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -196,6 +202,12 @@ function activeReclamation() {
         "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
+        "rowCallback": function (row, data, index) {
+            if (data.Close !== "активная") {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

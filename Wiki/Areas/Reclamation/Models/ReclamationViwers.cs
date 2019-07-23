@@ -37,7 +37,6 @@ namespace Wiki.Areas.Reclamation.Models
 
         public ReclamationViwers(Wiki.Reclamation reclamation) 
         {
-            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             editLinkJS = "";
             id_Reclamation = reclamation.id;
             planZakaz = "";
@@ -47,9 +46,15 @@ namespace Wiki.Areas.Reclamation.Models
                 planZakaz += pzList[i].PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
             if(reclamation.close == true)
+            {
                 close = "активная";
+                viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+            }
             else
+            {
+                viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt colorWhite" + '\u0022' + "></span></a></td>";
                 close = "закрытая";
+            }
             text = reclamation.text;
             description = reclamation.description;
             answers = "";
@@ -74,11 +79,6 @@ namespace Wiki.Areas.Reclamation.Models
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision) 
         {
-            viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
-            if (id_Devision == 6 && reclamation.Reclamation_PZ.Max(d => d.PZ_PlanZakaz.dataOtgruzkiBP) < DateTime.Now.AddDays(-15))
-                editLinkJS = "";
-            else
-                editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             id_Reclamation = reclamation.id;
             planZakaz = "";
             var pzList = reclamation.Reclamation_PZ.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList();
@@ -87,9 +87,19 @@ namespace Wiki.Areas.Reclamation.Models
                 planZakaz += pzList[i].PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
             if (reclamation.close == true)
+            {
+                viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
+                editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
                 close = "активная";
+            }
             else
+            {
+                viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt  colorWhite" + '\u0022' + "></span></a></td>";
+                editLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamation('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil  colorWhite" + '\u0022' + "></span></a></td>";
                 close = "закрытая";
+            }
+            if (id_Devision == 6 && reclamation.Reclamation_PZ.Max(d => d.PZ_PlanZakaz.dataOtgruzkiBP) < DateTime.Now.AddDays(-15))
+                editLinkJS = "";
             text = reclamation.text;
             description = reclamation.description;
             answers = "";
