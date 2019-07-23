@@ -53,22 +53,22 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            else if (login == "myi@katek.by")
-            {
-                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
-                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
-                ViewBag.ButtonAddActivation = 1;
-                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || d.Devision == 16)
-                    .Where(d => d.LockoutEnabled == true)
-                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
-                ViewBag.CRUDCounter = '2';
-            }
+            //else if (login == "myi@katek.by")
+            //{
+            //    List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+            //    foreach (var data in devisions)
+            //    {
+            //        if (data.id == 16)
+            //            data.name = "КБЭ";
+            //    }
+            //    ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
+            //    ViewBag.ButtonAddActivation = 1;
+            //    ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+            //        .Where(d => d.Devision == 3 || d.Devision == 16)
+            //        .Where(d => d.LockoutEnabled == true)
+            //        .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            //    ViewBag.CRUDCounter = '2';
+            //}
             else if (login == "nrf@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
@@ -144,6 +144,8 @@ namespace Wiki.Areas.Reclamation.Controllers
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             List<Devision> devisionsReload = db.Devision.Where(d => d.OTK == true && d.id != id_Devision).ToList();
+            if(id_Devision == 6)
+                devisionsReload = db.Devision.Where(d => d.OTK == true).ToList();
             foreach (var data in devisionsReload)
             {
                 if (data.id == 16)

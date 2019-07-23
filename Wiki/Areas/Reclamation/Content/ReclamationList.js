@@ -307,16 +307,6 @@ function validate() {
     $('#id_DevisionReclamation').css('border-color', 'lightgrey');
     $('#id_AspNetUsersError').css('border-color', 'lightgrey');
     var isValid = true;
-    if (counterDevision !== 1) {
-        if ($('#id_DevisionReclamation').val() !== null && $('#id_AspNetUsersError').val() !== null) {
-            $('#id_DevisionReclamation').css('border-color', 'Red');
-            $('#id_AspNetUsersError').css('border-color', 'Red');
-            isValid = false;
-        }
-        else {
-            $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
-        }
-    }
     if ($('#reload').is(":checked") === false) {
         if ($('#id_DevisionReclamation').val() === null && $('#id_AspNetUsersError').val() === null) {
             $('#id_DevisionReclamation').css('border-color', 'Red');
@@ -424,7 +414,6 @@ function clearTextBox() {
         $('#timeToEliminate').prop('disabled', true);
     }
     else {
-        $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
         $('#close').prop('disabled', true);
@@ -500,7 +489,6 @@ function GetReclamation(id) {
             else if (counterDevision === 2) {
                 if ($('#id_DevisionCreate').val() !== devisionUser) {
                     $('#text').prop('disabled', true);
-                    $('#id_DevisionReclamation').val("");
                 }
                 $('#description').prop('disabled', true);
                 $('#close').prop('disabled', true);
@@ -786,14 +774,6 @@ function AllNoDisabled() {
     $('#answerHistiryText').prop('disabled', false);
     $('#answerText').prop('disabled', false);
     $('#trash').prop('disabled', false);
-}
-
-function clearid_AspNetUsersError() {
-    $('#id_AspNetUsersError').val("");
-}
-
-function clearid_DevisionReclamation() {
-    $('#id_DevisionReclamation').val("");
 }
 
 var objOrder = [
@@ -1232,7 +1212,6 @@ function clearColor() {
     $('#id_DevisionReclamation').css('border-color', 'lightgrey');
     $('#id_AspNetUsersError').css('border-color', 'lightgrey');
     $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
-    $('#id_DevisionReclamation').css('border-color', 'lightgrey');
     $('#editManufacturingIdDevision').css('border-color', 'lightgrey');
     $('#pZ_PlanZakaz').css('border-color', 'lightgrey');
     $('#id_Reclamation_Type').css('border-color', 'lightgrey');

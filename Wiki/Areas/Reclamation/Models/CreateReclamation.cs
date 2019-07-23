@@ -14,7 +14,6 @@ namespace Wiki.Areas.Reclamation.Models
         {
             this.reclamation = reclamation;
             this.reclamation.text = reclamation.text.Replace("!", "");
-
             if (login == "korhov@katek.by")
                 this.reclamation.text = this.reclamation.text.ToLower();
             AspNetUsers aspNetUsers = db.AspNetUsers.First(d => d.Email == login);

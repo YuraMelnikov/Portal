@@ -539,8 +539,6 @@
     <Compile Include="Models\ProjectServer.cs" />
     <Compile Include="Models\RenderUserMenu.cs" />
     <Compile Include="Models\TaskForPWA.cs" />
-    <Compile Include="Models\ReclamationOTK.cs" />
-    <Compile Include="Models\ReclamationPO.cs" />
     <Compile Include="Models\RKD.cs" />
     <Compile Include="Models\RKD_AllView.cs" />
     <Compile Include="Models\RKD_ExcelDesparting.cs" />
