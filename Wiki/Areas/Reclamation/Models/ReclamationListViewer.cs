@@ -14,6 +14,19 @@ namespace Wiki.Areas.Reclamation.Models
             reclamationsListView = new ReclamationViwers[count];
         }
 
+        public void GetOneReclamation(int id)
+        {
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetOneReclamation(id);
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[0]);
+                reclamationsListView[i] = reclamation;
+            }
+        }
+
         public void GetReclamation()
         {
             ReclamationsList reclamations = new ReclamationsList();

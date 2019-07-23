@@ -34,6 +34,21 @@ namespace Wiki.Areas.Reclamation.Models
                 .ToList();
         }
 
+        public void GetOneReclamation(int id)
+        {
+            Initialization();
+            Reclamations = db.Reclamation
+                .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                .Include(d => d.Devision)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.AspNetUsers1)
+                .Include(d => d.Reclamation_CountError)
+                .Include(d => d.Reclamation_CountError1)
+                .Where(d => d.id == id)
+                .ToList();
+        }
+
         public void GetReclamation(string login, bool active)
         {
             string id_User = db.AspNetUsers.First(d => d.Email == login).Id;

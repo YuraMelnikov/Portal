@@ -792,8 +792,10 @@ function Update() {
         dataType: "json",
         success: function (result) {
             $('#viewReclamation').modal('hide');
-            if (pz === "")
-                loadData(document.getElementById('pageData').innerHTML);
+            if (pz === "") {
+                //loadData(document.getElementById('pageData').innerHTML);
+                $('#myTable').DataTable().ajax.reload(null, false);
+            }
             else {
                 var id = document.getElementById('zakazId').innerHTML;
                 reclamationsPlanZakaz(id);
