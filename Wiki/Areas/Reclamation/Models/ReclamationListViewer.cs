@@ -82,26 +82,28 @@ namespace Wiki.Areas.Reclamation.Models
 
         public void GetReclamationPlanZakaz(int id_PZ_PlanZakaz)
         {
+            string pzName = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).PlanZakaz.ToString();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamationPlanZakaz(id_PZ_PlanZakaz);
             int count = reclamations.Reclamations.Count;
             InitializationList(count);
             for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i]);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], pzName);
                 reclamationsListView[i] = reclamation;
             }
         }
 
         public void GetReclamationPlanZakaz(int id_Devision, int id_PZ_PlanZakaz)
         {
+            string pzName = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).PlanZakaz.ToString();
             ReclamationsList reclamations = new ReclamationsList();
             reclamations.GetReclamationPlanZakaz(id_Devision, id_PZ_PlanZakaz);
             int count = reclamations.Reclamations.Count;
             InitializationList(count);
             for (int i = 0; i < count; i++)
             {
-                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision, pzName);
                 reclamationsListView[i] = reclamation;
             }
         }

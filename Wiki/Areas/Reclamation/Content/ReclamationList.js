@@ -1104,6 +1104,7 @@ function reclamationsPlanZakaz(id) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
             }
+            document.getElementById('labelNamePage').innerHTML = 'Заказ №: ' + data.OnePZName;
         },
         "scrollY": '75vh',
         "scrollX": true,
@@ -1143,6 +1144,7 @@ function chackList(id) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
             }
+            document.getElementById('labelNamePage').innerHTML = 'Заказ №: ' + data.PlanZakaz;
         },
         "scrollY": '75vh',
         "scrollX": true,
@@ -1155,6 +1157,7 @@ function chackList(id) {
             "search": "Поиск"
         }
     });
+
 }
 
 function myReclamation() {

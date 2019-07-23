@@ -646,24 +646,59 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public void CreateExcelReport(Wiki.Reclamation reclamation)
         {
+            PortalKATEKEntities dbc = new PortalKATEKEntities();
+            dbc.Configuration.ProxyCreationEnabled = false;
+            dbc.Configuration.LazyLoadingEnabled = false;
             string login = HttpContext.User.Identity.Name;
             AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
             List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
             if (reclamation.close == true)
             {
-                list = db.Reclamation.ToList();
+                list = dbc.Reclamation
+                    .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Devision)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .Include(d => d.PF)
+                    .ToList();
             }
             else if (reclamation.closeDevision == true)
             {
-                list = db.Reclamation.Where(d => d.id_DevisionReclamation == user.Devision).ToList();
+                list = dbc.Reclamation.Where(d => d.id_DevisionReclamation == user.Devision)
+                    .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Devision)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .Include(d => d.PF)
+                    .ToList();
             }
             else if (reclamation.closeMKO == true)
             {
-                list = db.Reclamation.Where(d => d.id_AspNetUsersCreate == user.Id).ToList();
+                list = dbc.Reclamation.Where(d => d.id_AspNetUsersCreate == user.Id)
+                    .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Devision)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .Include(d => d.PF)
+                    .ToList();
             }
             else if (reclamation.gip == true)
             {
-                list = db.Reclamation.Where(d => d.id_AspNetUsersError == user.Id).ToList();
+                list = dbc.Reclamation.Where(d => d.id_AspNetUsersError == user.Id)
+                    .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Devision)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .Include(d => d.PF)
+                    .ToList();
             }
             else
             {
@@ -695,10 +730,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                     }
                     catch
                     {
-
+                        userError = "";
                     }
                     Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
-                            data.Devision1.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
+                            data.Devision.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
                             data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
                             data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
                     excelRows.Add(excelRow1);
