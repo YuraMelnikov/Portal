@@ -1399,6 +1399,7 @@
     <Content Include="Areas\NotesOrders\Views\web.config" />
     <Content Include="Areas\NotesOrders\Views\Shared\_LayoutNoteOrder.cshtml" />
     <Content Include="Areas\NotesOrders\Views\NoteOrder\Index.cshtml" />
+    <Content Include="Areas\Reclamation\Content\report.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

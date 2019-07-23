@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NLog;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using Wiki.Models;
@@ -7,6 +9,7 @@ namespace Wiki.Areas.Reclamation.Models
 {
     public class EmailReclamation : EmailClient
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         //Stepnumber:
         //Create - 1
         //Reload - 2
@@ -31,11 +34,11 @@ namespace Wiki.Areas.Reclamation.Models
                 GetMailList();
                 GetSubject();
                 GetBody();
-                SendEmail();
+                //SendEmail();
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.Error("EmailReclamation: ReclamationId: " + reclamation.id + " | Exeption text: " + ex);
             }
         }
 
@@ -118,6 +121,13 @@ namespace Wiki.Areas.Reclamation.Models
             else
             {
                 foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
+                {
+                    mail.To.Add(new MailAddress(data.Email));
+                }
+            }
+            if(reclamation.editManufacturing == true)
+            {
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
                 {
                     mail.To.Add(new MailAddress(data.Email));
                 }

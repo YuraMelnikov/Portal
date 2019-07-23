@@ -19,14 +19,14 @@ function loadData(listId) {
     clearTextBox();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
-        document.getElementById('labelNamePage').innerHTML = 'Активные';
-        $('#labelNamePage').val("Активные");
+        document.getElementById('labelNamePage').innerHTML = 'Активные замечания';
+        $('#labelNamePage').val("Активные замечания");
         expertHide();
         nullpz();
         activeReclamation();
     }
     else if (listId === 2 || listId === "2") {
-        document.getElementById('labelNamePage').innerHTML = 'Закрытые';
+        document.getElementById('labelNamePage').innerHTML = 'Закрытые замечания';
         expertHide();
         nullpz();
         closeReclamation();
@@ -50,7 +50,7 @@ function loadData(listId) {
         planZakazDevisionSh();
     }
     else if (listId === 6 || listId === "6") {
-        document.getElementById('labelNamePage').innerHTML = 'Чек-лист';
+        document.getElementById('labelNamePage').innerHTML = 'Замечания по заказу';
         expertHide();
         nullpz();
         planZakazDevisionAll();
@@ -68,7 +68,7 @@ function loadData(listId) {
         reclamationPO();
     }
     else if (listId === 9 || listId === "9") {
-        document.getElementById('labelNamePage').innerHTML = 'Созданные мной';
+        document.getElementById('labelNamePage').innerHTML = 'Созданные мной замечания';
         expertHide();
         nullpz();
         myReclamation();
@@ -80,7 +80,7 @@ function loadData(listId) {
         editManufList();
     }
     else {
-        document.getElementById('labelNamePage').innerHTML = 'Активные';
+        document.getElementById('labelNamePage').innerHTML = 'Активные замечания';
         expertHide();
         nullpz();
         activeReclamation();

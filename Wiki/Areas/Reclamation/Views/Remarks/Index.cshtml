@@ -13,17 +13,34 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);">Активные</a></li>
-            <li><a onclick="return loadData(2);">Закрытые</a></li>
-            <li><a onclick="return loadData(3);">Все замечания</a></li>
-            <li><a onclick="return loadData(9);">Созданные мной</a></li>
-            <li><a onclick="return loadData(4);">Неотгруженные заказы</a></li>
-            <li><a onclick="return loadData(5);">Отгруженные заказы</a></li>
-            <li><a onclick="return loadData(6);">Чек-лист</a></li>
-            <li><a onclick="return loadData(10);">Исправления ПО</a></li>
-            <li><a onclick="return loadData(7);">Итоги ОТК</a></li>
-            <li><a onclick="return loadData(8);">Итоги ПО</a></li>
+        <ul class="nav nav-pills">
+            <li><a onclick="return loadData(1);">Активные замечания</a></li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Список замечаний
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(1);">Активные замечания</a></li>
+                    <li><a onclick="return loadData(2);">Закрытые замечания</a></li>
+                    <li><a onclick="return loadData(3);">Все замечания</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(9);">Созданные мной замечания</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Группировка по заказам
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(4);">Неотгруженные заказы</a></li>
+                    <li><a onclick="return loadData(5);">Отгруженные заказы</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(6);">Просмотр всех замечаний</a></li>
+                </ul>
+            </li>
+            <li><a href="~/Areas/Reclamation/Content/report.xlsx">Отчет о деятельности ОТК</a></li>
             <li><a href="/Reclamation/TechnicalAdvice/Index/">Техсовет</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -51,7 +68,7 @@
         <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
             to Excel
         </button>
-        <br />
+        <hr />
         <label id="labelNamePage"></label>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
