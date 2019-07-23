@@ -79,6 +79,18 @@ function loadData(listId) {
         nullpz();
         editManufList();
     }
+    else if (listId === 11 || listId === "11") {
+        document.getElementById('labelNamePage').innerHTML = 'Активные созданные мной замечания';
+        expertHide();
+        nullpz();
+        editManufList();
+    }
+    else if (listId === 12 || listId === "12") {
+        document.getElementById('labelNamePage').innerHTML = 'Неотгруженные заказы (только активные созданные мной)';
+        expertHide();
+        nullpz();
+        editManufList();
+    }
     else {
         document.getElementById('labelNamePage').innerHTML = 'Активные замечания';
         expertHide();
