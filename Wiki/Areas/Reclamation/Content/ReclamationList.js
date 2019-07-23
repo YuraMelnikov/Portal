@@ -413,7 +413,6 @@ function clearTextBox() {
     $('#reloadDevision').prop('disabled', true);
     $('#reload').prop('disabled', true);
     $('#trash').prop('disabled', true);
-
     if (counterDevision === 1) {
         $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
