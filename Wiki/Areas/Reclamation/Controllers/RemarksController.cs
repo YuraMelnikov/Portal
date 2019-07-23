@@ -53,7 +53,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            if (login == "myi@katek.by")
+            else if (login == "myi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 foreach (var data in devisions)
