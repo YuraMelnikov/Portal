@@ -165,7 +165,7 @@ function startMenu() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -199,7 +199,7 @@ function activeReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -233,7 +233,7 @@ function activeReclamationMy() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -267,7 +267,7 @@ function closeReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -295,7 +295,7 @@ function allReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -1165,7 +1165,7 @@ function reclamationsPlanZakaz(id) {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -1206,7 +1206,7 @@ function reclamationsPlanZakazMy(id) {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
@@ -1282,7 +1282,7 @@ function myReclamation() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[3, "desc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "rowCallback": function (row, data, index) {
