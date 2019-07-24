@@ -1,0 +1,370 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AccountsReceivable/Views/Shared/_LayoutAccountsReceivable.cshtml";
+}
+<head>
+    <script src="~/Areas/AccountsReceivable/Content/AccountsReceivables.js"></script>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Активные задачи</a></li>
+            <li><a onclick="return loadData(2);">Мои задачи</a></li>
+            <li><a onclick="return loadData(3);">Закрытые задачи</a></li>
+            <li><a onclick="return loadData(4);">ТЭО</a></li>
+            <li><a onclick="return loadData(5);">Договорные условия</a></li>
+            <li><a onclick="return loadData(6);">Поступление средств</a></li>
+            <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "AccountsReceivables"); }
+                </a>
+            </li>
+            <li><a id="pageId"></a></li>
+        </ul>
+    </div>
+</nav>
+<div id="idLabelList">
+    <label id="labelList"></label>
+    <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="defaultModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="defaultTaskName" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>№ задачи:</label>
+                        <input type="text" class="form-control" id="defaultId" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Кем создана:</label>
+                        <input type="checkbox" class="form-control" id="checkedDefault" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateDefault" style="display:none;" onclick="updateDefault();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="teoModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="teoPlanZakaz" disabled="disabled" />
+                </div>
+                <div id="teoHide" class="col-lg-2">
+                    <input type="text" class="form-control" id="idTEO" disabled="disabled" />
+                    <input type="text" class="form-control" id="Id_PlanZakaz" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Выручка без НДС:</label>
+                        <input type="text" class="form-control" id="Rate" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Себестоимость (мат) без НДС:</label>
+                        <input type="text" class="form-control" id="SSM" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Себестоимость (зп рабочих):</label>
+                        <input type="text" class="form-control" id="SSR" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Издержки коммерческие:</label>
+                        <input type="text" class="form-control" id="IzdKom" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>% по кредиту:</label>
+                        <input type="text" class="form-control" id="IzdPPKredit" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Постоянные издержки:</label>
+                        <input type="text" class="form-control" id="PI" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Новая Операционная Прибыль:</label>
+                        <input type="text" class="form-control" id="NOP" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>KI_S:</label>
+                        <input type="text" class="form-control" id="KI_S" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>KI_prochee:</label>
+                        <input type="text" class="form-control" id="KI_prochee" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Отпускная цена, в валюте без НДС:</label>
+                        <input type="text" class="form-control" id="OtpuskChena" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Курс валюты контракта: </label>
+                        <input type="text" class="form-control" id="KursValuti" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Выручка без НДС:</label>
+                        <input type="text" class="form-control" id="NDS" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Валюта:</label>
+                        @Html.DropDownList("Currency", ViewBag.currency as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateTEO" onclick="updateTEO();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="setupModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2" id="divHideSetup">
+                    <input type="text" class="form-control" id="idSetup" disabled="disabled" />
+                    <input type="text" class="form-control" id="id_PZ_PlanZakaz" disabled="disabled" />
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="pzSetup" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Кол-во дней на приемку:</label>
+                        <input type="text" class="form-control" id="KolVoDneyNaPrijemku" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Условие оплаты (дней):</label>
+                        <input type="text" class="form-control" id="UslovieOplatyInt" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Время на подготовку РКД:</label>
+                        <input type="text" class="form-control" id="TimeNaRKD" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Время на рассмотрение РКД:</label>
+                        <input type="text" class="form-control" id="RassmotrenieRKD" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сроки ответа на замечания по РКД:</label>
+                        <input type="text" class="form-control" id="SrokZamechanieRKD" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сотрудник подготовивший ТП:</label>
+                        @Html.DropDownList("userTP", ViewBag.userTP as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Пункт договора о сроках приемки (текст):</label>
+                        <textarea name="PunktDogovoraOSrokahPriemki" id="PunktDogovoraOSrokahPriemki" class="form-control" rows=7></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Условие оплаты (текст):</label>
+                        <textarea name="UslovieOplatyText" id="UslovieOplatyText" class="form-control" rows=7></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateSetup" onclick="updateSetup();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="letterModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="letterTaskName" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("UpdateLetter", "AccountsReceivables", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Введите №заказа/ов:</label>
+                            @Html.ListBox("orders", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="rofile1" multiple="multiple" name="rofile1" type="file" />
+                            <hr />
+                            <input type="submit" id="btnLetter" value="Загрузить письмо" class="btn btn-primary" onclick="updateLetter()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tnModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="tnId" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Номер ТН:</label>
+                        <input type="text" class="form-control" id="numberTN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата ТН:</label>
+                        <input type="text" class="form-control" id="dateTN" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Номер СФ:</label>
+                        <input type="text" class="form-control" id="numberSF" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата СФ:</label>
+                        <input type="text" class="form-control" id="dateSF" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сумма:</label>
+                        <input type="text" class="form-control" id="Summa" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateTN" style="display:none;" onclick="updateTN();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="costShModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="costShId" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Транспорт экспедитора (сумма):</label>
+                        <input type="text" class="form-control" id="transportSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Счет № транспорта:</label>
+                        <input type="text" class="form-control" id="numberOrder" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>НДС с суммы транспорта:</label>
+                        <input type="text" class="form-control" id="ndsSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Валюта платежа:</label>
+                        <input type="text" class="form-control" id="currency" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdatecostSh" style="display:none;" onclick="updateCostSh();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>

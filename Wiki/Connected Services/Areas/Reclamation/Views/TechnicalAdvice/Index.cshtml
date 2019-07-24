@@ -1,0 +1,106 @@
+﻿@model Wiki.Reclamation_TechnicalAdvice
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Reclamation/Views/Shared/_LayoutReclamationOTK.cshtml";
+}
+<head>
+    <script src="~/Areas/Reclamation/Content/TechnicalAdvice.js"></script>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Список на заседание ТС</a></li>
+            <li><a onclick="return loadData(2);">Протоколы ТС</a></li>
+            <li><a onclick="return loadData(3);">Список решений ТС</a></li>
+            <li><a href="/Reclamation/Remarks/Index/">Рекламации</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "Remarks"); }
+                </a>
+            </li>
+            <li><a id="pageData"></a></li>
+        </ul>
+    </div>
+</nav>
+<button id="btnExpert" type="button" class="btn-xs btn-primary" onclick=createNewProtocol()>
+    Опубликовать протокол техсовета
+</button>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>План-Заказ/ы №№:</label>
+                        <input type="text" class="form-control" id="orders" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Автор рекламации:</label>
+                        <input type="text" class="form-control" id="userCreateReclamation" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Кто направил:</label>
+                        <input type="text" class="form-control" id="userUploadReclamation" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Ответственное СП:</label>
+                        <input type="text" class="form-control" id="devisionReclamation" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Текст рекламации:</label>
+                        <textarea name="reclamationText" id="reclamationText" class="form-control" rows=5 disabled="disabled"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>История переписки:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=5 disabled="disabled"></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Решение:</label>
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Прим.:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="update();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>

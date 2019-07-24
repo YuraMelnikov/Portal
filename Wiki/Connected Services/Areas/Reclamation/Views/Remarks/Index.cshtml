@@ -1,0 +1,311 @@
+﻿@model Wiki.Reclamation
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Reclamation/Views/Shared/_LayoutReclamationOTK.cshtml";
+}
+<head>
+    <script src="~/Areas/Reclamation/Content/ReclamationList.js"></script>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <style>
+        .colorWhite {
+            color: white;
+        }
+        .button {
+          display: block;
+          margin: 0 auto;
+        }
+    </style>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav nav-pills">
+            <li>
+                <button style="display:block; margin: 10px" id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </li>
+            <li><a onclick="return loadData(1);">Активные замечания</a></li>
+            <li class="dropdown">
+
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Список замечаний
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(1);">Активные замечания</a></li>
+                    <li><a onclick="return loadData(2);">Закрытые замечания</a></li>
+                    <li><a onclick="return loadData(3);">Все замечания</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(11);">Активные созданные мной замечания</a></li>
+                    <li><a onclick="return loadData(9);">Закрытые созданные мной замечания</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Группировка по заказам
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(4);">Неотгруженные заказы</a></li>
+                    <li><a onclick="return loadData(5);">Отгруженные заказы</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(6);">Просмотр всех замечаний</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(12);">Неотгруженные заказы (только активные созданные мной)</a></li>
+                </ul>
+            </li>
+            <li><a href="~/Areas/Reclamation/Content/report.xlsx">Отчет о деятельности ОТК</a></li>
+            <li><a href="/Reclamation/TechnicalAdvice/Index/">Техсовет</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "Remarks"); }
+                </a>
+            </li>
+            <li><a id="pageData"></a></li>
+            <li><a id="zakazId"></a></li>
+            <li><a id="expertData"></a></li>
+            <li>
+                <button style="display:block; margin: 10px"  id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
+                    to Excel
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-12">
+        <label id="labelNamePage"></label>
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="numberReclamation" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                @Html.HiddenFor(model => model.id_AspNetUsersCreate)
+                @Html.HiddenFor(model => model.dateTimeCreate)
+                @Html.HiddenFor(model => model.id_DevisionCreate)
+                @Html.HiddenFor(model => model.closeMKO)
+                @Html.HiddenFor(model => model.fixedExpert)
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label>План-Заказ/ы №№:</label>
+                        @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Тип замечания:</label>
+                        @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Автор замечания:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Создана:</label>
+                        <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label> ОТК закрыл :      .  </label>
+                        <input type="checkbox" id="close" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Ответственное СП: </label>
+                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id = "id_DevisionReclamation" })
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Ответственный сотрудник: </label>
+                        @Html.DropDownList("id_AspNetUsersError", ViewBag.id_AspNetUsersError as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Критерий ошибки:</label>
+                        @Html.DropDownList("id_Reclamation_CountErrorFirst", ViewBag.id_Reclamation_CountErrorFirst as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Критерий ошибки (утв.):</label>
+                        @Html.DropDownList("id_Reclamation_CountErrorFinal", ViewBag.id_Reclamation_CountErrorFinal as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Поиск (ч.): </label>
+                        <input type="text" class="form-control" id="timeToSearch" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Устранение (ч.): </label>
+                        <input type="text" class="form-control" id="timeToEliminate" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Текст замечания:</label>
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 8 })
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Прим.:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <label>Полуфабрикат:</label>
+                                @Html.DropDownList("id_PF", ViewBag.id_PF as MultiSelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-5">
+                                <label>РСАМ: </label>
+                                <input type="text" class="form-control" id="PCAM" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Рекл. закрыта: </label>
+                                <input type="checkbox" id="closeDevision" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Ответ:</label>
+                        <textarea name="answerText" id="answerText" class="form-control" rows=7></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>История переписки:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=7></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Перенаправить: </label>
+                    </div>
+                    <div class="col-lg-1">
+                        @Html.DropDownList("reloadDevision", ViewBag.id_DevisionReclamationReload as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="reload" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Исправить ПО: </label>
+                    </div>
+                    <div class="col-lg-1">
+                        @Html.DropDownList("editManufacturingIdDevision", ViewBag.DevisionsManufacturing as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="editManufacturing" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>На техсовет: </label>
+                        <input type="checkbox" id="technicalAdvice" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>ГИП: </label>
+                        <input type="checkbox" id="gip" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Шум: </label>
+                        <input type="checkbox" id="trash" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                        <button type="button" class="btn btn-danger" id="btnRemove" onclick="return remove();">Удалить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toExcelModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateExcelReport", "Remarks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.CheckBox("closeDevision", new { @onclick = "clearBox2();", htmlAttributes = new { @class = "form-control" } })
+                            <label>Только мое СП</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.CheckBox("closeMKO", new { @onclick = "clearBox3();", htmlAttributes = new { @class = "form-control" } })
+                            <label>Только мои замечания (автор) </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            @Html.CheckBox("gip", new { @onclick = "clearBox4();", htmlAttributes = new { @class = "form-control" } })
+                            <label>Только моя ответственность (ответственный за замечание)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            @Html.CheckBox("close", new { @onclick = "clearBox1();", htmlAttributes = new { @class = "form-control" } })
+                            <label>Все замечания</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="btnCreateReport" value="Сформировать" class="btn btn-primary" onclick="disabledBtnCreateReport()" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+
+<script>
+    var counterDevision = @ViewBag.CRUDCounter;
+    var buttonAddActivation = @ViewBag.ButtonAddActivation;
+    var devisionUser = @ViewBag.Devision;
+    var closePZReclamation = @ViewBag.ClosePZReclamation;
+    var idPZ = @ViewBag.idPZ;
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateReport').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

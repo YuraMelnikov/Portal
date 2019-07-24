@@ -1,0 +1,173 @@
+﻿@model Wiki.Debit_DataReportOprih
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Deb/Views/Shared/_LayoutDeb.cshtml";
+}
+<head>
+    <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
+    <script src="~/Areas/Deb/Contant/TasksDoc.js"></script>
+    <style>
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+        .colu-300 {
+            min-width: 300px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+@if (ViewBag.ClosePeriod == 0)
+{
+    <a href="~/ActiveReport/ClosePeriod" class="btn-xs btn-primary" role="button">Закрыть период</a>
+}
+<button type="button" class="btn-xs btn-primary" id="btnOrdersListLY2016" onclick="return NoOprih();">Не оприходованые</button>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;">
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<p id="activeFilt"></p>
+<div id="orderModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-2">
+                        <br />
+                        <label for="PlanZakaz">Номер заказа:</label>
+                        <input type="text" class="form-control" id="PlanZakaz" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <br />
+                        <label for="Manager">Менеджер заказа:</label>
+                        <input type="text" class="form-control" id="Manager" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <br />
+                        <label for="Client">Заказчик:</label>
+                        <input type="text" class="form-control" id="Client" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label for="dataOtgruzkiBP">Фактическая дата отгрузки:</label>
+                        <input type="text" class="form-control" id="dataOtgruzkiBP" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label for="DateSupply">Договорная дата поставки:</label>
+                        <input type="text" class="form-control" id="DateSupply" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label for="numberSF">Номер счет-фактуры:</label>
+                        <input type="text" class="form-control" id="numberSF" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label for="Name">Контрактная цена с НДС:</label>
+                        <input type="text" class="form-control" id="costWithHDS" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label for="Name">Контрактная цена без НДС:</label>
+                        <input type="text" class="form-control" id="costNotNDS" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <br />
+                        <label for="Name">Сумма НДС:</label>
+                        <input type="text" class="form-control" id="costNDS" disabled="disabled" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="Name">Контрактное (договорное) наименование:</label>
+                        <input type="text" class="form-control" id="Name" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Name">Наличие рекламации/й:</label>
+                        <input type="text" class="form-control" id="reclamation" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Name">Дата открытия рекламации:</label>
+                        <input type="text" class="form-control" id="openReclamation" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Name">Дата закрытия рекламации:</label>
+                        <input type="text" class="form-control" id="closeReclamation" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="oprihClose">Подтвердить оприходование:</label>
+                        <input type="checkbox" checked="checked" id="oprihClose" />
+                        <br />
+                        <label for="dateClose">Дата оприходования:</label>
+                        @Html.EditorFor(model => model.dateOprihPlanFact, new { htmlAttributes = new { @class = "form-control" } })
+                        <label for="Manager">Основание подтверждения оприходования товара :</label>
+                        @Html.DropDownList("id_Debit_PostingOnType", ViewBag.id_Debit_PostingOnType as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-8">
+                        <label for="Manager">Причина отсутствия оприходования товара:</label>
+                        @Html.DropDownList("id_Debit_PostingOffType", ViewBag.id_Debit_PostingOffType as MultiSelectList, new { @class = "form-control" })
+                        <label for="Name">Примечание:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 3 })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="Name">Условия приемки изделия:</label>
+                        <textarea name="conditionAcceptOrder" id="conditionAcceptOrder" class="form-control" disabled="disabled" rows="8"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="Name">Условия оплаты:</label>
+                        <textarea name="conditionAcceptOrder" id="conditionPay" class="form-control" disabled="disabled" rows="8"></textarea>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#dateOprihPlanFact').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

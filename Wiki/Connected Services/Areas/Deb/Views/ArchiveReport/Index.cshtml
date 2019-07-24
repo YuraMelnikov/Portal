@@ -1,0 +1,52 @@
+﻿@model Wiki.Debit_DataReportOprih
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Deb/Views/Shared/_LayoutDeb.cshtml";
+}
+<head>
+    <script src="~/Areas/Deb/Contant/Archive.js"></script>
+    <style>
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<div id="orderModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th>Наименование</th>
+                            <th>Менеджер</th>
+                            <th>Заказчик</th>
+                            <th>Заказ оприходован</th>
+                            <th>Дата оприходования</th>
+                            <th>Фактическая дата отгрузки</th>
+                            <th>Номер с/ф</th>
+                            <th>Договорная дата поставки</th>
+                            <th>Наличие претензий</th>
+                            <th>Дата получения претензии</th>
+                            <th>Дата закрытия претензии</th>
+                            <th>Прим.</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>

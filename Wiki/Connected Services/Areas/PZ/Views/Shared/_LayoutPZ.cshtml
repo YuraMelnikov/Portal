@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <title>Реестр заказов</title>
+    <title>Портал КАТЭК</title>
+    <script src="~/Areas/PZ/Contant/Bootstrap/jquery-3.3.1.js"></script>
+    <link href="~/Areas/PZ/Contant/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/Bootstrap/bootstrap.js"></script>
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <style>
+        div.dataTables_wrapper {
+            margin: 0 auto;
+        }
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
+        .th {
+            text-align: center;
+        }
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="http://pserver/PZ/Order/Index">Реестр заказов</a></li>
+                <li><a href="http://pserver/PZ/Client/Index/">Заказчики</a></li>
+                <li><a href="http://pserver/PZ/Operator/Index/">Операторы договора</a></li>
+                <li><a href="http://pserver/PZ/Kurator/Index/">Кураторы договора</a></li>
+                <li><a href="~/Areas/PZ/Contant/xlsx/Реестр заказов.xlsx">to Excel</a></li>
+                <li><a href="\\192.168.1.30\m$\_ЗАКАЗЫ\Таблички">Паспорт изделия</a></li>
+                <li>
+                    <a style="color:crimson" href="/Account/Login/">
+                        @{Html.RenderAction("RenderUserMenu", "Order"); }
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</body>
+</html>

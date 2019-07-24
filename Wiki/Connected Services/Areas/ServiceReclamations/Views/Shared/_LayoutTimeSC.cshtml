@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал КАТЭК</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Scripts/select2-3.5.4/select2.css" rel="stylesheet" />
+    <link href="~/Content/MelnikauCSS.css" rel="stylesheet" />
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="~/Scripts/select2-3.5.4/select2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="container-katek">
+        <div id="allSharePoint">
+            <div id="lentSharepoint">
+                <div id="textSharePointLent">
+                    @*<a style="color: white" href="/Account/Login/">
+                        @{Html.RenderAction("RenderUserMenu", "Home"); }
+                    </a>*@
+                </div>
+            </div>
+            <div id="lentBrown">
+            </div>
+        </div>
+        <div id="menu">
+            <div id="imageLogo">
+                <a href="http://tpserver/PWA/default.aspx"><img name="onetidHeadbnnr0" alt="Project Web App" width="180" src="http://tpserver/PWA/SiteAssets/%D0%BA%D0%B0%D1%82%D1%8D%D0%BA%20%D0%BB%D0%BE%D0%B3%D0%BE%20%D1%86%D0%B2%D0%B5%D1%82%D0%BD%D0%B0%D1%8F.jpg"></a>
+            </div>
+            <div id="katek-menu">
+                <ul class="katek-menu">
+                    <li><a href="http://tpserver/PWA/Projects.aspx">Проекты</a></li>
+                    <li><a href="http://tpserver/PWA/Approvals.aspx">Утверждения</a></li>
+                    <li><a href="http://tpserver/PWA/Tasks.aspx">Задачи</a></li>
+                    <li><a href="http://tpserver/PWA/Timesheet.aspx">Расписание</a></li>
+                    <li><a href="http://tpserver/PWA/Resources.aspx">Ресурсы</a></li>
+                    <li><a href="http://tpserver/PWA/ProjectBICenter/Pages/%D0%9E%D1%82%D1%87%D0%B5%D1%82%D1%8B.aspx">Отчеты</a></li>
+                    <li><a href="http://tsqlserver/Reports/Pages/Report.aspx?ItemPath=%2f%d0%9a%d0%be%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d0%be%d1%80%d1%81%d0%ba%d0%b8%d0%b9+%d0%be%d1%82%d0%b4%d0%b5%d0%bb%2fkoSpeedPersonal">Нормачасы КО</a></li>
+                    <li><a href="http://pserver/PZ/Order/Index/">Реестр заказов</a></li>
+                    <li><a href="http://pserver/debit_WorkBit/">Задачи по заказам</a></li>
+                    <li><a href="http://pserver/Deb/DTasks/Index/">Оприходование изделий</a></li>
+                    <li><a href="http://pserver/Reclamation/Remarks/Index">Замечания</a></li>
+                    <li><a href="http://pserver/RKD/Index/">РКД</a> </li>
+                    <li><a href="http://pserver/ServiceReclamations/SC/Index">Сервисный центр</a></li>
+                    <li><a href="http://tpserver/PWA/_layouts/15/pwa/Admin/Admin.aspx">Параметры сервера</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+
+                @RenderBody()
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

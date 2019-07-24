@@ -29,6 +29,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .AsNoTracking()
                     .Include(d => d.PZ_PlanZakaz)
                     .Include(d => d.PZ_Currency)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz < 9000)
                     .OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz)
                     .ToList();
                 var data = query.Select(dataList => new
@@ -62,7 +63,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .AsNoTracking()
                     .Include(d => d.TaskForPZ.AspNetUsers)
                     .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                    .Where(d => d.close == false)
+                    .Where(d => d.close == false && d.TaskForPZ.AspNetUsers.CiliricalName != "")
                     .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                     .ToList();
                 var data = query.Select(dataList => new
@@ -122,6 +123,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                     order = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.TaskForPZ.taskName,

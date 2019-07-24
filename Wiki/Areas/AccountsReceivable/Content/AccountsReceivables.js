@@ -106,7 +106,7 @@ function startMenu() {
         },
         "order": [[4, "asc"]],
         "processing": true,
-        "columns": objEditTasks,
+        "columns": objTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -134,7 +134,7 @@ function tasksList() {
         "bDestroy": true,
         "order": [[4, "asc"]],
         "processing": true,
-        "columns": objEditTasks,
+        "columns": objTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -160,7 +160,7 @@ function myTasksList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[4, "asc"]],
+        "order": [[5, "asc"]],
         "processing": true,
         "columns": objEditTasks,
         "scrollY": '75vh',
@@ -190,7 +190,7 @@ function tasksCloseList() {
         "bDestroy": true,
         "order": [[4, "asc"]],
         "processing": true,
-        "columns": objEditTasks,
+        "columns": objTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -335,7 +335,7 @@ function updateDefault() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#defaultModal').modal('hide');
         },
         error: function (errormessage) {
@@ -421,7 +421,7 @@ function updateTEO() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(4);
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#teoModal').modal('hide');
         },
         error: function (errormessage) {
@@ -491,7 +491,7 @@ function updateSetup() {
         dataType: "json",
         success: function (result) {
             $('#setupModal').modal('hide');
-            loadData(5);
+            $('#tableData').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -531,7 +531,7 @@ function updateLetter() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#letterModal').modal('hide');
         },
         error: function (errormessage) {
@@ -586,7 +586,7 @@ function updateTN() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#tnModal').modal('hide');
         },
         error: function (errormessage) {
@@ -638,7 +638,7 @@ function updateCostSh() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#costShModal').modal('hide');
         },
         error: function (errormessage) {
@@ -646,6 +646,3 @@ function updateCostSh() {
         }
     });
 }
-
-//приход
-//еще раз проверить все условия
