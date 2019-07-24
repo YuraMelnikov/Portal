@@ -537,10 +537,10 @@ function updateLetter() {
     });
 }
 
-function getTN(id) {
+function getTN() {
     $.ajax({
         cache: false,
-        url: "/AccountsReceivables/GetTN/" + id,
+        url: "/AccountsReceivables/GetTN/",
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -550,13 +550,8 @@ function getTN(id) {
             $('#dateTN').val("");
             $('#numberSF').val("");
             $('#dateSF').val("");
-            $('#Summa').val("");
-            $('#tnId').val(result.int);
-            $('#numberTN').val(result.numberTN);
-            $('#dateTN').val(result.dateTN);
-            $('#numberSF').val(result.numberSF);
-            $('#dateSF').val(result.dateSF);
-            $('#Summa').val(result.Summa);
+            $('#numCMR').val("");
+            $('#dateCMR').val("");
             $('#tnModal').modal('show');
         },
         error: function (errormessage) {
@@ -573,7 +568,8 @@ function updateTN() {
         dateTN: $('#dateTN').val(),
         numberSF: $('#numberSF').val(),
         dateSF: $('#dateSF').val(),
-        Summa: $('#Summa').val()
+        numCMR: $('#numCMR').val(),
+        dateCMR: $('#dateCMR').val()
     };
     $.ajax({
         cache: false,

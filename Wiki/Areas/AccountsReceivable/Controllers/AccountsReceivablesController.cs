@@ -68,8 +68,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                    viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                    editLink = "",
+                    viewLink = "",
                     order = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.TaskForPZ.taskName,
                     client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
@@ -95,8 +95,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                    viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                    editLink = "",
+                    viewLink = "",
                     order = dataList.PZ_PlanZakaz.PlanZakaz,
                     dataList.TaskForPZ.taskName,
                     client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
@@ -111,8 +111,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                string login = HttpContext.User.Identity.Name;
-                if(login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by")
+                string login = "myi@katek.by";
+                //string login = HttpContext.User.Identity.Name;
+                if (login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by" || login == "myi@katek.by")
                 {
                     string userId = db.AspNetUsers.First(d => d.Email == login).Id;
                     db.Configuration.ProxyCreationEnabled = false;
@@ -121,13 +122,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .AsNoTracking()
                         .Include(d => d.TaskForPZ.AspNetUsers)
                         .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                        .Where(d => d.close == false && d.TaskForPZ.id_User == userId)
+                        .Where(d => d.close == false && d.TaskForPZ.id_User == "cd2efd5f-e8f8-41e6-a8a1-91a098f57ec1" && d.id_TaskForPZ != 8)
+                        //.Where(d => d.close == false && d.TaskForPZ.id_User == userId && d.id_TaskForPZ != 8)
                         .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
                         editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                        viewLink = "",
                         order = dataList.PZ_PlanZakaz.PlanZakaz,
                         dataList.TaskForPZ.taskName,
                         client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
@@ -149,8 +151,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                        editLink = "",
+                        viewLink = "",
                         order = dataList.PZ_PlanZakaz.PlanZakaz,
                         dataList.TaskForPZ.taskName,
                         client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
@@ -160,6 +162,18 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     return Json(new { data });
                 }
             }
+        }
+
+        string GetLinkTaskFin(int idTypeTask, int idTask)
+        {
+            if (idTypeTask == 11)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else if (idTypeTask == 10)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else if (idTypeTask == 26)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "";
         }
 
         string GetEditLinkMyTask(int id, int id_type)
