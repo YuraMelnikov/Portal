@@ -388,7 +388,7 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            $('#myTable').DataTable().ajax.reload(null, false);
             $('#orderModal').modal('hide');
         },
         error: function (errormessage) {
@@ -647,7 +647,7 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            $('#myTable').DataTable().ajax.reload(null, false);
             $('#orderModal').modal('hide');
             $('#Id').val("");
             $('#StantionGruzopoluchatel').val("");
@@ -884,7 +884,7 @@ function UpdateOrders() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            $('#myTable').DataTable().ajax.reload(null, false);
             $('#ordersModal').modal('hide');
         },
         error: function (errormessage) {
@@ -995,7 +995,7 @@ function UpdateKO() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            $('#myTable').DataTable().ajax.reload(null, false);
             $('#orderKOModal').modal('hide');
             $("#btnUpdateKO").attr('disabled', false);
         },

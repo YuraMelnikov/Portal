@@ -33,7 +33,7 @@ var objViewList = [
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Дата открытия", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Дата получения", "data": "dateGet", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Дата закрытия", "data": "dateClose", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull  },
+    { "title": "Дата закрытия", "data": "dateClose", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Папка (IE)", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
@@ -264,7 +264,7 @@ function Add() {
         dataType: "json",
         success: function (result) {
             $("#partRem").show();
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#reclamationTable').DataTable().ajax.reload(null, false);
             get(result);
         },
         error: function (errormessage) {
@@ -363,7 +363,7 @@ function get(id) {
     return false;
 }
 
-function getView(id){
+function getView(id) {
     clearTextBox();
     var myVal = userGroupId;
     $.ajax({
@@ -430,7 +430,7 @@ function update() {
             //$('#reclamationModal').modal('hide');
             clearTextBoxRem();
             updateRemList(result);
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#reclamationTable').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -445,7 +445,7 @@ function processNull(data) {
         return data;
     }
 }
-   
+
 function copyLink() {
     var urlPatch = $('#folder').val();
     if (window.clipboardData) { // this is for Internet Explorer
@@ -474,7 +474,7 @@ function openNoCloseModal() {
     $('#excelNoCloseReclamatonModal').modal('show');
 }
 
-function createAnClosePZ(){
+function createAnClosePZ() {
     var res = validatePZList();
     if (res === false) {
         return false;
@@ -583,7 +583,6 @@ function addNewRemarkOTK() {
         dataType: "json",
         success: function (result) {
             clearTextBoxRem();
-            //loadData(document.getElementById('pageData').innerHTML);
             updateRemList(result);
         },
         error: function (errormessage) {
