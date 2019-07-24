@@ -180,9 +180,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
                 ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             }
-
-                logger.Debug("Reclamation: " + login);
-
+            logger.Debug("Reclamation: " + login);
             return View();
         }
 

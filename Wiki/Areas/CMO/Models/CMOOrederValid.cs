@@ -102,6 +102,15 @@ namespace Wiki.Areas.CMO.Models
                 order.manufDate = cMO2_Order.manufDate;
                 db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                try
+                {
+                    new EmailCMO(cMO2_Order, login, 5);
+                    logger.Debug("UpdateOrder / EmailCMO: " + order.id);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("UpdateOrder / EmailCMO: " + order.id + " | " + ex);
+                }
             }
             else
             {

@@ -448,7 +448,6 @@ namespace Wiki.Controllers
 
         public ActionResult Index()
         {
-            //ViewBag.linkToExcel = @"http://pserver/RKD/ExportToExcel/"
             ViewBag.linkToExcel = linkToExcelListOrders;
             try
             {
