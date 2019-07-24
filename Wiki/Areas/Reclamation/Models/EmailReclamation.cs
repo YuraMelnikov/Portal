@@ -34,7 +34,7 @@ namespace Wiki.Areas.Reclamation.Models
                 GetMailList();
                 GetSubject();
                 GetBody();
-                //SendEmail();
+                SendEmail();
             }
             catch (Exception ex)
             {
