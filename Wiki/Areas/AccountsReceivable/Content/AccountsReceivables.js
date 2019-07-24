@@ -1,13 +1,10 @@
 ﻿$(document).ready(function () {
-    document.getElementById('pageId').innerHTML = "1";
-    document.getElementById('labelList').innerHTML = "Активные задачи";
+    document.getElementById('pageId').innerHTML = "2";
+    document.getElementById('labelList').innerHTML = "Мои задачи";
     $('#pageId').hide();
     $('#teoHide').hide();
     $('#divHideSetup').hide();
     startMenu();
-    if (userGroupId === 1) {
-        loadData(2);
-    }
 });
 
 function loadData(listId) {
@@ -100,13 +97,13 @@ function startMenu() {
     $("#tableData").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/AccountsReceivables/TasksList",
+            "url": "/AccountsReceivables/MyTasksList",
             "type": "POST",
             "datatype": "json"
         },
         "order": [[4, "asc"]],
         "processing": true,
-        "columns": objTasks,
+        "columns": objEditTasks,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

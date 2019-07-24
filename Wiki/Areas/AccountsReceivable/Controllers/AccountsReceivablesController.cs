@@ -111,27 +111,54 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.Debit_WorkBit
-                    .AsNoTracking()
-                    .Include(d => d.TaskForPZ.AspNetUsers)
-                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                    .Where(d => d.close == false)
-                    .Where(d => d.id_TaskForPZ != 28)
-                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
-                    .ToList();
-                var data = query.Select(dataList => new
+                string login = HttpContext.User.Identity.Name;
+                if(login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by")
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                    viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
-                    order = dataList.PZ_PlanZakaz.PlanZakaz,
-                    dataList.TaskForPZ.taskName,
-                    client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
-                    user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
-                    planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
-                });
-                return Json(new { data });
+                    string userId = db.AspNetUsers.First(d => d.Email == login).Id;
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.Debit_WorkBit
+                        .AsNoTracking()
+                        .Include(d => d.TaskForPZ.AspNetUsers)
+                        .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                        .Where(d => d.close == false && d.TaskForPZ.id_User == userId)
+                        .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                        order = dataList.PZ_PlanZakaz.PlanZakaz,
+                        dataList.TaskForPZ.taskName,
+                        client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                        user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
+                        planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
+                    });
+                    return Json(new { data });
+                }
+                else
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.Debit_WorkBit
+                        .AsNoTracking()
+                        .Include(d => d.TaskForPZ.AspNetUsers)
+                        .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                        .Where(d => d.id == 0)
+                        .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                        order = dataList.PZ_PlanZakaz.PlanZakaz,
+                        dataList.TaskForPZ.taskName,
+                        client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                        user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
+                        planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
+                    });
+                    return Json(new { data });
+                }
             }
         }
 

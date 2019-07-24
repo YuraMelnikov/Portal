@@ -1680,11 +1680,6 @@
     <Content Include="Scripts\select2-3.5.4\select2_locale_en.js.template" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
-    <Content Include="Views\TaskForPZs\Create.cshtml" />
-    <Content Include="Views\TaskForPZs\Delete.cshtml" />
-    <Content Include="Views\TaskForPZs\Details.cshtml" />
-    <Content Include="Views\TaskForPZs\Edit.cshtml" />
-    <Content Include="Views\TaskForPZs\Index.cshtml" />
     <Content Include="Views\Debit_WorkBit\Create.cshtml" />
     <Content Include="Views\Debit_WorkBit\Delete.cshtml" />
     <Content Include="Views\Debit_WorkBit\Details.cshtml" />

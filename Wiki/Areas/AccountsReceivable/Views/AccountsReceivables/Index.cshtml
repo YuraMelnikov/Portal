@@ -12,14 +12,44 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);">Активные задачи</a></li>
-            <li><a onclick="return loadData(2);">Мои задачи</a></li>
-            <li><a onclick="return loadData(3);">Закрытые задачи</a></li>
-            <li><a onclick="return loadData(4);">ТЭО</a></li>
-            <li><a onclick="return loadData(5);">Договорные условия</a></li>
-            <li><a onclick="return loadData(6);">Поступление средств</a></li>
-            <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
+        <ul class="nav nav-pills">
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Список задач
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(2);">Мои задачи</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(1);">Активные задачи</a></li>
+                    <li><a onclick="return loadData(3);">Закрытые задачи</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Оприходование
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(4);">ТЭО</a></li>
+                    <li><a onclick="return loadData(5);">Договорные условия</a></li>
+                    <li><a onclick="return loadData(6);">Поступление средств</a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    Задачи PM
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a onclick="return loadData(7);">Активные</a></li>
+                    <li><a onclick="return loadData(8);">Завершенные</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(9);">Все</a></li>
+                </ul>
+            </li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "AccountsReceivables"); }
