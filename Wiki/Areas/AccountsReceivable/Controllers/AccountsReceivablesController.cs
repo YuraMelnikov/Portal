@@ -128,7 +128,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        editLink = GetLinkTaskFin(dataList.id_TaskForPZ),
                         viewLink = "",
                         order = dataList.PZ_PlanZakaz.PlanZakaz,
                         dataList.TaskForPZ.taskName,
@@ -164,14 +164,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
-        string GetLinkTaskFin(int idTypeTask, int idTask)
+        string GetLinkTaskFin(int idTypeTask)
         {
             if (idTypeTask == 11)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTN('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else if (idTypeTask == 10)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getCostSh('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else if (idTypeTask == 26)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTask('" + idTask + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getLetter('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "";
         }
@@ -472,23 +472,23 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
-        public JsonResult GetTN(int id)
+        public JsonResult GetTN()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.Debit_TN.Where(d => d.@int == id).ToList();
-                var data = query.Select(dataList => new
+                var sucursalList = db.Debit_WorkBit
+                    .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.close == false && d.id_TaskForPZ == 11)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                var data = sucursalList.Select(m => new SelectListItem()
                 {
-                    tnId = dataList.@int,
-                    dataList.numberTN,
-                    dataList.dateTN,
-                    dataList.numberSF,
-                    dataList.dateSF,
-                    dataList.Summa
+                    Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
+                    Value = m.PZ_PlanZakaz.Id.ToString(),
                 });
-                return Json(data.First(), JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 

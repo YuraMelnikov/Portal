@@ -541,10 +541,9 @@ function getTN() {
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/GetTN/",
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
-        success: function (result) {
+        success: function (data) {
             $('#tnId').val("");
             $('#numberTN').val("");
             $('#dateTN').val("");
@@ -553,6 +552,14 @@ function getTN() {
             $('#numCMR').val("");
             $('#dateCMR').val("");
             $('#tnModal').modal('show');
+            var x = document.getElementById("orders");
+            for (var i = x.children.length; i >= 0; i--) {
+                x.remove(i);
+            }
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#orders").append(optionhtml);
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

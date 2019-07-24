@@ -1004,8 +1004,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
         }
 
-
-
         public JsonResult UpdatePZList(int id)
         {
             DateTime dateDeactiveOTK = DateTime.Now.AddDays(-15);

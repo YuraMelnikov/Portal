@@ -307,6 +307,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-lg-12">
+                        <label>Введите номер/а заказа/ов:</label>
+                        @Html.ListBox("orders", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-2">
                         <label>Номер ТН:</label>
                         <input type="text" class="form-control" id="numberTN" />
