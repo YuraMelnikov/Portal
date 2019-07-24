@@ -500,6 +500,7 @@ function GetReclamation(id) {
         success: function (result) {
             AllNoDisabled();
             $('#id').val(result.id);
+            $('#numberReclamation').val('Замечание №: ' + result.id);
             $('#fixedExpert').val(result.fixedExpert);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
@@ -605,6 +606,7 @@ function GetReclamationView(id) {
         dataType: "json",
         success: function (result) {
             $('#id').val(result.id);
+            $('#numberReclamation').val('Замечание №: ' + result.id);
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
             $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
             $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
@@ -1062,6 +1064,7 @@ function GetReclamationExpert(id) {
             $('#trash').prop('disabled', true);
             $('#pZ_PlanZakaz').prop('disabled', true);
             $('#id').val(result.id);
+            $('#numberReclamation').val('Замечание №: ' + result.id);
             $('#fixedExpert').val(result.fixedExpert);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
