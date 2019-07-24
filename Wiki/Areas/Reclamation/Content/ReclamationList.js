@@ -330,7 +330,7 @@ function Add() {
         id_DevisionReclamation: $('#id_DevisionReclamation').val(),
         id_AspNetUsersError: $('#id_AspNetUsersError').val(),
         id_Reclamation_CountErrorFirst: $('#id_Reclamation_CountErrorFirst').val(),
-        timeToSearch: $('#timeToSearch').val().replace('.',','),
+        timeToSearch: $('#timeToSearch').val().replace('.', ','),
         timeToEliminate: $('#timeToEliminate').val().replace('.', ','),
         text: $('#text').val(),
         description: $('#description').val(),
@@ -352,7 +352,7 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData(document.getElementById('pageData').innerHTML);
+            $('#myTable').DataTable().ajax.reload(null, false);
             $('#viewReclamation').modal('hide');
         },
         error: function (errormessage) {
@@ -667,33 +667,6 @@ function GetReclamationView(id) {
     return false;
 }
 
-//function UpdatePZList(id) {
-//    var selectedDevision = $('#pZ_PlanZakaz').find('option:selected').text();
-//    $.ajax({
-//        cache: false,
-//        url: "/Remarks/UpdatePZList/" + id,
-//        type: "POST",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (data) {
-//            if (data.length > 0) {
-//                var x = document.getElementById("pZ_PlanZakaz");
-//                for (var i = x.children.length; i >= 0; i--) {
-//                    x.remove(i);
-//                }
-//                var chosen = $(".chosen-select").chosen();
-//                for (var j = 0; j < data.length; j++) {
-//                    var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
-//                    chosen.append(optionhtml);
-//                    console.log(optionhtml);
-//                    console.log($('#pZ_PlanZakaz').val());
-//                }
-//                chosen.trigger("chosen:updated");
-//            }
-//        }
-//    });
-//}
-
 function remove() {
     if (counterDevision !== 1) {
         if ($('#answerText').val() === "" && $('#reload').is(":checked") === false) {
@@ -722,7 +695,7 @@ function remove() {
         success: function (result) {
             $('#viewReclamation').modal('hide');
             if (pz === "")
-                loadData(document.getElementById('pageData').innerHTML);
+                $('#myTable').DataTable().ajax.reload(null, false);
             else {
                 var id = document.getElementById('zakazId').innerHTML;
                 reclamationsPlanZakaz(id);
@@ -792,14 +765,7 @@ function Update() {
         dataType: "json",
         success: function (result) {
             $('#viewReclamation').modal('hide');
-            if (pz === "") {
-                //loadData(document.getElementById('pageData').innerHTML);
-                $('#myTable').DataTable().ajax.reload(null, false);
-            }
-            else {
-                var id = document.getElementById('zakazId').innerHTML;
-                reclamationsPlanZakaz(id);
-            }
+            $('#myTable').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1057,7 +1023,6 @@ function reclamationPO() {
 }
 
 function GetReclamationExpert(id) {
-    //UpdatePZList();
     var myVal = counterDevision;
     $.ajax({
         cache: false,

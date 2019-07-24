@@ -155,7 +155,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
-            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             //ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             if (login == "pev@katek.by" || login == "myi@katek.by")
@@ -341,6 +341,11 @@ namespace Wiki.Areas.Reclamation.Controllers
             string login = HttpContext.User.Identity.Name;
             Wiki.Reclamation order = db.Reclamation.Find(reclamation.id);
             _ = new EmailReclamation(order, login, 4);
+
+            foreach(var data in db.Reclamation_PZ.Where(d => d.id_Reclamation == reclamation.id))
+            {
+                db.Reclamation_PZ.Remove(data);
+            }
             db.Reclamation.Remove(order);
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);

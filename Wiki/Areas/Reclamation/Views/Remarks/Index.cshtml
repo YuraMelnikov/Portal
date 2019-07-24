@@ -11,6 +11,10 @@
         .colorWhite {
             color: white;
         }
+        .button {
+          display: block;
+          margin: 0 auto;
+        }
     </style>
 </head>
 <nav class="navbar navbar-default">
@@ -19,8 +23,14 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav nav-pills">
+            <li>
+                <button style="display:block; margin: 10px" id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </li>
             <li><a onclick="return loadData(1);">Активные замечания</a></li>
             <li class="dropdown">
+
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     Список замечаний
                     <b class="caret"></b>
@@ -58,29 +68,21 @@
             <li><a id="pageData"></a></li>
             <li><a id="zakazId"></a></li>
             <li><a id="expertData"></a></li>
+            <li>
+                <button style="display:block; margin: 10px"  id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
+                    to Excel
+                </button>
+            </li>
         </ul>
     </div>
 </nav>
 <div class="row">
     <div class="col-md-12">
-        <button id="btnAddNewReclamation" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#viewReclamation" onclick=clearTextBox()>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-        <button id="btnExpert" type="button" class="btn-xs btn-primary" onclick=expertComplitedAll()>
-            Подтвердить оценки КО и заявки на техсовет
-        </button>
-        <button id="btnCloseOrder" type="button" class="btn-xs btn-danger" onclick=closeOrderOTK(idPZ)>
-            Проверка изделия завершена
-        </button>
-        <button id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
-            to Excel
-        </button>
-        <hr />
         <label id="labelNamePage"></label>
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
-<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover" >
+<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -119,7 +121,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label>Ответственное СП: </label>
-                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id="id_DevisionReclamation" })
+                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id = "id_DevisionReclamation" })
                     </div>
                     <div class="col-lg-3">
                         <label>Ответственный сотрудник: </label>
@@ -264,7 +266,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" id="btnCreateReport" value="Сформировать" class="btn btn-primary" onclick="disabledBtnCreateReport()"/>
+                    <input type="submit" id="btnCreateReport" value="Сформировать" class="btn btn-primary" onclick="disabledBtnCreateReport()" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
                 </div>
             }
