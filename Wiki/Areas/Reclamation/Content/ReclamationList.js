@@ -1224,7 +1224,7 @@ function chackList(id) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
             }
-            document.getElementById('labelNamePage').innerHTML = 'Заказ №: ' + data.PlanZakaz;
+            document.getElementById('labelNamePage').innerHTML = 'Заказ №: ' + data.OnePZName;
         },
         "scrollY": '75vh',
         "scrollX": true,
