@@ -488,49 +488,96 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
                     Value = m.PZ_PlanZakaz.Id.ToString(),
                 });
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return Json(data.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult UpdateTN(Debit_TN debit)
+        public JsonResult UpdateTN(int[] pZ_PlanZakazTN, string numberTN, string numberSF,
+            string numCMR, DateTime dateTN, DateTime dateSF, DateTime dateCMR)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                db.Entry(debit).State = EntityState.Modified;
-                db.SaveChanges();
+                foreach (var pz in pZ_PlanZakazTN)
+                {
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 11);
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Debit_TN debit_TN = new Debit_TN
+                    {
+                        id_DebitTask = debit_WorkBit.id,
+                        numberTN = numberTN,
+                        numberSF = numberSF,
+                        dateTN = dateTN,
+                        dateSF = dateSF,
+                        Summa = 0
+                    };
+                    db.Debit_TN.Add(debit_TN);
+                    db.SaveChanges();
+                    debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 8);
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Debit_CMR debit_CMR = new Debit_CMR
+                    {
+                        id_DebitTask = debit_WorkBit.id,
+                        dateShip = dateCMR,
+                        number = numCMR
+                    };
+                    db.Debit_CMR.Add(debit_CMR);
+                    db.SaveChanges();
+                }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult GetCostSh(int id)
+        //Debit_IstPost
+        public JsonResult GetCostSh()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.Debit_IstPost.Where(d => d.id == id).ToList();
-                var data = query.Select(dataList => new
+                var sucursalList = db.Debit_WorkBit
+                    .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.close == false && d.id_TaskForPZ == 26)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                var data = sucursalList.Select(m => new SelectListItem()
                 {
-                    costShId = dataList.id,
-                    dataList.transportSum,
-                    dataList.numberOrder,
-                    dataList.ndsSum,
-                    dataList.currency
+                    Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
+                    Value = m.PZ_PlanZakaz.Id.ToString(),
                 });
-                return Json(data.First(), JsonRequestBehavior.AllowGet);
+                return Json(data.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult UpdateCostSh(Debit_IstPost debit)
+        public JsonResult UpdateCostSh(int[] pZ_PlanZakazSF, double transportSum, string numberOrder, double ndsSum, int currency)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                db.Entry(debit).State = EntityState.Modified;
-                db.SaveChanges();
+                foreach (var pz in pZ_PlanZakazSF)
+                {
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 26);
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Debit_IstPost debit_IstPost = new Debit_IstPost
+                    {
+                        id_DebitTask = debit_WorkBit.id,
+                        transportSum = transportSum,
+                        numberOrder = numberOrder,
+                        ndsSum = ndsSum,
+                        currency = currency
+                    };
+                    db.Debit_IstPost.Add(debit_IstPost);
+                    db.SaveChanges();
+                }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }

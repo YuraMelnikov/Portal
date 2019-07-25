@@ -300,18 +300,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" id="tnId" disabled="disabled" />
+                <div class="col-lg-10">
+                    <h4>Данные о ТН, СФ и ЖДН/CMR:</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <label>Введите номер/а заказа/ов:</label>
-                        @Html.ListBox("orders", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                        <label>Номер/а заказа/ов:</label>
+                        @Html.ListBox("pZ_PlanZakazTN", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                 </div>
+                <hr />
                 <div class="row">
                     <div class="col-lg-2">
                         <label>Номер ТН:</label>
@@ -338,6 +339,21 @@
                         <input type="text" class="form-control" id="dateCMR" />
                     </div>
                 </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -346,7 +362,7 @@
                     </div>
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdateTN" style="display:none;" onclick="updateTN();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateTN" onclick="updateTN();">Обновить</button>
                     </div>
                 </div>
             </div>
@@ -357,12 +373,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" id="costShId" disabled="disabled" />
+                <div class="col-lg-10">
+                    <h4>введите транспортные издержки по заказу/ам (с учетом на 1 ед выбранных заказов):</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Номер/а заказа/ов:</label>
+                        @Html.ListBox("pZ_PlanZakazSF", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <hr />
                 <div class="row">
                     <div class="col-lg-2">
                         <label>Транспорт экспедитора (сумма):</label>
@@ -377,8 +400,8 @@
                         <input type="text" class="form-control" id="ndsSum" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Валюта платежа:</label>
-                        <input type="text" class="form-control" id="currency" />
+                        <label>Валюта:</label>
+                        @Html.DropDownList("currency", ViewBag.currency as MultiSelectList, new { @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -406,5 +429,36 @@
     $(".chosen-select").chosen({
         placeholder_text_multiple: "Нажмите для выбора...",
         allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#dateTN').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateSF').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateCMR').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
     });
 </script>

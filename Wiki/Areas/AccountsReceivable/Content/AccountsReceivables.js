@@ -541,6 +541,7 @@ function getTN() {
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/GetTN/",
+        type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -552,13 +553,11 @@ function getTN() {
             $('#numCMR').val("");
             $('#dateCMR').val("");
             $('#tnModal').modal('show');
-            var x = document.getElementById("orders");
-            for (var i = x.children.length; i >= 0; i--) {
-                x.remove(i);
-            }
+            $('#pZ_PlanZakazTN').empty();
             for (var j = 0; j < data.length; j++) {
                 var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
-                $("#orders").append(optionhtml);
+                $("#pZ_PlanZakazTN").append(optionhtml);
+                $('#pZ_PlanZakazTN').trigger("chosen:updated");
             }
         },
         error: function (errormessage) {
@@ -570,7 +569,7 @@ function getTN() {
 
 function updateTN() {
     var objTNData = {
-        id: $('#tnId').val(),
+        pZ_PlanZakazTN: $('#pZ_PlanZakazTN').val(),
         numberTN: $('#numberTN').val(),
         dateTN: $('#dateTN').val(),
         numberSF: $('#numberSF').val(),
@@ -595,24 +594,19 @@ function updateTN() {
     });
 }
 
-function getCostSh(id) {
+function getCostSh() {
     $.ajax({
         cache: false,
-        url: "/AccountsReceivables/GetCostSh/" + id,
+        url: "/AccountsReceivables/GetCostSh/",
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $('#costShId').val("");
+            $('#pZ_PlanZakazSF').val("");
             $('#transportSum').val("");
             $('#numberOrder').val("");
             $('#ndsSum').val("");
             $('#currency').val("");
-            $('#costShId').val(result.id);
-            $('#transportSum').val(result.transportSum);
-            $('#numberOrder').val(result.numberOrder);
-            $('#ndsSum').val(result.ndsSum);
-            $('#currency').val(result.currency);
             $('#costShModal').modal('show');
         },
         error: function (errormessage) {
@@ -624,11 +618,11 @@ function getCostSh(id) {
 
 function updateCostSh() {
     var objCashShData = {
-        id: $('#costShId').val(),
+        pZ_PlanZakazSF: $('#pZ_PlanZakazSF').val(),
         transportSum: $('#transportSum').val(),
         numberOrder: $('#numberOrder').val(),
-        ndsSum: $('#ndsSum').val(),
-        currency: $('#currency').val()
+        currency: $('#currency').val(),
+        ndsSum: $('#ndsSum').val()
     };
     $.ajax({
         cache: false,
