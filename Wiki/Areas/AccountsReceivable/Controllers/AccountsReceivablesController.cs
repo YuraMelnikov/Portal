@@ -122,7 +122,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .AsNoTracking()
                         .Include(d => d.TaskForPZ.AspNetUsers)
                         .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                        .Where(d => d.close == false && d.TaskForPZ.id_User == "cd2efd5f-e8f8-41e6-a8a1-91a098f57ec1" && d.id_TaskForPZ != 8)
+                        .Where(d => d.close == false && d.TaskForPZ.id_User == "937a6b7d-b064-471c-b3b5-bf9fe3830825" && d.id_TaskForPZ != 8)
                         //.Where(d => d.close == false && d.TaskForPZ.id_User == userId && d.id_TaskForPZ != 8)
                         .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                         .ToList();
@@ -169,9 +169,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             if (idTypeTask == 11)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTN('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else if (idTypeTask == 10)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getCostSh('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else if (idTypeTask == 26)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getLetter('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else if (idTypeTask == 26)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getCostSh('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "";
         }

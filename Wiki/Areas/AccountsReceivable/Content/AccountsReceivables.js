@@ -597,12 +597,17 @@ function updateTN() {
 function getCostSh() {
     $.ajax({
         cache: false,
-        url: "/AccountsReceivables/GetCostSh/",
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
+        url: "/AccountsReceivables/GetCostSh",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
-        success: function (result) {
-            $('#pZ_PlanZakazSF').val("");
+        success: function (data) {
+            $('#pZ_PlanZakazSF').empty();
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#pZ_PlanZakazSF").append(optionhtml);
+                $('#pZ_PlanZakazSF').trigger("chosen:updated");
+            }
             $('#transportSum').val("");
             $('#numberOrder').val("");
             $('#ndsSum').val("");
@@ -619,10 +624,10 @@ function getCostSh() {
 function updateCostSh() {
     var objCashShData = {
         pZ_PlanZakazSF: $('#pZ_PlanZakazSF').val(),
-        transportSum: $('#transportSum').val(),
+        transportSum: $('#transportSum').val().replace('.', ','),
         numberOrder: $('#numberOrder').val(),
         currency: $('#currency').val(),
-        ndsSum: $('#ndsSum').val()
+        ndsSum: $('#ndsSum').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
