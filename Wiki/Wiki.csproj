@@ -266,6 +266,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Areas\AccountsReceivable\AccountsReceivableAreaRegistration.cs" />
     <Compile Include="Areas\AccountsReceivable\Controllers\AccountsReceivablesController.cs" />
+    <Compile Include="Areas\AccountsReceivable\Models\EmailAccountsReceivable.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -1785,7 +1786,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\AccountsReceivable\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>

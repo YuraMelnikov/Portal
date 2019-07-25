@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Wiki.Areas.AccountsReceivable.Models;
 
 namespace Wiki.Areas.AccountsReceivable.Controllers
 {
     public class AccountsReceivablesController : Controller
     {
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        private HttpPostedFileBase[] fileUploadArray;
         public ActionResult Index()
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
@@ -169,7 +172,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             if (idTypeTask == 11)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTN('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else if (idTypeTask == 10)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getLetter('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getLetter('10" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else if (idTypeTask == 26)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getCostSh('" + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
@@ -216,23 +219,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
             return functName;
         }
-
-        //int GetIdForLink(int id)
-        //{
-        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
-
-        //        id = debit_WorkBit.id;
-        //        if()
-
-        //    }
-
-
-        //    return id;
-        //}
 
         public JsonResult ContractList()
         {
@@ -441,35 +427,111 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.Debit_WorkBit
-                    .Where(d => d.id == id)
-                    .Include(d => d.TaskForPZ)
-                    .Include(d => d.PZ_PlanZakaz)
-                    .ToList();
-                var data = query.Select(dataList => new
+                if(id == 10)
                 {
-                    letterId = dataList.id,
-                    letterTaskName = dataList.TaskForPZ.taskName + " по заказу: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString()
-                });
-                return Json(data.First(), JsonRequestBehavior.AllowGet);
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var sucursalList = db.Debit_WorkBit
+                        .AsNoTracking()
+                        .Include(d => d.PZ_PlanZakaz)
+                        .Where(d => d.close == false && d.id_TaskForPZ == 26)
+                        .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                    var data = sucursalList.Select(m => new SelectListItem()
+                    {
+                        Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
+                        Value = m.PZ_PlanZakaz.Id.ToString(),
+                    });
+                    return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var sucursalList = db.Debit_WorkBit
+                        .AsNoTracking()
+                        .Include(d => d.PZ_PlanZakaz)
+                        .Where(d => d.close == false && d.id_TaskForPZ == 0)
+                        .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                    var data = sucursalList.Select(m => new SelectListItem()
+                    {
+                        Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
+                        Value = m.PZ_PlanZakaz.Id.ToString(),
+                    });
+                    return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
-        public JsonResult UpdateLetter(int id, HttpPostedFileBase[] ofile1)
+        public JsonResult UpdateLetter(int id, int[] pZ_PlanZakazLetters, HttpPostedFileBase[] ofile1, 
+            DateTime datePost, string numPost, DateTime datePrihod)
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
-                debit_WorkBit.close = true;
-                debit_WorkBit.dateClose = DateTime.Now;
-                db.Entry(debit_WorkBit).State = EntityState.Modified;
-                db.SaveChanges();
+                foreach (var pz in pZ_PlanZakazLetters)
+                {
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == id);
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    if(id == 10)
+                    {
+                        PostAlertShip postAlertShip = new PostAlertShip
+                        {
+                            id_Debit_WorkBit = debit_WorkBit.id,
+                            datePost = datePost,
+                            numPost = numPost,
+                            datePrihod = datePrihod
+                        };
+                        db.PostAlertShip.Add(postAlertShip);
+                        db.SaveChanges();
+                        if (ofile1[0] != null)
+                        {
+                            PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
+                            fileUploadArray = ofile1;
+                            CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
+                            string subject = "Получено письмо от экспедитора о поставке заказа: " + pZ_PlanZakaz.PlanZakaz.ToString();
+                            new EmailAccountsReceivable(pZ_PlanZakaz.Folder, login, subject);
+                        }
+                    }
+                }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private void CreateFolderAndFileForPreOrder(string path)
+        {
+            string directory = path + @"\08_Сопроводительная документация\";
+            Directory.CreateDirectory(directory);
+            SaveFileToServer(directory);
+        }
+
+        private void SaveFileToServer(string folderAdress)
+        {
+            for (int i = 0; i < fileUploadArray.Length; i++)
+            {
+                string fileReplace = Path.GetFileName(fileUploadArray[i].FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", folderAdress, fileReplace);
+                fileUploadArray[i].SaveAs(fileName);
+            }
+        }
+
+        private string ToSafeFileName(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
         }
 
         public JsonResult GetTN()
@@ -533,7 +595,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
-        //Debit_IstPost
         public JsonResult GetCostSh()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())

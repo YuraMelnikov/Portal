@@ -254,8 +254,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-lg-8">
-                    <input type="text" class="form-control" id="letterTaskName" disabled="disabled" />
+                <div class="col-lg-10">
+                    <h4>Загрузить письмо:</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -264,11 +264,29 @@
                 {
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Введите №заказа/ов:</label>
-                            @Html.ListBox("orders", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                            <label>Номер/а заказа/ов:</label>
+                            @Html.ListBox("pZ_PlanZakazLetters", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
                         </div>
                     </div>
                     <hr />
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Дата письма:</label>
+                            <input type="text" class="form-control" id="datePost" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Номер письма (или бн):</label>
+                            <input type="text" class="form-control" id="numPost" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Дата поступления изделия (для письм экспедитора):</label>
+                            <input type="text" class="form-control" id="datePrihod" />
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Тип письма:</label>
+                            <input type="text" class="form-control" id="letterId" />
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <input accept="file/*" id="rofile1" multiple="multiple" name="rofile1" type="file" />
@@ -374,7 +392,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col-lg-10">
-                    <h4>введите транспортные издержки по заказу/ам (с учетом на 1 ед выбранных заказов):</h4>
+                    <h4>Введите транспортные издержки по заказу/ам (с учетом на 1 ед выбранных заказов):</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -467,6 +485,16 @@
 <script type="text/javascript">
     $(function () {
         $('#dateCMR').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datePost').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

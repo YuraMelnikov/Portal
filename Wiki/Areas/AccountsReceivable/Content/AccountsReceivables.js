@@ -500,13 +500,18 @@ function getLetter(id) {
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/GetLetter/" + id,
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
-        success: function (result) {
-            $('#letterModal').modal('show');
-            $('#letterId').val(result.id);
-            $('#letterTaskName').val(result.letterTaskName);
+        success: function (data) {
+            $('#letterId').hide();
+            $('#letterId').val(id);
+            $('#pZ_PlanZakazLetters').empty();
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#pZ_PlanZakazLetters").append(optionhtml);
+                $('#pZ_PlanZakazLetters').trigger("chosen:updated");
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -518,7 +523,10 @@ function getLetter(id) {
 function updateLetter() {
     var objLetterData = {
         id: $('#letterId').val(),
-        orders: $('#orders').val()
+        datePost: $('#datePost').val(),
+        numPost: $('#numPost').val(),
+        datePrihod: $('#datePrihod').val(),
+        pZ_PlanZakazLetters: $('#pZ_PlanZakazLetters').val()
     };
     $.ajax({
         cache: false,
