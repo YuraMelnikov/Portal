@@ -506,12 +506,17 @@ function getLetter(id) {
         success: function (data) {
             $('#letterId').hide();
             $('#letterId').val(id);
+            $('#ofile1').val("");
+            $('#datePost').val("");
+            $('#numPost').val("");
+            $('#datePrihod').val("");
             $('#pZ_PlanZakazLetters').empty();
             for (var j = 0; j < data.length; j++) {
                 var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
                 $("#pZ_PlanZakazLetters").append(optionhtml);
                 $('#pZ_PlanZakazLetters').trigger("chosen:updated");
             }
+            $('#letterModal').modal('show');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -520,30 +525,38 @@ function getLetter(id) {
     return false;
 }
 
-function updateLetter() {
-    var objLetterData = {
-        id: $('#letterId').val(),
-        datePost: $('#datePost').val(),
-        numPost: $('#numPost').val(),
-        datePrihod: $('#datePrihod').val(),
-        pZ_PlanZakazLetters: $('#pZ_PlanZakazLetters').val()
-    };
-    $.ajax({
-        cache: false,
-        url: "/AccountsReceivables/UpdateLetter/",
-        data: JSON.stringify(objLetterData),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            $('#tableData').DataTable().ajax.reload(null, false);
-            $('#letterModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
+//function updateLetter() {
+//    var files = $("#fileUpload").get(0).files;
+//    //var tmp = new FormData($('ofile1')[0]);
+//    //var tmp1 = $('#letterId').val();
+//    //var tmp2 = $('#datePost').val();
+//    //var tmp3 = $('#numPost').val();
+//    //var tmp4 = $('#datePrihod').val();
+//    //var tmp5 = $('#pZ_PlanZakazLetters').val();
+//    var objLetterData = {
+//        id: $('#letterId').val(),
+//        datePost: $('#datePost').val(),
+//        numPost: $('#numPost').val(),
+//        datePrihod: $('#datePrihod').val(),
+//        ofile1: files[0],
+//        pZ_PlanZakazLetters: $('#pZ_PlanZakazLetters').val()
+//    };
+//    $.ajax({
+//        cache: false,
+//        url: "/AccountsReceivables/UpdateLetter/",
+//        data: JSON.stringify(objLetterData),
+//        type: "POST",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            $('#tableData').DataTable().ajax.reload(null, false);
+//            $('#letterModal').modal('hide');
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
 
 function getTN() {
     $.ajax({

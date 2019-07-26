@@ -125,7 +125,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .AsNoTracking()
                         .Include(d => d.TaskForPZ.AspNetUsers)
                         .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                        .Where(d => d.close == false && d.TaskForPZ.id_User == "937a6b7d-b064-471c-b3b5-bf9fe3830825" && d.id_TaskForPZ != 8)
+                        .Where(d => d.close == false && d.TaskForPZ.id_User == "cd2efd5f-e8f8-41e6-a8a1-91a098f57ec1" && d.id_TaskForPZ != 8)
                         //.Where(d => d.close == false && d.TaskForPZ.id_User == userId && d.id_TaskForPZ != 8)
                         .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                         .ToList();
@@ -434,7 +434,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     var sucursalList = db.Debit_WorkBit
                         .AsNoTracking()
                         .Include(d => d.PZ_PlanZakaz)
-                        .Where(d => d.close == false && d.id_TaskForPZ == 26)
+                        .Where(d => d.close == false && d.id_TaskForPZ == id)
                         .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
                     var data = sucursalList.Select(m => new SelectListItem()
                     {
@@ -462,7 +462,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
-        public JsonResult UpdateLetter(int id, int[] pZ_PlanZakazLetters, HttpPostedFileBase[] ofile1, 
+        [HttpPost]
+        public ActionResult UpdateLetter(int[] pZ_PlanZakazLetters, HttpPostedFileBase[] ofile1, 
             DateTime datePost, string numPost, DateTime datePrihod)
         {
             string login = HttpContext.User.Identity.Name;
@@ -472,33 +473,30 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazLetters)
                 {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == id);
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 10);
                     debit_WorkBit.close = true;
                     debit_WorkBit.dateClose = DateTime.Now;
                     db.Entry(debit_WorkBit).State = EntityState.Modified;
                     db.SaveChanges();
-                    if(id == 10)
+                    PostAlertShip postAlertShip = new PostAlertShip
                     {
-                        PostAlertShip postAlertShip = new PostAlertShip
-                        {
-                            id_Debit_WorkBit = debit_WorkBit.id,
-                            datePost = datePost,
-                            numPost = numPost,
-                            datePrihod = datePrihod
-                        };
-                        db.PostAlertShip.Add(postAlertShip);
-                        db.SaveChanges();
-                        if (ofile1[0] != null)
-                        {
-                            PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
-                            fileUploadArray = ofile1;
-                            CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
-                            string subject = "Получено письмо от экспедитора о поставке заказа: " + pZ_PlanZakaz.PlanZakaz.ToString();
-                            new EmailAccountsReceivable(pZ_PlanZakaz.Folder, login, subject);
-                        }
+                        id_Debit_WorkBit = debit_WorkBit.id,
+                        datePost = datePost,
+                        numPost = numPost,
+                        datePrihod = datePrihod
+                    };
+                    db.PostAlertShip.Add(postAlertShip);
+                    db.SaveChanges();
+                    if (ofile1[0] != null)
+                    {
+                        PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
+                        fileUploadArray = ofile1;
+                        CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
+                        string subject = "Получено письмо от экспедитора о поставке заказа: " + pZ_PlanZakaz.PlanZakaz.ToString();
+                        new EmailAccountsReceivable(pZ_PlanZakaz.Folder, login, subject);
                     }
                 }
-                return Json(1, JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index");
             }
         }
 
