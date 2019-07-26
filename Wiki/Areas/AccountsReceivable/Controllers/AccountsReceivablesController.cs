@@ -114,8 +114,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                string login = "myi@katek.by";
-                //string login = HttpContext.User.Identity.Name;
+                string login = HttpContext.User.Identity.Name;
                 if (login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by" || login == "myi@katek.by")
                 {
                     string userId = db.AspNetUsers.First(d => d.Email == login).Id;
@@ -125,8 +124,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         .AsNoTracking()
                         .Include(d => d.TaskForPZ.AspNetUsers)
                         .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                        .Where(d => d.close == false && d.TaskForPZ.id_User == "cd2efd5f-e8f8-41e6-a8a1-91a098f57ec1" && d.id_TaskForPZ != 8)
-                        //.Where(d => d.close == false && d.TaskForPZ.id_User == userId && d.id_TaskForPZ != 8)
+                        .Where(d => d.close == false && d.TaskForPZ.id_User == userId && d.id_TaskForPZ != 8)
                         .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
                         .ToList();
                     var data = query.Select(dataList => new
