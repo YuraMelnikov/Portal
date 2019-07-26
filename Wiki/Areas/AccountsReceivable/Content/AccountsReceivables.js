@@ -752,12 +752,7 @@ function validSh() {
 }
 
 //pmOrderModal
-//tablePM - order by desc
-//getPM
 //updatePM
-//clear pm
-//clear color validPM
-//validPM
 
 var objTasksPM = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
@@ -774,8 +769,10 @@ var objTasksPM = [
     { "title": "Внесены прот. КБМ", "data": "prototypeKBMComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
     { "title": "Внесены прот. КБЭ", "data": "prototypeKBEComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
     { "title": "Договор", "data": "contractComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
-    { "title": "Письмо о начале произв.", "data": "mailManuf", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
-    { "title": "Письмо о готовности к отгрузке", "data": "mailSh", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' }
+    { "title": "Ув. о начале произв.", "data": "mailManuf", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Ув. о готовности к отгрузке", "data": "mailSh", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Отгрузка", "data": "sh", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Ув. о поставке", "data": "mailShComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' }
 ];
 
 function tasksPM() {
@@ -814,4 +811,29 @@ function processNullPM(data) {
     } else {
         return data;
     }
+}
+
+function clearPM() {
+    $('#pmOrderPZName').val("");
+    $('#idPZ').val("");
+    $('#ProductType').val("");
+    $('#powerST').val("");
+    $('#vnnn').val("");
+    $('#gbb').val("");
+    $('#orderRegist').val("");
+    $('#teoRegist').val("");
+    $('#planKBM').val("");
+    $('#planKBE').val("");
+    $('#prototypeKBM').val("");
+    $('#prototypeKBE').val("");
+    $('#prototypeKBMComplited').val("");
+    $('#prototypeKBEComplited').val("");
+    $('#contractComplited').val("");
+    $('#mailManuf').val("");
+    $('#mailSh').val("");
+    $('#mailShComplited').val("");
+}
+
+function getPM() {
+
 }
