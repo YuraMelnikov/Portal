@@ -834,6 +834,20 @@ function clearPM() {
     $('#mailShComplited').val("");
 }
 
-function getPM() {
+function getPM(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetPM/" + id,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
 
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
