@@ -111,7 +111,11 @@ namespace Wiki.Areas.Reclamation.Models
         {
             mailToList = new List<string>();
             mailToList.Add("myi@katek.by");
-            if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
+            foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
+            {
+                mail.To.Add(new MailAddress(data.Email));
+            }
+            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
             {
                 foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
                 {

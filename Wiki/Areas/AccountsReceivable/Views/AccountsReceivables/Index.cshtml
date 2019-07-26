@@ -45,10 +45,10 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a onclick="return loadData(7);">Активные</a></li>
-                    <li><a onclick="return loadData(8);">Завершенные</a></li>
+                    <li><a onclick="return loadData(4);">ТЭО</a></li>
+                    <li><a onclick="return loadData(5);">Договорные условия</a></li>
                     <li class="divider"></li>
-                    <li><a onclick="return loadData(9);">Все</a></li>
+                    <li><a onclick="return loadData(7);">Задачи по заказам</a></li>
                 </ul>
             </li>
             <li>
@@ -448,6 +448,146 @@
         </div>
     </div>
 </div>
+<div id="pmOrderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="pmOrderPZName" disabled="disabled" />
+                </div>
+                <div id="pmHide" class="col-lg-2">
+                    <input type="text" class="form-control" id="idPZ" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>Открытие заказа:</label>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Тип продукции:</label>
+                            @Html.DropDownList("ProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Мощность СТ:</label>
+                            <input type="text" class="form-control" id="powerST" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>ВН/НН:</label>
+                            <input type="text" class="form-control" id="vnnn" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Габариты блок-бокса:</label>
+                            <input type="text" class="form-control" id="gbb" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Зарегестрирован:</label>
+                            <input type="text" class="form-control" id="orderRegist" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Внесено ТЭО:</label>
+                            <input type="text" class="form-control" id="teoRegist" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <label>Планирование заказа:</label>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Спланирован по КБМ:</label>
+                            <input type="text" class="form-control" id="planKBM" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Спланирован по КБЭ:</label>
+                            <input type="text" class="form-control" id="planKBE" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Получены прототипы КБМ:</label>
+                            <input type="text" class="form-control" id="prototypeKBM" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Получены прототипы КБЭ:</label>
+                            <input type="text" class="form-control" id="prototypeKBE" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Внесены прототипы КБМ:</label>
+                            <input type="text" class="form-control" id="prototypeKBMComplited" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Внесены прототипы КБЭ:</label>
+                            <input type="text" class="form-control" id="prototypeKBEComplited" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <label>Прочее:</label>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                            <label>Получен договор:</label>
+                            <input type="text" class="form-control" id="contractComplited" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <label>Переписка:</label>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="col-lg-3">
+                            <label>О начале производства:</label>
+                            <input type="text" class="form-control" id="mailManuf" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-3">
+                            <label>О готовности к отгрузке:</label>
+                            <input type="text" class="form-control" id="mailSh" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-3">
+                            <label>О прибытии:</label>
+                            <input type="text" class="form-control" id="mailShComplited" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdatePM" onclick="updatePM();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
@@ -504,6 +644,67 @@
 <script type="text/javascript">
     $(function () {
         $('#datePrihod').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#planKBM').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#planKBE').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#prototypeKBM').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#prototypeKBE').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#prototypeKBMComplited').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#prototypeKBEComplited').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

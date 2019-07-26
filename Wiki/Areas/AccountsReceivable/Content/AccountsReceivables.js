@@ -4,6 +4,7 @@
     $('#pageId').hide();
     $('#teoHide').hide();
     $('#divHideSetup').hide();
+    $('#pmHide').hide();
     startMenu();
 });
 
@@ -32,6 +33,10 @@ function loadData(listId) {
     else if (listId === 6 || listId === "6") {
         debitList();
         document.getElementById('labelList').innerHTML = "Поступление средств";
+    }
+    else if (listId === 7 || listId === "7") {
+        tasksPM();
+        document.getElementById('labelList').innerHTML = "Задачи по заказам";
     }
     else {
         loadData(1);
@@ -744,4 +749,69 @@ function validSh() {
         $('#ndsSum').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+//pmOrderModal
+//tablePM - order by desc
+//getPM
+//updatePM
+//clear pm
+//clear color validPM
+//validPM
+
+var objTasksPM = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "pmOrderPZName", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "СТ", "data": "powerST", "autowidth": true, "bSortable": true },
+    { "title": "ВН/НН", "data": "vnnn", "autowidth": true, "bSortable": true },
+    { "title": "Габарит", "data": "gbb", "autowidth": true, "bSortable": true },
+    { "title": "Регист.", "data": "orderRegist", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "ТЭО", "data": "teoRegist", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "План КБМ", "data": "planKBM", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "План КБЭ", "data": "planKBE", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Прот. КБМ", "data": "prototypeKBM", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Прот. КБЭ", "data": "prototypeKBE", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Внесены прот. КБМ", "data": "prototypeKBMComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Внесены прот. КБЭ", "data": "prototypeKBEComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Договор", "data": "contractComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Письмо о начале произв.", "data": "mailManuf", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' },
+    { "title": "Письмо о готовности к отгрузке", "data": "mailSh", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNullPM, "className": 'text-center' }
+];
+
+function tasksPM() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/TasksPM",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objTasksPM,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function processNullPM(data) {
+    if (data === 'null') {
+        return '??';
+    } else if (data === '1990.01.01') {
+        return '';
+    } else {
+        return data;
+    }
 }

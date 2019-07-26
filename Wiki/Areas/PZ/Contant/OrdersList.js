@@ -43,7 +43,7 @@ function loadData() {
             { "title": "Лот №", "data": "numLota", "autowidth": true, "bSortable": false },
             { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Тип продукции", "data": "ProductType", "autowidth": true, "bSortable": false },
-            { "title": "Дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
+            { "title": "Плановая дата отгрузки", "data": "dataOtgruzkiBP", "autowidth": true, "bSortable": false, "className": 'text-center' }
             //{ "title": "Дата доставки", "data": "dateDostavki", "autowidth": true },
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
