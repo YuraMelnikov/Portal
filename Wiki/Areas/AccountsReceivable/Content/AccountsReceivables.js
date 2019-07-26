@@ -525,39 +525,6 @@ function getLetter(id) {
     return false;
 }
 
-//function updateLetter() {
-//    var files = $("#fileUpload").get(0).files;
-//    //var tmp = new FormData($('ofile1')[0]);
-//    //var tmp1 = $('#letterId').val();
-//    //var tmp2 = $('#datePost').val();
-//    //var tmp3 = $('#numPost').val();
-//    //var tmp4 = $('#datePrihod').val();
-//    //var tmp5 = $('#pZ_PlanZakazLetters').val();
-//    var objLetterData = {
-//        id: $('#letterId').val(),
-//        datePost: $('#datePost').val(),
-//        numPost: $('#numPost').val(),
-//        datePrihod: $('#datePrihod').val(),
-//        ofile1: files[0],
-//        pZ_PlanZakazLetters: $('#pZ_PlanZakazLetters').val()
-//    };
-//    $.ajax({
-//        cache: false,
-//        url: "/AccountsReceivables/UpdateLetter/",
-//        data: JSON.stringify(objLetterData),
-//        type: "POST",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            $('#tableData').DataTable().ajax.reload(null, false);
-//            $('#letterModal').modal('hide');
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
-
 function getTN() {
     $.ajax({
         cache: false,
@@ -589,6 +556,10 @@ function getTN() {
 }
 
 function updateTN() {
+    var res = validTN();
+    if (res === false) {
+        return false;
+    }
     var objTNData = {
         pZ_PlanZakazTN: $('#pZ_PlanZakazTN').val(),
         numberTN: $('#numberTN').val(),
@@ -613,6 +584,66 @@ function updateTN() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function validTN() {
+    $('#numberTN').css('border-color', 'lightgrey');
+    $('#dateTN').css('border-color', 'lightgrey');
+    $('#numberSF').css('border-color', 'lightgrey');
+    $('#dateSF').css('border-color', 'lightgrey');
+    $('#numCMR').css('border-color', 'lightgrey');
+    $('#dateCMR').css('border-color', 'lightgrey');
+    var isValid = true;
+    if ($('#pZ_PlanZakazTN').val().length === 0) {
+        $('#pZ_PlanZakazTN').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#pZ_PlanZakazTN').css('border-color', 'lightgrey');
+    }
+    if ($('#numberTN').val().trim() === "") {
+        $('#numberTN').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#numberTN').css('border-color', 'lightgrey');
+    }
+    if ($('#dateTN').val().trim() === "") {
+        $('#dateTN').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#dateTN').css('border-color', 'lightgrey');
+    }
+    if ($('#numberSF').val().trim() === "") {
+        $('#numberSF').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#numberSF').css('border-color', 'lightgrey');
+    }
+    if ($('#dateSF').val().trim() === "") {
+        $('#dateSF').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#dateSF').css('border-color', 'lightgrey');
+    }
+    if ($('#numCMR').val().trim() === "") {
+        $('#numCMR').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#numCMR').css('border-color', 'lightgrey');
+    }
+    if ($('#dateCMR').val().trim() === "") {
+        $('#dateCMR').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#dateCMR').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 function getCostSh() {
@@ -643,6 +674,10 @@ function getCostSh() {
 }
 
 function updateCostSh() {
+    var res = validSh();
+    if (res === false) {
+        return false;
+    }
     var objCashShData = {
         pZ_PlanZakazSF: $('#pZ_PlanZakazSF').val(),
         transportSum: $('#transportSum').val().replace('.', ','),
@@ -665,4 +700,48 @@ function updateCostSh() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function validSh() {
+    $('#transportSum').css('border-color', 'lightgrey');
+    $('#numberOrder').css('border-color', 'lightgrey');
+    $('#currency').css('border-color', 'lightgrey');
+    $('#ndsSum').css('border-color', 'lightgrey');
+    var isValid = true;
+    if ($('#pZ_PlanZakazSF').val().length === 0) {
+        $('#pZ_PlanZakazSF').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#pZ_PlanZakazSF').css('border-color', 'lightgrey');
+    }
+    if ($('#transportSum').val().trim() === "") {
+        $('#transportSum').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#transportSum').css('border-color', 'lightgrey');
+    }
+    if ($('#numberOrder').val().trim() === "") {
+        $('#numberOrder').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#numberOrder').css('border-color', 'lightgrey');
+    }
+    if ($('#currency').val().trim() === "") {
+        $('#currency').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#currency').css('border-color', 'lightgrey');
+    }
+    if ($('#ndsSum').val().trim() === "") {
+        $('#ndsSum').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#ndsSum').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

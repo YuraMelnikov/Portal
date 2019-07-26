@@ -12,7 +12,6 @@ namespace Wiki.Areas.AccountsReceivable.Models
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         List<string> mailToList;
-        private new readonly PortalKATEKEntities db = new PortalKATEKEntities();
 
         public EmailAccountsReceivable(string path, string login, string subject)
         {
@@ -21,6 +20,8 @@ namespace Wiki.Areas.AccountsReceivable.Models
                 mail.From = new MailAddress(login);
                 mailToList = new List<string>();
                 mailToList.Add("myi@katek.by");
+                mailToList.Add("gea@katek.by");
+                mailToList.Add("mvv@katek.by");
                 foreach (var data in GetFileArray(path))
                 {
                     mail.Attachments.Add(new Attachment(data));
