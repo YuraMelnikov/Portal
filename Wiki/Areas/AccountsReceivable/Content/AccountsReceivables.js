@@ -874,7 +874,6 @@ function getLetterPM(id) {
                 $("#pZ_PlanZakazLettersPM").append(optionhtml);
                 $('#pZ_PlanZakazLettersPM').trigger("chosen:updated");
             }
-            $('#idTaskPM').hide();
             $('#letterModalPM').modal('show');
         },
         error: function (errormessage) {

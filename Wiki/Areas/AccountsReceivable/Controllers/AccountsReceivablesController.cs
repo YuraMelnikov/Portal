@@ -776,7 +776,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     sucursalList = db.Debit_WorkBit
                         .AsNoTracking()
                         .Include(d => d.PZ_PlanZakaz)
-                        .Where(d => d.id == 1)
+                        .Where(d => d.id_TaskForPZ == 1)
                         .OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz);
                 }
                 var data = sucursalList.Select(m => new SelectListItem()

@@ -7,5 +7,6 @@ namespace Wiki.Areas.AccountsReceivable.Models
         public DateTime datePost;
         public string numPost;
         public DateTime datePrihod;
+        public int idTaskPM;
     }
 }
