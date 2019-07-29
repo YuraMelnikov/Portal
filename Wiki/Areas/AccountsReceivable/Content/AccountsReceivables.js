@@ -751,9 +751,6 @@ function validSh() {
     return isValid;
 }
 
-//pmOrderModal
-//updatePM
-
 var objTasksPM = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "Заказ", "data": "pmOrderPZName", "autowidth": true, "bSortable": true, "className": 'text-center' },
@@ -867,4 +864,35 @@ function getPM(id) {
         }
     });
     return false;
+}
+
+function updatePM() {
+    var objPMData = {
+        idPZ: $('#idPZ').val()
+        , ProductType: $('#ProductType').val()
+        , powerST: $('#powerST').val()
+        , vnnn: $('#vnnn').val()
+        , gbb: $('#gbb').val()
+        , planKBM: $('#planKBM').val()
+        , planKBE: $('#planKBE').val()
+        , prototypeKBM: $('#prototypeKBM').val()
+        , prototypeKBE: $('#prototypeKBE').val()
+        , prototypeKBMComplited: $('#prototypeKBMComplited').val()
+        , prototypeKBEComplited: $('#prototypeKBEComplited').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdatePM/",
+        data: JSON.stringify(objPMData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#pmOrderModal').modal('hide');
+            $('#tableData').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

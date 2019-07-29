@@ -379,6 +379,10 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 db.Entry(pZ_TEO).State = EntityState.Modified;
                 db.SaveChanges();
+                if (pZ_TEO.SSM > 0 && pZ_TEO.Rate > 0)
+                {
+                    CloseTask(2, pZ_TEO.Id_PlanZakaz, DateTime.Now);
+                }
                 return Json(4, JsonRequestBehavior.AllowGet);
             }
         }
@@ -419,6 +423,10 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 db.Entry(pZ_Setup).State = EntityState.Modified;
                 db.SaveChanges();
+                if (pZ_Setup.UslovieOplatyText != null)
+                {
+                    CloseTask(4, pZ_Setup.id_PZ_PlanZakaz, DateTime.Now);
+                }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -715,6 +723,96 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", "")
                 }).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdatePM(int idPZ, int ProductType, string powerST, string vnnn, string gbb,
+            DateTime? planKBM, DateTime? planKBE, DateTime? prototypeKBM, DateTime? prototypeKBE,
+            DateTime? prototypeKBMComplited, DateTime? prototypeKBEComplited)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(idPZ);
+                pZ_PlanZakaz.ProductType = ProductType;
+                pZ_PlanZakaz.PowerST = GetCorrectParName(powerST);
+                pZ_PlanZakaz.VN_NN = GetCorrectParName(vnnn);
+                pZ_PlanZakaz.Modul = GetCorrectParName(gbb);
+                db.Entry(pZ_PlanZakaz).State = EntityState.Modified;
+                db.SaveChanges();
+                if(planKBM != null)
+                {
+                    CloseTask(41, idPZ, planKBM.Value);
+                }
+                if (planKBE != null)
+                {
+                    CloseTask(42, idPZ, planKBE.Value);
+                }
+                if (prototypeKBM != null)
+                {
+                    CloseTask(43, idPZ, prototypeKBM.Value);
+                }
+                if (prototypeKBE != null)
+                {
+                    CloseTask(44, idPZ, prototypeKBE.Value);
+                }
+                if (prototypeKBMComplited != null)
+                {
+                    CloseTask(45, idPZ, prototypeKBMComplited.Value);
+                }
+                if (prototypeKBEComplited != null)
+                {
+                    CloseTask(46, idPZ, prototypeKBEComplited.Value);
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        string GetCorrectParName(string name)
+        {
+            if (name == "")
+                return "??";
+            return name;
+        }
+
+        bool CloseTask(int idType, int idPZ, DateTime planDate)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == idPZ && d.id_TaskForPZ == idType);
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    debit_WorkBit.datePlan = planDate;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    var predcessorsList = db.TaskForPZ.Where(d => d.Predecessors == idType);
+                    if(predcessorsList.Count() > 0)
+                    {
+                        foreach (var predcessor in predcessorsList)
+                        {
+                            Debit_WorkBit predcessorWork = new Debit_WorkBit
+                            {
+                                id_TaskForPZ = predcessor.id,
+                                dateCreate = DateTime.Now,
+                                datePlanFirst = DateTime.Now.AddDays(predcessor.time),
+                                close = false,
+                                id_PlanZakaz = idPZ,
+                                datePlan = DateTime.Now.AddDays(predcessor.time),
+                                dateClose = null
+                            };
+                            db.Debit_WorkBit.Add(predcessorWork);
+                            db.SaveChanges();
+                        }
+                    }
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }
