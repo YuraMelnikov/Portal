@@ -535,6 +535,16 @@
           <Property Name="adres" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="MailGraphic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="dateUpload" Type="datetime" Nullable="false" />
+          <Property Name="dateMail" Type="date" Nullable="false" />
+          <Property Name="numMail" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="PF">
           <Key>
             <PropertyRef Name="id" />
@@ -1974,6 +1984,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MailGraphic_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="MailGraphic" Type="Self.MailGraphic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGraphic">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostAlertShip_debit_WorkBit">
           <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
           <End Role="PostAlertShip" Type="Self.PostAlertShip" Multiplicity="*" />
@@ -2980,6 +3002,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Devision" EntityType="Self.Devision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailGraphic" EntityType="Self.MailGraphic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
@@ -3379,6 +3402,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_DebitReclamation_PZ_PlanZakaz" Association="Self.FK_DebitReclamation_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="Self.FK_MailGraphic_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="MailGraphic" EntitySet="MailGraphic" />
           </AssociationSet>
           <AssociationSet Name="FK_PostAlertShip_debit_WorkBit" Association="Self.FK_PostAlertShip_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
@@ -4487,6 +4514,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="MailGraphic" EntityType="PortalKATEKModel.MailGraphic" />
+          <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="MailGraphic" EntitySet="MailGraphic" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5444,6 +5476,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="Reclamation_PZ" Relationship="PortalKATEKModel.FK_Reclamation_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Reclamation_PZ" />
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="MailGraphic" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="MailGraphic" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -7464,6 +7497,29 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="MailGraphic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="dateUpload" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateMail" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="numMail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="MailGraphic" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_MailGraphic_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.MailGraphic" Role="MailGraphic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGraphic">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8939,6 +8995,17 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="MailGraphic">
+            <EntityTypeMapping TypeName="PortalKATEKModel.MailGraphic">
+              <MappingFragment StoreEntitySet="MailGraphic">
+                <ScalarProperty Name="numMail" ColumnName="numMail" />
+                <ScalarProperty Name="dateMail" ColumnName="dateMail" />
+                <ScalarProperty Name="dateUpload" ColumnName="dateUpload" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

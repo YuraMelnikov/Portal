@@ -267,7 +267,6 @@
     <Compile Include="Areas\AccountsReceivable\AccountsReceivableAreaRegistration.cs" />
     <Compile Include="Areas\AccountsReceivable\Controllers\AccountsReceivablesController.cs" />
     <Compile Include="Areas\AccountsReceivable\Models\EmailAccountsReceivable.cs" />
-    <Compile Include="Areas\AccountsReceivable\Models\MailToExpeditor.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -494,6 +493,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MailGraphic.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelIdentity\AppRole.cs" />

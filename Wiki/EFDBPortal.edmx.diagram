@@ -244,6 +244,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" />
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.MailGraphic" Width="1.5" PointX="18.125" PointY="73.5" />
+        <AssociationConnector Association="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

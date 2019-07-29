@@ -781,5 +781,85 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 }
             }
         }
+
+
+
+
+
+
+
+
+        public JsonResult GetLetterPM(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var sucursalList = db.Debit_WorkBit
+                    .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.close == false && d.id_TaskForPZ == id)
+                    .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
+                    Value = m.PZ_PlanZakaz.Id.ToString(),
+                });
+                return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateLetterPM(int[] pZ_PlanZakazLettersPM, HttpPostedFileBase[] ofile1PM,
+            DateTime datePostPM, string numPostPM, int idTaskPM, DateTime? datePrihodPM)
+        {
+            string login = HttpContext.User.Identity.Name;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                foreach (var pz in pZ_PlanZakazLettersPM)
+                {
+                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == idTaskPM);
+                    debit_WorkBit.close = true;
+                    debit_WorkBit.dateClose = DateTime.Now;
+                    db.Entry(debit_WorkBit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    if(idTaskPM == 12)
+                    {
+                        PostAlertShip postAlertShip = new PostAlertShip
+                        {
+                            id_Debit_WorkBit = debit_WorkBit.id,
+                            datePost = datePostPM,
+                            numPost = numPostPM,
+                            datePrihod = datePrihodPM.Value
+                        };
+                        db.PostAlertShip.Add(postAlertShip);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        MailGraphic mailGraphic = new MailGraphic
+                        {
+                            id_PZ_PlanZakaz = pz,
+                            dateUpload = DateTime.Now,
+                            dateMail = datePostPM,
+                            numMail = numPostPM
+                        };
+                        db.MailGraphic.Add(mailGraphic);
+                        db.SaveChanges();
+                    }
+
+                    if (ofile1PM[0] != null)
+                    {
+                        PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
+                        fileUploadArray = ofile1PM;
+                        CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
+                        CloseTask(idTaskPM, pz, DateTime.Now);
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

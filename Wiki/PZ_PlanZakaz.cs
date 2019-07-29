@@ -33,6 +33,7 @@ namespace Wiki
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.RKD_Order = new HashSet<RKD_Order>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
+            this.MailGraphic = new HashSet<MailGraphic>();
         }
     
         public int Id { get; set; }
@@ -119,5 +120,7 @@ namespace Wiki
         public virtual ICollection<RKD_Order> RKD_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MailGraphic> MailGraphic { get; set; }
     }
 }
