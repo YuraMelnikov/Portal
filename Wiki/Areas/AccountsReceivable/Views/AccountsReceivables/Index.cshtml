@@ -461,115 +461,83 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <label>Открытие заказа:</label>
+                <label>Открытие заказа</label>
                 <div class="row">
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Тип продукции:</label>
-                            @Html.DropDownList("ProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
-                        </div>
+                        <label>Тип продукции:</label>
+                        @Html.DropDownList("ProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Мощность СТ:</label>
-                            <input type="text" class="form-control" id="powerST" />
-                        </div>
+                        <label>Мощность СТ:</label>
+                        <input type="text" class="form-control" id="powerST" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>ВН/НН:</label>
-                            <input type="text" class="form-control" id="vnnn" />
-                        </div>
+                        <label>ВН/НН:</label>
+                        <input type="text" class="form-control" id="vnnn" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Габариты блок-бокса:</label>
-                            <input type="text" class="form-control" id="gbb" />
-                        </div>
+                        <label>Габариты блок-бокса:</label>
+                        <input type="text" class="form-control" id="gbb" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Зарегестрирован:</label>
-                            <input type="text" class="form-control" id="orderRegist" disabled="disabled" />
-                        </div>
+                        <label>Зарегестрирован:</label>
+                        <input type="text" class="form-control" id="orderRegist" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Внесено ТЭО:</label>
-                            <input type="text" class="form-control" id="teoRegist" disabled="disabled" />
-                        </div>
+                        <label>Внесено ТЭО:</label>
+                        <input type="text" class="form-control" id="teoRegist" disabled="disabled" />
                     </div>
                 </div>
                 <hr />
-                <label>Планирование заказа:</label>
+                <label>Планирование заказа</label>
                 <div class="row">
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Спланирован по КБМ:</label>
-                            <input type="text" class="form-control" id="planKBM" />
-                        </div>
+                        <label>Спланирован по КБМ:</label>
+                        <input type="text" class="form-control" id="planKBM" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Спланирован по КБЭ:</label>
-                            <input type="text" class="form-control" id="planKBE" />
-                        </div>
+                        <label>Спланирован по КБЭ:</label>
+                        <input type="text" class="form-control" id="planKBE" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Получены прототипы КБМ:</label>
-                            <input type="text" class="form-control" id="prototypeKBM" />
-                        </div>
+                        <label>Получены прототипы КБМ:</label>
+                        <input type="text" class="form-control" id="prototypeKBM" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Получены прототипы КБЭ:</label>
-                            <input type="text" class="form-control" id="prototypeKBE" />
-                        </div>
+                        <label>Получены прототипы КБЭ:</label>
+                        <input type="text" class="form-control" id="prototypeKBE" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Внесены прототипы КБМ:</label>
-                            <input type="text" class="form-control" id="prototypeKBMComplited" />
-                        </div>
+                        <label>Внесены прототипы КБМ:</label>
+                        <input type="text" class="form-control" id="prototypeKBMComplited" />
                     </div>
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Внесены прототипы КБЭ:</label>
-                            <input type="text" class="form-control" id="prototypeKBEComplited" />
-                        </div>
+                        <label>Внесены прототипы КБЭ:</label>
+                        <input type="text" class="form-control" id="prototypeKBEComplited" />
                     </div>
                 </div>
                 <hr />
-                <label>Прочее:</label>
+                <label>Прочее</label>
                 <div class="row">
                     <div class="col-lg-2">
-                        <div class="col-lg-2">
-                            <label>Получен договор:</label>
-                            <input type="text" class="form-control" id="contractComplited" disabled="disabled" />
-                        </div>
+                        <label>Получен договор:</label>
+                        <input type="text" class="form-control" id="contractComplited" disabled="disabled" />
                     </div>
                 </div>
                 <hr />
-                <label>Переписка:</label>
+                <label>Переписка</label>
                 <div class="row">
-                    <div class="col-lg-2">
-                        <div class="col-lg-3">
-                            <label>О начале производства:</label>
-                            <input type="text" class="form-control" id="mailManuf" disabled="disabled" />
-                        </div>
+                    <div class="col-lg-3">
+                        <label>О начале производства:</label>
+                        <input type="text" class="form-control" id="mailManuf" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
-                        <div class="col-lg-3">
-                            <label>О готовности к отгрузке:</label>
-                            <input type="text" class="form-control" id="mailSh" disabled="disabled" />
-                        </div>
+                    <div class="col-lg-3">
+                        <label>О готовности к отгрузке:</label>
+                        <input type="text" class="form-control" id="mailSh" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
-                        <div class="col-lg-3">
-                            <label>О прибытии:</label>
-                            <input type="text" class="form-control" id="mailShComplited" disabled="disabled" />
-                        </div>
+                    <div class="col-lg-3">
+                        <label>О прибытии:</label>
+                        <input type="text" class="form-control" id="mailShComplited" disabled="disabled" />
                     </div>
                 </div>
                 <hr />

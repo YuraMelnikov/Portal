@@ -841,9 +841,26 @@ function getPM(id) {
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
-        success: function (data) {
-
-
+        success: function (result) {
+            $('#idPZ').val(result[0].idPZ);
+            $('#ProductType').val(result[0].ProductType);
+            $('#pmOrderPZName').val(result[0].pmOrderPZName);
+            $('#powerST').val(result[0].powerST);
+            $('#vnnn').val(result[0].vnnn);
+            $('#gbb').val(result[0].gbb);
+            $('#orderRegist').val(result[0].orderRegist);
+            $('#teoRegist').val(result[0].teoRegist);
+            $('#planKBM').val(processNullPM(result[0].planKBM));
+            $('#planKBE').val(processNullPM(result[0].planKBE));
+            $('#prototypeKBM').val(processNullPM(result[0].prototypeKBM));
+            $('#prototypeKBE').val(processNullPM(result[0].prototypeKBE));
+            $('#prototypeKBMComplited').val(processNullPM(result[0].prototypeKBMComplited));
+            $('#prototypeKBEComplited').val(processNullPM(result[0].prototypeKBEComplited));
+            $('#contractComplited').val(processNullPM(result[0].contractComplited));
+            $('#mailManuf').val(processNullPM(result[0].mailManuf));
+            $('#mailShComplited').val(processNullPM(result[0].mailShComplited));
+            $('#mailSh').val(processNullPM(result[0].mailSh));
+            $('#pmOrderModal').modal('show');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
