@@ -47,8 +47,7 @@ var objTasks = [
     { "title": "Заказ", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "client", "autowidth": true, "bSortable": true },
-    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "Плановая дата", "data": "planDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull }
+    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true }
 ];
 
 var objEditTasks = [
@@ -56,8 +55,7 @@ var objEditTasks = [
     { "title": "Заказ", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "client", "autowidth": true, "bSortable": true },
-    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "Плановая дата", "data": "planDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull }
+    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true }
 ];
 
 var objTEO = [
@@ -302,48 +300,6 @@ function processNull(data) {
     } else {
         return data;
     }
-}
-
-function getDefault(id) {
-    $.ajax({
-        cache: false,
-        url: "/AccountsReceivables/GetDefault/" + id,
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            $('#checkedDefault').prop('checked', false);
-            $('#defaultModal').modal('show');
-            $('#defaultId').val(result.id);
-            $('#defaultTaskName').val(result.taskNmae);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-    return false;
-}
-
-function updateDefault() {
-    var objDefaultData = {
-        id: $('#defaultId').val(),
-        checkedDefault: $('#checkedDefault').is(":checked")
-    };
-    $.ajax({
-        cache: false,
-        url: "/AccountsReceivables/UpdateDefault/",
-        data: JSON.stringify(objDefaultData),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            $('#tableData').DataTable().ajax.reload(null, false);
-            $('#defaultModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
 }
 
 function getTEO(id) {

@@ -299,44 +299,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             return statusName;
         }
 
-        public JsonResult GetDefault(int id)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.Debit_WorkBit
-                    .Where(d => d.id == id)
-                    .Include(d => d.TaskForPZ)
-                    .Include(d => d.PZ_PlanZakaz)
-                    .ToList();
-                var data = query.Select(dataList => new
-                {
-                    defaultId = dataList.id,
-                    defaultTaskName = dataList.TaskForPZ.taskName + " по заказу: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString()
-                });
-                return Json(data.First(), JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult UpdateDefault(int id, bool checkedDefault)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.Find(id);
-                if (checkedDefault == true)
-                {
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return Json(1, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public JsonResult GetTEO(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -502,6 +464,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
                         string subject = "Получено письмо от экспедитора о поставке заказа: " + pZ_PlanZakaz.PlanZakaz.ToString();
                         new EmailAccountsReceivable(pZ_PlanZakaz.Folder, login, subject);
+                        CloseTask(10, pz, DateTime.Now);
                     }
                 }
                 return RedirectToAction("Index");
@@ -596,6 +559,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     };
                     db.Debit_CMR.Add(debit_CMR);
                     db.SaveChanges();
+                    CloseTask(11, pz, DateTime.Now);
+                    CloseTask(8, pz, DateTime.Now);
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -644,6 +609,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     };
                     db.Debit_IstPost.Add(debit_IstPost);
                     db.SaveChanges();
+                    CloseTask(26, pz, DateTime.Now);
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
