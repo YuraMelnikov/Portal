@@ -62,6 +62,12 @@
 </nav>
 <div id="idLabelList">
     <label id="labelList"></label>
+    <div id="hidePM">
+        <button type="button" class="btn-xs btn-primary" id="btn1" onclick="return getLetterPM(2019);">График</button>
+        <button type="button" class="btn-xs btn-primary" id="btn2" onclick="return getLetterPM(40);">О начале произв.</button>
+        <button type="button" class="btn-xs btn-primary" id="btn3" onclick="return getLetterPM(5);">О готовности к отгр.</button>
+        <button type="button" class="btn-xs btn-primary" id="btn4" onclick="return getLetterPM(12);">О поступлении</button>
+    </div>
     <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
 </div>
 <div id="teoModal" class="modal modal-wide fade" data-keyboard="false">
@@ -520,6 +526,69 @@
         </div>
     </div>
 </div>
+<div id="letterModalPM" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-10">
+                    <h4>Загрузить письмо:</h4>
+                    <input type="text" class="form-control" id="idTaskPM" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("UpdateLetterPM", "AccountsReceivables", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Номер/а заказа/ов:</label>
+                            @Html.ListBox("pZ_PlanZakazLettersPM", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Дата письма:</label>
+                            @Html.EditorFor(model => model.datePost, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Номер письма (или бн):</label>
+                            @Html.EditorFor(model => model.numPost, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Дата поступления изделия (для письм экспедитора):</label>
+                            @Html.EditorFor(model => model.datePrihod, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="ofile1PM" multiple="multiple" name="ofile1PM" type="file" />
+                            <hr />
+                            <input type="submit" value="Загрузить письмо" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
@@ -532,7 +601,6 @@
         allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
     });
 </script>
-
 <script type="text/javascript">
     $(function () {
         $('#dateTN').datetimepicker({
@@ -583,7 +651,6 @@
         });
     });
 </script>
-
 <script type="text/javascript">
     $(function () {
         $('#planKBM').datetimepicker({
@@ -637,6 +704,26 @@
 <script type="text/javascript">
     $(function () {
         $('#prototypeKBEComplited').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datePostPM').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datePrihodPM').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,

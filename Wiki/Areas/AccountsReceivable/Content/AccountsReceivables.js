@@ -4,6 +4,7 @@
     $('#pageId').hide();
     $('#teoHide').hide();
     $('#divHideSetup').hide();
+    $('#hidePM').hide();
     $('#pmHide').hide();
     startMenu();
 });
@@ -732,6 +733,7 @@ function tasksPM() {
     var table = $('#tableData').DataTable();
     table.destroy();
     $('#tableData').empty();
+    $('#hidePM').show();
     $("#tableData").DataTable({
         "ajax": {
             "cache": false,
@@ -851,4 +853,33 @@ function updatePM() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function getLetterPM(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetLetterPM/" + id,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#idTaskPM').val(id);
+            $('#ofile1PM').val("");
+            $('#datePost').val("");
+            $('#numPost').val("");
+            $('#datePrihod').val("");
+            $('#pZ_PlanZakazLettersPM').empty();
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#pZ_PlanZakazLettersPM").append(optionhtml);
+                $('#pZ_PlanZakazLettersPM').trigger("chosen:updated");
+            }
+            $('#idTaskPM').hide();
+            $('#letterModalPM').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }

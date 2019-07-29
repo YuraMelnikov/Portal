@@ -443,20 +443,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazLetters)
                 {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 10);
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
-                    PostAlertShip postAlertShip = new PostAlertShip
-                    {
-                        id_Debit_WorkBit = debit_WorkBit.id,
-                        datePost = datePost,
-                        numPost = numPost,
-                        datePrihod = datePrihod
-                    };
-                    db.PostAlertShip.Add(postAlertShip);
-                    db.SaveChanges();
                     if (ofile1[0] != null)
                     {
                         PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
@@ -464,7 +450,15 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
                         string subject = "Получено письмо от экспедитора о поставке заказа: " + pZ_PlanZakaz.PlanZakaz.ToString();
                         new EmailAccountsReceivable(pZ_PlanZakaz.Folder, login, subject);
-                        CloseTask(10, pz, DateTime.Now);
+                        PostAlertShip postAlertShip = new PostAlertShip
+                        {
+                            id_Debit_WorkBit = CloseTask(10, pz, DateTime.Now),
+                            datePost = datePost,
+                            numPost = numPost,
+                            datePrihod = datePrihod
+                        };
+                        db.PostAlertShip.Add(postAlertShip);
+                        db.SaveChanges();
                     }
                 }
                 return RedirectToAction("Index");
@@ -532,14 +526,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazTN)
                 {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 11);
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
                     Debit_TN debit_TN = new Debit_TN
                     {
-                        id_DebitTask = debit_WorkBit.id,
+                        id_DebitTask = CloseTask(11, pz, DateTime.Now),
                         numberTN = numberTN,
                         numberSF = numberSF,
                         dateTN = dateTN,
@@ -548,19 +537,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     };
                     db.Debit_TN.Add(debit_TN);
                     db.SaveChanges();
-                    debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 8);
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
                     Debit_CMR debit_CMR = new Debit_CMR
                     {
-                        id_DebitTask = debit_WorkBit.id,
+                        id_DebitTask = CloseTask(8, pz, DateTime.Now),
                         dateShip = dateCMR,
                         number = numCMR
                     };
-                    db.Debit_CMR.Add(debit_CMR);
+                    ;
                     db.SaveChanges();
-                    CloseTask(11, pz, DateTime.Now);
-                    CloseTask(8, pz, DateTime.Now);
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -594,14 +578,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazSF)
                 {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == 26);
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
                     Debit_IstPost debit_IstPost = new Debit_IstPost
                     {
-                        id_DebitTask = debit_WorkBit.id,
+                        id_DebitTask = CloseTask(26, pz, DateTime.Now),
                         transportSum = transportSum,
                         numberOrder = numberOrder,
                         ndsSum = ndsSum,
@@ -609,7 +588,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     };
                     db.Debit_IstPost.Add(debit_IstPost);
                     db.SaveChanges();
-                    CloseTask(26, pz, DateTime.Now);
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -742,7 +720,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             return name;
         }
 
-        bool CloseTask(int idType, int idPZ, DateTime planDate)
+        int CloseTask(int idType, int idPZ, DateTime planDate)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -773,21 +751,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                             db.SaveChanges();
                         }
                     }
-                    return true;
+                    return debit_WorkBit.id;
                 }
                 catch
                 {
-                    return false;
+                    return 0;
                 }
             }
         }
-
-
-
-
-
-
-
 
         public JsonResult GetLetterPM(int id)
         {
@@ -800,6 +771,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .Include(d => d.PZ_PlanZakaz)
                     .Where(d => d.close == false && d.id_TaskForPZ == id)
                     .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz);
+                if (id == 2019)
+                {
+                    sucursalList = db.Debit_WorkBit
+                        .AsNoTracking()
+                        .Include(d => d.PZ_PlanZakaz)
+                        .Where(d => d.id == 1)
+                        .OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz);
+                }
                 var data = sucursalList.Select(m => new SelectListItem()
                 {
                     Text = m.PZ_PlanZakaz.PlanZakaz.ToString(),
@@ -811,7 +790,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         [HttpPost]
         public ActionResult UpdateLetterPM(int[] pZ_PlanZakazLettersPM, HttpPostedFileBase[] ofile1PM,
-            DateTime datePostPM, string numPostPM, int idTaskPM, DateTime? datePrihodPM)
+            DateTime datePost, string numPost, int idTaskPM, DateTime? datePrihod)
         {
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -820,42 +799,47 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazLettersPM)
                 {
-                    Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.close == false && d.id_PlanZakaz == pz && d.id_TaskForPZ == idTaskPM);
-                    debit_WorkBit.close = true;
-                    debit_WorkBit.dateClose = DateTime.Now;
-                    db.Entry(debit_WorkBit).State = EntityState.Modified;
-                    db.SaveChanges();
-                    if(idTaskPM == 12)
+                    try
                     {
-                        PostAlertShip postAlertShip = new PostAlertShip
+                        if (idTaskPM == 12)
                         {
-                            id_Debit_WorkBit = debit_WorkBit.id,
-                            datePost = datePostPM,
-                            numPost = numPostPM,
-                            datePrihod = datePrihodPM.Value
-                        };
-                        db.PostAlertShip.Add(postAlertShip);
-                        db.SaveChanges();
+                            PostAlertShip postAlertShip = new PostAlertShip
+                            {
+                                id_Debit_WorkBit = CloseTask(idTaskPM, pz, DateTime.Now),
+                                datePost = datePost,
+                                numPost = numPost,
+                                datePrihod = datePrihod.Value
+                            };
+                            db.PostAlertShip.Add(postAlertShip);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            CloseTask(idTaskPM, pz, DateTime.Now);
+                        }
                     }
-                    else
+                    catch
+                    {
+
+                    }
+
+                    if (idTaskPM == 2019)
                     {
                         MailGraphic mailGraphic = new MailGraphic
                         {
                             id_PZ_PlanZakaz = pz,
                             dateUpload = DateTime.Now,
-                            dateMail = datePostPM,
-                            numMail = numPostPM
+                            dateMail = datePost,
+                            numMail = numPost
                         };
                         db.MailGraphic.Add(mailGraphic);
                         db.SaveChanges();
                     }
-
                     if (ofile1PM[0] != null)
                     {
                         PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
                         fileUploadArray = ofile1PM;
                         CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
-                        CloseTask(idTaskPM, pz, DateTime.Now);
                     }
                 }
                 return RedirectToAction("Index");
