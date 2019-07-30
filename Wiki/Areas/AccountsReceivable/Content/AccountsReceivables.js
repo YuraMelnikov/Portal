@@ -105,7 +105,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[4, "asc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objEditTasks,
         "scrollY": '75vh',
@@ -133,7 +133,7 @@ function tasksList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[4, "asc"]],
+        "order": [[0, "asc"]],
         "processing": true,
         "columns": objTasks,
         "scrollY": '75vh',
@@ -161,7 +161,7 @@ function myTasksList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[5, "asc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objEditTasks,
         "scrollY": '75vh',
@@ -189,7 +189,7 @@ function tasksCloseList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[4, "asc"]],
+        "order": [[0, "asc"]],
         "processing": true,
         "columns": objTasks,
         "scrollY": '75vh',

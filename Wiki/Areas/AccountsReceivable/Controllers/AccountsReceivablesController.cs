@@ -186,7 +186,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             link += "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return";
             link += GetFunctionJSTask(id_type);
             link += "('";
-            //link += GetIdForLink(id);
             link += "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
             return link;
         }
@@ -598,9 +597,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                string login = "gea@katek.by";
-                //string login = HttpContext.User.Identity.Name;
-                string userId = db.AspNetUsers.First(d => d.Email == login).Id;
+                string login = HttpContext.User.Identity.Name;
+                string userId = db.AspNetUsers.First(d => d.Email == "gea@katek.by").Id;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.Debit_WorkBit
@@ -613,28 +611,56 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     if (pzList.IndexOf(workToDeb.id_PlanZakaz) == -1)
                         pzList.Add(workToDeb.id_PlanZakaz);
                 }
-                var data = pzList.Select(dataList => new
+                if(login == "gea@katek.by")
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPM('" + dataList + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                    pmOrderPZName = db.PZ_PlanZakaz.Find(dataList).PlanZakaz.ToString(),
-                    powerST = db.PZ_PlanZakaz.Find(dataList).PowerST,
-                    vnnn = db.PZ_PlanZakaz.Find(dataList).VN_NN,
-                    gbb = db.PZ_PlanZakaz.Find(dataList).Modul,
-                    orderRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 1).dateClose, shortSetting).Replace(@"""", ""),
-                    teoRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 2).dateClose, shortSetting).Replace(@"""", ""),
-                    planKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 41).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    planKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 42).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    prototypeKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 43).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    prototypeKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 44).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    prototypeKBMComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 45).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    prototypeKBEComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 46).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    contractComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 4).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    mailManuf = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 40).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    mailShComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 12).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
-                    sh = JsonConvert.SerializeObject(db.PZ_PlanZakaz.Find(dataList).dataOtgruzkiBP, shortSetting).Replace(@"""", "")
-                }).ToList();
-                return Json(new { data });
+                    var data = pzList.Select(dataList => new
+                    {
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPM('" + dataList + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        pmOrderPZName = db.PZ_PlanZakaz.Find(dataList).PlanZakaz.ToString(),
+                        powerST = db.PZ_PlanZakaz.Find(dataList).PowerST,
+                        vnnn = db.PZ_PlanZakaz.Find(dataList).VN_NN,
+                        gbb = db.PZ_PlanZakaz.Find(dataList).Modul,
+                        orderRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 1).dateClose, shortSetting).Replace(@"""", ""),
+                        teoRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 2).dateClose, shortSetting).Replace(@"""", ""),
+                        planKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 41).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        planKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 42).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 43).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 44).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBMComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 45).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBEComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 46).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        contractComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 4).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailManuf = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 40).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailShComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 12).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        sh = JsonConvert.SerializeObject(db.PZ_PlanZakaz.Find(dataList).dataOtgruzkiBP, shortSetting).Replace(@"""", "")
+                    }).ToList();
+                    return Json(new { data });
+                }
+                else
+                {
+                    var data = pzList.Select(dataList => new
+                    {
+                        editLink = "",
+                        pmOrderPZName = db.PZ_PlanZakaz.Find(dataList).PlanZakaz.ToString(),
+                        powerST = db.PZ_PlanZakaz.Find(dataList).PowerST,
+                        vnnn = db.PZ_PlanZakaz.Find(dataList).VN_NN,
+                        gbb = db.PZ_PlanZakaz.Find(dataList).Modul,
+                        orderRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 1).dateClose, shortSetting).Replace(@"""", ""),
+                        teoRegist = JsonConvert.SerializeObject(db.Debit_WorkBit.First(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 2).dateClose, shortSetting).Replace(@"""", ""),
+                        planKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 41).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        planKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 42).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBM = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 43).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBE = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 44).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBMComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 45).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        prototypeKBEComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 46).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        contractComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 4).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailManuf = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 40).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailShComplited = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 12).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
+                        sh = JsonConvert.SerializeObject(db.PZ_PlanZakaz.Find(dataList).dataOtgruzkiBP, shortSetting).Replace(@"""", "")
+                    }).ToList();
+                    return Json(new { data });
+                }
             }
         }
 
@@ -736,7 +762,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     var predcessorsList = db.TaskForPZ.Where(d => d.Predecessors == idType);
                     if(predcessorsList.Count() > 0)
                     {
-                        foreach (var predcessor in predcessorsList)
+                        foreach (var predcessor in predcessorsList.ToList())
                         {
                             Debit_WorkBit predcessorWork = new Debit_WorkBit
                             {
@@ -754,7 +780,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     }
                     return debit_WorkBit.id;
                 }
-                catch
+                catch (Exception ex)
                 {
                     return 0;
                 }
