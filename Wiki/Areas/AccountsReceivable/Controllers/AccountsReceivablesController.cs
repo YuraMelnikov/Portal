@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.AccountsReceivable.Models;
+using Wiki.Models;
 
 namespace Wiki.Areas.AccountsReceivable.Controllers
 {
@@ -843,6 +844,41 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     }
                 }
                 return RedirectToAction("Index");
+            }
+        }
+
+        public JsonResult GetRKD()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var sucursalList = db.PZ_PlanZakaz
+                    .AsNoTracking()
+                    .Include(d => d.RKD_Order)
+                    .Where(d => d.RKD_Order.Count == 0 && d.dataOtgruzkiBP > DateTime.Now)
+                    .OrderByDescending(d => d.PlanZakaz);
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.PlanZakaz.ToString(),
+                    Value = m.Id.ToString(),
+                });
+                return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateRKD(int[] pZ_PlanZakazRKD)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                foreach (var pz in pZ_PlanZakazRKD)
+                {
+                    RKD rKD = new RKD(pz);
+                    rKD.CreateRKDOrder();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
     }

@@ -67,6 +67,7 @@
         <button type="button" class="btn-xs btn-primary" id="btn2" onclick="return getLetterPM(40);">О начале произв.</button>
         <button type="button" class="btn-xs btn-primary" id="btn3" onclick="return getLetterPM(5);">О готовности к отгр.</button>
         <button type="button" class="btn-xs btn-primary" id="btn4" onclick="return getLetterPM(12);">О поступлении</button>
+        <button type="button" class="btn-xs btn-primary" id="btn5" onclick="return getRKD();">Разработать РКД</button>
     </div>
     <table id="tableData" class="table table-hover table-striped" style="width:100%;"></table>
 </div>
@@ -585,6 +586,52 @@
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rkdModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-10">
+                    <h4>Необходимо разработать РКД:</h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Номер/а заказа/ов:</label>
+                        @Html.ListBox("pZ_PlanZakazRKD", ViewBag.orders as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateRKD" onclick="updateRKD();">Запустить</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

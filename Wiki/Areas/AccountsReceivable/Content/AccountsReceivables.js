@@ -882,3 +882,46 @@ function getLetterPM(id) {
     });
     return false;
 }
+
+function getRKD() {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetRKD/",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#rkdModal').modal('show');
+            $('#pZ_PlanZakazRKD').empty();
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#pZ_PlanZakazRKD").append(optionhtml);
+                $('#pZ_PlanZakazRKD').trigger("chosen:updated");
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function updateRKD() {
+    var objRKDData = {
+        pZ_PlanZakazRKD: $('#pZ_PlanZakazRKD').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateRKD/",
+        data: JSON.stringify(objRKDData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#rkdModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
