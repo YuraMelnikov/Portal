@@ -52,17 +52,34 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetReclamation(string login, bool active)
         {
             string id_User = db.AspNetUsers.First(d => d.Email == login).Id;
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
             Initialization();
-            Reclamations = db.Reclamation.Where(d => d.id_AspNetUsersCreate == id_User)
-                .Where(d => d.close == active)
-                .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
-                .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
-                .Include(d => d.Devision)
-                .Include(d => d.AspNetUsers)
-                .Include(d => d.AspNetUsers1)
-                .Include(d => d.Reclamation_CountError)
-                .Include(d => d.Reclamation_CountError1)
-                .ToList();
+            if(devision == 6)
+            {
+                Reclamations = db.Reclamation.Where(d => d.id_AspNetUsersCreate == id_User)
+                    .Where(d => d.close == active)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
+            else
+            {
+                Reclamations = db.Reclamation.Where(d => d.id_AspNetUsersCreate == id_User)
+                    .Where(d => d.closeDevision == active)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
         }
 
         public void GetReclamation(int id_Devision)

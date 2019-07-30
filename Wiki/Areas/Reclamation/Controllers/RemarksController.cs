@@ -156,7 +156,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
-            //ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateTimeSh).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             if (login == "pev@katek.by" || login == "myi@katek.by")
             {
