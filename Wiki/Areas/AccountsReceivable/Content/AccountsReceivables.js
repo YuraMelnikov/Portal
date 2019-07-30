@@ -91,10 +91,10 @@ var objDebit = [
     , { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
     , { "title": "Менеджер", "data": "Manager", "autowidth": true }
     , { "title": "Заказчик", "data": "Client", "autowidth": true }
+    , { "title": "Статус", "data": "status", "autowidth": true }
     , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
     , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
     , { "title": "Условия оплаты", "data": "UslovieOplatyText", "autowidth": true }
-    , { "title": "Статус", "data": "status", "autowidth": true }
 ];
 
 function startMenu() {
@@ -279,7 +279,7 @@ function debitList() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objDebit,
         "scrollY": '75vh',
