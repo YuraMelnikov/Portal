@@ -111,7 +111,7 @@ namespace Wiki.Areas.Reclamation.Models
         {
             mailToList = new List<string>();
             mailToList.Add("myi@katek.by");
-            mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).CiliricalName);
+            mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).Email);
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
             {
                 mailToList.Add(data.Email);
@@ -134,7 +134,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
                 {
-                    mailToList.Add((data.Email);
+                    mailToList.Add(data.Email);
                 }
             }
             foreach(var dataList in mailToList)
