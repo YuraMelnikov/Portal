@@ -58,6 +58,7 @@
                 </ul>
             </li>
             <li><a href="~/Areas/Reclamation/Content/report.xlsx">Отчет о деятельности ОТК</a></li>
+            <li><a onclick="return noClosedRemarkToExcel()">Выгрузка замечаний по заказу</a></li>
             <li><a href="/Reclamation/TechnicalAdvice/Index/">Техсовет</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -68,7 +69,7 @@
             <li><a id="zakazId"></a></li>
             <li><a id="expertData"></a></li>
             <li>
-                <button style="display:block; margin: 10px"  id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
+                <button style="display:block; margin: 10px" id="btnToExcel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#toExcelModal">
                     to Excel
                 </button>
             </li>
@@ -232,7 +233,6 @@
         </div>
     </div>
 </div>
-
 <div id="toExcelModal" class="modal modal-wide fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -275,6 +275,39 @@
         </div>
     </div>
 </div>
+
+<div id="modalNoClosedOrder" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("ExcelOrder", "Remarks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label>План-Заказ/ы №№:</label>
+                            @Html.DropDownList("idOrderUploadExcel", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <input type="submit" value="Сформировать" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(".modal-wide").on("show.bs.modal", function () {

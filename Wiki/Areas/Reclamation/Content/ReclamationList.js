@@ -1432,3 +1432,7 @@ function closeOrderOTK(id) {
 function addNewRemarkOTK(id) {
 
 }
+
+function noClosedRemarkToExcel() {
+    $('#modalNoClosedOrder').modal('show');
+}

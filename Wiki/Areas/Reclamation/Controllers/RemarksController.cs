@@ -177,7 +177,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.CRUDCounter = '1';
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
-                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+                ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             }
             logger.Debug("Reclamation: " + login);
             return View();
@@ -332,7 +332,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //DeleteOrder
         public JsonResult DeleteOrder(Wiki.Reclamation reclamation)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1043,14 +1042,90 @@ namespace Wiki.Areas.Reclamation.Controllers
         [HttpPost]
         public JsonResult CloseOrderOTK(int id)
         {
-            //string login = HttpContext.User.Identity.Name;
-            //Reclamation_CloseOrder reclamation_CloseOrder = db.Reclamation_CloseOrder.Find(idPZ);
-            //reclamation_CloseOrder.close = true;
-            //reclamation_CloseOrder.dateTimeClose = DateTime.Now;
-            //reclamation_CloseOrder.userClose = db.AspNetUsers.First(d => d.Email == login).Id;
-            //db.Entry(reclamation_CloseOrder).State = EntityState.Modified;
-            //db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //ExcelOrder(int idOrderUploadExcel)
+        public void ExcelOrder(int idOrderUploadExcel)
+        {
+            PortalKATEKEntities dbc = new PortalKATEKEntities();
+            dbc.Configuration.ProxyCreationEnabled = false;
+            dbc.Configuration.LazyLoadingEnabled = false;
+            string login = HttpContext.User.Identity.Name;
+            AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
+            List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
+            list = dbc.Reclamation
+                .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.AspNetUsers1)
+                .Include(d => d.Devision)
+                .Include(d => d.Reclamation_CountError)
+                .Include(d => d.Reclamation_CountError1)
+                .Include(d => d.PF)
+                .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == idOrderUploadExcel).Count() > 0 && d.close == false)
+                .ToList();
+            if (list.Count != 0)
+            {
+                List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
+                Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор замечания", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
+                    "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст замечания", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
+                    "", "", "", "", "", "", "", "", "", 17);
+                excelRows.Add(excelRow);
+                foreach (var data in list)
+                {
+                    string ordersName = "";
+                    foreach (var dataOrders in data.Reclamation_PZ)
+                    {
+                        ordersName += dataOrders.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
+                    }
+                    string history = "";
+                    foreach (var dataAnswer in data.Reclamation_Answer)
+                    {
+                        history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
+                    }
+                    string userError = "";
+                    try
+                    {
+                        userError = data.AspNetUsers1.CiliricalName;
+                    }
+                    catch
+                    {
+                        userError = "";
+                    }
+                    Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
+                            data.Devision.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
+                            data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
+                            data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
+                    excelRows.Add(excelRow1);
+                }
+                Wiki.Models.ExcelColumn excelColumnIndex = new Wiki.Models.ExcelColumn();
+                ExcelPackage pck = new ExcelPackage();
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+                int row = 1;
+                int step = 0;
+                int countColumn = excelRows[0].CountData;
+                foreach (var data in excelRows)
+                {
+                    for (int i = 0; i < countColumn; i++)
+                    {
+                        ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Value = data.GetData(step);
+                        ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], row)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                        step++;
+                    }
+                    row++;
+                    step = 0;
+                }
+                for (int i = 0; i < countColumn; i++)
+                {
+                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFitColumns();
+                    ws.Cells[string.Format("{0}{1}", excelColumnIndex.ColumnsArray[i], 1)].AutoFilter = true;
+                }
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
+                Response.BinaryWrite(pck.GetAsByteArray());
+                Response.End();
+            }
         }
     }
 }
