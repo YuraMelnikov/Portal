@@ -31,9 +31,17 @@ function loadData(listId) {
         contractList();
         document.getElementById('labelList').innerHTML = "Договорные условия";
     }
-    else if (listId === 6 || listId === "6") {
+    else if (listId === 10 || listId === "10") {
         debitList();
-        document.getElementById('labelList').innerHTML = "Поступление средств";
+        document.getElementById('labelList').innerHTML = "Все заказы";
+    }
+    else if (listId === 11 || listId === "11") {
+        debitActiveList();
+        document.getElementById('labelList').innerHTML = "Ожидаение оплаты";
+    }
+    else if (listId === 12 || listId === "12") {
+        debitActiveShList();
+        document.getElementById('labelList').innerHTML = "Ожидаение оплаты (отгруженные)";
     }
     else if (listId === 7 || listId === "7") {
         tasksPM();
@@ -92,7 +100,12 @@ var objDebit = [
     , { "title": "Менеджер", "data": "Manager", "autowidth": true }
     , { "title": "Заказчик", "data": "Client", "autowidth": true }
     , { "title": "Статус", "data": "status", "autowidth": true }
-    , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
+    , { "title": "Дата отгрузки", "data": "dateSh", "autowidth": true }
+    , { "title": "№ счет-фактуры", "data": "sf", "autowidth": true }
+    , { "title": "Отпускная цена с НДС", "data": "oc", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
+    , { "title": "Поступило", "data": "ocPu", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '')  }
+    , { "title": "Сумма ДЗ", "data": "otcl", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
+    , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true, "className": 'text-center' }
     , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
     , { "title": "Условия оплаты", "data": "UslovieOplatyText", "autowidth": true }
 ];
@@ -280,6 +293,62 @@ function debitList() {
         },
         "bDestroy": true,
         "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objDebit,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function debitActiveList() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/DebitActiveList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "asc"]],
+        "processing": true,
+        "columns": objDebit,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function debitActiveShList() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/DebitActiveShList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objDebit,
         "scrollY": '75vh',
@@ -925,3 +994,8 @@ function updateRKD() {
         }
     });
 }
+
+//getDebTask
+//updateDebTask
+//addDebTask
+//removeDebTask

@@ -272,18 +272,91 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     .Include(d => d.PZ_PlanZakaz.AspNetUsers)
                     .Include(d => d.PZ_PlanZakaz.PZ_Client)
                     .Include(d => d.PZ_PlanZakaz.PZ_Setup)
-                    .Where(d => d.id_TaskForPZ == 15 || d.id_TaskForPZ == 38)
+                    .Include(d => d.PZ_PlanZakaz.PZ_TEO)
+                    .Where(d => d.id_TaskForPZ == 15 && d.PZ_PlanZakaz.dataOtgruzkiBP.Year > 2017)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    edit = "<a href =" + '\u0022' + "http://pserver/Deb/Upload/NewPlus/" + dataList.id + '\u0022' + " class=" + '\u0022' + "btn-xs btn-primary" + '\u0022' + "role =" + '\u0022' + "button" + '\u0022' + ">Внести</a>",
+                    edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getDebTask('" + dataList.id_PlanZakaz + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     dataList.PZ_PlanZakaz.PlanZakaz,
                     Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
                     Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
                     dataList.PZ_PlanZakaz.PZ_Setup.First().KolVoDneyNaPrijemku,
                     dataList.PZ_PlanZakaz.PZ_Setup.First().PunktDogovoraOSrokahPriemki,
                     dataList.PZ_PlanZakaz.PZ_Setup.First().UslovieOplatyText,
-                    status = GetStatusName(dataList)
+                    dateSh = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, shortSetting).Replace(@"""", ""),
+                    status = GetStatusName(dataList),
+                    sf = GetSF(dataList.id_PlanZakaz),
+                    oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
+                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum(),
+                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
+                });
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult DebitActiveList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .Include(d => d.PZ_PlanZakaz.AspNetUsers)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Setup)
+                    .Include(d => d.PZ_PlanZakaz.PZ_TEO)
+                    .Where(d => d.id_TaskForPZ == 15 && d.close == false)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getDebTask('" + dataList.id_PlanZakaz + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    dataList.PZ_PlanZakaz.PlanZakaz,
+                    Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                    Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().KolVoDneyNaPrijemku,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().PunktDogovoraOSrokahPriemki,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().UslovieOplatyText,
+                    dateSh = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, shortSetting).Replace(@"""", ""),
+                    status = GetStatusName(dataList),
+                    sf = GetSF(dataList.id_PlanZakaz),
+                    oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
+                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum(),
+                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
+                });
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult DebitActiveShList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                DateTime nowDate = DateTime.Now;
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .Include(d => d.PZ_PlanZakaz.AspNetUsers)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Setup)
+                    .Include(d => d.PZ_PlanZakaz.PZ_TEO)
+                    .Where(d => d.id_TaskForPZ == 15 && d.close == false && d.PZ_PlanZakaz.dataOtgruzkiBP < nowDate)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getDebTask('" + dataList.id_PlanZakaz + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    dataList.PZ_PlanZakaz.PlanZakaz,
+                    Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                    Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().KolVoDneyNaPrijemku,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().PunktDogovoraOSrokahPriemki,
+                    dataList.PZ_PlanZakaz.PZ_Setup.First().UslovieOplatyText,
+                    dateSh = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, shortSetting).Replace(@"""", ""),
+                    status = GetStatusName(dataList),
+                    sf = GetSF(dataList.id_PlanZakaz),
+                    oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
+                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(kv => kv.cost).DefaultIfEmpty(0.0).Sum()
+                    //otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
                 });
                 return Json(new { data });
             }
@@ -291,12 +364,33 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         string GetStatusName(Debit_WorkBit debit_WorkBit)
         {
-            string statusName = "Не оплачен";
-            if (debit_WorkBit.close == true)
-                statusName = "Оплачен";
-            if (debit_WorkBit.id_TaskForPZ == 38)
-                statusName = "Внести предоплату";
-            return statusName;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                if (db.PZ_PlanZakaz.Find(debit_WorkBit.id_PlanZakaz).dataOtgruzkiBP > DateTime.Now)
+                    return "Не отгружен";
+                else if (db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_WorkBit.id_PlanZakaz && d.id_TaskForPZ == 15).close == true)
+                    return "Оплачен";
+                else if (db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_WorkBit.id_PlanZakaz && d.id_TaskForPZ == 28).Select(kv => kv.close).DefaultIfEmpty(true).First() == false)
+                    return "Не оприходован";
+                else
+                    return "ДЗ";
+            }
+        }
+
+        string GetSF(int id_PZ_PlanZakaz)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    int idTN = db.Debit_WorkBit.First(d => d.id_TaskForPZ == 11 && d.id_PlanZakaz == id_PZ_PlanZakaz).id;
+                    return db.Debit_TN.First(d => d.id_DebitTask == idTN).numberTN;
+                }
+                catch
+                {
+                    return "";
+                }
+            }
         }
 
         public JsonResult GetTEO(int id)
@@ -780,7 +874,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     }
                     return debit_WorkBit.id;
                 }
-                catch (Exception ex)
+                catch
                 {
                     return 0;
                 }

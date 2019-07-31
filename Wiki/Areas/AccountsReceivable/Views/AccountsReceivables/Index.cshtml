@@ -28,13 +28,16 @@
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                    Оприходование
+                    Дебиторская задолженность
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a onclick="return loadData(4);">ТЭО</a></li>
                     <li><a onclick="return loadData(5);">Договорные условия</a></li>
-                    <li><a onclick="return loadData(6);">Поступление средств</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(12);">Ожидаение оплаты (отгруженные)</a></li>
+                    <li><a onclick="return loadData(11);">Ожидаение оплаты (все)</a></li>
+                    <li><a onclick="return loadData(10);">Все заказы</a></li>
                     <li class="divider"></li>
                     <li><a href="~/Areas/Deb/Controllers/Отчет.xlsx">Отчет</a></li>
                 </ul>
@@ -133,7 +136,7 @@
                         <input type="text" class="form-control" id="KursValuti" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Выручка без НДС:</label>
+                        <label>НДС:</label>
                         <input type="text" class="form-control" id="NDS" />
                     </div>
                 </div>
