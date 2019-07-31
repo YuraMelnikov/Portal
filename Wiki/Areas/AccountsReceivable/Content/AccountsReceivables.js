@@ -1124,3 +1124,47 @@ function removeDebTask(id) {
 }
 
 //updateDebTask
+
+function getRemoveTask() {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetRemoveTask/",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#removeTaskModal').modal('show');
+            $('#pZ_PlanZakazRemoveTask').empty();
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#pZ_PlanZakazRemoveTask").append(optionhtml);
+                $('#pZ_PlanZakazRemoveTask').trigger("chosen:updated");
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function updateRemoveTask() {
+    var objRemoveTaskData = {
+        pZ_PlanZakazRemoveTask: $('#pZ_PlanZakazRemoveTask').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateRemoveTask/",
+        data: JSON.stringify(objRemoveTaskData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#removeTaskModal').modal('hide');
+            $('#tableData').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
