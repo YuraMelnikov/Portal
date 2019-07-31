@@ -639,7 +639,6 @@
         </div>
     </div>
 </div>
-
 <div id="modalEditDeb" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -671,26 +670,31 @@
                         <input type="text" class="form-control" id="currencyDeb" disabled="disabled" />
                     </div>
                 </div>
-                <label>История платежей:</label>
+                <hr />
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-1">
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" id="btnAddDebTask" onclick="addDebTask()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                             </span>
-                            <input type="text" class="form-control" id="paymentCost" />
-                            <input type="text" class="form-control" id="paymentDate" />
                         </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Сумма платежа:</label>
+                        <input type="text" class="form-control" id="paymentCost" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата платежа:</label>
+                        <input type="text" class="form-control" id="paymentDate" />
                     </div>
                 </div>
                 <hr />
+                <label>История платежей:</label>
                 <table id="tablePayment" class="table table-hover table-striped" style="width:100%;"></table>
             </div>
         </div>
     </div>
 </div>
-
-
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;

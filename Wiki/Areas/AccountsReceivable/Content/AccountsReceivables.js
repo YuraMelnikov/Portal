@@ -996,7 +996,7 @@ function updateRKD() {
     });
 }
 
-function getDebTask() {
+function getDebTask(id) {
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/GetDebTask/" + id,
@@ -1049,6 +1049,7 @@ function addDebTask() {
         dataType: "json",
         success: function (result) {
             $('#tablePayment').DataTable().ajax.reload(null, false);
+            $('#tableData').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1090,7 +1091,7 @@ function getDebOrder(Id) {
             { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
             { "title": "Уд.", "data": "remove", "autowidth": true, "bSortable": false },
             { "title": "Дата платежа", "data": "datePayment", "autowidth": true, "bSortable": false },
-            { "title": "Сумма", "data": "remNote", "sumPayment": true, "bSortable": false }
+            { "title": "Сумма", "data": "sumPayment", "autowidth": true, "bSortable": false }
         ],
         "scrollY": '75vh',
         "searching": false,

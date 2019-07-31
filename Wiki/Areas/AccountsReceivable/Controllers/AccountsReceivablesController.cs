@@ -1188,7 +1188,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     cost = paymentCost,
                     dateCreate = DateTime.Now,
                     dateGetMoney = paymentDate,
-                    id_PZ_PlanZakaz = id_PlanZakazDeb
+                    id_PZ_PlanZakaz = db.PZ_PlanZakaz.First(d => d.PlanZakaz == id_PlanZakazDeb).Id
                 };
                 db.Debit_CostUpdate.Add(debit_CostUpdate);
                 db.SaveChanges();
@@ -1203,7 +1203,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.Debit_CostUpdate
-                    .Where(d => d.id_PZ_PlanZakaz == id)
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
