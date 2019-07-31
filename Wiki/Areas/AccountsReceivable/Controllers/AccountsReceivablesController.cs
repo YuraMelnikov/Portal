@@ -762,6 +762,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             SaveFileToServer(directory);
         }
 
+        private void CreateFolderAndFileForGraphic(string path)
+        {
+            string directory = path + @"\03_Переписка\График\";
+            Directory.CreateDirectory(directory);
+            SaveFileToServer(directory);
+        }
+
         private void SaveFileToServer(string folderAdress)
         {
             for (int i = 0; i < fileUploadArray.Length; i++)
@@ -1153,7 +1160,6 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     {
 
                     }
-
                     if (idTaskPM == 2019)
                     {
                         MailGraphic mailGraphic = new MailGraphic
@@ -1170,7 +1176,10 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     {
                         PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(pz);
                         fileUploadArray = ofile1PM;
-                        CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
+                        if(idTaskPM != 2019)
+                            CreateFolderAndFileForPreOrder(pZ_PlanZakaz.Folder);
+                        else
+                            CreateFolderAndFileForGraphic(pZ_PlanZakaz.Folder);
                     }
                 }
                 return RedirectToAction("Index");
