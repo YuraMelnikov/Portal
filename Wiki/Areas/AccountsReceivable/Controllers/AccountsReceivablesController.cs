@@ -288,8 +288,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     status = GetStatusName(dataList),
                     sf = GetSF(dataList.id_PlanZakaz),
                     oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
-                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum(),
-                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
+                    ocPu = GetocPu(dataList.id_PlanZakaz),
+                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - GetocPu(dataList.id_PlanZakaz)
                 });
                 return Json(new { data });
             }
@@ -321,8 +321,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     status = GetStatusName(dataList),
                     sf = GetSF(dataList.id_PlanZakaz),
                     oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
-                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum(),
-                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
+                    ocPu = GetocPu(dataList.id_PlanZakaz),
+                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - GetocPu(dataList.id_PlanZakaz)
                 });
                 return Json(new { data });
             }
@@ -355,10 +355,25 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     status = GetStatusName(dataList),
                     sf = GetSF(dataList.id_PlanZakaz),
                     oc = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First(),
-                    ocPu = db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(kv => kv.cost).DefaultIfEmpty(0.0).Sum()
-                    //otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == dataList.id_PlanZakaz).Select(l => l.cost).DefaultIfEmpty(0).Sum()
+                    ocPu = GetocPu(dataList.id_PlanZakaz),
+                    otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - GetocPu(dataList.id_PlanZakaz)
                 });
                 return Json(new { data });
+            }
+        }
+
+        double GetocPu(int id_PlanZakaz)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    return db.Debit_CostUpdate.Where(d => d.id_PZ_PlanZakaz == id_PlanZakaz).Sum(d => d.cost);
+                }
+            }
+            catch
+            {
+                return 0.0;
             }
         }
 
@@ -372,6 +387,11 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     return "Оплачен";
                 else if (db.Debit_WorkBit.Where(d => d.id_PlanZakaz == debit_WorkBit.id_PlanZakaz && d.id_TaskForPZ == 28).Select(kv => kv.close).DefaultIfEmpty(true).First() == false)
                     return "Не оприходован";
+                //else if (db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_WorkBit.id_PlanZakaz && d.id_TaskForPZ == 15).datePlan < DateTime.Now)
+                //{
+                //    DateTime dateTime = db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_WorkBit.id_PlanZakaz && d.id_TaskForPZ == 15).datePlan;
+                //    return "ДЗ (прос.)";
+                //}
                 else
                     return "ДЗ";
             }
