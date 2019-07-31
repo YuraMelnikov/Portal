@@ -2,6 +2,7 @@
     document.getElementById('pageId').innerHTML = "2";
     document.getElementById('labelList').innerHTML = "Мои задачи";
     $('#pageId').hide();
+    $('#modalEditDebHide').hide();
     $('#teoHide').hide();
     $('#divHideSetup').hide();
     $('#hidePM').hide();
@@ -995,7 +996,131 @@ function updateRKD() {
     });
 }
 
-//getDebTask
+function getDebTask() {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetDebTask/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#paymentCost').css('border-color', 'lightgrey');
+            $('#paymentDate').css('border-color', 'lightgrey');
+            $('#textPZ_Deb').val("");
+            $('#id_PlanZakazDeb').val("");
+            $('#rateWhisVAT').val("");
+            $('#payment').val("");
+            $('#receivables').val("");
+            $('#currencyDeb').val("");
+            $('#paymentCost').val("");
+            $('#paymentDate').val("");
+            $('#textPZ_Deb').val(result.textPZ_Deb);
+            $('#id_PlanZakazDeb').val(result.id_PlanZakazDeb);
+            $('#rateWhisVAT').val(result.rateWhisVAT);
+            $('#payment').val(result.payment);
+            $('#receivables').val(result.receivables);
+            $('#currencyDeb').val(result.currencyDeb);
+            getDebOrder(result.id_PlanZakazDeb);
+            $('#modalEditDeb').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function addDebTask() {
+    var res = validDebTask();
+    if (res === false) {
+        return false;
+    }
+    var typeObjDebPay = {
+        id_PlanZakazDeb: $('#id_PlanZakazDeb').val(),
+        paymentCost: $('#paymentCost').val(),
+        paymentDate: $('#paymentDate').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/AddDebTask",
+        data: JSON.stringify(typeObjDebPay),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tablePayment').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validDebTask() {
+    var isValid = true;
+    if ($('#paymentCost').val().trim() === "") {
+        $('#paymentCost').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#paymentCost').css('border-color', 'lightgrey');
+    }
+    if ($('#paymentDate').val().trim() === "") {
+        $('#paymentDate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#paymentDate').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function getDebOrder(Id) {
+    $("#tablePayment").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/GetDebOrder/" + Id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "desc"]],
+        "bAutoWidth": false,
+        "columns": [
+            { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
+            { "title": "Уд.", "data": "remove", "autowidth": true, "bSortable": false },
+            { "title": "Дата платежа", "data": "datePayment", "autowidth": true, "bSortable": false },
+            { "title": "Сумма", "data": "remNote", "sumPayment": true, "bSortable": false }
+        ],
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function removeDebTask(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/RemoveDebTask/" + id,
+        data: JSON.stringify(typeObjDebPay),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tablePayment').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
 //updateDebTask
-//addDebTask
-//removeDebTask
