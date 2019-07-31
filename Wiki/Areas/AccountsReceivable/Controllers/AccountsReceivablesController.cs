@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,6 +14,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 {
     public class AccountsReceivablesController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         private HttpPostedFileBase[] fileUploadArray;
         public ActionResult Index()
@@ -22,6 +24,14 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
             ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
+            try
+            {
+                string login = HttpContext.User.Identity.Name;
+                logger.Debug("AccountsReceivables Index: " + login);
+            }
+            catch
+            {
+            }
             return View();
         }
 
@@ -58,6 +68,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         Currency = dataList.PZ_Currency.Name,
                         dataList.NDS
                     });
+                    try
+                    {
+                        logger.Debug("TEOList: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
                 else
@@ -86,6 +103,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         Currency = dataList.PZ_Currency.Name,
                         dataList.NDS
                     });
+                    try
+                    {
+                        logger.Debug("TEOList: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
             }
@@ -172,6 +196,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         user = dataList.TaskForPZ.AspNetUsers.CiliricalName,
                         planDate = JsonConvert.SerializeObject(dataList.datePlan, shortSetting).Replace(@"""", "")
                     });
+                    try
+                    {
+                        logger.Debug("MyTasksList: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
                 else
@@ -326,6 +357,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         ocPu = GetocPu(dataList.id_PlanZakaz),
                         otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - GetocPu(dataList.id_PlanZakaz)
                     });
+                    try
+                    {
+                        logger.Debug("DebitList: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
                 else
@@ -355,6 +393,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         ocPu = GetocPu(dataList.id_PlanZakaz),
                         otcl = dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.OtpuskChena).DefaultIfEmpty(0).First() + dataList.PZ_PlanZakaz.PZ_TEO.Select(kv => kv.NDS).DefaultIfEmpty(0).First() - GetocPu(dataList.id_PlanZakaz)
                     });
+                    try
+                    {
+                        logger.Debug("DebitList: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
             }
@@ -879,6 +924,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
                         sh = JsonConvert.SerializeObject(db.PZ_PlanZakaz.Find(dataList).dataOtgruzkiBP, shortSetting).Replace(@"""", "")
                     }).ToList();
+                    try
+                    {
+                        logger.Debug("TasksPM: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
                 else
@@ -904,6 +956,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         mailSh = JsonConvert.SerializeObject(db.Debit_WorkBit.Where(d => d.id_PlanZakaz == dataList && d.id_TaskForPZ == 5).Select(kv => kv.dateClose).DefaultIfEmpty(new DateTime(1990, 1, 1)).First(), shortSetting).Replace(@"""", ""),
                         sh = JsonConvert.SerializeObject(db.PZ_PlanZakaz.Find(dataList).dataOtgruzkiBP, shortSetting).Replace(@"""", "")
                     }).ToList();
+                    try
+                    {
+                        logger.Debug("TasksPM: " + login);
+                    }
+                    catch
+                    {
+                    }
                     return Json(new { data });
                 }
             }

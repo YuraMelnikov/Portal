@@ -1045,14 +1045,11 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //ExcelOrder(int idOrderUploadExcel)
         public void ExcelOrder(int idOrderUploadExcel)
         {
             PortalKATEKEntities dbc = new PortalKATEKEntities();
             dbc.Configuration.ProxyCreationEnabled = false;
             dbc.Configuration.LazyLoadingEnabled = false;
-            string login = HttpContext.User.Identity.Name;
-            AspNetUsers user = db.AspNetUsers.First(d => d.Email == login);
             List<Wiki.Reclamation> list = new List<Wiki.Reclamation>();
             list = dbc.Reclamation
                 .Include(d => d.Reclamation_PZ.Select(c => c.PZ_PlanZakaz))
