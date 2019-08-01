@@ -23,6 +23,11 @@
         <ul class="nav nav-pills">
             <li><a onclick="return loadData(1);">Редактировать расстояние</a></li>
         </ul>
+        <li>
+            <a style="color:crimson" href="/Account/Login/">
+                @{Html.RenderAction("RenderUserMenu", "SCells"); }
+            </a>
+        </li>
     </div>
 </nav>
 <div class="row">

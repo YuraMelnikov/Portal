@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using NLog;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -6,11 +7,18 @@ namespace Wiki.Areas.Cells.Controllers
 {
     public class SCellsController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public ActionResult Index()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            string login = HttpContext.User.Identity.Name;
+            try
             {
-
+                logger.Debug("SCells ActionResult: " + login);
+            }
+            catch
+            {
+                logger.Debug("SCells ActionResult: ");
             }
             return View();
         }
@@ -32,6 +40,14 @@ namespace Wiki.Areas.Cells.Controllers
                     dataList.name2,
                     dataList.distance
                 });
+                try
+                {
+                    logger.Debug("SCells List: " + login);
+                }
+                catch
+                {
+                    logger.Debug("SCells List: ");
+                }
                 return Json(new { data });
             }
         }
@@ -58,6 +74,9 @@ namespace Wiki.Areas.Cells.Controllers
 
         public JsonResult UpdatePoint(int id, double distance)
         {
+            string login = HttpContext.User.Identity.Name;
+            if(login != "myi@katek.by")
+                return Json(0, JsonRequestBehavior.AllowGet);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -66,8 +85,28 @@ namespace Wiki.Areas.Cells.Controllers
                 sCells.distance = distance;
                 db.Entry(sCells).State = EntityState.Modified;
                 db.SaveChanges();
+                SCells sCells1 = db.SCells.First(d => d.sectionIdFinish == sCells.sectionIdStart);
+                sCells1.distance = distance;
+                db.Entry(sCells1).State = EntityState.Modified;
+                db.SaveChanges();
+                logger.Debug("SCells UpdatePoint: " + login + " | " + id.ToString());
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
         }
     }
 }

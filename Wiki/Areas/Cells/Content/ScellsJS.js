@@ -132,8 +132,13 @@ function updatePoint() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#myTable').DataTable().ajax.reload(null, false);
-            $('#pointModal').modal('hide');
+            if (result === 0) {
+                alert("У Вас недостаточно прав");
+            }
+            else {
+                $('#myTable').DataTable().ajax.reload(null, false);
+                $('#pointModal').modal('hide');
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
