@@ -1221,7 +1221,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1248,7 +1248,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1258,7 +1258,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1280,7 +1280,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1290,7 +1290,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1361,7 +1361,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1372,7 +1372,23 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.SCells' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SCells">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="sectionIdStart" />
+            <PropertyRef Name="sectionIdFinish" />
+            <PropertyRef Name="distance" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="sectionIdStart" Type="int" Nullable="false" />
+          <Property Name="name1" Type="varchar(max)" />
+          <Property Name="sectionIdFinish" Type="int" Nullable="false" />
+          <Property Name="name2" Type="varchar(max)" />
+          <Property Name="distance" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -3190,6 +3206,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
     [RKD_TaskUIDProjectUD].[RKD] AS [RKD]
     FROM [dbo].[RKD_TaskUIDProjectUD] AS [RKD_TaskUIDProjectUD]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SCells" EntityType="Self.SCells" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SCells].[id] AS [id], 
+    [SCells].[sectionIdStart] AS [sectionIdStart], 
+    [SCells].[name1] AS [name1], 
+    [SCells].[sectionIdFinish] AS [sectionIdFinish], 
+    [SCells].[name2] AS [name2], 
+    [SCells].[distance] AS [distance]
+    FROM [dbo].[SCells] AS [SCells]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VV_infPost" EntityType="Self.VV_infPost" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VV_infPost].[Id] AS [Id], 
@@ -4519,6 +4545,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="MailGraphic" EntitySet="MailGraphic" />
           </AssociationSet>
+          <EntitySet Name="SCells" EntityType="PortalKATEKModel.SCells" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -7520,6 +7547,20 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SCells">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="sectionIdStart" />
+            <PropertyRef Name="sectionIdFinish" />
+            <PropertyRef Name="distance" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sectionIdStart" Type="Int32" Nullable="false" />
+          <Property Name="name1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sectionIdFinish" Type="Int32" Nullable="false" />
+          <Property Name="name2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="distance" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9002,6 +9043,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="dateMail" ColumnName="dateMail" />
                 <ScalarProperty Name="dateUpload" ColumnName="dateUpload" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCells">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SCells">
+              <MappingFragment StoreEntitySet="SCells">
+                <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="name2" ColumnName="name2" />
+                <ScalarProperty Name="sectionIdFinish" ColumnName="sectionIdFinish" />
+                <ScalarProperty Name="name1" ColumnName="name1" />
+                <ScalarProperty Name="sectionIdStart" ColumnName="sectionIdStart" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

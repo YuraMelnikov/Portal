@@ -713,6 +713,9 @@
     <Compile Include="RKD_VersionWork.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="SCells.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServiceRemarks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
