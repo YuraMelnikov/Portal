@@ -176,12 +176,14 @@ namespace Wiki.Controllers
 
         public ActionResult Debug()
         {
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz
-                .Include(d => d.RKD_Order)
-                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.RKD_Order.Count == 0)
-                .OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ProjectServer projectServer = new ProjectServer();
+            projectServer.CreateTasks();
+            //db.Configuration.ProxyCreationEnabled = false;
+            //db.Configuration.LazyLoadingEnabled = false;
+            //ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz
+            //    .Include(d => d.RKD_Order)
+            //    .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.RKD_Order.Count == 0)
+            //    .OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             return View();
         }
 

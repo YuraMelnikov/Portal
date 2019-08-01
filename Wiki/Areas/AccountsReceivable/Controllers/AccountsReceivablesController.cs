@@ -1260,6 +1260,26 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 };
                 db.Debit_CostUpdate.Add(debit_CostUpdate);
                 db.SaveChanges();
+                try
+                {
+                    double paymant = db.Debit_CostUpdate
+                        .Where(d => d.id_PZ_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz)
+                        .Sum(d => d.cost);
+                    double deb = db.PZ_TEO.First(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).Rate + db.PZ_TEO.First(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).NDS.Value;
+                    if (paymant - deb == 0)
+                    {
+                        Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz && d.id_TaskForPZ == 15);
+                        debit_WorkBit.close = true;
+                        debit_WorkBit.dateClose = DateTime.Now;
+                        db.Entry(debit_WorkBit).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    logger.Error("AddDebTask (id_PZ_PlanZakaz): " + debit_CostUpdate.id_PZ_PlanZakaz);
+                }
+                logger.Debug("AddDebTask");
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }

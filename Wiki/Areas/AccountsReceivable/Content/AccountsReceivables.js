@@ -1048,6 +1048,7 @@ function addDebTask() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#tableData').DataTable().ajax.reload(null, false);
             $('#modalEditDeb').modal('hide');
         },
         error: function (errormessage) {
@@ -1085,19 +1086,15 @@ function getDebOrder(Id) {
         },
         "bDestroy": true,
         "order": [[2, "desc"]],
-        "bAutoWidth": false,
         "columns": [
             { "title": "Дата платежа", "data": "datePayment", "autowidth": true, "bSortable": false },
             { "title": "Сумма", "data": "sumPayment", "autowidth": true, "bSortable": false },
             { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
             { "title": "Уд.", "data": "remove", "autowidth": true, "bSortable": false }
         ],
-        "scrollY": '75vh',
         "searching": false,
-        "scrollX": true,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -1110,12 +1107,12 @@ function removeDebTask(id) {
     $.ajax({
         cache: false,
         url: "/AccountsReceivables/RemoveDebTask/" + id,
-        data: JSON.stringify(typeObjDebPay),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#modalEditDeb').modal('hide');
+            $('#tableData').DataTable().ajax.reload(null, false);
+            $('#tablePayment').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
