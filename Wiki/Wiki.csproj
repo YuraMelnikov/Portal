@@ -346,6 +346,9 @@
     <Compile Include="Calendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Cells.cs">
+      <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
     <Compile Include="Classes\IRKDWorkFactory.cs" />
     <Compile Include="Classes\RKDWork.cs" />
     <Compile Include="Classes\RKDWorkFactory.cs" />
@@ -487,6 +490,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBScells.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBScells.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBScells.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBScells.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBScells.edmx</DependentUpon>
     </Compile>
     <Compile Include="Folder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -713,8 +731,11 @@
     <Compile Include="RKD_VersionWork.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="SCells.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    <Compile Include="Section.cs">
+      <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SectionMap.cs">
+      <DependentUpon>EFDBScells.tt</DependentUpon>
     </Compile>
     <Compile Include="ServiceRemarks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1197,6 +1218,16 @@
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
       <LastGenOutput>EFDBPortal.cs</LastGenOutput>
     </Content>
+    <Content Include="EFDBScells.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBScells.edmx</DependentUpon>
+      <LastGenOutput>EFDBScells.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFDBScells.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBScells.edmx</DependentUpon>
+      <LastGenOutput>EFDBScells.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Files\logo.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1407,6 +1438,13 @@
     <Content Include="Areas\Cells\Views\web.config" />
     <Content Include="Areas\Cells\Views\Shared\_LayoutSCells.cshtml" />
     <Content Include="Areas\Cells\Views\SCells\Index.cshtml" />
+    <EntityDeploy Include="EFDBScells.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDBScells.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EFDBScells.edmx.diagram">
+      <DependentUpon>EFDBScells.edmx</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1740,7 +1778,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Cells\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>

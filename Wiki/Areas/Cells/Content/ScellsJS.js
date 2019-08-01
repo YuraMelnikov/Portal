@@ -38,6 +38,8 @@ function startMenu() {
                 $('td', row).css('color', 'white');
             }
         },
+        "cache": false,
+        "async": false,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

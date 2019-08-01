@@ -27,38 +27,47 @@ namespace Wiki.Areas.Cells.Controllers
         public JsonResult List()
         {
             string login = HttpContext.User.Identity.Name;
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.SCells.AsNoTracking().Take(10).ToList();
+                var query = db.SectionMap
+                    .AsNoTracking()
+                    .Include(d => d.Section)
+                    .Include(d => d.Section1)
+                    .ToList();
                 var data = query.Select(dataList => new
                 {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    //editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     dataList.sectionIdStart,
-                    dataList.name1,
+                    name1 = dataList.Section.name,
                     dataList.sectionIdFinish,
-                    dataList.name2,
-                    distance = dataList.distance
+                    name2 = dataList.Section1.name
+                    //dataList.distance
                 });
-                return Json(new { data });
+
+                return Json(new { data, MaxJsonLength = int.MaxValue });
             }
         }
 
         public JsonResult GetPoint(int id)
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.SCells.Where(d => d.id == id).ToList();
+                var query = db.SectionMap
+                    .Include(d => d.Section)
+                    .Include(d => d.Section1)
+                    .Where(d => d.id == id)
+                    .ToList();
                 var data = query.Select(dataList => new
                 {
                     dataList.id,
                     dataList.sectionIdStart,
-                    dataList.name1,
+                    name1 = dataList.Section.name,
                     dataList.sectionIdFinish,
-                    dataList.name2,
+                    name2 = dataList.Section1.name,
                     dataList.distance
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
@@ -70,15 +79,15 @@ namespace Wiki.Areas.Cells.Controllers
             string login = HttpContext.User.Identity.Name;
             if(login != "myi@katek.by")
                 return Json(0, JsonRequestBehavior.AllowGet);
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                SCells sCells = db.SCells.First(d => d.id == id);
+                SectionMap sCells = db.SectionMap.Find(id);
                 sCells.distance = distance;
                 db.Entry(sCells).State = EntityState.Modified;
                 db.SaveChanges();
-                SCells sCells1 = db.SCells.First(d => d.sectionIdFinish == sCells.sectionIdStart);
+                SectionMap sCells1 = db.SectionMap.First(d => d.sectionIdFinish == sCells.sectionIdStart);
                 sCells1.distance = distance;
                 db.Entry(sCells1).State = EntityState.Modified;
                 db.SaveChanges();

@@ -12,13 +12,14 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class SCells
+    public partial class SectionMap
     {
         public int id { get; set; }
         public int sectionIdStart { get; set; }
-        public string name1 { get; set; }
         public int sectionIdFinish { get; set; }
-        public string name2 { get; set; }
         public double distance { get; set; }
+    
+        public virtual Section Section { get; set; }
+        public virtual Section Section1 { get; set; }
     }
 }
