@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cells/Views/Shared/_LayoutSCells.cshtml";
+}
+<head>
+    <script src="~/Areas/Cells/Content/ScellsJS.js"></script>
+    <style>
+        .colorWhite {
+            color: white;
+        }
+
+        .button {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav nav-pills">
+            <li><a onclick="return loadData(1);">Редактировать расстояние</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>

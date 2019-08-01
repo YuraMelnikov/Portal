@@ -269,6 +269,7 @@
     <Compile Include="Areas\AccountsReceivable\Models\EmailAccountsReceivable.cs" />
     <Compile Include="Areas\AccountsReceivable\Models\MailToExpeditor.cs" />
     <Compile Include="Areas\Cells\CellsAreaRegistration.cs" />
+    <Compile Include="Areas\Cells\Controllers\SCellsController.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -762,6 +763,7 @@
   <ItemGroup>
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\AccountsReceivable\Content\updateEP.sql" />
+    <Content Include="Areas\Cells\Content\ScellsJS.js" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
@@ -1400,6 +1402,8 @@
     <Content Include="Areas\NotesOrders\Views\NoteOrder\Index.cshtml" />
     <Content Include="Areas\Reclamation\Content\report.xlsx" />
     <Content Include="Areas\Cells\Views\web.config" />
+    <Content Include="Areas\Cells\Views\Shared\_LayoutSCells.cshtml" />
+    <Content Include="Areas\Cells\Views\SCells\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1733,9 +1737,7 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Cells\Controllers\" />
     <Folder Include="Areas\Cells\Models\" />
-    <Folder Include="Areas\Cells\Views\Shared\" />
     <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>
