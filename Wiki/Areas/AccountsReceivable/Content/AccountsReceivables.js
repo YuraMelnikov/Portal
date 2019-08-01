@@ -1121,8 +1121,6 @@ function removeDebTask(id) {
     });
 }
 
-//updateDebTask
-
 function getRemoveTask() {
     $.ajax({
         cache: false,
@@ -1191,4 +1189,76 @@ function getTtableLetterModal() {
             "search": "Поиск"
         }
     });
+}
+
+function updateDebTask(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateDebTask/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#paymentCostUpdate').css('border-color', 'lightgrey');
+            $('#paymentDateUpdate').css('border-color', 'lightgrey');
+            $('#paymentCostUpdate').val("");
+            $('#paymentDateUpdate').val("");
+            $('#idPayment').val("");
+            $('#idPayment').val(result.idPayment);
+            $('#paymentDateUpdate').val(result.paymentDateUpdate);
+            $('#paymentCostUpdate').val(result.paymentCostUpdate);
+            $('#modalEditPayment').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function updatePaymentCost() {
+    var res = validDebTaskUpdate();
+    if (res === false) {
+        return false;
+    }
+    var objUpdatePayment = {
+        idPayment: $('#idPayment').val(),
+        paymentCostUpdate: $('#paymentCostUpdate').val(),
+        paymentDateUpdate: $('#paymentDateUpdate').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdatePayment/",
+        data: JSON.stringify(objUpdatePayment),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tablePayment').DataTable().ajax.reload(null, false);
+            $('#tableData').DataTable().ajax.reload(null, false);
+            $('#modalEditPayment').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validDebTaskUpdate() {
+    var isValid = true;
+    if ($('#paymentCostUpdate').val().trim() === "") {
+        $('#paymentCostUpdate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#paymentCostUpdate').css('border-color', 'lightgrey');
+    }
+    if ($('#paymentDateUpdate').val().trim() === "") {
+        $('#paymentDateUpdate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#paymentDateUpdate').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

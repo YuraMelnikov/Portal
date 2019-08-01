@@ -16,6 +16,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        readonly JsonSerializerSettings shortSettingRu = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         private HttpPostedFileBase[] fileUploadArray;
         public ActionResult Index()
         {
@@ -176,8 +177,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 string login = HttpContext.User.Identity.Name;
                 if (login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by" || login == "myi@katek.by")
                 {
-                    //string userId = db.AspNetUsers.First(d => d.Email == login).Id;
-                    string userId = "42d09f10-d1d2-455e-81b0-02c4ad4b0271";
+                    string userId = db.AspNetUsers.First(d => d.Email == login).Id;
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
                     var query = db.Debit_WorkBit
@@ -1261,25 +1261,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 };
                 db.Debit_CostUpdate.Add(debit_CostUpdate);
                 db.SaveChanges();
-                try
-                {
-                    double paymant = db.Debit_CostUpdate
-                        .Where(d => d.id_PZ_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz)
-                        .Sum(d => d.cost);
-                    double deb = db.PZ_TEO.First(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).Rate + db.PZ_TEO.First(d => d.Id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz).NDS.Value;
-                    if (paymant - deb == 0)
-                    {
-                        Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.id_PlanZakaz == debit_CostUpdate.id_PZ_PlanZakaz && d.id_TaskForPZ == 15);
-                        debit_WorkBit.close = true;
-                        debit_WorkBit.dateClose = DateTime.Now;
-                        db.Entry(debit_WorkBit).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                }
-                catch
-                {
-                    logger.Error("AddDebTask (id_PZ_PlanZakaz): " + debit_CostUpdate.id_PZ_PlanZakaz);
-                }
+                ClosePayment(debit_CostUpdate.id_PZ_PlanZakaz);
                 logger.Debug("AddDebTask");
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -1310,14 +1292,15 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                int pz = db.Debit_CostUpdate.Find(id).id_PZ_PlanZakaz;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 db.Debit_CostUpdate.Remove(db.Debit_CostUpdate.Find(id));
                 db.SaveChanges();
+                ClosePayment(pz);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
-        //updateDebTask
 
         public JsonResult GetRemoveTask()
         {
@@ -1412,6 +1395,76 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     return "";
                 }
             }
+        }
+
+        public JsonResult UpdateDebTask(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_CostUpdate
+                    .Where(d => d.id == id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    idPayment = dataList.id,
+                    paymentCostUpdate = dataList.cost,
+                    paymentDateUpdate = JsonConvert.SerializeObject(dataList.dateGetMoney, shortSettingRu).Replace(@"""", "")
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdatePayment(int idPayment, double paymentCostUpdate, DateTime paymentDateUpdate)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                Debit_CostUpdate debit_CostUpdate = db.Debit_CostUpdate.Find(idPayment);
+                debit_CostUpdate.dateGetMoney = paymentDateUpdate;
+                debit_CostUpdate.cost = paymentCostUpdate;
+                db.Entry(debit_CostUpdate).State = EntityState.Modified;
+                db.SaveChanges();
+                ClosePayment(debit_CostUpdate.id_PZ_PlanZakaz);
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        bool ClosePayment(int pz)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    double paymant = db.Debit_CostUpdate
+                        .Where(d => d.id_PZ_PlanZakaz == pz)
+                        .Sum(d => d.cost);
+                    double deb = db.PZ_TEO.First(d => d.Id_PlanZakaz == pz).Rate + db.PZ_TEO.First(d => d.Id_PlanZakaz == pz).NDS.Value;
+                    if (paymant - deb == 0)
+                    {
+                        Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.id_PlanZakaz == pz && d.id_TaskForPZ == 15);
+                        debit_WorkBit.close = true;
+                        debit_WorkBit.dateClose = DateTime.Now;
+                        db.Entry(debit_WorkBit).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Debit_WorkBit debit_WorkBit = db.Debit_WorkBit.First(d => d.id_PlanZakaz == pz && d.id_TaskForPZ == 15);
+                        debit_WorkBit.close = false;
+                        debit_WorkBit.dateClose = null;
+                        db.Entry(debit_WorkBit).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    logger.Error("ClosePayment: " + pz);
+                }
+            }
+            return true;
         }
     }
 }
