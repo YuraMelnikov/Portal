@@ -1038,7 +1038,7 @@ function addDebTask() {
     }
     var typeObjDebPay = {
         id_PlanZakazDeb: $('#id_PlanZakazDeb').val(),
-        paymentCost: $('#paymentCost').val(),
+        paymentCost: $('#paymentCost').val().replace('.', ','),
         paymentDate: $('#paymentDate').val()
     };
     $.ajax({
@@ -1223,7 +1223,7 @@ function updatePaymentCost() {
     }
     var objUpdatePayment = {
         idPayment: $('#idPayment').val(),
-        paymentCostUpdate: $('#paymentCostUpdate').val(),
+        paymentCostUpdate: $('#paymentCostUpdate').val().replace('.', ','),
         paymentDateUpdate: $('#paymentDateUpdate').val()
     };
     $.ajax({
