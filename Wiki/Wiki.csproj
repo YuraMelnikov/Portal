@@ -762,6 +762,7 @@
   <ItemGroup>
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\AccountsReceivable\Content\updateEP.sql" />
+    <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
