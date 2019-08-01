@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.SCells.AsNoTracking().ToList();
+                var query = db.SCells.AsNoTracking().Take(10).ToList();
                 var data = query.Select(dataList => new
                 {
                     editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
@@ -38,16 +39,8 @@ namespace Wiki.Areas.Cells.Controllers
                     dataList.name1,
                     dataList.sectionIdFinish,
                     dataList.name2,
-                    dataList.distance
+                    distance = dataList.distance
                 });
-                try
-                {
-                    logger.Debug("SCells List: " + login);
-                }
-                catch
-                {
-                    logger.Debug("SCells List: ");
-                }
                 return Json(new { data });
             }
         }
@@ -81,7 +74,7 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                SCells sCells = db.SCells.Find(id);
+                SCells sCells = db.SCells.First(d => d.id == id);
                 sCells.distance = distance;
                 db.Entry(sCells).State = EntityState.Modified;
                 db.SaveChanges();

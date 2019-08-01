@@ -28,7 +28,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "bDestroy": true,
+        //"bDestroy": true,
         "order": [[0, "asc"]],
         "processing": true,
         "columns": objList,
@@ -122,7 +122,7 @@ function updatePoint() {
     }
     var objPoint = {
         id: $('#id').val()
-        ,distance: $('#distance').val().replace(",", ".")
+        ,distance: $('#distance').val().replace(".", ",")
     };
     $.ajax({
         cache: false,

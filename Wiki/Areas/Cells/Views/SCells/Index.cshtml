@@ -22,17 +22,60 @@
         </div>
         <ul class="nav nav-pills">
             <li><a onclick="return loadData(1);">Редактировать расстояние</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "SCells"); }
+                </a>
+            </li>
         </ul>
-        <li>
-            <a style="color:crimson" href="/Account/Login/">
-                @{Html.RenderAction("RenderUserMenu", "SCells"); }
-            </a>
-        </li>
     </div>
 </nav>
 <div class="row">
     <div class="col-md-12">
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<div id="pointModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-10">
+                    <h4>Изменить расстояние между ячейками:</h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Ид. записи:</label>
+                        <input type="text" class="form-control" id="id" disabled="disabled"/>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Имя первой ячейки:</label>
+                        <input type="text" class="form-control" id="name1" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Имя второй ячейки:</label>
+                        <input type="text" class="form-control" id="name2" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Расстояние (м.):</label>
+                        <input type="text" class="form-control" id="distance" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdatePoint" onclick="updatePoint();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
