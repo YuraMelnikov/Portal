@@ -548,6 +548,7 @@ function getLetter(id) {
                 $("#pZ_PlanZakazLetters").append(optionhtml);
                 $('#pZ_PlanZakazLetters').trigger("chosen:updated");
             }
+            getTtableLetterModal();
             $('#letterModal').modal('show');
         },
         error: function (errormessage) {
@@ -1162,6 +1163,32 @@ function updateRemoveTask() {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+function getTtableLetterModal() {
+    $("#tableLetterModal").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/GetTtableLetterModal/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "asc"]],
+        "columns": [
+            { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
+            { "title": "№ ТН", "data": "tnNum", "autowidth": true, "bSortable": false },
+            { "title": "№ ЖДН/СМR", "data": "cmrNum", "autowidth": true, "bSortable": false }
+        ],
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
         }
     });
 }

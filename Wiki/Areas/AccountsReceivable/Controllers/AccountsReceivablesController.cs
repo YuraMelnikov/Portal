@@ -176,7 +176,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 string login = HttpContext.User.Identity.Name;
                 if (login == "naa@katek.by" || login == "kns@katek.by" || login == "Drozdov@katek.by" || login == "myi@katek.by")
                 {
-                    string userId = db.AspNetUsers.First(d => d.Email == login).Id;
+                    //string userId = db.AspNetUsers.First(d => d.Email == login).Id;
+                    string userId = "42d09f10-d1d2-455e-81b0-02c4ad4b0271";
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
                     var query = db.Debit_WorkBit
@@ -1372,6 +1373,43 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 {
                     logger.Error("UpdateRemoveTask: " + ex.Message);
                     return Json(0, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public JsonResult GetTtableLetterModal()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_WorkBit
+                    .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.close == false && d.id_TaskForPZ == 10)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    order = dataList.PZ_PlanZakaz.PlanZakaz,
+                    tnNum = GetSF(dataList.id_PlanZakaz),
+                    cmrNum = GetCMR(dataList.id_PlanZakaz)
+                });
+                return Json(new { data });
+            }
+        }
+
+        string GetCMR(int id_PZ_PlanZakaz)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    int idTN = db.Debit_WorkBit.First(d => d.id_TaskForPZ == 8 && d.id_PlanZakaz == id_PZ_PlanZakaz).id;
+                    return db.Debit_CMR.First(d => d.id_DebitTask == idTN).number;
+                }
+                catch
+                {
+                    return "";
                 }
             }
         }
