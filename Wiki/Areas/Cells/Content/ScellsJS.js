@@ -24,7 +24,7 @@ function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List/" + 2824,
+            "url": "/SCells/List/" + 'А_1_1',
             "type": "POST",
             "datatype": "json"
         },
@@ -53,7 +53,9 @@ function startMenu() {
 }
 
 function list(data) {
-    var id = data;
+    var selectedDevision = $('#listSelections').find('option:selected').text();
+    var id = $('#listSelections').find('option:selected').text();
+
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();

@@ -26,18 +26,19 @@ namespace Wiki.Areas.Cells.Controllers
             return View();
         }
 
-        public JsonResult List(int id)
+        public JsonResult List(string id)
         {
             string login = HttpContext.User.Identity.Name;
             using (SCellsEntities db = new SCellsEntities())
             {
+                int idS = db.Section.First(d => d.name == id).idS;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.SectionMap
                     .AsNoTracking()
                     .Include(d => d.Section)
                     .Include(d => d.Section1)
-                    .Where(d => d.sectionIdStart == id)
+                    .Where(d => d.sectionIdStart == idS)
                     .ToList();
                 var data = query.Select(dataList => new
                 {

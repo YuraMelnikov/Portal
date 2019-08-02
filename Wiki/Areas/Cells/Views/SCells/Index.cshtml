@@ -33,7 +33,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="Client">Укажите необходимый диапазон ячеек:</label>
-        @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "updateTable(this)" })
+        @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
     </div>
 </div>
 <div class="row">
