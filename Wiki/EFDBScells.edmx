@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SCellsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SCellsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cells">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idC" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="idS" Type="int" Nullable="false" />
+          <Property Name="idC" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -82,29 +82,45 @@
             <End Role="SectionMap" EntitySet="SectionMap" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SCellsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SCellsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cells" EntityType="SCellsModel.Cells" />
+          <EntitySet Name="Section" EntityType="SCellsModel.Section" />
+          <EntitySet Name="SectionMap" EntityType="SCellsModel.SectionMap" />
+          <AssociationSet Name="FK_Cells_Section" Association="SCellsModel.FK_Cells_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Cells" EntitySet="Cells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMap_Section" Association="SCellsModel.FK_SectionMap_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="SectionMap" EntitySet="SectionMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionMap_Section1" Association="SCellsModel.FK_SectionMap_Section1">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="SectionMap" EntitySet="SectionMap" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Cells">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="idC" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idS" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Section" Relationship="Self.FK_Cells_Section" FromRole="Cells" ToRole="Section" />
+          <Property Name="idC" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Section" Relationship="SCellsModel.FK_Cells_Section" FromRole="Cells" ToRole="Section" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
             <PropertyRef Name="idS" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idS" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cells" Relationship="Self.FK_Cells_Section" FromRole="Section" ToRole="Cells" />
-          <NavigationProperty Name="SectionMap" Relationship="Self.FK_SectionMap_Section" FromRole="Section" ToRole="SectionMap" />
-          <NavigationProperty Name="SectionMap1" Relationship="Self.FK_SectionMap_Section1" FromRole="Section" ToRole="SectionMap" />
+          <NavigationProperty Name="Cells" Relationship="SCellsModel.FK_Cells_Section" FromRole="Section" ToRole="Cells" />
+          <NavigationProperty Name="SectionMap" Relationship="SCellsModel.FK_SectionMap_Section" FromRole="Section" ToRole="SectionMap" />
+          <NavigationProperty Name="SectionMap1" Relationship="SCellsModel.FK_SectionMap_Section1" FromRole="Section" ToRole="SectionMap" />
         </EntityType>
         <EntityType Name="SectionMap">
           <Key>
@@ -114,12 +130,12 @@
           <Property Name="sectionIdStart" Type="Int32" Nullable="false" />
           <Property Name="sectionIdFinish" Type="Int32" Nullable="false" />
           <Property Name="distance" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Section" Relationship="Self.FK_SectionMap_Section" FromRole="SectionMap" ToRole="Section" />
-          <NavigationProperty Name="Section1" Relationship="Self.FK_SectionMap_Section1" FromRole="SectionMap" ToRole="Section" />
+          <NavigationProperty Name="Section" Relationship="SCellsModel.FK_SectionMap_Section" FromRole="SectionMap" ToRole="Section" />
+          <NavigationProperty Name="Section1" Relationship="SCellsModel.FK_SectionMap_Section1" FromRole="SectionMap" ToRole="Section" />
         </EntityType>
         <Association Name="FK_Cells_Section">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="Cells" Type="Self.Cells" Multiplicity="*" />
+          <End Type="SCellsModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="SCellsModel.Cells" Role="Cells" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
               <PropertyRef Name="idS" />
@@ -130,8 +146,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SectionMap_Section">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="SectionMap" Type="Self.SectionMap" Multiplicity="*" />
+          <End Type="SCellsModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="SCellsModel.SectionMap" Role="SectionMap" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
               <PropertyRef Name="idS" />
@@ -142,8 +158,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SectionMap_Section1">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="SectionMap" Type="Self.SectionMap" Multiplicity="*" />
+          <End Type="SCellsModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="SCellsModel.SectionMap" Role="SectionMap" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
               <PropertyRef Name="idS" />
@@ -153,23 +169,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SCellsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cells" EntityType="Self.Cells" />
-          <EntitySet Name="Section" EntityType="Self.Section" />
-          <EntitySet Name="SectionMap" EntityType="Self.SectionMap" />
-          <AssociationSet Name="FK_Cells_Section" Association="Self.FK_Cells_Section">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="Cells" EntitySet="Cells" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SectionMap_Section" Association="Self.FK_SectionMap_Section">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="SectionMap" EntitySet="SectionMap" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SectionMap_Section1" Association="Self.FK_SectionMap_Section1">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="SectionMap" EntitySet="SectionMap" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -179,27 +178,27 @@
           <EntitySetMapping Name="Cells">
             <EntityTypeMapping TypeName="SCellsModel.Cells">
               <MappingFragment StoreEntitySet="Cells">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idC" ColumnName="idC" />
                 <ScalarProperty Name="idS" ColumnName="idS" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Section">
             <EntityTypeMapping TypeName="SCellsModel.Section">
               <MappingFragment StoreEntitySet="Section">
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="idS" ColumnName="idS" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SectionMap">
             <EntityTypeMapping TypeName="SCellsModel.SectionMap">
               <MappingFragment StoreEntitySet="SectionMap">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="sectionIdStart" ColumnName="sectionIdStart" />
-                <ScalarProperty Name="sectionIdFinish" ColumnName="sectionIdFinish" />
                 <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="sectionIdFinish" ColumnName="sectionIdFinish" />
+                <ScalarProperty Name="sectionIdStart" ColumnName="sectionIdStart" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

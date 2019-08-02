@@ -31,6 +31,12 @@
     </div>
 </nav>
 <div class="row">
+    <div class="col-md-6">
+        <label for="Client">Укажите необходимый диапазон ячеек:</label>
+        @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "updateTable(this)" })
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>

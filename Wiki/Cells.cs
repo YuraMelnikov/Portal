@@ -14,9 +14,9 @@ namespace Wiki
     
     public partial class Cells
     {
-        public int id { get; set; }
         public string name { get; set; }
         public int idS { get; set; }
+        public int idC { get; set; }
     
         public virtual Section Section { get; set; }
     }

@@ -24,11 +24,10 @@ function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List",
+            "url": "/SCells/List/" + 2824,
             "type": "POST",
             "datatype": "json"
         },
-        //"bDestroy": true,
         "order": [[0, "asc"]],
         "processing": true,
         "columns": objList,
@@ -53,14 +52,15 @@ function startMenu() {
     });
 }
 
-function list() {
+function list(data) {
+    var id = data;
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List",
+            "url": "/SCells/List/" + id,
             "type": "POST",
             "datatype": "json"
         },
