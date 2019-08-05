@@ -1,5 +1,4 @@
 ﻿using NLog;
-using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -81,6 +80,26 @@ namespace Wiki.Areas.Cells.Controllers
 
         public JsonResult UpdatePoint(int id, double distance)
         {
+            UpdateDistance(id, distance);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdatePointsCells(int[] sectionsChosen, double distanceSelections)
+        {
+
+
+
+
+
+
+
+
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        bool UpdateDistance(int id, double distance)
+        {
             using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -93,9 +112,9 @@ namespace Wiki.Areas.Cells.Controllers
                 sCells1.distance = distance;
                 db.Entry(sCells1).State = EntityState.Modified;
                 db.SaveChanges();
-                logger.Debug("SCells UpdatePoint: " + login + " | " + id.ToString());
-                return Json(1, JsonRequestBehavior.AllowGet);
+                logger.Debug("SCells UpdateDistance: " + id.ToString());
             }
+            return true;
         }
     }
 }

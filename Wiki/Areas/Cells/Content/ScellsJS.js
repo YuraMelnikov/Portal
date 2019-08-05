@@ -136,13 +136,8 @@ function updatePoint() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            if (result === 0) {
-                alert("У Вас недостаточно прав");
-            }
-            else {
-                $('#myTable').DataTable().ajax.reload(null, false);
-                $('#pointModal').modal('hide');
-            }
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#pointModal').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -163,9 +158,55 @@ function valid() {
 }
 
 function cleanCells() {
-
+    $('#distanceSelections').val("");
+    $('#distanceSelections').css('border-color', 'lightgrey');
+    $('#sectionsChosen').val("");
+    $('#sectionsChosen').chosen();
+    $('#sectionsChosen').trigger('chosen:updated');
+    $('#pointsCellsModal').modal('show');
 }
 
 function updatePointsCells() {
+    var res = validSelections();
+    if (res === false) {
+        return false;
+    }
+    var objSelections = {
+        sectionsChosen: $('#sectionsChosen').val()
+        ,distanceSelections: $('#distanceSelections').val().replace(".", ",")
+    };
+    $.ajax({
+        cache: false,
+        url: "/SCells/UpdatePointsCells/",
+        data: JSON.stringify(objSelections),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#pointsCellsModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
+function validSelections() {
+    var isValid = true;
+    if ($('#distanceSelections').val().trim() === "") {
+        $('#distanceSelections').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#distanceSelections').css('border-color', 'lightgrey');
+    }
+    if ($('#sectionsChosen').val().length === 0) {
+        $('#sectionsChosen').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#sectionsChosen').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

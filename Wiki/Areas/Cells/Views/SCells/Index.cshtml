@@ -8,7 +8,6 @@
         .colorWhite {
             color: white;
         }
-
         .button {
             display: block;
             margin: 0 auto;
@@ -30,9 +29,14 @@
         <label for="Client">Укажите необходимый диапазон ячеек:</label>
         @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
     </div>
+    <div class="col-md-6">
+        <br />
+        <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="cleanCells();">Затать расстояние в пределах ряда</button>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
+
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
@@ -75,7 +79,6 @@
         </div>
     </div>
 </div>
-
 <div id="pointsCellsModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -95,7 +98,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label>Расстояние между секциями (м.):</label>
-                        <input type="text" class="form-control" id="distance" />
+                        <input type="text" class="form-control" id="distanceSelections" />
                     </div>
                 </div>
             </div>
@@ -109,14 +112,12 @@
         </div>
     </div>
 </div>
-
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
         $(this).find(".modal-body").css("max-height", height);
     });
 </script>
-
 <script>
     $(".chosen-select").chosen({
         placeholder_text_multiple: "Нажмите для выбора...",
