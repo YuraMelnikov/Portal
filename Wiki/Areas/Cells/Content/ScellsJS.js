@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
     startMenu();
+    getRemainingRows();
 });
 
 function loadData(listId) {
+    getRemainingRows();
     if (listId === 1 || listId === "1") {
         list();
     }
@@ -24,7 +26,7 @@ function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List/" + 'А_1_1',
+            "url": "/SCells/List/" + 'ZeroPoint',
             "type": "POST",
             "datatype": "json"
         },
@@ -55,7 +57,7 @@ function startMenu() {
 function list(data) {
     var selectedDevision = $('#listSelections').find('option:selected').text();
     var id = $('#listSelections').find('option:selected').text();
-
+    getRemainingRows();
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
@@ -138,6 +140,7 @@ function updatePoint() {
         success: function (result) {
             $('#myTable').DataTable().ajax.reload(null, false);
             $('#pointModal').modal('hide');
+            getRemainingRows();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -185,6 +188,7 @@ function updatePointsCells() {
         success: function (result) {
             $('#myTable').DataTable().ajax.reload(null, false);
             $('#pointsCellsModal').modal('hide');
+            getRemainingRows();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -209,4 +213,35 @@ function validSelections() {
         $('#sectionsChosen').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+function getRemainingRows() {
+    $.ajax({
+        cache: false,
+        url: "/SCells/GetRemainingRows/",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById('remainingZeroPoints').innerHTML = "Осталось незаполненных ячеек: " + result;
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getRow(data) {
+    var selectedDevision = $('#sectionsChosen').find('option:selected').text();
+    var id = $('#sectionsChosen').find('option:selected').text();
+    $.ajax({
+        cache: false,
+        url: "/SCells/GetRow/" + id,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#sectionsChosen').val(data).trigger('chosen:updated');
+        }
+    });
 }

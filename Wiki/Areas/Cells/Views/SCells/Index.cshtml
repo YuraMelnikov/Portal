@@ -32,14 +32,16 @@
         <label for="Client">Укажите необходимый диапазон ячеек:</label>
         @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <br />
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="cleanCells();">Затать расстояние в пределах ряда</button>
+    </div>
+    <div class="col-md-3">
+        <h3 id="remainingZeroPoints"></h3>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
@@ -102,7 +104,11 @@
                         <input type="text" class="form-control" id="distanceSelections" />
                     </div>
                 </div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-danger" id="btnGetRow" onclick="getRow(this);">Подобрать ряд</button>
+                    </div>
+                </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
