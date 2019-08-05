@@ -80,13 +80,20 @@ namespace Wiki.Areas.Cells.Controllers
 
         public JsonResult UpdatePoint(int id, double distance)
         {
-            UpdateDistance(id, distance);
+            UpdateDistanceSelections(id, distance);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult UpdatePointsCells(int[] sectionsChosen, double distanceSelections)
         {
+            for (int i = 0; i < sectionsChosen.Length; i++)
+            {
+                for (int j = 0; j < sectionsChosen.Length; j++)
+                {
 
+
+                }
+            }
 
 
 
@@ -98,7 +105,7 @@ namespace Wiki.Areas.Cells.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        bool UpdateDistance(int id, double distance)
+        bool UpdateDistanceSelections (int id, double distance)
         {
             using (SCellsEntities db = new SCellsEntities())
             {
