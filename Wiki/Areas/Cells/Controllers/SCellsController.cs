@@ -15,6 +15,7 @@ namespace Wiki.Areas.Cells.Controllers
             SCellsEntities db = new SCellsEntities();
             string login = HttpContext.User.Identity.Name;
             ViewBag.list = new SelectList(db.Section.OrderBy(d => d.name), "idS", "name");
+            ViewBag.sections = new SelectList(db.Section.OrderBy(d => d.name), "idS", "name");
             try
             {
                 logger.Debug("SCells ActionResult: " + login);
@@ -80,9 +81,6 @@ namespace Wiki.Areas.Cells.Controllers
 
         public JsonResult UpdatePoint(int id, double distance)
         {
-            string login = HttpContext.User.Identity.Name;
-            if(login != "myi@katek.by")
-                return Json(0, JsonRequestBehavior.AllowGet);
             using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -98,21 +96,6 @@ namespace Wiki.Areas.Cells.Controllers
                 logger.Debug("SCells UpdatePoint: " + login + " | " + id.ToString());
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public string RenderUserMenu()
-        {
-            string login = "Войти";
-            try
-            {
-                if (HttpContext.User.Identity.Name != "")
-                    login = HttpContext.User.Identity.Name;
-            }
-            catch
-            {
-                login = "Войти";
-            }
-            return login;
         }
     }
 }

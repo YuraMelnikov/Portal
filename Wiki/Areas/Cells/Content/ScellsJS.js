@@ -161,3 +161,11 @@ function valid() {
     }
     return isValid;
 }
+
+function cleanCells() {
+
+}
+
+function updatePointsCells() {
+
+}
