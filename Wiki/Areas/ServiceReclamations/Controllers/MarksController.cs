@@ -47,7 +47,6 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             ViewBag.typeRem = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
             ViewBag.devRem = new SelectList(db.Devision.Where(d => d.OTK == true).OrderBy(d => d.name), "id", "name");
             ViewBag.pfRem = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
-
             logger.Debug("Mark OTK: " + login);
             return View();
         }

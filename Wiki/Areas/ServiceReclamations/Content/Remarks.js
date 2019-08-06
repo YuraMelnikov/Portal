@@ -427,7 +427,6 @@ function update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            //$('#reclamationModal').modal('hide');
             clearTextBoxRem();
             updateRemList(result);
             $('#reclamationTable').DataTable().ajax.reload(null, false);

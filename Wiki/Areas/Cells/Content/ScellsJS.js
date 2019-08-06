@@ -37,6 +37,10 @@ function startMenu() {
             if (data.distance === 0 || data.distance === "0") {
                 $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+            else {
+                $('a', row).css('color', 'black');
             }
         },
         "cache": false,
@@ -76,6 +80,10 @@ function list(data) {
             if (data.distance === 0 || data.distance === "0") {
                 $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+            else {
+                $('a', row).css('color', 'black');
             }
         },
         "scrollY": '75vh',

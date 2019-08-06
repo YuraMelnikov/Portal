@@ -43,10 +43,14 @@ namespace Wiki.Areas.Cells.Controllers
                 var data = query.Select(dataList => new
                 {
                     editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+
                     dataList.sectionIdStart,
-                    name1 = dataList.Section.name,
+                    name1 = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + ">" + dataList.Section.name + "</a></td>",
+
+
+
                     dataList.sectionIdFinish,
-                    name2 = dataList.Section1.name,
+                    name2 = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + ">" + dataList.Section1.name + "</a></td>",
                     dataList.distance
                 });
 
