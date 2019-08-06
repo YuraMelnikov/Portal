@@ -783,6 +783,9 @@
     <Compile Include="XTEO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Соотношение_ИД.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
@@ -1445,6 +1448,7 @@
     <Content Include="EFDBScells.edmx.diagram">
       <DependentUpon>EFDBScells.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\ServiceReclamations\Views\Marks\DeBug.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

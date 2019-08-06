@@ -1220,6 +1220,14 @@
           <Property Name="valut" Type="varchar(max)" Nullable="false" />
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="Соотношение ИД">
+          <Key>
+            <PropertyRef Name="idFolder" />
+          </Key>
+          <Property Name="idFolder" Type="int" Nullable="false" />
+          <Property Name="idRem" Type="int" Nullable="false" />
+          <Property Name="idNewRem" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
@@ -1371,8 +1379,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.SCells' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
@@ -3066,6 +3072,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Соотношение ИД" EntityType="Self.Соотношение ИД" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_Report" EntityType="Self.CMO_Report" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CMO_Report].[Id_Order] AS [Id_Order], 
@@ -4521,6 +4528,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="MailGraphic" EntitySet="MailGraphic" />
           </AssociationSet>
+          <EntitySet Name="Соотношение_ИД" EntityType="PortalKATEKModel.Соотношение_ИД" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -7522,6 +7530,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Соотношение_ИД">
+          <Key>
+            <PropertyRef Name="idFolder" />
+          </Key>
+          <Property Name="idFolder" Type="Int32" Nullable="false" />
+          <Property Name="idRem" Type="Int32" Nullable="false" />
+          <Property Name="idNewRem" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9005,6 +9021,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="dateUpload" ColumnName="dateUpload" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Соотношение_ИД">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Соотношение_ИД">
+              <MappingFragment StoreEntitySet="Соотношение ИД">
+                <ScalarProperty Name="idNewRem" ColumnName="idNewRem" />
+                <ScalarProperty Name="idRem" ColumnName="idRem" />
+                <ScalarProperty Name="idFolder" ColumnName="idFolder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

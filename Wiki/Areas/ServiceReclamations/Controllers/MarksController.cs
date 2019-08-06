@@ -52,6 +52,41 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return View();
         }
 
+        public ActionResult DeBug()
+        {
+            //createFolder
+            //for (int i = 1; i < 227; i++)
+            //{
+            //    string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + i.ToString();
+            //    Directory.CreateDirectory(directory);
+            //}
+            //copyDocuments
+            //using (PortalKATEKEntities db = new PortalKATEKEntities())
+            //{
+            //    var listFolder = db.Соотношение_ИД.ToList();
+            //    string pathRem = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\";
+            //    foreach (var data in listFolder)
+            //    {
+            //        string path = @"\\192.168.1.30\m$\Пользователи\myi\Рекламации архив\Документация\" + data.idFolder.ToString() + @"\";
+            //        try
+            //        {
+            //            var fileList = Directory.GetFiles(path).ToList();
+            //            foreach (var fileData in fileList)
+            //            {
+            //                FileInfo fi = new FileInfo(fileData);
+            //                string pathTo = pathRem + data.idNewRem.ToString() + @"\" + fi.Name;
+            //                fi.CopyTo(pathTo, false); // existing file will be overwritten
+            //            }
+            //        }
+            //        catch(Exception ex)
+            //        {
+
+            //        }
+            //    }
+            //}
+            return View();
+        }
+
         public JsonResult Add(ServiceRemarks reclamation, int[] pZ_PlanZakaz, int[] id_Reclamation_Type, int[] id_ServiceRemarksCause)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())

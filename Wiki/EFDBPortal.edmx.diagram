@@ -246,6 +246,7 @@
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="PortalKATEKModel.MailGraphic" Width="1.5" PointX="18.125" PointY="73.5" />
         <AssociationConnector Association="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Соотношение_ИД" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
