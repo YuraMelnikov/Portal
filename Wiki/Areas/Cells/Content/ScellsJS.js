@@ -34,8 +34,8 @@ function startMenu() {
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
-            if (data.distance === 0 && data.distance === "0") {
-                $('td', row).css('background-color', '#d9534f');
+            if (data.distance === 0 || data.distance === "0") {
+                $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
             }
         },
@@ -73,8 +73,8 @@ function list(data) {
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
-            if (data.distance === 0 && data.distance === "0") {
-                $('td', row).css('background-color', '#d9534f');
+            if (data.distance === 0 || data.distance === "0") {
+                $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
             }
         },

@@ -138,7 +138,7 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                return Json(db.SectionMap.Where(d => d.distance == 0).Count(), JsonRequestBehavior.AllowGet);
+                return Json(db.SectionMap.Where(d => d.distance == 0).Count() / 2, JsonRequestBehavior.AllowGet);
             }
         }
 
