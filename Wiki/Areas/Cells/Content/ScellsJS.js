@@ -39,9 +39,6 @@ function startMenu() {
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
             }
-            else {
-                $('a', row).css('color', 'black');
-            }
         },
         "cache": false,
         "async": false,
@@ -81,9 +78,6 @@ function list(data) {
                 $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
-            }
-            else {
-                $('a', row).css('color', 'black');
             }
         },
         "scrollY": '75vh',
