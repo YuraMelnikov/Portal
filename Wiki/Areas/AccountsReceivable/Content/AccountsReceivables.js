@@ -1324,6 +1324,10 @@ function editFin(id) {
             $('#finnumberOrder').val(data.finnumberOrder);
             $('#finndsSum').val(data.finndsSum);
             $('#fincurrency').val(data.fincurrency);
+            $('#fintransportSum').css('border-color', 'lightgrey');
+            $('#finnumberOrder').css('border-color', 'lightgrey');
+            $('#finndsSum').css('border-color', 'lightgrey');
+            $('#fincurrency').css('border-color', 'lightgrey');
             $('#costShEditModal').modal('show');
         },
         error: function (errormessage) {
@@ -1334,14 +1338,16 @@ function editFin(id) {
 }
 
 function updateFin() {
-    var kur = $('#KursValuti').val().replace(",", ".");
-    kur = kur * 10000;
+    var res = validFin();
+    if (res === false) {
+        return false;
+    }
     var objFinData = {
-        finid: $('#finid').val()
-        ,fintransportSum: $('#fintransportSum').replace(",", ".")
+        fintransportSum: $('#fintransportSum').val().replace(".", ",")
         ,finnumberOrder: $('#finnumberOrder').val()
-        ,finndsSum: $('#finndsSum').replace(",", ".")
+        , finndsSum: $('#finndsSum').val().replace(".", ",")
         ,fincurrency: $('#fincurrency').val()
+        ,finid: $('#finid').val()
     };
     $.ajax({
         cache: false,
@@ -1358,4 +1364,37 @@ function updateFin() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function validFin() {
+    var isValid = true;
+    if ($('#fintransportSum').val().trim() === "") {
+        $('#fintransportSum').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#fintransportSum').css('border-color', 'lightgrey');
+    }
+    if ($('#finnumberOrder').val().trim() === "") {
+        $('#finnumberOrder').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#finnumberOrder').css('border-color', 'lightgrey');
+    }
+    if ($('#finndsSum').val().trim() === "") {
+        $('#finndsSum').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#finndsSum').css('border-color', 'lightgrey');
+    }
+    if ($('#fincurrency').val().trim() === "") {
+        $('#fincurrency').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#fincurrency').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

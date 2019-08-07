@@ -1527,13 +1527,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
         }
 
-        public JsonResult UpdateCostSh(double fintransportSum, string finnumberOrder, double finndsSum, int fincurrency, int finid)
+        public JsonResult UpdateFin(double fintransportSum, string finnumberOrder, double finndsSum, int fincurrency, int finid)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                Debit_IstPost debit_IstPost = db.Debit_IstPost.Include(d => d.Debit_WorkBit.PZ_PlanZakaz).Find(finid);
+                Debit_IstPost debit_IstPost = db.Debit_IstPost.Include(d => d.Debit_WorkBit.PZ_PlanZakaz).First(d => d.id == finid);
                 debit_IstPost.transportSum = fintransportSum;
                 debit_IstPost.numberOrder = finnumberOrder;
                 debit_IstPost.ndsSum = finndsSum;
