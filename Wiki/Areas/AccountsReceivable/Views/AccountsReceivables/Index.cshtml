@@ -24,6 +24,8 @@
                     <li class="divider"></li>
                     <li><a onclick="return loadData(1);">Активные задачи</a></li>
                     <li><a onclick="return loadData(3);">Закрытые задачи</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="return loadData(13);">Финансовые данные по экспедитору</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -788,6 +790,68 @@
         </div>
     </div>
 </div>
+
+<div id="costShEditModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Номер/а заказа/ов:</label>
+                        <input type="text" class="form-control" id="finOrder" disabled="disabled" />
+                        <input type="text" class="form-control" id="finid" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Транспорт экспедитора (сумма):</label>
+                        <input type="text" class="form-control" id="fintransportSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Счет № транспорта:</label>
+                        <input type="text" class="form-control" id="finnumberOrder" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>НДС с суммы транспорта:</label>
+                        <input type="text" class="form-control" id="finndsSum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Валюта:</label>
+                        @Html.DropDownList("fincurrency", ViewBag.currency as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateFin" onclick="updateFin();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;

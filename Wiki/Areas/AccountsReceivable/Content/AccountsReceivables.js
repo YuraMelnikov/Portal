@@ -44,6 +44,10 @@ function loadData(listId) {
         debitActiveShList();
         document.getElementById('labelList').innerHTML = "Ожидаение оплаты (отгруженные)";
     }
+    else if (listId === 13 || listId === "13") {
+        finExpDataList();
+        document.getElementById('labelList').innerHTML = "Заполнить финансовые данные по экспедитору";
+    }
     else if (listId === 7 || listId === "7") {
         tasksPM();
         document.getElementById('labelList').innerHTML = "Задачи по заказам";
@@ -1261,4 +1265,97 @@ function validDebTaskUpdate() {
         $('#paymentDateUpdate').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+var objFinExpData = [
+    { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
+    { "title": "Заказ №", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Транспорт экспедитора (сумма)", "data": "transportSum", "autowidth": true, "bSortable": true },
+    { "title": "Счет № транспорта", "data": "numberOrder", "autowidth": true, "bSortable": true },
+    { "title": "НДС с суммы транспорта", "data": "ndsSum", "autowidth": true, "bSortable": true }
+];
+
+function finExpDataList() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/FinExpDataList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objFinExpData,
+        "rowCallback": function (row, data, index) {
+            if (data.transportSum === "0" || data.transportSum === 0) {
+                $('td', row).css('background-color', '#d9534f');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function editFin(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/EditFin/" + id,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#finOrder').val(data.finOrder);
+            $('#finid').val(data.finid);
+            $('#fintransportSum').val(data.fintransportSum);
+            $('#finnumberOrder').val(data.finnumberOrder);
+            $('#finndsSum').val(data.finndsSum);
+            $('#fincurrency').val(data.fincurrency);
+            $('#costShEditModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function updateFin() {
+    var kur = $('#KursValuti').val().replace(",", ".");
+    kur = kur * 10000;
+    var objFinData = {
+        finid: $('#finid').val()
+        ,fintransportSum: $('#fintransportSum').replace(",", ".")
+        ,finnumberOrder: $('#finnumberOrder').val()
+        ,finndsSum: $('#finndsSum').replace(",", ".")
+        ,fincurrency: $('#fincurrency').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateFin/",
+        data: JSON.stringify(objFinData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tableData').DataTable().ajax.reload(null, false);
+            $('#costShEditModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

@@ -1466,5 +1466,84 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             }
             return true;
         }
+
+        public JsonResult FinExpDataList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                string login = HttpContext.User.Identity.Name;
+                if (login == "kns@katek.by" || login == "myi@katek.by")
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.Debit_IstPost
+                        .AsNoTracking()
+                        .Include(d => d.Debit_WorkBit.PZ_PlanZakaz)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return editFin('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        order = dataList.Debit_WorkBit.PZ_PlanZakaz.PlanZakaz.ToString(),
+                        dataList.transportSum,
+                        dataList.numberOrder,
+                        dataList.ndsSum
+                    });
+                    try
+                    {
+                        logger.Debug("FinExpDataList: " + login);
+                    }
+                    catch
+                    {
+                    }
+                    return Json(new { data });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public JsonResult EditFin(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.Debit_IstPost
+                    .Include(d => d.Debit_WorkBit.PZ_PlanZakaz)
+                    .Where(d => d.id == id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    finOrder = dataList.Debit_WorkBit.PZ_PlanZakaz.PlanZakaz.ToString(),
+                    finid = dataList.id,
+                    fintransportSum = dataList.transportSum,
+                    finnumberOrder = dataList.numberOrder,
+                    finndsSum = dataList.ndsSum,
+                    fincurrency = dataList.currency
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateCostSh(double fintransportSum, string finnumberOrder, double finndsSum, int fincurrency, int finid)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                Debit_IstPost debit_IstPost = db.Debit_IstPost.Include(d => d.Debit_WorkBit.PZ_PlanZakaz).Find(finid);
+                debit_IstPost.transportSum = fintransportSum;
+                debit_IstPost.numberOrder = finnumberOrder;
+                debit_IstPost.ndsSum = finndsSum;
+                debit_IstPost.currency = fincurrency;
+                db.Entry(debit_IstPost).State = EntityState.Modified;
+                db.SaveChanges();
+                CloseTask(26, debit_IstPost.Debit_WorkBit.PZ_PlanZakaz.Id, DateTime.Now);
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
