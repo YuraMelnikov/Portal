@@ -3,6 +3,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 {
     public class AccountsReceivablesController : Controller
     {
+        CultureInfo ci = new CultureInfo("en-us");
         private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings shortSettingRu = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
@@ -1237,9 +1239,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 {
                     textPZ_Deb = "План-заказ №: " + dataList.PZ_PlanZakaz.PlanZakaz.ToString(),
                     id_PlanZakazDeb = dataList.PZ_PlanZakaz.PlanZakaz,
-                    rateWhisVAT = dataList.Rate + dataList.NDS,
-                    payment = GetocPu(dataList.Id_PlanZakaz),
-                    receivables = dataList.Rate + dataList.NDS - GetocPu(dataList.Id_PlanZakaz),
+                    rateWhisVAT = (dataList.OtpuskChena + dataList.NDS).Value.ToString("N03", ci),
+                    payment = GetocPu(dataList.Id_PlanZakaz).ToString("N03", ci),
+                    receivables = (dataList.OtpuskChena + dataList.NDS - GetocPu(dataList.Id_PlanZakaz)).Value.ToString("N03", ci),
                     currencyDeb = dataList.PZ_Currency.Name
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
