@@ -70,6 +70,7 @@ function startMenu() {
             if (data.Decision === "") {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
             }
         },
         "columns": objRemarksListNoEdit,
@@ -107,6 +108,7 @@ function activeTA() {
                 countRedPosition++;
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
             }
         },
         "columns": objRemarksList,
@@ -225,7 +227,8 @@ function update() {
         dataType: "json",
         success: function (result) {
             $('#viewReclamation').modal('hide');
-            loadData(document.getElementById('pageData').innerHTML);
+            //loadData(document.getElementById('pageData').innerHTML);
+            $('#myTable').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
