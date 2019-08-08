@@ -1449,6 +1449,7 @@
       <DependentUpon>EFDBScells.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\ServiceReclamations\Views\Marks\DeBug.cshtml" />
+    <Content Include="Areas\Cells\Views\SCells\Debug.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

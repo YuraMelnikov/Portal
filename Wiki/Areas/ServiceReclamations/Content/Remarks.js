@@ -43,6 +43,12 @@ var objTableRem = [
     { "title": "Ответственное СП", "data": "devision", "autowidth": true, "bSortable": false }
 ];
 
+var objTableAnswer = [
+    { "title": "Дата", "data": "dateAnswer", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Сотрудник", "data": "userAnswer", "autowidth": true, "bSortable": false },
+    { "title": "Текст", "data": "textAnswer", "autowidth": true, "bSortable": false }
+];
+
 function startPage() {
     var id = 0;
     $("#reclamationTable").DataTable({
@@ -76,6 +82,27 @@ function startPage() {
         "bDestroy": true,
         "processing": true,
         "columns": objTableRem,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#tableAnswers").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/GetTableAnswers/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objTableAnswer,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -325,7 +352,9 @@ function get(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#btnRemove').show();
             $("#partRem").show();
+            GetTableAnswers(id);
             updateRemList(id);
             $('#answerText').prop('disabled', false);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
@@ -430,6 +459,7 @@ function update() {
             clearTextBoxRem();
             updateRemList(result);
             $('#reclamationTable').DataTable().ajax.reload(null, false);
+            $('#tableAnswers').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -588,4 +618,54 @@ function addNewRemarkOTK() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function GetTableAnswers(id) {
+    var table = $('#tableAnswers').DataTable();
+    table.destroy();
+    $('#tableAnswers').empty();
+    $("#tableAnswers").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Marks/GetTableAnswers/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objTableAnswer,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function remove() {
+    var objRemove = {
+        id: $('#id').val()
+    };
+    $.ajax(
+        {
+            cache: false,
+            url: "/Marks/Remove/" + id,
+            data: JSON.stringify(objRemove),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#reclamationTable').DataTable().ajax.reload(null, false);
+                $('#btnRemove').hide();
+                $('#reclamationModal').modal('hide');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
 }

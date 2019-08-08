@@ -30,7 +30,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
@@ -70,7 +70,7 @@ function list(data) {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[0, "asc"]],
+        "order": [[4, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {

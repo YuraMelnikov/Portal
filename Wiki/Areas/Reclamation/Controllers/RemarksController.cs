@@ -449,17 +449,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.SaveChanges();
                 EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 2);
             }
-
-
-
-
-
-
-
-
-
-
-
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetOneReclamation(reclamation.id);
             return Json(new { data = reclamationListViewer.ReclamationsListView });

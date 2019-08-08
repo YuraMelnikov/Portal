@@ -690,5 +690,39 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             return Json(id, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult GetTableAnswers(int id)
+        {
+            using (PortalKATEKEntities dbc = new PortalKATEKEntities())
+            {
+                dbc.Configuration.ProxyCreationEnabled = false;
+                dbc.Configuration.LazyLoadingEnabled = false;
+                var query = dbc.ServiceRemarksActions
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_ServiceRemarks == id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    dateAnswer = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                    userAnswer = dataList.AspNetUsers.CiliricalName,
+                    textAnswer = dataList.text
+                });
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult Remove(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ServiceRemarks serviceRemarks = db.ServiceRemarks.Find(id);
+                db.ServiceRemarks.Remove(serviceRemarks);
+                db.SaveChanges();
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -26,6 +26,13 @@ namespace Wiki.Areas.Cells.Controllers
             return View();
         }
 
+        public ActionResult Debug()
+        {
+
+
+            return View();
+        }
+
         public JsonResult List(string id)
         {
             string login = HttpContext.User.Identity.Name;
