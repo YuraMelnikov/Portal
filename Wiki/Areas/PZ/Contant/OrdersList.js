@@ -4,6 +4,12 @@
 
 function loadData() {
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Order/OrdersList",
@@ -84,6 +90,12 @@ function loadData() {
 
 function OrdersListLY(yearCreateOrder) {
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Order/OrdersListLY?yearCreateOrder=" + yearCreateOrder,
@@ -167,6 +179,12 @@ function OrdersListLY(yearCreateOrder) {
 
 function OrdersListALL() {
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Order/OrdersListALL",
@@ -250,6 +268,12 @@ function OrdersListALL() {
 
 function OrdersListInManufacturing() {
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Order/OrdersListInManufacturing",

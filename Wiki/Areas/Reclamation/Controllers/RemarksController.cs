@@ -405,12 +405,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                 };
                 db.Reclamation_Answer.Add(reclamation_Answer);
                 db.SaveChanges();
-                if (reclamation.close != true)
-                {
-                    reclamation.closeDevision = false;
-                    db.Entry(reclamation).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
             }
             else if (aspNetUser.Devision.Value != 6 && aspNetUser.Devision.Value != 28 && answerText != "" && answerText != null)
             {

@@ -86,6 +86,10 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.closeDevision = false;
                 reclamation.close = true;
             }
+            if (reclamation.id_DevisionReclamation == 7)
+            {
+                reclamation.closeDevision = true;
+            }
             if (reclamation.id_AspNetUsersError != null)
             {
                 reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
@@ -99,6 +103,10 @@ namespace Wiki.Areas.Reclamation.Models
             if (reclamation.id_AspNetUsersError != null)
             {
                 reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;
+                reclamation.closeDevision = true;
+            }
+            if (reclamation.id_DevisionReclamation == 7)
+            {
                 reclamation.closeDevision = true;
             }
             return true;

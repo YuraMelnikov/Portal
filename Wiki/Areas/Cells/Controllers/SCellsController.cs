@@ -29,7 +29,12 @@ namespace Wiki.Areas.Cells.Controllers
         public ActionResult Debug()
         {
 
-
+            //А - Д
+            //А - Г
+            //Б - Д
+            //Б - Г
+            //Д - И
+            //Г - И
             return View();
         }
 

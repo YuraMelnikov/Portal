@@ -3,34 +3,39 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
 }
-<head>
-    <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
-    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
-    <script src="~/Areas/PZ/Contant/OrdersList.js"></script>
-    <style>
-        th.dt-invisible-column {
-            border: 0 !important;
-            padding: 0 !important;
-        }
+    <head>
+        <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
+        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
+        <link href="~/Content/DataTables/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="~/Content/DataTables/dataTables.buttons.min.js"></script>
+        <script src="~/Content/DataTables/jszip.min.js"></script>
+        <script src="~/Content/DataTables/pdfmake.min.js"></script>
+        <script src="~/Content/DataTables/buttons.html5.min.js"></script>
+        <script src="~/Areas/PZ/Contant/OrdersList.js"></script>
+        <style>
+            th.dt-invisible-column {
+                border: 0 !important;
+                padding: 0 !important;
+            }
 
-        .modal.modal-wide .modal-dialog {
-            width: 90%;
-        }
+            .modal.modal-wide .modal-dialog {
+                width: 90%;
+            }
 
-        .modal-wide .modal-body {
-            overflow-y: auto;
-        }
+            .modal-wide .modal-body {
+                overflow-y: auto;
+            }
 
-        .colu-200 {
-            min-width: 200px;
-        }
+            .colu-200 {
+                min-width: 200px;
+            }
 
-        .colu-300 {
-            min-width: 300px;
-        }
-    </style>
-</head>
+            .colu-300 {
+                min-width: 300px;
+            }
+        </style>
+    </head>
 <div class="row">
     <div class="col-md-12">
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -43,6 +48,7 @@
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#ordersModal" onclick="clearTextBoxUpdateOrders();">Массовое обновление данных</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#tablesModal" onclick="clearTextBoxTableOrders();">Сформировать таблички</button>
+        <hr />
         <table id="myTable" class="table table-hover table-striped" style="width:100%;">
             <tfoot>
                 <tr>

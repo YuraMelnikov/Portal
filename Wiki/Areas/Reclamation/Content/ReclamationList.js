@@ -158,6 +158,12 @@ var objRemark = {
 
 function startMenu() {
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ActiveReclamation",
@@ -192,6 +198,12 @@ function activeReclamation() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ActiveReclamation",
@@ -226,6 +238,12 @@ function activeReclamationMy() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ActiveReclamationMy",
@@ -260,6 +278,12 @@ function closeReclamation() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/CloseReclamation",
@@ -288,6 +312,12 @@ function allReclamation() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/AllReclamation",
@@ -825,6 +855,12 @@ function planZakazDevisionNotSh() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/PlanZakazDevisionNotSh",
@@ -860,6 +896,12 @@ function planZakazDevisionMy() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/PlanZakazDevisionNotShMy",
@@ -895,6 +937,12 @@ function planZakazDevisionSh() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/PlanZakazDevisionSh",
@@ -930,6 +978,12 @@ function planZakazDevisionAll() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/PlanZakazDevisionAll",
@@ -977,6 +1031,12 @@ function reclamationOTK() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/GetRemarksOTK",
@@ -1004,6 +1064,12 @@ function reclamationPO() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/GetRemarksPO",
@@ -1130,6 +1196,12 @@ function reclamationsPlanZakaz(id) {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ReclamationsPlanZakaz/" + id,
@@ -1171,6 +1243,12 @@ function reclamationsPlanZakazMy(id) {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ReclamationsPlanZakazMy/" + id,
@@ -1211,6 +1289,12 @@ function chackList(id) {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/ChackList/" + id,
@@ -1247,6 +1331,12 @@ function myReclamation() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/MyReclamation/",
@@ -1294,6 +1384,12 @@ function editManufList() {
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Remarks/EditManufList/",
