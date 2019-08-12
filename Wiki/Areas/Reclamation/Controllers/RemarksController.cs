@@ -625,7 +625,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksPO()
         {
-            if (HttpContext.User.Identity.Name == "antipov@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
+            if (HttpContext.User.Identity.Name == "antipov@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by" || HttpContext.User.Identity.Name == "Medvedev@katek.by")
             {
                 var data = new TARemarksListView().GetRemarksPO();
                 return Json(new { data });
@@ -650,7 +650,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 db.SaveChanges();
                 return GetRemarksOTK();
             }
-            else if (HttpContext.User.Identity.Name == "antipov@katek.by")
+            else if (HttpContext.User.Identity.Name == "antipov@katek.by" || HttpContext.User.Identity.Name == "Medvedev@katek.by")
             {
                 foreach (Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate != 6))
                 {
