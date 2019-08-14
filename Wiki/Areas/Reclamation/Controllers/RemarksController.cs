@@ -1058,6 +1058,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 .Include(d => d.Reclamation_CountError)
                 .Include(d => d.Reclamation_CountError1)
                 .Include(d => d.PF)
+                .Include(d => d.Reclamation_Answer.Select(c => c.AspNetUsers))
                 .Where(d => d.Reclamation_PZ.Where(c => c.id_PZ_PlanZakaz == idOrderUploadExcel).Count() > 0 && d.close == false)
                 .ToList();
             if (list.Count != 0)
@@ -1077,6 +1078,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     string history = "";
                     foreach (var dataAnswer in data.Reclamation_Answer)
                     {
+
                         history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
                     }
                     string userError = "";
