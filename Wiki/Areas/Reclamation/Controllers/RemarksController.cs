@@ -101,6 +101,22 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
+            else if (login == "Medvedev@katek.by")
+            {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
+                ViewBag.ButtonAddActivation = 1;
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 8 || d.Devision == 9 || d.Devision == 10 || d.Devision == 20 || d.Devision == 22)
+                    .Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+                ViewBag.CRUDCounter = '2';
+            }
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16).ToList();
@@ -645,7 +661,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 {
                     Wiki.Reclamation reclamation = data;
                     reclamation.fixedExpert = true;
-                    db.Entry(reclamation).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(reclamation).State = EntityState.Modified;
                 }
                 db.SaveChanges();
                 return GetRemarksOTK();
