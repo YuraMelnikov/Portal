@@ -911,7 +911,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     if (pzList.IndexOf(workToDeb.id_PlanZakaz) == -1)
                         pzList.Add(workToDeb.id_PlanZakaz);
                 }
-                if(login == "gea@katek.by")
+                if(login == "gea@katek.by" || login == "myi@katek.by")
                 {
                     var data = pzList.Select(dataList => new
                     {

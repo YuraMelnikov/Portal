@@ -791,6 +791,7 @@
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\AccountsReceivable\Content\updateEP.sql" />
     <Content Include="Areas\Cells\Content\ScellsJS.js" />
+    <Content Include="Areas\Cells\Content\updateSelectsCrossZeroPoint.sql" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
