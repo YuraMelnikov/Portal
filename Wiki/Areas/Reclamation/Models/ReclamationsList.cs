@@ -175,6 +175,21 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                    .Where(d => d.Reclamation_PZ.Max(s => s.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now)
+                    .ToList();
+            }
+            else if (id_Devision == 13)
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.close == active)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .Where(d => d.id_DevisionReclamation == 13)
                     .ToList();
             }
             else
