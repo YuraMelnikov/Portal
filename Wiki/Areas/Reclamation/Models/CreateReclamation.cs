@@ -67,6 +67,8 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool ReloadReclamation(bool? reload, int? reloadDevision)
         {
+            if (reloadDevision == 26)
+                reloadDevision = 13;
             if (reload == true)
             {
                 reclamation.id_DevisionReclamation = reloadDevision.Value;
@@ -89,6 +91,10 @@ namespace Wiki.Areas.Reclamation.Models
             if (reclamation.id_DevisionReclamation == 7)
             {
                 reclamation.closeDevision = true;
+            }
+            if (reclamation.id_DevisionReclamation == 26)
+            {
+                reclamation.id_DevisionReclamation = 13;
             }
             if (reclamation.id_AspNetUsersError != null)
             {

@@ -113,35 +113,48 @@ namespace Wiki.Areas.Reclamation.Models
             mailToList.Add("myi@katek.by");
             mailToList.Add("bav@katek.by");
             mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).Email);
-            foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
+
+            if(reclamation.id_DevisionReclamation == 13)
             {
-                mailToList.Add(data.Email);
-            }
-            if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
-            {
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
-                {
-                    mailToList.Add(data.Email);
-                }
+                mailToList.Add("laa@katek.by");
+                mailToList.Add("Antipov@katek.by");
             }
             else
             {
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
+
+                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
                 {
                     mailToList.Add(data.Email);
                 }
-            }
-            if(reclamation.editManufacturing == true)
-            {
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
+                if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
                 {
-                    mailToList.Add(data.Email);
+                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
+                    {
+                        mailToList.Add(data.Email);
+                    }
+                }
+                else
+                {
+                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
+                    {
+                        mailToList.Add(data.Email);
+                    }
+                }
+                if (reclamation.editManufacturing == true)
+                {
+                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
+                    {
+                        mailToList.Add(data.Email);
+                    }
+                }
+                foreach (var dataList in mailToList)
+                {
+                    mail.To.Add(new MailAddress(dataList));
                 }
             }
-            foreach(var dataList in mailToList)
-            {
-                mail.To.Add(new MailAddress(dataList));
-            }
+
+
+
             return true;
         }
     }
