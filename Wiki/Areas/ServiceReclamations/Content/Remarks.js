@@ -354,6 +354,7 @@ function get(id) {
         success: function (result) {
             $('#btnRemove').show();
             $("#partRem").show();
+            $("#btnUpdate").show();
             GetTableAnswers(id);
             updateRemList(id);
             $('#answerText').prop('disabled', false);
@@ -375,14 +376,14 @@ function get(id) {
             $('#answerText').val(result.answerText);
             $('#answerHistiryText').val(result.answerHistiryText);
             $('#reclamationModal').modal('show');
-            if (userGroupId === 1 || userGroupId === '1') {
-                $('#btnUpdate').show();
-                $('#btnAddOtkRem').show();
-            }
-            else {
-                $('#btnUpdate').hide();
-                $('#btnAddOtkRem').hide();
-            }
+            //if (userGroupId === 1 || userGroupId === '1') {
+            //    $('#btnUpdate').show();
+            //    $('#btnAddOtkRem').show();
+            //}
+            //else {
+            //    $('#btnUpdate').hide();
+            //    $('#btnAddOtkRem').hide();
+            //}
             $('#btnAdd').hide();
         },
         error: function (errormessage) {
