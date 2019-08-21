@@ -20,6 +20,14 @@ namespace Wiki.Areas.Reclamation.Controllers
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
+        public ActionResult Debug()
+        {
+            ProjectServer projectServer = new ProjectServer();
+            projectServer.CreateTasks();
+            return View();
+        }
+
+
         public ActionResult Index()
         {
             @ViewBag.idPZ = 0;
@@ -138,7 +146,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers.Where(d => d.Email == login), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '4';
             }
-            if(id_Devision == 9 || id_Devision == 22)
+            if (id_Devision == 9 || id_Devision == 22)
                 ViewBag.DevisionsManufacturing = new SelectList(db.Devision.Where(d => d.id == 9 || d.id == 22), "id", "name");
             if (id_Devision == 8 || id_Devision == 20)
                 ViewBag.DevisionsManufacturing = new SelectList(db.Devision.Where(d => d.id == 8 || d.id == 20), "id", "name");
@@ -160,7 +168,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             List<Devision> devisionsReload = db.Devision.Where(d => d.OTK == true && d.id != id_Devision).ToList();
-            if(id_Devision == 6)
+            if (id_Devision == 6)
                 devisionsReload = db.Devision.Where(d => d.OTK == true).ToList();
             foreach (var data in devisionsReload)
             {
