@@ -290,7 +290,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetReclamation(GetIdDevision(login));
-            return Json(new { data = reclamationListViewer.ReclamationsListView });
+            return Json(new { data = reclamationListViewer.ReclamationsListView.OrderByDescending(d => d.Id_Reclamation).Take(2000) });
         }
 
         public JsonResult CloseReclamation()
