@@ -135,6 +135,11 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.closeMKO = true;
                 reclamation.closeDevision = true;
             }
+            if (reload == true)
+            {
+                reclamation.closeMKO = false;
+                reclamation.closeDevision = false;
+            }
             return true;
         }
     }
