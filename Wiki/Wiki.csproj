@@ -290,6 +290,8 @@
     <Compile Include="Areas\DashboardBP\Models\Task.cs" />
     <Compile Include="Areas\DashboardBP\Models\TasksList.cs" />
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
+    <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
+    <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -825,7 +827,7 @@
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
-    <Content Include="Areas\DashboardBP\Content\updateDashboardKO.sql" />
+    <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
     <Content Include="Areas\DashboardBP\Content\DashboardBPJS.js" />
     <Content Include="Areas\Deb\Contant\Archive.js" />
@@ -1488,6 +1490,9 @@
     <Content Include="Areas\ServiceReclamations\Views\Marks\DeBug.cshtml" />
     <Content Include="Areas\Cells\Views\SCells\Debug.cshtml" />
     <Content Include="Areas\Reclamation\Views\Remarks\Debug.cshtml" />
+    <Content Include="Areas\DashboardKO\Views\web.config" />
+    <Content Include="Areas\DashboardKO\Views\Shared\_LayoutDashboardKO.cshtml" />
+    <Content Include="Areas\DashboardKO\Views\ReportPage\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1821,6 +1826,7 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\DashboardKO\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>

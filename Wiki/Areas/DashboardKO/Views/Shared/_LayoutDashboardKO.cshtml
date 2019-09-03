@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал КАТЭК</title>
+    <script src="~/Areas/PZ/Contant/Bootstrap/jquery-3.3.1.js"></script>
+    <link href="~/Areas/PZ/Contant/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/Bootstrap/bootstrap.js"></script>
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <style>
+        div.dataTables_wrapper {
+            margin: 0 auto;
+        }
+
+        .th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="http://pserver/DashboardKO/ReportPage/Index/">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</body>
+</html>
