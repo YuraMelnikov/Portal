@@ -827,6 +827,7 @@
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
+    <Content Include="Areas\DashboardKO\Content\DashboardKOJS.js" />
     <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
     <Content Include="Areas\DashboardBP\Content\DashboardBPJS.js" />
