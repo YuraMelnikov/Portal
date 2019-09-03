@@ -20,7 +20,6 @@ function getQuartalUsersResult() {
             title: {
                 text: 'Total percent market share'
             }
-
         },
         legend: {
             enabled: false
