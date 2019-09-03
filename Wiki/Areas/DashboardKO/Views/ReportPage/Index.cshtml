@@ -2,31 +2,22 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/DashboardKO/Views/Shared/_LayoutDashboardKO.cshtml";
 }
-<head>
-    <script src="~/Content/Highcharts/highcharts-gantt.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="~/Content/Highcharts/exporting.js"></script>
-    <script src="~/Areas/DashboardBP/Content/DashboardKOJS.js?v0.0"></script>
-</head>
+    <head>
+
+
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+
+        <script src="~/Areas/DashboardBP/Content/DashboardKOJS.js?v0.0"></script>
+    </head>
 
 <div class="row">
-    <div class="col-lg-2">
-        <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
+    <div class="col-lg-6">
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
-    <div class="col-lg-2">
-        <div id="hSSPlanToYear"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="remainingHss"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="retePlan"></div>
-    </div>
-    <div class="col-lg-2">
-
-    </div>
-    <div class="col-lg-2">
-
+    <div class="col-lg-6">
+        @*<div id="hSSPlanToYear"></div>*@
     </div>
 </div>
