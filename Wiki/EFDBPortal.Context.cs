@@ -26,23 +26,17 @@ namespace Wiki
         }
     
         public virtual DbSet<Calendar> Calendar { get; set; }
-        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
         public virtual DbSet<Debit_EmailList> Debit_EmailList { get; set; }
         public virtual DbSet<Folder> Folder { get; set; }
-        public virtual DbSet<FolderDocument> FolderDocument { get; set; }
-        public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
         public virtual DbSet<ProjectServer_UpdateTasks> ProjectServer_UpdateTasks { get; set; }
         public virtual DbSet<RKD_FailBPlan> RKD_FailBPlan { get; set; }
         public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserPO> UserPO { get; set; }
-        public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
         public virtual DbSet<XTEO> XTEO { get; set; }
         public virtual DbSet<CMO_Report> CMO_Report { get; set; }
         public virtual DbSet<RKD_TaskUIDProjectUD> RKD_TaskUIDProjectUD { get; set; }
         public virtual DbSet<VV_infPost> VV_infPost { get; set; }
         public virtual DbSet<OTKMultiSelectList> OTKMultiSelectList { get; set; }
-        public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
         public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
@@ -139,5 +133,21 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<MailGraphic> MailGraphic { get; set; }
         public virtual DbSet<Соотношение_ИД> Соотношение_ИД { get; set; }
+        public virtual DbSet<DashboardKOHssPO> DashboardKOHssPO { get; set; }
+        public virtual DbSet<DashboardKOKBHss> DashboardKOKBHss { get; set; }
+        public virtual DbSet<DashboardKOM1> DashboardKOM1 { get; set; }
+        public virtual DbSet<DashboardKOM2> DashboardKOM2 { get; set; }
+        public virtual DbSet<DashboardKOM3> DashboardKOM3 { get; set; }
+        public virtual DbSet<DashboardKOQuaHumen> DashboardKOQuaHumen { get; set; }
+        public virtual DbSet<DashboardKOQuartal> DashboardKOQuartal { get; set; }
+        public virtual DbSet<DashboardKORemainingWork> DashboardKORemainingWork { get; set; }
+        public virtual DbSet<DashboardKORemainingWorkAll> DashboardKORemainingWorkAll { get; set; }
+        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
+        public virtual DbSet<FolderDocument> FolderDocument { get; set; }
+        public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
+        public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
+        public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
     }
 }

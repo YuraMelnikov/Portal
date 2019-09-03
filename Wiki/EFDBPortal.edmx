@@ -332,11 +332,95 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="NormHoure" Type="float" Nullable="false" />
-          <Property Name="User" Type="varchar(max)" Nullable="false" />
-          <Property Name="DevisionName" Type="varchar(max)" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="varchar(max)" Nullable="false" />
+          <Property Name="devision" Type="varchar(max)" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="month" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOHssPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="quart" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="hss" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOKBHss">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Quart" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="KBM" Type="float" Nullable="false" />
+          <Property Name="KBE" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOM1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOM2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOM3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOQuaHumen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOQuartal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="quartal" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="finish" Type="date" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKORemainingWork">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="remainingWork" Type="float" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKORemainingWorkAll">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="remainingWork" Type="float" Nullable="false" />
+          <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardRatePlan">
           <Key>
@@ -1296,6 +1380,27 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           </Key>
           <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PWA_EmpTask">
+          <Key>
+            <PropertyRef Name="TaskUID" />
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="TaskName" />
+          </Key>
+          <Property Name="TaskUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskParentUID" Type="uniqueidentifier" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TaskWBS" Type="varchar" MaxLength="30" />
+          <Property Name="TaskWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskPercentWorkCompleted" Type="smallint" />
+          <Property Name="PlanZakaz" Type="int" />
+          <Property Name="ResourceUID" Type="uniqueidentifier" />
+          <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2992,6 +3097,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardBP_TasksList" EntityType="Self.DashboardBP_TasksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOHssPO" EntityType="Self.DashboardKOHssPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOKBHss" EntityType="Self.DashboardKOKBHss" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOM1" EntityType="Self.DashboardKOM1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOM2" EntityType="Self.DashboardKOM2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOM3" EntityType="Self.DashboardKOM3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOQuaHumen" EntityType="Self.DashboardKOQuaHumen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOQuartal" EntityType="Self.DashboardKOQuartal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKORemainingWork" EntityType="Self.DashboardKORemainingWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKORemainingWorkAll" EntityType="Self.DashboardKORemainingWorkAll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRatePlan" EntityType="Self.DashboardRatePlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRemaining" EntityType="Self.DashboardRemaining" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CMR" EntityType="Self.Debit_CMR" Schema="dbo" store:Type="Tables" />
@@ -3123,6 +3237,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
     [PWA_EmpProject].[ProjectUID] AS [ProjectUID], 
     [PWA_EmpProject].[ProjectName] AS [ProjectName]
     FROM [dbo].[PWA_EmpProject] AS [PWA_EmpProject]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PWA_EmpTask" EntityType="Self.PWA_EmpTask" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PWA_EmpTask].[TaskUID] AS [TaskUID], 
+    [PWA_EmpTask].[TaskParentUID] AS [TaskParentUID], 
+    [PWA_EmpTask].[ProjectUID] AS [ProjectUID], 
+    [PWA_EmpTask].[TaskName] AS [TaskName], 
+    [PWA_EmpTask].[TaskWBS] AS [TaskWBS], 
+    [PWA_EmpTask].[TaskWork] AS [TaskWork], 
+    [PWA_EmpTask].[TaskFinishDate] AS [TaskFinishDate], 
+    [PWA_EmpTask].[TaskStartDate] AS [TaskStartDate], 
+    [PWA_EmpTask].[TaskPercentWorkCompleted] AS [TaskPercentWorkCompleted], 
+    [PWA_EmpTask].[PlanZakaz] AS [PlanZakaz], 
+    [PWA_EmpTask].[ResourceUID] AS [ResourceUID], 
+    [PWA_EmpTask].[ResourceName] AS [ResourceName]
+    FROM [dbo].[PWA_EmpTask] AS [PWA_EmpTask]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PWA_TasksForBP" EntityType="Self.PWA_TasksForBP" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -3748,16 +3878,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EntityType Name="DashboardKO_Quartal">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="NormHoure" Type="Double" Nullable="false" />
-          <Property Name="User" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DevisionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="month" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Debit_EmailList">
           <Key>
             <PropertyRef Name="id" />
@@ -3791,26 +3911,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FolderDocument">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ProjectServer_CreateTasks">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="TaskName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Work" Type="Int32" Nullable="false" />
-          <Property Name="Resource" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Devision" Type="Int32" />
-          <Property Name="update" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectServer_UpdateTasks">
           <Key>
@@ -3854,16 +3954,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="osComplited" Type="Boolean" />
           <Property Name="manufComplited" Type="Boolean" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="UserPO">
           <Key>
             <PropertyRef Name="id" />
@@ -3872,15 +3962,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id_Devision" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="WBS_ClassicStruct">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nameWBS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameForReport" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="XTEO">
           <Key>
@@ -3904,23 +3985,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
         </EntityType>
         <EntityContainer Name="PortalKATEKEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Calendar" EntityType="Self.Calendar" />
-          <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" />
           <EntitySet Name="Debit_EmailList" EntityType="Self.Debit_EmailList" />
           <EntitySet Name="Folder" EntityType="Self.Folder" />
-          <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" />
-          <EntitySet Name="ProjectServer_CreateTasks" EntityType="Self.ProjectServer_CreateTasks" />
           <EntitySet Name="ProjectServer_UpdateTasks" EntityType="Self.ProjectServer_UpdateTasks" />
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" />
           <EntitySet Name="RKD_HistoryTaskVersion" EntityType="Self.RKD_HistoryTaskVersion" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" />
-          <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" />
           <EntitySet Name="CMO_Report" EntityType="PortalKATEKModel.CMO_Report" />
           <EntitySet Name="RKD_TaskUIDProjectUD" EntityType="PortalKATEKModel.RKD_TaskUIDProjectUD" />
           <EntitySet Name="VV_infPost" EntityType="PortalKATEKModel.VV_infPost" />
           <EntitySet Name="OTKMultiSelectList" EntityType="PortalKATEKModel.OTKMultiSelectList" />
-          <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
           <EntitySet Name="Debit_MatchingType" EntityType="PortalKATEKModel.Debit_MatchingType" />
           <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
           <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
@@ -4529,6 +4604,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="MailGraphic" EntitySet="MailGraphic" />
           </AssociationSet>
           <EntitySet Name="Соотношение_ИД" EntityType="PortalKATEKModel.Соотношение_ИД" />
+          <EntitySet Name="DashboardKOHssPO" EntityType="PortalKATEKModel.DashboardKOHssPO" />
+          <EntitySet Name="DashboardKOKBHss" EntityType="PortalKATEKModel.DashboardKOKBHss" />
+          <EntitySet Name="DashboardKOM1" EntityType="PortalKATEKModel.DashboardKOM1" />
+          <EntitySet Name="DashboardKOM2" EntityType="PortalKATEKModel.DashboardKOM2" />
+          <EntitySet Name="DashboardKOM3" EntityType="PortalKATEKModel.DashboardKOM3" />
+          <EntitySet Name="DashboardKOQuaHumen" EntityType="PortalKATEKModel.DashboardKOQuaHumen" />
+          <EntitySet Name="DashboardKOQuartal" EntityType="PortalKATEKModel.DashboardKOQuartal" />
+          <EntitySet Name="DashboardKORemainingWork" EntityType="PortalKATEKModel.DashboardKORemainingWork" />
+          <EntitySet Name="DashboardKORemainingWorkAll" EntityType="PortalKATEKModel.DashboardKORemainingWorkAll" />
+          <EntitySet Name="DashboardKO_Quartal" EntityType="PortalKATEKModel.DashboardKO_Quartal" />
+          <EntitySet Name="FolderDocument" EntityType="PortalKATEKModel.FolderDocument" />
+          <EntitySet Name="ProjectServer_CreateTasks" EntityType="PortalKATEKModel.ProjectServer_CreateTasks" />
+          <EntitySet Name="sysdiagrams" EntityType="PortalKATEKModel.sysdiagrams" />
+          <EntitySet Name="WBS_ClassicStruct" EntityType="PortalKATEKModel.WBS_ClassicStruct" />
+          <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
+          <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4598,14 +4689,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="PlanZakaz" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PWA_EmpProject">
-          <Key>
-            <PropertyRef Name="ProjectUID" />
-            <PropertyRef Name="ProjectName" />
-          </Key>
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Debit_MatchingType">
           <Key>
@@ -7538,6 +7621,166 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="idRem" Type="Int32" Nullable="false" />
           <Property Name="idNewRem" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardKOHssPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="hss" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOKBHss">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Quart" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="KBM" Type="Double" Nullable="false" />
+          <Property Name="KBE" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOM1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOM2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOM3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOQuaHumen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOQuartal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="quartal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="finish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKORemainingWork">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="remainingWork" Type="Double" Nullable="false" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKORemainingWorkAll">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="remainingWork" Type="Double" Nullable="false" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKO_Quartal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="month" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FolderDocument">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adres" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProjectServer_CreateTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Work" Type="Int32" Nullable="false" />
+          <Property Name="Resource" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Devision" Type="Int32" />
+          <Property Name="update" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="WBS_ClassicStruct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameWBS" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nameTask" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nameForReport" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PWA_EmpProject">
+          <Key>
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PWA_EmpTask">
+          <Key>
+            <PropertyRef Name="TaskUID" />
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="TaskName" />
+          </Key>
+          <Property Name="TaskUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskParentUID" Type="Guid" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskWBS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="PlanZakaz" Type="Int32" />
+          <Property Name="ResourceUID" Type="Guid" />
+          <Property Name="ResourceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7549,17 +7792,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <MappingFragment StoreEntitySet="Calendar">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardKO_Quartal">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKO_Quartal">
-              <MappingFragment StoreEntitySet="DashboardKO_Quartal">
-                <ScalarProperty Name="NormHoure" ColumnName="NormHoure" />
-                <ScalarProperty Name="User" ColumnName="User" />
-                <ScalarProperty Name="DevisionName" ColumnName="DevisionName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="month" ColumnName="month" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7596,28 +7828,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <MappingFragment StoreEntitySet="Folder">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="adres" ColumnName="adres" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FolderDocument">
-            <EntityTypeMapping TypeName="PortalKATEKModel.FolderDocument">
-              <MappingFragment StoreEntitySet="FolderDocument">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="adres" ColumnName="adres" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectServer_CreateTasks">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_CreateTasks">
-              <MappingFragment StoreEntitySet="ProjectServer_CreateTasks">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="Work" ColumnName="Work" />
-                <ScalarProperty Name="Resource" ColumnName="Resource" />
-                <ScalarProperty Name="Devision" ColumnName="Devision" />
-                <ScalarProperty Name="update" ColumnName="update" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7666,17 +7876,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="PortalKATEKModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserPO">
             <EntityTypeMapping TypeName="PortalKATEKModel.UserPO">
               <MappingFragment StoreEntitySet="UserPO">
@@ -7684,16 +7883,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="id_Devision" ColumnName="id_Devision" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="active" ColumnName="active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WBS_ClassicStruct">
-            <EntityTypeMapping TypeName="PortalKATEKModel.WBS_ClassicStruct">
-              <MappingFragment StoreEntitySet="WBS_ClassicStruct">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nameWBS" ColumnName="nameWBS" />
-                <ScalarProperty Name="nameTask" ColumnName="nameTask" />
-                <ScalarProperty Name="nameForReport" ColumnName="nameForReport" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7778,14 +7967,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <MappingFragment StoreEntitySet="OTKMultiSelectList">
                 <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PWA_EmpProject">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpProject">
-              <MappingFragment StoreEntitySet="PWA_EmpProject">
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9030,6 +9211,179 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="idNewRem" ColumnName="idNewRem" />
                 <ScalarProperty Name="idRem" ColumnName="idRem" />
                 <ScalarProperty Name="idFolder" ColumnName="idFolder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOHssPO">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOHssPO">
+              <MappingFragment StoreEntitySet="DashboardKOHssPO">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="hss" ColumnName="hss" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOKBHss">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOKBHss">
+              <MappingFragment StoreEntitySet="DashboardKOKBHss">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="KBE" ColumnName="KBE" />
+                <ScalarProperty Name="KBM" ColumnName="KBM" />
+                <ScalarProperty Name="Quart" ColumnName="Quart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOM1">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOM1">
+              <MappingFragment StoreEntitySet="DashboardKOM1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="month" ColumnName="month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOM2">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOM2">
+              <MappingFragment StoreEntitySet="DashboardKOM2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="month" ColumnName="month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOM3">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOM3">
+              <MappingFragment StoreEntitySet="DashboardKOM3">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="month" ColumnName="month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOQuaHumen">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOQuaHumen">
+              <MappingFragment StoreEntitySet="DashboardKOQuaHumen">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOQuartal">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOQuartal">
+              <MappingFragment StoreEntitySet="DashboardKOQuartal">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="finish" ColumnName="finish" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="quartal" ColumnName="quartal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKORemainingWork">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKORemainingWork">
+              <MappingFragment StoreEntitySet="DashboardKORemainingWork">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="remainingWork" ColumnName="remainingWork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKORemainingWorkAll">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKORemainingWorkAll">
+              <MappingFragment StoreEntitySet="DashboardKORemainingWorkAll">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="remainingWork" ColumnName="remainingWork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKO_Quartal">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKO_Quartal">
+              <MappingFragment StoreEntitySet="DashboardKO_Quartal">
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FolderDocument">
+            <EntityTypeMapping TypeName="PortalKATEKModel.FolderDocument">
+              <MappingFragment StoreEntitySet="FolderDocument">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectServer_CreateTasks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_CreateTasks">
+              <MappingFragment StoreEntitySet="ProjectServer_CreateTasks">
+                <ScalarProperty Name="update" ColumnName="update" />
+                <ScalarProperty Name="Devision" ColumnName="Devision" />
+                <ScalarProperty Name="Resource" ColumnName="Resource" />
+                <ScalarProperty Name="Work" ColumnName="Work" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PortalKATEKModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WBS_ClassicStruct">
+            <EntityTypeMapping TypeName="PortalKATEKModel.WBS_ClassicStruct">
+              <MappingFragment StoreEntitySet="WBS_ClassicStruct">
+                <ScalarProperty Name="nameForReport" ColumnName="nameForReport" />
+                <ScalarProperty Name="nameTask" ColumnName="nameTask" />
+                <ScalarProperty Name="nameWBS" ColumnName="nameWBS" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PWA_EmpProject">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpProject">
+              <MappingFragment StoreEntitySet="PWA_EmpProject">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PWA_EmpTask">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpTask">
+              <MappingFragment StoreEntitySet="PWA_EmpTask">
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
+                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

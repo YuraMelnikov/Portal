@@ -4,25 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="28">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="119.125" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKO_Quartal" Width="1.5" PointX="108.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="101.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="118.75" PointY="18.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.FolderDocument" Width="1.5" PointX="107.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_CreateTasks" Width="1.5" PointX="110.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_UpdateTasks" Width="1.5" PointX="111.5" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_FailBPlan" Width="1.5" PointX="109.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_HistoryTaskVersion" Width="1.5" PointX="111.5" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.sysdiagrams" Width="1.5" PointX="113.5" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.UserPO" Width="1.5" PointX="125.125" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="PortalKATEKModel.WBS_ClassicStruct" Width="1.5" PointX="114.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.XTEO" Width="1.5" PointX="115.5" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMO_Report" Width="1.5" PointX="114.125" PointY="12.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_TaskUIDProjectUD" Width="1.5" PointX="110.375" PointY="13.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.VV_infPost" Width="1.5" PointX="116.125" PointY="11.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.OTKMultiSelectList" Width="1.5" PointX="127.75" PointY="14" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpProject" Width="1.5" PointX="117.125" PointY="3.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_MatchingType" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="PortalKATEKModel.PostMatching" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" />
@@ -247,6 +241,22 @@
         <EntityTypeShape EntityType="PortalKATEKModel.MailGraphic" Width="1.5" PointX="18.125" PointY="73.5" />
         <AssociationConnector Association="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" />
         <EntityTypeShape EntityType="PortalKATEKModel.Соотношение_ИД" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOHssPO" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOKBHss" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOM1" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOM2" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOM3" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOQuaHumen" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOQuartal" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKORemainingWork" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKORemainingWorkAll" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKO_Quartal" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.FolderDocument" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_CreateTasks" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.sysdiagrams" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.WBS_ClassicStruct" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpProject" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTask" Width="1.5" PointX="11.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

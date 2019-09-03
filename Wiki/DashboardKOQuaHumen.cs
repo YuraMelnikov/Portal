@@ -12,12 +12,10 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class DashboardKO_Quartal
+    public partial class DashboardKOQuaHumen
     {
         public double normHoure { get; set; }
         public string user { get; set; }
-        public string devision { get; set; }
         public int id { get; set; }
-        public int month { get; set; }
     }
 }
