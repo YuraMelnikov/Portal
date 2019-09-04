@@ -292,6 +292,7 @@
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
+    <Compile Include="Areas\DashboardKO\Models\UserResult.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -1827,7 +1828,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\DashboardKO\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
   </ItemGroup>
   <ItemGroup>

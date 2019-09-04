@@ -1,10 +1,6 @@
 ﻿using System.Web.Mvc;
-using Wiki.Areas.DashboardBP.Models;
-using System.Data.Entity;
 using System.Linq;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System;
 using System.Web.Script.Serialization;
 
 namespace Wiki.Areas.DashboardKO.Controllers
@@ -17,6 +13,26 @@ namespace Wiki.Areas.DashboardKO.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult GetUsersQuaResult()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOQuaHumen
+                    .AsNoTracking()
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for(int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = query[i].normHoure;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
