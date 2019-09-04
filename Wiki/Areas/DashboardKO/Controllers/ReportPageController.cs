@@ -23,9 +23,14 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOQuaHumen
                     .AsNoTracking()
+                    .OrderByDescending(d => d.normHoure)
                     .ToList();
                 int maxCounterValue = query.Count();
                 Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
                 for(int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].user;
@@ -34,5 +39,157 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetUsersM1()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM1
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.normHoure)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = query[i].normHoure;
+                    data[i].month = query[i].month;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersM2()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM2
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.normHoure)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = query[i].normHoure;
+                    data[i].month = query[i].month;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersM3()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM3
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.normHoure)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = query[i].normHoure;
+                    data[i].month = query[i].month;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDevisionQuaResult()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKO_Quartal
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure)})
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDevisionM1Result()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM1
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure) })
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+            public JsonResult GetDevisionM2Result()
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.DashboardKOM2
+                        .AsNoTracking()
+                        .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure) })
+                        .ToList();
+                    int maxCounterValue = query.Count();
+                    Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                    for (int i = 0; i < maxCounterValue; i++)
+                    {
+                        data[i] = new Models.UserResult();
+                    }
+                    for (int i = 0; i < maxCounterValue; i++)
+                    {
+                        data[i].userName = query[i].Dev;
+                        data[i].count = (int)query[i].Total;
+                    }
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
     }
 }
