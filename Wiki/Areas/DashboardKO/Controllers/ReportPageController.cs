@@ -7,8 +7,8 @@ namespace Wiki.Areas.DashboardKO.Controllers
 {
     public class ReportPageController : Controller
     {
-        readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
-        JavaScriptSerializer js = new JavaScriptSerializer();
+        //readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        //JavaScriptSerializer js = new JavaScriptSerializer();
 
         public ActionResult Index()
         {
@@ -154,15 +154,16 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResult();
+                    data[i] = new Models.UserResultMonth();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].Dev;
                     data[i].count = (int)query[i].Total;
+                    data[i].month = query[i].MonthName;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -179,15 +180,16 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResult();
+                    data[i] = new Models.UserResultMonth();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].Dev;
                     data[i].count = (int)query[i].Total;
+                    data[i].month = query[i].MonthName;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -204,6 +206,32 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
                     .ToList();
                 int maxCounterValue = query.Count();
+                Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                    data[i].month = query[i].MonthName;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRemainingWorkAll()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWorkAll
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.remainingWork)
+                    .ToList();
+                int maxCounterValue = query.Count();
                 Models.UserResult[] data = new Models.UserResult[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
@@ -211,8 +239,33 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].userName = query[i].Dev;
-                    data[i].count = (int)query[i].Total;
+                    data[i].userName = query[i].user;
+                    data[i].count = (int)query[i].remainingWork;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRemainingWork()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWork
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.remainingWork)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = (int)query[i].remainingWork;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
