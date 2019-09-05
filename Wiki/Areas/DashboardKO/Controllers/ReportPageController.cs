@@ -378,5 +378,30 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetHSSPO()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOHssPO
+                    .AsNoTracking()
+                    .OrderBy(d => d.quart)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultWithDevision();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].quart;
+                    data[i].count = (int)query[i].hss;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
