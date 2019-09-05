@@ -1171,6 +1171,8 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Highcharts\exporting.js" />
     <Content Include="Content\Highcharts\highcharts-gantt.js" />
+    <Content Include="Content\Highcharts\highcharts-more.js" />
+    <Content Include="Content\Highcharts\highcharts.js" />
     <Content Include="Content\images\edititem.gif" />
     <Content Include="Content\images\ExcelLogo.scale-80.png" />
     <Content Include="Content\images\postBlank.jpg" />
