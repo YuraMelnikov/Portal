@@ -460,20 +460,21 @@ namespace Wiki.Areas.DashboardKO.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOKBHss
+                var query = db.DashboardKOTimesheet
                     .AsNoTracking()
-                    .OrderBy(d => d.Quart)
+                    .OrderBy(d => d.user)
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                Models.UserResultTimesheet[] data = new Models.UserResultTimesheet[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResultWithDevision();
+                    data[i] = new Models.UserResultTimesheet();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBE * 1000 / 12.5;
+                    data[i].userName = query[i].user;
+                    data[i].count = (int)query[i].work;
+                    data[i].period = query[i].date.ToString();
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

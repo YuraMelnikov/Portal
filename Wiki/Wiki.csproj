@@ -294,6 +294,7 @@
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResult.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultMonth.cs" />
+    <Compile Include="Areas\DashboardKO\Models\UserResultTimesheet.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultWithDevision.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
