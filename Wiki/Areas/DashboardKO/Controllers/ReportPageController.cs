@@ -229,6 +229,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKORemainingWorkAll
                     .AsNoTracking()
+                    .Where(d => d.devision == "КБМ")
                     .OrderByDescending(d => d.remainingWork)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -255,6 +256,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKORemainingWork
                     .AsNoTracking()
+                    .Where(d => d.devision == "КБМ")
                     .OrderByDescending(d => d.remainingWork)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -318,6 +320,60 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].userName = query[i].Dev;
                     data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRemainingWorkAllE()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWorkAll
+                    .AsNoTracking()
+                    .Where(d => d.devision != "КБМ")
+                    .OrderByDescending(d => d.remainingWork)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultWithDevision();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = (int)query[i].remainingWork;
+                    data[i].devision = query[i].devision;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRemainingWorkE()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWork
+                    .AsNoTracking()
+                    .Where(d => d.devision != "КБМ")
+                    .OrderByDescending(d => d.remainingWork)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultWithDevision();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].user;
+                    data[i].count = (int)query[i].remainingWork;
+                    data[i].devision = query[i].devision;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

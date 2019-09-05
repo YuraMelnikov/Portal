@@ -12,6 +12,8 @@
     getRemainingWork();
     getRemainingWorkDevisionAll();
     getRemainingDevisionWork();
+    getRemainingWorkAllE();
+    getRemainingWorkE();
 });
 
 function getQuartalUsersResult() {
@@ -1050,6 +1052,182 @@ function getRemainingDevisionWork() {
                 },
                 title: {
                     text: 'Оставшиеся тр-ты по заказам (бюро)',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    color: '#4572A7',
+                    name: 'НЧ',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getRemainingWorkAllE() {
+    $.ajax({
+        url: "/ReportPage/GetRemainingWorkAllE/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            var catigoriesJSON = JSON.stringify(catigoriesArray);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('remainingWorkAllE', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Оставшиеся тр-ты с учетом НИОКРов (сотрудник)',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    color: '#4572A7',
+                    name: 'НЧ',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getRemainingWorkE() {
+    $.ajax({
+        url: "/ReportPage/GetRemainingWorkE/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            var catigoriesJSON = JSON.stringify(catigoriesArray);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('remainingWorkE', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Оставшиеся тр-ты по заказам (сотрудник)',
                     style: {
                         "font-size": "13px"
                     },
