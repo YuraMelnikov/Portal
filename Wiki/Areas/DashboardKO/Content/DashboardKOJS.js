@@ -1539,38 +1539,10 @@ function getTimeSheet() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var lenghtArrayResult = Object.keys(result).length;
-            var catigoriesArray = new Array();
-            var dataArray = new Array();
-            for (var i = 0; i < lenghtArrayResult; i++) {
-                catigoriesArray[i] = result[i].userName;
-                dataArray[i] = result[i].count;
-            }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
-            Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('timeshhetContainer', {
+
+
+
+            Highcharts.chart('timesheetContainer', {
                 legend: {
                     enabled: false
                 },
@@ -1590,16 +1562,16 @@ function getTimeSheet() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura']
+                    categories: dateArray
                 },
                 yAxis: {
-                    categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                    categories: usersArray,
                     title: null
                 },
                 colorAxis: {
                     min: 0,
-                    minColor: '#FFFFFF',
-                    maxColor: '#2b908f'
+                    minColor: '#910000',
+                    maxColor: '#8bbc21'
                 },
                 series: [{
                     name: 'ч.',
@@ -1610,8 +1582,6 @@ function getTimeSheet() {
                         color: '#000000'
                     }
                 }]
-
-
                 //plotOptions: {
                 //    series: {
                 //        dataLabels: {
@@ -1626,20 +1596,14 @@ function getTimeSheet() {
             alert(errormessage.responseText);
         }
     });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function unique(arr) {
+    let result = [];
+    for (let str of arr) {
+        if (!result.includes(str)) {
+            result.push(str);
+        }
+    }
+    return result;
 }

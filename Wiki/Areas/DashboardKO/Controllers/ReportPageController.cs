@@ -463,6 +463,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 var query = db.DashboardKOTimesheet
                     .AsNoTracking()
                     .OrderBy(d => d.user)
+                    .OrderBy(d => d.date)
                     .ToList();
                 int maxCounterValue = query.Count();
                 Models.UserResultTimesheet[] data = new Models.UserResultTimesheet[maxCounterValue];
@@ -474,7 +475,31 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].userName = query[i].user;
                     data[i].count = (int)query[i].work;
-                    data[i].period = query[i].date.ToString();
+                    data[i].period = query[i].date.Month.ToString() + "." + query[i].date.Day.ToString();
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTimesheetUsers()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOTimesheet
+                    .AsNoTracking()
+                    .GroupBy(d => d.user)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                string[] data = new string[maxCounterValue];
+                //for (int i = 0; i < maxCounterValue; i++)
+                //{
+                //    data[i] = new string;
+                //}
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = query[i].Key;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
