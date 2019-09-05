@@ -423,7 +423,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBM;
+                    data[i].count = (int)query[i].KBM * 1000 / 12.5;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -448,7 +448,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBE;
+                    data[i].count = (int)query[i].KBE * 1000 / 12.5;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
