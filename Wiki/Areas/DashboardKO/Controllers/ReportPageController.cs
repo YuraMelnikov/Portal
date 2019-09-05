@@ -453,5 +453,30 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetTimesheet()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOKBHss
+                    .AsNoTracking()
+                    .OrderBy(d => d.Quart)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResultWithDevision();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Quart;
+                    data[i].count = (int)query[i].KBE * 1000 / 12.5;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
