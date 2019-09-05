@@ -270,5 +270,55 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetRemainingDevisionWorkAll()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWorkAll
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.remainingWork) })
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetRemainingDevisionWork()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKORemainingWork
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.remainingWork) })
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
