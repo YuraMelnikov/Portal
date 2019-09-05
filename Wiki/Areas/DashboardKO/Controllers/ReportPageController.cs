@@ -151,7 +151,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOM1
                     .AsNoTracking()
-                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure) })
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
                     .ToList();
                 int maxCounterValue = query.Count();
                 Models.UserResult[] data = new Models.UserResult[maxCounterValue];
@@ -166,30 +166,56 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
 
-            public JsonResult GetDevisionM2Result()
+        public JsonResult GetDevisionsM2Result()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM2
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
                 {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    db.Configuration.LazyLoadingEnabled = false;
-                    var query = db.DashboardKOM2
-                        .AsNoTracking()
-                        .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure) })
-                        .ToList();
-                    int maxCounterValue = query.Count();
-                    Models.UserResult[] data = new Models.UserResult[maxCounterValue];
-                    for (int i = 0; i < maxCounterValue; i++)
-                    {
-                        data[i] = new Models.UserResult();
-                    }
-                    for (int i = 0; i < maxCounterValue; i++)
-                    {
-                        data[i].userName = query[i].Dev;
-                        data[i].count = (int)query[i].Total;
-                    }
-                    return Json(data, JsonRequestBehavior.AllowGet);
+                    data[i] = new Models.UserResult();
                 }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetDevisionsM3Result()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOM3
+                    .AsNoTracking()
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure), MonthName = g.FirstOrDefault().month })
+                    .ToList();
+                int maxCounterValue = query.Count();
+                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new Models.UserResult();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].Dev;
+                    data[i].count = (int)query[i].Total;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

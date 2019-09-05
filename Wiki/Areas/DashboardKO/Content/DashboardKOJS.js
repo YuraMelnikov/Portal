@@ -5,6 +5,9 @@
     getUsersM3();
     getPeriodReport();
     getDevisionQuaResult();
+    getDevisionM1();
+    getDevisionM2();
+    getDevisionM3();
 });
 
 function getQuartalUsersResult() {
@@ -437,6 +440,273 @@ function getDevisionQuaResult() {
                 },
                 series: [{
                     color: '#4572A7',
+                    name: 'НЧ',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getDevisionM1() {
+    $.ajax({
+        url: "/ReportPage/GetDevisionM1Result/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].Month;
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            var catigoriesJSON = JSON.stringify(catigoriesArray);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('DevisionResultM1', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: labelName,
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    color: '#2b908f',
+                    name: 'НЧ',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getDevisionM2() {
+    $.ajax({
+        url: "/ReportPage/GetDevisionM2Result/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].Month;
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            var catigoriesJSON = JSON.stringify(catigoriesArray);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('DevisionResultM2', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: labelName,
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    color: '#2b908f',
+                    name: 'НЧ',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getDevisionM3() {
+    $.ajax({
+        url: "/ReportPage/GetDevisionM3Result/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].Month;
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            var catigoriesJSON = JSON.stringify(catigoriesArray);
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    exportButtonTitle: "Экспорт",
+                    printButtonTitle: "Печать",
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    downloadPNG: 'Скачать PNG',
+                    downloadJPEG: 'Скачать JPEG',
+                    downloadPDF: 'Скачать PDF',
+                    downloadSVG: 'Скачать SVG',
+                    printChart: 'Напечатать график',
+                    Week: 'Нед.',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('DevisionResultM3', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: labelName,
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    color: '#2b908f',
                     name: 'НЧ',
                     data: dataArray
                 }],
