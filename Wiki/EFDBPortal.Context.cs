@@ -149,5 +149,6 @@ namespace Wiki
         public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
         public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
+        public virtual DbSet<DashboardKOTimesheet> DashboardKOTimesheet { get; set; }
     }
 }

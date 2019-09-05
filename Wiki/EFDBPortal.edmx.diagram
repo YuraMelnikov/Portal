@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="28">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="41">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="119.125" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="101.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="118.75" PointY="18.625" IsExpanded="true" />
@@ -257,6 +257,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.WBS_ClassicStruct" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpProject" Width="1.5" PointX="11.375" PointY="6.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTask" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOTimesheet" Width="1.5" PointX="3.375" PointY="12.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

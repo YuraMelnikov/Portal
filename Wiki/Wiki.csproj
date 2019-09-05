@@ -457,6 +457,9 @@
     <Compile Include="DashboardKORemainingWorkAll.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardKOTimesheet.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardKO_Quartal.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
