@@ -232,15 +232,16 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .OrderByDescending(d => d.remainingWork)
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResult();
+                    data[i] = new Models.UserResultWithDevision();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].user;
                     data[i].count = (int)query[i].remainingWork;
+                    data[i].devision = query[i].devision;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -257,15 +258,16 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .OrderByDescending(d => d.remainingWork)
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResult[] data = new Models.UserResult[maxCounterValue];
+                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResult();
+                    data[i] = new Models.UserResultWithDevision();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].user;
                     data[i].count = (int)query[i].remainingWork;
+                    data[i].devision = query[i].devision;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
