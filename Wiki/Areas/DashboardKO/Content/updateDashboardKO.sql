@@ -262,3 +262,45 @@ and
 group by
 MSP_EpmResource_UserView.[СДРес],
 MSP_EpmResource_UserView.ResourceName
+
+update [PortalKATEK].[dbo].[DashboardBP_State] set [PortalKATEK].[dbo].[DashboardBP_State].active = 0
+insert into [PortalKATEK].[dbo].[DashboardBP_State](datetime, numberWeek, active)
+VALUES (getdate(), DATEPART (wk, getdate()), 1);
+
+delete PortalKATEK.dbo.DashboardKOTimesheet
+insert into PortalKATEK.dbo.DashboardKOTimesheet
+SELECT
+MSP_EpmAssignmentByDay_UserView.TimeByDay as [date],
+MSP_EpmResource_UserView.ResourceName as [user],
+sum(MSP_EpmAssignmentByDay_UserView.AssignmentActualWork) as work
+FROM
+ProjectWebApp.dbo.MSP_EpmProject_UserView
+INNER JOIN
+ProjectWebApp.dbo.MSP_EpmTask_UserView
+ON
+MSP_EpmProject_UserView.ProjectUID = MSP_EpmTask_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView
+ON
+MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignmentByDay_UserView.TaskUID
+AND
+MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignmentByDay_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignment_UserView
+ON
+MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignment_UserView.TaskUID
+AND
+MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignment_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmResource_UserView
+ON
+MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
+WHERE
+(MSP_EpmAssignmentByDay_UserView.AssignmentActualWork > 0)
+AND
+(MSP_EpmResource_UserView.[СДРес] like '%КБ%')
+and
+(MSP_EpmAssignmentByDay_UserView.TimeByDay > getdate() - 30)
+group by
+MSP_EpmAssignmentByDay_UserView.TimeByDay,
+MSP_EpmResource_UserView.ResourceName

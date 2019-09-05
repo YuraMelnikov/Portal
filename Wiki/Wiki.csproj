@@ -292,6 +292,7 @@
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
+    <Compile Include="Areas\DashboardKO\Models\TimesheetElamaent.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResult.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultMonth.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultTimesheet.cs" />

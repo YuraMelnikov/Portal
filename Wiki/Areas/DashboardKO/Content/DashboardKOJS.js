@@ -1539,6 +1539,8 @@ function getTimeSheet() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var dateArray = new Array();
+
 
 
 
