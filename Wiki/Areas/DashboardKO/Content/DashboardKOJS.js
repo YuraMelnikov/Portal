@@ -1398,7 +1398,7 @@ function getHSSKBM() {
             });
             Highcharts.chart('hssKBM', {
                 legend: {
-                    enabled: false
+                    enabled: true
                 },
                 navigation: {
                     buttonOptions: {
@@ -1492,7 +1492,7 @@ function getHSSKBE() {
             });
             Highcharts.chart('hssKBE', {
                 legend: {
-                    enabled: false
+                    enabled: true
                 },
                 navigation: {
                     buttonOptions: {
@@ -1594,9 +1594,10 @@ function getTimeSheet() {
                     title: null
                 },
                 colorAxis: {
-                    min: 0,
+                    min: 0
+                    ,
                     minColor: '#ffffff',
-                    maxColor: '#8bbc21'
+                    maxColor: '#90ed7d'
                 },
                 series: [{
                     name: 'ч.',

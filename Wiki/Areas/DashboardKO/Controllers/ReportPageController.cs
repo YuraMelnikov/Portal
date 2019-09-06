@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
+using System;
 
 namespace Wiki.Areas.DashboardKO.Controllers
 {
@@ -491,9 +492,10 @@ namespace Wiki.Areas.DashboardKO.Controllers
                             }
                             catch
                             {
-
+                                dashboardKOTimesheet = new DashboardKOTimesheet();
                             }
-                            data[i] = new Models.TimesheetElamaent(queryUsers[j].Key, queryDate[k].Key.ToShortDateString(), j, k, (int)dashboardKOTimesheet.work);
+                            data[i] = new Models.TimesheetElamaent(queryUsers[j].Key,
+                                queryDate[k].Key.ToShortDateString(), j, k, (int)Math.Round(dashboardKOTimesheet.work, 0));
                             i++;
                         }
                     }
