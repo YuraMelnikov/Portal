@@ -424,6 +424,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].userName = query[i].Quart;
                     data[i].count = (int)query[i].KBM * 1000 / 12.5;
+                    //realHss
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -473,14 +474,17 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     .OrderBy(d => d.date)
                     .GroupBy(d => d.date)
                     .ToList();
-                int maxCounterValue = queryUsers.Count() * queryDate.Count();
+                int usersCount = queryUsers.Count();
+                int dateCount = queryDate.Count();
+                int maxCounterValue = usersCount * dateCount + 1;
                 Models.TimesheetElamaent[] data = new Models.TimesheetElamaent[maxCounterValue];
                 DashboardKOTimesheet dashboardKOTimesheet = new DashboardKOTimesheet();
-                for (int i = 0; i < maxCounterValue; i++)
+                data[0] = new Models.TimesheetElamaent("", "", usersCount, dateCount, 0);
+                for (int i = 1; i < maxCounterValue; i++)
                 {
-                    for(int j = 0; j < queryUsers.Count(); j++)
+                    for(int j = 0; j < usersCount; j++)
                     {
-                        for (int k = 0; k < queryDate.Count(); k++)
+                        for (int k = 0; k < dateCount; k++)
                         {
                             try
                             {

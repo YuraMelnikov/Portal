@@ -67,6 +67,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_ProjectFactBujet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="period" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="data" Type="float" Nullable="false" />
+          <Property Name="devision" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="order" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
             <PropertyRef Name="id" />
@@ -3085,6 +3095,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ProjectFactBujet" EntityType="Self.CMKO_ProjectFactBujet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_Company" EntityType="Self.CMO_Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_CompanyMailList" EntityType="Self.CMO_CompanyMailList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_FileOrder" EntityType="Self.CMO_FileOrder" Schema="dbo" store:Type="Tables" />
@@ -4631,6 +4642,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
           <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
           <EntitySet Name="DashboardKOTimesheet" EntityType="PortalKATEKModel.DashboardKOTimesheet" />
+          <EntitySet Name="CMKO_ProjectFactBujet" EntityType="PortalKATEKModel.CMKO_ProjectFactBujet" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -7801,6 +7813,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="work" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="CMKO_ProjectFactBujet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="period" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="data" Type="Double" Nullable="false" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="order" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9414,6 +9436,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="work" ColumnName="work" />
                 <ScalarProperty Name="user" ColumnName="user" />
                 <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ProjectFactBujet">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ProjectFactBujet">
+              <MappingFragment StoreEntitySet="CMKO_ProjectFactBujet">
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

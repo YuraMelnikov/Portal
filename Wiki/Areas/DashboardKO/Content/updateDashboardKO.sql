@@ -209,6 +209,8 @@ select
 concat(year(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate),'.',(month(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate)+2)/3) as [Quart]
 ,sum(iif(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБМ%',ProjectWebApp.dbo.MSP_EpmTask_UserView.НК*[Dashboard].[dbo].[2016_katek_KO_1normahour].[1нч$],0)) as [KBM]
 ,sum(iif(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБЭ%',ProjectWebApp.dbo.MSP_EpmTask_UserView.НК*[Dashboard].[dbo].[2016_katek_KO_1normahour].[1нч$КБЭ],0)) as [KBE]
+,0
+,0
 				FROM
                 ProjectWebApp.dbo.MSP_EpmProject_UserView
                 INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON

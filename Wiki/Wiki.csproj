@@ -360,6 +360,9 @@
     <Compile Include="Classes\RKDWork.cs" />
     <Compile Include="Classes\RKDWorkFactory.cs" />
     <Compile Include="Classes\UploadHTEO.cs" />
+    <Compile Include="CMKO_ProjectFactBujet.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMO2_Order.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
