@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
-using Newtonsoft.Json;
-using System.Web.Script.Serialization;
 
 namespace Wiki.Areas.DashboardKO.Controllers
 {
@@ -11,8 +9,8 @@ namespace Wiki.Areas.DashboardKO.Controllers
         //JavaScriptSerializer js = new JavaScriptSerializer();
 
         public ActionResult Index()
-        {
-            return View();
+        { 
+            return View(); 
         }
 
         public JsonResult GetUsersQuaResult()
@@ -31,7 +29,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i] = new Models.UserResult();
                 }
-                for(int i = 0; i < maxCounterValue; i++)
+                for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].userName = query[i].user;
                     data[i].count = query[i].normHoure;
@@ -126,7 +124,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKO_Quartal
                     .AsNoTracking()
-                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure)})
+                    .GroupBy(d => d.devision).Select(g => new { Dev = g.Key, Total = g.Sum(x => x.normHoure) })
                     .ToList();
                 int maxCounterValue = query.Count();
                 Models.UserResult[] data = new Models.UserResult[maxCounterValue];
@@ -482,7 +480,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 data[0] = new Models.TimesheetElamaent("", "", usersCount, dateCount, 0);
                 for (int i = 1; i < maxCounterValue; i++)
                 {
-                    for(int j = 0; j < usersCount; j++)
+                    for (int j = 0; j < usersCount; j++)
                     {
                         for (int k = 0; k < dateCount; k++)
                         {
@@ -492,7 +490,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                             }
                             catch
                             {
-                                
+
                             }
                             data[i] = new Models.TimesheetElamaent(queryUsers[j].Key, queryDate[k].Key.ToShortDateString(), j, k, (int)dashboardKOTimesheet.work);
                             i++;
