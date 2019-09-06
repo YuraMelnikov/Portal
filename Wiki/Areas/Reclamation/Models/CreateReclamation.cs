@@ -96,6 +96,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 reclamation.id_DevisionReclamation = 13;
             }
+
             if (reclamation.id_AspNetUsersError != null)
             {
                 reclamation.id_DevisionReclamation = db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Devision.Value;

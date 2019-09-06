@@ -27,7 +27,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             return View();
         }
 
-
         public ActionResult Index()
         {
             @ViewBag.idPZ = 0;
