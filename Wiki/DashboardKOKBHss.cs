@@ -18,5 +18,7 @@ namespace Wiki
         public double KBM { get; set; }
         public double KBE { get; set; }
         public int id { get; set; }
+        public double KBMR { get; set; }
+        public double KBER { get; set; }
     }
 }
