@@ -1366,9 +1366,11 @@ function getHSSKBM() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
+            var dataRealArray = new Array();
             for (var i = 0; i < lenghtArrayResult; i++) {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
+                dataRealArray[i] = result[i].realHss;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
@@ -1426,7 +1428,7 @@ function getHSSKBM() {
                 }, {
                     color: '#910000',
                     name: 'ХСС (с перетоками)',
-                    data: dataArray
+                    data: dataRealArray
                 }],
                 yAxis: {
                     title: {
@@ -1458,9 +1460,11 @@ function getHSSKBE() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
+            var dataRealArray = new Array();
             for (var i = 0; i < lenghtArrayResult; i++) {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
+                dataRealArray[i] = result[i].realHss;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
@@ -1515,6 +1519,10 @@ function getHSSKBE() {
                     color: '#4572A7',
                     name: 'ХСС',
                     data: dataArray
+                }, {
+                    color: '#910000',
+                    name: 'ХСС (с перетоками)',
+                    data: dataRealArray
                 }],
                 yAxis: {
                     title: {

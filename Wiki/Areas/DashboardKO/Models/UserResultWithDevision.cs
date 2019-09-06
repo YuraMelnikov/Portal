@@ -3,6 +3,6 @@
     public class UserResultWithDevision : UserResult
     {
         public string devision;
-        public int realHss;
+        public double realHss;
     }
 }

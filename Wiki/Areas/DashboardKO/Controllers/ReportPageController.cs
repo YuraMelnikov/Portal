@@ -422,7 +422,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].userName = query[i].Quart;
                     data[i].count = (int)query[i].KBM * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBM * 1000 / 12.5;
+                    data[i].realHss = (int)query[i].KBMR * 1000 / 12.5;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -448,7 +448,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].userName = query[i].Quart;
                     data[i].count = (int)query[i].KBE * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBM * 1000 / 12.5;
+                    data[i].realHss = (int)query[i].KBER * 1000 / 12.5;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
