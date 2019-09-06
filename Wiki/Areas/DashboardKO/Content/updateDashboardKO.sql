@@ -306,3 +306,59 @@ and
 group by
 MSP_EpmAssignmentByDay_UserView.TimeByDay,
 MSP_EpmResource_UserView.ResourceName
+
+update [PortalKATEK].[dbo].[DashboardKOKBHss] set 
+[PortalKATEK].[dbo].[DashboardKOKBHss].KBER = [PortalKATEK].[dbo].[DashboardKOKBHss].KBE,
+[PortalKATEK].[dbo].[DashboardKOKBHss].KBMR = [PortalKATEK].[dbo].[DashboardKOKBHss].KBM
+update [PortalKATEK].[dbo].[DashboardKOKBHss] set 
+[PortalKATEK].[dbo].[DashboardKOKBHss].KBER = [PortalKATEK].[dbo].[DashboardKOKBHss].KBE - [TableResult].KBE,
+[PortalKATEK].[dbo].[DashboardKOKBHss].KBMR = [PortalKATEK].[dbo].[DashboardKOKBHss].KBM - [TableResult].KBM
+from
+(select 
+[qua],
+sum([KBM]) as [KBM]
+,sum([KBE]) as [KBE]
+ from 
+(SELECT 
+concat(year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP), '.', datepart(q,[PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP)) AS [qua]
+,sum(HSS_KBM.KBM) + sum(Fact_KBM.payment) - ([PortalKATEK].[dbo].[PZ_TEO].SSM / 1000 * 12.5) as [KBM]
+,sum(HSS_KBM.KBE) + sum(Fact_KBE.payment) - ([PortalKATEK].[dbo].[PZ_TEO].SSM / 1000 * 12.5) as [KBE]
+FROM [PortalKATEK].[dbo].[PZ_PlanZakaz]
+left join (select
+ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
+,sum(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', ProjectWebApp.dbo.MSP_EpmTask_UserView.НК*[Dashboard].[dbo].[2016_katek_KO_1normahour].[1нч$], 0)) as [KBM]
+,sum(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', ProjectWebApp.dbo.MSP_EpmTask_UserView.НК*[Dashboard].[dbo].[2016_katek_KO_1normahour].[1нч$КБЭ], 0)) as [KBE]
+                FROM
+                ProjectWebApp.dbo.MSP_EpmProject_UserView
+                INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON
+                ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON
+                ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID
+                AND ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmResource_UserView ON
+                ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID
+				LEFT OUTER JOIN
+                [Dashboard].[dbo].[2016_katek_KO_1normahour] ON
+                ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] = [Dashboard].[dbo].[2016_katek_KO_1normahour].[№ заказа]
+				LEFT OUTER JOIN
+				[Dashboard].[dbo].[2016_KATEK_KBE] on
+				[Dashboard].[dbo].[2016_KATEK_KBE].[№ заказа] = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] 
+where
+(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБ%')
+and
+(concat(year(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate),'.',(month(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate)+2)/3) >= @periodQua)
+group by
+ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]) as HSS_KBM on HSS_KBM.[№ заказа] like [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
+left join (SELECT sum([data]) as payment ,[order] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБМ%' group by [order])
+	as Fact_KBM on Fact_KBM.[order] = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
+left join (SELECT sum([data]) as payment ,[order] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБЭ%' group by [order])
+	as Fact_KBE on Fact_KBE.[order] = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
+left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
+WHERE
+concat(year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP), '.', datepart(q,[PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP)) >= @periodQua
+group by [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
+,concat(year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP), '.', datepart(q,[PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP))
+,[PortalKATEK].[dbo].[PZ_TEO].SSM / 1000 * 12.5) as T1 group by [qua]) as [TableResult]
+where [TableResult].qua = [PortalKATEK].[dbo].[DashboardKOKBHss].Quart
