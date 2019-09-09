@@ -53,7 +53,7 @@ namespace Wiki.Areas.Deb.Controllers
                 int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
                 string linkPartOne = "";
                 string linkPartTwo = "";
-                if (devision == 5 || login == "myi@katek.by" && debit_PeriodReportOprih.close != true)
+                if ((devision == 5 || login == "myi@katek.by") && debit_PeriodReportOprih.close != true)
                 {
                     linkPartOne = firstPartLinkEditOP;
                     linkPartTwo = lastPartEdit;
@@ -100,7 +100,7 @@ namespace Wiki.Areas.Deb.Controllers
                 int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
                 string linkPartOne = "";
                 string linkPartTwo = "";
-                if (devision == 5 || login == "myi@katek.by" && debit_PeriodReportOprih.close != true)
+                if ((devision == 5 || login == "myi@katek.by") && debit_PeriodReportOprih.close != true)
                 {
                     linkPartOne = firstPartLinkEditOP;
                     linkPartTwo = lastPartEdit;

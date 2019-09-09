@@ -28,8 +28,7 @@ namespace Wiki.Models
         protected virtual void GetBody(string description)
         {
             body += subject + "<br/>";
-            if (description != "" || description != null)
-                body += @"<a href=" + description + ">" + description + @"</a>" + "<br/>";
+            body += @"<a href=" + description + ">" + description + @"</a>" + "<br/>";
         }
 
         protected virtual void SetMailAddress()

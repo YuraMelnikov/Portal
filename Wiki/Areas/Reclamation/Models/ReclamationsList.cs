@@ -225,7 +225,7 @@ namespace Wiki.Areas.Reclamation.Models
             else if (id_Devision == 8)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == 8 || d.id_DevisionReclamation == 20)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -239,7 +239,7 @@ namespace Wiki.Areas.Reclamation.Models
             else if (id_Devision == 9)
             {
                 Reclamations = db.Reclamation
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == 9 || d.id_DevisionReclamation == 22)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -500,7 +500,7 @@ namespace Wiki.Areas.Reclamation.Models
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == 8 || d.id_DevisionReclamation == 20)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -516,7 +516,7 @@ namespace Wiki.Areas.Reclamation.Models
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
-                    .Where(d => d.close == active)
+                    .Where(d => d.closeDevision == active)
                     .Where(d => d.id_DevisionReclamation == 9 || d.id_DevisionReclamation == 22)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))

@@ -528,7 +528,7 @@ namespace Wiki.Models
         {
             try
             {
-                int findIdOrder = db.RKD_Order.Where(d => d.id_PZ_PlanZakaz == id_PZ_PlaznZakaz).First().id;
+                int findIdOrder = db.RKD_Order.First(d => d.id_PZ_PlanZakaz == id_PZ_PlaznZakaz).id;
                 var listUpdate = db.RKD_Version.Where(d => d.id_RKD_Order == findIdOrder & d.activeVersion == true).ToList();
                 if (listUpdate != null)
                 {

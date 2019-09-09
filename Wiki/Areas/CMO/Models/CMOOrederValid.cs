@@ -81,20 +81,13 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (cMO2_Order.finIn == false && cMO2_Order.finDate != null)
             {
-                if (cMO2_Order.finDate == null)
-                {
-                    order.id_CMO_Company = cMO2_Order.id_CMO_Company;
-                }
-                else
-                {
-                    order.id_CMO_Company = cMO2_Order.id_CMO_Company;
-                    order.finIn = true;
-                    order.finDate = cMO2_Order.finDate;
-                    order.finCost = cMO2_Order.finCost;
-                    order.finComplited = true;
-                    db.Entry(order).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
+                order.id_CMO_Company = cMO2_Order.id_CMO_Company;
+                order.finIn = true;
+                order.finDate = cMO2_Order.finDate;
+                order.finCost = cMO2_Order.finCost;
+                order.finComplited = true;
+                db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
             }
             else if (cMO2_Order.finIn == false && cMO2_Order.finDate == null && cMO2_Order.manufDate != null)
             {

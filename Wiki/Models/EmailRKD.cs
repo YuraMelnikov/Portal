@@ -39,8 +39,13 @@ namespace Wiki.Models
         {
             foreach (var VARIABLE in db.RKD_GIP.Where(d => d.id_RKD_Order == rkdOrder.id).ToList())
             {
-                if(VARIABLE.AspNetUsers.Email != "katekproject@gmail.com" || VARIABLE.AspNetUsers.Email != "melnikauyi@gmail.com")
-                    mail.To.Add(new MailAddress(VARIABLE.AspNetUsers.Email));
+                if (VARIABLE.AspNetUsers.Email != "katekproject@gmail.com")
+                {
+                    if (VARIABLE.AspNetUsers.Email != "melnikauyi@gmail.com")
+                    {
+                        mail.To.Add(new MailAddress(VARIABLE.AspNetUsers.Email));
+                    }
+                }
             }
         }
     }

@@ -53,7 +53,7 @@ namespace Wiki.Controllers
                     break;
                 }
             }
-            Excel.Range range = worksheet.UsedRange;
+            var range = worksheet.UsedRange;
             List <UploadHTEO> list = new List<UploadHTEO>();
             for (int row = 1; row < range.Rows.Count; row++)
             {

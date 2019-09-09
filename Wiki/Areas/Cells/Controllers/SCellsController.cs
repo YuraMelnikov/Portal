@@ -154,7 +154,7 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                return Json(db.SectionMap.Where(d => d.distance == 0).Count() / 2, JsonRequestBehavior.AllowGet);
+                return Json(db.SectionMap.Count(d => d.distance == 0) / 2, JsonRequestBehavior.AllowGet);
             }
         }
 
