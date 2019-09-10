@@ -33,7 +33,7 @@ namespace Wiki.Areas.CMO.Models
                 }
                 try
                 {
-                    //new EmailCMO(cMO2_Order, login, 1);
+                    new EmailSandwichPanel(sandwichPanel, login, 1);
                     logger.Debug("SandwichPanelCRUD / EmailSandwichPanel: " + sandwichPanel.id);
                 }
                 catch (Exception ex)

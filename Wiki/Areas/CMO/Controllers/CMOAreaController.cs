@@ -223,7 +223,7 @@ namespace Wiki.Areas.CMO.Controllers
             if (spfile1[0] != null && spid_PlanZakaz != null)
             {
                 string login = HttpContext.User.Identity.Name;
-                //new CMOOrederValid().CreateReOrder(roid_PlanZakaz, roid_CMO_Company, login, rofile1);
+                new SandwichPanelCRUD().CreateOrder(spid_PlanZakaz, login, spfile1);
             }
             return RedirectToAction("Index");
         }
