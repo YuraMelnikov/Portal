@@ -1217,6 +1217,15 @@
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="id_SandwichPanel" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SandwichPanelCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="email" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ServiceRemarks">
           <Key>
             <PropertyRef Name="id" />
@@ -2999,6 +3008,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SandwichPanel_SandwichPanelCustomer">
+          <End Role="SandwichPanelCustomer" Type="Self.SandwichPanelCustomer" Multiplicity="0..1" />
+          <End Role="SandwichPanel" Type="Self.SandwichPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SandwichPanelCustomer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SandwichPanel">
+              <PropertyRef Name="id_SandwichPanelCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ServiceRemarks_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ServiceRemarks" Type="Self.ServiceRemarks" Multiplicity="*" />
@@ -3262,6 +3283,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="RKD_VersionWork" EntityType="Self.RKD_VersionWork" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SandwichPanel" EntityType="Self.SandwichPanel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SandwichPanel_PZ" EntityType="Self.SandwichPanel_PZ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SandwichPanelCustomer" EntityType="Self.SandwichPanelCustomer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarks" EntityType="Self.ServiceRemarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksActions" EntityType="Self.ServiceRemarksActions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksCause" EntityType="Self.ServiceRemarksCause" Schema="dbo" store:Type="Tables" />
@@ -3915,6 +3937,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_SandwichPanel_PZ_SandwichPanel" Association="Self.FK_SandwichPanel_PZ_SandwichPanel">
             <End Role="SandwichPanel" EntitySet="SandwichPanel" />
             <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_SandwichPanelCustomer" Association="Self.FK_SandwichPanel_SandwichPanelCustomer">
+            <End Role="SandwichPanelCustomer" EntitySet="SandwichPanelCustomer" />
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceRemarks_AspNetUsers" Association="Self.FK_ServiceRemarks_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4737,6 +4763,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_SandwichPanel_PZ_SandwichPanel" Association="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel">
             <End Role="SandwichPanel" EntitySet="SandwichPanel" />
             <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
+          </AssociationSet>
+          <EntitySet Name="SandwichPanelCustomer" EntityType="PortalKATEKModel.SandwichPanelCustomer" />
+          <AssociationSet Name="FK_SandwichPanel_SandwichPanelCustomer" Association="PortalKATEKModel.FK_SandwichPanel_SandwichPanelCustomer">
+            <End Role="SandwichPanelCustomer" EntitySet="SandwichPanelCustomer" />
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -7944,6 +7975,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="datetimePlanComplited" Type="DateTime" Precision="3" />
           <Property Name="id_SandwichPanelCustomer" Type="Int32" />
+          <NavigationProperty Name="SandwichPanelCustomer" Relationship="PortalKATEKModel.FK_SandwichPanel_SandwichPanelCustomer" FromRole="SandwichPanel" ToRole="SandwichPanelCustomer" />
         </EntityType>
         <EntityType Name="SandwichPanel_PZ">
           <Key>
@@ -7988,6 +8020,28 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="SandwichPanel_PZ">
               <PropertyRef Name="id_SandwichPanel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SandwichPanelCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SandwichPanel" Relationship="PortalKATEKModel.FK_SandwichPanel_SandwichPanelCustomer" FromRole="SandwichPanelCustomer" ToRole="SandwichPanel" />
+        </EntityType>
+        <Association Name="FK_SandwichPanel_SandwichPanelCustomer">
+          <End Type="PortalKATEKModel.SandwichPanelCustomer" Role="SandwichPanelCustomer" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.SandwichPanel" Role="SandwichPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SandwichPanelCustomer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SandwichPanel">
+              <PropertyRef Name="id_SandwichPanelCustomer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9647,6 +9701,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <MappingFragment StoreEntitySet="SandwichPanel_PZ">
                 <ScalarProperty Name="id_SandwichPanel" ColumnName="id_SandwichPanel" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SandwichPanelCustomer">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SandwichPanelCustomer">
+              <MappingFragment StoreEntitySet="SandwichPanelCustomer">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

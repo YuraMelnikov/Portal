@@ -153,5 +153,6 @@ namespace Wiki
         public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
         public virtual DbSet<SandwichPanel> SandwichPanel { get; set; }
         public virtual DbSet<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
+        public virtual DbSet<SandwichPanelCustomer> SandwichPanelCustomer { get; set; }
     }
 }

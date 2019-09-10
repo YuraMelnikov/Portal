@@ -779,6 +779,9 @@
     <Compile Include="SandwichPanel.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="SandwichPanelCustomer.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="SandwichPanel_PZ.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

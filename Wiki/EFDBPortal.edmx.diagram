@@ -264,6 +264,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" />
         <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel" />
+        <EntityTypeShape EntityType="PortalKATEKModel.SandwichPanelCustomer" Width="1.5" PointX="7.375" PointY="12.875" />
+        <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_SandwichPanelCustomer" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

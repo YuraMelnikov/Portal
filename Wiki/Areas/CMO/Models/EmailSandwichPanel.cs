@@ -29,34 +29,44 @@ namespace Wiki.Areas.CMO.Models
                 this.order = db.SandwichPanel
                     .Include(d => d.SandwichPanel_PZ.Select(s => s.PZ_PlanZakaz))
                     .First(d => d.id == order.id);
-                mail.From = new MailAddress(login);
+                mail.From = new MailAddress(this.login);
                 if (stepNumber == 1) //Create - 1
                 {
-
+                    //GetMailPM();
+                    //GetMailManufacturing();
+                    GetMailMYI();
                 }
                 else if (stepNumber == 2) //ToWork - 2
                 {
-
+                    //GetMailPurchaseDepartment();
+                    //GetMailPM();
+                    GetMailMYI();
                 }
                 else if (stepNumber == 3) //ToUpdate - 3
                 {
-
+                    //GetMailKB();
+                    //GetMailPM();
+                    GetMailMYI();
                 }
                 else if (stepNumber == 4) //ToCustomer - 4
                 {
-
+                    //GetMailCustomer();
+                    //GetMailPM();
+                    GetMailMYI();
                 }
                 else if (stepNumber == 5) //ToGetDateComplited
                 {
-
+                    //GetMailPM();
+                    GetMailMYI();
                 }
                 else if (stepNumber == 6) //ToComplited
                 {
-
+                    //GetMailPM();
+                    GetMailMYI();
                 }
                 else
                 {
-
+                    GetMailMYI();
                 }
                 GetSubject();
                 GetBody();
@@ -178,7 +188,36 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailCustomer()
         {
-            mailToList.Add("myi@katek.by");
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var query = db.SandwichPanelCustomer.Where(d => d.id == order.id_SandwichPanelCustomer && d.active == true).ToList();
+                foreach (var data in query)
+                {
+                    mailToList.Add(data.email);
+                }
+                return true;
+            }
+        }
+
+        bool GetMailKB()
+        {
+            mailToList.Add("nrf@katek.by");
+            mailToList.Add("vi@katek.by");
+            mailToList.Add("yaa@katek.by");
+            mailToList.Add("goa@katek.by");
+            return true;
+        }
+
+        bool GetMailManufacturing()
+        {
+            mailToList.Add("ovp@katek.by");
+            return true;
+        }
+
+        bool GetMailPurchaseDepartment()
+        {
+            mailToList.Add("xan@katek.by");
+            mailToList.Add("gdp@katek.by");
             return true;
         }
     }

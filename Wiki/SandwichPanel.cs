@@ -40,5 +40,6 @@ namespace Wiki
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
+        public virtual SandwichPanelCustomer SandwichPanelCustomer { get; set; }
     }
 }
