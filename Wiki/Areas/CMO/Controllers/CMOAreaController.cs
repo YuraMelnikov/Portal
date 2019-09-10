@@ -44,6 +44,7 @@ namespace Wiki.Areas.CMO.Controllers
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_SandwichPanelCustomer = new SelectList(db.SandwichPanelCustomer.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             logger.Debug("CMO: " + login);
             return View();
         }

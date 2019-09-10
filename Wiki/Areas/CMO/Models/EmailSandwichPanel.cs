@@ -28,35 +28,31 @@ namespace Wiki.Areas.CMO.Models
                 this.stepNumber = stepNumber;
                 this.order = db.SandwichPanel
                     .Include(d => d.SandwichPanel_PZ.Select(s => s.PZ_PlanZakaz))
-                    .Find(order.id);
+                    .First(d => d.id == order.id);
                 mail.From = new MailAddress(login);
                 if (stepNumber == 1) //Create - 1
                 {
-                    GetMailListCreate();
+
                 }
                 else if (stepNumber == 2) //ToWork - 2
                 {
-                    GetMailList();
-                    GetMailClient();
+
                 }
                 else if (stepNumber == 3) //ToUpdate - 3
                 {
-                    GetMailList();
-                    GetMailClient();
-                    GetMailPM();
+
                 }
                 else if (stepNumber == 4) //ToCustomer - 4
                 {
-                    GetMailListCreate();
-                    GetMailClient();
+
                 }
                 else if (stepNumber == 5) //ToGetDateComplited
                 {
-                    GetMailPM();
+
                 }
                 else if (stepNumber == 6) //ToComplited
                 {
-                    GetMailPM();
+
                 }
                 else
                 {
@@ -133,16 +129,56 @@ namespace Wiki.Areas.CMO.Models
             {
                 body = "Добрый день!" + "<br/>" + "Заказ сэндвич-панелей №: " + order.id + "<br/>";
                 body += GetPlanZakazs() + "<br/>";
-                body += "Получена плановая дата изготовления сэндвич-панелей: " + order..ToString().Substring(0, 10) + "<br/>" + "<br/>";
+                body += "Получена плановая дата изготовления сэндвич-панелей: " + order.datetimePlanComplited.ToString().Substring(0, 10) + "<br/>" + "<br/>";
             }
             else if (stepNumber == 6)
             {
-                body = "Добрый день!" + "<br/>";
-                body += "Изменена плановая дата изготовления: " + order.manufDate.ToString().Substring(0, 10) + "<br/>" + "<br/>";
-                body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
-                        "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
-                        "gdp@katek.by";
+                body = "Добрый день!" + "<br/>" + "Заказ сэндвич-панелей №: " + order.id + "<br/>";
+                body += GetPlanZakazs() + "<br/>";
+                body += "Сэндвич-панели поступили на хранение: " + order.numberOrder + "<br/>" + "<br/>";
             }
+            return true;
+        }
+
+        void SendEmail()
+        {
+            foreach (var data in GetFileArray())
+            {
+                mail.Attachments.Add(new Attachment(data));
+            }
+            foreach (var dataUser in mailToList)
+            {
+                mail.To.Add(new MailAddress(dataUser));
+            }
+            mail.IsBodyHtml = true;
+            mail.Subject = subject;
+            mail.Body = body;
+            client.Send(mail);
+            mail.Dispose();
+        }
+
+        private List<string> GetFileArray()
+        {
+            var fileList = Directory.GetFiles(order.folder).ToList();
+            return fileList;
+        }
+
+        bool GetMailMYI()
+        {
+            mailToList.Add("myi@katek.by");
+            return true;
+        }
+
+        bool GetMailPM()
+        {
+            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("gea@katek.by");
+            return true;
+        }
+
+        bool GetMailCustomer()
+        {
+            mailToList.Add("myi@katek.by");
             return true;
         }
     }
