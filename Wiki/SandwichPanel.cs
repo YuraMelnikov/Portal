@@ -34,6 +34,7 @@ namespace Wiki
         public Nullable<System.DateTime> datetimeComplited { get; set; }
         public string numberOrder { get; set; }
         public string folder { get; set; }
+        public Nullable<System.DateTime> datetimePlanComplited { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
