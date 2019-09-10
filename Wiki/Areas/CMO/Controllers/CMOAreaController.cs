@@ -216,6 +216,17 @@ namespace Wiki.Areas.CMO.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult AddSandwichPanelOrder(int[] spid_PlanZakaz, HttpPostedFileBase[] spfile1)
+        {
+            if (spfile1[0] != null && spid_PlanZakaz != null)
+            {
+                string login = HttpContext.User.Identity.Name;
+                //new CMOOrederValid().CreateReOrder(roid_PlanZakaz, roid_CMO_Company, login, rofile1);
+            }
+            return RedirectToAction("Index");
+        }
+
         public JsonResult Get(int id)
         {
             var query = db.CMO2_Order.Where(d => d.id == id).ToList();

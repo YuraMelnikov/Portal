@@ -452,6 +452,9 @@ function clearTextBox() {
     $('#roid_CMO_TypeProduct').val("");
     $('#roid_CMO_TypeProduct').chosen();
     $('#roid_CMO_TypeProduct').trigger('chosen:updated');
+    $('#spid_PlanZakaz').val("");
+    $('#spid_PlanZakaz').chosen();
+    $('#spid_PlanZakaz').trigger('chosen:updated');
     $('#rofile1').val("");
     
 }
@@ -493,6 +496,9 @@ function clearTextBoxUpdate() {
     $('#id_PlanZakaz').val("");
     $('#id_PlanZakaz').chosen();
     $('#id_PlanZakaz').trigger('chosen:updated');
+    $('#spid_PlanZakaz').val("");
+    $('#spid_PlanZakaz').chosen();
+    $('#spid_PlanZakaz').trigger('chosen:updated');
 }
 
 function get(id) {

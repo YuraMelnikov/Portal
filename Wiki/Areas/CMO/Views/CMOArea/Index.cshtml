@@ -36,6 +36,7 @@
     <div class="col-md-12">
         <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
         <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
+        <button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>
         <div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
@@ -45,7 +46,7 @@
             <label>Подтвердить запуск заказа в работу</label>
             <table id="toManufTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
-        </div>       
+        </div>
         <div id="dReOrder">
             <label>Дозаказы</label>
             <table id="reOrderTable" class="table table-hover table-striped" style="width:100%;"></table>
@@ -281,6 +282,58 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <input accept="file/*" id="rofile1" multiple="multiple" name="rofile1" type="file" />
+                            <hr />
+                            <input type="submit" value="Разместить заказ" class="btn btn-primary" onclick="addOrder()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <hr />
+                }
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="createSandwichPanelModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddSandwichPanelOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(model => model.id)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Введите №заказа/ов:</label>
+                            @Html.ListBox("spid_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="spfile1" multiple="multiple" name="spfile1" type="file" />
                             <hr />
                             <input type="submit" value="Разместить заказ" class="btn btn-primary" onclick="addOrder()" />
                         </div>
