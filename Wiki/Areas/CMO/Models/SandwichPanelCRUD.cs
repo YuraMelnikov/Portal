@@ -1,9 +1,9 @@
 ﻿using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Web;
 using Wiki.Models;
+using System.Data.Entity;
 
 namespace Wiki.Areas.CMO.Models
 {
@@ -22,8 +22,15 @@ namespace Wiki.Areas.CMO.Models
                 GetBasicFuild(login);
                 db.SandwichPanel.Add(sandwichPanel);
                 db.SaveChanges();
-
-
+                CreateFolderAndFileForPreOrder(sandwichPanel.id);
+                foreach (var dataPZ in id_PlanZakaz)
+                {
+                    SandwichPanel_PZ sandwichPanel_PZ = new SandwichPanel_PZ();
+                    sandwichPanel_PZ.id_PZ_PlanZakaz = dataPZ;
+                    sandwichPanel_PZ.id_SandwichPanel = sandwichPanel.id;
+                    db.SandwichPanel_PZ.Add(sandwichPanel_PZ);
+                    db.SaveChanges();
+                }
                 try
                 {
                     //new EmailCMO(cMO2_Order, login, 1);
@@ -34,31 +41,6 @@ namespace Wiki.Areas.CMO.Models
                     logger.Error("CreateOrder / EmailCMO: " + sandwichPanel.id + " | " + ex);
                 }
             }
-
-
-
-
-                //GetBasicFuild(login);
-                //GetDefaultWork();
-                //GetDefaultManuf();
-                //GetDefaultFin();
-                //cMO2_Order.reOrder = false;
-                //db.CMO2_Order.Add(cMO2_Order);
-                //db.SaveChanges();
-                //CreateFolderAndFileForPreOrder(cMO2_Order.id);
-                //foreach (var dataPZ in id_PlanZakaz)
-                //{
-                //    foreach (var dataType in id_CMO_TypeProduct)
-                //    {
-                //        CMO2_Position cMO2_Position = new CMO2_Position();
-                //        cMO2_Position.id_PZ_PlanZakaz = dataPZ;
-                //        cMO2_Position.id_CMO_TypeProduct = dataType;
-                //        cMO2_Position.id_CMO2 = cMO2_Order.id;
-                //        db.CMO2_Position.Add(cMO2_Position);
-                //    }
-                //}
-                //db.SaveChanges();
-
         }
 
         bool GetBasicFuild(string login)
@@ -75,14 +57,42 @@ namespace Wiki.Areas.CMO.Models
             return true;
         }
 
+        private void CreateFolderAndFileForPreOrder(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\SP\\" + id.ToString() + "\\";
+                Directory.CreateDirectory(directory);
+                SaveFileToServer(directory);
+                sandwichPanel.folder = directory;
+                db.Entry(sandwichPanel).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
 
+        private void SaveFileToServer(string folderAdress)
+        {
+            for (int i = 0; i < fileUploadArray.Length; i++)
+            {
+                string fileReplace = Path.GetFileName(fileUploadArray[i].FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", folderAdress, fileReplace);
+                fileUploadArray[i].SaveAs(fileName);
+            }
+        }
 
-
-
-
-
-
-
-
+        private string ToSafeFileName(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
+        }
     }
 }

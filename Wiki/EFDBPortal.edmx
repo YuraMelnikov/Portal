@@ -1205,6 +1205,7 @@
           <Property Name="datetimeToCustomer" Type="datetime" />
           <Property Name="datetimeComplited" Type="datetime" />
           <Property Name="numberOrder" Type="varchar(max)" Nullable="false" />
+          <Property Name="folder" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="SandwichPanel_PZ">
           <Key>
@@ -7938,6 +7939,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="numberOrder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" FromRole="SandwichPanel" ToRole="AspNetUsers" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel" FromRole="SandwichPanel" ToRole="SandwichPanel_PZ" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SandwichPanel_PZ">
           <Key>
@@ -9617,6 +9619,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="SandwichPanel">
             <EntityTypeMapping TypeName="PortalKATEKModel.SandwichPanel">
               <MappingFragment StoreEntitySet="SandwichPanel">
+                <ScalarProperty Name="folder" ColumnName="folder" />
                 <ScalarProperty Name="numberOrder" ColumnName="numberOrder" />
                 <ScalarProperty Name="datetimeComplited" ColumnName="datetimeComplited" />
                 <ScalarProperty Name="datetimeToCustomer" ColumnName="datetimeToCustomer" />
