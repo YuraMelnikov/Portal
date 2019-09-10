@@ -38,7 +38,7 @@
     <div class="col-md-12">
         <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
         <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
-        @*<button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>*@
+        <button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>
         <div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
@@ -441,15 +441,15 @@
                     </div>
                     <div class="col-lg-1">
                         <label>Процедура начата:</label>
-                        <input type="checkbox" id="workIn" />
+                        <input type="checkbox" id="onApprove" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Дата согласования:</label>
-                        @Html.EditorFor(model => model.workDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimeToCorrection" disabled="disabled" />
                     </div>
                     <div class="col-lg-1">
-                        <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="workComplitet" />
+                        @*<label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimeToCorrection" disabled="disabled" />*@
                     </div>
                 </div>
                 <hr />

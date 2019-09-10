@@ -92,6 +92,21 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
+            else if (login == "antipov@katek.by")
+            {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                foreach (var data in devisions)
+                {
+                    if (data.id == 16)
+                        data.name = "КБЭ";
+                }
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
+                ViewBag.ButtonAddActivation = 1;
+                ViewBag.CRUDCounter = '1';
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 0)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            }
             else if (login == "Kuchynski@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
