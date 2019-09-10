@@ -774,6 +774,12 @@
     <Compile Include="RKD_VersionWork.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="SandwichPanel.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SandwichPanel_PZ.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Section.cs">
       <DependentUpon>EFDBScells.tt</DependentUpon>
     </Compile>

@@ -259,6 +259,11 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTask" Width="1.5" PointX="11.375" PointY="9.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOTimesheet" Width="1.5" PointX="3.375" PointY="12.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_ProjectFactBujet" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.SandwichPanel" Width="1.5" PointX="9.875" PointY="50.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.SandwichPanel_PZ" Width="1.5" PointX="26.125" PointY="67.25" />
+        <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

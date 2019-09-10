@@ -151,5 +151,7 @@ namespace Wiki
         public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
         public virtual DbSet<DashboardKOTimesheet> DashboardKOTimesheet { get; set; }
         public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
+        public virtual DbSet<SandwichPanel> SandwichPanel { get; set; }
+        public virtual DbSet<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
     }
 }

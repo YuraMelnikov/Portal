@@ -1188,6 +1188,32 @@
           <Property Name="predecessor" Type="int" Nullable="false" />
           <Property Name="devision" Type="int" />
         </EntityType>
+        <EntityType Name="SandwichPanel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="onApprove" Type="bit" Nullable="false" />
+          <Property Name="onCorrection" Type="bit" Nullable="false" />
+          <Property Name="onCustomer" Type="bit" Nullable="false" />
+          <Property Name="onGetDateComplited" Type="bit" Nullable="false" />
+          <Property Name="onComplited" Type="bit" Nullable="false" />
+          <Property Name="datetimeUploadNewVersion" Type="datetime" />
+          <Property Name="datetimeToCorrection" Type="datetime" />
+          <Property Name="datetimeToCustomer" Type="datetime" />
+          <Property Name="datetimeComplited" Type="datetime" />
+          <Property Name="numberOrder" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SandwichPanel_PZ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_SandwichPanel" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ServiceRemarks">
           <Key>
             <PropertyRef Name="id" />
@@ -2934,6 +2960,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SandwichPanel_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SandwichPanel" Type="Self.SandwichPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SandwichPanel">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SandwichPanel_PZ_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="SandwichPanel_PZ" Type="Self.SandwichPanel_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SandwichPanel_PZ">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SandwichPanel_PZ_SandwichPanel">
+          <End Role="SandwichPanel" Type="Self.SandwichPanel" Multiplicity="1" />
+          <End Role="SandwichPanel_PZ" Type="Self.SandwichPanel_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SandwichPanel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SandwichPanel_PZ">
+              <PropertyRef Name="id_SandwichPanel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ServiceRemarks_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ServiceRemarks" Type="Self.ServiceRemarks" Multiplicity="*" />
@@ -3195,6 +3257,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="RKD_Version" EntityType="Self.RKD_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_VersionDay" EntityType="Self.RKD_VersionDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_VersionWork" EntityType="Self.RKD_VersionWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SandwichPanel" EntityType="Self.SandwichPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SandwichPanel_PZ" EntityType="Self.SandwichPanel_PZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarks" EntityType="Self.ServiceRemarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksActions" EntityType="Self.ServiceRemarksActions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksCause" EntityType="Self.ServiceRemarksCause" Schema="dbo" store:Type="Tables" />
@@ -3836,6 +3900,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_RKD_Version_RKD_VersionWork" Association="Self.FK_RKD_Version_RKD_VersionWork">
             <End Role="RKD_VersionWork" EntitySet="RKD_VersionWork" />
             <End Role="RKD_Version" EntitySet="RKD_Version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_AspNetUsers" Association="Self.FK_SandwichPanel_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_PZ_PZ_PlanZakaz" Association="Self.FK_SandwichPanel_PZ_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_PZ_SandwichPanel" Association="Self.FK_SandwichPanel_PZ_SandwichPanel">
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
+            <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceRemarks_AspNetUsers" Association="Self.FK_ServiceRemarks_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -4645,6 +4721,20 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
           <EntitySet Name="DashboardKOTimesheet" EntityType="PortalKATEKModel.DashboardKOTimesheet" />
           <EntitySet Name="CMKO_ProjectFactBujet" EntityType="PortalKATEKModel.CMKO_ProjectFactBujet" />
+          <EntitySet Name="SandwichPanel" EntityType="PortalKATEKModel.SandwichPanel" />
+          <EntitySet Name="SandwichPanel_PZ" EntityType="PortalKATEKModel.SandwichPanel_PZ" />
+          <AssociationSet Name="FK_SandwichPanel_AspNetUsers" Association="PortalKATEKModel.FK_SandwichPanel_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_PZ_PZ_PlanZakaz" Association="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SandwichPanel_PZ_SandwichPanel" Association="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel">
+            <End Role="SandwichPanel" EntitySet="SandwichPanel" />
+            <End Role="SandwichPanel_PZ" EntitySet="SandwichPanel_PZ" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -4905,6 +4995,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="SandwichPanel" Relationship="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" FromRole="AspNetUsers" ToRole="SandwichPanel" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -5595,6 +5686,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="MailGraphic" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="MailGraphic" />
+          <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -7827,6 +7919,72 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="devision" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="order" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="SandwichPanel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="onApprove" Type="Boolean" Nullable="false" />
+          <Property Name="onCorrection" Type="Boolean" Nullable="false" />
+          <Property Name="onCustomer" Type="Boolean" Nullable="false" />
+          <Property Name="onGetDateComplited" Type="Boolean" Nullable="false" />
+          <Property Name="onComplited" Type="Boolean" Nullable="false" />
+          <Property Name="datetimeUploadNewVersion" Type="DateTime" Precision="3" />
+          <Property Name="datetimeToCorrection" Type="DateTime" Precision="3" />
+          <Property Name="datetimeToCustomer" Type="DateTime" Precision="3" />
+          <Property Name="datetimeComplited" Type="DateTime" Precision="3" />
+          <Property Name="numberOrder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" FromRole="SandwichPanel" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel" FromRole="SandwichPanel" ToRole="SandwichPanel_PZ" />
+        </EntityType>
+        <EntityType Name="SandwichPanel_PZ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_SandwichPanel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="SandwichPanel_PZ" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SandwichPanel" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_SandwichPanel" FromRole="SandwichPanel_PZ" ToRole="SandwichPanel" />
+        </EntityType>
+        <Association Name="FK_SandwichPanel_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.SandwichPanel" Role="SandwichPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SandwichPanel">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SandwichPanel_PZ_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.SandwichPanel_PZ" Role="SandwichPanel_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SandwichPanel_PZ">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SandwichPanel_PZ_SandwichPanel">
+          <End Type="PortalKATEKModel.SandwichPanel" Role="SandwichPanel" Multiplicity="1" />
+          <End Type="PortalKATEKModel.SandwichPanel_PZ" Role="SandwichPanel_PZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SandwichPanel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SandwichPanel_PZ">
+              <PropertyRef Name="id_SandwichPanel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9452,6 +9610,34 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="devision" ColumnName="devision" />
                 <ScalarProperty Name="data" ColumnName="data" />
                 <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SandwichPanel">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SandwichPanel">
+              <MappingFragment StoreEntitySet="SandwichPanel">
+                <ScalarProperty Name="numberOrder" ColumnName="numberOrder" />
+                <ScalarProperty Name="datetimeComplited" ColumnName="datetimeComplited" />
+                <ScalarProperty Name="datetimeToCustomer" ColumnName="datetimeToCustomer" />
+                <ScalarProperty Name="datetimeToCorrection" ColumnName="datetimeToCorrection" />
+                <ScalarProperty Name="datetimeUploadNewVersion" ColumnName="datetimeUploadNewVersion" />
+                <ScalarProperty Name="onComplited" ColumnName="onComplited" />
+                <ScalarProperty Name="onGetDateComplited" ColumnName="onGetDateComplited" />
+                <ScalarProperty Name="onCustomer" ColumnName="onCustomer" />
+                <ScalarProperty Name="onCorrection" ColumnName="onCorrection" />
+                <ScalarProperty Name="onApprove" ColumnName="onApprove" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SandwichPanel_PZ">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SandwichPanel_PZ">
+              <MappingFragment StoreEntitySet="SandwichPanel_PZ">
+                <ScalarProperty Name="id_SandwichPanel" ColumnName="id_SandwichPanel" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
