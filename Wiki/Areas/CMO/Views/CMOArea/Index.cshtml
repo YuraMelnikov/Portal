@@ -38,7 +38,7 @@
     <div class="col-md-12">
         <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
         <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
-        <button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>
+        @*<button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>*@
         <div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
@@ -402,6 +402,130 @@
                     <div class="col-lg-8"></div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-primary" id="btnUpdateRe" style="display:none;" onclick="updateReOrder();">Дозаказ принят в работу</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="OSSPModalView" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id)
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>№заказа/ов:</label>
+                        @Html.ListBox("spid_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Подрядчик:</label>
+                        @Html.DropDownList("id_SandwichPanelCustomer", ViewBag.id_SandwichPanelCustomer as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Создана:</label>
+                        <input type="text" class="form-control" id="spdateTimeCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Автор заявки:</label>
+                        <input type="text" class="form-control" id="spid_AspNetUsers_Create" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Произвести сверку данных:</label>
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура начата:</label>
+                        <input type="checkbox" id="workIn" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата согласования:</label>
+                        @Html.EditorFor(model => model.workDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура закрыта:</label>
+                        <input type="checkbox" id="workComplitet" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Подтвердить запуск заказа в работу:</label>
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура начата:</label>
+                        <input type="checkbox" id="manufIn" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Плановая дата поступления:</label>
+                        @Html.EditorFor(model => model.manufDate, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Цена, б/НДС (BYN):</label>
+                        @Html.EditorFor(model => model.manufCost, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура закрыта:</label>
+                        <input type="checkbox" id="manufComplited" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Подтвердить поступление железа:</label>
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура начата:</label>
+                        <input type="checkbox" id="finIn" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата поступления:</label>
+                        @Html.EditorFor(model => model.finDate, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Цена, б/НДС (BYN):</label>
+                        @Html.EditorFor(model => model.finCost, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-lg-1">
+                        <label>Процедура закрыта:</label>
+                        <input type="checkbox" id="finComplited" />
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdatePanel" style="display:none;" onclick="updatePanel();">Обновить</button>
                     </div>
                 </div>
             </div>

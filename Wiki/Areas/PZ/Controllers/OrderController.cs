@@ -92,7 +92,7 @@ namespace Wiki.Areas.PZ.Controllers
             }
             string linkPartOne = "";
             string linkPartTwo = "";
-            if (devision == 3 || devision == 15 || devision == 16)
+            if (devision == 3 || devision == 15 || devision == 16 || devision == 18 || devision == 12)
             {
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
@@ -191,7 +191,7 @@ namespace Wiki.Areas.PZ.Controllers
             }
             string linkPartOne = "";
             string linkPartTwo = "";
-            if (devision == 3 || devision == 15 || devision == 16)
+            if (devision == 3 || devision == 15 || devision == 16 || devision == 18 || devision == 12)
             {
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
@@ -277,7 +277,7 @@ namespace Wiki.Areas.PZ.Controllers
             }
             string linkPartOne = "";
             string linkPartTwo = "";
-            if (devision == 3 || devision == 15 || devision == 16)
+            if (devision == 3 || devision == 15 || devision == 16 || devision == 18 || devision == 12)
             {
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
@@ -363,7 +363,7 @@ namespace Wiki.Areas.PZ.Controllers
             }
             string linkPartOne = "";
             string linkPartTwo = "";
-            if (devision == 3 || devision == 15 || devision == 16)
+            if (devision == 3 || devision == 15 || devision == 16 || devision == 18 || devision == 12)
             {
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
