@@ -121,15 +121,17 @@ namespace Wiki.Areas.PZ.Models
                     newDebit_WorkBit.id_TaskForPZ = (int)data.id;
                     newDebit_WorkBit.datePlanFirst = DateTime.Now.AddDays((double)data.time);
                     newDebit_WorkBit.datePlan = DateTime.Now.AddDays((double)data.time);
+                    if (newDebit_WorkBit.id_TaskForPZ == 1)
+                        newDebit_WorkBit.dateClose = DateTime.Now;
                     db.Debit_WorkBit.Add(new Debit_WorkBit()
                     {
                         close = false,
-                        dateClose = null,
                         dateCreate = DateTime.Now,
                         datePlan = newDebit_WorkBit.datePlan,
                         datePlanFirst = newDebit_WorkBit.datePlanFirst,
                         id_PlanZakaz = newDebit_WorkBit.id_PlanZakaz,
-                        id_TaskForPZ = newDebit_WorkBit.id_TaskForPZ
+                        id_TaskForPZ = newDebit_WorkBit.id_TaskForPZ,
+                        dateClose = newDebit_WorkBit.dateClose
                     });
                     db.SaveChanges();
                 }

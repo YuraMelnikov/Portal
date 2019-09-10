@@ -103,7 +103,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dataList.finCost,
                 dataList.id,
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
-            }); 
+            });
             return Json(new { data });
         }
 
@@ -197,7 +197,7 @@ namespace Wiki.Areas.CMO.Controllers
         [HttpPost]
         public ActionResult AddOrder(int[] oid_PlanZakaz, int[] oid_CMO_TypeProduct, HttpPostedFileBase[] ofile1)
         {
-            if(ofile1[0] != null && oid_PlanZakaz != null && oid_CMO_TypeProduct != null)
+            if (ofile1[0] != null && oid_PlanZakaz != null && oid_CMO_TypeProduct != null)
             {
                 string login = HttpContext.User.Identity.Name;
                 new CMOOrederValid().CreateOrder(oid_PlanZakaz, oid_CMO_TypeProduct, login, ofile1);
@@ -341,7 +341,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 name = "Производится";
             }
-            else 
+            else
             {
                 name = "Оприходован";
             }
