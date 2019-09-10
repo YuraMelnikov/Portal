@@ -34,11 +34,11 @@ namespace Wiki.Areas.CMO.Models
                 try
                 {
                     //new EmailCMO(cMO2_Order, login, 1);
-                    logger.Debug("CreateOrder / EmailCMO: " + sandwichPanel.id);
+                    logger.Debug("SandwichPanelCRUD / EmailSandwichPanel: " + sandwichPanel.id);
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("CreateOrder / EmailCMO: " + sandwichPanel.id + " | " + ex);
+                    logger.Error("SandwichPanelCRUD / EmailSandwichPanel: " + sandwichPanel.id + " | " + ex);
                 }
             }
         }
