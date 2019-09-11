@@ -366,5 +366,11 @@ namespace Wiki.Areas.CMO.Controllers
         //Ожидание сроков
         //В производстве
         //Оприходовано
+
+        //OnApproveTable
+        //OnCorrectionTable
+        //OnCustomerTable
+        //OnGetDateComplited
+        //OnComplitedTable
     }
 }

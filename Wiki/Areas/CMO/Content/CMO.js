@@ -199,11 +199,11 @@ function startMenu() {
         }
     });
     //report table - reportTable
-    //onApprove
-    //onCorrection
-    //onCustomer
-    //onGetDateComplited
-    //onComplited
+    //onApprove - onApproveTable
+    //onCorrection - onCorrectionTable
+    //onCustomer - onCustomerTable
+    //onGetDateComplited - onGetDateComplited
+    //onComplited - 
 }
 
 var objSandwichPanel = [
@@ -228,6 +228,211 @@ function sandwichPanelReport() {
         "ajax": {
             "cache": false,
             "url": "/CMOArea/SandwichPanelReport",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function onApproveTable() {
+    var table = $('#approveTable').DataTable();
+    table.destroy();
+    $('#approveTable').empty();
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnApproveTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function onCorrectionTable() {
+    var table = $('#approveTable').DataTable();
+    table.destroy();
+    $('#approveTable').empty();
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnCorrectionTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function onCustomerTable() {
+    var table = $('#approveTable').DataTable();
+    table.destroy();
+    $('#approveTable').empty();
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnCustomerTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function onGetDateComplitedTable() {
+    var table = $('#approveTable').DataTable();
+    table.destroy();
+    $('#approveTable').empty();
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnGetDateComplited",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function onComplitedTable() {
+    var table = $('#approveTable').DataTable();
+    table.destroy();
+    $('#approveTable').empty();
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnComplitedTable",
             "type": "POST",
             "datatype": "json"
         },
