@@ -475,8 +475,11 @@
                         <label>Дата завершения сверки:</label>
                         <input type="text" class="form-control" id="datetimeToCorrection" disabled="disabled" />
                     </div>
-                    <div class="col-lg-1">
-                        @*2 btn*@
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-danger" id="btnPanelToKO" style="display:none;" onclick="postPanelToKO();">Отправить на доработку</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnPanelToWork" style="display:none;" onclick="postPanelToWork();">Запустить в работу</button>
                     </div>
                 </div>
                 <hr />
@@ -492,11 +495,8 @@
                         <label>Дата завершения сверки:</label>
                         <input type="text" class="form-control" id="datetimeUploadNewVersion" disabled="disabled" />
                     </div>
-                    <div class="col-lg-1">
-                        @*1 btn*@
-                    </div>
-                    <div class="col-lg-1">
-                        @*1 btn-folder*@
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnPanelToManufacturing" style="display:none;" onclick="postPanelToManufacturing();">Данные актуализированы</button>
                     </div>
                 </div>
                 <hr />
@@ -512,11 +512,8 @@
                         <label>Дата завершения сверки:</label>
                         <input type="text" class="form-control" id="datetimeToCustomer" disabled="disabled" />
                     </div>
-                    <div class="col-lg-1">
-                        @*1 btn*@
-                    </div>
-                    <div class="col-lg-1">
-                        @*1 btn-folder*@
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnPanelToCustomer" style="display:none;" onclick="postPanelToCustomer();">Данные актуализированы</button>
                     </div>
                 </div>
                 <hr />
@@ -532,11 +529,8 @@
                         <label>Дата завершения сверки:</label>
                         <input type="text" class="form-control" id="datetimePlanComplited" />
                     </div>
-                    <div class="col-lg-1">
-                        @*1 btn*@
-                    </div>
-                    <div class="col-lg-1">
-                        @*1 btn-folder*@
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnPanelToPlanComplited" style="display:none;" onclick="postPanelToPlanComplited();">Обновить</button>
                     </div>
                 </div>
                 <hr />
@@ -556,12 +550,11 @@
                         <label>Номер счет-фактуры:</label>
                         <input type="text" class="form-control" id="numberOrder" />
                     </div>
-                    <div class="col-lg-1">
-                        @*1 btn*@
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnPanelToComplited" style="display:none;" onclick="postPanelToPComplited();">Обновить</button>
                     </div>
                 </div>
                 <hr />
-
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -583,17 +576,6 @@
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
-            </div>
-            <div class="modal-footer">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
-                    </div>
-                    <div class="col-lg-8"></div>
-                    <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnUpdatePanel" style="display:none;" onclick="updatePanel();">Обновить</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

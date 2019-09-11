@@ -269,6 +269,16 @@ namespace Wiki.Areas.CMO.Controllers
             return pZ_PlanZakaz;
         }
 
+        string[] GetSPPlanZakazArray(List<SandwichPanel_PZ> reclamation_PZs)
+        {
+            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            for (int i = 0; i < reclamation_PZs.Count; i++)
+            {
+                pZ_PlanZakaz[i] = reclamation_PZs[i].id_PZ_PlanZakaz.ToString();
+            }
+            return pZ_PlanZakaz;
+        }
+
         string[] GetTypesArray(List<CMO2_Position> reclamation_PZs)
         {
             string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
@@ -414,12 +424,208 @@ namespace Wiki.Areas.CMO.Controllers
             return state;
         }
 
+        [HttpPost]
+        public JsonResult OnApproveTable()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.onApprove == true)
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
 
+        [HttpPost]
+        public JsonResult OnCorrectionTable()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.onCorrection == true)
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
 
-        //OnApproveTable
-        //OnCorrectionTable
-        //OnCustomerTable
-        //OnGetDateComplited
-        //OnComplitedTable
+        [HttpPost]
+        public JsonResult OnCustomerTable()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.onCustomer == true)
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult OnGetDateComplited()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.onGetDateComplited == true)
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        [HttpPost]
+        public JsonResult OnComplitedTable()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.onCorrection == true)
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        public JsonResult GetSandwichPanel(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Where(d => d.id == id)
+                .Include(d => d.SandwichPanel_PZ.Select(s => s.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                spid = dataList.id,
+                spid_PlanZakaz = GetSPPlanZakazArray(dataList.SandwichPanel_PZ.ToList()),
+                id_SandwichPanelCustomer = dataList.SandwichPanelCustomer.name,
+                spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortDefaultSetting).Replace(@"""", ""),
+                spid_AspNetUsers_Create = dataList.id,
+                dataList.onApprove,
+                datetimeToCorrection = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortDefaultSetting).Replace(@"""", ""),
+                dataList.onCorrection,
+                datetimeUploadNewVersion = JsonConvert.SerializeObject(dataList.datetimeUploadNewVersion, shortDefaultSetting).Replace(@"""", ""),
+                dataList.onCustomer,
+                datetimeToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortDefaultSetting).Replace(@"""", ""),
+                dataList.onGetDateComplited,
+                datetimePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortDefaultSetting).Replace(@"""", ""),
+                dataList.onComplited,
+                datetimeComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortDefaultSetting).Replace(@"""", ""),
+                dataList.numberOrder
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PostPanelToKO(int spid)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PostPanelToWork(int spid)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PostPanelToManufacturing(int spid)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PostPanelToCustomer(int spid)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PostPanelToComplited(int spid, DateTime datetimeComplited, string numberOrder)
+        {
+            string login = HttpContext.User.Identity.Name;
+            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

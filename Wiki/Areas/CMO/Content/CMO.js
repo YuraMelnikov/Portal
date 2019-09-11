@@ -1227,3 +1227,161 @@ function processZero(data) {
         return data;
     }
 }
+
+function postPanelToKO() {
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToKO",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#approveTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function postPanelToWork() {
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToWork",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#customerTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function postPanelToManufacturing() {
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToManufacturing",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function postPanelToCustomer() {
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToCustomer",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function postPanelToPlanComplited() { // - valid
+    var res = validateUpdate();
+    if (res === false) {
+        return false;
+    }
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToPlanComplited",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function postPanelToComplited() { // - valid
+    var res = validateUpdate();
+    if (res === false) {
+        return false;
+    }
+    var typeObj = {
+        spid: $('#spid').val(),
+        id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
+        datetimePlanComplited: $('#datetimePlanComplited').val(),
+        datetimeComplited: $('#datetimeComplited').val(),
+        numberOrder: $('#numberOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PostPanelToComplited",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#OSSPModalView').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
