@@ -113,11 +113,10 @@ namespace Wiki.Areas.Reclamation.Models
             mailToList.Add("myi@katek.by");
             mailToList.Add("bav@katek.by");
             mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).Email);
-
             if(reclamation.id_DevisionReclamation == 13)
             {
                 mailToList.Add("laa@katek.by");
-                mailToList.Add("Antipov@katek.by");
+                mailToList.Add("antipov@katek.by");
             }
             else
             {
@@ -147,14 +146,11 @@ namespace Wiki.Areas.Reclamation.Models
                         mailToList.Add(data.Email);
                     }
                 }
-                foreach (var dataList in mailToList)
-                {
-                    mail.To.Add(new MailAddress(dataList));
-                }
             }
-
-
-
+            foreach (var dataList in mailToList)
+            {
+                mail.To.Add(new MailAddress(dataList));
+            }
             return true;
         }
     }
