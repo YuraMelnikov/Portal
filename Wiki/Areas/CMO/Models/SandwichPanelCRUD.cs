@@ -49,7 +49,7 @@ namespace Wiki.Areas.CMO.Models
             sandwichPanel.datetimeCreate = DateTime.Now;
             sandwichPanel.id_AspNetUsersCreate = new Login().LoginEmailToId(login);
             sandwichPanel.numberOrder = "";
-            sandwichPanel.onApprove = false;
+            sandwichPanel.onApprove = true;
             sandwichPanel.onCorrection = false;
             sandwichPanel.onCustomer = false;
             sandwichPanel.onGetDateComplited = false;

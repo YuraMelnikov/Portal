@@ -593,38 +593,51 @@ namespace Wiki.Areas.CMO.Controllers
         public JsonResult PostPanelToKO(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onApprove = false;
+            sandwichPanel.onCorrection = true;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //Email!!!
+
+
+
+
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult PostPanelToWork(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToManufacturing(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToCustomer(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToComplited(int spid, DateTime datetimeComplited, string numberOrder)
         {
             string login = HttpContext.User.Identity.Name;
-            //new CMOOrederValid().UpdateOrder(cMO2_Order, login);
+
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

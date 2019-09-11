@@ -1269,7 +1269,7 @@ function postPanelToWork() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#customerTable').DataTable().ajax.reload(null, false);
+            $('#approveTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
@@ -1319,7 +1319,7 @@ function postPanelToCustomer() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#customerTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
@@ -1328,8 +1328,8 @@ function postPanelToCustomer() {
     });
 }
 
-function postPanelToPlanComplited() { // - valid
-    var res = validateUpdate();
+function postPanelToPlanComplited() { 
+    var res = ValidPostPanelToCustomer();
     if (res === false) {
         return false;
     }
@@ -1348,7 +1348,7 @@ function postPanelToPlanComplited() { // - valid
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#getDateComplitedTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
@@ -1357,8 +1357,8 @@ function postPanelToPlanComplited() { // - valid
     });
 }
 
-function postPanelToComplited() { // - valid
-    var res = validateUpdate();
+function postPanelToComplited() { 
+    var res = ValidPostPanelToComplited();
     if (res === false) {
         return false;
     }
@@ -1377,11 +1377,49 @@ function postPanelToComplited() { // - valid
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#correctionTable').DataTable().ajax.reload(null, false);
+            $('#complitedTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+}
+
+function ValidPostPanelToCustomer() {
+    isValid = true;
+    if ($('#id_SandwichPanelCustomer').val() === null) {
+        $('#id_SandwichPanelCustomer').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_SandwichPanelCustomer').css('border-color', 'lightgrey');
+    }
+    if ($('#datetimePlanComplited').val() === null) {
+        $('#datetimePlanComplited').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#datetimePlanComplited').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function ValidPostPanelToComplited() {
+    isValid = true;
+    if ($('#datetimeComplited').val() === null) {
+        $('#datetimeComplited').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#datetimeComplited').css('border-color', 'lightgrey');
+    }
+    if ($('#numberOrder').val() === null) {
+        $('#numberOrder').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#numberOrder').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
