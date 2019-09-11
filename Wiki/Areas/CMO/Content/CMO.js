@@ -303,10 +303,10 @@ function onApproveTable() {
 }
 
 function onCorrectionTable() {
-    var table = $('#approveTable').DataTable();
+    var table = $('#correctionTable').DataTable();
     table.destroy();
-    $('#approveTable').empty();
-    $("#approveTable").DataTable({
+    $('#correctionTable').empty();
+    $("#correctionTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMOArea/OnCorrectionTable",
@@ -344,10 +344,10 @@ function onCorrectionTable() {
 }
 
 function onCustomerTable() {
-    var table = $('#approveTable').DataTable();
+    var table = $('#customerTable').DataTable();
     table.destroy();
-    $('#approveTable').empty();
-    $("#approveTable").DataTable({
+    $('#customerTable').empty();
+    $("#customerTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMOArea/OnCustomerTable",
@@ -385,10 +385,10 @@ function onCustomerTable() {
 }
 
 function onGetDateComplitedTable() {
-    var table = $('#approveTable').DataTable();
+    var table = $('#getDateComplitedTable').DataTable();
     table.destroy();
-    $('#approveTable').empty();
-    $("#approveTable").DataTable({
+    $('#getDateComplitedTable').empty();
+    $("#getDateComplitedTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMOArea/OnGetDateComplited",
@@ -426,10 +426,10 @@ function onGetDateComplitedTable() {
 }
 
 function onComplitedTable() {
-    var table = $('#approveTable').DataTable();
+    var table = $('#complitedTable').DataTable();
     table.destroy();
-    $('#approveTable').empty();
-    $("#approveTable").DataTable({
+    $('#complitedTable').empty();
+    $("#complitedTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMOArea/OnComplitedTable",
