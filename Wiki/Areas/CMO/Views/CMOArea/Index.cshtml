@@ -527,6 +527,10 @@
                         <label>Дата завершения сверки:</label>
                         <input type="text" class="form-control" id="datetimeComplited" disabled="disabled" />
                     </div>
+                    <div class="col-lg-2">
+                        <label>Номер счет-фактуры:</label>
+                        <input type="text" class="form-control" id="numberOrder" />
+                    </div>
                     <div class="col-lg-1">
                         @*1 btn*@
                     </div>
@@ -616,6 +620,16 @@
 <script type="text/javascript">
     $(function () {
         $('#datetimePlanComplited').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimeComplited').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,
