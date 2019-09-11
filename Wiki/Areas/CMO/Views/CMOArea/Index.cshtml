@@ -415,8 +415,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                @Html.HiddenFor(model => model.id)
                 <div class="row">
+                    <div class="col-lg-2">
+                        <label>№ заявки:</label>
+                        <input type="text" class="form-control" id="spid" disabled="disabled" />
+                    </div>
                     <div class="col-lg-4">
                         <label>№заказа/ов:</label>
                         @Html.ListBox("spid_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
@@ -436,11 +439,11 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <label>Произвести сверку данных:</label>
                     </div>
-                    <div class="col-lg-1">
-                        <label>Процедура начата:</label>
+                    <div class="col-lg-2">
+                        <label>Процедура активна:</label>
                         <input type="checkbox" id="onApprove" />
                     </div>
                     <div class="col-lg-2">
@@ -448,54 +451,88 @@
                         <input type="text" class="form-control" id="datetimeToCorrection" disabled="disabled" />
                     </div>
                     <div class="col-lg-1">
-                        @*<label>Дата завершения сверки:</label>
-                        <input type="text" class="form-control" id="datetimeToCorrection" disabled="disabled" />*@
+                        @*2 btn*@
                     </div>
                 </div>
                 <hr />
                 <div class="row">
+                    <div class="col-lg-2">
+                        <label>Произвести сверку данных:</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Процедура активна:</label>
+                        <input type="checkbox" id="onCorrection" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimeUploadNewVersion" disabled="disabled" />
+                    </div>
                     <div class="col-lg-1">
+                        @*1 btn*@
+                    </div>
+                    <div class="col-lg-1">
+                        @*1 btn-folder*@
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Отправить заказ поставщику:</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Процедура активна:</label>
+                        <input type="checkbox" id="onCustomer" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimeToCustomer" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        @*1 btn*@
+                    </div>
+                    <div class="col-lg-1">
+                        @*1 btn-folder*@
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
                         <label>Подтвердить запуск заказа в работу:</label>
                     </div>
-                    <div class="col-lg-1">
-                        <label>Процедура начата:</label>
-                        <input type="checkbox" id="manufIn" />
+                    <div class="col-lg-2">
+                        <label>Процедура активна:</label>
+                        <input type="checkbox" id="onGetDateComplited" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Плановая дата поступления:</label>
-                        @Html.EditorFor(model => model.manufDate, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Цена, б/НДС (BYN):</label>
-                        @Html.EditorFor(model => model.manufCost, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimePlanComplited" />
                     </div>
                     <div class="col-lg-1">
-                        <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="manufComplited" />
+                        @*1 btn*@
+                    </div>
+                    <div class="col-lg-1">
+                        @*1 btn-folder*@
                     </div>
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-1">
-                        <label>Подтвердить поступление железа:</label>
-                    </div>
-                    <div class="col-lg-1">
-                        <label>Процедура начата:</label>
-                        <input type="checkbox" id="finIn" />
+                    <div class="col-lg-2">
+                        <label>Подтвердить приход:</label>
                     </div>
                     <div class="col-lg-2">
-                        <label>Дата поступления:</label>
-                        @Html.EditorFor(model => model.finDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Процедура активна:</label>
+                        <input type="checkbox" id="onComplited" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Цена, б/НДС (BYN):</label>
-                        @Html.EditorFor(model => model.finCost, new { htmlAttributes = new { @class = "form-control" } })
+                        <label>Дата завершения сверки:</label>
+                        <input type="text" class="form-control" id="datetimeComplited" disabled="disabled" />
                     </div>
                     <div class="col-lg-1">
-                        <label>Процедура закрыта:</label>
-                        <input type="checkbox" id="finComplited" />
+                        @*1 btn*@
                     </div>
                 </div>
+                <hr />
+
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -569,6 +606,16 @@
 <script type="text/javascript">
     $(function () {
         $('#finDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimePlanComplited').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,
