@@ -3,11 +3,13 @@
 // 03 - Admin
 // 04 - userKO
 // 05 - users
+// 06 - users manufacturing
 
 $(document).ready(function () {
     $('#pageId').hide();
     $('#btnAddOrder').hide();
     $('#btnReOrder').hide();
+    $('#btnAddSandwichPanel').hide();
     $('#dToWork').hide();
     $('#dToManuf').hide();
     $('#dToCompl').hide();
@@ -24,6 +26,12 @@ function loadData(listId) {
         loadReport();
     }
     else if (listId === 2 || listId === "2") {
+        loadOS();
+    }
+    else if (listId === 3 || listId === "3") {
+        loadOS();
+    }
+    else if (listId === 4 || listId === "4") {
         loadOS();
     }
     else {
@@ -84,6 +92,7 @@ function startMenu() {
     if (userGroupId === 4 || userGroupId === 2) {
         $('#btnAddOrder').show();
         $('#btnReOrder').show();
+        $('#btnAddSandwichPanel').show();
     }
     $("#reportTable").DataTable({
         "ajax": {
@@ -183,6 +192,67 @@ function startMenu() {
         "columns": objWork,
         "paging": false,
         "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    //report table - reportTable
+    //onApprove
+    //onCorrection
+    //onCustomer
+    //onGetDateComplited
+    //onComplited
+}
+
+var objSandwichPanel = [
+    { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "№№ заказов", "data": "pz", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Ожидаемый срок поставки", "data": "datePlanComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Фактический срок поставки", "data": "dateComplited", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Подрядчик", "data": "customerName", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
+];
+
+function sandwichPanelReport() {
+    var table = $('#reportTable').DataTable();
+    table.destroy();
+    $('#reportTable').empty();
+    $("#reportTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/SandwichPanelReport",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "На проверке") {
+                $('td', row).css('background-color', '#f28f43');
+            }
+            else if (data.state === "На исправлении") {
+                $('td', row).css('background-color', '#AA4643');
+            }
+            else if (data.state === "Ожидание сроков") {
+                $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "В производстве") {
+                $('td', row).css('background-color', '#89A54E');
+            }
+        },
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -654,15 +724,15 @@ function update() {
         id_CMO_Company: $('#id_CMO_Company').val(),
         workIn: $('#workIn').is(":checked"),
         workDateTime: $('#workDateTime').val(),
-        workCost: $('#workCost').val(),
+        workCost: $('#workCost').val().replace('.', ','),
         workComplitet: $('#workComplitet').is(":checked"),
         manufIn: $('#manufIn').is(":checked"),
         manufDate: $('#manufDate').val(),
-        manufCost: $('#manufCost').val(),
+        manufCost: $('#manufCost').val().replace('.', ','),
         manufComplited: $('#manufComplited').is(":checked"),
         finIn: $('#finIn').is(":checked"),
         finDate: $('#finDate').val(),
-        finCost: $('#finCost').val(),
+        finCost: $('#finCost').val().replace('.', ','),
         finComplited: $('#finComplited').is(":checked")
     };
     $.ajax({

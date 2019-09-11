@@ -359,5 +359,12 @@ namespace Wiki.Areas.CMO.Controllers
             }
             return name;
         }
+
+        //SandwichPanelReport
+        //На проверке
+        //На исправлении
+        //Ожидание сроков
+        //В производстве
+        //Оприходовано
     }
 }
