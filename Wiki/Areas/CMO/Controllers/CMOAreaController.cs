@@ -305,6 +305,16 @@ namespace Wiki.Areas.CMO.Controllers
             return positions;
         }
 
+        string GetPZsName(List<SandwichPanel_PZ> positionsList)
+        {
+            string positions = "";
+            foreach (var data in positionsList.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
+            {
+                positions += data.PZ_PlanZakaz.PlanZakaz + ";" + "</br>";
+            }
+            return positions;
+        }
+
         public string RenderUserMenu()
         {
             string login = "Войти";
@@ -362,12 +372,49 @@ namespace Wiki.Areas.CMO.Controllers
             return name;
         }
 
-        //SandwichPanelReport
-        //На проверке
-        //На исправлении
-        //Ожидание сроков
-        //В производстве
-        //Оприходовано
+        [HttpPost]
+        public JsonResult SandwichPanelReport()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.SandwichPanel
+                .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
+                .Include(d => d.SandwichPanelCustomer)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                edit = "",
+                order = dataList.id,
+                pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
+                dateApprove = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortSetting).Replace(@"""", ""),
+                dateToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortSetting).Replace(@"""", ""),
+                datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
+                dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
+                state = GetState(dataList),
+                customerName = dataList.SandwichPanelCustomer,
+                dataList.folder
+            });
+            return Json(new { data });
+        }
+
+        public string GetState(SandwichPanel sandwichPanel)
+        {
+            string state = "";
+            if (sandwichPanel.onApprove == true)
+                state = "На проверке";
+            else if(sandwichPanel.onCorrection == true)
+                state = "На исправлении";
+            else if (sandwichPanel.onCustomer == true)
+                state = "Ожидание сроков";
+            else if (sandwichPanel.onGetDateComplited == true)
+                state = "В производстве";
+            else if (sandwichPanel.onComplited == true)
+                state = "Оприходовано";
+            return state;
+        }
+
+
 
         //OnApproveTable
         //OnCorrectionTable
