@@ -14,6 +14,11 @@ $(document).ready(function () {
     $('#dToManuf').hide();
     $('#dToCompl').hide();
     $('#dReOrder').hide();
+    $('#dApproveTable').hide();
+    $('#dCorrectionTable').hide();
+    $('#dCustomerTable').hide();
+    $('#dGetDateComplitedTable').hide();
+    $('#dComplitedTable').hide();
     startMenu();
     if (userGroupId === 1) {
         loadData(2);
@@ -29,10 +34,10 @@ function loadData(listId) {
         loadOS();
     }
     else if (listId === 3 || listId === "3") {
-        loadOS();
+        loadReportPanel();
     }
     else if (listId === 4 || listId === "4") {
-        loadOS();
+        loadpanel();
     }
     else {
         loadReport();
@@ -198,12 +203,96 @@ function startMenu() {
             "search": "Поиск"
         }
     });
-    //report table - reportTable
-    //onApprove - onApproveTable
-    //onCorrection - onCorrectionTable
-    //onCustomer - onCustomerTable
-    //onGetDateComplited - onGetDateComplited
-    //onComplited - 
+    $("#approveTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnApproveTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#correctionTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnCorrectionTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#customerTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnCustomerTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#getDateComplitedTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnGetDateComplited",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#complitedTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/OnComplitedTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSandwichPanel,
+        "paging": false,
+        "info": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 var objSandwichPanel = [
@@ -655,6 +744,11 @@ function loadReport() {
         $('#dToManuf').hide();
         $('#dToCompl').hide();
         $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
         fullReport();
     }
     else {
@@ -662,6 +756,11 @@ function loadReport() {
         $('#dToManuf').hide();
         $('#dToCompl').hide();
         $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
         smallReport();
     }
 }
@@ -672,6 +771,11 @@ function loadOS() {
         $('#dToManuf').show();
         $('#dToCompl').show();
         $('#dReOrder').show();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
         desckTopOS();
     }
     else {
@@ -679,7 +783,78 @@ function loadOS() {
         $('#dToManuf').hide();
         $('#dToCompl').hide();
         $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
         smallReport();
+    }
+}
+
+function loadReportPanel() {
+    $('#dToWork').hide();
+    $('#dToManuf').hide();
+    $('#dToCompl').hide();
+    $('#dReOrder').hide();
+    $('#dApproveTable').hide();
+    $('#dCorrectionTable').hide();
+    $('#dCustomerTable').hide();
+    $('#dGetDateComplitedTable').hide();
+    $('#dComplitedTable').hide();
+    sandwichPanelReport();
+}
+
+function loadpanel() {
+    if (userGroupId === 1) {
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
+        $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').show();
+        $('#dGetDateComplitedTable').show();
+        $('#dComplitedTable').show();
+        onCustomerTable();
+        onGetDateComplitedTable();
+        onComplitedTable();
+    }
+    if (userGroupId === 6) {
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
+        $('#dReOrder').hide();
+        $('#dApproveTable').show();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
+        onApproveTable();
+    }
+    if (userGroupId === 4 || userGroupId === 2) {
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
+        $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').show();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
+        onCorrectionTable();
+    }
+    else {
+        $('#dToWork').hide();
+        $('#dToManuf').hide();
+        $('#dToCompl').hide();
+        $('#dReOrder').hide();
+        $('#dApproveTable').hide();
+        $('#dCorrectionTable').hide();
+        $('#dCustomerTable').hide();
+        $('#dGetDateComplitedTable').hide();
+        $('#dComplitedTable').hide();
+        sandwichPanelReport();
     }
 }
 
