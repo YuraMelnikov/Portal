@@ -39,7 +39,7 @@ namespace Wiki.Areas.CMO.Controllers
                 ViewBag.userGroupId = 2;
             else if (login == "ovp@katek.by" || login == "antipov@katek.by" || login == "myi@katek.by")
             //else if (login == "ovp@katek.by" || login == "antipov@katek.by")
-                ViewBag.userGroupId = 6;
+                        ViewBag.userGroupId = 6;
             else if (devisionUser == 13)
                 ViewBag.userGroupId = 3;
             else if (devisionUser == 18 || devisionUser == 15)
@@ -402,7 +402,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder =  @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -449,7 +449,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -476,7 +476,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -503,7 +503,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -530,7 +530,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -542,7 +542,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onCorrection == true && d.remove != true)
+                .Where(d => d.onComplited == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -557,7 +557,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortSetting).Replace(@"""", ""),
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
-                customerName = dataList.SandwichPanelCustomer,
+                customerName = GetCustomerName(dataList.SandwichPanelCustomer),
                 folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
@@ -577,7 +577,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 spid = dataList.id,
                 spid_PlanZakaz2 = GetSPPlanZakazArray(dataList.SandwichPanel_PZ.ToList()),
-                id_SandwichPanelCustomer = GetCustomerName(dataList.SandwichPanelCustomer),
+                id_SandwichPanelCustomer = GetCustomerId(dataList.SandwichPanelCustomer),
                 spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, longSetting).Replace(@"""", ""),
                 spid_AspNetUsers_Create = dataList.AspNetUsers.CiliricalName,
                 dataList.onApprove,
@@ -593,6 +593,14 @@ namespace Wiki.Areas.CMO.Controllers
                 dataList.numberOrder
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        int GetCustomerId(SandwichPanelCustomer name)
+        {
+            if (name == null)
+                return 0;
+            else
+                return name.id;
         }
 
         string GetCustomerName(SandwichPanelCustomer name)
@@ -648,20 +656,21 @@ namespace Wiki.Areas.CMO.Controllers
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult PostPanelToManufacturing(int spid)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
-            sandwichPanel.onApprove = true;
+            sandwichPanel.onApprove = false;
             sandwichPanel.onCorrection = false;
+            sandwichPanel.remove = true;
             sandwichPanel.datetimeUploadNewVersion = DateTime.Now;
             db.Entry(sandwichPanel).State = EntityState.Modified;
             db.SaveChanges();
             try
             {
-                new EmailSandwichPanel(sandwichPanel, login, 1);
                 logger.Debug("CMOAreaController / PostPanelToManufacturing: " + sandwichPanel.id);
             }
             catch (Exception ex)
@@ -670,13 +679,15 @@ namespace Wiki.Areas.CMO.Controllers
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult PostPanelToCustomer(int spid)
+
+        public JsonResult PostPanelToCustomer(int spid, int id_SandwichPanelCustomer)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
             sandwichPanel.onCustomer = false;
+            sandwichPanel.id_SandwichPanelCustomer = id_SandwichPanelCustomer;
             sandwichPanel.onGetDateComplited = true;
             sandwichPanel.datetimeToCustomer = DateTime.Now;
             db.Entry(sandwichPanel).State = EntityState.Modified;
@@ -692,6 +703,7 @@ namespace Wiki.Areas.CMO.Controllers
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited)
         {
             string login = HttpContext.User.Identity.Name;
@@ -702,7 +714,6 @@ namespace Wiki.Areas.CMO.Controllers
             sandwichPanel.onComplited = true;
             sandwichPanel.datetimePlanComplited = datetimePlanComplited;
             sandwichPanel.id_SandwichPanelCustomer = id_SandwichPanelCustomer;
-            sandwichPanel.datetimePlanComplited = DateTime.Now;
             db.Entry(sandwichPanel).State = EntityState.Modified;
             db.SaveChanges();
             try
@@ -716,6 +727,7 @@ namespace Wiki.Areas.CMO.Controllers
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult PostPanelToComplited(int spid, DateTime datetimeComplited, string numberOrder)
         {
             string login = HttpContext.User.Identity.Name;

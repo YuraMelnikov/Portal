@@ -343,6 +343,10 @@ function sandwichPanelReport() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -384,6 +388,10 @@ function onApproveTable() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -425,6 +433,10 @@ function onCorrectionTable() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -466,6 +478,10 @@ function onCustomerTable() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -507,6 +523,10 @@ function onGetDateComplitedTable() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -548,9 +568,13 @@ function onComplitedTable() {
             }
             else if (data.state === "На исправлении") {
                 $('td', row).css('background-color', '#AA4643');
+                $('td', row).css('color', '#FFFFFF');
             }
             else if (data.state === "Ожидание сроков") {
                 $('td', row).css('background-color', '#a6c96a');
+            }
+            else if (data.state === "Ожидание отправки") {
+                $('td', row).css('background-color', '#f7a35c');
             }
             else if (data.state === "В производстве") {
                 $('td', row).css('background-color', '#89A54E');
@@ -1300,6 +1324,7 @@ function postPanelToKO() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
             $('#approveTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
@@ -1325,6 +1350,7 @@ function postPanelToWork() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
             $('#approveTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
@@ -1350,6 +1376,7 @@ function postPanelToManufacturing() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
             $('#correctionTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
@@ -1360,6 +1387,10 @@ function postPanelToManufacturing() {
 }
 
 function postPanelToCustomer() {
+    var res = ValidPostToCustomer();
+    if (res === false) {
+        return false;
+    }
     var typeObj = {
         spid: $('#spid').val(),
         id_SandwichPanelCustomer: $('#id_SandwichPanelCustomer').val(),
@@ -1375,7 +1406,10 @@ function postPanelToCustomer() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
             $('#customerTable').DataTable().ajax.reload(null, false);
+            $('#getDateComplitedTable').DataTable().ajax.reload(null, false);
+            $('#complitedTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
@@ -1404,7 +1438,10 @@ function postPanelToPlanComplited() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
+            $('#customerTable').DataTable().ajax.reload(null, false);
             $('#getDateComplitedTable').DataTable().ajax.reload(null, false);
+            $('#complitedTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
         error: function (errormessage) {
@@ -1433,6 +1470,9 @@ function postPanelToComplited() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
+            $('#customerTable').DataTable().ajax.reload(null, false);
+            $('#getDateComplitedTable').DataTable().ajax.reload(null, false);
             $('#complitedTable').DataTable().ajax.reload(null, false);
             $('#OSSPModalView').modal('hide');
         },
@@ -1440,6 +1480,18 @@ function postPanelToComplited() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function ValidPostToCustomer() {
+    isValid = true;
+    if ($('#id_SandwichPanelCustomer').val() === null) {
+        $('#id_SandwichPanelCustomer').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_SandwichPanelCustomer').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 function ValidPostPanelToCustomer() {
@@ -1451,7 +1503,7 @@ function ValidPostPanelToCustomer() {
     else {
         $('#id_SandwichPanelCustomer').css('border-color', 'lightgrey');
     }
-    if ($('#datetimePlanComplited').val() === null) {
+    if ($('#datetimePlanComplited').val().length < 5) {
         $('#datetimePlanComplited').css('border-color', 'Red');
         isValid = false;
     }
@@ -1463,14 +1515,21 @@ function ValidPostPanelToCustomer() {
 
 function ValidPostPanelToComplited() {
     isValid = true;
-    if ($('#datetimeComplited').val() === null) {
+    if ($('#id_SandwichPanelCustomer').val() === null) {
+        $('#id_SandwichPanelCustomer').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_SandwichPanelCustomer').css('border-color', 'lightgrey');
+    }
+    if ($('#datetimeComplited').val().length < 5) {
         $('#datetimeComplited').css('border-color', 'Red');
         isValid = false;
     }
     else {
         $('#datetimeComplited').css('border-color', 'lightgrey');
     }
-    if ($('#numberOrder').val() === null) {
+    if ($('#numberOrder').val().length < 1) {
         $('#numberOrder').css('border-color', 'Red');
         isValid = false;
     }
