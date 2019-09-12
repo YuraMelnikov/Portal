@@ -340,6 +340,8 @@
     <Compile Include="Areas\ServiceReclamations\Controllers\SCController.cs" />
     <Compile Include="Areas\ServiceReclamations\Models\ReclamationsList.cs" />
     <Compile Include="Areas\ServiceReclamations\ServiceReclamationsAreaRegistration.cs" />
+    <Compile Include="Areas\UsersKO\Controllers\UserKOController.cs" />
+    <Compile Include="Areas\UsersKO\UsersKOAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -922,6 +924,7 @@
     <Content Include="Areas\ServiceReclamations\Content\portrait-middle-aged-businessman-with-digital-tablet-factory_52137-7803.jpg" />
     <Content Include="Areas\ServiceReclamations\Content\Remarks.js" />
     <Content Include="Areas\ServiceReclamations\migrate db\importListsPWASC.sql" />
+    <Content Include="Areas\UsersKO\Content\UsersKO.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css" />
@@ -1524,6 +1527,9 @@
     <Content Include="Areas\DashboardKO\Views\web.config" />
     <Content Include="Areas\DashboardKO\Views\Shared\_LayoutDashboardKO.cshtml" />
     <Content Include="Areas\DashboardKO\Views\ReportPage\Index.cshtml" />
+    <Content Include="Areas\UsersKO\Views\web.config" />
+    <Content Include="Areas\UsersKO\Views\Shared\_LayoutUsersKO.cshtml" />
+    <Content Include="Areas\UsersKO\Views\UserKO\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1858,6 +1864,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\NotesOrders\Models\" />
+    <Folder Include="Areas\UsersKO\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

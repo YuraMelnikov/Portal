@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/UsersKO/Views/Shared/_LayoutUsersKO.cshtml";
+}
+<head>
+    <script src="~/Areas/CMO/Content/CMO.js?v1.1"></script>
+    <script src="~/Areas/UsersKO/Content/UsersKO.js?v0.0"></script>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Отчет (ЦМО)</a></li>
+            <li><a onclick="return loadData(2);">Отдел снабжения (ЦМО)</a></li>
+            <li><a onclick="return loadData(3);">Отчет (сэндвич-панели)</a></li>
+            <li><a onclick="return loadData(4);">Задачи по сэндвич-панелям</a></li>
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "CMOArea"); }
+                </a>
+            </li>
+            <li><a id="pageId"></a></li>
+        </ul>
+    </div>
+</nav>
