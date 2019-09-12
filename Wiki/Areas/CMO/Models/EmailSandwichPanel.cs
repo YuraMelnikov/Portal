@@ -129,7 +129,7 @@ namespace Wiki.Areas.CMO.Models
             else if (stepNumber == 4)
             {
                 body = "Добрый день!" + "<br/>";
-                body += "Размещаем заказ сэндвич-панелей: " + order.id + "<br/>" + "<br/>";
+                body += "Просим выслать предложение/счет на поставку сэндвич-панелей. Внутренний номер " + order.id + ", просим прописывать в счете." + "<br/>" + "<br/>";
                 body += "С уважением," + "<br/>" +
                     "Хардин Александр Николаевич" + "<br/>" +
                     "Тел: 8(017) 366-91-38   внутр - 349" + "<br/>" +
@@ -185,6 +185,7 @@ namespace Wiki.Areas.CMO.Models
         {
             mailToList.Add("Antipov@katek.by");
             mailToList.Add("gea@katek.by");
+            mailToList.Add("bav@katek.by");
             return true;
         }
 
