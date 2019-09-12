@@ -37,6 +37,7 @@ function loadData(listId) {
         loadReportPanel();
     }
     else if (listId === 4 || listId === "4") {
+        loadReportPanel();
         loadpanel();
     }
     else {
@@ -296,17 +297,30 @@ function startMenu() {
 }
 
 var objSandwichPanel = [
-    { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
     { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
-    { "title": "№№ заказов", "data": "pz", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
-    { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": true },
-    { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Ожидаемый срок поставки", "data": "datePlanComplited", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Фактический срок поставки", "data": "dateComplited", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "№ заказа/ов", "data": "pz", "autowidth": true, "bSortable": true },
+    { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": false },
+    { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Ожидаемый срок поставки", "data": "datePlanComplited", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Фактический срок поставки", "data": "dateComplited", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "Подрядчик", "data": "customerName", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull }
+];
+
+var objSandwichPanelReport = [
+    { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "№ заказа/ов", "data": "pz", "autowidth": true, "bSortable": true },
+    { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": false },
+    { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Ожидаемый срок поставки", "data": "datePlanComplited", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Фактический срок поставки", "data": "dateComplited", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Подрядчик", "data": "customerName", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull }
 ];
 
 function sandwichPanelReport() {
@@ -322,7 +336,7 @@ function sandwichPanelReport() {
         },
         "order": [[1, "desc"]],
         "processing": true,
-        "columns": objSandwichPanel,
+        "columns": objSandwichPanelReport,
         "rowCallback": function (row, data, index) {
             if (data.state === "На проверке") {
                 $('td', row).css('background-color', '#f28f43');

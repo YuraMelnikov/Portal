@@ -20,9 +20,12 @@ namespace Wiki.Areas.CMO.Models
             {
                 this.fileUploadArray = fileUploadArray;
                 GetBasicFuild(login);
+                sandwichPanel.folder = "";
                 db.SandwichPanel.Add(sandwichPanel);
                 db.SaveChanges();
-                CreateFolderAndFileForPreOrder(sandwichPanel.id);
+                sandwichPanel.folder = CreateFolderAndFileForPreOrder(sandwichPanel.id);
+                db.Entry(sandwichPanel).State = EntityState.Modified;
+                db.SaveChanges();
                 foreach (var dataPZ in id_PlanZakaz)
                 {
                     SandwichPanel_PZ sandwichPanel_PZ = new SandwichPanel_PZ();
@@ -57,7 +60,7 @@ namespace Wiki.Areas.CMO.Models
             return true;
         }
 
-        private void CreateFolderAndFileForPreOrder(int id)
+        private string CreateFolderAndFileForPreOrder(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -67,6 +70,7 @@ namespace Wiki.Areas.CMO.Models
                 sandwichPanel.folder = directory;
                 db.Entry(sandwichPanel).State = EntityState.Modified;
                 db.SaveChanges();
+                return directory;
             }
         }
 

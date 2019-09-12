@@ -393,7 +393,6 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -403,7 +402,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder =  @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -436,7 +435,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onApproveTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -446,7 +445,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -463,7 +462,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onCorrectionTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -473,7 +472,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -490,7 +489,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onCustomerTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -500,7 +499,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -517,7 +516,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onGetDateComplited('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -527,7 +526,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
@@ -544,7 +543,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onComplitedTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -554,7 +553,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = dataList.SandwichPanelCustomer,
-                dataList.folder
+                folder = @"<a href =" + dataList.folder + "> Папка </a>"
             });
             return Json(new { data });
         }
