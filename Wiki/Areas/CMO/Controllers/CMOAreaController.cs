@@ -39,7 +39,7 @@ namespace Wiki.Areas.CMO.Controllers
                 ViewBag.userGroupId = 2;
             else if (login == "ovp@katek.by" || login == "antipov@katek.by" || login == "myi@katek.by")
             //else if (login == "ovp@katek.by" || login == "antipov@katek.by")
-                        ViewBag.userGroupId = 6;
+                ViewBag.userGroupId = 6;
             else if (devisionUser == 13)
                 ViewBag.userGroupId = 3;
             else if (devisionUser == 18 || devisionUser == 15)

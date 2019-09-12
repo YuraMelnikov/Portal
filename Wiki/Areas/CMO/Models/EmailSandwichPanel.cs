@@ -32,36 +32,38 @@ namespace Wiki.Areas.CMO.Models
                 mail.From = new MailAddress(this.login);
                 if (stepNumber == 1) //Create - 1
                 {
-                    //GetMailPM();
-                    //GetMailManufacturing();
+                    GetMailPM();
+                    GetMailManufacturing();
                     GetMailMYI();
                 }
                 else if (stepNumber == 2) //ToWork - 2
                 {
-                    //GetMailPurchaseDepartment();
-                    //GetMailPM();
+                    GetMailPurchaseDepartment();
+                    GetMailPM();
                     GetMailMYI();
                 }
                 else if (stepNumber == 3) //ToUpdate - 3
                 {
-                    //GetMailKB();
-                    //GetMailPM();
+                    GetMailKB();
+                    GetMailPM();
                     GetMailMYI();
                 }
                 else if (stepNumber == 4) //ToCustomer - 4
                 {
-                    //GetMailCustomer();
-                    //GetMailPM();
+                    GetMailCustomer();
+                    GetMailPM();
                     GetMailMYI();
                 }
                 else if (stepNumber == 5) //ToGetDateComplited
                 {
-                    //GetMailPM();
+                    GetMailPM();
+                    GetMailManufacturing();
                     GetMailMYI();
                 }
                 else if (stepNumber == 6) //ToComplited
                 {
-                    //GetMailPM();
+                    GetMailPM();
+                    GetMailManufacturing();
                     GetMailMYI();
                 }
                 else
