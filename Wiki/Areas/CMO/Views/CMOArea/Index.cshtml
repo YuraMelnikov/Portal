@@ -448,7 +448,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label>№заказа/ов:</label>
-                        @Html.ListBox("spid_PlanZakaz", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                        @Html.ListBox("spid_PlanZakaz2", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-2">
                         <label>Подрядчик:</label>
@@ -470,7 +470,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Процедура активна:</label>
-                        <input type="checkbox" id="onApprove" />
+                        <input type="checkbox" id="onApprove" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата завершения сверки:</label>
@@ -490,7 +490,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Процедура активна:</label>
-                        <input type="checkbox" id="onCorrection" />
+                        <input type="checkbox" id="onCorrection" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата завершения сверки:</label>
@@ -507,7 +507,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Процедура активна:</label>
-                        <input type="checkbox" id="onCustomer" />
+                        <input type="checkbox" id="onCustomer" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата завершения сверки:</label>
@@ -524,7 +524,7 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Процедура активна:</label>
-                        <input type="checkbox" id="onGetDateComplited" />
+                        <input type="checkbox" id="onGetDateComplited" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата завершения сверки:</label>
@@ -541,11 +541,11 @@
                     </div>
                     <div class="col-lg-2">
                         <label>Процедура активна:</label>
-                        <input type="checkbox" id="onComplited" />
+                        <input type="checkbox" id="onComplited" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата завершения сверки:</label>
-                        <input type="text" class="form-control" id="datetimeComplited" disabled="disabled" />
+                        <input type="text" class="form-control" id="datetimeComplited" />
                     </div>
                     <div class="col-lg-2">
                         <label>Номер счет-фактуры:</label>
@@ -555,28 +555,16 @@
                         <button type="button" class="btn btn-primary" id="btnPanelToComplited" style="display:none;" onclick="postPanelToPComplited();">Обновить</button>
                     </div>
                 </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <hr />
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
         </div>
     </div>

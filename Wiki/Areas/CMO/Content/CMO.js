@@ -780,7 +780,7 @@ function loadReport() {
 }
 
 function loadOS() {
-    if (userGroupId === 1) {
+    if (userGroupId === 1 || userGroupId === '1') {
         $('#dToWork').show();
         $('#dToManuf').show();
         $('#dToCompl').show();
@@ -820,7 +820,7 @@ function loadReportPanel() {
 }
 
 function loadpanel() {
-    if (userGroupId === 1) {
+    if (userGroupId === 1 || userGroupId === "1") {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
@@ -834,7 +834,7 @@ function loadpanel() {
         onGetDateComplitedTable();
         onComplitedTable();
     }
-    if (userGroupId === 6) {
+    else if (userGroupId === 6 || userGroupId === "6") {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
@@ -846,7 +846,7 @@ function loadpanel() {
         $('#dComplitedTable').hide();
         onApproveTable();
     }
-    if (userGroupId === 4 || userGroupId === 2) {
+    else if (userGroupId === 4 || userGroupId === 2 || userGroupId === "4" || userGroupId === "2") {
         $('#dToWork').hide();
         $('#dToManuf').hide();
         $('#dToCompl').hide();
@@ -920,7 +920,29 @@ function clearTextBox() {
     $('#spid_PlanZakaz').chosen();
     $('#spid_PlanZakaz').trigger('chosen:updated');
     $('#rofile1').val("");
-    
+    $('#spfile1').val("");
+    $('#workDateTime').css('border-color', 'lightgrey');
+    $('#workCost').css('border-color', 'lightgrey');
+    $('#manufDate').css('border-color', 'lightgrey');
+    $('#manufCost').css('border-color', 'lightgrey');
+    $('#finDate').css('border-color', 'lightgrey');
+    $('#finCost').css('border-color', 'lightgrey');
+    $('#datetimePlanComplited').css('border-color', 'lightgrey');
+    $('#datetimeComplited').css('border-color', 'lightgrey');
+    $('#numberOrder').css('border-color', 'lightgrey');
+    $('#spdateTimeCreate').val("");
+    $('#spid_AspNetUsers_Create').val("");
+    $('#datetimeToCorrection').val("");
+    $('#datetimeUploadNewVersion').val("");
+    $('#datetimeToCustomer').val("");
+    $('#datetimePlanComplited').val("");
+    $('#datetimeComplited').val("");
+    $('#numberOrder').val("");
+    $('#onApprove').prop('checked', false);
+    $('#onCorrection').prop('checked', false);
+    $('#onCustomer').prop('checked', false);
+    $('#onGetDateComplited').prop('checked', false);
+    $('#onComplited').prop('checked', false);
 }
 
 function clearTextBoxUpdate() {
@@ -963,12 +985,32 @@ function clearTextBoxUpdate() {
     $('#spid_PlanZakaz').val("");
     $('#spid_PlanZakaz').chosen();
     $('#spid_PlanZakaz').trigger('chosen:updated');
+    $('#workDateTime').css('border-color', 'lightgrey');
+    $('#workCost').css('border-color', 'lightgrey');
+    $('#manufDate').css('border-color', 'lightgrey');
+    $('#manufCost').css('border-color', 'lightgrey');
+    $('#finDate').css('border-color', 'lightgrey');
+    $('#finCost').css('border-color', 'lightgrey');
+    $('#datetimePlanComplited').css('border-color', 'lightgrey');
+    $('#datetimeComplited').css('border-color', 'lightgrey');
+    $('#numberOrder').css('border-color', 'lightgrey');
+    $('#spdateTimeCreate').val("");
+    $('#spid_AspNetUsers_Create').val("");
+    $('#datetimeToCorrection').val("");
+    $('#datetimeUploadNewVersion').val("");
+    $('#datetimeToCustomer').val("");
+    $('#datetimePlanComplited').val("");
+    $('#datetimeComplited').val("");
+    $('#numberOrder').val("");
+    $('#onApprove').prop('checked', false);
+    $('#onCorrection').prop('checked', false);
+    $('#onCustomer').prop('checked', false);
+    $('#onGetDateComplited').prop('checked', false);
+    $('#onComplited').prop('checked', false);
 }
 
 function get(id) {
     clearTextBoxUpdate();
-    $('#name').css('border-color', 'lightgrey');
-    $('#active').css('border-color', 'lightgrey');
     $.ajax({
         cache: false,
         url: "/CMOArea/Get/" + id,
@@ -1436,4 +1478,46 @@ function ValidPostPanelToComplited() {
         $('#numberOrder').css('border-color', 'lightgrey');
     }
     return isValid;
+}
+
+function getSandwichPanel(id) {
+    clearTextBoxUpdate();
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/GetSandwichPanel/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $("#spid_PlanZakaz2").val(result.spid_PlanZakaz2).trigger("chosen:updated");
+            $('#spid').val(result.spid);
+            $('#id_SandwichPanelCustomer').val(result.id_SandwichPanelCustomer);
+            $('#spdateTimeCreate').val(result.spdateTimeCreate);
+            $('#spid_AspNetUsers_Create').val(result.spid_AspNetUsers_Create);
+            $('#datetimeToCorrection').val(result.datetimeToCorrection);
+            $('#datetimeUploadNewVersion').val(result.datetimeUploadNewVersion);
+            $('#datetimeToCustomer').val(result.datetimeToCustomer);
+            $('#datetimePlanComplited').val(result.datetimePlanComplited);
+            $('#datetimeComplited').val(result.datetimeComplited);
+            $('#numberOrder').val(result.numberOrder);
+            $('#onApprove').prop('checked', result.onApprove);
+            $('#onCorrection').prop('checked', result.onCorrection);
+            $('#onCustomer').prop('checked', result.onCustomer);
+            $('#onGetDateComplited').prop('checked', result.onGetDateComplited);
+            $('#onComplited').prop('checked', result.onComplited);
+
+
+
+
+            $('#OSSPModalView').modal('show');
+
+
+            $('#btnUpdate').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+
+    });
+    return false;
 }

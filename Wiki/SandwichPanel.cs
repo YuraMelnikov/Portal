@@ -36,6 +36,7 @@ namespace Wiki
         public string folder { get; set; }
         public Nullable<System.DateTime> datetimePlanComplited { get; set; }
         public Nullable<int> id_SandwichPanelCustomer { get; set; }
+        public bool remove { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

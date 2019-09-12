@@ -1193,21 +1193,22 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="id_SandwichPanelCustomer" Type="int" />
           <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="onApprove" Type="bit" Nullable="false" />
-          <Property Name="onCorrection" Type="bit" Nullable="false" />
-          <Property Name="onCustomer" Type="bit" Nullable="false" />
-          <Property Name="onGetDateComplited" Type="bit" Nullable="false" />
-          <Property Name="onComplited" Type="bit" Nullable="false" />
-          <Property Name="datetimeUploadNewVersion" Type="datetime" />
-          <Property Name="datetimeToCorrection" Type="datetime" />
-          <Property Name="datetimeToCustomer" Type="datetime" />
-          <Property Name="datetimeComplited" Type="datetime" />
           <Property Name="numberOrder" Type="varchar(max)" Nullable="false" />
           <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="onApprove" Type="bit" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="datetimeToCorrection" Type="datetime" />
+          <Property Name="onCorrection" Type="bit" Nullable="false" />
+          <Property Name="datetimeUploadNewVersion" Type="datetime" />
+          <Property Name="onCustomer" Type="bit" Nullable="false" />
+          <Property Name="datetimeToCustomer" Type="datetime" />
+          <Property Name="onGetDateComplited" Type="bit" Nullable="false" />
           <Property Name="datetimePlanComplited" Type="datetime" />
-          <Property Name="id_SandwichPanelCustomer" Type="int" />
+          <Property Name="onComplited" Type="bit" Nullable="false" />
+          <Property Name="datetimeComplited" Type="datetime" />
+          <Property Name="remove" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SandwichPanel_PZ">
           <Key>
@@ -1372,7 +1373,7 @@
           <Property Name="idNewRem" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1399,7 +1400,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1409,7 +1410,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1431,7 +1432,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' do
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1441,7 +1442,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1462,7 +1463,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a prima
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1533,7 +1534,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a pr
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1544,7 +1545,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -7976,6 +7977,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="datetimePlanComplited" Type="DateTime" Precision="3" />
           <Property Name="id_SandwichPanelCustomer" Type="Int32" />
           <NavigationProperty Name="SandwichPanelCustomer" Relationship="PortalKATEKModel.FK_SandwichPanel_SandwichPanelCustomer" FromRole="SandwichPanel" ToRole="SandwichPanelCustomer" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SandwichPanel_PZ">
           <Key>
@@ -9677,6 +9679,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="SandwichPanel">
             <EntityTypeMapping TypeName="PortalKATEKModel.SandwichPanel">
               <MappingFragment StoreEntitySet="SandwichPanel">
+                <ScalarProperty Name="remove" ColumnName="remove" />
                 <ScalarProperty Name="id_SandwichPanelCustomer" ColumnName="id_SandwichPanelCustomer" />
                 <ScalarProperty Name="datetimePlanComplited" ColumnName="datetimePlanComplited" />
                 <ScalarProperty Name="folder" ColumnName="folder" />

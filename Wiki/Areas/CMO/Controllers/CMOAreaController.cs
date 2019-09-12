@@ -37,7 +37,7 @@ namespace Wiki.Areas.CMO.Controllers
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by")
                 ViewBag.userGroupId = 2;
-            else if (login == "ovp@katek.by" || login == "antipov@katek.by")
+            else if (login == "ovp@katek.by" || login == "antipov@katek.by" || login == "myi@katek.by")
                 ViewBag.userGroupId = 6;
             else if (devisionUser == 13)
                 ViewBag.userGroupId = 3;
@@ -435,7 +435,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onApproveTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -462,7 +462,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onCorrectionTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -489,7 +489,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onCustomerTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -516,7 +516,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onGetDateComplited('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -543,7 +543,7 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return onComplitedTable('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                 order = dataList.id,
                 pz = GetPZsName(dataList.SandwichPanel_PZ.ToList()),
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortSetting).Replace(@"""", ""),
@@ -566,27 +566,36 @@ namespace Wiki.Areas.CMO.Controllers
                 .Where(d => d.id == id)
                 .Include(d => d.SandwichPanel_PZ.Select(s => s.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
+                .Include(d => d.AspNetUsers)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 spid = dataList.id,
                 spid_PlanZakaz = GetSPPlanZakazArray(dataList.SandwichPanel_PZ.ToList()),
-                id_SandwichPanelCustomer = dataList.SandwichPanelCustomer.name,
-                spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortDefaultSetting).Replace(@"""", ""),
-                spid_AspNetUsers_Create = dataList.id,
+                id_SandwichPanelCustomer = GetCustomerName(dataList.SandwichPanelCustomer),
+                //spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortDefaultSetting).Replace(@"""", ""),
+                spid_AspNetUsers_Create = dataList.AspNetUsers.CiliricalName,
                 dataList.onApprove,
-                datetimeToCorrection = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortDefaultSetting).Replace(@"""", ""),
+                //datetimeToCorrection = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onCorrection,
-                datetimeUploadNewVersion = JsonConvert.SerializeObject(dataList.datetimeUploadNewVersion, shortDefaultSetting).Replace(@"""", ""),
+                //datetimeUploadNewVersion = JsonConvert.SerializeObject(dataList.datetimeUploadNewVersion, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onCustomer,
-                datetimeToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortDefaultSetting).Replace(@"""", ""),
+                //datetimeToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onGetDateComplited,
-                datetimePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortDefaultSetting).Replace(@"""", ""),
+                //datetimePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onComplited,
-                datetimeComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortDefaultSetting).Replace(@"""", ""),
+                //datetimeComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortDefaultSetting).Replace(@"""", ""),
                 dataList.numberOrder
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        string GetCustomerName(SandwichPanelCustomer name)
+        {
+            if (name == null)
+                return "";
+            else
+                return name.name;
         }
 
         public JsonResult PostPanelToKO(int spid)
