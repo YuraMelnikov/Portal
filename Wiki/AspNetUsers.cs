@@ -40,6 +40,7 @@ namespace Wiki
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.SandwichPanel = new HashSet<SandwichPanel>();
+            this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
         }
     
         public string Id { get; set; }
@@ -105,5 +106,7 @@ namespace Wiki
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SandwichPanel> SandwichPanel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
     }
 }

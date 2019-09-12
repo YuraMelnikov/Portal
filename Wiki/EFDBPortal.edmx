@@ -348,6 +348,15 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="month" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardKO_UsersMonthPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_ProductionCalendar" Type="int" Nullable="false" />
+          <Property Name="k" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardKOHssPO">
           <Key>
             <PropertyRef Name="id" />
@@ -675,6 +684,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_MatchingType" Type="int" Nullable="false" />
           <Property Name="id_Debit_WorkBit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductionCalendar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="timeToOnePerson" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectServer_CreateTasks">
           <Key>
@@ -1373,7 +1390,7 @@
           <Property Name="idNewRem" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1400,7 +1417,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1410,7 +1427,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1432,7 +1449,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1442,7 +1459,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1463,7 +1480,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1534,7 +1551,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="ResourceUID" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1545,7 +1562,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -1930,6 +1947,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="DashboardHSSPlan">
               <PropertyRef Name="id_DashboardBP_State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="DashboardKO_UsersMonthPlan" Type="Self.DashboardKO_UsersMonthPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardKO_UsersMonthPlan">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardKO_UsersMonthPlan_ProductionCalendar">
+          <End Role="ProductionCalendar" Type="Self.ProductionCalendar" Multiplicity="1" />
+          <End Role="DashboardKO_UsersMonthPlan" Type="Self.DashboardKO_UsersMonthPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionCalendar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardKO_UsersMonthPlan">
+              <PropertyRef Name="id_ProductionCalendar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3206,6 +3247,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="DashboardBP_TasksList" EntityType="Self.DashboardBP_TasksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKO_UsersMonthPlan" EntityType="Self.DashboardKO_UsersMonthPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOHssPO" EntityType="Self.DashboardKOHssPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOKBHss" EntityType="Self.DashboardKOKBHss" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOM1" EntityType="Self.DashboardKOM1" Schema="dbo" store:Type="Tables" />
@@ -3238,6 +3280,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionCalendar" EntityType="Self.ProductionCalendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectServer_CreateTasks" EntityType="Self.ProjectServer_CreateTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectServer_UpdateTasks" EntityType="Self.ProjectServer_UpdateTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
@@ -3582,6 +3625,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_DashboardHSSPlan_DashboardBP_State" Association="Self.FK_DashboardHSSPlan_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
             <End Role="DashboardHSSPlan" EntitySet="DashboardHSSPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="Self.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_ProductionCalendar" Association="Self.FK_DashboardKO_UsersMonthPlan_ProductionCalendar">
+            <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
+            <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardRatePlan_DashboardBP_State" Association="Self.FK_DashboardRatePlan_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
@@ -4770,6 +4821,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="SandwichPanelCustomer" EntitySet="SandwichPanelCustomer" />
             <End Role="SandwichPanel" EntitySet="SandwichPanel" />
           </AssociationSet>
+          <EntitySet Name="DashboardKO_UsersMonthPlan" EntityType="PortalKATEKModel.DashboardKO_UsersMonthPlan" />
+          <EntitySet Name="ProductionCalendar" EntityType="PortalKATEKModel.ProductionCalendar" />
+          <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_ProductionCalendar" Association="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar">
+            <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
+            <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5031,6 +5092,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="SandwichPanel" Relationship="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" FromRole="AspNetUsers" ToRole="SandwichPanel" />
+          <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardKO_UsersMonthPlan" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -8047,6 +8109,50 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardKO_UsersMonthPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_ProductionCalendar" Type="Int32" Nullable="false" />
+          <Property Name="k" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" FromRole="DashboardKO_UsersMonthPlan" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ProductionCalendar" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" FromRole="DashboardKO_UsersMonthPlan" ToRole="ProductionCalendar" />
+        </EntityType>
+        <EntityType Name="ProductionCalendar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="timeToOnePerson" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" FromRole="ProductionCalendar" ToRole="DashboardKO_UsersMonthPlan" />
+        </EntityType>
+        <Association Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardKO_UsersMonthPlan" Role="DashboardKO_UsersMonthPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardKO_UsersMonthPlan">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardKO_UsersMonthPlan_ProductionCalendar">
+          <End Type="PortalKATEKModel.ProductionCalendar" Role="ProductionCalendar" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardKO_UsersMonthPlan" Role="DashboardKO_UsersMonthPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionCalendar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardKO_UsersMonthPlan">
+              <PropertyRef Name="id_ProductionCalendar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9714,6 +9820,25 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKO_UsersMonthPlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKO_UsersMonthPlan">
+              <MappingFragment StoreEntitySet="DashboardKO_UsersMonthPlan">
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="id_ProductionCalendar" ColumnName="id_ProductionCalendar" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionCalendar">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProductionCalendar">
+              <MappingFragment StoreEntitySet="ProductionCalendar">
+                <ScalarProperty Name="timeToOnePerson" ColumnName="timeToOnePerson" />
+                <ScalarProperty Name="period" ColumnName="period" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

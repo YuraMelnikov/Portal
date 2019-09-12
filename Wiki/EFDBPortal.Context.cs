@@ -154,5 +154,7 @@ namespace Wiki
         public virtual DbSet<SandwichPanel> SandwichPanel { get; set; }
         public virtual DbSet<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
         public virtual DbSet<SandwichPanelCustomer> SandwichPanelCustomer { get; set; }
+        public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        public virtual DbSet<ProductionCalendar> ProductionCalendar { get; set; }
     }
 }

@@ -470,6 +470,9 @@
     <Compile Include="DashboardKO_Quartal.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardKO_UsersMonthPlan.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardRatePlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -621,6 +624,9 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PostMatching.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductionCalendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectMSP_EpmProject_UserView.cs">
