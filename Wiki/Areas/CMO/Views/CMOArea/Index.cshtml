@@ -448,7 +448,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label>№заказа/ов:</label>
-                        @Html.ListBox("spid_PlanZakaz2", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                        <input type="text" class="form-control" id="spid_PlanZakaz2" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Подрядчик:</label>
@@ -497,7 +497,7 @@
                         <input type="text" class="form-control" id="datetimeUploadNewVersion" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnPanelToManufacturing" style="display:none;" onclick="postPanelToManufacturing();">Данные актуализированы</button>
+                        <button type="button" class="btn btn-danger" id="btnPanelToManufacturing" style="display:none;" onclick="postPanelToManufacturing();">Удалить заявку</button>
                     </div>
                 </div>
                 <hr />

@@ -1489,35 +1489,45 @@ function getSandwichPanel(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $("#spid_PlanZakaz2").val(result.spid_PlanZakaz2).trigger("chosen:updated");
+            $('#btnPanelToKO').hide();
+            $('#btnPanelToWork').hide();
+            $('#btnPanelToManufacturing').hide();
+            $('#btnPanelToCustomer').hide();
+            $('#btnPanelToPlanComplited').hide();
+            $('#btnPanelToComplited').hide();
+            $('#spid_PlanZakaz2').val(result.spid_PlanZakaz2);
             $('#spid').val(result.spid);
             $('#id_SandwichPanelCustomer').val(result.id_SandwichPanelCustomer);
             $('#spdateTimeCreate').val(result.spdateTimeCreate);
             $('#spid_AspNetUsers_Create').val(result.spid_AspNetUsers_Create);
-            $('#datetimeToCorrection').val(result.datetimeToCorrection);
-            $('#datetimeUploadNewVersion').val(result.datetimeUploadNewVersion);
-            $('#datetimeToCustomer').val(result.datetimeToCustomer);
-            $('#datetimePlanComplited').val(result.datetimePlanComplited);
-            $('#datetimeComplited').val(result.datetimeComplited);
+            $('#datetimeToCorrection').val(processNull(result.datetimeToCorrection));
+            $('#datetimeUploadNewVersion').val(processNull(result.datetimeUploadNewVersion));
+            $('#datetimeToCustomer').val(processNull(result.datetimeToCustomer));
+            $('#datetimePlanComplited').val(processNull(result.datetimePlanComplited));
+            $('#datetimeComplited').val(processNull(result.datetimeComplited));
             $('#numberOrder').val(result.numberOrder);
             $('#onApprove').prop('checked', result.onApprove);
             $('#onCorrection').prop('checked', result.onCorrection);
             $('#onCustomer').prop('checked', result.onCustomer);
             $('#onGetDateComplited').prop('checked', result.onGetDateComplited);
             $('#onComplited').prop('checked', result.onComplited);
-
-
-
-
+            if (result.onApprove === true) {
+                $('#btnPanelToKO').show();
+                $('#btnPanelToWork').show();
+            }
+            else if (result.onCorrection === true)
+                $('#btnPanelToManufacturing').show();
+            else if (result.onCustomer === true)
+                $('#btnPanelToCustomer').show();
+            else if (result.onGetDateComplited === true)
+                $('#btnPanelToPlanComplited').show();
+            else if (result.onComplited === true)
+                $('#btnPanelToComplited').show();
             $('#OSSPModalView').modal('show');
-
-
-            $('#btnUpdate').show();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
-
     });
     return false;
 }

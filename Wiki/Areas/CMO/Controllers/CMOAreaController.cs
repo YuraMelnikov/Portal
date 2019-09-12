@@ -38,6 +38,7 @@ namespace Wiki.Areas.CMO.Controllers
             else if (login == "nrf@katek.by")
                 ViewBag.userGroupId = 2;
             else if (login == "ovp@katek.by" || login == "antipov@katek.by" || login == "myi@katek.by")
+            //else if (login == "ovp@katek.by" || login == "antipov@katek.by")
                 ViewBag.userGroupId = 6;
             else if (devisionUser == 13)
                 ViewBag.userGroupId = 3;
@@ -269,12 +270,12 @@ namespace Wiki.Areas.CMO.Controllers
             return pZ_PlanZakaz;
         }
 
-        string[] GetSPPlanZakazArray(List<SandwichPanel_PZ> reclamation_PZs)
+        string GetSPPlanZakazArray(List<SandwichPanel_PZ> reclamation_PZs)
         {
-            string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
+            string pZ_PlanZakaz = "";
             for (int i = 0; i < reclamation_PZs.Count; i++)
             {
-                pZ_PlanZakaz[i] = reclamation_PZs[i].id_PZ_PlanZakaz.ToString();
+                pZ_PlanZakaz += reclamation_PZs[i].PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
             return pZ_PlanZakaz;
         }
@@ -409,17 +410,21 @@ namespace Wiki.Areas.CMO.Controllers
 
         public string GetState(SandwichPanel sandwichPanel)
         {
-            string state = "";
-            if (sandwichPanel.onApprove == true)
+            string state;
+            if (sandwichPanel.remove == true)
+                state = "Отменен";
+            else if (sandwichPanel.onApprove == true)
                 state = "На проверке";
             else if(sandwichPanel.onCorrection == true)
                 state = "На исправлении";
             else if (sandwichPanel.onCustomer == true)
-                state = "Ожидание сроков";
+                state = "Ожидание отправки";
             else if (sandwichPanel.onGetDateComplited == true)
-                state = "В производстве";
+                state = "Ожидание сроков";
             else if (sandwichPanel.onComplited == true)
-                state = "Оприходовано";
+                state = "Изготавливается";
+            else
+                state = "Оприходован";
             return state;
         }
 
@@ -429,7 +434,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onApprove == true)
+                .Where(d => d.onApprove == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -456,7 +461,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onCorrection == true)
+                .Where(d => d.onCorrection == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -483,7 +488,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onCustomer == true)
+                .Where(d => d.onCustomer == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -510,7 +515,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onGetDateComplited == true)
+                .Where(d => d.onGetDateComplited == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -537,7 +542,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.SandwichPanel
-                .Where(d => d.onCorrection == true)
+                .Where(d => d.onCorrection == true && d.remove != true)
                 .Include(d => d.SandwichPanel_PZ.Select(p => p.PZ_PlanZakaz))
                 .Include(d => d.SandwichPanelCustomer)
                 .ToList();
@@ -571,20 +576,20 @@ namespace Wiki.Areas.CMO.Controllers
             var data = query.Select(dataList => new
             {
                 spid = dataList.id,
-                spid_PlanZakaz = GetSPPlanZakazArray(dataList.SandwichPanel_PZ.ToList()),
+                spid_PlanZakaz2 = GetSPPlanZakazArray(dataList.SandwichPanel_PZ.ToList()),
                 id_SandwichPanelCustomer = GetCustomerName(dataList.SandwichPanelCustomer),
-                //spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, shortDefaultSetting).Replace(@"""", ""),
+                spdateTimeCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, longSetting).Replace(@"""", ""),
                 spid_AspNetUsers_Create = dataList.AspNetUsers.CiliricalName,
                 dataList.onApprove,
-                //datetimeToCorrection = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortDefaultSetting).Replace(@"""", ""),
+                datetimeToCorrection = JsonConvert.SerializeObject(dataList.datetimeToCorrection, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onCorrection,
-                //datetimeUploadNewVersion = JsonConvert.SerializeObject(dataList.datetimeUploadNewVersion, shortDefaultSetting).Replace(@"""", ""),
+                datetimeUploadNewVersion = JsonConvert.SerializeObject(dataList.datetimeUploadNewVersion, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onCustomer,
-                //datetimeToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortDefaultSetting).Replace(@"""", ""),
+                datetimeToCustomer = JsonConvert.SerializeObject(dataList.datetimeToCustomer, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onGetDateComplited,
-                //datetimePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortDefaultSetting).Replace(@"""", ""),
+                datetimePlanComplited = JsonConvert.SerializeObject(dataList.datetimePlanComplited, shortDefaultSetting).Replace(@"""", ""),
                 dataList.onComplited,
-                //datetimeComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortDefaultSetting).Replace(@"""", ""),
+                datetimeComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, shortDefaultSetting).Replace(@"""", ""),
                 dataList.numberOrder
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);

@@ -57,6 +57,7 @@ namespace Wiki.Areas.CMO.Models
             sandwichPanel.onCustomer = false;
             sandwichPanel.onGetDateComplited = false;
             sandwichPanel.onComplited = false;
+            sandwichPanel.remove = false;
             return true;
         }
 
