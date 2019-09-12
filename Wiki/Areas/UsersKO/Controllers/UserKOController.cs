@@ -12,5 +12,20 @@ namespace Wiki.Areas.UsersKO.Controllers
         {
             return View();
         }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
+        }
     }
 }
