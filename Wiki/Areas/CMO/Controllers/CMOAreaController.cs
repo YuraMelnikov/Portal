@@ -598,46 +598,131 @@ namespace Wiki.Areas.CMO.Controllers
             SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
             sandwichPanel.onApprove = false;
             sandwichPanel.onCorrection = true;
+            sandwichPanel.datetimeToCorrection = DateTime.Now;
             db.Entry(sandwichPanel).State = EntityState.Modified;
             db.SaveChanges();
-
-            //Email!!!
-
-
-
-
-
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 3);
+                logger.Debug("CMOAreaController / PostPanelToKO: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToKO: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult PostPanelToWork(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onApprove = false;
+            sandwichPanel.onCustomer = true;
+            sandwichPanel.datetimeUploadNewVersion = DateTime.Now;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 2);
+                logger.Debug("CMOAreaController / PostPanelToWork: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToWork: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToManufacturing(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onApprove = true;
+            sandwichPanel.onCorrection = false;
+            sandwichPanel.datetimeUploadNewVersion = DateTime.Now;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 1);
+                logger.Debug("CMOAreaController / PostPanelToManufacturing: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToManufacturing: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToCustomer(int spid)
         {
             string login = HttpContext.User.Identity.Name;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onCustomer = false;
+            sandwichPanel.onGetDateComplited = true;
+            sandwichPanel.datetimeToCustomer = DateTime.Now;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 4);
+                logger.Debug("CMOAreaController / PostPanelToCustomer: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToCustomer: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited)
         {
             string login = HttpContext.User.Identity.Name;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onGetDateComplited = false;
+            sandwichPanel.onComplited = true;
+            sandwichPanel.datetimePlanComplited = datetimePlanComplited;
+            sandwichPanel.id_SandwichPanelCustomer = id_SandwichPanelCustomer;
+            sandwichPanel.datetimePlanComplited = DateTime.Now;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 5);
+                logger.Debug("CMOAreaController / PostPanelToPlanComplited: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToPlanComplited: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PostPanelToComplited(int spid, DateTime datetimeComplited, string numberOrder)
         {
             string login = HttpContext.User.Identity.Name;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            SandwichPanel sandwichPanel = db.SandwichPanel.Find(spid);
+            sandwichPanel.onComplited = false;
+            sandwichPanel.numberOrder = numberOrder;
+            sandwichPanel.datetimeComplited = datetimeComplited;
+            db.Entry(sandwichPanel).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                new EmailSandwichPanel(sandwichPanel, login, 6);
+                logger.Debug("CMOAreaController / PostPanelToComplited: " + sandwichPanel.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PostPanelToComplited: " + sandwichPanel.id + " | " + ex);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
