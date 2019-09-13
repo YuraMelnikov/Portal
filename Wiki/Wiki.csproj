@@ -454,6 +454,15 @@
     <Compile Include="DashboardKOM3.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardKOMP1.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardKOMP2.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardKOMP3.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardKOQuaHumen.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

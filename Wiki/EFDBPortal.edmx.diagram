@@ -270,6 +270,9 @@
         <EntityTypeShape EntityType="PortalKATEKModel.ProductionCalendar" Width="1.5" PointX="13.625" PointY="58.75" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOMP1" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOMP2" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardKOMP3" Width="1.5" PointX="13.375" PointY="8.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

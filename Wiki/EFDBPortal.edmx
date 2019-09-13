@@ -406,6 +406,51 @@
           <Property Name="devision" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardKOMP1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ciliricalName" Type="varchar(max)" Nullable="false" />
+          <Property Name="devisionName" Type="varchar(max)" Nullable="false" />
+          <Property Name="k" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
+          <Property Name="plan10" Type="float" Nullable="false" />
+          <Property Name="plan20" Type="float" Nullable="false" />
+          <Property Name="plan30" Type="float" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOMP2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ciliricalName" Type="varchar(max)" Nullable="false" />
+          <Property Name="devisionName" Type="varchar(max)" Nullable="false" />
+          <Property Name="k" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
+          <Property Name="plan10" Type="float" Nullable="false" />
+          <Property Name="plan20" Type="float" Nullable="false" />
+          <Property Name="plan30" Type="float" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardKOMP3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ciliricalName" Type="varchar(max)" Nullable="false" />
+          <Property Name="devisionName" Type="varchar(max)" Nullable="false" />
+          <Property Name="k" Type="float" Nullable="false" />
+          <Property Name="plan" Type="float" Nullable="false" />
+          <Property Name="plan10" Type="float" Nullable="false" />
+          <Property Name="plan20" Type="float" Nullable="false" />
+          <Property Name="plan30" Type="float" Nullable="false" />
+          <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardKOQuaHumen">
           <Key>
             <PropertyRef Name="id" />
@@ -3253,6 +3298,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardKOM1" EntityType="Self.DashboardKOM1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOM2" EntityType="Self.DashboardKOM2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOM3" EntityType="Self.DashboardKOM3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOMP1" EntityType="Self.DashboardKOMP1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOMP2" EntityType="Self.DashboardKOMP2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardKOMP3" EntityType="Self.DashboardKOMP3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOQuaHumen" EntityType="Self.DashboardKOQuaHumen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKOQuartal" EntityType="Self.DashboardKOQuartal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKORemainingWork" EntityType="Self.DashboardKORemainingWork" Schema="dbo" store:Type="Tables" />
@@ -4831,6 +4879,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
             <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
           </AssociationSet>
+          <EntitySet Name="DashboardKOMP1" EntityType="PortalKATEKModel.DashboardKOMP1" />
+          <EntitySet Name="DashboardKOMP2" EntityType="PortalKATEKModel.DashboardKOMP2" />
+          <EntitySet Name="DashboardKOMP3" EntityType="PortalKATEKModel.DashboardKOMP3" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8153,6 +8204,51 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardKOMP1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="ciliricalName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="devisionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="k" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <Property Name="plan10" Type="Double" Nullable="false" />
+          <Property Name="plan20" Type="Double" Nullable="false" />
+          <Property Name="plan30" Type="Double" Nullable="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOMP2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="ciliricalName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="devisionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="k" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <Property Name="plan10" Type="Double" Nullable="false" />
+          <Property Name="plan20" Type="Double" Nullable="false" />
+          <Property Name="plan30" Type="Double" Nullable="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardKOMP3">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="ciliricalName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="devisionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="k" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+          <Property Name="plan10" Type="Double" Nullable="false" />
+          <Property Name="plan20" Type="Double" Nullable="false" />
+          <Property Name="plan30" Type="Double" Nullable="false" />
+          <Property Name="normHoure" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9840,6 +9936,54 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="timeToOnePerson" ColumnName="timeToOnePerson" />
                 <ScalarProperty Name="period" ColumnName="period" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOMP1">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP1">
+              <MappingFragment StoreEntitySet="DashboardKOMP1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="plan30" ColumnName="plan30" />
+                <ScalarProperty Name="plan20" ColumnName="plan20" />
+                <ScalarProperty Name="plan10" ColumnName="plan10" />
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="devisionName" ColumnName="devisionName" />
+                <ScalarProperty Name="ciliricalName" ColumnName="ciliricalName" />
+                <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOMP2">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP2">
+              <MappingFragment StoreEntitySet="DashboardKOMP2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="plan30" ColumnName="plan30" />
+                <ScalarProperty Name="plan20" ColumnName="plan20" />
+                <ScalarProperty Name="plan10" ColumnName="plan10" />
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="devisionName" ColumnName="devisionName" />
+                <ScalarProperty Name="ciliricalName" ColumnName="ciliricalName" />
+                <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardKOMP3">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP3">
+              <MappingFragment StoreEntitySet="DashboardKOMP3">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="normHoure" ColumnName="normHoure" />
+                <ScalarProperty Name="plan30" ColumnName="plan30" />
+                <ScalarProperty Name="plan20" ColumnName="plan20" />
+                <ScalarProperty Name="plan10" ColumnName="plan10" />
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="devisionName" ColumnName="devisionName" />
+                <ScalarProperty Name="ciliricalName" ColumnName="ciliricalName" />
+                <ScalarProperty Name="period" ColumnName="period" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
