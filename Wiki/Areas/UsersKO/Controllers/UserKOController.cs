@@ -15,8 +15,8 @@ namespace Wiki.Areas.UsersKO.Controllers
             {
                 PortalKATEKEntities db = new PortalKATEKEntities();
                 string login = HttpContext.User.Identity.Name;
-                ViewBag.list = new SelectList(db.ProductionCalendar.OrderBy(d => d.period), "idS", "name");
-                ViewBag.sections = new SelectList(db.ProductionCalendar.OrderBy(d => d.period), "idS", "name");
+                ViewBag.list = new SelectList(db.ProductionCalendar.OrderBy(d => d.period), "id", "period");
+                ViewBag.sections = new SelectList(db.ProductionCalendar.OrderBy(d => d.period), "id", "period");
                 logger.Debug("UserKOController Index: " + login);
                 return View();
             }

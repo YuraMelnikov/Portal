@@ -924,6 +924,7 @@
     <Content Include="Areas\ServiceReclamations\Content\portrait-middle-aged-businessman-with-digital-tablet-factory_52137-7803.jpg" />
     <Content Include="Areas\ServiceReclamations\Content\Remarks.js" />
     <Content Include="Areas\ServiceReclamations\migrate db\importListsPWASC.sql" />
+    <Content Include="Areas\UsersKO\Content\scriptNewPeriod.sql" />
     <Content Include="Areas\UsersKO\Content\UsersKO.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
