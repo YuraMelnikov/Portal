@@ -26,18 +26,6 @@ namespace Wiki.Areas.Cells.Controllers
             return View();
         }
 
-        public ActionResult Debug()
-        {
-
-            //А - Д
-            //А - Г
-            //Б - Д
-            //Б - Г
-            //Д - И
-            //Г - И
-            return View();
-        }
-
         public JsonResult List(string id)
         {
             string login = HttpContext.User.Identity.Name;
