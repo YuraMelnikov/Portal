@@ -19,8 +19,8 @@
     getHSSKBE();
     getTimeSheet();
     getUsersMP1();
-    getUsersMP2();
-    getUsersMP3();
+    //getUsersMP2();
+    //getUsersMP3();
 });
 
 function getQuartalUsersResult() {
@@ -1629,9 +1629,17 @@ function getUsersMP1() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
+            var dataArrayPlan = new Array();
+            var dataArray10 = new Array();
+            var dataArray20 = new Array();
+            var dataArray30 = new Array();
             for (var i = 0; i < lenghtArrayResult; i++) {
                 catigoriesArray[i] = result[i].ciliricalName;
                 dataArray[i] = result[i].normHoure;
+                dataArrayPlan[i] = result[i].plan;
+                dataArray10[i] = result[i].plan10;
+                dataArray20[i] = result[i].plan20;
+                dataArray30[i] = result[i].plan30;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
@@ -1679,14 +1687,36 @@ function getUsersMP1() {
                 xAxis: {
                     categories: catigoriesArray,
                     style: {
-                        width: '100px'
+                        width: '500px',
+                        'min-width': '500px'
                     }
                 },
                 series: [{
                     color: '#2b908f',
                     name: 'НЧ',
                     data: dataArray
-                }],
+                },
+                    {
+                        color: '#0d233a',
+                        name: 'План',
+                        data: dataArrayPlan
+                    },
+                {
+                    color: '#90ed7d',
+                    name: '10%',
+                    data: dataArray10
+                },
+                {
+                    color: '#f7a35c',
+                    name: '20%',
+                    data: dataArray20
+                },
+                {
+                    color: '#8085e9',
+                    name: '30%',
+                    data: dataArray30
+                }
+                ],
                 yAxis: {
                     title: {
                         enabled: false
@@ -1718,9 +1748,15 @@ function getUsersMP2() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
+            var dataArray10 = new Array();
+            var dataArray20 = new Array();
+            var dataArray30 = new Array();
             for (var i = 0; i < lenghtArrayResult; i++) {
                 catigoriesArray[i] = result[i].ciliricalName;
                 dataArray[i] = result[i].normHoure;
+                dataArray10[i] = result[i].plan10;
+                dataArray20[i] = result[i].plan20;
+                dataArray30[i] = result[i].plan30;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
@@ -1768,14 +1804,31 @@ function getUsersMP2() {
                 xAxis: {
                     categories: catigoriesArray,
                     style: {
-                        width: '100px'
+                        width: '700px',
+                        'min-width': '700px'
                     }
                 },
                 series: [{
                     color: '#2b908f',
                     name: 'НЧ',
                     data: dataArray
-                }],
+                },
+                {
+                    color: '#90ed7d',
+                    name: '10%',
+                    data: dataArray10
+                },
+                {
+                    color: '#f7a35c',
+                    name: '20%',
+                    data: dataArray20
+                },
+                {
+                    color: '#8085e9',
+                    name: '30%',
+                    data: dataArray30
+                }
+                ],
                 yAxis: {
                     title: {
                         enabled: false
@@ -1807,9 +1860,15 @@ function getUsersMP3() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
+            var dataArray10 = new Array();
+            var dataArray20 = new Array();
+            var dataArray30 = new Array();
             for (var i = 0; i < lenghtArrayResult; i++) {
                 catigoriesArray[i] = result[i].ciliricalName;
                 dataArray[i] = result[i].normHoure;
+                dataArray10[i] = result[i].plan10;
+                dataArray20[i] = result[i].plan20;
+                dataArray30[i] = result[i].plan30;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
@@ -1857,14 +1916,31 @@ function getUsersMP3() {
                 xAxis: {
                     categories: catigoriesArray,
                     style: {
-                        width: '100px'
+                        width: '500px',
+                        'min-width': '500px'
                     }
                 },
                 series: [{
                     color: '#2b908f',
                     name: 'НЧ',
                     data: dataArray
-                }],
+                },
+                {
+                    color: '#90ed7d',
+                    name: '10%',
+                    data: dataArray10
+                },
+                {
+                    color: '#f7a35c',
+                    name: '20%',
+                    data: dataArray20
+                },
+                {
+                    color: '#8085e9',
+                    name: '30%',
+                    data: dataArray30
+                }
+                ],
                 yAxis: {
                     title: {
                         enabled: false
@@ -1882,150 +1958,6 @@ function getUsersMP3() {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
-        }
-    });
-}
-
-function getUsersMPD1() {
-    Highcharts.setOptions({
-        chart: {
-            inverted: true,
-            marginLeft: 135,
-            type: 'bullet'
-        },
-        title: {
-            text: null
-        },
-        legend: {
-            enabled: false
-        },
-        yAxis: {
-            gridLineWidth: 0
-        },
-        plotOptions: {
-            series: {
-                pointPadding: 0.25,
-                borderWidth: 0,
-                color: '#000',
-                targetOptions: {
-                    width: '200%'
-                }
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        }
-    });
-
-    Highcharts.chart('container1', {
-        chart: {
-            marginTop: 40
-        },
-        title: {
-            text: '2017 YTD'
-        },
-        xAxis: {
-            categories: ['<span class="hc-cat-title">Revenue</span><br/>U.S. $ (1,000s)']
-        },
-        yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 150,
-                color: '#666'
-            }, {
-                from: 150,
-                to: 225,
-                color: '#999'
-            }, {
-                from: 225,
-                to: 9e9,
-                color: '#bbb'
-            }],
-            title: null
-        },
-        series: [{
-            data: [{
-                y: 275,
-                target: 250
-            }]
-        }],
-        tooltip: {
-            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
-        }
-    });
-
-    Highcharts.chart('container2', {
-        xAxis: {
-            categories: ['<span class="hc-cat-title">Profit</span><br/>%']
-        },
-        yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 20,
-                color: '#666'
-            }, {
-                from: 20,
-                to: 25,
-                color: '#999'
-            }, {
-                from: 25,
-                to: 100,
-                color: '#bbb'
-            }],
-            labels: {
-                format: '{value}%'
-            },
-            title: null
-        },
-        series: [{
-            data: [{
-                y: 22,
-                target: 27
-            }]
-        }],
-        tooltip: {
-            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
-        }
-    });
-
-
-    Highcharts.chart('container3', {
-        xAxis: {
-            categories: ['<span class="hc-cat-title">New Customers</span><br/>Count']
-        },
-        yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 1400,
-                color: '#666'
-            }, {
-                from: 1400,
-                to: 2000,
-                color: '#999'
-            }, {
-                from: 2000,
-                to: 9e9,
-                color: '#bbb'
-            }],
-            labels: {
-                format: '{value}'
-            },
-            title: null
-        },
-        series: [{
-            data: [{
-                y: 1650,
-                target: 2100
-            }]
-        }],
-        tooltip: {
-            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
-        },
-        credits: {
-            enabled: true
         }
     });
 }
