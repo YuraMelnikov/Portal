@@ -11,10 +11,11 @@ var objList = [
 ];
 
 function startMenu() {
+    var id = '2019.07';
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/UserKO/List/" + '2019.07',
+            "url": "/UserKO/List/" + id,
             "type": "POST",
             "datatype": "json"
         },

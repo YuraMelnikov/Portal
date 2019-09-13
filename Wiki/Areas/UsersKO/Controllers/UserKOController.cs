@@ -42,6 +42,7 @@ namespace Wiki.Areas.UsersKO.Controllers
             return login;
         }
 
+        [HttpPost]
         public JsonResult List(string id)
         {
             string login = HttpContext.User.Identity.Name;
