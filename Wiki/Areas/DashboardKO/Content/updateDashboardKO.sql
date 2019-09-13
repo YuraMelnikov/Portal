@@ -368,6 +368,8 @@ group by [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
 ,concat(year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP), '.', datepart(q,[PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP))
 ,[PortalKATEK].[dbo].[PZ_TEO].SSM / 1000 * 12.5) as T1 group by [qua]) as [TableResult]
 where [TableResult].qua = [PortalKATEK].[dbo].[DashboardKOKBHss].Quart
+
+delete [PortalKATEK].[dbo].[DashboardKOMP1]
 insert into [PortalKATEK].[dbo].[DashboardKOMP1]
 SELECT
 [PortalKATEK].[dbo].[ProductionCalendar].[period],
@@ -399,6 +401,8 @@ concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay),'.0',month(MSP_EpmAssignm
 concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay),'.',month(MSP_EpmAssignmentByDay_UserView.TimeByDay))),
 substring(MSP_EpmResource_UserView.СДРес, 0, 4), MSP_EpmResource_UserView.ResourceUID) as tableResult on tableResult.[Месяц завершения задачи] = [PortalKATEK].[dbo].[ProductionCalendar].period and tableResult.ResourceUID = [PortalKATEK].[dbo].AspNetUsers.ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP1)
+
+delete [PortalKATEK].[dbo].[DashboardKOMP2]
 insert into [PortalKATEK].[dbo].[DashboardKOMP2]
 SELECT
 [PortalKATEK].[dbo].[ProductionCalendar].[period],
@@ -430,6 +434,8 @@ concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay),'.0',month(MSP_EpmAssignm
 concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay),'.',month(MSP_EpmAssignmentByDay_UserView.TimeByDay))),
 substring(MSP_EpmResource_UserView.СДРес, 0, 4), MSP_EpmResource_UserView.ResourceUID) as tableResult on tableResult.[Месяц завершения задачи] = [PortalKATEK].[dbo].[ProductionCalendar].period and tableResult.ResourceUID = [PortalKATEK].[dbo].AspNetUsers.ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP2)
+
+delete [PortalKATEK].[dbo].[DashboardKOMP3]
 insert into [PortalKATEK].[dbo].[DashboardKOMP3]
 SELECT
 [PortalKATEK].[dbo].[ProductionCalendar].[period],

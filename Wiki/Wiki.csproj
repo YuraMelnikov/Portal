@@ -299,6 +299,7 @@
     <Compile Include="Areas\DashboardKO\Models\UserResultMonth.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultTimesheet.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultWithDevision.cs" />
+    <Compile Include="Areas\DashboardKO\Models\UsersKOPlamMonth.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
