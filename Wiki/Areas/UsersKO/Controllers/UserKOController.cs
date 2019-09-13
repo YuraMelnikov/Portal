@@ -42,7 +42,33 @@ namespace Wiki.Areas.UsersKO.Controllers
             return login;
         }
 
-        public JsonResult Get(int id)
+        public JsonResult List(string id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int idS = db.ProductionCalendar.AsNoTracking().First(d => d.period == id).id;
+                var query = db.DashboardKO_UsersMonthPlan
+                    .AsNoTracking()
+                    .Include(d => d.ProductionCalendar)
+                    .Include(d => d.AspNetUsers.Devision1)
+                    .Where(d => d.id_ProductionCalendar == idS)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getPoint('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    name = dataList.AspNetUsers.CiliricalName,
+                    devision = dataList.AspNetUsers.Devision1.name,
+                    dataList.ProductionCalendar.period,
+                    coefficient = dataList.k
+                });
+                return Json(new { data, MaxJsonLength = int.MaxValue });
+            }
+        }
+
+        public JsonResult GetPoint(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -64,85 +90,16 @@ namespace Wiki.Areas.UsersKO.Controllers
             }
         }
 
-        //public JsonResult UpdatePoint(int id, double distance)
-        //{
-        //    UpdateDistanceSelections(id, distance);
-        //    return Json(1, JsonRequestBehavior.AllowGet);
-        //}
-
-        //public JsonResult UpdatePointsCells(int[] sectionsChosen, double distanceSelections)
-        //{
-        //    using (SCellsEntities db = new SCellsEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        for (int i = 0; i < sectionsChosen.Length; i++)
-        //        {
-        //            double distanceFinal = 0;
-        //            for (int j = i + 1; j < sectionsChosen.Length; j++)
-        //            {
-        //                int predcessor = sectionsChosen[i];
-        //                int finalId = sectionsChosen[j];
-        //                distanceFinal += distanceSelections;
-        //                SectionMap sCells = db.SectionMap.First(d => d.sectionIdStart == predcessor && d.sectionIdFinish == finalId);
-        //                sCells.distance = distanceFinal;
-        //                db.Entry(sCells).State = EntityState.Modified;
-        //                db.SaveChanges();
-        //                SectionMap sCells1 = db.SectionMap.First(d => d.sectionIdFinish == sCells.sectionIdStart && d.sectionIdStart == sCells.sectionIdFinish);
-        //                sCells1.distance = distanceFinal;
-        //                db.Entry(sCells1).State = EntityState.Modified;
-        //                db.SaveChanges();
-        //            }
-        //        }
-        //    }
-        //    logger.Debug("SCells UpdatePointsCells");
-        //    return Json(1, JsonRequestBehavior.AllowGet);
-        //}
-
-        //bool UpdateDistanceSelections(int id, double distance)
-        //{
-        //    using (SCellsEntities db = new SCellsEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        SectionMap sCells = db.SectionMap.Find(id);
-        //        sCells.distance = distance;
-        //        db.Entry(sCells).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        SectionMap sCells1 = db.SectionMap.First(d => d.sectionIdFinish == sCells.sectionIdStart && d.sectionIdStart == sCells.sectionIdFinish);
-        //        sCells1.distance = distance;
-        //        db.Entry(sCells1).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        logger.Debug("SCells UpdateDistance: " + id.ToString());
-        //    }
-        //    return true;
-        //}
-
-        //public JsonResult GetRemainingRows()
-        //{
-        //    using (SCellsEntities db = new SCellsEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        return Json(db.SectionMap.Count(d => d.distance == 0) / 2, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
-
-        //public JsonResult GetRow(string id)
-        //{
-        //    id = id.Substring(0, 3);
-        //    using (SCellsEntities db = new SCellsEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        var sucursalList = db.Section.Where(d => d.name.Substring(0, 3) == id).OrderBy(d => d.name).ToList();
-        //        int[] data = new int[sucursalList.Count];
-        //        for (int i = 0; i < sucursalList.Count; i++)
-        //        {
-        //            data[i] = sucursalList[i].idS;
-        //        }
-        //        return Json(data, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        public JsonResult UpdatePoint(int ids, double ks)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                DashboardKO_UsersMonthPlan dashboardKO_UsersMonthPlan = db.DashboardKO_UsersMonthPlan.Find(ids);
+                dashboardKO_UsersMonthPlan.k = ks;
+                db.Entry(dashboardKO_UsersMonthPlan).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

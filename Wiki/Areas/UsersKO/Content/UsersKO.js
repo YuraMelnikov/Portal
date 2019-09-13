@@ -14,15 +14,15 @@ function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List/" + 'ZeroPoint',
+            "url": "/UserKO/List/" + '2019.07',
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[4, "asc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
-            if (data.distance === 0 || data.distance === "0") {
+            if (data.coefficient === 0 || data.coefficient === "0") {
                 $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
@@ -43,27 +43,24 @@ function startMenu() {
     });
 }
 
-//ViewBag.list
 function list(data) {
-    var selectedDevision = $('#listSelections').find('option:selected').text();
     var id = $('#listSelections').find('option:selected').text();
-    getRemainingRows();
     var table = $('#myTable').DataTable();
     table.destroy();
     $('#myTable').empty();
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/SCells/List/" + id,
+            "url": "/UserKO/List/" + id,
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[4, "asc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
-            if (data.distance === 0 || data.distance === "0") {
+            if (data.coefficient === 0 || data.coefficient === "0") {
                 $('td', row).css('background-color', '#f45b5b');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
@@ -85,24 +82,20 @@ function list(data) {
 function getPoint(id) {
     $.ajax({
         cache: false,
-        url: "/SCells/GetPoint/" + id,
+        url: "/UserKO/GetPoint/" + id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $('#distance').css('border-color', 'lightgrey');
-            $('#id').val("");
-            $('#sectionIdStart').val("");
-            $('#name1').val("");
-            $('#sectionIdFinish').val("");
-            $('#name2').val("");
-            $('#distance').val("");
-            $('#id').val(result.id);
-            $('#sectionIdStart').val(result.sectionIdStart);
-            $('#name1').val(result.name1);
-            $('#sectionIdFinish').val(result.sectionIdFinish);
-            $('#name2').val(result.name2);
-            $('#distance').val(result.distance);
+            $('#ks').css('border-color', 'lightgrey');
+            $('#ids').val("");
+            $('#CiliricalName').val("");
+            $('#period').val("");
+            $('#ks').val("");
+            $('#ids').val(result.ids);
+            $('#CiliricalName').val(result.CiliricalName);
+            $('#period').val(result.period);
+            $('#ks').val(result.ks);
             $('#pointModal').modal('show');
         },
         error: function (errormessage) {
@@ -118,12 +111,12 @@ function updatePoint() {
         return false;
     }
     var objPoint = {
-        id: $('#id').val()
-        , distance: $('#distance').val().replace(".", ",")
+        ids:$('#ids').val()
+        ,ks:$('#ks').val().replace(".", ",")
     };
     $.ajax({
         cache: false,
-        url: "/SCells/UpdatePoint/",
+        url: "/UserKO/UpdatePoint/",
         data: JSON.stringify(objPoint),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -131,7 +124,6 @@ function updatePoint() {
         success: function (result) {
             $('#myTable').DataTable().ajax.reload(null, false);
             $('#pointModal').modal('hide');
-            getRemainingRows();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -141,82 +133,12 @@ function updatePoint() {
 
 function valid() {
     var isValid = true;
-    if ($('#distance').val().trim() === "") {
-        $('#distance').css('border-color', 'Red');
+    if ($('#ks').val().trim() === "") {
+        $('#ks').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#distance').css('border-color', 'lightgrey');
+        $('#ks').css('border-color', 'lightgrey');
     }
     return isValid;
-}
-
-function cleanCells() {
-    $('#distanceSelections').val("");
-    $('#distanceSelections').css('border-color', 'lightgrey');
-    $('#sectionsChosen').val("");
-    $('#sectionsChosen').chosen();
-    $('#sectionsChosen').trigger('chosen:updated');
-    $('#pointsCellsModal').modal('show');
-}
-
-function updatePointsCells() {
-    var res = validSelections();
-    if (res === false) {
-        return false;
-    }
-    var objSelections = {
-        sectionsChosen: $('#sectionsChosen').val()
-        , distanceSelections: $('#distanceSelections').val().replace(".", ",")
-    };
-    $.ajax({
-        cache: false,
-        url: "/SCells/UpdatePointsCells/",
-        data: JSON.stringify(objSelections),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            $('#myTable').DataTable().ajax.reload(null, false);
-            $('#pointsCellsModal').modal('hide');
-            getRemainingRows();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function validSelections() {
-    var isValid = true;
-    if ($('#distanceSelections').val().trim() === "") {
-        $('#distanceSelections').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#distanceSelections').css('border-color', 'lightgrey');
-    }
-    if ($('#sectionsChosen').val().length === 0) {
-        $('#sectionsChosen').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#sectionsChosen').css('border-color', 'lightgrey');
-    }
-    return isValid;
-}
-
-function getRow(data) {
-    var selectedDevision = $('#sectionsChosen').find('option:selected').text();
-    var id = $('#sectionsChosen').find('option:selected').text();
-    $.ajax({
-        cache: false,
-        url: "/SCells/GetRow/" + id,
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            $('#sectionsChosen').val(data).trigger('chosen:updated');
-        }
-    });
 }

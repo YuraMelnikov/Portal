@@ -31,9 +31,9 @@ namespace Wiki.Areas.Cells.Controllers
             string login = HttpContext.User.Identity.Name;
             using (SCellsEntities db = new SCellsEntities())
             {
-                int idS = db.Section.First(d => d.name == id).idS;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
+                int idS = db.Section.First(d => d.name == id).idS;
                 var query = db.SectionMap
                     .AsNoTracking()
                     .Include(d => d.Section)
