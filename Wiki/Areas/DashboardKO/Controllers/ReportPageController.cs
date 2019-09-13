@@ -522,12 +522,13 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].period = query[i].ciliricalName;
-                    data[i].plan = query[i].plan;
-                    data[i].plan10 = query[i].plan10;
-                    data[i].plan20 = query[i].plan20;
-                    data[i].plan30 = query[i].plan30;
-                    data[i].normHoure = query[i].normHoure;
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -551,12 +552,13 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].period = query[i].ciliricalName;
-                    data[i].plan = query[i].plan;
-                    data[i].plan10 = query[i].plan10;
-                    data[i].plan20 = query[i].plan20;
-                    data[i].plan30 = query[i].plan30;
-                    data[i].normHoure = query[i].normHoure;
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -582,11 +584,11 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 {
                     data[i].period = query[i].period;
                     data[i].ciliricalName = query[i].ciliricalName;
-                    data[i].plan = query[i].plan;
-                    data[i].plan10 = query[i].plan10;
-                    data[i].plan20 = query[i].plan20;
-                    data[i].plan30 = query[i].plan30;
-                    data[i].normHoure = query[i].normHoure;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

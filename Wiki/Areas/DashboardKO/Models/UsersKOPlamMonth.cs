@@ -6,10 +6,10 @@
         public string ciliricalName;
         public string devisionName;
         public double k;
-        public double plan;
-        public double plan10;
-        public double plan20;
-        public double plan30;
-        public double normHoure;
+        public int plan;
+        public int plan10;
+        public int plan20;
+        public int plan30;
+        public int normHoure;
     }
 }
