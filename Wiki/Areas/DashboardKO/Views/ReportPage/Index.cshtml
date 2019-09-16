@@ -3,13 +3,37 @@
     Layout = "~/Areas/DashboardKO/Views/Shared/_LayoutDashboardKO.cshtml";
 }
 <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/heatmap.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="~/Content/Highcharts/highcharts.js"></script>
     <script src="~/Content/Highcharts/highcharts-more.js"></script>
     <script src="~/Content/Highcharts/exporting.js"></script>
-    <script src="~/Areas/DashboardKO/Content/DashboardKOJS.js?v1.3"></script>
+    <script src="~/Areas/DashboardKO/Content/DashboardKOJS.js?v1.4"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/bullet.js"></script>
+    <style>
+        #container1 {
+            max-width: 800px;
+            height: 115px;
+            margin: 1em auto;
+        }
+
+        #container2, #container3 {
+            max-width: 800px;
+            height: 85px;
+            margin: 1em auto;
+        }
+
+        .hc-cat-title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <div class="row">
     <div class="col-lg-12">
@@ -112,24 +136,14 @@
     <div class="col-lg-6">
         <div id="timesheetContainer"></div>
     </div>
-    <div class="col-lg-6"> 
+    <div class="col-lg-6">
         <div id="timesheetContainer"></div>
     </div>
 </div>
-
-<div id="expNRF">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Плановая выработка НЧ в месяц</h5>
-    </div>
+<div id="expNRF1">
     <div class="row">
-        <div class="col-lg-6">
-            <div id="usersMP1" style="min-width: 700px; height: 1200px; margin: 0 auto"></div>
+        <div class="col-lg-12">
+            <div id="container1" style="min-width: 150px; height: 150px; margin: 0 auto"></div>
         </div>
-        @*<div class="col-lg-4">
-            <div id="usersMP2" style="min-width: 1200px; height: 1200px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="usersMP3" style="min-width: 1200px; height: 1200px; margin: 0 auto"></div>
-        </div>*@
     </div>
 </div>

@@ -18,9 +18,7 @@
     getHSSKBM();
     getHSSKBE();
     getTimeSheet();
-    getUsersMP1();
-    //getUsersMP2();
-    //getUsersMP3();
+    //test1();
 });
 
 function getQuartalUsersResult() {
@@ -1619,7 +1617,7 @@ function getTimeSheet() {
     });
 }
 
-function getUsersMP1() {
+function test1() {
     $.ajax({
         url: "/ReportPage/GetUsersMP1/",
         contentType: "application/json;charset=UTF-8",
@@ -1629,125 +1627,6 @@ function getUsersMP1() {
             var lenghtArrayResult = Object.keys(result).length;
             var catigoriesArray = new Array();
             var dataArray = new Array();
-            var dataArrayPlan = new Array();
-            var dataArray10 = new Array();
-            var dataArray20 = new Array();
-            var dataArray30 = new Array();
-            for (var i = 0; i < lenghtArrayResult; i++) {
-                catigoriesArray[i] = result[i].ciliricalName;
-                dataArray[i] = result[i].normHoure;
-                dataArrayPlan[i] = result[i].plan;
-                dataArray10[i] = result[i].plan10;
-                dataArray20[i] = result[i].plan20;
-                dataArray30[i] = result[i].plan30;
-            }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
-            Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('usersMP1', {
-                legend: {
-                    enabled: false
-                },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: labelName,
-                    style: {
-                        "font-size": "13px"
-                    },
-                    margin: 0
-                },
-                xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '500px',
-                        'min-width': '500px'
-                    }
-                },
-                series: [{
-                    color: '#2b908f',
-                    name: 'НЧ',
-                    data: dataArray
-                },
-                    {
-                        color: '#0d233a',
-                        name: 'План',
-                        data: dataArrayPlan
-                    },
-                {
-                    color: '#90ed7d',
-                    name: '10%',
-                    data: dataArray10
-                },
-                {
-                    color: '#f7a35c',
-                    name: '20%',
-                    data: dataArray20
-                },
-                {
-                    color: '#8085e9',
-                    name: '30%',
-                    data: dataArray30
-                }
-                ],
-                yAxis: {
-                    title: {
-                        enabled: false
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
-                        }
-                    }
-                }
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function getUsersMP2() {
-    $.ajax({
-        url: "/ReportPage/GetUsersMP2/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
-            var catigoriesArray = new Array();
-            var dataArray = new Array();
             var dataArray10 = new Array();
             var dataArray20 = new Array();
             var dataArray30 = new Array();
@@ -1759,86 +1638,62 @@ function getUsersMP2() {
                 dataArray30[i] = result[i].plan30;
             }
             var catigoriesJSON = JSON.stringify(catigoriesArray);
-            Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
+            Highcharts.chart('container1', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
                 },
                 credits: {
                     enabled: false
-                }
-            });
-            Highcharts.chart('usersMP2', {
-                legend: {
+                },
+                exporting: {
                     enabled: false
                 },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                chart: {
-                    type: 'bar'
-                },
                 title: {
-                    text: labelName,
-                    style: {
-                        "font-size": "13px"
-                    },
-                    margin: 0
+                    text: labelName
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '700px',
-                        'min-width': '700px'
-                    }
+                    categories: catigoriesArray
+                },
+                yAxis: {
+                    plotBands: [{
+                        from: 0,
+                        to: 150,
+                        color: '#f45b5b'
+                    }, {
+                        from: 150,
+                        to: 225,
+                        color: '#90ed7d'
+                    }, {
+                        from: 225,
+                        to: 250,
+                        color: '#2b908f'
+                    }, {
+                        from: 250,
+                        to: 300,
+                        color: '#4572A7'
+                    }],
+                    title: null,
+                    gridLineWidth: 0
                 },
                 series: [{
-                    color: '#2b908f',
-                    name: 'НЧ',
-                    data: dataArray
-                },
-                {
-                    color: '#90ed7d',
-                    name: '10%',
-                    data: dataArray10
-                },
-                {
-                    color: '#f7a35c',
-                    name: '20%',
-                    data: dataArray20
-                },
-                {
-                    color: '#8085e9',
-                    name: '30%',
-                    data: dataArray30
-                }
-                ],
-                yAxis: {
-                    title: {
-                        enabled: false
-                    }
+                    data: [{
+                        y: 275,
+                        target: 250
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (with target at {point.target})'
                 },
                 plotOptions: {
                     series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
                         }
                     }
                 }
@@ -1848,116 +1703,4 @@ function getUsersMP2() {
             alert(errormessage.responseText);
         }
     });
-}
-
-function getUsersMP3() {
-    $.ajax({
-        url: "/ReportPage/GetUsersMP3/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
-            var catigoriesArray = new Array();
-            var dataArray = new Array();
-            var dataArray10 = new Array();
-            var dataArray20 = new Array();
-            var dataArray30 = new Array();
-            for (var i = 0; i < lenghtArrayResult; i++) {
-                catigoriesArray[i] = result[i].ciliricalName;
-                dataArray[i] = result[i].normHoure;
-                dataArray10[i] = result[i].plan10;
-                dataArray20[i] = result[i].plan20;
-                dataArray30[i] = result[i].plan30;
-            }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
-            Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('usersMP3', {
-                legend: {
-                    enabled: false
-                },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: labelName,
-                    style: {
-                        "font-size": "13px"
-                    },
-                    margin: 0
-                },
-                xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '500px',
-                        'min-width': '500px'
-                    }
-                },
-                series: [{
-                    color: '#2b908f',
-                    name: 'НЧ',
-                    data: dataArray
-                },
-                {
-                    color: '#90ed7d',
-                    name: '10%',
-                    data: dataArray10
-                },
-                {
-                    color: '#f7a35c',
-                    name: '20%',
-                    data: dataArray20
-                },
-                {
-                    color: '#8085e9',
-                    name: '30%',
-                    data: dataArray30
-                }
-                ],
-                yAxis: {
-                    title: {
-                        enabled: false
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
-                        }
-                    }
-                }
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
+} 
