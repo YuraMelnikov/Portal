@@ -873,6 +873,8 @@
     <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
     <Content Include="Areas\DashboardBP\Content\DashboardBPJS.js" />
+    <Content Include="Areas\DashboardTV\Content\updateDataEveryMonth.sql" />
+    <Content Include="Areas\DashboardTV\Content\updateDataEveryDay.sql" />
     <Content Include="Areas\DashboardTV\Content\DashboardTV.js" />
     <Content Include="Areas\Deb\Contant\Archive.js" />
     <Content Include="Areas\Deb\Contant\DSetup.js" />
