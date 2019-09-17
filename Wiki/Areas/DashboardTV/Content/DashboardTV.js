@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     getPeriodReport();
     getTablePlan();
+    getGraphicToWork();
 });
 
 function getPeriodReport() {
@@ -40,3 +41,4 @@ function getTablePlan() {
         "ordering": false
     });
 }
+

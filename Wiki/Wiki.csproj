@@ -1554,6 +1554,7 @@
     <Content Include="Areas\DashboardTV\Views\web.config" />
     <Content Include="Areas\DashboardTV\Views\Shared\_LayoutDashboardTV.cshtml" />
     <Content Include="Areas\DashboardTV\Views\DashboardTVC\Index.cshtml" />
+    <Content Include="Areas\DashboardTV\Content\testData.csv" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
