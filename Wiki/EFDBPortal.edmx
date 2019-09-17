@@ -515,6 +515,21 @@
           <Property Name="hss" Type="float" Nullable="false" />
           <Property Name="plan" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardTV_BasicPlanData">
+          <Key>
+            <PropertyRef Name="inThisDay" />
+          </Key>
+          <Property Name="inThisDay" Type="int" Nullable="false" />
+          <Property Name="inThisDayPercent" Type="int" Nullable="false" />
+          <Property Name="inThisMonth" Type="int" Nullable="false" />
+          <Property Name="inThisMonthPercent" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardTV_MonthPlan">
+          <Key>
+            <PropertyRef Name="data" />
+          </Key>
+          <Property Name="data" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Debit_CMR">
           <Key>
             <PropertyRef Name="id" />
@@ -3308,6 +3323,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardKOTimesheet" EntityType="Self.DashboardKOTimesheet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRatePlan" EntityType="Self.DashboardRatePlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRemaining" EntityType="Self.DashboardRemaining" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardTV_BasicPlanData" EntityType="Self.DashboardTV_BasicPlanData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardTV_MonthPlan" EntityType="Self.DashboardTV_MonthPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CMR" EntityType="Self.Debit_CMR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CostUpdate" EntityType="Self.Debit_CostUpdate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="Self.Debit_DataReportOprih" Schema="dbo" store:Type="Tables" />
@@ -4882,6 +4899,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardKOMP1" EntityType="PortalKATEKModel.DashboardKOMP1" />
           <EntitySet Name="DashboardKOMP2" EntityType="PortalKATEKModel.DashboardKOMP2" />
           <EntitySet Name="DashboardKOMP3" EntityType="PortalKATEKModel.DashboardKOMP3" />
+          <EntitySet Name="DashboardTV_BasicPlanData" EntityType="PortalKATEKModel.DashboardTV_BasicPlanData" />
+          <EntitySet Name="DashboardTV_MonthPlan" EntityType="PortalKATEKModel.DashboardTV_MonthPlan" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8249,6 +8268,21 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="normHoure" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="DashboardTV_BasicPlanData">
+          <Key>
+            <PropertyRef Name="inThisDay" />
+          </Key>
+          <Property Name="inThisDay" Type="Int32" Nullable="false" />
+          <Property Name="inThisDayPercent" Type="Int32" Nullable="false" />
+          <Property Name="inThisMonth" Type="Int32" Nullable="false" />
+          <Property Name="inThisMonthPercent" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardTV_MonthPlan">
+          <Key>
+            <PropertyRef Name="data" />
+          </Key>
+          <Property Name="data" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9984,6 +10018,23 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="devisionName" ColumnName="devisionName" />
                 <ScalarProperty Name="ciliricalName" ColumnName="ciliricalName" />
                 <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardTV_BasicPlanData">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_BasicPlanData">
+              <MappingFragment StoreEntitySet="DashboardTV_BasicPlanData">
+                <ScalarProperty Name="inThisMonthPercent" ColumnName="inThisMonthPercent" />
+                <ScalarProperty Name="inThisMonth" ColumnName="inThisMonth" />
+                <ScalarProperty Name="inThisDayPercent" ColumnName="inThisDayPercent" />
+                <ScalarProperty Name="inThisDay" ColumnName="inThisDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardTV_MonthPlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_MonthPlan">
+              <MappingFragment StoreEntitySet="DashboardTV_MonthPlan">
+                <ScalarProperty Name="data" ColumnName="data" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

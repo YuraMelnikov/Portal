@@ -493,6 +493,12 @@
     <Compile Include="DashboardRemaining.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardTV_BasicPlanData.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardTV_MonthPlan.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DebitReclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

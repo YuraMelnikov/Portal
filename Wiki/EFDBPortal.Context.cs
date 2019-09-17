@@ -159,5 +159,7 @@ namespace Wiki
         public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
         public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
         public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
+        public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
+        public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
     }
 }
