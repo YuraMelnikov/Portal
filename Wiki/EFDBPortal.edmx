@@ -524,6 +524,16 @@
           <Property Name="inThisMonth" Type="int" Nullable="false" />
           <Property Name="inThisMonthPercent" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardTV_DataForProjectPortfolio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderNumber" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="tcpm" Type="int" Nullable="false" />
+          <Property Name="from" Type="date" Nullable="false" />
+          <Property Name="to" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardTV_MonthPlan">
           <Key>
             <PropertyRef Name="data" />
@@ -3324,6 +3334,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardRatePlan" EntityType="Self.DashboardRatePlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRemaining" EntityType="Self.DashboardRemaining" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardTV_BasicPlanData" EntityType="Self.DashboardTV_BasicPlanData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardTV_DataForProjectPortfolio" EntityType="Self.DashboardTV_DataForProjectPortfolio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardTV_MonthPlan" EntityType="Self.DashboardTV_MonthPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CMR" EntityType="Self.Debit_CMR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CostUpdate" EntityType="Self.Debit_CostUpdate" Schema="dbo" store:Type="Tables" />
@@ -4901,6 +4912,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardKOMP3" EntityType="PortalKATEKModel.DashboardKOMP3" />
           <EntitySet Name="DashboardTV_BasicPlanData" EntityType="PortalKATEKModel.DashboardTV_BasicPlanData" />
           <EntitySet Name="DashboardTV_MonthPlan" EntityType="PortalKATEKModel.DashboardTV_MonthPlan" />
+          <EntitySet Name="DashboardTV_DataForProjectPortfolio" EntityType="PortalKATEKModel.DashboardTV_DataForProjectPortfolio" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8283,6 +8295,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </Key>
           <Property Name="data" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardTV_DataForProjectPortfolio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="tcpm" Type="Int32" Nullable="false" />
+          <Property Name="from" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="to" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10035,6 +10057,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_MonthPlan">
               <MappingFragment StoreEntitySet="DashboardTV_MonthPlan">
                 <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardTV_DataForProjectPortfolio">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_DataForProjectPortfolio">
+              <MappingFragment StoreEntitySet="DashboardTV_DataForProjectPortfolio">
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="tcpm" ColumnName="tcpm" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
