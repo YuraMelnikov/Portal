@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     getPeriodReport();
-    loadData();
+    getTablePlan();
 });
 
 function getPeriodReport() {
@@ -17,7 +17,7 @@ function getPeriodReport() {
     });
 }
 
-function loadData() {
+function getTablePlan() {
     $("#tablePlan").DataTable({
         "ajax": {
             "cache": false,
@@ -31,15 +31,10 @@ function loadData() {
             { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
             { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center' },
-            { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "bSortable": false, "className": 'text-center' }
+            { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' }
         ],
         "paging": false,
         "searching": false,
-        "info": false,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "info": false
     });
 }
