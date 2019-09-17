@@ -1595,8 +1595,7 @@ function getTimeSheet() {
                     title: null
                 },
                 colorAxis: {
-                    min: 0
-                    ,
+                    min: 0,
                     minColor: '#ffffff',
                     maxColor: '#90ed7d'
                 },
