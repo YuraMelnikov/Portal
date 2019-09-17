@@ -300,7 +300,7 @@
     <Compile Include="Areas\DashboardKO\Models\UserResultTimesheet.cs" />
     <Compile Include="Areas\DashboardKO\Models\UserResultWithDevision.cs" />
     <Compile Include="Areas\DashboardKO\Models\UsersKOPlamMonth.cs" />
-    <Compile Include="Areas\DashboardTV\Controllers\DashboardTVController.cs" />
+    <Compile Include="Areas\DashboardTV\Controllers\DashboardTVCController.cs" />
     <Compile Include="Areas\DashboardTV\DashboardTVAreaRegistration.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
@@ -1553,7 +1553,7 @@
     <Content Include="Areas\UsersKO\Views\UserKO\Index.cshtml" />
     <Content Include="Areas\DashboardTV\Views\web.config" />
     <Content Include="Areas\DashboardTV\Views\Shared\_LayoutDashboardTV.cshtml" />
-    <Content Include="Areas\DashboardTV\Views\DashboardTV\Index.cshtml" />
+    <Content Include="Areas\DashboardTV\Views\DashboardTVC\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -1,14 +1,8 @@
-﻿using Newtonsoft.Json;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Web.Mvc;
 namespace Wiki.Areas.DashboardTV.Controllers
 {
-    public class DashboardTVController : Controller
+    public class DashboardTVCController : Controller
     {
         public ActionResult Index()
         {
