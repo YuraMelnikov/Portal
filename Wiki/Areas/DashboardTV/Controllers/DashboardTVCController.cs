@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Wiki.Areas.DashboardTV.Models;
+
 namespace Wiki.Areas.DashboardTV.Controllers
 {
     public class DashboardTVCController : Controller
@@ -27,6 +30,25 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     monthPlan
                 });
                 return Json(new { data });
+            }
+        }
+
+        public JsonResult GetProjectsPortfolio()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int countArray = 0;
+                OrderForDashboardTV[] dataList = new OrderForDashboardTV[countArray];
+
+
+
+
+
+
+
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
     }
