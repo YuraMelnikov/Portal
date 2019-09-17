@@ -302,6 +302,8 @@
     <Compile Include="Areas\DashboardKO\Models\UsersKOPlamMonth.cs" />
     <Compile Include="Areas\DashboardTV\Controllers\DashboardTVCController.cs" />
     <Compile Include="Areas\DashboardTV\DashboardTVAreaRegistration.cs" />
+    <Compile Include="Areas\DashboardTV\Models\DealsForDashboardTV.cs" />
+    <Compile Include="Areas\DashboardTV\Models\OrderForDashboardTV.cs" />
     <Compile Include="Areas\Deb\Controllers\ActiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\ArchiveReportController.cs" />
     <Compile Include="Areas\Deb\Controllers\DTasksController.cs" />
@@ -1887,7 +1889,6 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\DashboardTV\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
   </ItemGroup>
