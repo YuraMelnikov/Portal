@@ -176,7 +176,6 @@ function getGanttProjects() {
             enabled: false
         }
     });
-
     Highcharts.ganttChart('projectPortfolio', {
         series: series,
         title: {
@@ -186,38 +185,25 @@ function getGanttProjects() {
             pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
         },
         xAxis: {
-            currentDateIndicator: true
+            currentDateIndicator: true,
+            min: today - 7 * day,
+            max: today + 120 * day,
+            labels: {
+                style: {
+                    "color": "#666666",
+                    "fontSize": "13px"
+                }
+            }
         },
         yAxis: {
             type: 'category',
             grid: {
                 columns: [{
                     title: {
-                        text: 'Model'
+                        text: '№ заказа'
                     },
                     categories: map(series, function (s) {
                         return s.name;
-                    })
-                }, {
-                    title: {
-                        text: 'Rented To'
-                    },
-                    categories: map(series, function (s) {
-                        return s.current.rentedTo;
-                    })
-                }, {
-                    title: {
-                        text: 'From'
-                    },
-                    categories: map(series, function (s) {
-                        return dateFormat('%e. %b', s.current.from);
-                    })
-                }, {
-                    title: {
-                        text: 'To'
-                    },
-                    categories: map(series, function (s) {
-                        return dateFormat('%e. %b', s.current.to);
                     })
                 }]
             }

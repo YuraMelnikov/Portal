@@ -237,7 +237,7 @@ function TEOList() {
         "bDestroy": true,
         "order": [[1, "desc"]],
         "rowCallback": function (row, data, index) {
-            if (data.SSM === 0) {
+            if (data.NOP === 0) {
                 $('td', row).css('background-color', '#d9534f');
                 $('td', row).css('color', 'white');
             }
