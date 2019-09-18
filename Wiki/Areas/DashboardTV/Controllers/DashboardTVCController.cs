@@ -69,7 +69,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     dataList.First(d => d.OrderNumber == dataInList.orderNumber).Deals[j] = dealsForDashboardTV;
                     j++;
                 }
-                return Json(dataList, JsonRequestBehavior.AllowGet);
+                return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
         }
     }

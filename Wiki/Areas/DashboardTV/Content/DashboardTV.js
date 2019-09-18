@@ -78,8 +78,9 @@ function getGanttProjects() {
                     };
                 });
                 return {
-                    name: myJSON.OrderNumber,
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
+                    name: myJSON.OrderNumber,
+
                     data: data,
                     current: myJSON.Deals[myJSON.Current]
                 };
@@ -130,34 +131,24 @@ function getGanttProjects() {
                     type: 'category',
                     grid: {
                         columns: [{
-                            columns: [
-
-                                {
-                                    title: {
-                                        text: 'Model'
-                                    },
-                                    categories: map(series, function (s) {
-                                        return s.name;
-                                    })
-                                }
-                                //, {
-                                //    title: {
-                                //        text: 'Rented To'
-                                //    },
-                                //    categories: map(series, function (s) {
-                                //        return dateFormat('%e. %b', s.dataOtgruzkiBP);
-                                //    })
-                                //}
-
-
-                            ]
+                            title: {
+                                text: 'Дата отгрузки'
+                            },
+                            categories: map(series, function (s) {
+                                return dateFormat('%e. %b', s.dataOtgruzkiBP);
+                            })
+                        }, {
+                            title: {
+                                text: '№ заказа'
+                            },
+                            categories: map(series, function (s) {
+                                return s.name;
+                            })
                         }]
                     }
                 }
+
             });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
