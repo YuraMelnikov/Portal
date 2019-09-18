@@ -45,8 +45,10 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 {
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
+
                     dataList[i].OrderNumber = projectList[i].Key;
                     string indexOrder = dataList[i].OrderNumber;
+                    dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
                     int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
                     dataList[i].Deals = new DealsForDashboardTV[countDeals];
                 }

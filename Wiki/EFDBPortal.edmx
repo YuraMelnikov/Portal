@@ -529,10 +529,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="orderNumber" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="orderNumber" Type="varchar(max)" Nullable="false" />
           <Property Name="tcpm" Type="int" Nullable="false" />
           <Property Name="from" Type="date" Nullable="false" />
           <Property Name="to" Type="date" Nullable="false" />
+          <Property Name="dataOtgruzkiBP" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_MonthPlan">
           <Key>
@@ -8300,10 +8301,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="orderNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="orderNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="tcpm" Type="Int32" Nullable="false" />
           <Property Name="from" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="to" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dataOtgruzkiBP" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -10063,6 +10065,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardTV_DataForProjectPortfolio">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_DataForProjectPortfolio">
               <MappingFragment StoreEntitySet="DashboardTV_DataForProjectPortfolio">
+                <ScalarProperty Name="dataOtgruzkiBP" ColumnName="dataOtgruzkiBP" />
                 <ScalarProperty Name="to" ColumnName="to" />
                 <ScalarProperty Name="from" ColumnName="from" />
                 <ScalarProperty Name="tcpm" ColumnName="tcpm" />

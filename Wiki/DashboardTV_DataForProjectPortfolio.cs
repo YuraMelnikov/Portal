@@ -19,5 +19,6 @@ namespace Wiki
         public int tcpm { get; set; }
         public System.DateTime from { get; set; }
         public System.DateTime to { get; set; }
+        public System.DateTime dataOtgruzkiBP { get; set; }
     }
 }

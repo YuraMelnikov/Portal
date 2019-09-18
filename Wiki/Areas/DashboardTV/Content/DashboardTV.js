@@ -54,6 +54,7 @@ function getGanttProjects() {
                     myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
                 }
+                myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
@@ -78,6 +79,7 @@ function getGanttProjects() {
                 });
                 return {
                     name: myJSON.OrderNumber,
+                    dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
                     data: data,
                     current: myJSON.Deals[myJSON.Current]
                 };
@@ -128,54 +130,27 @@ function getGanttProjects() {
                     type: 'category',
                     grid: {
                         columns: [{
-                            columns: [{
-                                title: {
-                                    text: 'Заказ'
-                                },
-                                labels: {
-                                    format: '{point.name}'
-                                },
-                                scrollbar: {
-                                    enabled: false
-                                }
-                            }, {
-                                title: {
-                                    text: 'Контракт'
-                                },
-                                labels: {
-                                    format: '{point.contractDate:%e. %b}'
-                                },
-                                scrollbar: {
-                                    enabled: false
-                                }
+                            columns: [
 
-                            }, {
-                                title: {
-                                    text: 'План'
-                                },
-                                labels: {
-                                    format: '{point.end:%e. %b}'
-                                },
-                                scrollbar: {
-                                    enabled: false
+                                {
+                                    title: {
+                                        text: 'Model'
+                                    },
+                                    categories: map(series, function (s) {
+                                        return s.name;
+                                    })
                                 }
-                            }, {
-                                title: {
-                                    text: 'Откл.'
-                                },
-                                labels: {
-                                    formatter: function () {
-                                        var point = this.point,
-                                            days = 1000 * 60 * 60 * 24,
-                                            number = (point.contractDate - point.end) / days;
-                                        if (Math.round(number * 100) / 100 < 0) {
-                                            return '<span style="fill: red; font-weight:bold;">' + Math.round(number * 100) / 100 + '</span>';
-                                        } else {
-                                            return Math.round(number * 100) / 100;
-                                        }
-                                    }
-                                }
-                            }]
+                                //, {
+                                //    title: {
+                                //        text: 'Rented To'
+                                //    },
+                                //    categories: map(series, function (s) {
+                                //        return dateFormat('%e. %b', s.dataOtgruzkiBP);
+                                //    })
+                                //}
+
+
+                            ]
                         }]
                     }
                 }
