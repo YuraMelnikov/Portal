@@ -49,16 +49,12 @@ function getGanttProjects() {
         dataType: "json",
         success: function (result) {
             var myJSON = JSON.parse(JSON.stringify(result));
-
-
             for (var i = 0; i < Object.keys(myJSON).length; i++) {
                 for (var j = 0; j < Object.keys(myJSON[i].Deals).length; j++) {
                     myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
                 }
             }
-
-
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -70,7 +66,6 @@ function getGanttProjects() {
             today.setUTCSeconds(0);
             today.setUTCMilliseconds(0);
             today = today.getTime();
-
             series = myJSON.map(function (myJSON, i) {
                 var data = myJSON.Deals.map(function (deal) {
                     return {
@@ -87,7 +82,6 @@ function getGanttProjects() {
                     current: myJSON.Deals[myJSON.Current]
                 };
             });
-
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
@@ -152,7 +146,6 @@ function getGanttProjects() {
 }
 
 function converDateJSON(MyDate_String_Value) {
-    var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
-    var dat = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
-    return dat;
+    var dat = MyDate_String_Value.replace(/\D+/g, "");
+    return Number(dat);
 }
