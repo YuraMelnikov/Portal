@@ -56,10 +56,7 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
-            var pointWidthForGantt = Object.keys(myJSON).length / 4;
-
-
-
+            var pointWidthForGantt = 1200 / Object.keys(myJSON).length * 0.6;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
