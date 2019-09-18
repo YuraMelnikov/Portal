@@ -48,10 +48,15 @@ function getGanttProjects() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var arrayToJSON = result.projects;
-            var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
-            var countLine = myJSON.length;
+            var myJSON = JSON.parse(JSON.stringify(result));
 
+
+            for (var i = 0; i < Object.keys(myJSON).length; i++) {
+                for (var j = 0; j < Object.keys(myJSON[i].Deals).length; j++) {
+                    myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
+                    myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
+                }
+            }
 
 
             var today = new Date(),
@@ -66,101 +71,20 @@ function getGanttProjects() {
             today.setUTCMilliseconds(0);
             today = today.getTime();
 
-            cars = [{
-                model: 'Nissan Leaf',
-                current: 0,
-                deals: [{
-                    rentedTo: 'Lisa Star',
-                    from: today - 1 * day,
-                    to: today + 2 * day
-                }, {
-                    rentedTo: 'Shane Long',
-                    from: today - 3 * day,
-                    to: today - 2 * day
-                }, {
-                    rentedTo: 'Jack Coleman',
-                    from: today + 5 * day,
-                    to: today + 6 * day
-                }]
-            }, {
-                model: 'Jaguar E-type',
-                current: 0,
-                deals: [{
-                    rentedTo: 'Martin Hammond',
-                    from: today - 2 * day,
-                    to: today + 1 * day
-                }, {
-                    rentedTo: 'Linda Jackson',
-                    from: today - 2 * day,
-                    to: today + 1 * day
-                }, {
-                    rentedTo: 'Robert Sailor',
-                    from: today + 2 * day,
-                    to: today + 6 * day
-                }]
-            }, {
-                model: 'Volvo V60',
-                current: 0,
-                deals: [{
-                    rentedTo: 'Mona Ricci',
-                    from: today + 0 * day,
-                    to: today + 3 * day
-                }, {
-                    rentedTo: 'Jane Dockerman',
-                    from: today + 3 * day,
-                    to: today + 4 * day
-                }, {
-                    rentedTo: 'Bob Shurro',
-                    from: today + 6 * day,
-                    to: today + 8 * day
-                }]
-            }, {
-                model: 'Volkswagen Golf',
-                current: 0,
-                deals: [{
-                    rentedTo: 'Hailie Marshall',
-                    from: today - 1 * day,
-                    to: today + 1 * day
-                }, {
-                    rentedTo: 'Morgan Nicholson',
-                    from: today - 3 * day,
-                    to: today - 2 * day
-                }, {
-                    rentedTo: 'William Harriet',
-                    from: today + 2 * day,
-                    to: today + 3 * day
-                }]
-            }, {
-                model: 'Peugeot 208',
-                current: 0,
-                deals: [{
-                    rentedTo: 'Harry Peterson',
-                    from: today - 1 * day,
-                    to: today + 2 * day
-                }, {
-                    rentedTo: 'Emma Wilson',
-                    from: today + 3 * day,
-                    to: today + 4 * day
-                }, {
-                    rentedTo: 'Ron Donald',
-                    from: today + 5 * day,
-                    to: today + 6 * day
-                }]
-            }];
-            series = cars.map(function (car, i) {
-                var data = car.deals.map(function (deal) {
+            series = myJSON.map(function (myJSON, i) {
+                var data = myJSON.Deals.map(function (deal) {
                     return {
                         id: 'deal-' + i,
-                        rentedTo: deal.rentedTo,
-                        start: deal.from,
-                        end: deal.to,
+                        rentedTo: deal.TCPM,
+                        start: deal.From,
+                        end: deal.To,
                         y: i
                     };
                 });
                 return {
-                    name: car.model,
+                    name: myJSON.OrderNumber,
                     data: data,
-                    current: car.deals[car.current]
+                    current: myJSON.Deals[myJSON.Current]
                 };
             });
 
@@ -225,31 +149,10 @@ function getGanttProjects() {
             alert(errormessage.responseText);
         }
     });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+function converDateJSON(MyDate_String_Value) {
+    var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+    var dat = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
+    return dat;
 }

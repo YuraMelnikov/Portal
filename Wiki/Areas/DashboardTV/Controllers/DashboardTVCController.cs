@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Linq.Dynamic;
 using System.Web.Mvc;
 using Wiki.Areas.DashboardTV.Models;
 
@@ -39,16 +39,35 @@ namespace Wiki.Areas.DashboardTV.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int countArray = 0;
-                OrderForDashboardTV[] dataList = new OrderForDashboardTV[countArray];
-
-
-
-
-
-
-
-                return Json(1, JsonRequestBehavior.AllowGet);
+                var projectList = db.DashboardTV_DataForProjectPortfolio.GroupBy(d => d.orderNumber).OrderBy(d => d.Key).ToList();
+                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    dataList[i] = new OrderForDashboardTV();
+                    dataList[i].Current = 0;
+                    dataList[i].OrderNumber = projectList[i].Key;
+                    string indexOrder = dataList[i].OrderNumber;
+                    int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
+                    dataList[i].Deals = new DealsForDashboardTV[countDeals];
+                }
+                var portfolioList = db.DashboardTV_DataForProjectPortfolio.AsNoTracking().ToList();
+                int j = 0;
+                string orderNumberList = "";
+                foreach (var dataInList in portfolioList.OrderBy(d => d.orderNumber))
+                {
+                    if(orderNumberList != dataInList.orderNumber)
+                    {
+                        j = 0;
+                        orderNumberList = dataInList.orderNumber;
+                    }
+                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                    dealsForDashboardTV.TCPM = dataInList.tcpm;
+                    dealsForDashboardTV.From = dataInList.from;
+                    dealsForDashboardTV.To = dataInList.to;
+                    dataList.First(d => d.OrderNumber == dataInList.orderNumber).Deals[j] = dealsForDashboardTV;
+                    j++;
+                }
+                return Json(dataList, JsonRequestBehavior.AllowGet);
             }
         }
     }
