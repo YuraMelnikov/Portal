@@ -72,7 +72,7 @@ function getGanttProjectPortfolio() {
                     pointWidth: 13,
                     name: 'Заказ',
                     data: myJSON
-                }],
+                }], 
                 yAxis: {
                     type: 'category',
                     grid: {

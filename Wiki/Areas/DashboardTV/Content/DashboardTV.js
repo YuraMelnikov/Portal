@@ -76,6 +76,9 @@ function getGanttProjects() {
                         start: deal.From,
                         end: deal.To,
                         color: myJSON.Color,
+                        dependency: 'prototype',
+                        name:  convertToInteger(deal.TCPM / 1000),
+                        //name: deal.TCPM,
                         pointWidth: pointWidthForGantt,
                         milestone: false,
                         y: i
@@ -114,6 +117,21 @@ function getGanttProjects() {
             });
             Highcharts.ganttChart('projectPortfolio', {
                 series: series,
+                plotOptions: {
+                    series: {
+                        animation: false,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                            //,
+                            //style: {
+                            //    cursor: 'default',
+                            //    pointerEvents: 'none'
+                            //}
+                        },
+                        allowPointSelect: true
+                    }
+                },
                 title: {
                     text: 'Ход изготовления изделий'
                 },
@@ -126,7 +144,7 @@ function getGanttProjects() {
                     max: today + 120 * day,
                     labels: {
                         style: {
-                            "color": "#666666",
+                            "color": "#0d233a",
                             "fontSize": "13px"
                         }
                     }
@@ -162,4 +180,11 @@ function getGanttProjects() {
 function converDateJSON(MyDate_String_Value) {
     var dat = MyDate_String_Value.replace(/\D+/g, "");
     return Number(dat);
+}
+
+function convertToInteger(value) {
+    var data = parseInt(value);
+    if (data === 0)
+        data = '>1';
+    return data;
 }
