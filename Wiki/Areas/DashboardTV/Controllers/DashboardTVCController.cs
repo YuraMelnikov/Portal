@@ -45,7 +45,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 {
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
-
+                    dataList[i].Color = "#2b908f";
                     dataList[i].OrderNumber = projectList[i].Key;
                     string indexOrder = dataList[i].OrderNumber;
                     dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;

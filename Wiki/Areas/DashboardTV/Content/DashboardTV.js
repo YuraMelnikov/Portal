@@ -56,6 +56,10 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
+            var pointWidthForGantt = Object.keys(myJSON).length / 4;
+
+
+
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -74,13 +78,16 @@ function getGanttProjects() {
                         rentedTo: deal.TCPM,
                         start: deal.From,
                         end: deal.To,
+                        color: myJSON.Color,
+                        pointWidth: pointWidthForGantt,
+                        milestone: false,
                         y: i
                     };
                 });
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
                     name: myJSON.OrderNumber,
-
+                    color: myJSON.Color,
                     data: data,
                     current: myJSON.Deals[myJSON.Current]
                 };
@@ -146,8 +153,10 @@ function getGanttProjects() {
                             })
                         }]
                     }
+                },
+                chart: {
+                    height: '1200px'
                 }
-
             });
         }
     });
