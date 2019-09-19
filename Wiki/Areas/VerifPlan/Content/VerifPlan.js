@@ -4,15 +4,16 @@
 
 var objList = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Плановый срок передачи на проверку", "data": "editLink", "autowidth": true, "bSortable": true },
-    { "title": "Фактическая дата передачи на проверку", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Дата приемки изделия ОТК", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Прим. гл. инженера", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Прим. произв.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Прим. ОТК", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Прогнозная дата проверки (рук. произв.)", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Плановая дата проверки (prj)", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Статус", "data": "editLink", "autowidth": true, "bSortable": false }
+    { "title": "№ заказа", "data": "id_PZ_PlanZakaz", "autowidth": true, "bSortable": true },
+    { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true },
+    { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false },
+    { "title": "Дата приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false },
+    { "title": "Прим. гл. инженера", "data": "planDescription", "autowidth": true, "bSortable": false },
+    { "title": "Прим. произв.", "data": "factDescription", "autowidth": true, "bSortable": false },
+    { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false },
+    { "title": "Прогнозная дата проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false },
+    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false },
+    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false }
 ];
 
 function startMenu() {
@@ -209,11 +210,6 @@ function getUserGroup() {
     });
 }
 
-//updateTE
-//updateOTK
-//updateTM
-
-
 function updateTE() {
     var opjTE = {
         id: $('#id').val()
@@ -272,9 +268,8 @@ function validTE(dateSh) {
     return isValid;
 }
 
-
 function updateOTK() {
-    var opjTE = {
+    var opjOTK = {
         id: $('#id').val()
         , appDate: $('#appDate').val()
         , appDescription: $('#appDescription').val()
@@ -286,7 +281,7 @@ function updateOTK() {
     $.ajax({
         cache: false,
         url: "/Verific/UpdateOTK/",
-        data: JSON.stringify(opjTE),
+        data: JSON.stringify(opjOTK),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -308,6 +303,53 @@ function validOTK() {
     }
     else {
         $('#appDate').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function updateTM() {
+    var opjTM = {
+        id: $('#id').val()
+        , factDate: $('#factDate').val()
+        , factDescription: $('#factDescription').val()
+        , fixedDateForKO: $('#fixedDateForKO').val()
+    };
+    var res = validTM();
+    if (res === false) {
+        return false;
+    }
+    $.ajax({
+        cache: false,
+        url: "/Verific/UpdateTM/",
+        data: JSON.stringify(opjTM),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#verifModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validTM() {
+    var isValid = true;
+    if ($('#factDate').val().trim() === "") {
+        $('#factDate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#factDate').css('border-color', 'lightgrey');
+    }
+    if ($('#fixedDateForKO').val().trim() === "") {
+        $('#fixedDateForKO').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#fixedDateForKO').css('border-color', 'lightgrey');
     }
     return isValid;
 }
