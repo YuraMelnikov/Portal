@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/VerifPlan/Views/Shared/_LayoutVerifPlan.cshtml";
+}
+<head>
+    <script src="~/Areas/VerifPlan/Content/VerifPlan.js?v0.1"></script>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "Verific"); }
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-2">
+        <label for="Client">Укажите необходимый пеиод:</label>
+        @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
+    </div>
+</div>
+<div id="pointModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-10">
+                    <h4>Изменить коэффициент сотрудника:</h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Ид. записи:</label>
+                        <input type="text" class="form-control" id="ids" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>ФИО:</label>
+                        <input type="text" class="form-control" id="CiliricalName" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Период:</label>
+                        <input type="text" class="form-control" id="period" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Коэффициент:</label>
+                        <input type="text" class="form-control" id="ks" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary" id="btnUpdatePoint" onclick="updatePoint();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>

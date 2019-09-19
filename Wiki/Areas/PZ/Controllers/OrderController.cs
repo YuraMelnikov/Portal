@@ -422,7 +422,7 @@ namespace Wiki.Areas.PZ.Controllers
             int count = countOrders[0];
             for (int i = 0; i < count; i++)
             {
-                NewPlanZakaz pz = new NewPlanZakaz(pZ_PlanZakaz, true);
+                _ = new NewPlanZakaz(pZ_PlanZakaz, true);
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }

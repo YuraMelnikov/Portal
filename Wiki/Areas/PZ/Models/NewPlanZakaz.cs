@@ -109,7 +109,23 @@ namespace Wiki.Areas.PZ.Models
             };
             db.Debit_Platform.Add(debit_Platform);
             db.SaveChanges();
-            if(addDebitWork == true)
+            PlanVerificationItems planVerificationItems = new PlanVerificationItems
+            {
+                id_PZ_PlanZakaz = newPZ_PlanZakaz.Id,
+                @fixed = false,
+                appDate = DateTime.Now,
+                appDescription = "",
+                factDate = DateTime.Now,
+                factDescription = "",
+                fixedDateForKO = DateTime.Now,
+                fixetFirstDate = false,
+                planDate = DateTime.Now,
+                planDescription = "",
+                verificationDateInPrj = DateTime.Now
+            };
+            db.PlanVerificationItems.Add(planVerificationItems);
+            db.SaveChanges();
+            if (addDebitWork == true)
             {
                 List<TaskForPZ> dateTaskWork = db.TaskForPZ.Where(w => w.step == 1).Where(z => z.id_TypeTaskForPZ == 1).ToList();
                 foreach (var data in dateTaskWork)
