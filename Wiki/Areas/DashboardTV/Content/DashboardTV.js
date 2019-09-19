@@ -77,8 +77,7 @@ function getGanttProjects() {
                         end: deal.To,
                         color: myJSON.Color,
                         dependency: 'prototype',
-                        name:  convertToInteger(deal.TCPM / 1000),
-                        //name: deal.TCPM,
+                        name: numeral(deal.TCPM).format('0,0'),
                         pointWidth: pointWidthForGantt,
                         milestone: false,
                         y: i
@@ -123,11 +122,6 @@ function getGanttProjects() {
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}'
-                            //,
-                            //style: {
-                            //    cursor: 'default',
-                            //    pointerEvents: 'none'
-                            //}
                         },
                         allowPointSelect: true
                     }

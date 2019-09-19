@@ -2,31 +2,32 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/DashboardTV/Views/Shared/_LayoutDashboardTV.cshtml";
 }
-<head>
-    <style>
-        #container {
-            max-width: 1200px;
-            min-width: 800px;
-            height: 400px;
-            margin: 1em auto;
-        }
+    <head>
+        <style>
+            #container {
+                max-width: 1200px;
+                min-width: 800px;
+                height: 400px;
+                margin: 1em auto;
+            }
 
-        .scrolling-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-    </style>
-    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
-    <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
-    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
-    <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
-    <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
-    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
-    <script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
-    <script src="https://code.highcharts.com/gantt/modules/exporting.js"></script>
-    <script src="~/Areas/DashboardTV/Content/DashboardTV.js?v0.4"></script>
-</head>
+            .scrolling-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        </style>
+        <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+        <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/dataTables.foundation.css" rel="stylesheet" />
+        <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+        <script src="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/js/dataTables.foundation.js"></script>
+        <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
+        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
+        <script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
+        <script src="https://code.highcharts.com/gantt/modules/exporting.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+        <script src="~/Areas/DashboardTV/Content/DashboardTV.js?v0.4"></script>
+    </head>
 <div class="row">
     <div class="col-lg-12">
         <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
