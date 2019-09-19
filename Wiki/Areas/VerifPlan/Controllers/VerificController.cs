@@ -27,5 +27,10 @@ namespace Wiki.Areas.VerifPlan.Controllers
             }
             return login;
         }
+
+        //ListActive
+        //ListClose
+        //Get
+        //
     }
 }

@@ -20,22 +20,16 @@
     </div>
 </nav>
 <div class="row">
-    <div class="col-md-2">
-        <label for="Client">Укажите необходимый пеиод:</label>
-        @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
         <table id="myTable" class="table table-hover table-striped" style="width:100%;"></table>
     </div>
 </div>
-<div id="pointModal" class="modal modal-wide fade" data-keyboard="false">
+<div id="verifModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col-lg-10">
-                    <h4>Изменить коэффициент сотрудника:</h4>
+                    @*<h4>Изменить коэффициент сотрудника:</h4>*@
                 </div>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -43,26 +37,65 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label>Ид. записи:</label>
-                        <input type="text" class="form-control" id="ids" disabled="disabled" />
+                        <input type="text" class="form-control" id="id" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label>ФИО:</label>
-                        <input type="text" class="form-control" id="CiliricalName" disabled="disabled" />
+                        <label>№ заказа:</label>
+                        <input type="text" class="form-control" id="id_PZ_PlanZakaz" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Период:</label>
-                        <input type="text" class="form-control" id="period" disabled="disabled" />
+                        <label>Текущий статус:</label>
+                        <input type="text" class="form-control" id="state" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Коэффициент:</label>
-                        <input type="text" class="form-control" id="ks" />
+                        <label>Плановая дата проверки (prj):</label>
+                        <input type="text" class="form-control" id="verificationDateInPrj" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Плановый срок передачи на проверку:</label>
+                        <input type="text" class="form-control" id="planDate" />
+                    </div>
+                    <div class="col-lg-10">
+                        <label>Прим.:</label>
+                        <textarea rows="5" id="planDescription" class="form-control"></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Фактическая дата передачи на проверку:</label>
+                        <input type="text" class="form-control" id="factDate" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Прогнозная дата проверки:</label>
+                        <input type="text" class="form-control" id="fixedDateForKO" />
+                    </div>
+                    <div class="col-lg-8">
+                        <label>Прим.:</label>
+                        <textarea rows="5" id="factDescription" class="form-control"></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Дата приемки изделия ОТК:</label>
+                        <input type="text" class="form-control" id="appDate" />
+                    </div>
+                    <div class="col-lg-10">
+                        <label>Прим.:</label>
+                        <textarea rows="5" id="appDescription" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="button" class="btn btn-primary" id="btnUpdatePoint" onclick="updatePoint();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateTE" onclick="updateTE();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateOTK" onclick="updateOTK();">Обновить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateTM" onclick="updateTM();">Обновить</button>
                     </div>
                 </div>
             </div>
