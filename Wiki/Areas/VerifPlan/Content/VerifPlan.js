@@ -118,10 +118,8 @@ function listClose() {
     });
 }
 
-
-
-
-function getPoint(id) {
+function get(id) {
+    var idUserGroup = getUserGroup();
     $.ajax({
         cache: false,
         url: "/Verific/Get/" + id,
@@ -135,6 +133,7 @@ function getPoint(id) {
             $('#id').val("");
             $('#id_PZ_PlanZakaz').val("");
             $('#fixed').val("");
+            $('#state').val("");
             $('#fixetFirstDate').val("");
             $('#planDate').val("");
             $('#planDescription').val("");
@@ -144,9 +143,11 @@ function getPoint(id) {
             $('#appDescription').val("");
             $('#verificationDateInPrj').val("");
             $('#fixedDateForKO').val("");
+            $('#dateSh').val("");
             $('#id').val(result.id);
             $('#id_PZ_PlanZakaz').val(result.id_PZ_PlanZakaz);
             $('#fixed').val(result.fixed);
+            $('#state').val(result.state);
             $('#fixetFirstDate').val(result.fixetFirstDate);
             $('#planDate').val(result.planDate);
             $('#planDescription').val(result.planDescription);
@@ -156,6 +157,33 @@ function getPoint(id) {
             $('#appDescription').val(result.appDescription);
             $('#verificationDateInPrj').val(result.verificationDateInPrj);
             $('#fixedDateForKO').val(result.fixedDateForKO);
+            $('#dateSh').val(result.dateSh);
+            $('#btnUpdateTE').hide();
+            $('#btnUpdateOTK').hide();
+            $('#btnUpdateTM').hide();
+            $('#planDate').prop('disabled', true);
+            $('#planDescription').prop('disabled', true);
+            $('#factDate').prop('disabled', true);
+            $('#factDescription').prop('disabled', true);
+            $('#fixedDateForKO').prop('disabled', true);
+            $('#appDate').prop('disabled', true);
+            $('#appDescription').prop('disabled', true);
+            if (idUserGroup === 1 || idUserGroup === '1') {
+                $('#btnUpdateOTK').show();
+                $('#appDate').prop('disabled', false);
+                $('#appDescription').prop('disabled', false);
+            }
+            else if (idUserGroup === 2 || idUserGroup === '2') {
+                $('#btnUpdateTE').show();
+                $('#planDate').prop('disabled', false);
+                $('#planDescription').prop('disabled', false);
+            }
+            else if (idUserGroup === 3 || idUserGroup === '3') {
+                $('#btnUpdateTM').show();
+                $('#factDate').prop('disabled', false);
+                $('#factDescription').prop('disabled', false);
+                $('#fixedDateForKO').prop('disabled', false);
+            }
             $('#verifModal').modal('show');
         },
         error: function (errormessage) {
@@ -165,45 +193,121 @@ function getPoint(id) {
     return false;
 }
 
+function getUserGroup() {
+    $.ajax({
+        cache: false,
+        url: "/Verific/GetUserGroup/",
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            return result;
+        },
+        error: function (errormessage) {
+            return 0;
+        }
+    });
+}
+
 //updateTE
 //updateOTK
 //updateTM
 
 
-//function updatePoint() {
-//    var res = valid();
-//    if (res === false) {
-//        return false;
-//    }
-//    var objPoint = {
-//        ids: $('#ids').val()
-//        , ks: $('#ks').val().replace(".", ",")
-//    };
-//    $.ajax({
-//        cache: false,
-//        url: "/UserKO/UpdatePoint/",
-//        data: JSON.stringify(objPoint),
-//        type: "POST",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            $('#myTable').DataTable().ajax.reload(null, false);
-//            $('#pointModal').modal('hide');
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
+function updateTE() {
+    var opjTE = {
+        id: $('#id').val()
+        , planDate: $('#planDate').val()
+        , planDescription: $('#planDescription').val()
+        , dateSh: $('#dateSh').val()
+    };
+    var res = validTE(opjTE.dateSh);
+    if (res === false) {
+        return false;
+    }
+    $.ajax({
+        cache: false,
+        url: "/Verific/UpdateTE/",
+        data: JSON.stringify(opjTE),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#verifModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
-//function valid() {
-//    var isValid = true;
-//    if ($('#ks').val().trim() === "") {
-//        $('#ks').css('border-color', 'Red');
-//        isValid = false;
-//    }
-//    else {
-//        $('#ks').css('border-color', 'lightgrey');
-//    }
-//    return isValid;
-//}
+function validTE(dateSh) {
+    var isValid = true;
+    var monthDate = dateSh.getMonth();
+    var day = dateSh.getDate();
+    var timeInMs = Date.now();
+    if (timeInMs.getDate() <= 15) {
+        if (monthDate <= timeInMs.getMonth()) {
+            if ($('#planDate').val().trim() === "") {
+                $('#planDate').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#planDate').css('border-color', 'lightgrey');
+            }
+        }
+    }
+    else {
+        if (monthDate <= timeInMs.getMonth() + 1) {
+            if ($('#planDate').val().trim() === "") {
+                $('#planDate').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#planDate').css('border-color', 'lightgrey');
+            }
+        }
+    }
+    return isValid;
+}
+
+
+function updateOTK() {
+    var opjTE = {
+        id: $('#id').val()
+        , appDate: $('#appDate').val()
+        , appDescription: $('#appDescription').val()
+    };
+    var res = validOTK();
+    if (res === false) {
+        return false;
+    }
+    $.ajax({
+        cache: false,
+        url: "/Verific/UpdateOTK/",
+        data: JSON.stringify(opjTE),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#verifModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validOTK() {
+    var isValid = true;
+    if ($('#appDate').val().trim() === "") {
+        $('#appDate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#appDate').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}

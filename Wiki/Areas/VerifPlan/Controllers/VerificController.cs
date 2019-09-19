@@ -31,6 +31,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
         //ListActive
         //ListClose
         //Get
-        //
+
+        //GetUserGroup
     }
 }
