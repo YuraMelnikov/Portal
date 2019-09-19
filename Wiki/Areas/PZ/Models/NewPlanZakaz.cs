@@ -113,15 +113,10 @@ namespace Wiki.Areas.PZ.Models
             {
                 id_PZ_PlanZakaz = newPZ_PlanZakaz.Id,
                 @fixed = false,
-                appDate = DateTime.Now,
                 appDescription = "",
-                factDate = DateTime.Now,
                 factDescription = "",
-                fixedDateForKO = DateTime.Now,
                 fixetFirstDate = false,
-                planDate = DateTime.Now,
-                planDescription = "",
-                verificationDateInPrj = DateTime.Now
+                planDescription = ""
             };
             db.PlanVerificationItems.Add(planVerificationItems);
             db.SaveChanges();

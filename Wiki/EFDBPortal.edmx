@@ -746,14 +746,14 @@
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="fixed" Type="bit" Nullable="false" />
           <Property Name="fixetFirstDate" Type="bit" Nullable="false" />
-          <Property Name="planDate" Type="date" Nullable="false" />
+          <Property Name="planDate" Type="date" />
           <Property Name="planDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="factDate" Type="date" Nullable="false" />
+          <Property Name="factDate" Type="date" />
           <Property Name="factDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="appDate" Type="date" Nullable="false" />
+          <Property Name="appDate" Type="date" />
           <Property Name="appDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="verificationDateInPrj" Type="date" Nullable="false" />
-          <Property Name="fixedDateForKO" Type="date" Nullable="false" />
+          <Property Name="verificationDateInPrj" Type="date" />
+          <Property Name="fixedDateForKO" Type="date" />
         </EntityType>
         <EntityType Name="PostAlertShip">
           <Key>
@@ -8355,14 +8355,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
           <Property Name="fixed" Type="Boolean" Nullable="false" />
           <Property Name="fixetFirstDate" Type="Boolean" Nullable="false" />
-          <Property Name="planDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="planDate" Type="DateTime" Precision="0" />
           <Property Name="planDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="factDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="factDate" Type="DateTime" Precision="0" />
           <Property Name="factDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="appDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="appDate" Type="DateTime" Precision="0" />
           <Property Name="appDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="verificationDateInPrj" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="fixedDateForKO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="verificationDateInPrj" Type="DateTime" Precision="0" />
+          <Property Name="fixedDateForKO" Type="DateTime" Precision="0" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" FromRole="PlanVerificationItems" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <Association Name="FK_PlanVerificationItems_PZ_PlanZakaz">

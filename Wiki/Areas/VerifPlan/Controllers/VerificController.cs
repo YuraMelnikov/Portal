@@ -175,7 +175,11 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 PlanVerificationItems planVerificationItems = db.PlanVerificationItems.Find(id);
                 if (planDate != null)
+                {
                     planVerificationItems.planDate = planDate.Value;
+                    planVerificationItems.@fixed = true;
+                }
+
                 if (planDescription != null)
                     planVerificationItems.planDescription = planDescription;
                 db.Entry(planVerificationItems).State = EntityState.Modified;

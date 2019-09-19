@@ -18,14 +18,14 @@ namespace Wiki
         public int id_PZ_PlanZakaz { get; set; }
         public bool @fixed { get; set; }
         public bool fixetFirstDate { get; set; }
-        public System.DateTime planDate { get; set; }
+        public Nullable<System.DateTime> planDate { get; set; }
         public string planDescription { get; set; }
-        public System.DateTime factDate { get; set; }
+        public Nullable<System.DateTime> factDate { get; set; }
         public string factDescription { get; set; }
-        public System.DateTime appDate { get; set; }
+        public Nullable<System.DateTime> appDate { get; set; }
         public string appDescription { get; set; }
-        public System.DateTime verificationDateInPrj { get; set; }
-        public System.DateTime fixedDateForKO { get; set; }
+        public Nullable<System.DateTime> verificationDateInPrj { get; set; }
+        public Nullable<System.DateTime> fixedDateForKO { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
