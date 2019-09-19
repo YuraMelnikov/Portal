@@ -738,6 +738,23 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="PlanVerificationItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="fixed" Type="bit" Nullable="false" />
+          <Property Name="fixetFirstDate" Type="bit" Nullable="false" />
+          <Property Name="planDate" Type="date" Nullable="false" />
+          <Property Name="planDescription" Type="varchar(max)" Nullable="false" />
+          <Property Name="factDate" Type="date" Nullable="false" />
+          <Property Name="factDescription" Type="varchar(max)" Nullable="false" />
+          <Property Name="appDate" Type="date" Nullable="false" />
+          <Property Name="appDescription" Type="varchar(max)" Nullable="false" />
+          <Property Name="verificationDateInPrj" Type="date" Nullable="false" />
+          <Property Name="fixedDateForKO" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="PostAlertShip">
           <Key>
             <PropertyRef Name="id" />
@@ -2281,6 +2298,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PlanVerificationItems_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="PlanVerificationItems" Type="Self.PlanVerificationItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanVerificationItems">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostAlertShip_debit_WorkBit">
           <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
           <End Role="PostAlertShip" Type="Self.PostAlertShip" Multiplicity="*" />
@@ -3355,6 +3384,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailGraphic" EntityType="Self.MailGraphic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanVerificationItems" EntityType="Self.PlanVerificationItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionCalendar" EntityType="Self.ProductionCalendar" Schema="dbo" store:Type="Tables" />
@@ -3786,6 +3816,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="Self.FK_MailGraphic_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="MailGraphic" EntitySet="MailGraphic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanVerificationItems_PZ_PlanZakaz" Association="Self.FK_PlanVerificationItems_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PlanVerificationItems" EntitySet="PlanVerificationItems" />
           </AssociationSet>
           <AssociationSet Name="FK_PostAlertShip_debit_WorkBit" Association="Self.FK_PostAlertShip_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
@@ -4914,6 +4948,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardTV_BasicPlanData" EntityType="PortalKATEKModel.DashboardTV_BasicPlanData" />
           <EntitySet Name="DashboardTV_MonthPlan" EntityType="PortalKATEKModel.DashboardTV_MonthPlan" />
           <EntitySet Name="DashboardTV_DataForProjectPortfolio" EntityType="PortalKATEKModel.DashboardTV_DataForProjectPortfolio" />
+          <EntitySet Name="PlanVerificationItems" EntityType="PortalKATEKModel.PlanVerificationItems" />
+          <AssociationSet Name="FK_PlanVerificationItems_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PlanVerificationItems" EntitySet="PlanVerificationItems" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5867,6 +5906,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="MailGraphic" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="MailGraphic" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
+          <NavigationProperty Name="PlanVerificationItems" Relationship="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PlanVerificationItems" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -8307,6 +8347,36 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="to" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="dataOtgruzkiBP" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
+        <EntityType Name="PlanVerificationItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="fixed" Type="Boolean" Nullable="false" />
+          <Property Name="fixetFirstDate" Type="Boolean" Nullable="false" />
+          <Property Name="planDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="planDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="factDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="factDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="appDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="appDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="verificationDateInPrj" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fixedDateForKO" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" FromRole="PlanVerificationItems" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_PlanVerificationItems_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlanVerificationItems" Role="PlanVerificationItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanVerificationItems">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10070,6 +10140,24 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="from" ColumnName="from" />
                 <ScalarProperty Name="tcpm" ColumnName="tcpm" />
                 <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanVerificationItems">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PlanVerificationItems">
+              <MappingFragment StoreEntitySet="PlanVerificationItems">
+                <ScalarProperty Name="fixedDateForKO" ColumnName="fixedDateForKO" />
+                <ScalarProperty Name="verificationDateInPrj" ColumnName="verificationDateInPrj" />
+                <ScalarProperty Name="appDescription" ColumnName="appDescription" />
+                <ScalarProperty Name="appDate" ColumnName="appDate" />
+                <ScalarProperty Name="factDescription" ColumnName="factDescription" />
+                <ScalarProperty Name="factDate" ColumnName="factDate" />
+                <ScalarProperty Name="planDescription" ColumnName="planDescription" />
+                <ScalarProperty Name="planDate" ColumnName="planDate" />
+                <ScalarProperty Name="fixetFirstDate" ColumnName="fixetFirstDate" />
+                <ScalarProperty Name="fixed" ColumnName="fixed" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

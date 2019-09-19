@@ -162,5 +162,6 @@ namespace Wiki
         public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
         public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
         public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
+        public virtual DbSet<PlanVerificationItems> PlanVerificationItems { get; set; }
     }
 }
