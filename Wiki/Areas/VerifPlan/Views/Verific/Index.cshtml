@@ -94,6 +94,18 @@
                         <textarea rows="5" id="appDescription" class="form-control"></textarea>
                     </div>
                 </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -111,5 +123,45 @@
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
         $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#planDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#factDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#fixedDateForKO').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#appDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
     });
 </script>

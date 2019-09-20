@@ -120,7 +120,17 @@ function listClose() {
 }
 
 function get(id) {
-    var idUserGroup = getUserGroup();
+    var idUserGroup = 0;
+    $.ajax({
+        cache: false,
+        url: "/Verific/GetUserGroup/",
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            idUserGroup = result;
+        }
+    });
     $.ajax({
         cache: false,
         url: "/Verific/Get/" + id,
@@ -170,9 +180,11 @@ function get(id) {
             $('#appDate').prop('disabled', true);
             $('#appDescription').prop('disabled', true);
             if (idUserGroup === 1 || idUserGroup === '1') {
-                $('#btnUpdateOTK').show();
-                $('#appDate').prop('disabled', false);
-                $('#appDescription').prop('disabled', false);
+                if (processNull(result.factDate) !== '') {
+                    $('#btnUpdateOTK').show();
+                    $('#appDate').prop('disabled', false);
+                    $('#appDescription').prop('disabled', false);
+                }
             }
             else if (idUserGroup === 2 || idUserGroup === '2') {
                 $('#btnUpdateTE').show();
@@ -180,10 +192,12 @@ function get(id) {
                 $('#planDescription').prop('disabled', false);
             }
             else if (idUserGroup === 3 || idUserGroup === '3') {
-                $('#btnUpdateTM').show();
-                $('#factDate').prop('disabled', false);
-                $('#factDescription').prop('disabled', false);
-                $('#fixedDateForKO').prop('disabled', false);
+                if (processNull(result.planDate) !== '') {
+                    $('#btnUpdateTM').show();
+                    $('#factDate').prop('disabled', false);
+                    $('#factDescription').prop('disabled', false);
+                    $('#fixedDateForKO').prop('disabled', false);
+                }
             }
             $('#verifModal').modal('show');
         },
@@ -192,22 +206,6 @@ function get(id) {
         }
     });
     return false;
-}
-
-function getUserGroup() {
-    $.ajax({
-        cache: false,
-        url: "/Verific/GetUserGroup/",
-        typr: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            return result;
-        },
-        error: function (errormessage) {
-            return 0;
-        }
-    });
 }
 
 function updateTE() {
@@ -239,12 +237,14 @@ function updateTE() {
 }
 
 function validTE(dateSh) {
+    dateSh = convertRuDateToDateISO(dateSh);
     var isValid = true;
     var monthDate = dateSh.getMonth();
     var day = dateSh.getDate();
-    var timeInMs = Date.now();
-    if (timeInMs.getDate() <= 15) {
-        if (monthDate <= timeInMs.getMonth()) {
+    let now = new Date();
+    var dayNow = now.getDate();
+    if (dayNow >= 15) {
+        if (monthDate <= now.getMonth()) {
             if ($('#planDate').val().trim() === "") {
                 $('#planDate').css('border-color', 'Red');
                 isValid = false;
