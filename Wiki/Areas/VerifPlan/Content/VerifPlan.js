@@ -5,14 +5,14 @@
 var objList = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "id_PZ_PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true },
-    { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false },
-    { "title": "Дата приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false },
+    { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Дата приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Прим. гл. инженера", "data": "planDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. произв.", "data": "factDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false },
-    { "title": "Прогнозная дата проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false },
-    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false },
+    { "title": "Прогнозная дата проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
+    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false }
 ];
 
@@ -149,16 +149,16 @@ function get(id) {
             $('#id_PZ_PlanZakaz').val(result.id_PZ_PlanZakaz);
             $('#fixed').val(result.fixed);
             $('#state').val(result.state);
-            $('#fixetFirstDate').val(result.fixetFirstDate);
-            $('#planDate').val(result.planDate);
+            $('#fixetFirstDate').val(processNull(result.fixetFirstDate));
+            $('#planDate').val(processNull(result.planDate));
             $('#planDescription').val(result.planDescription);
-            $('#factDate').val(result.factDate);
+            $('#factDate').val(processNull(result.factDate));
             $('#factDescription').val(result.factDescription);
-            $('#appDate').val(result.appDate);
+            $('#appDate').val(processNull(result.appDate));
             $('#appDescription').val(result.appDescription);
-            $('#verificationDateInPrj').val(result.verificationDateInPrj);
-            $('#fixedDateForKO').val(result.fixedDateForKO);
-            $('#dateSh').val(result.dateSh);
+            $('#verificationDateInPrj').val(processNull(result.verificationDateInPrj));
+            $('#fixedDateForKO').val(processNull(result.fixedDateForKO));
+            $('#dateSh').val(processNull(result.dateSh));
             $('#btnUpdateTE').hide();
             $('#btnUpdateOTK').hide();
             $('#btnUpdateTM').hide();

@@ -179,7 +179,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     planVerificationItems.planDate = planDate.Value;
                     planVerificationItems.@fixed = true;
                 }
-
                 if (planDescription != null)
                     planVerificationItems.planDescription = planDescription;
                 db.Entry(planVerificationItems).State = EntityState.Modified;

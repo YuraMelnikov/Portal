@@ -116,7 +116,8 @@ namespace Wiki.Areas.PZ.Models
                 appDescription = "",
                 factDescription = "",
                 fixetFirstDate = false,
-                planDescription = ""
+                planDescription = "",
+                verificationDateInPrj = newPZ_PlanZakaz.dataOtgruzkiBP
             };
             db.PlanVerificationItems.Add(planVerificationItems);
             db.SaveChanges();

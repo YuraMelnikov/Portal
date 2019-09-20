@@ -1231,6 +1231,7 @@
     <Content Include="Content\DataTables\pdfmake.min.js" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\globalScript.js" />
     <Content Include="Content\Highcharts\exporting.js" />
     <Content Include="Content\Highcharts\highcharts-gantt.js" />
     <Content Include="Content\Highcharts\highcharts-more.js" />
