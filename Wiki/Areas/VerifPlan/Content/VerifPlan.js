@@ -5,6 +5,7 @@
 var objList = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "id_PZ_PlanZakaz", "autowidth": true, "bSortable": true },
+    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Дата приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -12,7 +13,6 @@ var objList = [
     { "title": "Прим. произв.", "data": "factDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false },
     { "title": "Прогнозная дата проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
-    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false }
 ];
 
@@ -24,7 +24,7 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "asc"]],
+        "order": [[2, "asc"]],
         "processing": true,
         "columns": objList,
         //"rowCallback": function (row, data, index) {

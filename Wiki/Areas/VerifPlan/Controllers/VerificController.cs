@@ -123,7 +123,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
 
         public JsonResult Get(int id)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+            JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -136,7 +136,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 var data = query.Select(dataList => new
                 {
                     dataList.id,
-                    dataList.id_PZ_PlanZakaz,
+                    id_PZ_PlanZakaz = dataList.PZ_PlanZakaz.PlanZakaz.ToString(),
                     dataList.@fixed,
                     state = GetState(dataList),
                     fixetFirstDate = JsonConvert.SerializeObject(dataList.fixetFirstDate, settings).Replace(@"""", ""),
@@ -148,7 +148,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     dataList.appDescription,
                     verificationDateInPrj = JsonConvert.SerializeObject(dataList.verificationDateInPrj, settings).Replace(@"""", ""),
                     fixedDateForKO = JsonConvert.SerializeObject(dataList.fixedDateForKO, settings).Replace(@"""", ""),
-                    dataOtgruzkiBP = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, settings).Replace(@"""", "")
+                    dateSh = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.dataOtgruzkiBP, settings).Replace(@"""", "")
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
             }
@@ -158,7 +158,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
         {
             int numberUserGroup = 0;
             string login = HttpContext.User.Identity.Name;
-            if (login == "bav@katek.by")
+            if (login == "bav@katek.by" || login == "myi@katek.by")
                 numberUserGroup = 2;
             else if (login == "Medvedev@katek.by")
                 numberUserGroup = 3;
