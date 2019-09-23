@@ -348,6 +348,7 @@
     <Compile Include="Areas\UsersKO\Controllers\UserKOController.cs" />
     <Compile Include="Areas\UsersKO\UsersKOAreaRegistration.cs" />
     <Compile Include="Areas\VerifPlan\Controllers\VerificController.cs" />
+    <Compile Include="Areas\VerifPlan\Models\EmailVerifPlan.cs" />
     <Compile Include="Areas\VerifPlan\VerifPlanAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1906,7 +1907,6 @@
   <ItemGroup>
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
-    <Folder Include="Areas\VerifPlan\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

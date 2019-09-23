@@ -4,6 +4,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Wiki.Areas.VerifPlan.Models;
 
 namespace Wiki.Areas.VerifPlan.Controllers
 {
@@ -171,6 +172,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                string login = HttpContext.User.Identity.Name;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 PlanVerificationItems planVerificationItems = db.PlanVerificationItems.Find(id);
@@ -183,6 +185,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     planVerificationItems.planDescription = planDescription;
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
+                EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 1);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -191,6 +194,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                string login = HttpContext.User.Identity.Name;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 PlanVerificationItems planVerificationItems = db.PlanVerificationItems.Find(id);
@@ -200,6 +204,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     planVerificationItems.appDescription = appDescription;
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
+                EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 3);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -208,6 +213,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                string login = HttpContext.User.Identity.Name;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 PlanVerificationItems planVerificationItems = db.PlanVerificationItems.Find(id);
@@ -219,6 +225,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     planVerificationItems.fixedDateForKO = fixedDateForKO.Value;
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
+                EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 2);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
