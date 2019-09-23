@@ -16,6 +16,21 @@ var objList = [
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false }
 ];
 
+function loadData(listId) {
+    if (listId === 1 || listId === "1") {
+        listActive();
+    }
+    else if (listId === 2 || listId === "2") {
+        listClose();
+    }
+    else if (listId === 3 || listId === "3") {
+        //loadReportPanel();
+    }
+    else {
+        loadReport();
+    }
+}
+
 function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
@@ -71,7 +86,7 @@ function listActive() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[2, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
@@ -116,7 +131,7 @@ function listClose() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[1, "asc"]],
+        "order": [[2, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {

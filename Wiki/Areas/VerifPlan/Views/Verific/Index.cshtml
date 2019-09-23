@@ -12,6 +12,9 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav navbar-nav">
+            <li><a onclick="return loadData(1);">Неотгруженные заказы</a></li>
+            <li><a onclick="return loadData(2);">Отгруженные заказы</a></li>
+            <li><a onclick="return loadData(3);">Загрузить отчет</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "Verific"); }
