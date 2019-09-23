@@ -1570,6 +1570,7 @@
     <Content Include="Areas\VerifPlan\Views\web.config" />
     <Content Include="Areas\VerifPlan\Views\Shared\_LayoutVerifPlan.cshtml" />
     <Content Include="Areas\VerifPlan\Views\Verific\Index.cshtml" />
+    <Content Include="Areas\VerifPlan\Content\Report.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

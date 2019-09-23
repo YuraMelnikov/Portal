@@ -23,9 +23,6 @@ function loadData(listId) {
     else if (listId === 2 || listId === "2") {
         listClose();
     }
-    else if (listId === 3 || listId === "3") {
-        //loadReportPanel();
-    }
     else {
         loadReport();
     }
