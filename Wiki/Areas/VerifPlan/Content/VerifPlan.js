@@ -27,13 +27,23 @@ function startMenu() {
         "order": [[2, "asc"]],
         "processing": true,
         "columns": objList,
-        //"rowCallback": function (row, data, index) {
-        //    if (data.coefficient === 0 || data.coefficient === "0") {
-        //        $('td', row).css('background-color', '#f45b5b');
-        //        $('td', row).css('color', 'white');
-        //        $('a', row).css('color', 'white');
-        //    }
-        //},
+        "rowCallback": function (row, data, index) {
+            if (data.state === "Срок не зафиксирован") {
+                $('td', row).css('background-color', '#7cb5ec');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Срок зафиксирован") {
+                $('td', row).css('background-color', '#e4d354');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Принят ОТК") {
+                $('td', row).css('background-color', '#2b908f');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+        },
         "cache": false,
         "async": false,
         "scrollY": '75vh',
@@ -64,13 +74,23 @@ function listActive() {
         "order": [[1, "asc"]],
         "processing": true,
         "columns": objList,
-        //"rowCallback": function (row, data, index) {
-        //    if (data.coefficient === 0 || data.coefficient === "0") {
-        //        $('td', row).css('background-color', '#f45b5b');
-        //        $('td', row).css('color', 'white');
-        //        $('a', row).css('color', 'white');
-        //    }
-        //},
+        "rowCallback": function (row, data, index) {
+            if (data.state === "Срок не зафиксирован") {
+                $('td', row).css('background-color', '#7cb5ec');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Срок зафиксирован") {
+                $('td', row).css('background-color', '#e4d354');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Принят ОТК") {
+                $('td', row).css('background-color', '#2b908f');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -99,13 +119,23 @@ function listClose() {
         "order": [[1, "asc"]],
         "processing": true,
         "columns": objList,
-        //"rowCallback": function (row, data, index) {
-        //    if (data.coefficient === 0 || data.coefficient === "0") {
-        //        $('td', row).css('background-color', '#f45b5b');
-        //        $('td', row).css('color', 'white');
-        //        $('a', row).css('color', 'white');
-        //    }
-        //},
+        "rowCallback": function (row, data, index) {
+            if (data.state === "Срок не зафиксирован") {
+                $('td', row).css('background-color', '#7cb5ec');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Срок зафиксирован") {
+                $('td', row).css('background-color', '#e4d354');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            else if (data.state === "Принят ОТК") {
+                $('td', row).css('background-color', '#2b908f');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
