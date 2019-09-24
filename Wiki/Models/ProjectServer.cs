@@ -73,14 +73,6 @@ namespace Wiki.Models
                     DraftTaskCollection catskill = projCheckedOut.Tasks;
                     foreach (DraftTask task in catskill)
                     {
-                        projectCont1.Load(projCheckedOut.Assignments);
-                        projectCont1.ExecuteQuery();
-                        DraftAssignmentCollection draftAssignments = projCheckedOut.Assignments;
-                        foreach (DraftAssignment draftAssignment in draftAssignments)
-                        {
-                            draftAssignment.Finish = DateTime.Now;
-                        }
-
                         try
                         {
                             if (task.Name != null && task.Id == _db.ProjectServer_UpdateTasks.First(d => d.taskUID == task.Id).taskUID)
@@ -115,12 +107,12 @@ namespace Wiki.Models
                                 }
                                 else
                                 {
-                                    ProjectServer_UpdateTasks pTask =  _db.ProjectServer_UpdateTasks.First(d => d.taskUID == task.Id);
+                                    ProjectServer_UpdateTasks pTask = _db.ProjectServer_UpdateTasks.First(d => d.taskUID == task.Id);
                                     if (pTask.percentComplited != null)
-                                        task.PercentComplete = (int) pTask.percentComplited;
+                                        task.PercentComplete = (int)pTask.percentComplited;
                                     if (pTask.finishDate != null)
-                                        task.Finish = (DateTime) pTask.finishDate;
-                                    if(task.IsMilestone == true)
+                                        task.Finish = (DateTime)pTask.finishDate;
+                                    if (task.IsMilestone == true)
                                         task.Start = (DateTime)pTask.finishDate;
                                     QueueJob qJob1 = projCheckedOut.Update();
                                     JobState jobState1 = projectCont1.WaitForQueue(qJob1, 10);
