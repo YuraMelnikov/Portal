@@ -99,11 +99,11 @@ namespace Wiki.Areas.VerifPlan.Controllers
         string GetState(PlanVerificationItems planVerificationItems)
         {
             string state = "";
-            if(planVerificationItems.appDate != null)
+            if (planVerificationItems.appDate != null)
             {
                 state = "Принят ОТК";
             }
-            else if(planVerificationItems.factDate != null)
+            else if (planVerificationItems.factDate != null)
             {
                 state = "Сдан ПО";
             }
