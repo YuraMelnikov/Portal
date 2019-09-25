@@ -2,6 +2,7 @@
     getPeriodReport();
     getTablePlan();
     getGanttProjects();
+    getTablePlanChack();
 });
 
 function getPeriodReport() {
@@ -181,4 +182,28 @@ function convertToInteger(value) {
     if (data === 0)
         data = '>1';
     return data;
+}
+
+var objPlanChack = [
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": false },
+    { "title": "Требуемый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Ожидаемая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Отклонение", "data": "deviation", "autowidth": true, "bSortable": false, "className": 'text-center' }
+];
+
+function getTablePlanChack() {
+    $("#tablePlanChack").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/DashboardTVC/GetTablePlanChack",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": objPlanChack,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "ordering": false
+    });
 }

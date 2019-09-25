@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Newtonsoft.Json;
+using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Linq.Dynamic;
 using System.Web.Mvc;
 using Wiki.Areas.DashboardTV.Models;
@@ -71,6 +74,39 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 }
                 return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetTablePlanChack()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.PlanVerificationItems
+                    .AsNoTracking()
+                    .Where(d => d.verificationDateInPrj > DateTime.Now && d.factDate == null && d.planDate != null)
+                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                    .OrderBy(d => d.planDate.Value)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    order = dataList.PZ_PlanZakaz.PlanZakaz,
+                    customer = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                    planDate = JsonConvert.SerializeObject(dataList.planDate, settings).Replace(@"""", ""),
+                    factDate = JsonConvert.SerializeObject(dataList.verificationDateInPrj, settings).Replace(@"""", ""),
+                    deviation = GetDay(dataList.planDate.Value, dataList.verificationDateInPrj.Value)
+
+                });
+                return Json(new { data });
+            }
+        }
+
+        private int GetDay(DateTime d1, DateTime d2)
+        {
+            TimeSpan t = d1 - d2;
+            return (int)t.TotalDays;
         }
     }
 }
