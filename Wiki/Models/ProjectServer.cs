@@ -212,13 +212,18 @@ namespace Wiki.Models
                             DraftProject draft = project.CheckOut();
                             context.Load(draft, p => p.StartDate,
                                                 p => p.Description);
-                            string taskName = _db.PWA_EmpTask.First(d => d.TaskUID == dataList.taskUID).TaskName;
+                            string taskName = _db.PWA_EmpTaskAll.First(d => d.TaskUID == dataList.taskUID).TaskName;
                             context.Load(draft.Tasks, dt => dt.Where(t => t.Name == taskName));
                             context.Load(draft.Assignments, da => da.Where(a => a.Task.Name == taskName));
                             context.ExecuteQuery();
                             DraftTask task = draft.Tasks.First();
-                            draft.Description += "(description updated)";
-                            task.Start = DateTime.Now;
+
+
+
+
+                            task.ConstraintType = ConstraintType.MustStartOn;
+                            task.ConstraintStartEnd = DateTime.Now;
+                            task.ActualStart = DateTime.Now;
                             draft.Update();
                             JobState jobState = context.WaitForQueue(draft.Publish(true), 20);
                         }
