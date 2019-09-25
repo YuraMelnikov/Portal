@@ -164,5 +164,6 @@ namespace Wiki
         public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
         public virtual DbSet<PlanVerificationItems> PlanVerificationItems { get; set; }
         public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
+        public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
     }
 }

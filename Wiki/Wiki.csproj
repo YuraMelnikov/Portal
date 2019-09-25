@@ -666,6 +666,9 @@
     <Compile Include="ProjectServer_CreateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectServer_UpdateMustStartOn.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectServer_UpdateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

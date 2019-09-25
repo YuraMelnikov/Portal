@@ -279,6 +279,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PlanVerificationItems" Width="1.5" PointX="18.125" PointY="89" />
         <AssociationConnector Association="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTaskAll" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.ProjectServer_UpdateMustStartOn" Width="1.5" PointX="3.375" PointY="15.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
