@@ -66,6 +66,10 @@ namespace Wiki.Areas.VerifPlan.Models
             {
                 subject = "Изделие принято на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString();
             }
+            else if (stepNumber == 4)
+            {
+                subject = "Запрос на смену сроков передачи изделия на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString();
+            }
             subject = subject.Replace(Environment.NewLine, "");
             return true;
         }
@@ -87,6 +91,11 @@ namespace Wiki.Areas.VerifPlan.Models
             {
                 body = "Добрый день!" + "<br/>";
                 body += "Изделие принято на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString() + " | " + order.appDate.Value.ToShortDateString();
+            }
+            else if (stepNumber == 3)
+            {
+                body = "Добрый день!" + "<br/>";
+                body += "Запрос на смену сроков передачи изделия на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString() + " | " + order.fixedDateForKO.Value.ToShortDateString();
             }
             return true;
         }

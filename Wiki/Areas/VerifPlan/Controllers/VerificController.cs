@@ -221,14 +221,21 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 PlanVerificationItems planVerificationItems = db.PlanVerificationItems.Find(id);
                 if (factDate != null)
+                {
                     planVerificationItems.factDate = factDate.Value;
+                    EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 2);
+                }
+
                 if (factDescription != null)
                     planVerificationItems.factDescription = factDescription;
                 if (fixedDateForKO != null)
+                {
                     planVerificationItems.fixedDateForKO = fixedDateForKO.Value;
+                    EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);
+                }
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
-                EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 2);
+
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
