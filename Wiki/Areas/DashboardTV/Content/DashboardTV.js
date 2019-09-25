@@ -201,6 +201,11 @@ function getTablePlanChack() {
             "datatype": "json"
         },
         "columns": objPlanChack,
+        "rowCallback": function (row, data, index) {
+            if (data.deviation < 0) {
+                $('td', row).eq(4).addClass('highlightColor');
+            }
+        },
         "paging": false,
         "searching": false,
         "info": false,

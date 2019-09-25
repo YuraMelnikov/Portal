@@ -1418,7 +1418,7 @@ function postPanelToCustomer() {
     });
 }
 
-function postPanelToPlanComplited() { 
+function postPanelToPlanComplited() {
     var res = ValidPostPanelToCustomer();
     if (res === false) {
         return false;
@@ -1450,7 +1450,7 @@ function postPanelToPlanComplited() {
     });
 }
 
-function postPanelToComplited() { 
+function postPanelToComplited() {
     var res = ValidPostPanelToComplited();
     if (res === false) {
         return false;
