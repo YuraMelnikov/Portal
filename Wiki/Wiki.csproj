@@ -626,6 +626,7 @@
     <Compile Include="Models\OTK_QuartalReport.cs" />
     <Compile Include="Models\OTK_ReclamationToExcel.cs" />
     <Compile Include="Models\ProjectServer.cs" />
+    <Compile Include="Models\ProjectServer_UpdateMustStartOnCRUD.cs" />
     <Compile Include="Models\RenderUserMenu.cs" />
     <Compile Include="Models\TaskForPWA.cs" />
     <Compile Include="Models\RKD.cs" />

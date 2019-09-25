@@ -7,9 +7,9 @@ namespace Wiki.Models
 {
     public class ProjectServer
     {
-        private const string PwaPath = "http://tpserver/PWA/";
-        private readonly PortalKATEKEntities _db = new PortalKATEKEntities();
-        private List<Guid> _removeGuid = new List<Guid>();
+        protected const string PwaPath = "http://tpserver/PWA/";
+        protected readonly PortalKATEKEntities _db = new PortalKATEKEntities();
+        protected List<Guid> _removeGuid = new List<Guid>();
 
         public void CreateTasks()
         {
@@ -20,29 +20,6 @@ namespace Wiki.Models
                     _removeGuid.Add(data.Key);
             }
             RemoveProjectServer_CreateTasks();
-        }
-
-        public void UpdateTasks()
-        {
-            var projectServerUpdateTasks = _db.ProjectServer_UpdateTasks.GroupBy(d => d.projectUID).ToList();
-            foreach (var data in projectServerUpdateTasks)
-            {
-                if (ReadAndUpdateProject() == 1)
-                    _removeGuid.Add(data.Key);
-            }
-            RemoveProjectServer_UpdateTasks();
-        }
-
-        private void RemoveProjectServer_UpdateTasks()
-        {
-            foreach (var dataPr in _removeGuid)
-            {
-                foreach (var data in _db.ProjectServer_UpdateTasks.Where(d => d.projectUID == dataPr).ToList())
-                {
-                    _db.ProjectServer_UpdateTasks.Remove(data);
-                    _db.SaveChanges();
-                }
-            }
         }
 
         private void RemoveProjectServer_CreateTasks()
@@ -71,9 +48,6 @@ namespace Wiki.Models
                     projectCont1.Load(projCheckedOut.Tasks);
                     projectCont1.ExecuteQuery();
                     DraftTaskCollection catskill = projCheckedOut.Tasks;
-
-
-
                     foreach (DraftTask task in catskill)
                     {
                         try
@@ -181,63 +155,6 @@ namespace Wiki.Models
                     JobState jobState = projectCont1.WaitForQueue(qJob, 20);
                 }
                 return 1;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Read and update the project,
-        /// this method need a project named "New Project" with a task "New task" and assign to a local resource named "New local resource" already created.
-        /// Basically please run CreateProjectWithTaskAndAssignment() before running this to avoid exceptions
-        /// </summary>
-        public int ReadAndUpdateProject()
-        {
-            try
-            {
-                var tasksList = _db.ProjectServer_UpdateTasks.ToList();
-                if (tasksList.Count > 0)
-                {
-                    try
-                    {
-                        foreach (var dataList in tasksList)
-                        {
-                            ProjectContext context = new ProjectContext(PwaPath);
-                            string nameProject = _db.PWA_EmpProject.First(d => d.ProjectUID == dataList.projectUID).ProjectName;
-                            var projCollection = context.LoadQuery(context.Projects.Where(p => p.Name == nameProject));
-                            context.ExecuteQuery();
-                            PublishedProject project = projCollection.First();
-                            DraftProject draft = project.CheckOut();
-                            context.Load(draft, p => p.StartDate,
-                                                p => p.Description);
-                            string taskName = _db.PWA_EmpTaskAll.First(d => d.TaskUID == dataList.taskUID).TaskName;
-                            context.Load(draft.Tasks, dt => dt.Where(t => t.Name == taskName));
-                            context.Load(draft.Assignments, da => da.Where(a => a.Task.Name == taskName));
-                            context.ExecuteQuery();
-                            DraftTask task = draft.Tasks.First();
-
-
-
-
-                            task.ConstraintType = ConstraintType.MustStartOn;
-                            task.ConstraintStartEnd = DateTime.Now;
-                            task.ActualStart = DateTime.Now;
-                            draft.Update();
-                            JobState jobState = context.WaitForQueue(draft.Publish(true), 20);
-                        }
-                        return 1;
-                    }
-                    catch
-                    {
-                        return 0;
-                    }
-                }
-                else
-                {
-                    return 0;
-                }
             }
             catch
             {

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.VerifPlan.Models;
+using Wiki.Models;
 
 namespace Wiki.Areas.VerifPlan.Controllers
 {
@@ -186,6 +187,8 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
                 EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 1);
+
+                ProjectServer_UpdateMustStartOnCRUD projectServer_UpdateMustStartOnCRUD = new ProjectServer_UpdateMustStartOnCRUD(planVerificationItems.id_PZ_PlanZakaz, "ПП", planVerificationItems.planDate.Value);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -229,5 +232,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
+
+
     }
 }
