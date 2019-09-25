@@ -160,9 +160,9 @@ namespace Wiki.Areas.VerifPlan.Controllers
         {
             int numberUserGroup = 0;
             string login = HttpContext.User.Identity.Name;
-            if (login == "bav@katek.by")
+            if (login == "bav@katek.by" || login == "myi@katek.by")
                 numberUserGroup = 2;
-            else if (login == "Medvedev@katek.by" || login == "myi@katek.by")
+            else if (login == "Medvedev@katek.by")
                 numberUserGroup = 3;
             else if (login == "pev@katek.by")
                 numberUserGroup = 1;
@@ -232,7 +232,5 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
-
-
     }
 }

@@ -15,13 +15,20 @@ namespace Wiki.Models
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                ProjectServer_UpdateMustStartOn projectServer_UpdateMustStartOn = new ProjectServer_UpdateMustStartOn();
-                Guid guid = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).ProjectUID.Value;
-                projectServer_UpdateMustStartOn.ActualStart = dateTime;
-                projectServer_UpdateMustStartOn.ProjectUID = guid;
-                projectServer_UpdateMustStartOn.TaskUID = db.PWA_EmpTaskAll.First(d => d.ProjectUID == guid && d.TaskWBS == taskWBS).TaskUID;
-                db.ProjectServer_UpdateMustStartOn.Add(projectServer_UpdateMustStartOn);
-                db.SaveChanges();
+                try
+                {
+                    ProjectServer_UpdateMustStartOn projectServer_UpdateMustStartOn = new ProjectServer_UpdateMustStartOn();
+                    Guid guid = db.PZ_PlanZakaz.Find(id_PZ_PlanZakaz).ProjectUID.Value;
+                    projectServer_UpdateMustStartOn.ActualStart = dateTime;
+                    projectServer_UpdateMustStartOn.ProjectUID = guid;
+                    projectServer_UpdateMustStartOn.TaskUID = db.PWA_EmpTaskAll.First(d => d.ProjectUID == guid && d.TaskWBS == taskWBS).TaskUID;
+                    db.ProjectServer_UpdateMustStartOn.Add(projectServer_UpdateMustStartOn);
+                    db.SaveChanges();
+                }
+                catch
+                {
+
+                }
             }
             UpdateTasks();
         }
@@ -75,11 +82,18 @@ namespace Wiki.Models
 
         public void UpdateTasks()
         {
-            var projectServerUpdateTasks = _db.ProjectServer_UpdateMustStartOn.ToList();
-            if (projectServerUpdateTasks.Count > 0)
+            try
             {
-                if (ReadAndUpdateProject() == 1)
-                    RemoveProjectServer_UpdateTasks();
+                var projectServerUpdateTasks = _db.ProjectServer_UpdateMustStartOn.ToList();
+                if (projectServerUpdateTasks.Count > 0)
+                {
+                    if (ReadAndUpdateProject() == 1)
+                        RemoveProjectServer_UpdateTasks();
+                }
+            }
+            catch
+            {
+
             }
         }
 
