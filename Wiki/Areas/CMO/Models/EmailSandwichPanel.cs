@@ -178,6 +178,7 @@ namespace Wiki.Areas.CMO.Models
         bool GetMailMYI()
         {
             mailToList.Add("myi@katek.by");
+            mailToList.Add("xan@katek.by");
             return true;
         }
 

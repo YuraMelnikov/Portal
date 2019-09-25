@@ -7,7 +7,7 @@ namespace Wiki.Models
 {
     public class ProjectServer
     {
-        private const string PwaPath = "http://tpserver/PWA/"; 
+        private const string PwaPath = "http://tpserver/PWA/";
         private readonly PortalKATEKEntities _db = new PortalKATEKEntities();
         private List<Guid> _removeGuid = new List<Guid>();
 
@@ -27,7 +27,7 @@ namespace Wiki.Models
             var projectServerUpdateTasks = _db.ProjectServer_UpdateTasks.GroupBy(d => d.projectUID).ToList();
             foreach (var data in projectServerUpdateTasks)
             {
-                if(UpdateTasksInProject(data) == 1)
+                if (ReadAndUpdateProject() == 1)
                     _removeGuid.Add(data.Key);
             }
             RemoveProjectServer_UpdateTasks();
@@ -71,6 +71,9 @@ namespace Wiki.Models
                     projectCont1.Load(projCheckedOut.Tasks);
                     projectCont1.ExecuteQuery();
                     DraftTaskCollection catskill = projCheckedOut.Tasks;
+
+
+
                     foreach (DraftTask task in catskill)
                     {
                         try
@@ -143,7 +146,7 @@ namespace Wiki.Models
                 using (ProjectContext projectCont1 = new ProjectContext(PwaPath))
                 {
                     string nameProject = _db.PWA_EmpProject.First(d => d.ProjectUID == data.Key).ProjectName;
-                    var projCollection = projectCont1.LoadQuery(projectCont1.Projects.Where(p => p.Name == nameProject)); 
+                    var projCollection = projectCont1.LoadQuery(projectCont1.Projects.Where(p => p.Name == nameProject));
                     projectCont1.ExecuteQuery();
                     PublishedProject proj2Edit = projCollection.First();
                     DraftProject projCheckedOut = proj2Edit.CheckOut();
@@ -157,13 +160,14 @@ namespace Wiki.Models
                             Name = taskInList.TaskName,
                             Notes = "new Task",
                             IsManual = false,
-                            Duration = "1d", Start = DateTime.Now
+                            Duration = "1d",
+                            Start = DateTime.Now
                         });
                         projCheckedOut.Update();
                         // Create a local resource and assign the task to him
                         projCheckedOut.Update();
                         Guid resourceGuid =
-                            (Guid) _db.AspNetUsers.First(d => d.Email == taskInList.Resource).ResourceUID;
+                            (Guid)_db.AspNetUsers.First(d => d.Email == taskInList.Resource).ResourceUID;
                         DraftAssignment assignment = projCheckedOut.Assignments.Add(new AssignmentCreationInformation()
                         {
                             ResourceId = resourceGuid,
@@ -171,12 +175,64 @@ namespace Wiki.Models
                         });
                         projCheckedOut.Update();
                     }
-                    
+
                     projCheckedOut.Publish(true);
                     QueueJob qJob = projectCont1.Projects.Update();
                     JobState jobState = projectCont1.WaitForQueue(qJob, 20);
                 }
                 return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Read and update the project,
+        /// this method need a project named "New Project" with a task "New task" and assign to a local resource named "New local resource" already created.
+        /// Basically please run CreateProjectWithTaskAndAssignment() before running this to avoid exceptions
+        /// </summary>
+        public int ReadAndUpdateProject()
+        {
+            try
+            {
+                var tasksList = _db.ProjectServer_UpdateTasks.ToList();
+                if (tasksList.Count > 0)
+                {
+                    try
+                    {
+                        foreach (var dataList in tasksList)
+                        {
+                            ProjectContext context = new ProjectContext(PwaPath);
+                            string nameProject = _db.PWA_EmpProject.First(d => d.ProjectUID == dataList.projectUID).ProjectName;
+                            var projCollection = context.LoadQuery(context.Projects.Where(p => p.Name == nameProject));
+                            context.ExecuteQuery();
+                            PublishedProject project = projCollection.First();
+                            DraftProject draft = project.CheckOut();
+                            context.Load(draft, p => p.StartDate,
+                                                p => p.Description);
+                            string taskName = _db.PWA_EmpTask.First(d => d.TaskUID == dataList.taskUID).TaskName;
+                            context.Load(draft.Tasks, dt => dt.Where(t => t.Name == taskName));
+                            context.Load(draft.Assignments, da => da.Where(a => a.Task.Name == taskName));
+                            context.ExecuteQuery();
+                            DraftTask task = draft.Tasks.First();
+                            draft.Description += "(description updated)";
+                            task.Start = DateTime.Now;
+                            draft.Update();
+                            JobState jobState = context.WaitForQueue(draft.Publish(true), 20);
+                        }
+                        return 1;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
             }
             catch
             {

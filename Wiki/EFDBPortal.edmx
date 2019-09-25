@@ -1568,6 +1568,27 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a prima
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PWA_EmpTaskAll">
+          <Key>
+            <PropertyRef Name="TaskUID" />
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="TaskName" />
+          </Key>
+          <Property Name="TaskUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskParentUID" Type="uniqueidentifier" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TaskWBS" Type="varchar" MaxLength="30" />
+          <Property Name="TaskWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskPercentWorkCompleted" Type="smallint" />
+          <Property Name="PlanZakaz" Type="int" />
+          <Property Name="ResourceUID" Type="uniqueidentifier" />
+          <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
@@ -3517,6 +3538,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
     [PWA_EmpTask].[ResourceName] AS [ResourceName]
     FROM [dbo].[PWA_EmpTask] AS [PWA_EmpTask]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="PWA_EmpTaskAll" EntityType="Self.PWA_EmpTaskAll" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PWA_EmpTaskAll].[TaskUID] AS [TaskUID], 
+    [PWA_EmpTaskAll].[TaskParentUID] AS [TaskParentUID], 
+    [PWA_EmpTaskAll].[ProjectUID] AS [ProjectUID], 
+    [PWA_EmpTaskAll].[TaskName] AS [TaskName], 
+    [PWA_EmpTaskAll].[TaskWBS] AS [TaskWBS], 
+    [PWA_EmpTaskAll].[TaskWork] AS [TaskWork], 
+    [PWA_EmpTaskAll].[TaskFinishDate] AS [TaskFinishDate], 
+    [PWA_EmpTaskAll].[TaskStartDate] AS [TaskStartDate], 
+    [PWA_EmpTaskAll].[TaskPercentWorkCompleted] AS [TaskPercentWorkCompleted], 
+    [PWA_EmpTaskAll].[PlanZakaz] AS [PlanZakaz], 
+    [PWA_EmpTaskAll].[ResourceUID] AS [ResourceUID], 
+    [PWA_EmpTaskAll].[ResourceName] AS [ResourceName]
+    FROM [dbo].[PWA_EmpTaskAll] AS [PWA_EmpTaskAll]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="PWA_TasksForBP" EntityType="Self.PWA_TasksForBP" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [PWA_TasksForBP].[PK] AS [PK], 
@@ -4953,6 +4990,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PlanVerificationItems" EntitySet="PlanVerificationItems" />
           </AssociationSet>
+          <EntitySet Name="PWA_EmpTaskAll" EntityType="PortalKATEKModel.PWA_EmpTaskAll" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8377,6 +8415,25 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PWA_EmpTaskAll">
+          <Key>
+            <PropertyRef Name="TaskUID" />
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="TaskName" />
+          </Key>
+          <Property Name="TaskUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskParentUID" Type="Guid" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskWBS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="PlanZakaz" Type="Int32" />
+          <Property Name="ResourceUID" Type="Guid" />
+          <Property Name="ResourceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10159,6 +10216,24 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="fixed" ColumnName="fixed" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PWA_EmpTaskAll">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpTaskAll">
+              <MappingFragment StoreEntitySet="PWA_EmpTaskAll">
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
+                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
