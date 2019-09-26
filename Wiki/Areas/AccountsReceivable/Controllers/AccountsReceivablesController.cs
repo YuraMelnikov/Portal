@@ -333,7 +333,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
@@ -413,7 +413,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
@@ -479,7 +479,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
                 {
                     DateTime nowDate = DateTime.Now;
                     db.Configuration.ProxyCreationEnabled = false;

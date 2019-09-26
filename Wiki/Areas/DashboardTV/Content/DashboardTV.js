@@ -76,11 +76,11 @@ function getGanttProjects() {
                         rentedTo: deal.TCPM,
                         start: deal.From,
                         end: deal.To,
-                        color: myJSON.Color,
+                        color: deal.Color,
                         dependency: 'prototype',
                         name: numeral(deal.TCPM).format('0,0'),
                         pointWidth: pointWidthForGantt,
-                        milestone: false,
+                        milestone: deal.Milestone,
                         y: i
                     };
                 });
@@ -171,6 +171,8 @@ function getGanttProjects() {
         }
     });
 }
+
+
 
 function converDateJSON(MyDate_String_Value) {
     var dat = MyDate_String_Value.replace(/\D+/g, "");

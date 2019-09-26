@@ -52,28 +52,84 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     dataList[i].OrderNumber = projectList[i].Key;
                     string indexOrder = dataList[i].OrderNumber;
                     dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
-                    int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
+                    int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count() + 1;
                     dataList[i].Deals = new DealsForDashboardTV[countDeals];
+                    dataList[i].Milestone = false;
+                }
+                var verificationList = db.PlanVerificationItems
+                    .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
+                    .ToList();
+                foreach (var dataInVerifList in verificationList)
+                {
+                    foreach(var dataInOrderList in dataList)
+                    {
+                        if(dataInVerifList.PZ_PlanZakaz.PlanZakaz.ToString() == dataInOrderList.OrderNumber)
+                        {
+                            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                            DateTime dateMilestone = GetDateMilestone(dataInVerifList);
+                            dealsForDashboardTV.TCPM = 0;
+                            dealsForDashboardTV.From = dateMilestone;
+                            dealsForDashboardTV.To = dateMilestone;
+                            dealsForDashboardTV.Milestone = true;
+                            dealsForDashboardTV.Color = "#910000";
+                            dataInOrderList.Deals[0] = dealsForDashboardTV;
+                        }
+                    }
+                }
+                foreach(var dataInDataList in dataList)
+                {
+                    if(dataInDataList.Deals[0] == null)
+                    {
+                        DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                        DateTime dateMilestone = DateTime.Now.AddDays(60);
+                        dealsForDashboardTV.TCPM = 0;
+                        dealsForDashboardTV.From = dateMilestone;
+                        dealsForDashboardTV.To = dateMilestone;
+                        dealsForDashboardTV.Milestone = true;
+                        dealsForDashboardTV.Color = "#910000";
+                        dataInDataList.Deals[0] = dealsForDashboardTV;
+                    }
                 }
                 var portfolioList = db.DashboardTV_DataForProjectPortfolio.AsNoTracking().ToList();
-                int j = 0;
+                int j = 1;
                 string orderNumberList = "";
                 foreach (var dataInList in portfolioList.OrderBy(d => d.orderNumber))
                 {
                     if(orderNumberList != dataInList.orderNumber)
                     {
-                        j = 0;
+                        j = 1;
                         orderNumberList = dataInList.orderNumber;
                     }
                     DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
                     dealsForDashboardTV.TCPM = dataInList.tcpm;
                     dealsForDashboardTV.From = dataInList.from;
                     dealsForDashboardTV.To = dataInList.to;
+                    dealsForDashboardTV.Milestone = false;
+                    dealsForDashboardTV.Color = "#2b908f";
                     dataList.First(d => d.OrderNumber == dataInList.orderNumber).Deals[j] = dealsForDashboardTV;
                     j++;
                 }
                 return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private DateTime GetDateMilestone(PlanVerificationItems planVerificationItems)
+        {
+            if (planVerificationItems.planDate != null)
+                return planVerificationItems.planDate.Value;
+            else if (planVerificationItems.verificationDateInPrj != null)
+                return planVerificationItems.verificationDateInPrj.Value;
+            else
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    return db.PZ_PlanZakaz.First(d => d.Id == planVerificationItems.id_PZ_PlanZakaz).dataOtgruzkiBP;
+                }
+            }
+
         }
 
         [HttpPost]
