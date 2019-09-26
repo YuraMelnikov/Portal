@@ -73,7 +73,7 @@ function getGanttProjects() {
                 var data = myJSON.Deals.map(function (deal) {
                     return {
                         id: 'deal-' + i,
-                        rentedTo: deal.TCPM,
+                        rentedTo: renderToNullString(deal.TCPM),
                         start: deal.From,
                         end: deal.To,
                         color: deal.Color,
@@ -172,7 +172,12 @@ function getGanttProjects() {
     });
 }
 
-
+function renderToNullString(text) {
+    if (text === 0)
+        return '';
+    else
+        return text;
+}
 
 function converDateJSON(MyDate_String_Value) {
     var dat = MyDate_String_Value.replace(/\D+/g, "");
