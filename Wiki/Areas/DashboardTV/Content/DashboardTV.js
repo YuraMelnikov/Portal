@@ -73,12 +73,12 @@ function getGanttProjects() {
                 var data = myJSON.Deals.map(function (deal) {
                     return {
                         id: 'deal-' + i,
-                        rentedTo: renderToNullString(deal.TCPM),
+                        rentedTo: deal.TCPM,
                         start: deal.From,
                         end: deal.To,
                         color: deal.Color,
                         dependency: 'prototype',
-                        name: numeral(deal.TCPM).format('0,0'),
+                        name: renderToNullString(deal.TCPM),
                         pointWidth: pointWidthForGantt,
                         milestone: deal.Milestone,
                         y: i
@@ -172,11 +172,18 @@ function getGanttProjects() {
     });
 }
 
+function getMinDate() {
+    var today = new Date();
+    var n = d.getMonth();
+    var day = 1000 * 60 * 60 * 24;
+    //min: today - 60 * day
+}
+
 function renderToNullString(text) {
     if (text === 0)
         return '';
-    else
-        return text;
+    else 
+        return numeral(text).format('0,0');
 }
 
 function converDateJSON(MyDate_String_Value) {
