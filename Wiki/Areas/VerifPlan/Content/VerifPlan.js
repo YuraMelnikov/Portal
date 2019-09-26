@@ -356,10 +356,6 @@ function updateTM() {
         , factDescription: $('#factDescription').val()
         , fixedDateForKO: $('#fixedDateForKO').val()
     };
-    var res = validTM();
-    if (res === false) {
-        return false;
-    }
     $.ajax({
         cache: false,
         url: "/Verific/UpdateTM/",
@@ -375,23 +371,4 @@ function updateTM() {
             alert(errormessage.responseText);
         }
     });
-}
-
-function validTM() {
-    var isValid = true;
-    if ($('#factDate').val().trim() === "") {
-        $('#factDate').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#factDate').css('border-color', 'lightgrey');
-    }
-    if ($('#fixedDateForKO').val().trim() === "") {
-        $('#fixedDateForKO').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#fixedDateForKO').css('border-color', 'lightgrey');
-    }
-    return isValid;
 }

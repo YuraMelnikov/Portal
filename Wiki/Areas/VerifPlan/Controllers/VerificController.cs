@@ -187,7 +187,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
                 EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 1);
-
                 ProjectServer_UpdateMustStartOnCRUD projectServer_UpdateMustStartOnCRUD = new ProjectServer_UpdateMustStartOnCRUD(planVerificationItems.id_PZ_PlanZakaz, "ПП", planVerificationItems.planDate.Value);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
@@ -225,7 +224,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     planVerificationItems.factDate = factDate.Value;
                     EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 2);
                 }
-
                 if (factDescription != null)
                     planVerificationItems.factDescription = factDescription;
                 if (fixedDateForKO != null)
@@ -235,7 +233,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 }
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
-
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
