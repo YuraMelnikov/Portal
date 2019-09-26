@@ -24,7 +24,9 @@ var objTableData = [
     { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
     { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
     { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' }
+    { "title": "", "data": "glyphicon1", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "", "data": "glyphicon", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
 
 function getTablePlan() {
@@ -78,7 +80,7 @@ function getGanttProjects() {
                         end: deal.To,
                         color: deal.Color,
                         dependency: 'prototype',
-                        name: renderToNullString(deal.TCPM),
+                        name: renderToNullString(deal.TCPM, deal.Milestone),
                         pointWidth: pointWidthForGantt,
                         milestone: deal.Milestone,
                         y: i
@@ -134,6 +136,7 @@ function getGanttProjects() {
                     pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
                 },
                 xAxis: {
+                    tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
                     currentDateIndicator: true,
                     min: today - 60 * day,
                     max: today + 120 * day,
@@ -144,6 +147,37 @@ function getGanttProjects() {
                         }
                     }
                 },
+
+
+
+                //xAxis: [{
+                //    tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
+                //    labels: {
+                //        format: '{value:%b}',
+                //        style: {
+                //            fontSize: '8px'
+                //        }
+                //    },
+                //    min: Date.UTC(2014, 3, 17),
+                //    max: Date.UTC(2015, 11, 0),
+                //    currentDateIndicator: true
+                //}, {
+                //    tickInterval: 1000 * 60 * 60 * 24 * 365, // Year
+                //    labels: {
+                //        format: '{value:%Y}',
+                //        style: {
+                //            fontSize: '15px'
+                //        }
+                //    },
+                //    linkedTo: 0
+                //}],
+
+
+
+
+
+
+
                 yAxis: {
                     type: 'category',
                     grid: {
@@ -179,11 +213,19 @@ function getMinDate() {
     //min: today - 60 * day
 }
 
-function renderToNullString(text) {
-    if (text === 0)
-        return '';
-    else 
-        return numeral(text).format('0,0');
+function renderToNullString(text, milestone) {
+    if (milestone === true) {
+        if (text === 0)
+            return '';
+        else
+            return numeral(text).format('0,0');
+    }
+    else {
+        if (text === 0)
+            return '<1';
+        else
+            return numeral(text).format('0,0');
+    }
 }
 
 function converDateJSON(MyDate_String_Value) {

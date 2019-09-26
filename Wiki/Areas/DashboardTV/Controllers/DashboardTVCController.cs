@@ -30,10 +30,20 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     dataList.inThisDayPercent,
                     dataList.inThisMonth,
                     dataList.inThisMonthPercent,
-                    monthPlan
+                    monthPlan,
+                    glyphicon = GetGlyphicon(dataList.inThisMonthPercent),
+                    glyphicon1 = GetGlyphicon(dataList.inThisMonthPercent)
                 });
                 return Json(new { data });
             }
+        }
+
+        private string GetGlyphicon(int percent)
+        {
+            if(percent >= 100)
+                return "<span class=" + '\u0022' + "glyphicon glyphicon-arrow-up text-success" + '\u0022' + ">" + "</span>";
+            else
+                return "<span class=" + '\u0022' + "glyphicon glyphicon-arrow-down text-danger" + '\u0022' + ">" + "</span>";
         }
 
         public JsonResult GetProjectsPortfolio()
