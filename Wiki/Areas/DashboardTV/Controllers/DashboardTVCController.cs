@@ -55,13 +55,33 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 var projectList = db.DashboardTV_DataForProjectPortfolio.GroupBy(d => d.orderNumber).OrderBy(d => d.Key).ToList();
                 DateTime minDate = GetMinDate();
                 DateTime maxDate = GetMaxDate();
-                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
-                for (int i = 0; i < projectList.Count; i++)
+                int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
+                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count + 1];
+                dataList[0] = new OrderForDashboardTV();
+                dataList[0].Current = 0;
+                dataList[0].Color = "#910000";
+                dataList[0].OrderNumber = "";
+                dataList[0].DataOtgruzkiBP = DateTime.Now;
+                dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
+                dataList[0].Milestone = false;
+                int countForDeals = 0;
+                for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
+                {
+                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                    dealsForDashboardTV.TCPM = 0;
+                    dealsForDashboardTV.From = new DateTime(i.Year, i.Month, 1);
+                    dealsForDashboardTV.To = GetCorrectFinishDate(i);
+                    dealsForDashboardTV.Milestone = false;
+                    dealsForDashboardTV.Color = "#910000";
+                    dataList[0].Deals[countForDeals] = dealsForDashboardTV;
+                    countForDeals++;
+                }
+                for (int i = 1; i < projectList.Count + 1; i++)
                 {
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
                     dataList[i].Color = "#2b908f";
-                    dataList[i].OrderNumber = projectList[i].Key;
+                    dataList[i].OrderNumber = projectList[i - 1].Key;
                     string indexOrder = dataList[i].OrderNumber;
                     dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
                     int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count() + 1;
@@ -76,31 +96,45 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 {
                     foreach(var dataInOrderList in dataList)
                     {
-                        if(dataInVerifList.PZ_PlanZakaz.PlanZakaz.ToString() == dataInOrderList.OrderNumber)
+                        try
                         {
-                            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                            DateTime dateMilestone = GetDateMilestone(dataInVerifList);
-                            dealsForDashboardTV.TCPM = 0;
-                            dealsForDashboardTV.From = dateMilestone;
-                            dealsForDashboardTV.To = dateMilestone;
-                            dealsForDashboardTV.Milestone = true;
-                            dealsForDashboardTV.Color = "#910000";
-                            dataInOrderList.Deals[0] = dealsForDashboardTV;
+                            if (dataInVerifList.PZ_PlanZakaz.PlanZakaz.ToString() == dataInOrderList.OrderNumber)
+                            {
+                                DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                                DateTime dateMilestone = GetDateMilestone(dataInVerifList);
+                                dealsForDashboardTV.TCPM = 0;
+                                dealsForDashboardTV.From = dateMilestone;
+                                dealsForDashboardTV.To = dateMilestone;
+                                dealsForDashboardTV.Milestone = true;
+                                dealsForDashboardTV.Color = "#910000";
+                                dataInOrderList.Deals[0] = dealsForDashboardTV;
+                            }
+                        }
+                        catch
+                        {
+
                         }
                     }
                 }
                 foreach(var dataInDataList in dataList)
                 {
-                    if(dataInDataList.Deals[0] == null)
+                    try
                     {
-                        DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                        DateTime dateMilestone = DateTime.Now.AddDays(60);
-                        dealsForDashboardTV.TCPM = 0;
-                        dealsForDashboardTV.From = dateMilestone;
-                        dealsForDashboardTV.To = dateMilestone;
-                        dealsForDashboardTV.Milestone = true;
-                        dealsForDashboardTV.Color = "#910000";
-                        dataInDataList.Deals[0] = dealsForDashboardTV;
+                        if (dataInDataList.Deals[0] == null)
+                        {
+                            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                            DateTime dateMilestone = DateTime.Now.AddDays(60);
+                            dealsForDashboardTV.TCPM = 0;
+                            dealsForDashboardTV.From = dateMilestone;
+                            dealsForDashboardTV.To = dateMilestone;
+                            dealsForDashboardTV.Milestone = true;
+                            dealsForDashboardTV.Color = "#910000";
+                            dataInDataList.Deals[0] = dealsForDashboardTV;
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 }
                 var portfolioList = db.DashboardTV_DataForProjectPortfolio.AsNoTracking().ToList();
@@ -126,10 +160,42 @@ namespace Wiki.Areas.DashboardTV.Controllers
             }
         }
 
+        private DateTime GetCorrectFinishDate(DateTime dateTime)
+        {
+            try
+            {
+                return new DateTime(dateTime.Year, dateTime.Month, 31);
+            }
+            catch
+            {
+                try
+                {
+                    return new DateTime(dateTime.Year, dateTime.Month, 30);
+                }
+                catch
+                {
+                    try
+                    {
+                        return new DateTime(dateTime.Year, dateTime.Month, 29);
+                    }
+                    catch
+                    {
+                        return new DateTime(dateTime.Year, dateTime.Month, 28);
+                    }
+                }
+            }
+
+        }
+
+        private int GetMinthDifferent(DateTime lValue, DateTime rValue)
+        {
+            return (lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year);
+        }
+
         private DateTime GetMinDate()
         {
             DateTime dateTime = DateTime.Now;
-            dateTime.AddDays(-90);
+            dateTime = dateTime.AddDays(-90);
 
             return new DateTime(dateTime.Year, dateTime.Month, 1);
         }
@@ -137,7 +203,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
         private DateTime GetMaxDate()
         {
             DateTime dateTime = DateTime.Now;
-            dateTime.AddDays(120);
+            dateTime = dateTime.AddDays(120);
 
             return new DateTime(dateTime.Year, dateTime.Month, 1);
         }

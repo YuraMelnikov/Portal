@@ -138,7 +138,7 @@ function getGanttProjects() {
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
                     currentDateIndicator: true,
-                    min: today - 60 * day,
+                    min: getMinDate(),
                     max: today + 120 * day,
                     labels: {
                         style: {
@@ -177,9 +177,10 @@ function getGanttProjects() {
 
 function getMinDate() {
     var today = new Date();
-    var n = d.getMonth();
     var day = 1000 * 60 * 60 * 24;
-    //min: today - 60 * day
+    today = today - 90 * day;
+    var minDate = new Date(today.getYear(), today.getMonth(), 1);
+    return minDate;
 }
 
 function renderToNullString(text, milestone) {
