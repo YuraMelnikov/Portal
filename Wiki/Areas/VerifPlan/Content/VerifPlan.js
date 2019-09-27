@@ -99,9 +99,9 @@ function listActive() {
                 $('a', row).css('color', 'white');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#2b908f');
-                $('td', row).css('color', 'white');
-                $('a', row).css('color', 'white');
+                $('td', row).css('background-color', '#91e8e1');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
             }
             else if (data.state === "Сдан ПО") {
                 $('td', row).css('background-color', '#a6c96a');
@@ -149,9 +149,9 @@ function listClose() {
                 $('a', row).css('color', 'white');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#2b908f');
-                $('td', row).css('color', 'white');
-                $('a', row).css('color', 'white');
+                $('td', row).css('background-color', '#91e8e1');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
             }
             else if (data.state === "Сдан ПО") {
                 $('td', row).css('background-color', '#a6c96a');
