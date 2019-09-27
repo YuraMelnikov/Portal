@@ -71,7 +71,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
                 {
                     DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                    dealsForDashboardTV.TCPM = 0;
+                    dealsForDashboardTV.TCPM = db.DashboardTV_DataForProjectPortfolio.Where(d => d.from.Year == i.Year && d.from.Month == i.Month).Sum(d => d.tcpm);
                     dealsForDashboardTV.From = new DateTime(i.Year, i.Month, 1);
                     dealsForDashboardTV.To = GetCorrectFinishDate(i);
                     dealsForDashboardTV.Milestone = false;
@@ -162,6 +162,17 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
         }
+
+        //private int GetHSSToMonth(DateTime dateTime)
+        //{
+        //    int year = dateTime.Year;
+        //    int month = dateTime.Month;
+
+
+
+
+
+        //}
 
         private DateTime GetCorrectFinishDate(DateTime dateTime)
         {
