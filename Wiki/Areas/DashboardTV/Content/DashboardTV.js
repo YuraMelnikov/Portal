@@ -147,37 +147,6 @@ function getGanttProjects() {
                         }
                     }
                 },
-
-
-
-                //xAxis: [{
-                //    tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
-                //    labels: {
-                //        format: '{value:%b}',
-                //        style: {
-                //            fontSize: '8px'
-                //        }
-                //    },
-                //    min: Date.UTC(2014, 3, 17),
-                //    max: Date.UTC(2015, 11, 0),
-                //    currentDateIndicator: true
-                //}, {
-                //    tickInterval: 1000 * 60 * 60 * 24 * 365, // Year
-                //    labels: {
-                //        format: '{value:%Y}',
-                //        style: {
-                //            fontSize: '15px'
-                //        }
-                //    },
-                //    linkedTo: 0
-                //}],
-
-
-
-
-
-
-
                 yAxis: {
                     type: 'category',
                     grid: {
