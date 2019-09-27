@@ -53,6 +53,8 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var projectList = db.DashboardTV_DataForProjectPortfolio.GroupBy(d => d.orderNumber).OrderBy(d => d.Key).ToList();
+                DateTime minDate = GetMinDate();
+                DateTime maxDate = GetMaxDate();
                 OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
                 for (int i = 0; i < projectList.Count; i++)
                 {
@@ -122,6 +124,22 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 }
                 return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private DateTime GetMinDate()
+        {
+            DateTime dateTime = DateTime.Now;
+            dateTime.AddDays(-90);
+
+            return new DateTime(dateTime.Year, dateTime.Month, 1);
+        }
+
+        private DateTime GetMaxDate()
+        {
+            DateTime dateTime = DateTime.Now;
+            dateTime.AddDays(120);
+
+            return new DateTime(dateTime.Year, dateTime.Month, 1);
         }
 
         private DateTime GetDateMilestone(PlanVerificationItems planVerificationItems)
