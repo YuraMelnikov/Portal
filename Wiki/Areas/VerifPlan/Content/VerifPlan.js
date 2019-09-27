@@ -5,15 +5,16 @@
 var objList = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "id_PZ_PlanZakaz", "autowidth": true, "bSortable": true },
-    { "title": "Плановая дата проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false },
+    { "title": "Плановая дата начала проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
-    { "title": "Дата приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Дата начала приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Прим. гл. инженера", "data": "planDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. произв.", "data": "factDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false },
-    { "title": "Прогнозная дата проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
-    { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false }
+    { "title": "Прогнозная дата начала проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull }
+
 ];
 
 function loadData(listId) {
@@ -36,25 +37,30 @@ function startMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[2, "asc"]],
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#7cb5ec');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
+                $('td', row).css('background-color', '#910000');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#e4d354');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
-            }
-            else if (data.state === "Принят ОТК") {
                 $('td', row).css('background-color', '#2b908f');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
             }
+            else if (data.state === "Сдан ПО") {
+                $('td', row).css('background-color', '#a6c96a');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            //else if (data.state === "Принят ОТК") {
+            //    $('td', row).css('background-color', '#2b908f');
+            //    $('td', row).css('color', 'white');
+            //    $('a', row).css('color', 'white');
+            //}
         },
         "cache": false,
         "async": false,
@@ -83,25 +89,30 @@ function listActive() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#7cb5ec');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
+                $('td', row).css('background-color', '#910000');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#e4d354');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
-            }
-            else if (data.state === "Принят ОТК") {
                 $('td', row).css('background-color', '#2b908f');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
             }
+            else if (data.state === "Сдан ПО") {
+                $('td', row).css('background-color', '#a6c96a');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            //else if (data.state === "Принят ОТК") {
+            //    $('td', row).css('background-color', '#2b908f');
+            //    $('td', row).css('color', 'white');
+            //    $('a', row).css('color', 'white');
+            //}
         },
         "scrollY": '75vh',
         "scrollX": true,
@@ -128,25 +139,30 @@ function listClose() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#7cb5ec');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
+                $('td', row).css('background-color', '#910000');
+                $('td', row).css('color', 'white');
+                $('a', row).css('color', 'white');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#e4d354');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
-            }
-            else if (data.state === "Принят ОТК") {
                 $('td', row).css('background-color', '#2b908f');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
             }
+            else if (data.state === "Сдан ПО") {
+                $('td', row).css('background-color', '#a6c96a');
+                //$('td', row).css('color', 'white');
+                //$('a', row).css('color', 'white');
+            }
+            //else if (data.state === "Принят ОТК") {
+            //    $('td', row).css('background-color', '#2b908f');
+            //    $('td', row).css('color', 'white');
+            //    $('a', row).css('color', 'white');
+            //}
         },
         "scrollY": '75vh',
         "scrollX": true,
