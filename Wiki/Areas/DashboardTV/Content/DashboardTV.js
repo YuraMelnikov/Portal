@@ -139,7 +139,7 @@ function getGanttProjects() {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
                     currentDateIndicator: true,
                     min: getMinDate(),
-                    max: today + 120 * day,
+                    max: getMaxDate(),
                     labels: {
                         style: {
                             "color": "#0d233a",
@@ -179,8 +179,19 @@ function getMinDate() {
     var today = new Date();
     var day = 1000 * 60 * 60 * 24;
     today = today - 90 * day;
-    var minDate = new Date(today.getYear(), today.getMonth(), 1);
-    return minDate;
+    var tmp = new Date(today);
+    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
+    return minDate.getTime();
+}
+
+function getMaxDate() {
+    var today = new Date();
+    var day = 1000 * 60 * 60 * 24;
+    today = today.setDate(120);
+    today = today * day;
+    var tmp = new Date(today);
+    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
+    return minDate.getTime();
 }
 
 function renderToNullString(text, milestone) {
