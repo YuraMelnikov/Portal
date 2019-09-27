@@ -564,6 +564,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EFDBReportKATEK.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBReportKATEK.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBReportKATEK.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFDBReportKATEK.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDBReportKATEK.edmx</DependentUpon>
+    </Compile>
     <Compile Include="EFDBScells.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -862,6 +877,9 @@
     </Compile>
     <Compile Include="TaskForPZ.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEOInWorkPO.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="TypeRKD_Mail_Version.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1337,6 +1355,16 @@
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
       <LastGenOutput>EFDBPortal.cs</LastGenOutput>
     </Content>
+    <Content Include="EFDBReportKATEK.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBReportKATEK.edmx</DependentUpon>
+      <LastGenOutput>EFDBReportKATEK.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFDBReportKATEK.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDBReportKATEK.edmx</DependentUpon>
+      <LastGenOutput>EFDBReportKATEK.cs</LastGenOutput>
+    </Content>
     <Content Include="EFDBScells.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFDBScells.edmx</DependentUpon>
@@ -1579,6 +1607,13 @@
     <Content Include="Areas\VerifPlan\Views\Shared\_LayoutVerifPlan.cshtml" />
     <Content Include="Areas\VerifPlan\Views\Verific\Index.cshtml" />
     <Content Include="Areas\VerifPlan\Content\Report.xlsx" />
+    <EntityDeploy Include="EFDBReportKATEK.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDBReportKATEK.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EFDBReportKATEK.edmx.diagram">
+      <DependentUpon>EFDBReportKATEK.edmx</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReportKATEKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TEOInWorkPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С материалов - факт1с" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="С/С зп рабочих - фактХТЭО" Type="float" />
+          <Property Name="Выручка без НДС 1ч ПО" Type="float" />
+          <Property Name="С/С материалов 1ч ПО" Type="float" />
+          <Property Name="С/С материалов - факт1с 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих 1ч ПО" Type="float" />
+          <Property Name="Издержки коммерческие 1ч ПО" Type="float" />
+          <Property Name="% по кредиту 1ч ПО" Type="float" />
+          <Property Name="Постоянные издержки 1ч ПО" Type="float" />
+          <Property Name="НОП 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих - фактХТЭО 1ч ПО" Type="float" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="ХССЗПФакт" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ReportKATEKModelStoreContainer">
+          <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReportKATEKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TEOInWorkPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quart" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Неделя" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="С_С_зп_рабочих___фактХТЭО" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="ХССЗПФакт" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="ReportKATEKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReportKATEKModelStoreContainer" CdmEntityContainer="ReportKATEKEntities">
+          <EntitySetMapping Name="TEOInWorkPO">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPO">
+              <MappingFragment StoreEntitySet="TEOInWorkPO">
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО" ColumnName="С/С зп рабочих - фактХТЭО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" ColumnName="С/С зп рабочих - фактХТЭО 1ч ПО" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
