@@ -52,7 +52,10 @@ namespace Wiki.Areas.DashboardTV.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var projectList = db.DashboardTV_DataForProjectPortfolio.GroupBy(d => d.orderNumber).OrderBy(d => d.Key).ToList();
+                var projectList = db.DashboardTV_DataForProjectPortfolio
+                    .GroupBy(d => d.orderNumber)
+                    .OrderBy(d => d.Key)
+                    .ToList();
                 DateTime minDate = GetMinDate();
                 DateTime maxDate = GetMaxDate();
                 int countMonthDifferent = GetMinthDifferent(maxDate, minDate);

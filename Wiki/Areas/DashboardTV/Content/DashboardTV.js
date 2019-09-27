@@ -187,8 +187,7 @@ function getMinDate() {
 function getMaxDate() {
     var today = new Date();
     var day = 1000 * 60 * 60 * 24;
-    today = today.setDate(120);
-    today = today * day;
+    today = today.setDate(150);
     var tmp = new Date(today);
     var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
     return minDate.getTime();
