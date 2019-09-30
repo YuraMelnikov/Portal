@@ -535,6 +535,14 @@
           <Property Name="to" Type="date" Nullable="false" />
           <Property Name="dataOtgruzkiBP" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardTV_FinishWorkInStartWeek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="dateFinishWork" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardTV_MonthPlan">
           <Key>
             <PropertyRef Name="data" />
@@ -2116,6 +2124,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="DashboardTV_FinishWorkInStartWeek" Type="Self.DashboardTV_FinishWorkInStartWeek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardTV_FinishWorkInStartWeek">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3395,6 +3415,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardRemaining" EntityType="Self.DashboardRemaining" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardTV_BasicPlanData" EntityType="Self.DashboardTV_BasicPlanData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardTV_DataForProjectPortfolio" EntityType="Self.DashboardTV_DataForProjectPortfolio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardTV_FinishWorkInStartWeek" EntityType="Self.DashboardTV_FinishWorkInStartWeek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardTV_MonthPlan" EntityType="Self.DashboardTV_MonthPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CMR" EntityType="Self.Debit_CMR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Debit_CostUpdate" EntityType="Self.Debit_CostUpdate" Schema="dbo" store:Type="Tables" />
@@ -3795,6 +3816,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_DashboardRemaining_DashboardBP_State" Association="Self.FK_DashboardRemaining_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
             <End Role="DashboardRemaining" EntitySet="DashboardRemaining" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz" Association="Self.FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardTV_FinishWorkInStartWeek" EntitySet="DashboardTV_FinishWorkInStartWeek" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5002,6 +5027,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </AssociationSet>
           <EntitySet Name="PWA_EmpTaskAll" EntityType="PortalKATEKModel.PWA_EmpTaskAll" />
           <EntitySet Name="ProjectServer_UpdateMustStartOn" EntityType="PortalKATEKModel.ProjectServer_UpdateMustStartOn" />
+          <EntitySet Name="DashboardTV_FinishWorkInStartWeek" EntityType="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek" />
+          <AssociationSet Name="FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardTV_FinishWorkInStartWeek" EntitySet="DashboardTV_FinishWorkInStartWeek" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5956,6 +5986,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="MailGraphic" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="MailGraphic" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="PlanVerificationItems" Relationship="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PlanVerificationItems" />
+          <NavigationProperty Name="DashboardTV_FinishWorkInStartWeek" Relationship="PortalKATEKModel.FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardTV_FinishWorkInStartWeek" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -8454,6 +8485,27 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="TaskUID" Type="Guid" Nullable="false" />
           <Property Name="ActualStart" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
+        <EntityType Name="DashboardTV_FinishWorkInStartWeek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="dateFinishWork" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz" FromRole="DashboardTV_FinishWorkInStartWeek" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek" Role="DashboardTV_FinishWorkInStartWeek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardTV_FinishWorkInStartWeek">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10263,6 +10315,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
                 <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
                 <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardTV_FinishWorkInStartWeek">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek">
+              <MappingFragment StoreEntitySet="DashboardTV_FinishWorkInStartWeek">
+                <ScalarProperty Name="dateFinishWork" ColumnName="dateFinishWork" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

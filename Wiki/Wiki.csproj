@@ -504,6 +504,9 @@
     <Compile Include="DashboardTV_DataForProjectPortfolio.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardTV_FinishWorkInStartWeek.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardTV_MonthPlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

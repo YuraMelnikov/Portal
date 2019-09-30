@@ -36,6 +36,7 @@ namespace Wiki
             this.MailGraphic = new HashSet<MailGraphic>();
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
+            this.DashboardTV_FinishWorkInStartWeek = new HashSet<DashboardTV_FinishWorkInStartWeek>();
         }
     
         public int Id { get; set; }
@@ -128,5 +129,7 @@ namespace Wiki
         public virtual ICollection<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanVerificationItems> PlanVerificationItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
     }
 }
