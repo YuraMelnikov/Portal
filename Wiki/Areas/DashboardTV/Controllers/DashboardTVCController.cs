@@ -71,7 +71,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
                 {
                     DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                    dealsForDashboardTV.TCPM = db.DashboardTV_DataForProjectPortfolio.Where(d => d.from.Year == i.Year && d.from.Month == i.Month).Sum(d => d.tcpm);
+                    dealsForDashboardTV.TCPM = GetHSSToMonth(i);
                     dealsForDashboardTV.From = new DateTime(i.Year, i.Month, 1);
                     dealsForDashboardTV.To = GetCorrectFinishDate(i);
                     dealsForDashboardTV.Milestone = false;
@@ -163,16 +163,31 @@ namespace Wiki.Areas.DashboardTV.Controllers
             }
         }
 
-        //private int GetHSSToMonth(DateTime dateTime)
-        //{
-        //    int year = dateTime.Year;
-        //    int month = dateTime.Month;
-
-
-
-
-
-        //}
+        private int GetHSSToMonth(DateTime dateTime)
+        {
+            int result = 0;
+            int year = dateTime.Year;
+            int month = dateTime.Month;
+            string stringMonth = "";
+            if (dateTime.Month < 10)
+                stringMonth = "0" + dateTime.Month.ToString();
+            else
+                stringMonth = dateTime.Month.ToString();
+            string period = dateTime.Year.ToString() + "." + stringMonth;
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    return (int)db.TEOInWorkPO.Where(d => d.Месяц == period).Sum(d => d.ХСС);
+                }
+                catch
+                {
+                    return result;
+                }
+            }
+        }
 
         private DateTime GetCorrectFinishDate(DateTime dateTime)
         {
