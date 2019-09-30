@@ -56,7 +56,7 @@ function startMenu() {
                 //$('td', row).css('color', 'white');
                 //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Принят ОТК") {
+            //else if (data.state === "Приемка ОТК") {
             //    $('td', row).css('background-color', '#2b908f');
             //    $('td', row).css('color', 'white');
             //    $('a', row).css('color', 'white');
@@ -108,7 +108,7 @@ function listActive() {
                 //$('td', row).css('color', 'white');
                 //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Принят ОТК") {
+            //else if (data.state === "Приемка ОТК") {
             //    $('td', row).css('background-color', '#2b908f');
             //    $('td', row).css('color', 'white');
             //    $('a', row).css('color', 'white');
@@ -158,7 +158,7 @@ function listClose() {
                 //$('td', row).css('color', 'white');
                 //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Принят ОТК") {
+            //else if (data.state === "Приемка ОТК") {
             //    $('td', row).css('background-color', '#2b908f');
             //    $('td', row).css('color', 'white');
             //    $('a', row).css('color', 'white');

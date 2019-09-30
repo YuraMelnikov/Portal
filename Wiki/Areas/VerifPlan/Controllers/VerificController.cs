@@ -102,7 +102,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
             string state = "";
             if (planVerificationItems.appDate != null)
             {
-                state = "Принят ОТК";
+                state = "Приемка ОТК";
             }
             else if (planVerificationItems.factDate != null)
             {
