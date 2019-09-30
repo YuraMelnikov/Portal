@@ -18,7 +18,7 @@
     getHSSKBM();
     getHSSKBE();
     getTimeSheet();
-    //test1();
+    test1();
 });
 
 function getQuartalUsersResult() {
