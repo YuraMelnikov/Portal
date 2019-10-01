@@ -11,6 +11,11 @@ namespace Wiki.Areas.DashboardKO.Controllers
             return View(); 
         }
 
+        public ActionResult AdminPanel()
+        {
+            return View();
+        }
+
         public JsonResult GetUsersQuaResult()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())

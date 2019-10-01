@@ -914,6 +914,7 @@
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
+    <Content Include="Areas\DashboardKO\Content\CRUDDashboardKO_UsersMonthPlan.js" />
     <Content Include="Areas\DashboardKO\Content\DashboardKOJS.js" />
     <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
@@ -1617,6 +1618,8 @@
     <Content Include="EFDBReportKATEK.edmx.diagram">
       <DependentUpon>EFDBReportKATEK.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\DashboardKO\Views\Shared\_LayoutDashboardKO2.cshtml" />
+    <Content Include="Areas\DashboardKO\Views\ReportPage\AdminPanel.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
