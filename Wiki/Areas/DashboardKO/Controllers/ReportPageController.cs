@@ -13,6 +13,10 @@ namespace Wiki.Areas.DashboardKO.Controllers
 
         public ActionResult AdminPanel()
         {
+            PortalKATEKEntities db = new PortalKATEKEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.UserKO = new SelectList(db.AspNetUsers.OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
             return View();
         }
 
