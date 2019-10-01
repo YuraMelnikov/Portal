@@ -92,7 +92,7 @@ function update() {
     }
     var typeObj = {
         id: $('#id').val(),
-        coef: $('#coef').val()
+        coef: $('#coef').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
