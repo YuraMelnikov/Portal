@@ -196,6 +196,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailPM()
         {
+            mailToList.Add("koag@katek.by");
             mailToList.Add("Antipov@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gea@katek.by");

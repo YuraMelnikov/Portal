@@ -843,5 +843,9 @@ namespace Wiki.Areas.DashboardKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //Get
+        //Update
+        //GetList
     }
 }
