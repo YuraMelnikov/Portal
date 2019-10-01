@@ -11,5 +11,6 @@
         public int plan20;
         public int plan30;
         public int normHoure;
+        public int normHoureFact;
     }
 }

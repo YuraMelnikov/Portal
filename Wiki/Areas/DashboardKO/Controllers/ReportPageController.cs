@@ -623,6 +623,7 @@ namespace Wiki.Areas.DashboardKO.Controllers
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

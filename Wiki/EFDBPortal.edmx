@@ -419,6 +419,7 @@
           <Property Name="plan20" Type="float" Nullable="false" />
           <Property Name="plan30" Type="float" Nullable="false" />
           <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="normHoureFact" Type="float" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOMP2">
@@ -434,6 +435,7 @@
           <Property Name="plan20" Type="float" Nullable="false" />
           <Property Name="plan30" Type="float" Nullable="false" />
           <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="normHoureFact" Type="float" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOMP3">
@@ -449,6 +451,7 @@
           <Property Name="plan20" Type="float" Nullable="false" />
           <Property Name="plan30" Type="float" Nullable="false" />
           <Property Name="normHoure" Type="float" Nullable="false" />
+          <Property Name="normHoureFact" Type="float" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOQuaHumen">
@@ -638,7 +641,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="period" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="period" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
           <Property Name="dateTimeClose" Type="datetime" />
           <Property Name="close" Type="bit" Nullable="false" />
@@ -5690,7 +5693,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="period" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dateTimeClose" Type="DateTime" Precision="3" />
           <Property Name="close" Type="Boolean" Nullable="false" />
@@ -8370,6 +8373,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="plan30" Type="Double" Nullable="false" />
           <Property Name="normHoure" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="normHoureFact" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOMP2">
           <Key>
@@ -8385,6 +8389,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="plan30" Type="Double" Nullable="false" />
           <Property Name="normHoure" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="normHoureFact" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOMP3">
           <Key>
@@ -8400,6 +8405,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="plan30" Type="Double" Nullable="false" />
           <Property Name="normHoure" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="normHoureFact" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_BasicPlanData">
           <Key>
@@ -10199,6 +10205,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardKOMP1">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP1">
               <MappingFragment StoreEntitySet="DashboardKOMP1">
+                <ScalarProperty Name="normHoureFact" ColumnName="normHoureFact" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="normHoure" ColumnName="normHoure" />
                 <ScalarProperty Name="plan30" ColumnName="plan30" />
@@ -10215,6 +10222,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardKOMP2">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP2">
               <MappingFragment StoreEntitySet="DashboardKOMP2">
+                <ScalarProperty Name="normHoureFact" ColumnName="normHoureFact" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="normHoure" ColumnName="normHoure" />
                 <ScalarProperty Name="plan30" ColumnName="plan30" />
@@ -10231,6 +10239,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardKOMP3">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOMP3">
               <MappingFragment StoreEntitySet="DashboardKOMP3">
+                <ScalarProperty Name="normHoureFact" ColumnName="normHoureFact" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="normHoure" ColumnName="normHoure" />
                 <ScalarProperty Name="plan30" ColumnName="plan30" />
