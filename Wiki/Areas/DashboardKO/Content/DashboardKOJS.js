@@ -18,7 +18,7 @@
     getHSSKBM();
     getHSSKBE();
     getTimeSheet();
-    test1();
+    manpowerUsersInMonth();
 });
 
 function getQuartalUsersResult() {
@@ -1616,27 +1616,27 @@ function getTimeSheet() {
     });
 }
 
-function test1() {
+function manpowerUsersInMonth() {
     $.ajax({
-        url: "/ReportPage/GetUsersMP1/",
+        url: "/ReportPage/GetUsersMMP1/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
             var lenghtArrayResult = Object.keys(result).length;
-            var catigoriesArray = new Array();
-            var dataArray = new Array();
-            var dataArray10 = new Array();
-            var dataArray20 = new Array();
-            var dataArray30 = new Array();
-            for (var i = 0; i < lenghtArrayResult; i++) {
-                catigoriesArray[i] = result[i].ciliricalName;
-                dataArray[i] = result[i].normHoure;
-                dataArray10[i] = result[i].plan10;
-                dataArray20[i] = result[i].plan20;
-                dataArray30[i] = result[i].plan30;
+            var thisNH = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                thisNH = result[i].normHoure;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.chart('container1', {
                 chart: {
                     marginTop: 40,
@@ -1650,37 +1650,40 @@ function test1() {
                 exporting: {
                     enabled: false
                 },
+                legend: {
+                    enabled: false
+                },
                 title: {
-                    text: labelName
+                    text: null
                 },
                 xAxis: {
-                    categories: catigoriesArray
+                    categories: ['Васюхневич Илья']
                 },
                 yAxis: {
                     plotBands: [{
                         from: 0,
-                        to: 150,
-                        color: '#f45b5b'
+                        to: dataArrayPlan,
+                        color: '#FF5E5B'
                     }, {
-                        from: 150,
-                        to: 225,
-                        color: '#90ed7d'
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                            color: '#FFED66'
                     }, {
-                        from: 225,
-                        to: 250,
-                        color: '#2b908f'
+                        from: dataArray10,
+                        to: dataArray20,
+                            color: '#D8D8D8'
                     }, {
-                        from: 250,
-                        to: 300,
-                        color: '#4572A7'
+                        from: dataArray20,
+                        to: dataArray30,
+                            color: '#00CECB'
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
-                        y: 275,
-                        target: 250
+                        y: dataArray30,
+                        target: thisNH
                     }]
                 }],
                 tooltip: {
