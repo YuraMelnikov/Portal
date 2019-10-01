@@ -5,7 +5,7 @@
 var objList = [
     { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Ред", "data": "edit", "autowidth": true, "bSortable": false },
-    { "title": "Сотрудник", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Сотрудник", "data": "userName", "autowidth": true, "bSortable": true },
     { "title": "Период", "data": "period", "autowidth": true, "bSortable": true },
     { "title": "Коэф.", "data": "coef", "autowidth": true, "bSortable": false }
 ];
@@ -116,8 +116,9 @@ function update() {
 }
 
 function validateUpdate() {
+    var tmp = $('#coef').val();
     var isValid = true;
-    if ($('#coef').val() === null || $('#coef').val() === 0) {
+    if ($('#coef').val() === "0") {
         $('#coef').css('border-color', 'Red');
         isValid = false;
     }

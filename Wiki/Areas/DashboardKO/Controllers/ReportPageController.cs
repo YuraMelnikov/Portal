@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
 using System;
+using System.Data.Entity;
 
 namespace Wiki.Areas.DashboardKO.Controllers
 {
@@ -13,10 +14,6 @@ namespace Wiki.Areas.DashboardKO.Controllers
 
         public ActionResult AdminPanel()
         {
-            PortalKATEKEntities db = new PortalKATEKEntities();
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            ViewBag.UserKO = new SelectList(db.AspNetUsers.OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
             return View();
         }
 
@@ -848,8 +845,63 @@ namespace Wiki.Areas.DashboardKO.Controllers
             }
         }
 
-        //Get
-        //Update
-        //GetList
+        [HttpPost]
+        public JsonResult GetList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKO_UsersMonthPlan
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.ProductionCalendar)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    dataList.id,
+                    edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return get('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    userName = dataList.AspNetUsers.CiliricalName,
+                    dataList.ProductionCalendar.period,
+                    coef = dataList.k
+                });
+                return Json(new { data });
+            }
+        }
+
+        public JsonResult Update(int id, double coef)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                DashboardKO_UsersMonthPlan data = db.DashboardKO_UsersMonthPlan.Find(id);
+                data.k = coef;
+                db.Entry(data).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult Get(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var query = db.DashboardKO_UsersMonthPlan
+                    .Where(d => d.id == id)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.ProductionCalendar)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    dataList.id,
+                    userName = dataList.AspNetUsers.CiliricalName,
+                    dataList.ProductionCalendar.period,
+                    coef = dataList.k
+                });
+
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
