@@ -18,7 +18,7 @@
     getHSSKBM();
     getHSSKBE();
     getTimeSheet();
-    manpowerUsersInMonth();
+    //manpowerUsersInMonth();
 });
 
 function getQuartalUsersResult() {
