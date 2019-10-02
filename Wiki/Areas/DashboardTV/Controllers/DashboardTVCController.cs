@@ -87,7 +87,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     dataList[i].OrderNumber = projectList[i - 1].Key;
                     string indexOrder = dataList[i].OrderNumber;
                     dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
-                    int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count() + 1;
+                    int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
                     dataList[i].Deals = new DealsForDashboardTV[countDeals];
                     dataList[i].Milestone = false;
                 }
@@ -95,59 +95,14 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     .AsNoTracking()
                     .Include(d => d.PZ_PlanZakaz)
                     .ToList();
-                foreach (var dataInVerifList in verificationList)
-                {
-                    foreach(var dataInOrderList in dataList)
-                    {
-                        try
-                        {
-                            if (dataInVerifList.PZ_PlanZakaz.PlanZakaz.ToString() == dataInOrderList.OrderNumber)
-                            {
-                                DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                                DateTime dateMilestone = GetDateMilestone(dataInVerifList);
-                                dealsForDashboardTV.TCPM = 0;
-                                dealsForDashboardTV.From = dateMilestone;
-                                dealsForDashboardTV.To = dateMilestone;
-                                dealsForDashboardTV.Milestone = true;
-                                dealsForDashboardTV.Color = "#910000";
-                                dataInOrderList.Deals[0] = dealsForDashboardTV;
-                            }
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                }
-                foreach(var dataInDataList in dataList)
-                {
-                    try
-                    {
-                        if (dataInDataList.Deals[0] == null)
-                        {
-                            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                            DateTime dateMilestone = DateTime.Now.AddDays(60);
-                            dealsForDashboardTV.TCPM = 0;
-                            dealsForDashboardTV.From = dateMilestone;
-                            dealsForDashboardTV.To = dateMilestone;
-                            dealsForDashboardTV.Milestone = true;
-                            dealsForDashboardTV.Color = "#910000";
-                            dataInDataList.Deals[0] = dealsForDashboardTV;
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
                 var portfolioList = db.DashboardTV_DataForProjectPortfolio.AsNoTracking().ToList();
-                int j = 1;
+                int j = 0;
                 string orderNumberList = "";
                 foreach (var dataInList in portfolioList.OrderBy(d => d.orderNumber))
                 {
                     if(orderNumberList != dataInList.orderNumber)
                     {
-                        j = 1;
+                        j = 0;
                         orderNumberList = dataInList.orderNumber;
                     }
                     DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
