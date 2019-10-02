@@ -226,7 +226,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 }
                 if (factDescription != null)
                     planVerificationItems.factDescription = factDescription;
-                if (fixedDateForKO != null)
+                if (fixedDateForKO != null && factDescription == null)
                 {
                     planVerificationItems.fixedDateForKO = fixedDateForKO.Value;
                     EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);

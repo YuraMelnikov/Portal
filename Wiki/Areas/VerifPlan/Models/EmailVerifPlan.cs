@@ -92,7 +92,7 @@ namespace Wiki.Areas.VerifPlan.Models
                 body = "Добрый день!" + "<br/>";
                 body += "Изделие принято на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString() + " | " + order.appDate.Value.ToShortDateString();
             }
-            else if (stepNumber == 3)
+            else if (stepNumber == 4)
             {
                 body = "Добрый день!" + "<br/>";
                 body += "Запрос на смену сроков передачи изделия на проверку: " + order.PZ_PlanZakaz.PlanZakaz.ToString() + " | " + order.fixedDateForKO.Value.ToShortDateString();
