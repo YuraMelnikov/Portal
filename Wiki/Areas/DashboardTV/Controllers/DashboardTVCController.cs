@@ -63,7 +63,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 dataList[0] = new OrderForDashboardTV();
                 dataList[0].Current = 0;
                 dataList[0].Color = "#910000";
-                dataList[0].OrderNumber = "";
+                dataList[0].OrderNumber = "!Итого";
                 dataList[0].DataOtgruzkiBP = DateTime.Now;
                 dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
                 dataList[0].Milestone = false;
@@ -187,7 +187,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
         private DateTime GetMaxDate()
         {
             DateTime dateTime = DateTime.Now;
-            dateTime = dateTime.AddDays(120);
+            dateTime = dateTime.AddDays(145);
 
             return new DateTime(dateTime.Year, dateTime.Month, 1);
         }
