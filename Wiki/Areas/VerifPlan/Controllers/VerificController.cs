@@ -271,5 +271,28 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult GetTableLog(int id)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.PlanVerificationItemsLog
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_PlanVerificationItems == id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    dateAction = JsonConvert.SerializeObject(dataList.date, settings).Replace(@"""", ""),
+                    user = dataList.AspNetUsers.CiliricalName,
+                    actionText = dataList.action
+                }); 
+                return Json(new { data });
+            }
+        }
     }
 }

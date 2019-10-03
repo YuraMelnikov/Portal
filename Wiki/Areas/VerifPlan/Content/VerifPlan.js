@@ -16,6 +16,12 @@ var objList = [
     { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false }
 ];
 
+var objListLog = [
+    { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Пользователь", "data": "user", "autowidth": true, "bSortable": false },
+    { "title": "Событие", "data": "actionText", "autowidth": true, "bSortable": false }
+];
+
 function loadData(listId) {
     if (listId === 1 || listId === "1") {
         listActive();
@@ -56,6 +62,29 @@ function startMenu() {
                 $(row).find('td:eq(7)').css('background-color', '#FFFF73');
             }
         },
+        "cache": false,
+        "async": false,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#myTableLog").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Verific/GetTableLog/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objListLog,
         "cache": false,
         "async": false,
         "scrollY": '75vh',
@@ -241,6 +270,7 @@ function get(id) {
                     $('#fixedDateForKO').prop('disabled', false);
                 }
             }
+            getTableLog(id);
             $('#verifModal').modal('show');
         },
         error: function (errormessage) {
@@ -408,4 +438,32 @@ function processIsNullReturnMaxDate(data) {
     } else {
         return data;
     }
+}
+
+function getTableLog(id) {
+    var table = $('#myTableLog').DataTable();
+    table.destroy();
+    $('#myTableLog').empty();
+    $("#myTableLog").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Verific/GetTableLog/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objListLog,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
