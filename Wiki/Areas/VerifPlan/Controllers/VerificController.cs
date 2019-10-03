@@ -188,6 +188,13 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.SaveChanges();
                 EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 1);
                 ProjectServer_UpdateMustStartOnCRUD projectServer_UpdateMustStartOnCRUD = new ProjectServer_UpdateMustStartOnCRUD(planVerificationItems.id_PZ_PlanZakaz, "ПП", planVerificationItems.planDate.Value);
+                PlanVerificationItemsLog planVerificationItemsLog = new PlanVerificationItemsLog();
+                planVerificationItemsLog.action = "Установлен плановый срок проверки изделия: " + planVerificationItems.planDate.Value.ToShortDateString();
+                planVerificationItemsLog.date = DateTime.Now;
+                planVerificationItemsLog.id_PlanVerificationItems = planVerificationItems.id;
+                planVerificationItemsLog.id_AspNetUsers = db.AspNetUsers.First(d => d.CiliricalName == "Брель Андрей Викторович").Id;
+                db.PlanVerificationItemsLog.Add(planVerificationItemsLog);
+                db.SaveChanges();
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -207,6 +214,13 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
                 EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 3);
+                PlanVerificationItemsLog planVerificationItemsLog = new PlanVerificationItemsLog();
+                planVerificationItemsLog.action = "Начата приемка изделия на проверку: " + planVerificationItems.appDate.Value.ToShortDateString();
+                planVerificationItemsLog.date = DateTime.Now;
+                planVerificationItemsLog.id_PlanVerificationItems = planVerificationItems.id;
+                planVerificationItemsLog.id_AspNetUsers = db.AspNetUsers.First(d => d.CiliricalName == "Погадо Евгений Владимирович").Id;
+                db.PlanVerificationItemsLog.Add(planVerificationItemsLog);
+                db.SaveChanges();
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -223,6 +237,13 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 {
                     planVerificationItems.factDate = factDate.Value;
                     EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 2);
+                    PlanVerificationItemsLog planVerificationItemsLog = new PlanVerificationItemsLog();
+                    planVerificationItemsLog.action = "ПО передало изделие на проверку ОТК: " + planVerificationItems.factDate.Value.ToShortDateString();
+                    planVerificationItemsLog.date = DateTime.Now;
+                    planVerificationItemsLog.id_PlanVerificationItems = planVerificationItems.id;
+                    planVerificationItemsLog.id_AspNetUsers = db.AspNetUsers.First(d => d.CiliricalName == "Медведев Андрей").Id;
+                    db.PlanVerificationItemsLog.Add(planVerificationItemsLog);
+                    db.SaveChanges();
                 }
                 if (factDescription != null)
                     planVerificationItems.factDescription = factDescription;
@@ -237,6 +258,13 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     {
                         EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);
                     }
+                    PlanVerificationItemsLog planVerificationItemsLog = new PlanVerificationItemsLog();
+                    planVerificationItemsLog.action = "Указан прогнозируемый срок передачи изделия на проверку: " + planVerificationItems.fixedDateForKO.Value.ToShortDateString();
+                    planVerificationItemsLog.date = DateTime.Now;
+                    planVerificationItemsLog.id_PlanVerificationItems = planVerificationItems.id;
+                    planVerificationItemsLog.id_AspNetUsers = db.AspNetUsers.First(d => d.CiliricalName == "Медведев Андрей").Id;
+                    db.PlanVerificationItemsLog.Add(planVerificationItemsLog);
+                    db.SaveChanges();
                 }
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
