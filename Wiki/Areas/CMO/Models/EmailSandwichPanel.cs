@@ -35,6 +35,7 @@ namespace Wiki.Areas.CMO.Models
                     GetMailPM();
                     GetMailManufacturing();
                     GetMailMYI();
+                    GetMailKO();
                 }
                 else if (stepNumber == 2) //ToWork - 2
                 {
@@ -179,6 +180,14 @@ namespace Wiki.Areas.CMO.Models
         {
             mailToList.Add("myi@katek.by");
             mailToList.Add("xan@katek.by");
+            return true;
+        }
+
+        bool GetMailKO()
+        {
+            mailToList.Add("nrf@katek.by");
+            mailToList.Add("vi@katek.by");
+            mailToList.Add("goa@katek.by");
             return true;
         }
 

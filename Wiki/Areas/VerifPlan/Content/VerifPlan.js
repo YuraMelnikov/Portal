@@ -7,14 +7,13 @@ var objList = [
     { "title": "№ заказа", "data": "id_PZ_PlanZakaz", "autowidth": true, "bSortable": true },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": false },
     { "title": "Плановая дата начала проверки (prj)", "data": "verificationDateInPrj", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
-    { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Плановый срок передачи на проверку", "data": "planDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processIsNullReturnMaxDate },
     { "title": "Фактическая дата передачи на проверку", "data": "factDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Дата начала приемки изделия ОТК", "data": "appDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Прогнозная дата начала проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Прим. гл. инженера", "data": "planDescription", "autowidth": true, "bSortable": false },
     { "title": "Прим. произв.", "data": "factDescription", "autowidth": true, "bSortable": false },
-    { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false },
-    { "title": "Прогнозная дата начала проверки (рук. произв.)", "data": "fixedDateForKO", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull }
-
+    { "title": "Прим. ОТК", "data": "appDescription", "autowidth": true, "bSortable": false }
 ];
 
 function loadData(listId) {
@@ -45,22 +44,17 @@ function startMenu() {
                 $('td', row).css('background-color', '#910000');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
+                $(row).find('td:eq(4)').css('color', '#910000');
             }
             else if (data.state === "Срок зафиксирован") {
                 $('td', row).css('background-color', '#91e8e1');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
             else if (data.state === "Сдан ПО") {
                 $('td', row).css('background-color', '#a6c96a');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Приемка ОТК") {
-            //    $('td', row).css('background-color', '#2b908f');
-            //    $('td', row).css('color', 'white');
-            //    $('a', row).css('color', 'white');
-            //}
+            if (data.fixedDateForKO !== "null") {
+                $(row).find('td:eq(7)').css('background-color', '#FFFF73');
+            }
         },
         "cache": false,
         "async": false,
@@ -97,22 +91,17 @@ function listActive() {
                 $('td', row).css('background-color', '#910000');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
+                $(row).find('td:eq(4)').css('color', '#910000');
             }
             else if (data.state === "Срок зафиксирован") {
                 $('td', row).css('background-color', '#91e8e1');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
             else if (data.state === "Сдан ПО") {
                 $('td', row).css('background-color', '#a6c96a');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Приемка ОТК") {
-            //    $('td', row).css('background-color', '#2b908f');
-            //    $('td', row).css('color', 'white');
-            //    $('a', row).css('color', 'white');
-            //}
+            if (data.fixedDateForKO !== "null") {
+                $(row).find('td:eq(7)').css('background-color', '#FFFF73');
+            }
         },
         "scrollY": '75vh',
         "scrollX": true,
@@ -147,22 +136,17 @@ function listClose() {
                 $('td', row).css('background-color', '#910000');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
+                $(row).find('td:eq(4)').css('color', '#910000');
             }
             else if (data.state === "Срок зафиксирован") {
                 $('td', row).css('background-color', '#91e8e1');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
             else if (data.state === "Сдан ПО") {
                 $('td', row).css('background-color', '#a6c96a');
-                //$('td', row).css('color', 'white');
-                //$('a', row).css('color', 'white');
             }
-            //else if (data.state === "Приемка ОТК") {
-            //    $('td', row).css('background-color', '#2b908f');
-            //    $('td', row).css('color', 'white');
-            //    $('a', row).css('color', 'white');
-            //}
+            if (data.fixedDateForKO !== "null") {
+                $(row).find('td:eq(7)').css('background-color', '#FFFF73');
+            }
         },
         "scrollY": '75vh',
         "scrollX": true,
@@ -366,6 +350,10 @@ function validOTK() {
 }
 
 function updateTM() {
+    var res = validPM();
+    if (res === false) {
+        return false;
+    }
     var opjTM = {
         id: $('#id').val()
         , factDate: $('#factDate').val()
@@ -387,4 +375,37 @@ function updateTM() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function validPM() {
+    var isValid = true;
+    var factDate = convertRuDateToDateISO($('#factDate').val());
+    var fixedDateForKO = new Date();
+    if ($('#fixedDateForKO').val() !== '') {
+        fixedDateForKO = convertRuDateToDateISO($('#fixedDateForKO').val());
+    }
+    var today = new Date();
+    if (factDate < today) {
+        $('#factDate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#factDate').css('border-color', 'lightgrey');
+    }
+    if (fixedDateForKO < today) {
+        $('#fixedDateForKO').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#fixedDateForKO').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function processIsNullReturnMaxDate(data) {
+    if (data === 'null') {
+        return '2099.01.01';
+    } else {
+        return data;
+    }
 }
