@@ -41,6 +41,7 @@ namespace Wiki
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.SandwichPanel = new HashSet<SandwichPanel>();
             this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
+            this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
         }
     
         public string Id { get; set; }
@@ -108,5 +109,7 @@ namespace Wiki
         public virtual ICollection<SandwichPanel> SandwichPanel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
     }
 }

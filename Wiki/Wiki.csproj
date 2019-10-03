@@ -670,6 +670,9 @@
     <Compile Include="PlanVerificationItems.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="PlanVerificationItemsLog.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PostAlertShip.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

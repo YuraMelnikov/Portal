@@ -237,7 +237,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     {
                         EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);
                     }
-
                 }
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();

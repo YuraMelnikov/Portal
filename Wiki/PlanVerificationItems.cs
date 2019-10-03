@@ -14,6 +14,12 @@ namespace Wiki
     
     public partial class PlanVerificationItems
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PlanVerificationItems()
+        {
+            this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
+        }
+    
         public int id { get; set; }
         public int id_PZ_PlanZakaz { get; set; }
         public bool @fixed { get; set; }
@@ -28,5 +34,7 @@ namespace Wiki
         public Nullable<System.DateTime> fixedDateForKO { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
     }
 }
