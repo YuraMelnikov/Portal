@@ -226,10 +226,18 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 }
                 if (factDescription != null)
                     planVerificationItems.factDescription = factDescription;
-                if (fixedDateForKO != null && factDescription == null)
+                if (fixedDateForKO != null)
                 {
                     planVerificationItems.fixedDateForKO = fixedDateForKO.Value;
-                    EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);
+                    if(planVerificationItems.fixedDateForKO < planVerificationItems.planDate)
+                    {
+                        EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 5);
+                    }
+                    else
+                    {
+                        EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 4);
+                    }
+
                 }
                 db.Entry(planVerificationItems).State = EntityState.Modified;
                 db.SaveChanges();
