@@ -90,6 +90,7 @@ function startMenu() {
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
+        "searching": false,
         "info": false,
         "scrollCollapse": true,
         "language": {
@@ -457,6 +458,7 @@ function getTableLog(id) {
         "columns": objListLog,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
