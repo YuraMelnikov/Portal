@@ -635,7 +635,7 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PostPanelToWork(int spid)
+        public JsonResult PostPanelToWork(int spid) //remove
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;

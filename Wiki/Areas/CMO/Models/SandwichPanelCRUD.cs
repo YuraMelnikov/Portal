@@ -24,6 +24,9 @@ namespace Wiki.Areas.CMO.Models
                 db.SandwichPanel.Add(sandwichPanel);
                 db.SaveChanges();
                 sandwichPanel.folder = CreateFolderAndFileForPreOrder(sandwichPanel.id);
+                sandwichPanel.onApprove = false;
+                sandwichPanel.onCustomer = true;
+                sandwichPanel.datetimeUploadNewVersion = DateTime.Now;
                 db.Entry(sandwichPanel).State = EntityState.Modified;
                 db.SaveChanges();
                 foreach (var dataPZ in id_PlanZakaz)
