@@ -412,10 +412,12 @@ function validPM() {
     var isValid = true;
     var factDate = convertRuDateToDateISO($('#factDate').val());
     var fixedDateForKO = new Date();
+    fixedDateForKO.setDate(fixedDateForKO.getDate() - 1);
     if ($('#fixedDateForKO').val() !== '') {
         fixedDateForKO = convertRuDateToDateISO($('#fixedDateForKO').val());
     }
     var today = new Date();
+    today.setDate(today.getDate() - 1);
     if (factDate < today) {
         $('#factDate').css('border-color', 'Red');
         isValid = false;
