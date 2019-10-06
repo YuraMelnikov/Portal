@@ -59,7 +59,7 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
-            var pointWidthForGantt = 1200 / Object.keys(myJSON).length * 0.6;
+            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.6;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -124,13 +124,28 @@ function getGanttProjects() {
                         animation: false,
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name}'
+                            format: '{point.name}',
+                            style: {
+                                color: "contrast",
+                                fontSize: pointWidthForGantt - 1,
+                                fontWeight: "bold",
+                                textOutline: "1px contrast"
+                            }
                         },
+
                         allowPointSelect: true
                     }
                 },
                 title: {
-                    text: 'Ход изготовления изделий'
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
                 },
                 tooltip: {
                     pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
@@ -142,12 +157,18 @@ function getGanttProjects() {
                     max: getMaxDate(),
                     labels: {
                         style: {
-                            "color": "#0d233a"
-                            //"fontSize": "13px"
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt
                         }
                     }
                 },
                 yAxis: {
+                    labels: {
+                        style: {
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt
+                        }
+                    },
                     type: 'category',
                     grid: {
                         columns: [{
