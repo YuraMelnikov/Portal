@@ -142,8 +142,8 @@ function getGanttProjects() {
                     max: getMaxDate(),
                     labels: {
                         style: {
-                            "color": "#0d233a",
-                            "fontSize": "13px"
+                            "color": "#0d233a"
+                            //"fontSize": "13px"
                         }
                     }
                 },
@@ -168,7 +168,7 @@ function getGanttProjects() {
                     }
                 },
                 chart: {
-                    height: '1200px'
+                    height: '1000px'
                 }
             });
         }
