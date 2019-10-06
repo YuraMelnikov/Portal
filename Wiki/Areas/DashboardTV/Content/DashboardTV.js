@@ -136,7 +136,7 @@ function getGanttProjects() {
                     pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
                 },
                 xAxis: {
-                    tickInterval: 1000 * 60 * 60 * 24 * 30, // Month
+                    tickInterval: 1000 * 60 * 60 * 24 * 30, 
                     currentDateIndicator: true,
                     min: getMinDate(),
                     max: getMaxDate(),
