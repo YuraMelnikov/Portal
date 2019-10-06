@@ -168,7 +168,7 @@ function getGanttProjects() {
                     }
                 },
                 chart: {
-                    height: '1000px'
+                    height: '600px'
                 }
             });
         }
