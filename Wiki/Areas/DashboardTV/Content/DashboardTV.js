@@ -152,7 +152,7 @@ function getGanttProjects() {
                 },
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, 
-                    currentDateIndicator: true,
+                    //currentDateIndicator: true,
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
