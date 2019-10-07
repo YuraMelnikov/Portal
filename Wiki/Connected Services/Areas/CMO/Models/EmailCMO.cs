@@ -29,25 +29,21 @@ namespace Wiki.Areas.CMO.Models
                 mail.From = new MailAddress(login);
                 if (stepNumber == 1) //Create - 1
                 {
-                    //mailToList.Add("myi@katek.by");
                     GetMailListCreate();
                 }
                 else if (stepNumber == 2) //work - 2
                 {
-                    //mailToList.Add("myi@katek.by");
                     GetMailList();
                     GetMailClient();
                 }
                 else if (stepNumber == 3) //manuf - 3
                 {
-                    //mailToList.Add("myi@katek.by");
                     GetMailList();
                     GetMailClient();
                     GetMailPM();
                 }
                 else if (stepNumber == 4) // Create ReOrder - 4
                 {
-                    //mailToList.Add("myi@katek.by");
                     GetMailListCreate();
                     GetMailClient();
                 }
@@ -167,7 +163,7 @@ namespace Wiki.Areas.CMO.Models
             mailToList.Add("xan@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
-            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("bav@katek.by");
             mailToList.Add("vi@katek.by");
             mailToList.Add("yaa@katek.by");
             mailToList.Add("nrf@katek.by");
@@ -179,7 +175,7 @@ namespace Wiki.Areas.CMO.Models
             mailToList.Add("xan@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gdp@katek.by");
-            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("bav@katek.by");
             return true;
         }
 
@@ -195,7 +191,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailPM()
         {
-            mailToList.Add("Antipov@katek.by");
+            mailToList.Add("bav@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("gea@katek.by");
             return true;

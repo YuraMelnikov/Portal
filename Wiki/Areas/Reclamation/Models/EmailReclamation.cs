@@ -116,7 +116,6 @@ namespace Wiki.Areas.Reclamation.Models
             if(reclamation.id_DevisionReclamation == 13)
             {
                 mailToList.Add("laa@katek.by");
-                mailToList.Add("antipov@katek.by");
             }
             else
             {
