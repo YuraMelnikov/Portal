@@ -41,6 +41,36 @@ namespace Wiki.Areas.PZ.Controllers
             return View();
         }
 
+        public ActionResult Debug()
+        {
+            int id_PZ = 2728;
+            List<TaskForPZ> dateTaskWork = db.TaskForPZ.Where(w => w.step == 1).Where(z => z.id_TypeTaskForPZ == 1).ToList();
+            foreach (var data in dateTaskWork)
+            {
+                Debit_WorkBit newDebit_WorkBit = new Debit_WorkBit();
+                newDebit_WorkBit.dateCreate = DateTime.Now;
+                newDebit_WorkBit.close = false;
+                newDebit_WorkBit.id_PlanZakaz = id_PZ;
+                newDebit_WorkBit.id_TaskForPZ = (int)data.id;
+                newDebit_WorkBit.datePlanFirst = DateTime.Now.AddDays((double)data.time);
+                newDebit_WorkBit.datePlan = DateTime.Now.AddDays((double)data.time);
+                if (newDebit_WorkBit.id_TaskForPZ == 1)
+                    newDebit_WorkBit.dateClose = DateTime.Now;
+                db.Debit_WorkBit.Add(new Debit_WorkBit()
+                {
+                    close = false,
+                    dateCreate = DateTime.Now,
+                    datePlan = newDebit_WorkBit.datePlan,
+                    datePlanFirst = newDebit_WorkBit.datePlanFirst,
+                    id_PlanZakaz = newDebit_WorkBit.id_PlanZakaz,
+                    id_TaskForPZ = newDebit_WorkBit.id_TaskForPZ,
+                    dateClose = newDebit_WorkBit.dateClose
+                });
+                db.SaveChanges();
+            }
+            return View();
+        }
+
         public string RenderUserMenu()
         {
             string login = "Войти";

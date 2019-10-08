@@ -1629,6 +1629,7 @@
     <Content Include="Areas\VisualizationBP\Views\web.config" />
     <Content Include="Areas\VisualizationBP\Views\Shared\_LayoutVisualizationBP.cshtml" />
     <Content Include="Areas\VisualizationBP\Views\VBP\Index.cshtml" />
+    <Content Include="Areas\PZ\Views\Order\Debug.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
