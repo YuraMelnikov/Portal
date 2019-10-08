@@ -350,6 +350,8 @@
     <Compile Include="Areas\VerifPlan\Controllers\VerificController.cs" />
     <Compile Include="Areas\VerifPlan\Models\EmailVerifPlan.cs" />
     <Compile Include="Areas\VerifPlan\VerifPlanAreaRegistration.cs" />
+    <Compile Include="Areas\VisualizationBP\Controllers\VBPController.cs" />
+    <Compile Include="Areas\VisualizationBP\VisualizationBPAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -992,6 +994,7 @@
     <Content Include="Areas\UsersKO\Content\UsersKO.js" />
     <Content Include="Areas\VerifPlan\Content\updateBP.sql" />
     <Content Include="Areas\VerifPlan\Content\VerifPlan.js" />
+    <Content Include="Areas\VisualizationBP\Content\VBP.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css" />
@@ -1623,6 +1626,9 @@
     </Content>
     <Content Include="Areas\DashboardKO\Views\Shared\_LayoutDashboardKO2.cshtml" />
     <Content Include="Areas\DashboardKO\Views\ReportPage\AdminPanel.cshtml" />
+    <Content Include="Areas\VisualizationBP\Views\web.config" />
+    <Content Include="Areas\VisualizationBP\Views\Shared\_LayoutVisualizationBP.cshtml" />
+    <Content Include="Areas\VisualizationBP\Views\VBP\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1958,6 +1964,7 @@
   <ItemGroup>
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
+    <Folder Include="Areas\VisualizationBP\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
