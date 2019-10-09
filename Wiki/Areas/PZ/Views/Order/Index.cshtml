@@ -3,39 +3,39 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/PZ/Views/Shared/_LayoutPZ.cshtml";
 }
-    <head>
-        <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
-        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
-        <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
-        <link href="~/Content/DataTables/buttons.dataTables.min.css" rel="stylesheet" />
-        <script src="~/Content/DataTables/dataTables.buttons.min.js"></script>
-        <script src="~/Content/DataTables/jszip.min.js"></script>
-        <script src="~/Content/DataTables/pdfmake.min.js"></script>
-        <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-        <script src="~/Areas/PZ/Contant/OrdersList.js?v1.1"></script>
-        <style>
-            th.dt-invisible-column {
-                border: 0 !important;
-                padding: 0 !important;
-            }
+<head>
+    <link href="~/Areas/PZ/Contant/fixedColomnBootstrap/fixedColumns.bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.bootstrap.min.js"></script>
+    <script src="~/Areas/PZ/Contant/fixedColomnBootstrap/dataTables.fixedColumns.min.js"></script>
+    <link href="~/Content/DataTables/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Content/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/DataTables/jszip.min.js"></script>
+    <script src="~/Content/DataTables/pdfmake.min.js"></script>
+    <script src="~/Content/DataTables/buttons.html5.min.js"></script>
+    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.1"></script>
+    <style>
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
 
-            .modal.modal-wide .modal-dialog {
-                width: 90%;
-            }
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
 
-            .modal-wide .modal-body {
-                overflow-y: auto;
-            }
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
 
-            .colu-200 {
-                min-width: 200px;
-            }
+        .colu-200 {
+            min-width: 200px;
+        }
 
-            .colu-300 {
-                min-width: 300px;
-            }
-        </style>
-    </head>
+        .colu-300 {
+            min-width: 300px;
+        }
+    </style>
+</head>
 <div class="row">
     <div class="col-md-12">
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -91,8 +91,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             @*<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>*@
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>*@
             <div class="modal-body">
                 @Html.HiddenFor(model => model.Id)
                 <div class="row">
@@ -424,17 +424,21 @@
                         <label for="OL">Опросный лист №:</label>
                         <input type="text" class="form-control" id="mOL" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="Zapros">Запрос №:</label>
                         <input type="text" class="form-control" id="mZapros" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="numZakupki">Закупка №:</label>
                         <input type="text" class="form-control" id="mnumZakupki" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="numLota">Лот №:</label>
                         <input type="text" class="form-control" id="mnumLota" />
+                    </div>
+                    <div class="col-lg-5">
+                        <label for="mobjectOfExploitation">Объект эксплуатации:</label>
+                        <input type="text" class="form-control" id="mobjectOfExploitation" />
                     </div>
                 </div>
                 <br />
@@ -447,17 +451,21 @@
                         <label for="criticalDateShip">Крайний срок ограничения:</label>
                         <input type="text" class="form-control" id="mcriticalDateShip" />
                     </div>
-                    <div class="col-lg-2">
-                        <label for="PowerST">Мощность СТ:</label>
+                    <div class="col-lg-1">
+                        <label for="PowerST">Мощ. СТ:</label>
                         <input type="text" class="form-control" id="mPowerST" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="VN_NN">ВН/НН:</label>
                         <input type="text" class="form-control" id="mVN_NN" />
                     </div>
                     <div class="col-lg-2">
                         <label for="Modul">Габариты блок-бокса:</label>
                         <input type="text" class="form-control" id="mModul" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="mcounterText">Ед. измерения по договору:</label>
+                        <input type="text" class="form-control" id="mcounterText" />
                     </div>
                 </div>
                 <hr />

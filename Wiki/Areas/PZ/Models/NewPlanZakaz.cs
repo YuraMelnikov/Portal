@@ -54,7 +54,9 @@ namespace Wiki.Areas.PZ.Models
                 costPNR = pZ_PlanZakaz.costPNR,
                 id_PZ_OperatorDogovora = pZ_PlanZakaz.id_PZ_OperatorDogovora,
                 PowerST = pZ_PlanZakaz.PowerST,
-                VN_NN = pZ_PlanZakaz.VN_NN
+                VN_NN = pZ_PlanZakaz.VN_NN,
+                objectOfExploitation = pZ_PlanZakaz.objectOfExploitation,
+                counterText = pZ_PlanZakaz.counterText
             };
             db.PZ_PlanZakaz.Add(newPZ_PlanZakaz);
             db.SaveChanges();

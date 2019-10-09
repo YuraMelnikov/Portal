@@ -71,6 +71,10 @@ namespace Wiki.Areas.PZ.Models
                 pZ_PlanZakaz.PowerST = "";
             if (pZ_PlanZakaz.VN_NN == null)
                 pZ_PlanZakaz.VN_NN = "";
+            if (pZ_PlanZakaz.objectOfExploitation == null)
+                pZ_PlanZakaz.objectOfExploitation = "";
+            if (pZ_PlanZakaz.counterText == null)
+                pZ_PlanZakaz.counterText = "";
             if (pZ_PlanZakaz.TypeShip == 0)
                 pZ_PlanZakaz.TypeShip = 1;
         }

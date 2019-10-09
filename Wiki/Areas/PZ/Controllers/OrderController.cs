@@ -490,6 +490,8 @@ namespace Wiki.Areas.PZ.Controllers
                 criticalDateShip = JsonConvert.SerializeObject(dataList.criticalDateShip, settings).Replace(@"""", ""),
                 dataList.PowerST,
                 dataList.VN_NN,
+                dataList.objectOfExploitation,
+                dataList.counterText,
                 dataList.Modul,
                 dataList.Gruzopoluchatel,
                 dataList.PostAdresGruzopoluchatel,
@@ -567,6 +569,10 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.PowerST = pZ_PlanZakaz.PowerST;
             if (editPZ.VN_NN != pZ_PlanZakaz.VN_NN)
                 editPZ.VN_NN = pZ_PlanZakaz.VN_NN;
+            if (editPZ.objectOfExploitation != pZ_PlanZakaz.objectOfExploitation)
+                editPZ.objectOfExploitation = pZ_PlanZakaz.objectOfExploitation;
+            if (editPZ.counterText != pZ_PlanZakaz.counterText)
+                editPZ.counterText = pZ_PlanZakaz.counterText;
             if (editPZ.Modul != pZ_PlanZakaz.Modul)
                 editPZ.Modul = pZ_PlanZakaz.Modul;
             if (editPZ.Gruzopoluchatel != pZ_PlanZakaz.Gruzopoluchatel)
@@ -663,6 +669,10 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.PowerST = pZ_PlanZakaz.PowerST;
                 if (pZ_PlanZakaz.VN_NN != null)
                     editPZ.VN_NN = pZ_PlanZakaz.VN_NN;
+                if (pZ_PlanZakaz.objectOfExploitation != null)
+                    editPZ.objectOfExploitation = pZ_PlanZakaz.objectOfExploitation;
+                if (pZ_PlanZakaz.counterText != null)
+                    editPZ.counterText = pZ_PlanZakaz.counterText;
                 if (pZ_PlanZakaz.Modul != null)
                     editPZ.Modul = pZ_PlanZakaz.Modul;
                 if (pZ_PlanZakaz.Gruzopoluchatel != null)
@@ -711,8 +721,6 @@ namespace Wiki.Areas.PZ.Controllers
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
             {
-                //EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
-                //emailRename.SendEmail();
                 editPZ.nameTU = pZ_PlanZakaz.nameTU;
                 editPZ.ProductType = pZ_PlanZakaz.ProductType;
             }
@@ -726,7 +734,7 @@ namespace Wiki.Areas.PZ.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult TableOrders(int[] Id)
         {
             string part = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Таблички\" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "_" + "_" + DateTime.Now.Minute + DateTime.Now.Second + "_" + "(";
@@ -767,7 +775,7 @@ namespace Wiki.Areas.PZ.Controllers
             queryFirst.KodStanciiGruzopoluchatelya = pZ_PlanZakaz.KodGruzopoluchatela;
             queryFirst.OsobieOtmetkiGruzopoluchatelya = pZ_PlanZakaz.OsobieOtmetkiGruzopoluchatelya;
             queryFirst.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
-            
+
             return queryFirst;
         }
 

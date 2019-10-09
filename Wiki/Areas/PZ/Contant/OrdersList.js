@@ -572,6 +572,8 @@ function getbyID(Id) {
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
             $('#PowerST').val(result.PowerST);
             $('#VN_NN').val(result.VN_NN);
+            $('#objectOfExploitation').val(result.objectOfExploitation);
+            $('#counterText').val(result.counterText);
             $('#Modul').val(result.Modul);
             $('#TypeShip').val(result.TypeShip);
             $('#criticalDateShip').val(result.criticalDateShip);
@@ -630,6 +632,8 @@ function Update() {
         OsobieOtmetkiGruzopoluchatelya: $('#OsobieOtmetkiGruzopoluchatelya').val(),
         PowerST: $('#PowerST').val(),
         VN_NN: $('#VN_NN').val(),
+        objectOfExploitation: $('#objectOfExploitation').val(),
+        counterText: $('#counterText').val(),
         TypeShip: $('#TypeShip').val(),
         criticalDateShip: $('#criticalDateShip').val(),
         DescriptionGruzopoluchatel: $('#DescriptionGruzopoluchatel').val(),
@@ -681,6 +685,8 @@ function Update() {
             $('#OsobieOtmetkiGruzopoluchatelya').val("");
             $('#PowerST').val("");
             $('#VN_NN').val("");
+            $('#objectOfExploitation').val("");
+            $('#counterText').val("");
             $('#TypeShip').val("");
             $('#criticalDateShip').val("");
             $('#DescriptionGruzopoluchatel').val("");
@@ -814,6 +820,8 @@ function getbyReadID(Id) {
             $('#PowerST').val(result.PowerST);
             $('#Modul').val(result.Modul);
             $('#VN_NN').val(result.VN_NN);
+            $('#objectOfExploitation').val(result.objectOfExploitation);
+            $('#counterText').val(result.counterText);
             $('#TypeShip').val(result.TypeShip);
             $('#criticalDateShip').val(result.criticalDateShip);
             $('#DescriptionGruzopoluchatel').val(result.DescriptionGruzopoluchatel);
@@ -897,6 +905,8 @@ function UpdateOrders() {
         OsobieOtmetkiGruzopoluchatelya: $('#mOsobieOtmetkiGruzopoluchatelya').val(),
         PowerST: $('#mPowerST').val(),
         VN_NN: $('#mVN_NN').val(),
+        objectOfExploitation: $('#mobjectOfExploitation').val(),
+        counterText: $('#mcounterText').val(),
         Modul: $('#mModul').val(),
         TypeShip: $('#mTypeShip').val(),
         criticalDateShip: $('#mcriticalDateShip').val(),
@@ -928,6 +938,8 @@ function clearTextBoxUpdateOrders() {
     $('#mModul').val("");
     $('#mPowerST').val("");
     $('#mVN_NN').val("");
+    $('#mobjectOfExploitation').val("");
+    $('#mcounterText').val("");
     $('#mTypeShip').val("");
     $('#mcriticalDateShip').val("");
     $('#mcountOrders').val("");
