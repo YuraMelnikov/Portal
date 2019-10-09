@@ -83,6 +83,8 @@ namespace Wiki
         public double costPNR { get; set; }
         public double costSMR { get; set; }
         public string nomenklaturNumber { get; set; }
+        public string objectOfExploitation { get; set; }
+        public string counterText { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
