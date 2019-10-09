@@ -12,7 +12,7 @@
         <script src="~/Content/DataTables/jszip.min.js"></script>
         <script src="~/Content/DataTables/pdfmake.min.js"></script>
         <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-        <script src="~/Areas/PZ/Contant/OrdersList.js?v1.0"></script>
+        <script src="~/Areas/PZ/Contant/OrdersList.js?v1.1"></script>
         <style>
             th.dt-invisible-column {
                 border: 0 !important;
@@ -48,7 +48,8 @@
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#ordersModal" onclick="clearTextBoxUpdateOrders();">Массовое обновление данных</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#tablesModal" onclick="clearTextBoxTableOrders();">Сформировать таблички</button>
-        <hr />
+        <br />
+        <br />
         <table id="myTable" class="table table-hover table-striped" style="width:100%;">
             <tfoot>
                 <tr>
@@ -89,9 +90,9 @@
 <div id="orderModal" class="modal modal-wide fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            @*<div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+            </div>*@
             <div class="modal-body">
                 @Html.HiddenFor(model => model.Id)
                 <div class="row">
@@ -124,11 +125,11 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="Name">Контрактное (договорное) наименование:</label>
-                        @Html.TextAreaFor(model => model.Name, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        @Html.TextAreaFor(model => model.Name, htmlAttributes: new { @class = "form-control", @rows = 4 })
                     </div>
                     <div class="col-lg-6">
                         <label for="Description">Примечание:</label>
-                        @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", @rows = 4 })
                     </div>
                 </div>
                 <br />
@@ -195,22 +196,25 @@
                         <label for="OL">Опросный лист №:</label>
                         <input type="text" class="form-control" id="OL" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="Zapros">Запрос №:</label>
                         <input type="text" class="form-control" id="Zapros" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="numZakupki">Закупка №:</label>
                         <input type="text" class="form-control" id="numZakupki" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="numLota">Лот №:</label>
                         <input type="text" class="form-control" id="numLota" />
                     </div>
-
-                    <div class="col-lg-2">
-                        <label for="countOrders">Кол-во изделий:</label>
+                    <div class="col-lg-1">
+                        <label for="countOrders">Кол-во изд.:</label>
                         <input type="text" class="form-control" id="countOrders" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="objectOfExploitation">Объект эксплуатации:</label>
+                        <input type="text" class="form-control" id="objectOfExploitation" />
                     </div>
                 </div>
                 <br />
@@ -223,11 +227,11 @@
                         <label for="criticalDateShip">Крайний срок ограничения:</label>
                         <input type="text" class="form-control" id="criticalDateShip" />
                     </div>
-                    <div class="col-lg-2">
-                        <label for="PowerST">Мощность СТ:</label>
+                    <div class="col-lg-1">
+                        <label for="PowerST">Мощ. СТ:</label>
                         <input type="text" class="form-control" id="PowerST" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label for="VN_NN">ВН/НН:</label>
                         <input type="text" class="form-control" id="VN_NN" />
                     </div>
@@ -235,8 +239,13 @@
                         <label for="Modul">Габариты блок-бокса:</label>
                         <input type="text" class="form-control" id="Modul" />
                     </div>
+                    <div class="col-lg-2">
+                        <label for="counterText">Ед. измерения по договору:</label>
+                        <input type="text" class="form-control" id="counterText" />
+                    </div>
                 </div>
-                <hr />
+                <br />
+                @*<hr />*@
                 <button type="button" class="btn-xs btn-primary" id="btnGetInfGP" onclick="GetGP(document.getElementById('Gruzopoluchatel').value);">Получить данные о грузополучателе</button>
                 <div class="row">
                     <div class="col-lg-3">

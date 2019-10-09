@@ -54,7 +54,7 @@ function loadData() {
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
-        "scrollY": '75vh',
+        "scrollY": '70vh',
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -141,7 +141,7 @@ function OrdersListLY(yearCreateOrder) {
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
-        "scrollY": '75vh',
+        "scrollY": '70vh',
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -230,7 +230,7 @@ function OrdersListALL() {
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
-        "scrollY": '75vh',
+        "scrollY": '70vh',
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -319,7 +319,7 @@ function OrdersListInManufacturing() {
             //{ "title": "Дата приемки", "data": "datePriemki", "autowidth": true },
             //{ "title": "Дата оплаты", "data": "dateOplat", "autowidth": true }
         ],
-        "scrollY": '75vh',
+        "scrollY": '70vh',
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -400,6 +400,8 @@ function Add() {
         PowerST: $('#PowerST').val(),
         Modul: $('#Modul').val(),
         VN_NN: $('#VN_NN').val(),
+        objectOfExploitation: $('#objectOfExploitation').val(),
+        counterText: $('#counterText').val(),
         TypeShip: $('#TypeShip').val(),
         criticalDateShip: $('#criticalDateShip').val(),
         DescriptionGruzopoluchatel: $('#DescriptionGruzopoluchatel').val()
@@ -1146,7 +1148,7 @@ function getRemOrder(Id) {
             { "title": "Содержание", "data": "remNote", "autowidth": true, "bSortable": false },
             { "title": "Автор", "data": "remUser", "autowidth": true, "bSortable": false }
         ],
-        "scrollY": '75vh',
+        "scrollY": '70vh',
         "searching": false,
         "scrollX": true,
         "paging": false,
