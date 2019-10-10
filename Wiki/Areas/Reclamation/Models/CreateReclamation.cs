@@ -77,6 +77,7 @@ namespace Wiki.Areas.Reclamation.Models
                 reclamation.id_Reclamation_CountErrorFinal = 1;
                 reclamation.id_Reclamation_CountErrorFirst = 1;
                 reclamation.closeMKO = false;
+                reclamation.closeMKO = false;
             }
             return true;
         }
