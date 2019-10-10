@@ -363,7 +363,7 @@ namespace Wiki.Controllers
             {
                 RKD_Question rKD_Question = db.RKD_Question.Find(id);
                 rKD_Question.complited = true;
-                db.Entry(rKD_Question).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(rKD_Question).State = EntityState.Modified;
                 db.SaveChanges();
                 //to Email data
                 string pz = db.RKD_Order.Find(rKD_Question.id_RKD_Order).PZ_PlanZakaz.PlanZakaz.ToString();
@@ -378,8 +378,10 @@ namespace Wiki.Controllers
                 {
                     foreach (var VARIABLE in db.RKD_GIP.Where(d => d.id_RKD_Order == rKD_Question.id_RKD_Order).ToList())
                     {
-                        arrayMail.Add(VARIABLE.AspNetUsers.Email);
-                        arrayMail.Add(VARIABLE.AspNetUsers1.Email);
+                        if(VARIABLE.AspNetUsers.LockoutEnabled != false)
+                            arrayMail.Add(VARIABLE.AspNetUsers.Email);
+                        if (VARIABLE.AspNetUsers1.LockoutEnabled != false)
+                            arrayMail.Add(VARIABLE.AspNetUsers1.Email);
                     }
                 }
                 catch
