@@ -296,6 +296,35 @@
           <Property Name="planDuration" Type="int" Nullable="false" />
           <Property Name="planProjectPercentCompleted" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBP_ProjectTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="basicDuration" Type="float" />
+          <Property Name="basicStart" Type="date" />
+          <Property Name="basicFinish" Type="date" />
+          <Property Name="basicWork" Type="float" />
+          <Property Name="duration" Type="float" Nullable="false" />
+          <Property Name="remainingDuration" Type="float" Nullable="false" />
+          <Property Name="factDuration" Type="float" Nullable="false" />
+          <Property Name="start" Type="date" Nullable="false" />
+          <Property Name="finish" Type="date" Nullable="false" />
+          <Property Name="work" Type="float" Nullable="false" />
+          <Property Name="remainingWork" Type="float" Nullable="false" />
+          <Property Name="factWork" Type="float" Nullable="false" />
+          <Property Name="percentWorkComplited" Type="float" Nullable="false" />
+          <Property Name="percentComplited" Type="float" Nullable="false" />
+          <Property Name="percentPhisicalComplited" Type="float" Nullable="false" />
+          <Property Name="deadline" Type="date" />
+          <Property Name="isCritical" Type="bit" Nullable="false" />
+          <Property Name="priority" Type="int" Nullable="false" />
+          <Property Name="NK" Type="float" />
+          <Property Name="id_WBS" Type="int" />
+          <Property Name="id_DashboardBP_ProjectList" Type="int" Nullable="false" />
+          <Property Name="taskUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="recourceUID" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="DashboardBP_State">
           <Key>
             <PropertyRef Name="id" />
@@ -328,6 +357,12 @@
           <Property Name="isCritical" Type="bit" Nullable="false" />
           <Property Name="priority" Type="int" Nullable="false" />
           <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" />
+          <Property Name="lateStart" Type="date" Nullable="false" />
+          <Property Name="lateFinish" Type="date" Nullable="false" />
+          <Property Name="earlyStart" Type="date" Nullable="false" />
+          <Property Name="earlyFinish" Type="date" Nullable="false" />
+          <Property Name="totalSlack" Type="float" Nullable="false" />
+          <Property Name="freeSlack" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
           <Key>
@@ -1472,6 +1507,28 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="WBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WBSName" Type="varchar(max)" Nullable="false" />
+          <Property Name="WBSLongCiliricName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WBS_BP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_WBS" Type="int" Nullable="false" />
+          <Property Name="duration" Type="float" Nullable="false" />
+          <Property Name="start" Type="date" Nullable="false" />
+          <Property Name="finish" Type="date" Nullable="false" />
+          <Property Name="work" Type="float" Nullable="false" />
+          <Property Name="percentComplite" Type="float" Nullable="false" />
+          <Property Name="percentWorkComplite" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="WBS_ClassicStruct">
           <Key>
             <PropertyRef Name="id" />
@@ -1510,7 +1567,7 @@
           <Property Name="idNewRem" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1537,7 +1594,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1547,7 +1604,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1569,7 +1626,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1579,7 +1636,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1600,7 +1657,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1621,7 +1678,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1690,9 +1747,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="AssignmentBaseline0FinishDate" Type="datetime" />
           <Property Name="СДРес_Р" Type="nvarchar" MaxLength="4000" />
           <Property Name="ResourceUID" Type="uniqueidentifier" />
+          <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1703,7 +1761,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -2040,42 +2098,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="DashboardBP_ProjectList">
               <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_TasksList_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="DashboardBP_TasksList" Type="Self.DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList">
-          <End Role="DashboardBP_ProjectList" Type="Self.DashboardBP_ProjectList" Multiplicity="1" />
-          <End Role="DashboardBP_TasksList" Type="Self.DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DashboardBP_ProjectList">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_DashboardBP_ProjectList" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBP_TasksList_ProjectTask">
-          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
-          <End Role="DashboardBP_TasksList" Type="Self.DashboardBP_TasksList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectTask">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DashboardBP_TasksList">
-              <PropertyRef Name="id_ProjectTask" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3432,6 +3454,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="CMO2_Position" EntityType="Self.CMO2_Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPO" EntityType="Self.DashboardBP_HSSPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_ProjectList" EntityType="Self.DashboardBP_ProjectList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBP_ProjectTasks" EntityType="Self.DashboardBP_ProjectTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_State" EntityType="Self.DashboardBP_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_TasksList" EntityType="Self.DashboardBP_TasksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
@@ -3539,6 +3562,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeTaskForPZ" EntityType="Self.TypeTaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WBS" EntityType="Self.WBS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WBS_BP" EntityType="Self.WBS_BP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Соотношение ИД" EntityType="Self.Соотношение ИД" Schema="dbo" store:Type="Tables" />
@@ -3690,7 +3715,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
     [PWA_TasksForBP].[AssignmentBaseline0StartDate] AS [AssignmentBaseline0StartDate], 
     [PWA_TasksForBP].[AssignmentBaseline0FinishDate] AS [AssignmentBaseline0FinishDate], 
     [PWA_TasksForBP].[СДРес_Р] AS [СДРес_Р], 
-    [PWA_TasksForBP].[ResourceUID] AS [ResourceUID]
+    [PWA_TasksForBP].[ResourceUID] AS [ResourceUID], 
+    [PWA_TasksForBP].[НК] AS [НК]
     FROM [dbo].[PWA_TasksForBP] AS [PWA_TasksForBP]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="RKD_TaskUIDProjectUD" EntityType="Self.RKD_TaskUIDProjectUD" store:Type="Views" store:Schema="dbo">
@@ -3824,18 +3850,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_DashboardBP_ProjectList_PZ_PlanZakaz" Association="Self.FK_DashboardBP_ProjectList_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_TasksList_AspNetUsers" Association="Self.FK_DashboardBP_TasksList_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_TasksList_DashboardBP_ProjectList" Association="Self.FK_DashboardBP_TasksList_DashboardBP_ProjectList">
-            <End Role="DashboardBP_ProjectList" EntitySet="DashboardBP_ProjectList" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBP_TasksList_ProjectTask" Association="Self.FK_DashboardBP_TasksList_ProjectTask">
-            <End Role="ProjectTask" EntitySet="ProjectTask" />
-            <End Role="DashboardBP_TasksList" EntitySet="DashboardBP_TasksList" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardHSSPlan_DashboardBP_State" Association="Self.FK_DashboardHSSPlan_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
@@ -5089,6 +5103,9 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PlanVerificationItems" EntitySet="PlanVerificationItems" />
             <End Role="PlanVerificationItemsLog" EntitySet="PlanVerificationItemsLog" />
           </AssociationSet>
+          <EntitySet Name="DashboardBP_ProjectTasks" EntityType="PortalKATEKModel.DashboardBP_ProjectTasks" />
+          <EntitySet Name="WBS" EntityType="PortalKATEKModel.WBS" />
+          <EntitySet Name="WBS_BP" EntityType="PortalKATEKModel.WBS_BP" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5256,6 +5273,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="AssignmentBaseline0FinishDate" Type="DateTime" Precision="3" />
           <Property Name="СДРес_Р" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="ResourceUID" Type="Guid" />
+          <Property Name="НК" Type="Decimal" Precision="25" Scale="6" />
         </EntityType>
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
@@ -5655,6 +5673,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_AspNetUsers" FromRole="DashboardBP_TasksList" ToRole="AspNetUsers" />
           <NavigationProperty Name="DashboardBP_ProjectList" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_DashboardBP_ProjectList" FromRole="DashboardBP_TasksList" ToRole="DashboardBP_ProjectList" />
           <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_DashboardBP_TasksList_ProjectTask" FromRole="DashboardBP_TasksList" ToRole="ProjectTask" />
+          <Property Name="lateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lateFinish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="earlyStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="earlyFinish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="totalSlack" Type="Double" Nullable="false" />
+          <Property Name="freeSlack" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
           <Key>
@@ -8606,6 +8630,57 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardBP_ProjectTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="basicDuration" Type="Double" />
+          <Property Name="basicStart" Type="DateTime" Precision="0" />
+          <Property Name="basicFinish" Type="DateTime" Precision="0" />
+          <Property Name="basicWork" Type="Double" />
+          <Property Name="duration" Type="Double" Nullable="false" />
+          <Property Name="remainingDuration" Type="Double" Nullable="false" />
+          <Property Name="factDuration" Type="Double" Nullable="false" />
+          <Property Name="start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="finish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="work" Type="Double" Nullable="false" />
+          <Property Name="remainingWork" Type="Double" Nullable="false" />
+          <Property Name="factWork" Type="Double" Nullable="false" />
+          <Property Name="percentWorkComplited" Type="Double" Nullable="false" />
+          <Property Name="percentComplited" Type="Double" Nullable="false" />
+          <Property Name="percentPhisicalComplited" Type="Double" Nullable="false" />
+          <Property Name="deadline" Type="DateTime" Precision="0" />
+          <Property Name="isCritical" Type="Boolean" Nullable="false" />
+          <Property Name="priority" Type="Int32" Nullable="false" />
+          <Property Name="NK" Type="Double" />
+          <Property Name="id_WBS" Type="Int32" />
+          <Property Name="id_DashboardBP_ProjectList" Type="Int32" Nullable="false" />
+          <Property Name="taskUID" Type="Guid" Nullable="false" />
+          <Property Name="recourceUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="WBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WBSName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WBSLongCiliricName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WBS_BP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_WBS" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Double" Nullable="false" />
+          <Property Name="start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="finish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="work" Type="Double" Nullable="false" />
+          <Property Name="percentComplite" Type="Double" Nullable="false" />
+          <Property Name="percentWorkComplite" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8815,6 +8890,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="PWA_TasksForBP">
             <EntityTypeMapping TypeName="PortalKATEKModel.PWA_TasksForBP">
               <MappingFragment StoreEntitySet="PWA_TasksForBP">
+                <ScalarProperty Name="НК" ColumnName="НК" />
                 <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
                 <ScalarProperty Name="СДРес_Р" ColumnName="СДРес_Р" />
                 <ScalarProperty Name="AssignmentBaseline0FinishDate" ColumnName="AssignmentBaseline0FinishDate" />
@@ -9200,6 +9276,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySetMapping Name="DashboardBP_TasksList">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_TasksList">
               <MappingFragment StoreEntitySet="DashboardBP_TasksList">
+                <ScalarProperty Name="freeSlack" ColumnName="freeSlack" />
+                <ScalarProperty Name="totalSlack" ColumnName="totalSlack" />
+                <ScalarProperty Name="earlyFinish" ColumnName="earlyFinish" />
+                <ScalarProperty Name="earlyStart" ColumnName="earlyStart" />
+                <ScalarProperty Name="lateFinish" ColumnName="lateFinish" />
+                <ScalarProperty Name="lateStart" ColumnName="lateStart" />
                 <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
                 <ScalarProperty Name="priority" ColumnName="priority" />
                 <ScalarProperty Name="isCritical" ColumnName="isCritical" />
@@ -10440,6 +10522,60 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
                 <ScalarProperty Name="id_PlanVerificationItems" ColumnName="id_PlanVerificationItems" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBP_ProjectTasks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_ProjectTasks">
+              <MappingFragment StoreEntitySet="DashboardBP_ProjectTasks">
+                <ScalarProperty Name="recourceUID" ColumnName="recourceUID" />
+                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+                <ScalarProperty Name="id_DashboardBP_ProjectList" ColumnName="id_DashboardBP_ProjectList" />
+                <ScalarProperty Name="id_WBS" ColumnName="id_WBS" />
+                <ScalarProperty Name="NK" ColumnName="NK" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="isCritical" ColumnName="isCritical" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="percentPhisicalComplited" ColumnName="percentPhisicalComplited" />
+                <ScalarProperty Name="percentComplited" ColumnName="percentComplited" />
+                <ScalarProperty Name="percentWorkComplited" ColumnName="percentWorkComplited" />
+                <ScalarProperty Name="factWork" ColumnName="factWork" />
+                <ScalarProperty Name="remainingWork" ColumnName="remainingWork" />
+                <ScalarProperty Name="work" ColumnName="work" />
+                <ScalarProperty Name="finish" ColumnName="finish" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="factDuration" ColumnName="factDuration" />
+                <ScalarProperty Name="remainingDuration" ColumnName="remainingDuration" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="basicWork" ColumnName="basicWork" />
+                <ScalarProperty Name="basicFinish" ColumnName="basicFinish" />
+                <ScalarProperty Name="basicStart" ColumnName="basicStart" />
+                <ScalarProperty Name="basicDuration" ColumnName="basicDuration" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WBS">
+            <EntityTypeMapping TypeName="PortalKATEKModel.WBS">
+              <MappingFragment StoreEntitySet="WBS">
+                <ScalarProperty Name="WBSLongCiliricName" ColumnName="WBSLongCiliricName" />
+                <ScalarProperty Name="WBSName" ColumnName="WBSName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WBS_BP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.WBS_BP">
+              <MappingFragment StoreEntitySet="WBS_BP">
+                <ScalarProperty Name="percentWorkComplite" ColumnName="percentWorkComplite" />
+                <ScalarProperty Name="percentComplite" ColumnName="percentComplite" />
+                <ScalarProperty Name="work" ColumnName="work" />
+                <ScalarProperty Name="finish" ColumnName="finish" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="id_WBS" ColumnName="id_WBS" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

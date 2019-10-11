@@ -285,6 +285,9 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PlanVerificationItemsLog" Width="1.5" PointX="26.375" PointY="72.5" />
         <AssociationConnector Association="PortalKATEKModel.FK_PlanVerificationItemsLog_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_PlanVerificationItemsLog_PlanVerificationItems" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_ProjectTasks" Width="1.5" PointX="15.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.WBS" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.WBS_BP" Width="1.5" PointX="15.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

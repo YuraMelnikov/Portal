@@ -440,6 +440,9 @@
     <Compile Include="DashboardBP_ProjectList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardBP_ProjectTasks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardBP_State.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -899,6 +902,12 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="VV_infPost.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WBS.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WBS_BP.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS_ClassicStruct.cs">

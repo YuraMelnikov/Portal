@@ -167,5 +167,8 @@ namespace Wiki
         public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
         public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
         public virtual DbSet<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
+        public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
+        public virtual DbSet<WBS> WBS { get; set; }
+        public virtual DbSet<WBS_BP> WBS_BP { get; set; }
     }
 }

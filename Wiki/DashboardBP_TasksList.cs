@@ -33,6 +33,12 @@ namespace Wiki
         public bool isCritical { get; set; }
         public int priority { get; set; }
         public string id_AspNetUsers { get; set; }
+        public System.DateTime lateStart { get; set; }
+        public System.DateTime lateFinish { get; set; }
+        public System.DateTime earlyStart { get; set; }
+        public System.DateTime earlyFinish { get; set; }
+        public double totalSlack { get; set; }
+        public double freeSlack { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual DashboardBP_ProjectList DashboardBP_ProjectList { get; set; }
