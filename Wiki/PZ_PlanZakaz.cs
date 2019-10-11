@@ -22,21 +22,21 @@ namespace Wiki
             this.CMO2_Position = new HashSet<CMO2_Position>();
             this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
             this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
+            this.DashboardTV_FinishWorkInStartWeek = new HashSet<DashboardTV_FinishWorkInStartWeek>();
             this.Debit_CostUpdate = new HashSet<Debit_CostUpdate>();
             this.Debit_Platform = new HashSet<Debit_Platform>();
             this.Debit_WorkBit = new HashSet<Debit_WorkBit>();
             this.DebitReclamation = new HashSet<DebitReclamation>();
+            this.MailGraphic = new HashSet<MailGraphic>();
+            this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
             this.PZ_PZNotes = new HashSet<PZ_PZNotes>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
             this.PZ_TEO = new HashSet<PZ_TEO>();
             this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.RKD_Order = new HashSet<RKD_Order>();
-            this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
-            this.MailGraphic = new HashSet<MailGraphic>();
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
-            this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
-            this.DashboardTV_FinishWorkInStartWeek = new HashSet<DashboardTV_FinishWorkInStartWeek>();
+            this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
         }
     
         public int Id { get; set; }
@@ -98,6 +98,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_Platform> Debit_Platform { get; set; }
@@ -105,6 +107,10 @@ namespace Wiki
         public virtual ICollection<Debit_WorkBit> Debit_WorkBit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DebitReclamation> DebitReclamation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MailGraphic> MailGraphic { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanVerificationItems> PlanVerificationItems { get; set; }
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
         public virtual PZ_FIO PZ_FIO { get; set; }
@@ -124,14 +130,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Order> RKD_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MailGraphic> MailGraphic { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanVerificationItems> PlanVerificationItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
+        public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
     }
 }

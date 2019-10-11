@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NLog;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -11,8 +10,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
 {
     public class VerificController : Controller
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         public ActionResult Index()
         {
             return View();
@@ -250,7 +247,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                 if (fixedDateForKO != null)
                 {
                     planVerificationItems.fixedDateForKO = fixedDateForKO.Value;
-                    if(planVerificationItems.fixedDateForKO < planVerificationItems.planDate)
+                    if (planVerificationItems.fixedDateForKO < planVerificationItems.planDate)
                     {
                         EmailVerifPlan dataMail = new EmailVerifPlan(planVerificationItems, login, 5);
                     }
@@ -290,7 +287,7 @@ namespace Wiki.Areas.VerifPlan.Controllers
                     dateAction = JsonConvert.SerializeObject(dataList.date, settings).Replace(@"""", ""),
                     user = dataList.AspNetUsers.CiliricalName,
                     actionText = dataList.action
-                }); 
+                });
                 return Json(new { data });
             }
         }

@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
     getGanttProjectPortfolio();
     getPeriodReport();
-    getHSSPlanToYear();
-    getRemainingHss();
-    getRetePlan();
-    getHSSToDay();
+    //getHSSPlanToYear();
+    //getRemainingHss();
+    //getRetePlan();
+    //getHSSToDay();
 });
 
 function getGanttProjectPortfolio() {

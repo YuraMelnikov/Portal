@@ -14,12 +14,6 @@ namespace Wiki
     
     public partial class DashboardBP_ProjectList
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DashboardBP_ProjectList()
-        {
-            this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
-        }
-    
         public int id { get; set; }
         public int id_PZ_PlanZakaz { get; set; }
         public int id_DashboardBP_State { get; set; }
@@ -31,7 +25,5 @@ namespace Wiki
     
         public virtual DashboardBP_State DashboardBP_State { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
     }
 }

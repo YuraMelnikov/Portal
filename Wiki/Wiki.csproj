@@ -446,9 +446,6 @@
     <Compile Include="DashboardBP_State.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="DashboardBP_TasksList.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="DashboardHSSPlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

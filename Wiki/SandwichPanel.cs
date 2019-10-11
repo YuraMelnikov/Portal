@@ -21,21 +21,21 @@ namespace Wiki
         }
     
         public int id { get; set; }
-        public System.DateTime datetimeCreate { get; set; }
+        public Nullable<int> id_SandwichPanelCustomer { get; set; }
         public string id_AspNetUsersCreate { get; set; }
-        public bool onApprove { get; set; }
-        public bool onCorrection { get; set; }
-        public bool onCustomer { get; set; }
-        public bool onGetDateComplited { get; set; }
-        public bool onComplited { get; set; }
-        public Nullable<System.DateTime> datetimeUploadNewVersion { get; set; }
-        public Nullable<System.DateTime> datetimeToCorrection { get; set; }
-        public Nullable<System.DateTime> datetimeToCustomer { get; set; }
-        public Nullable<System.DateTime> datetimeComplited { get; set; }
         public string numberOrder { get; set; }
         public string folder { get; set; }
+        public bool onApprove { get; set; }
+        public System.DateTime datetimeCreate { get; set; }
+        public Nullable<System.DateTime> datetimeToCorrection { get; set; }
+        public bool onCorrection { get; set; }
+        public Nullable<System.DateTime> datetimeUploadNewVersion { get; set; }
+        public bool onCustomer { get; set; }
+        public Nullable<System.DateTime> datetimeToCustomer { get; set; }
+        public bool onGetDateComplited { get; set; }
         public Nullable<System.DateTime> datetimePlanComplited { get; set; }
-        public Nullable<int> id_SandwichPanelCustomer { get; set; }
+        public bool onComplited { get; set; }
+        public Nullable<System.DateTime> datetimeComplited { get; set; }
         public bool remove { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }

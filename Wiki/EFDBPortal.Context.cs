@@ -41,6 +41,36 @@ namespace Wiki
         public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<ProjectMSP_EpmProject_UserView> ProjectMSP_EpmProject_UserView { get; set; }
+        public virtual DbSet<Соотношение_ИД> Соотношение_ИД { get; set; }
+        public virtual DbSet<DashboardKOHssPO> DashboardKOHssPO { get; set; }
+        public virtual DbSet<DashboardKOKBHss> DashboardKOKBHss { get; set; }
+        public virtual DbSet<DashboardKOM1> DashboardKOM1 { get; set; }
+        public virtual DbSet<DashboardKOM2> DashboardKOM2 { get; set; }
+        public virtual DbSet<DashboardKOM3> DashboardKOM3 { get; set; }
+        public virtual DbSet<DashboardKOQuaHumen> DashboardKOQuaHumen { get; set; }
+        public virtual DbSet<DashboardKOQuartal> DashboardKOQuartal { get; set; }
+        public virtual DbSet<DashboardKORemainingWork> DashboardKORemainingWork { get; set; }
+        public virtual DbSet<DashboardKORemainingWorkAll> DashboardKORemainingWorkAll { get; set; }
+        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
+        public virtual DbSet<FolderDocument> FolderDocument { get; set; }
+        public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
+        public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
+        public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
+        public virtual DbSet<DashboardKOTimesheet> DashboardKOTimesheet { get; set; }
+        public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
+        public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
+        public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
+        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
+        public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
+        public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
+        public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
+        public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
+        public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
+        public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
+        public virtual DbSet<WBS> WBS { get; set; }
+        public virtual DbSet<WBS_BP> WBS_BP { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -63,10 +93,11 @@ namespace Wiki
         public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
         public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
-        public virtual DbSet<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
         public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
+        public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
+        public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
@@ -79,8 +110,12 @@ namespace Wiki
         public virtual DbSet<Debit_WorkBit> Debit_WorkBit { get; set; }
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Devision> Devision { get; set; }
+        public virtual DbSet<MailGraphic> MailGraphic { get; set; }
         public virtual DbSet<PF> PF { get; set; }
+        public virtual DbSet<PlanVerificationItems> PlanVerificationItems { get; set; }
+        public virtual DbSet<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
+        public virtual DbSet<ProductionCalendar> ProductionCalendar { get; set; }
         public virtual DbSet<ProjectTask> ProjectTask { get; set; }
         public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
         public virtual DbSet<ProjectTypesLine> ProjectTypesLine { get; set; }
@@ -121,6 +156,9 @@ namespace Wiki
         public virtual DbSet<RKD_Version> RKD_Version { get; set; }
         public virtual DbSet<RKD_VersionDay> RKD_VersionDay { get; set; }
         public virtual DbSet<RKD_VersionWork> RKD_VersionWork { get; set; }
+        public virtual DbSet<SandwichPanel> SandwichPanel { get; set; }
+        public virtual DbSet<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
+        public virtual DbSet<SandwichPanelCustomer> SandwichPanelCustomer { get; set; }
         public virtual DbSet<ServiceRemarks> ServiceRemarks { get; set; }
         public virtual DbSet<ServiceRemarksActions> ServiceRemarksActions { get; set; }
         public virtual DbSet<ServiceRemarksCause> ServiceRemarksCause { get; set; }
@@ -131,44 +169,5 @@ namespace Wiki
         public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
-        public virtual DbSet<MailGraphic> MailGraphic { get; set; }
-        public virtual DbSet<Соотношение_ИД> Соотношение_ИД { get; set; }
-        public virtual DbSet<DashboardKOHssPO> DashboardKOHssPO { get; set; }
-        public virtual DbSet<DashboardKOKBHss> DashboardKOKBHss { get; set; }
-        public virtual DbSet<DashboardKOM1> DashboardKOM1 { get; set; }
-        public virtual DbSet<DashboardKOM2> DashboardKOM2 { get; set; }
-        public virtual DbSet<DashboardKOM3> DashboardKOM3 { get; set; }
-        public virtual DbSet<DashboardKOQuaHumen> DashboardKOQuaHumen { get; set; }
-        public virtual DbSet<DashboardKOQuartal> DashboardKOQuartal { get; set; }
-        public virtual DbSet<DashboardKORemainingWork> DashboardKORemainingWork { get; set; }
-        public virtual DbSet<DashboardKORemainingWorkAll> DashboardKORemainingWorkAll { get; set; }
-        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
-        public virtual DbSet<FolderDocument> FolderDocument { get; set; }
-        public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
-        public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
-        public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
-        public virtual DbSet<DashboardKOTimesheet> DashboardKOTimesheet { get; set; }
-        public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
-        public virtual DbSet<SandwichPanel> SandwichPanel { get; set; }
-        public virtual DbSet<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
-        public virtual DbSet<SandwichPanelCustomer> SandwichPanelCustomer { get; set; }
-        public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
-        public virtual DbSet<ProductionCalendar> ProductionCalendar { get; set; }
-        public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
-        public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
-        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
-        public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
-        public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
-        public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
-        public virtual DbSet<PlanVerificationItems> PlanVerificationItems { get; set; }
-        public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
-        public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
-        public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
-        public virtual DbSet<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
-        public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
-        public virtual DbSet<WBS> WBS { get; set; }
-        public virtual DbSet<WBS_BP> WBS_BP { get; set; }
     }
 }

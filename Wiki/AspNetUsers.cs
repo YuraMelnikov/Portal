@@ -20,7 +20,8 @@ namespace Wiki
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.CMO2_Order = new HashSet<CMO2_Order>();
-            this.DashboardBP_TasksList = new HashSet<DashboardBP_TasksList>();
+            this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
+            this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
             this.PZ_Notes = new HashSet<PZ_Notes>();
             this.PZ_PlanZakaz = new HashSet<PZ_PlanZakaz>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
@@ -35,13 +36,11 @@ namespace Wiki
             this.RKD_Question = new HashSet<RKD_Question>();
             this.RKD_QuestionData = new HashSet<RKD_QuestionData>();
             this.RKD_QuestionData1 = new HashSet<RKD_QuestionData>();
+            this.SandwichPanel = new HashSet<SandwichPanel>();
             this.ServiceRemarks = new HashSet<ServiceRemarks>();
             this.ServiceRemarksActions = new HashSet<ServiceRemarksActions>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.SandwichPanel = new HashSet<SandwichPanel>();
-            this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
-            this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
         }
     
         public string Id { get; set; }
@@ -68,7 +67,9 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBP_TasksList> DashboardBP_TasksList { get; set; }
+        public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_Notes> PZ_Notes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -98,6 +99,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_QuestionData> RKD_QuestionData1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SandwichPanel> SandwichPanel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarks> ServiceRemarks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksActions> ServiceRemarksActions { get; set; }
@@ -105,11 +108,5 @@ namespace Wiki
         public virtual ICollection<TaskForPZ> TaskForPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SandwichPanel> SandwichPanel { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
     }
 }
