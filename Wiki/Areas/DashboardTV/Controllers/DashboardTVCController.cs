@@ -55,7 +55,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 var projectList = db.DashboardTV_DataForProjectPortfolio
                     .GroupBy(d => d.orderNumber)
                     .OrderBy(d => d.Key)
-                    .Take(40)
+                    //.Take(40)
                     .ToList();
                 DateTime minDate = GetMinDate();
                 DateTime maxDate = GetMaxDate();
