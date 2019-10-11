@@ -92,7 +92,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 else
                     project.color = "#19e694";
                 project.id = listTasks[i].id.ToString() + "ms";
-                project.completed = null;
+                project.completed = new Complited { amount = 0 };
                 project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
                 project.milestone = true;
                 project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
