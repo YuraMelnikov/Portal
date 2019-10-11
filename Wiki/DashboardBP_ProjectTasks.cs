@@ -37,6 +37,10 @@ namespace Wiki
         public Nullable<int> id_WBS { get; set; }
         public int id_DashboardBP_ProjectList { get; set; }
         public System.Guid taskUID { get; set; }
-        public Nullable<System.Guid> recourceUID { get; set; }
+        public string id_AspNetUsers { get; set; }
+    
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual DashboardBP_ProjectList DashboardBP_ProjectList { get; set; }
+        public virtual WBS WBS { get; set; }
     }
 }

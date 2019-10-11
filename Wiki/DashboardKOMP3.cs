@@ -23,7 +23,7 @@ namespace Wiki
         public double plan20 { get; set; }
         public double plan30 { get; set; }
         public double normHoure { get; set; }
-        public int id { get; set; }
         public double normHoureFact { get; set; }
+        public int id { get; set; }
     }
 }

@@ -62,14 +62,9 @@ namespace Wiki
         public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
         public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
         public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
-        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
-        public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
         public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
-        public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
         public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
         public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
-        public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
-        public virtual DbSet<WBS> WBS { get; set; }
         public virtual DbSet<WBS_BP> WBS_BP { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -92,11 +87,15 @@ namespace Wiki
         public virtual DbSet<CMO2_Position> CMO2_Position { get; set; }
         public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
         public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
+        public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
         public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
         public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
+        public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
+        public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
         public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
@@ -169,5 +168,6 @@ namespace Wiki
         public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
+        public virtual DbSet<WBS> WBS { get; set; }
     }
 }

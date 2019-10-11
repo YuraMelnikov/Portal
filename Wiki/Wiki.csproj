@@ -282,15 +282,12 @@
     <Compile Include="Areas\DashboardBP\Models\DataGanttProjectsPortfolio.cs" />
     <Compile Include="Areas\DashboardBP\Models\HssPlan.cs" />
     <Compile Include="Areas\DashboardBP\Models\HSSToDay.cs" />
-    <Compile Include="Areas\DashboardBP\Models\NewBP.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
-    <Compile Include="Areas\DashboardBP\Models\ProjectsList.cs" />
     <Compile Include="Areas\DashboardBP\Models\RatePlan.cs" />
     <Compile Include="Areas\DashboardBP\Models\RemainingHSS.cs" />
     <Compile Include="Areas\DashboardBP\Models\SQLHSSPO.cs" />
     <Compile Include="Areas\DashboardBP\Models\State.cs" />
     <Compile Include="Areas\DashboardBP\Models\Task.cs" />
-    <Compile Include="Areas\DashboardBP\Models\TasksList.cs" />
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />

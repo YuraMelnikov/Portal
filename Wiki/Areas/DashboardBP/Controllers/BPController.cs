@@ -30,14 +30,7 @@ namespace Wiki.Areas.DashboardBP.Controllers
 
         public ActionResult Index()
         {
-            //CreateNewBP();
             return View();
-        }
-
-        bool CreateNewBP()
-        {
-            NewBP bp = new NewBP();
-            return true;
         }
 
         public JsonResult GetPeriodReport()
@@ -61,8 +54,8 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .AsNoTracking()
                     .Include(d => d.PZ_PlanZakaz.AspNetUsers)
                     .Include(d => d.DashboardBP_State)
-                    .Include(d => d.DashboardBP_TasksList.Select(s => s.ProjectTask))
-                    .Include(d => d.DashboardBP_TasksList.Select(s => s.AspNetUsers))
+                    .Include(d => d.DashboardBP_ProjectTasks.Select(s => s.WBS))
+                    .Include(d => d.DashboardBP_ProjectTasks.Select(s => s.AspNetUsers))
                     .Where(d => d.DashboardBP_State.active == true)
                     .Where(d => d.PZ_PlanZakaz.Client != 39)
                     .OrderBy(d => d.PZ_PlanZakaz.PlanZakaz)
