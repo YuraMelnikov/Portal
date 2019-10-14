@@ -35,7 +35,6 @@ namespace Wiki.Models
         {
             mail.To.Add(new MailAddress("vi@katek.by"));
             mail.To.Add(new MailAddress("goa@katek.by"));
-            mail.To.Add(new MailAddress("yaa@katek.by"));
             mail.To.Add(new MailAddress("maj@katek.by"));
             mail.To.Add(new MailAddress("nrf@katek.by"));
             mail.To.Add(new MailAddress("Kuchynski@katek.by"));

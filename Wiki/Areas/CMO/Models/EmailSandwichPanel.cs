@@ -215,7 +215,6 @@ namespace Wiki.Areas.CMO.Models
         {
             mailToList.Add("nrf@katek.by");
             mailToList.Add("vi@katek.by");
-            mailToList.Add("yaa@katek.by");
             mailToList.Add("goa@katek.by");
             return true;
         }
