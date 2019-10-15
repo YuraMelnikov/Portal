@@ -509,6 +509,7 @@ function validate() {
 }
 
 function clearTextBox() {
+    $('#btnGetInfGP').show();
     $("#btnAdd").attr('disabled', false);
     $('#Dostavka').val("");
     $('#Modul').val("");
@@ -566,6 +567,7 @@ function getbyID(Id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#btnGetInfGP').show();
             $('#Id').val(result.Id);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
@@ -930,6 +932,7 @@ function UpdateOrders() {
 }
 
 function clearTextBoxUpdateOrders() {
+    $('#btnGetInfGP').show();
     $("#btnUpdateOrders").attr('disabled', false);
     $('#Orders').val("");
     $('#Orders').chosen();
