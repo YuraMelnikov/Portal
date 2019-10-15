@@ -30,6 +30,7 @@ function getGanttProjects() {
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
+                myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
             }
             var heightLen = Object.keys(myJSON).length * 14 * 1.2 + 'px';
             var pointWidthForGantt = 12;
@@ -61,6 +62,8 @@ function getGanttProjects() {
                 });
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
+                    contractDateComplited: myJSON.ContractDateComplited,
+                    failure: myJSON.Failure,
                     name: myJSON.OrderNumber,
                     color: myJSON.Color,
                     data: data,
@@ -121,7 +124,7 @@ function getGanttProjects() {
                     }
                 },
                 tooltip: {
-                    pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
+                    pointFormat: '<span>ХСС: {point.rentedTo}</span><br/><span>С: {point.start:%e. %b}</span><br/><span>По: {point.end:%e. %b}</span>'
                 },
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30,
@@ -145,17 +148,36 @@ function getGanttProjects() {
                     grid: {
                         columns: [{
                             title: {
-                                text: 'Отгрузка'
-                            },
-                            categories: map(series, function (s) {
-                                return dateFormat('%e. %b', s.dataOtgruzkiBP);
-                            })
-                        }, {
-                            title: {
                                 text: 'Заказ'
                             },
                             categories: map(series, function (s) {
                                 return s.name;
+                            })
+                        },{
+                            title: {
+                                text: 'Срок'
+                            },
+                            categories: map(series, function (s) {
+                                return dateFormat('%e. %b', s.contractDateComplited);
+                            })
+                        },{
+                            title: {
+                                text: 'Откл'
+                            },
+                            categories: map(series, function (s) {
+                                if(s.failure < 0){
+                                    return '<span style="fill: red; font-weight:bold;">'  + s.failure + '</span>';
+                                }
+                                else{
+                                    return s.failure;
+                                }
+                            })
+                        },{
+                            title: {
+                                text: 'Отгрузка'
+                            },
+                            categories: map(series, function (s) {
+                                return dateFormat('%e. %b', s.dataOtgruzkiBP);
                             })
                         }]
                     }

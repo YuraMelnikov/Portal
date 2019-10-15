@@ -7,6 +7,8 @@ namespace Wiki.Areas.DashboardTV.Models
         string orderNumber;
         int current;
         DateTime dataOtgruzkiBP;
+        DateTime contractDateComplited;
+        int failure;
         DealsForDashboardTV[] deals;
         string color;
         bool milestone;
@@ -17,5 +19,7 @@ namespace Wiki.Areas.DashboardTV.Models
         public DateTime DataOtgruzkiBP { get => dataOtgruzkiBP; set => dataOtgruzkiBP = value; }
         public string Color { get => color; set => color = value; }
         public bool Milestone { get => milestone; set => milestone = value; }
+        public DateTime ContractDateComplited { get => contractDateComplited; set => contractDateComplited = value; }
+        public int Failure { get => failure; set => failure = value; }
     }
 }

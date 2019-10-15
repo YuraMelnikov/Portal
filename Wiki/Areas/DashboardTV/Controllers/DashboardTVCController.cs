@@ -66,6 +66,8 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 dataList[0].Color = "#910000";
                 dataList[0].OrderNumber = "!Итого";
                 dataList[0].DataOtgruzkiBP = DateTime.Now;
+                dataList[0].ContractDateComplited = DateTime.Now;
+                dataList[0].Failure = 0;
                 dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
                 dataList[0].Milestone = false;
                 int countForDeals = 0;
@@ -84,10 +86,13 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 {
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
-                    dataList[i].Color = "#2b908f";
                     dataList[i].OrderNumber = projectList[i - 1].Key;
                     string indexOrder = dataList[i].OrderNumber;
+                    int integerIndexOrder = Convert.ToInt32(indexOrder);
+                    dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;
+                    dataList[i].Color = "#2b908f";
                     dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
+                    dataList[i].Failure = (int)(dataList[i].ContractDateComplited - dataList[i].DataOtgruzkiBP).TotalDays;
                     int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
                     dataList[i].Deals = new DealsForDashboardTV[countDeals];
                     dataList[i].Milestone = false;
