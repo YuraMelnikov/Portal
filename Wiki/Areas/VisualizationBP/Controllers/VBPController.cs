@@ -14,7 +14,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             return View();
         }
 
-        [HttpPost]
+        //[HttpPost]
         public JsonResult GetSppedometrThisYear1Month()
         {
             return Json(0, JsonRequestBehavior.AllowGet);

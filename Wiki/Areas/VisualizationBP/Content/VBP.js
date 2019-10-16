@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
     getSmTy1();
@@ -249,7 +247,7 @@ function getSmTy1() {
 
 
 
-            Highcharts.chart('container', {
+            Highcharts.chart('sppedometrThisYear1', {
 
                 chart: {
                   type: 'gauge',

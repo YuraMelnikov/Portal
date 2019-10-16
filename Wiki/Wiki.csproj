@@ -348,6 +348,7 @@
     <Compile Include="Areas\VerifPlan\Models\EmailVerifPlan.cs" />
     <Compile Include="Areas\VerifPlan\VerifPlanAreaRegistration.cs" />
     <Compile Include="Areas\VisualizationBP\Controllers\VBPController.cs" />
+    <Compile Include="Areas\VisualizationBP\Types\SpeedometrData.cs" />
     <Compile Include="Areas\VisualizationBP\VisualizationBPAreaRegistration.cs" />
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
