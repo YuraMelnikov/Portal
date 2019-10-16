@@ -435,6 +435,9 @@
     <Compile Include="DashboardBP_HSSPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardBP_HSSPOSmall.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardBP_ProjectList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

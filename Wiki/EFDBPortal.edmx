@@ -283,6 +283,16 @@
           <Property Name="quartal" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBP_HSSPOSmall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_DashboardBP_State" Type="int" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="numberMonth" Type="int" Nullable="false" />
+          <Property Name="data" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
             <PropertyRef Name="id" />
@@ -3459,6 +3469,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMO2_Order" EntityType="Self.CMO2_Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO2_Position" EntityType="Self.CMO2_Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPO" EntityType="Self.DashboardBP_HSSPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBP_HSSPOSmall" EntityType="Self.DashboardBP_HSSPOSmall" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_ProjectList" EntityType="Self.DashboardBP_ProjectList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_ProjectTasks" EntityType="Self.DashboardBP_ProjectTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_State" EntityType="Self.DashboardBP_State" Schema="dbo" store:Type="Tables" />
@@ -5122,6 +5133,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DashboardBP_HSSPOSmall" EntityType="PortalKATEKModel.DashboardBP_HSSPOSmall" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -8667,6 +8679,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="DashboardBP_HSSPOSmall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBP_State" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="numberMonth" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10535,6 +10557,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DashboardBP_HSSPOSmall">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPOSmall">
+              <MappingFragment StoreEntitySet="DashboardBP_HSSPOSmall">
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="numberMonth" ColumnName="numberMonth" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="id_DashboardBP_State" ColumnName="id_DashboardBP_State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
