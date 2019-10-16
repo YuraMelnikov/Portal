@@ -1,7 +1,11 @@
-﻿$(document).ready(function () {
+﻿var speedometerRed1To = 700;
+var speedometerYellowTo = 1000;
+var speedometerGreenTo = 1250;
+
+$(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
-    getSmTy1();
+    getSmTy();
 });
 
 function getPeriodReport() {
@@ -236,138 +240,1290 @@ function convertToInteger(value) {
     return data;
 }
 
+function getSmTy(){
+    getSmTy1();
+    getSmTy2();
+    getSmTy3();
+    getSmTy4();
+    getSmTy5();
+    getSmTy6();
+    getSmTy7();
+    getSmTy8();
+    getSmTy9();
+    getSmTy10();
+    getSmTy11();
+    getSmTy12();
+}
+
 function getSmTy1() {
     $.ajax({
-        url: "/VBP/GetSppedometrThisYear1Month/",
+        url: "/VBP/GetSppedometrThisYear1Month/1",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
-
-
-
-
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }    
+            });
             Highcharts.chart('sppedometrThisYear1', {
-
                 chart: {
-                  type: 'gauge',
-                  plotBackgroundColor: null,
-                  plotBackgroundImage: null,
-                  plotBorderWidth: 0,
-                  plotShadow: false
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
                 },
-              
-                title: {
-                  text: 'Speedometer'
-                },
-              
-                pane: {
-                  startAngle: -150,
-                  endAngle: 150,
-                  background: [{
-                    backgroundColor: {
-                      linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                      stops: [
-                        [0, '#FFF'],
-                        [1, '#333']
-                      ]
-                    },
-                    borderWidth: 0,
-                    outerRadius: '109%'
-                  }, {
-                    backgroundColor: {
-                      linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                      stops: [
-                        [0, '#333'],
-                        [1, '#FFF']
-                      ]
-                    },
-                    borderWidth: 1,
-                    outerRadius: '107%'
-                  }, {
-                    // default background
-                  }, {
-                    backgroundColor: '#DDD',
-                    borderWidth: 0,
-                    outerRadius: '105%',
-                    innerRadius: '103%'
-                  }]
-                },
-              
-                // the value axis
-                yAxis: {
-                  min: 0,
-                  max: 200,
-              
-                  minorTickInterval: 'auto',
-                  minorTickWidth: 1,
-                  minorTickLength: 10,
-                  minorTickPosition: 'inside',
-                  minorTickColor: '#666',
-              
-                  tickPixelInterval: 30,
-                  tickWidth: 2,
-                  tickPosition: 'inside',
-                  tickLength: 10,
-                  tickColor: '#666',
-                  labels: {
-                    step: 2,
-                    rotation: 'auto'
-                  },
-                  title: {
-                    text: 'km/h'
-                  },
-                  plotBands: [{
-                    from: 0,
-                    to: 120,
-                    color: '#55BF3B' // green
-                  }, {
-                    from: 120,
-                    to: 160,
-                    color: '#DDDF0D' // yellow
-                  }, {
-                    from: 160,
-                    to: 200,
-                    color: '#DF5353' // red
-                  }]
-                },
-              
-                series: [{
-                  name: 'Speed',
-                  data: [80],
-                  tooltip: {
-                    valueSuffix: ' km/h'
-                  }
-                }]
-              
-              },
-              // Add some life
-              function (chart) {
-                if (!chart.renderer.forExport) {
-                  setInterval(function () {
-                    var point = chart.series[0].points[0],
-                      newVal,
-                      inc = Math.round((Math.random() - 0.5) * 20);
-              
-                    newVal = point.y + inc;
-                    if (newVal < 0 || newVal > 200) {
-                      newVal = point.y - inc;
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
                     }
-              
-                    point.update(newVal);
-              
-                  }, 3000);
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy2() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/2",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
                 }
-              });
-
-
-
-
-
-
-
-
-
+            });
+            Highcharts.chart('sppedometrThisYear2', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy3() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/3",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear3', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy4() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/4",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear4', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy5() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/5",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear5', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy6() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/6",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear6', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy7() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/7",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear7', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy8() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/8",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear8', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy9() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/9",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear9', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy10() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/10",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear10', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy11() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/11",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear11', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
+        }
+    });
+}
+function getSmTy12() {
+    $.ajax({
+        url: "/VBP/GetSppedometrThisYear1Month/12",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var dataInSpeedometr = new Array();
+            dataInSpeedometr[0] = result[0].data;
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('sppedometrThisYear12', {
+                chart: {
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                pane: {
+                    startAngle: -150,
+                    endAngle: 150,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+                yAxis: {
+                    min: 0,
+                    max: 1500,
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+                    tickPixelInterval: 40,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: speedometerRed1To,
+                        color: '#DF5353' // red
+                    }, {
+                        from: speedometerRed1To,
+                        to: speedometerYellowTo,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: speedometerYellowTo,
+                        to: speedometerGreenTo,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: speedometerGreenTo,
+                        to: 1500,
+                        color: '#DF5353' // red
+                    }]
+                },
+                series: [{
+                    name: '',
+                    data: dataInSpeedometr,
+                    tooltip: {
+                        valueSuffix: ' тыс. ХСС'
+                    }
+                }]
+            });
         }
     });
 }
