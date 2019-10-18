@@ -270,6 +270,8 @@
     <Compile Include="Areas\AccountsReceivable\Models\MailToExpeditor.cs" />
     <Compile Include="Areas\Cells\CellsAreaRegistration.cs" />
     <Compile Include="Areas\Cells\Controllers\SCellsController.cs" />
+    <Compile Include="Areas\CMKO\CMKOAreaRegistration.cs" />
+    <Compile Include="Areas\CMKO\Controllers\CMKController.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -924,6 +926,7 @@
     <Content Include="Areas\Cells\Content\ScellsJS.js" />
     <Content Include="Areas\Cells\Content\updateSelectsCrossZeroPoint.sql" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
+    <Content Include="Areas\CMKO\Content\cmko.js" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\DashboardKO\Content\CRUDDashboardKO_UsersMonthPlan.js" />
@@ -1637,6 +1640,7 @@
     <Content Include="Areas\VisualizationBP\Views\Shared\_LayoutVisualizationBP.cshtml" />
     <Content Include="Areas\VisualizationBP\Views\VBP\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Order\Debug.cshtml" />
+    <Content Include="Areas\CMKO\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1970,6 +1974,9 @@
     <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\CMKO\Models\" />
+    <Folder Include="Areas\CMKO\Views\CMK\" />
+    <Folder Include="Areas\CMKO\Views\Shared\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Areas\VisualizationBP\Models\" />
