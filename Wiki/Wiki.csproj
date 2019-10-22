@@ -602,6 +602,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFDBScells.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ExportImportKATEK.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportImportKATEK.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExportImportKATEK.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportImportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExportImportKATEK.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Folder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -677,6 +692,9 @@
     </Compile>
     <Compile Include="PlanVerificationItemsLog.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="planZakaz.cs">
+      <DependentUpon>ExportImportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="PostAlertShip.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1396,6 +1414,16 @@
       <DependentUpon>EFDBScells.edmx</DependentUpon>
       <LastGenOutput>EFDBScells.cs</LastGenOutput>
     </Content>
+    <Content Include="ExportImportKATEK.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
+      <LastGenOutput>ExportImportKATEK.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ExportImportKATEK.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
+      <LastGenOutput>ExportImportKATEK.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Files\logo.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1642,6 +1670,13 @@
     <Content Include="Areas\VisualizationBP\Views\VBP\Index.cshtml" />
     <Content Include="Areas\PZ\Views\Order\Debug.cshtml" />
     <Content Include="Areas\CMKO\Views\web.config" />
+    <EntityDeploy Include="ExportImportKATEK.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExportImportKATEK.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ExportImportKATEK.edmx.diagram">
+      <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
