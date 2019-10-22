@@ -1061,6 +1061,7 @@ function UpdateKO() {
 
 function validateUpdateKO() {
     var isValid = true;
+    var tmp = $('#massa').val();
     if ($('#nameTU').val() === null) {
         $('#nameTU').css('border-color', 'Red');
         isValid = false;
