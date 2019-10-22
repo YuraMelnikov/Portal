@@ -27,6 +27,7 @@ function loadData() {
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
             { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
             { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
+            { "title": "Расчетная масса", "data": "massa", "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -114,6 +115,7 @@ function OrdersListLY(yearCreateOrder) {
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
             { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
             { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
+            { "title": "Расчетная масса", "data": "massa", "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -203,6 +205,7 @@ function OrdersListALL() {
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
             { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
             { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
+            { "title": "Расчетная масса", "data": "massa", "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -292,6 +295,7 @@ function OrdersListInManufacturing() {
             { "title": "Заказчик", "data": "NameSort", "class": 'colu-200' },
             { "title": "Контрактное наименование", "data": "Name", "bSortable": false, "class": 'colu-300' },
             { "title": "Наименование по ТУ", "data": "nameTU", "bSortable": false, "class": 'colu-200' },
+            { "title": "Расчетная масса", "data": "massa", "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '') },
             { "title": "Опросный лист №", "data": "OL", "autowidth": true, "bSortable": false },
             { "title": "Договор №", "data": "timeContract", "autowidth": true, "bSortable": false },
             { "title": "Дата договора", "data": "timeContractDate", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -363,6 +367,7 @@ function Add() {
     }
     $("#btnAdd").attr('disabled', true);
     var typeObj = {
+        massa: $('#massa').val(),
         countOrders: $('#countOrders').val(),
         PlanZakaz: $('#PlanZakaz').val(),
         DateCreate: $('#DateCreate').val(),
@@ -515,6 +520,7 @@ function clearTextBox() {
     $('#Modul').val("");
     $('#PowerST').val("");
     $('#VN_NN').val("");
+    $('#massa').val();
     $('#TypeShip').val("");
     $('#criticalDateShip').val("");
     $('#countOrders').val("");
@@ -569,6 +575,7 @@ function getbyID(Id) {
         success: function (result) {
             $('#btnGetInfGP').show();
             $('#Id').val(result.Id);
+            $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
@@ -629,6 +636,7 @@ function Update() {
     }
     var typeObj = {
         Id: $('#Id').val(),
+        massa: $('#massa').val(),
         StantionGruzopoluchatel: $('#StantionGruzopoluchatel').val(),
         KodStanciiGruzopoluchatelya: $('#KodStanciiGruzopoluchatelya').val(),
         OsobieOtmetkiGruzopoluchatelya: $('#OsobieOtmetkiGruzopoluchatelya').val(),
@@ -683,6 +691,7 @@ function Update() {
             $('#orderModal').modal('hide');
             $('#Id').val("");
             $('#StantionGruzopoluchatel').val("");
+            $('#massa').val("");
             $('#KodStanciiGruzopoluchatelya').val("");
             $('#OsobieOtmetkiGruzopoluchatelya').val("");
             $('#PowerST').val("");
@@ -816,6 +825,7 @@ function getbyReadID(Id) {
         dataType: "json",
         success: function (result) {
             $('#Id').val(result.Id);
+            $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
@@ -883,6 +893,7 @@ function UpdateOrders() {
         MTR: $('#mMTR').val(),
         nomenklaturNumber: $('#mnomenklaturNumber').val(),
         timeContract: $('#mtimeContract').val(),
+        massa: $('#massa').val(),
         timeContractDate: $('#mtimeContractDate').val(),
         timeArr: $('#mtimeArr').val(),
         timeArrDate: $('#mtimeArrDate').val(),
@@ -1002,6 +1013,7 @@ function getbyKOID(Id) {
         dataType: "json",
         success: function (result) {
             $('#Id').val(result.Id);
+            $('#massa').val(result.massa);
             $('#kPlanZakaz').val(result.PlanZakaz);
             $('#koProductType').val(result.ProductType);
             $('#nameTU').val(result.nameTU);
@@ -1026,7 +1038,8 @@ function UpdateKO() {
         Id: $('#Id').val(),
         PlanZakaz: $('#kPlanZakaz').val(),
         nameTU: $('#nameTU').val(),
-        ProductType: $('#koProductType').val()
+        ProductType: $('#koProductType').val(),
+        massa: $('#massa').val()
     };
     $.ajax({
         cache: false,
@@ -1054,6 +1067,13 @@ function validateUpdateKO() {
     }
     else {
         $('#nameTU').css('border-color', 'lightgrey');
+    }
+    if ($('#massa').val() < 1) {
+        $('#massa').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#massa').css('border-color', 'lightgrey');
     }
     return isValid;
 }
