@@ -148,6 +148,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.OL,
                 dataList.PZ_Client.NameSort,
                 dataList.Zapros,
+                dataList.massa,
                 dataList.numZakupki,
                 dataList.numLota,
                 dataList.timeContract,
@@ -245,6 +246,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.nomenklaturNumber,
                 dataList.Name,
                 dataList.nameTU,
+                dataList.massa,
                 dataList.OL,
                 dataList.PZ_Client.NameSort,
                 dataList.Zapros,
@@ -333,6 +335,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.nameTU,
                 dataList.OL,
                 dataList.PZ_Client.NameSort,
+                dataList.massa,
                 dataList.Zapros,
                 dataList.numZakupki,
                 dataList.numLota,
@@ -420,6 +423,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.OL,
                 dataList.PZ_Client.NameSort,
                 dataList.Zapros,
+                dataList.massa,
                 dataList.numZakupki,
                 dataList.numLota,
                 dataList.timeContract,
@@ -469,6 +473,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.id_PZ_FIO,
                 dataList.Name,
                 dataList.Description,
+                dataList.massa,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
                 dataList.timeContract,
@@ -708,6 +713,7 @@ namespace Wiki.Areas.PZ.Controllers
             {
                 dataList.PlanZakaz,
                 dataList.ProductType,
+                dataList.massa,
                 dataList.nameTU,
                 dataList.Id
             });
@@ -727,6 +733,10 @@ namespace Wiki.Areas.PZ.Controllers
             if (editPZ.ProductType != pZ_PlanZakaz.ProductType)
             {
                 editPZ.ProductType = pZ_PlanZakaz.ProductType;
+            }
+            if (editPZ.massa != pZ_PlanZakaz.massa)
+            {
+                editPZ.massa = pZ_PlanZakaz.massa;
             }
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;

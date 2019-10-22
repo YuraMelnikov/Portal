@@ -37,6 +37,7 @@ namespace Wiki.Areas.PZ.Models
                 DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel,
                 Folder = pZ_PlanZakaz.Folder,
                 Modul = pZ_PlanZakaz.Modul,
+                massa = 0,
                 timeContract = pZ_PlanZakaz.timeContract,
                 timeContractDate = pZ_PlanZakaz.timeContractDate,
                 timeArr = pZ_PlanZakaz.timeArr,
