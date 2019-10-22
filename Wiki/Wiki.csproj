@@ -927,6 +927,7 @@
     <Content Include="Areas\Cells\Content\updateSelectsCrossZeroPoint.sql" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
     <Content Include="Areas\CMKO\Content\cmko.js" />
+    <Content Include="Areas\CMKO\Content\scriptUpdateData.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\DashboardKO\Content\CRUDDashboardKO_UsersMonthPlan.js" />
