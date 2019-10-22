@@ -30,8 +30,8 @@ namespace Wiki.Areas.PZ.Models
             this.planZakaz = planZakaz;
             this.recipient = recipient;
             this.renameTU = renameTU;
-            this.massBefare = before;
-            this.massNext = next;
+            massBefare = before;
+            massNext = next;
         }
 
         string GetSubject()

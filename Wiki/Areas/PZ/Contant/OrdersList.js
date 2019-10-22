@@ -1039,7 +1039,7 @@ function UpdateKO() {
         PlanZakaz: $('#kPlanZakaz').val(),
         nameTU: $('#nameTU').val(),
         ProductType: $('#koProductType').val(),
-        massa: $('#massa').val()
+        massa: $('#massa').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
