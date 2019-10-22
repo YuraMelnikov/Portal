@@ -736,10 +736,16 @@ namespace Wiki.Areas.PZ.Controllers
             }
             if (editPZ.massa != pZ_PlanZakaz.massa)
             {
-                editPZ.massa = pZ_PlanZakaz.massa;
-                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.massa, pZ_PlanZakaz.massa, login, false);
-                emailRename.SendEmailMassa();
+                try
+                {
+                    EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.massa, pZ_PlanZakaz.massa, login, false);
+                    emailRename.SendEmailMassa();
+                }
+                catch
+                {
 
+                }
+                editPZ.massa = pZ_PlanZakaz.massa;
                 try
                 {
                     using (ExportImportEntities dbc = new ExportImportEntities())

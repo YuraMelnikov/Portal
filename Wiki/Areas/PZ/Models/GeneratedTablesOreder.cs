@@ -2135,7 +2135,7 @@ namespace Wiki.Areas.PZ.Models
                 paragraphProperties26.Append(paragraphMarkRunProperties17);
                 Run runKG = new Run() { RsidRunProperties = "006D06A1" };
                 Text textKG = new Text();
-                textKG.Text = " кг.";
+                textKG.Text = pZ_PlanZakaz.massa.ToString() + " кг.";
                 runKG.Append(textKG);
                 paragraph26.Append(runKG);
                 paragraph26.Append(paragraphProperties26);

@@ -115,14 +115,14 @@ namespace Wiki.Areas.PZ.Models
 
         string GetSubjectMass()
         {
-            return "Изменена расчетная масса изделия: " + planZakaz;
+            return "Изменена расчетная масса заказа №: " + planZakaz;
         }
 
         string GetBodyMass()
         {
             string textBody = subject + "<br/>" + "<br/>";
-            textBody += "Изменена расчетная масса изделия c: " + massBefare.ToString() + "<br/>";
-            textBody += "Изменена расчетная масса изделия на: " + massNext.ToString() + "<br/>";
+            textBody += "Изменена расчетная масса (кг) c: " + massBefare.ToString() + "<br/>";
+            textBody += "Изменена расчетная масса (кг) на: " + massNext.ToString() + "<br/>";
             return textBody;
         }
 
