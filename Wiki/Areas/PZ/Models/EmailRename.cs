@@ -13,6 +13,8 @@ namespace Wiki.Areas.PZ.Models
         string subject;
         string body;
         bool renameTU;
+        double massBefare;
+        double massNext;
 
         public EmailRename(string planZakaz, string before, string next, string recipient, bool renameTU)
         {
@@ -21,6 +23,15 @@ namespace Wiki.Areas.PZ.Models
             this.renameTU = renameTU;
             this.before = before;
             this.next = next;
+        }
+
+        public EmailRename(string planZakaz, double before, double next, string recipient, bool renameTU)
+        {
+            this.planZakaz = planZakaz;
+            this.recipient = recipient;
+            this.renameTU = renameTU;
+            this.massBefare = before;
+            this.massNext = next;
         }
 
         string GetSubject()
@@ -85,5 +96,49 @@ namespace Wiki.Areas.PZ.Models
             client.Send(mail);
             mail.Dispose();
         }
+
+        public void SendEmailMassa()
+        {
+            subject = GetSubjectMass();
+            body = GetBodyMass();
+            if (recipient != null)
+            {
+                mail.From = new MailAddress(recipient);
+            }
+            SetMailAddressMass();
+            mail.IsBodyHtml = true;
+            mail.Subject = subject;
+            mail.Body = body;
+            client.Send(mail);
+            mail.Dispose();
+        }
+
+        string GetSubjectMass()
+        {
+            return "Изменена расчетная масса изделия: " + planZakaz;
+        }
+
+        string GetBodyMass()
+        {
+            string textBody = subject + "<br/>" + "<br/>";
+            textBody += "Изменена расчетная масса изделия c: " + massBefare.ToString() + "<br/>";
+            textBody += "Изменена расчетная масса изделия на: " + massNext.ToString() + "<br/>";
+            return textBody;
+        }
+
+        void SetMailAddressMass()
+        {
+            mail.To.Add(new MailAddress("myi@katek.by"));
+            mail.To.Add(new MailAddress("gea@katek.by"));
+            mail.To.Add(new MailAddress("bav@katek.by"));
+            mail.To.Add(new MailAddress("pev@katek.by"));
+            mail.To.Add(new MailAddress("Medvedev@katek.by"));
+            mail.To.Add(new MailAddress("lgs@katek.by"));
+            foreach (var data in db.AspNetUsers.Where(d => d.Devision == 15).Where(d => d.LockoutEnabled == true))
+            {
+                mail.To.Add(new MailAddress(data.Email));
+            }
+        }
+
     }
 }

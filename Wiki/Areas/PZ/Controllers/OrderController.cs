@@ -737,6 +737,8 @@ namespace Wiki.Areas.PZ.Controllers
             if (editPZ.massa != pZ_PlanZakaz.massa)
             {
                 editPZ.massa = pZ_PlanZakaz.massa;
+                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.massa, pZ_PlanZakaz.massa, login, false);
+                emailRename.SendEmailMassa();
             }
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
