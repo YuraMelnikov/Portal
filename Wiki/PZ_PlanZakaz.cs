@@ -85,6 +85,7 @@ namespace Wiki
         public string nomenklaturNumber { get; set; }
         public string objectOfExploitation { get; set; }
         public string counterText { get; set; }
+        public double massa { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
