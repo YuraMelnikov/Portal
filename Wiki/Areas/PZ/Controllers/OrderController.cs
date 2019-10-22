@@ -739,6 +739,21 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.massa = pZ_PlanZakaz.massa;
                 EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.massa, pZ_PlanZakaz.massa, login, false);
                 emailRename.SendEmailMassa();
+
+                try
+                {
+                    using (ExportImportEntities dbc = new ExportImportEntities())
+                    {
+                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz.ToString());
+                        pzImport.weight = editPZ.massa;
+                        dbc.Entry(pzImport).State = EntityState.Modified;
+                        dbc.SaveChanges();
+                    }
+                }
+                catch
+                {
+
+                }
             }
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
