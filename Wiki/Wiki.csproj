@@ -1677,6 +1677,8 @@
     <Content Include="ExportImportKATEK.edmx.diagram">
       <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\CMKO\Views\Shared\_LayoutCMKO.cshtml" />
+    <Content Include="Areas\CMKO\Views\CMK\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2011,8 +2013,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\CMKO\Models\" />
-    <Folder Include="Areas\CMKO\Views\CMK\" />
-    <Folder Include="Areas\CMKO\Views\Shared\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Areas\VisualizationBP\Models\" />
