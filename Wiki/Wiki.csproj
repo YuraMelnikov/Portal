@@ -374,7 +374,31 @@
     <Compile Include="Classes\RKDWork.cs" />
     <Compile Include="Classes\RKDWorkFactory.cs" />
     <Compile Include="Classes\UploadHTEO.cs" />
+    <Compile Include="CMKO_BujetList.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_Optimization.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_PeriodResult.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_ProjectFactBujet.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_TaxCatigories.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_TaxFact.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_Teach.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisPeriod.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_WorkerResultThisPeriod.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="CMO2_Order.cs">
@@ -434,6 +458,9 @@
     <Compile Include="Controllers\RKD_GIPController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadERController.cs" />
+    <Compile Include="CurencyBYN.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardBP_HSSPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -805,6 +832,9 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Reclamation_Type.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RenameTasksKBM.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="RKD_Despatching.cs">

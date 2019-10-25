@@ -12,14 +12,8 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class CMKO_ProjectFactBujet
+    public partial class CMKO_ThisPeriod
     {
-        public int id { get; set; }
-        public string period { get; set; }
-        public double data { get; set; }
-        public string devision { get; set; }
-        public int id_PZ_PlanZakaz { get; set; }
-    
-        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
+        public string periodThisReport { get; set; }
     }
 }
