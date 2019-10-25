@@ -86,7 +86,7 @@ namespace Wiki.Areas.Reclamation.Models
         {
             Initialization();
             if (id_Devision == 6)
-                Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == id_Devision)
+                Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == 6 || d.id_DevisionReclamation == 6)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
@@ -154,7 +154,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.close == active)
-                    .Where(d => d.id_DevisionCreate == 6)
+                    .Where(d => d.id_DevisionCreate == 6 || d.id_DevisionReclamation == 6)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -335,7 +335,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
-                    .Where(d => d.id_DevisionCreate == 6)
+                    .Where(d => d.id_DevisionCreate == 6 || d.id_DevisionReclamation == 6)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
@@ -453,7 +453,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
-                    .Where(d => d.id_DevisionCreate == 6)
+                    .Where(d => d.id_DevisionCreate == 6 || d.id_DevisionReclamation == 6)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
