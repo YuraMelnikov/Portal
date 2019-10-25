@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $('#optimizationTable').hide();
+    $('#teachTable').hide();
     StartMenu();
 });
 
@@ -9,6 +10,16 @@ var objOptimization = [
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Предложил", "data": "autor", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false, "class": 'colu-300' },
+    { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true }
+];
+
+var objTeach = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
+    { "title": "Учитель", "data": "teacher", "autowidth": true, "bSortable": true },
+    { "title": "Обучаемый", "data": "student", "autowidth": true, "bSortable": true },
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' },
     { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true }
 ];
 
@@ -23,6 +34,27 @@ function StartMenu() {
         "order": [[1, "desc"]],
         "processing": true,
         "columns": objOptimization,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#teachTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetTeachList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objTeach,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -212,4 +244,192 @@ function GetBtnOptimizationUpdateRemove() {
     $('#btnAddOptimization').hide();
     $('#btnUpdateOptimization').show();
     $('#btnRemoveOptimization').show();
+}
+
+function LoadTeachTable() {
+    var table = $('#teachTable').DataTable();
+    table.destroy();
+    $('#teachTable').empty();
+    $("#teachTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetTeachList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objTeach,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function AddTeach() {
+    var res = ValidTeach();
+    if (res === false){
+        return false;
+    }
+    $('#btnAddTeach').attr('disabled', true);
+    var addObjTeach = {
+        id: $('#idTeach').val(),
+        teacherTeach: $('#teacherTeach').val(),
+        studentTeach: $('#studentTeach').val(),
+        id_CMKO_PeriodResult: $('#periodTeach').val(),
+        cost: $('#costTeach').val(),
+        description: $('#descriptionTeach').val()
+    };
+    $.ajax({
+        url: "/CMK/AddTeach",
+        data: JSON.stringify(addObjTeach),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#teachTable').DataTable().ajax.reload(null, false);
+            $('#teachModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetTeach(id) {
+    GetBtnTeachUpdateRemove();
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetTeach/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idTeach').val(result.idTeach);
+            $('#teacherTeach').val(result.teacherTeach);
+            $('#studentTeach').va(result.studentTeach);
+            $('#periodTeach').val(result.periodTeach);
+            $('#costTeach').val(result.costTeach);
+            $('#teachModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdateTeach() {
+    var res = ValidTeach();
+    if (res === false){
+        return false;
+    }
+    var updateObjTeach = {
+        id: $('#idTeach').val(),
+        id_AspNetUsersTeacher: $('#teacherTeach').val(),
+        id_CMKO_PeriodResult: $('#periodTeach').val(),
+        cost: $('#costTeach').val(),
+        id_AspNetUsersTeach: $('#studentTeach').val(),
+        description: $('#descriptionTeach').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateTeach",
+        data: JSON.stringify(updateObjTeach),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#teachTable').DataTable().ajax.reload(null, false);
+            $('#teachModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function RemoveTeach() {
+    var removeObjOptm = {
+        id: $('#idTeach').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/RemoveTeach",
+        data: JSON.stringify(removeObjOptm),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#teachTable').DataTable().ajax.reload(null, false);
+            $('#teachModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ValidTeach() {
+    if ($('#teacherTeach').val() === null) {
+        $('#teacherTeach').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#teacherTeach').css('border-color', 'lightgrey');
+    }
+    if ($('#studentTeach').val() === null) {
+        $('#studentTeach').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#studentTeach').css('border-color', 'lightgrey');
+    }
+    if ($('#periodTeach').val() === null) {
+        $('#periodTeach').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#periodTeach').css('border-color', 'lightgrey');
+    }
+    if ($('#costTeach').val().trim() === "") {
+        $('#costTeach').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#costTeach').css('border-color', 'lightgrey');
+    }
+}
+
+function ClearTeach() {
+    GetBtnTeachAdd();
+    $('#idTeach').val("");
+    $('#teacherTeach').val("");
+    $('#studentTeach').val("");
+    $('#periodTeach').val("");
+    $('#costTeach').val("");    
+    $('#descriptionTeach').val("");
+    $('#teacherTeach').css('border-color', 'lightgrey');
+    $('#studentTeach').css('border-color', 'lightgrey');
+    $('#periodTeach').css('border-color', 'lightgrey');
+    $('#costTeach').css('border-color', 'lightgrey');
+}
+
+function GetBtnTeachAdd() {
+    $('#btnAddTeach').attr('disabled', false);
+    $('#btnAddTeach').show();
+    $('#btnRemoveTeach').hide();
+    $('#btnUpdateTeach').hide();
+}
+
+function GetBtnTeachUpdateRemove() {
+    $('#btnAddTeach').hide();
+    $('#btnRemoveTeach').show();
+    $('#btnUpdateTeach').show();
 }

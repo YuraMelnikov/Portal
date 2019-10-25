@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="119.125" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="101.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="118.75" PointY="18.625" IsExpanded="true" />
@@ -60,7 +60,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_PeriodResult" Width="1.5" PointX="85.875" PointY="36.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_TaxCatigories" Width="1.5" PointX="83.625" PointY="24.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_TaxFact" Width="1.5" PointX="88.125" PointY="30.875" />
-        <EntityTypeShape EntityType="PortalKATEKModel.CMKO_Teach" Width="1.5" PointX="96.125" PointY="33.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMKO_Teach" Width="2.875" PointX="96.125" PointY="33.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_ThisPeriod" Width="1.5" PointX="5.75" PointY="4.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_WorkerResultThisPeriod" Width="1.5" PointX="88.125" PointY="22.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMO_Company" Width="1.5" PointX="93.875" PointY="55" />

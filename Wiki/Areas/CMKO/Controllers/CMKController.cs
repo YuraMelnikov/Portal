@@ -115,5 +115,103 @@ namespace Wiki.Areas.CMKO.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetTeachList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_Teach
+                .AsNoTracking()
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.CMKO_PeriodResult)
+                .Include(d => d.AspNetUsers2)
+                .Include(d => d.AspNetUsers3)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkTeach(login, dataList.id),
+                dateCreate = dataList.datetimeCreate.ToShortDateString() + " " + dataList.datetimeCreate.ToShortTimeString(),
+                userCreate = dataList.AspNetUsers2.CiliricalName,
+                teacher = dataList.AspNetUsers.CiliricalName,
+                student = dataList.AspNetUsers1.CiliricalName,
+                dataList.description,
+                dataList.CMKO_PeriodResult.period
+            });
+            return Json(new { data });
+        }
+
+        string GetEditLinkTeach(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetTeach('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult AddTeach(CMKO_Optimization optimization)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            optimization.id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == login).Id;
+            optimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            optimization.datetimeCreate = DateTime.Now;
+            optimization.dateTimeUpdate = DateTime.Now;
+            optimization.histiryEdit = "";
+            db.CMKO_Optimization.Add(optimization);
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTeach(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_Optimization
+                .AsNoTracking()
+                .Where(d => d.id == id)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idOptimization = dataList.id,
+                dateCreate = dataList.datetimeCreate.ToShortDateString() + " " + dataList.datetimeCreate.ToShortTimeString(),
+                userCreate = dataList.AspNetUsers.CiliricalName,
+                autor = dataList.AspNetUsers2.CiliricalName,
+                textData = dataList.description,
+                dataList.CMKO_PeriodResult.period
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateTeach(CMKO_Optimization optimization)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
+            updateOptimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            updateOptimization.dateTimeUpdate = DateTime.Now;
+            if (updateOptimization.description != optimization.description)
+                updateOptimization.description = optimization.description;
+            if (updateOptimization.id_AspNetUsersIdea != optimization.id_AspNetUsersIdea)
+                updateOptimization.id_AspNetUsersIdea = optimization.id_AspNetUsersIdea;
+            if (updateOptimization.id_CMKO_PeriodResult != optimization.id_CMKO_PeriodResult)
+                updateOptimization.id_CMKO_PeriodResult = optimization.id_CMKO_PeriodResult;
+            db.Entry(updateOptimization).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveTeach(CMKO_Optimization optimization)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
+            db.Entry(updateOptimization).State = EntityState.Deleted;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }
