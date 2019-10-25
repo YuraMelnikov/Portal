@@ -65,7 +65,7 @@ function LoadOptimizationTable() {
 
 function AddOptimization() {
     var res = ValidOptimization();
-    if (res == false){
+    if (res === false){
         return false;
     }
     $('#btnAddOptimization').attr('disabled', true);
@@ -116,7 +116,7 @@ function GetOptimization(id) {
 
 function UpdateOptimization() {
     var res = ValidOptimization();
-    if (res == false){
+    if (res === false){
         return false;
     }
     var updateObjOptm = {
