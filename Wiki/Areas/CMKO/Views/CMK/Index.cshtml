@@ -33,5 +33,67 @@
             font-size: 13px;
             font-weight: bold;
         }
+
+        .colu-200 {
+            min-width: 200px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
+        }
     </style>
 </head>
+<table id="optimizationTable" class="table table-hover table-striped" style="width:100%;"></table>
+
+<div id="optimizationModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Ид.:</label>
+                        <input type="text" class="form-control" id="idOptimization" disabled="dissabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Создано:</label>
+                        <input type="text" class="form-control" id="userCreate" disabled="dissabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Дата/время создания:</label>
+                        <input type="text" class="form-control" id="dateCreate" disabled="dissabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Автор идеи:</label>
+                        @Html.DropDownList("autor", ViewBag.autor as MultiSelectList, new { @class = "form-control" })
+                        <input type="text" class="form-control" id="autor" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Период начисления:</label>
+                        <input type="text" class="form-control" id="period" />
+                        @Html.DropDownList("period", ViewBag.period as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Описание предложения:</label>
+                        <textarea rows="10" id="textData" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        <button type="button" class="btn btn-primary" id="btnAddOptimization" style="display:none;" onclick="AddOptimization();">Сохранить</button>
+                        <button type="button" class="btn btn-danger" id="btnRemoveOptimization" style="display:none;" onclick="RemoveOptimization();">Удалить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateOptimization" style="display:none;" onclick="UpdateOptimization();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
