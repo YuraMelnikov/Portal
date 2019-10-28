@@ -29,7 +29,7 @@ var objTeach = [
 ];
 
 function StartMenu() {
-    $("#optimizationTable").DataTable({
+    $("#categoryTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMK/GetOptimizationList",
@@ -80,7 +80,28 @@ function StartMenu() {
         },
         "order": [[1, "desc"]],
         "processing": true,
-        "columns": objTeach,
+        "columns": objUsers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#categoryTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCategoryList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objCategory,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -564,4 +585,143 @@ function ValidUser() {
     else {
         $('#taxUser').css('border-color', 'lightgrey');
     }
+}
+
+var objCategory = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Наименование", "data": "nameCategory", "autowidth": true, "bSortable": true },
+    { "title": "Оклад", "data": "selaryCategory", "autowidth": true, "bSortable": true, render: $.fn.dataTable.render.number(',', '.', 2, '') }
+];
+
+function LoadCategoryTable() {
+    var table = $('#categoryTable').DataTable();
+    table.destroy();
+    $('#categoryTable').empty();
+    $("#categoryTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCategoryList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objCategory,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function ClearCategory() {
+    $('#btnAddCategory').attr('disabled', false);
+    $('#btnAddCategory').show();
+    $('#btnUpdateCategory').hide();
+    $('#idCategory').val("");
+    $('#nameCategory').val("");
+    $('#selaryCategory').val("");
+    $('#nameCategory').css('border-color', 'lightgrey');
+    $('#selaryCategory').css('border-color', 'lightgrey');
+    $('#categoryModal').modal('show');
+}
+
+function AddCategory() {
+    var res = ValidCategory();
+    if (res === false){
+        return false;
+    }
+    $('#btnAddCategory').attr('disabled', true);
+    var addObjCategory = {
+        id: $('#idCategory').val(),
+        catigoriesName: $('#nameCategory').val(),
+        salary: $('#selaryCategory').val().replace('.', ',')
+    };
+    $.ajax({
+        url: "/CMK/AddCategory",
+        data: JSON.stringify(addObjCategory),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#categoryTable').DataTable().ajax.reload(null, false);
+            $('#categoryModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ValidCategory() {
+    if ($('#nameCategory').val() === null) {
+        $('#nameCategory').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#nameCategory').css('border-color', 'lightgrey');
+    }
+    if ($('#selaryCategory').val() === null) {
+        $('#selaryCategory').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#selaryCategory').css('border-color', 'lightgrey');
+    }
+}
+
+function GetCategory(id) {
+    $('#btnAddCategory').hide();
+    $('#btnUpdateCategory').show();
+    $('#nameCategory').css('border-color', 'lightgrey');
+    $('#selaryCategory').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetCategory/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idCategory').val(result.idCategory);
+            $('#nameCategory').val(result.nameCategory);
+            $('#selaryCategory').va(result.selaryCategory);
+            $('#categoryModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdateCategory() {
+    var res = ValidCategory();
+    if (res === false){
+        return false;
+    }
+    var updateObjCategory = {
+        id: $('#idCategory').val(),
+        catigoriesName: $('#nameCategory').val(),
+        salary: $('#selaryCategory').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateCategory",
+        data: JSON.stringify(updateObjCategory),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#categoryTable').DataTable().ajax.reload(null, false);
+            $('#categoryModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

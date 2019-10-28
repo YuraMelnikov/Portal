@@ -297,5 +297,13 @@ namespace Wiki.Areas.CMKO.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        //GetCategoryList
+        //AddCategory
+        //GetCategory
+        //UpdateCategory
+        //
+        //
+        //
     }
 }
