@@ -298,12 +298,72 @@ namespace Wiki.Areas.CMKO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //GetCategoryList
-        //AddCategory
-        //GetCategory
-        //UpdateCategory
-        //
-        //
-        //
+        [HttpPost]
+        public JsonResult GetCategoryList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_TaxCatigories
+                .AsNoTracking()
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkCategory(login, dataList.id),
+                nameCategory = dataList.catigoriesName,
+                selaryCategory = dataList.salary
+            });
+            return Json(new { data });
+        }
+
+        string GetEditLinkCategory(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCategory('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult AddCategory(CMKO_TaxCatigories data)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            db.CMKO_TaxCatigories.Add(data);
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCategory(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_TaxCatigories
+                .AsNoTracking()
+                .Where(d => d.id == id)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idCategory = dataList.id,
+                nameCategory = dataList.catigoriesName,
+                selaryCategory = dataList.salary
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateCategory(CMKO_TaxCatigories postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_TaxCatigories updateData = db.CMKO_TaxCatigories.First(d => d.id == postData.id);
+            if (updateData.catigoriesName != postData.catigoriesName)
+                updateData.catigoriesName = postData.catigoriesName;
+            if (updateData.salary != postData.salary)
+                updateData.salary = postData.salary;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }
