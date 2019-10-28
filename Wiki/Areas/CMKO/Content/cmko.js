@@ -317,6 +317,7 @@ function GetTeach(id) {
             $('#studentTeach').va(result.studentTeach);
             $('#periodTeach').val(result.periodTeach);
             $('#costTeach').val(result.costTeach);
+            $('#descriptionTeach').val(result.descriptionTeach);
             $('#teachModal').modal('show');
         },
         error: function (errormessage) {

@@ -125,9 +125,9 @@ namespace Wiki.Areas.CMKO.Controllers
             var query = db.CMKO_Teach
                 .AsNoTracking()
                 .Include(d => d.AspNetUsers)
-                .Include(d => d.CMKO_PeriodResult)
+                .Include(d => d.AspNetUsers1)
                 .Include(d => d.AspNetUsers2)
-                .Include(d => d.AspNetUsers3)
+                .Include(d => d.CMKO_PeriodResult)
                 .ToList();
             var data = query.Select(dataList => new
             {
@@ -150,17 +150,17 @@ namespace Wiki.Areas.CMKO.Controllers
                 return "<td></td>";
         }
 
-        public JsonResult AddTeach(CMKO_Optimization optimization)
+        public JsonResult AddTeach(CMKO_Teach data)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            optimization.id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == login).Id;
-            optimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
-            optimization.datetimeCreate = DateTime.Now;
-            optimization.dateTimeUpdate = DateTime.Now;
-            optimization.histiryEdit = "";
-            db.CMKO_Optimization.Add(optimization);
+            data.id_AspNetUsersCreate = db.AspNetUsers.First(d => d.Email == login).Id;
+            data.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            data.datetimeCreate = DateTime.Now;
+            data.datetimeUpdate = DateTime.Now;
+            data.historyEdit = "";
+            db.CMKO_Teach.Add(data);
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
@@ -169,47 +169,49 @@ namespace Wiki.Areas.CMKO.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            var query = db.CMKO_Optimization
+            var query = db.CMKO_Teach
                 .AsNoTracking()
                 .Where(d => d.id == id)
                 .ToList();
             var data = query.Select(dataList => new
             {
-                idOptimization = dataList.id,
-                dateCreate = dataList.datetimeCreate.ToShortDateString() + " " + dataList.datetimeCreate.ToShortTimeString(),
-                userCreate = dataList.AspNetUsers.CiliricalName,
-                autor = dataList.AspNetUsers2.CiliricalName,
-                textData = dataList.description,
-                dataList.CMKO_PeriodResult.period
+                idTeach = dataList.id,
+                teacherTeach = dataList.id_AspNetUsersTeacher,
+                studentTeach = dataList.id_AspNetUsersTeach,
+                periodTeach = dataList.id_CMKO_PeriodResult,
+                costTeach = dataList.cost,
+                descriptionTeach = dataList.description
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateTeach(CMKO_Optimization optimization)
+        public JsonResult UpdateTeach(CMKO_Teach postData)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
-            updateOptimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
-            updateOptimization.dateTimeUpdate = DateTime.Now;
-            if (updateOptimization.description != optimization.description)
-                updateOptimization.description = optimization.description;
-            if (updateOptimization.id_AspNetUsersIdea != optimization.id_AspNetUsersIdea)
-                updateOptimization.id_AspNetUsersIdea = optimization.id_AspNetUsersIdea;
-            if (updateOptimization.id_CMKO_PeriodResult != optimization.id_CMKO_PeriodResult)
-                updateOptimization.id_CMKO_PeriodResult = optimization.id_CMKO_PeriodResult;
-            db.Entry(updateOptimization).State = EntityState.Modified;
+            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
+            updateData.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            updateData.datetimeUpdate = DateTime.Now;
+            if (updateData.description != postData.description)
+                updateData.description = postData.description;
+            if (updateData.id_AspNetUsersTeach != postData.id_AspNetUsersTeach)
+                updateData.id_AspNetUsersTeach = postData.id_AspNetUsersTeach;
+            if (updateData.id_AspNetUsersTeacher != postData.id_AspNetUsersTeacher)
+                updateData.id_AspNetUsersTeacher = postData.id_AspNetUsersTeacher;
+            if (updateData.cost != postData.cost)
+                updateData.cost = postData.cost;
+            db.Entry(updateData).State = EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult RemoveTeach(CMKO_Optimization optimization)
+        public JsonResult RemoveTeach(CMKO_Teach postData)
         {
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
-            db.Entry(updateOptimization).State = EntityState.Deleted;
+            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
+            db.Entry(updateData).State = EntityState.Deleted;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
