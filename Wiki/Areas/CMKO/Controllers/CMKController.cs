@@ -365,5 +365,31 @@ namespace Wiki.Areas.CMKO.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetPeriodList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_PeriodResult
+                .AsNoTracking()
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                dataList.period
+            });
+            return Json(new { data });
+        }
+
+        public JsonResult AddPeriod(CMKO_PeriodResult data)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            data.close = false;
+            db.CMKO_PeriodResult.Add(data);
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

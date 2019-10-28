@@ -113,6 +113,27 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+    $("#periodsTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetPeriodList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objPeriod,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 function LoadOptimizationTable() {
@@ -724,4 +745,77 @@ function UpdateCategory() {
             alert(errormessage.responseText);
         }
     });
+}
+
+var objPeriod = [
+    { "title": "Наименование", "data": "period", "autowidth": true, "bSortable": true }
+];
+
+function LoadPeriodTable() {
+    var table = $('#periodsTable').DataTable();
+    table.destroy();
+    $('#periodsTable').empty();
+    $("#periodsTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetPeriodList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objPeriod,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function ClearPeriod() {
+    $('#btnAddPeriod').attr('disabled', false);
+    $('#namePeriod').val("");
+    $('#namePeriod').css('border-color', 'lightgrey');
+    $('#periodModal').modal('show');
+}
+
+function AddPeriod() {
+    var res = ValidPeriod();
+    if (res === false){
+        return false;
+    }
+    $('#btnAddPeriod').attr('disabled', true);
+    var addObjPeriod = {
+        period: $('#namePeriod').val()
+    };
+    $.ajax({
+        url: "/CMK/AddPeriod",
+        data: JSON.stringify(addObjPeriod),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#periodsTable').DataTable().ajax.reload(null, false);
+            $('#periodModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ValidPeriod() {
+    if ($('#namePeriod').val() === null) {
+        $('#namePeriod').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#namePeriod').css('border-color', 'lightgrey');
+    }
 }
