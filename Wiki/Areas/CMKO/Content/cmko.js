@@ -1,6 +1,11 @@
 ﻿$(document).ready(function () {
     $('#optimizationTable').hide();
     $('#teachTable').hide();
+    $('#usersTable').hide();
+    $('#categoryTable').hide();
+    $('#periodsTable').hide();
+    $('#calendTable').hide();
+    $('#cyrencyTable').hide();
     StartMenu();
 });
 
@@ -49,6 +54,27 @@ function StartMenu() {
         "ajax": {
             "cache": false,
             "url": "/CMK/GetTeachList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objTeach,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#usersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUsersList",
             "type": "POST",
             "datatype": "json"
         },
@@ -433,4 +459,109 @@ function GetBtnTeachUpdateRemove() {
     $('#btnAddTeach').hide();
     $('#btnRemoveTeach').show();
     $('#btnUpdateTeach').show();
+}
+
+var objUsers = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "ФИО", "data": "ciliricName", "autowidth": true, "bSortable": true },
+    { "title": "Бюро", "data": "devisionName", "autowidth": true, "bSortable": true },
+    { "title": "Категория", "data": "category", "autowidth": true, "bSortable": true },
+    { "title": "Испытательный срок пройден", "data": "dateToCMKO", "autowidth": true, "bSortable": true },
+    { "title": "Налог", "data": "tax", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '')  }
+];
+
+function LoadUsersTable() {
+    var table = $('#usersTable').DataTable();
+    table.destroy();
+    $('#usersTable').empty();
+    $("#usersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUsersList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objUsers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function GetUser(id) {
+    $('#taxUser').css('border-color', 'lightgrey');
+    $('#categoryUser').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetUser/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idUser').val(result.idUser);
+            $('#ciliricNameUser').val(result.ciliricNameUser);
+            $('#devisionNameUser').va(result.devisionNameUser);
+            $('#categoryUser').val(result.categoryUser);
+            $('#dateToCMKO').val(result.dateToCMKO);
+            $('#taxUser').val(result.taxUser);
+            $('#userModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdateUser() {
+    var res = ValidUser();
+    if (res === false){
+        return false;
+    }
+    var updateObjUser = {
+        id: $('#idUser').val(),
+        id_CMKO_TaxCatigories: $('#categoryUser').val(),
+        dateToCMKO: $('#dateToCMKO').val(),
+        tax: $('#taxUser').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateUser",
+        data: JSON.stringify(updateObjUser),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#usersTable').DataTable().ajax.reload(null, false);
+            $('#userModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ValidUser() {
+    if ($('#categoryUser').val() === null) {
+        $('#categoryUser').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#categoryUser').css('border-color', 'lightgrey');
+    }
+    if ($('#taxUser').val() === null) {
+        $('#taxUser').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#taxUser').css('border-color', 'lightgrey');
+    }
 }

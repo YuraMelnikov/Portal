@@ -2,11 +2,13 @@
 using System.Web.Mvc;
 using System.Data.Entity;
 using System;
+using Newtonsoft.Json;
 
 namespace Wiki.Areas.CMKO.Controllers
 {
     public class CMKController : Controller
     {
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
         {
@@ -17,6 +19,16 @@ namespace Wiki.Areas.CMKO.Controllers
                 .Where(d => d.LockoutEnabled == true)
                 .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
                 .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+
+                //ViewBag.teacherTeach
+                //ViewBag.studentTeach
+                //ViewBag.periodTeach
+                //ViewBag.categoryUser
+                //
+                //
+                //
+                //
+
             return View();
         }
 
@@ -212,6 +224,76 @@ namespace Wiki.Areas.CMKO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
             db.Entry(updateData).State = EntityState.Deleted;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetUsersList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.AspNetUsers
+                .AsNoTracking()
+                .Where(d => d.LockoutEnabled == true && d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                .Include(d => d.CMKO_TaxCatigories)
+                .Include(d => d.Devision1)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkUser(login, dataList.Id),
+                ciliricName = dataList.CiliricalName,
+                devisionName = dataList.Devision1.name,
+                category = dataList.CMKO_TaxCatigories.catigoriesName,
+                dateToCMKO = JsonConvert.SerializeObject(dataList.dateToCMKO, settings).Replace(@"""", ""),
+                dataList.tax
+            });
+            return Json(new { data });
+        }
+
+        string GetEditLinkUser(string login, string id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult GetUser(string id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.AspNetUsers
+                .AsNoTracking()
+                .Where(d => d.Id == id)
+                .Include(d => d.Devision1)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idUser = dataList.Id,
+                ciliricNameUser = dataList.CiliricalName,
+                devisionNameUser = dataList.Devision1.name,
+                categoryUser = dataList.id_CMKO_TaxCatigories,
+                dateToCMKO = dataList.dateToCMKO,
+                taxUser = dataList.tax
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateUser(AspNetUsers postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            AspNetUsers updateData = db.AspNetUsers.First(d => d.Id == postData.Id);
+            if (updateData.id_CMKO_TaxCatigories != postData.id_CMKO_TaxCatigories)
+                updateData.id_CMKO_TaxCatigories = postData.id_CMKO_TaxCatigories;
+            if (updateData.dateToCMKO != postData.dateToCMKO)
+                updateData.dateToCMKO = postData.dateToCMKO;
+            if (updateData.tax != postData.tax)
+                updateData.tax = postData.tax;
+            db.Entry(updateData).State = EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
