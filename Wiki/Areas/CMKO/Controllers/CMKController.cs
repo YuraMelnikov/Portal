@@ -391,5 +391,76 @@ namespace Wiki.Areas.CMKO.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        //
+        //
+        //
+        //
+
+        [HttpPost]
+        public JsonResult GetCalendList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.ProductionCalendar
+                .AsNoTracking()
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkProductionCalend(login, dataList.id),
+                dataList.period,
+                dataList.timeToOnePerson
+            });
+            return Json(new { data });
+        }
+
+        string GetEditLinkProductionCalend(string login, int id)
+        {
+            if (login == "myi@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCalend('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult AddCalend(ProductionCalendar data)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            db.ProductionCalendar.Add(data);
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCalend(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.ProductionCalendar
+                .AsNoTracking()
+                .Where(d => d.id == id)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idCalend = dataList.id,
+                periodCalend = dataList.period,
+                timeToOnePersonCalend = dataList.timeToOnePerson
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateCalend(ProductionCalendar postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ProductionCalendar updateData = db.ProductionCalendar.First(d => d.id == postData.id);
+            if (updateData.timeToOnePerson != postData.timeToOnePerson)
+                updateData.timeToOnePerson = postData.timeToOnePerson;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

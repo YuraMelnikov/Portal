@@ -134,6 +134,27 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+    $("#calendTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCalendList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objCalend,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 function LoadOptimizationTable() {
@@ -818,4 +839,142 @@ function ValidPeriod() {
     else {
         $('#namePeriod').css('border-color', 'lightgrey');
     }
+}
+
+var objCalend = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true },
+    { "title": "Рабочее время (ч.)", "data": "timeToOnePerson", "autowidth": true, "bSortable": true, render: $.fn.dataTable.render.number(',', '.', 2, '') }
+];
+
+function LoadCalendTable() {
+    var table = $('#calendTable').DataTable();
+    table.destroy();
+    $('#calendTable').empty();
+    $("#calendTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCalendList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objCalend,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function ClearCalend() {
+    $('#btnAddCalend').attr('disabled', false);
+    $('#btnAddCalend').show();
+    $('#btnUpdateCalend').hide();
+    $('#idCalend').val("");
+    $('#periodCalend').val("");
+    $('#timeToOnePersonCalend').val("");
+    $('#periodCalend').css('border-color', 'lightgrey');
+    $('#periodCalend').css('border-color', 'lightgrey');
+    $('#calendModal').modal('show');
+}
+
+function AddCalend() {
+    var res = ValidCalend();
+    if (res === false){
+        return false;
+    }
+    $('#btnAddCalend').attr('disabled', true);
+    var addObjCalend = {
+        period: $('#periodCalend').val(),
+        timeToOnePerson: $('#timeToOnePersonCalend').val().replace('.', ',')
+    };
+    $.ajax({
+        url: "/CMK/AddCalend",
+        data: JSON.stringify(addObjCalend),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#calendTable').DataTable().ajax.reload(null, false);
+            $('#calendModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ValidCalend() {
+    if ($('#periodCalend').val() === null) {
+        $('#periodCalend').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#periodCalend').css('border-color', 'lightgrey');
+    }
+    if ($('#timeToOnePersonCalend').val() === null) {
+        $('#timeToOnePersonCalend').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#timeToOnePersonCalend').css('border-color', 'lightgrey');
+    }
+}
+
+function GetCalend(id) {
+    $('#btnAddCalend').hide();
+    $('#btnUpdateCalend').show();
+    $('#periodCalend').css('border-color', 'lightgrey');
+    $('#timeToOnePersonCalend').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetCalend/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idCalend').val(result.idCalend);
+            $('#periodCalend').val(result.periodCalend);
+            $('#timeToOnePersonCalend').va(result.timeToOnePersonCalend);
+            $('#calendModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdateCalend() {
+    var res = ValidCalend();
+    if (res === false){
+        return false;
+    }
+    var updateObjCalend = {
+        id: $('#idCalend').val(),
+        period: $('#periodCalend').val(),
+        timeToOnePerson: $('#timeToOnePersonCalend').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateCalend",
+        data: JSON.stringify(updateObjCalend),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#categoryTable').DataTable().ajax.reload(null, false);
+            $('#calendTable').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

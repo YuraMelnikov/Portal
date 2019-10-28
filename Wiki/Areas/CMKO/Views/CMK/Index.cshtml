@@ -295,7 +295,40 @@
     </div>
 </div>
 
-
+<div id="calendModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label>Ид.:</label>
+                        <input type="text" class="form-control" id="idCalend" disabled="dissabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Период:</label>
+                        <input type="text" class="form-control" id="periodCalend" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Рабочее время (ч.):</label>
+                        <input type="text" class="form-control" id="timeToOnePersonCalend" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        <button type="button" class="btn btn-primary" id="btnAddCalend" style="display:none;" onclick="AddCalend();">Сохранить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateCalend" style="display:none;" onclick="UpdateCalend();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
