@@ -155,6 +155,27 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+    $("#cyrencyTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCurencyList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objCurency,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 function LoadOptimizationTable() {
@@ -975,6 +996,38 @@ function UpdateCalend() {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+var objCurency = [
+    { "title": "Дата", "data": "date", "autowidth": true, "bSortable": true },
+    { "title": "Курс", "data": "USD", "autowidth": true, "bSortable": true, render: $.fn.dataTable.render.number(',', '.', 2, '') }
+];
+
+function LoadCurencyTable() {
+    var table = $('#cyrencyTable').DataTable();
+    table.destroy();
+    $('#cyrencyTable').empty();
+    $("#cyrencyTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetCurencyList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objCurency,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
         }
     });
 }

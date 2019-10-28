@@ -392,11 +392,6 @@ namespace Wiki.Areas.CMKO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //
-        //
-        //
-        //
-
         [HttpPost]
         public JsonResult GetCalendList()
         {
@@ -461,6 +456,25 @@ namespace Wiki.Areas.CMKO.Controllers
             db.Entry(updateData).State = EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetCurencyList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CurencyBYN
+                .AsNoTracking()
+                .OrderByDescending(d => d.date)
+                .Take(120)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                date = JsonConvert.SerializeObject(dataList.date, settings).Replace(@"""", ""),
+                dataList.USD
+            });
+            return Json(new { data });
         }
     }
 }
