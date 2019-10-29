@@ -19,16 +19,20 @@ namespace Wiki.Areas.CMKO.Controllers
                 .Where(d => d.LockoutEnabled == true)
                 .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
                 .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-
-                //ViewBag.teacherTeach
-                //ViewBag.studentTeach
-                //ViewBag.periodTeach
-                //ViewBag.categoryUser
-                //
-                //
-                //
-                //
-
+            ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                .Where(d => d.LockoutEnabled == true)
+                .Where(d => d.dateToCMKO != null)
+                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                .Where(d => d.LockoutEnabled == true)
+                .Where(d => d.dateToCMKO == null)
+                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
+                .Where(d => d.close == false)
+                .OrderByDescending(d => d.period), "id", "period");
+            ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.OrderBy(d => d.catigoriesName), "id", "catigoriesName");
             return View();
         }
 
