@@ -5,11 +5,11 @@
 
 var objOptimization = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Предложил", "data": "autor", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false, "class": 'colu-300' },
-    { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true }
+    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false, "class": 'colu-300' }
 ];
 
 var objTeach = [
@@ -344,6 +344,7 @@ function RemoveOptimization() {
 }
 
 function ValidOptimization() {
+    isValid = true;
     if ($('#autor').val() === null) {
         $('#autor').css('border-color', 'Red');
         isValid = false;
@@ -365,6 +366,7 @@ function ValidOptimization() {
     else {
         $('#textData').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function ClearOptimization() {
@@ -434,7 +436,7 @@ function AddTeach() {
         teacherTeach: $('#teacherTeach').val(),
         studentTeach: $('#studentTeach').val(),
         id_CMKO_PeriodResult: $('#periodTeach').val(),
-        cost: $('#costTeach').val(),
+        cost: $('#costTeach').val().replace('.', ','),
         description: $('#descriptionTeach').val()
     };
     $.ajax({
@@ -485,7 +487,7 @@ function UpdateTeach() {
         id: $('#idTeach').val(),
         id_AspNetUsersTeacher: $('#teacherTeach').val(),
         id_CMKO_PeriodResult: $('#periodTeach').val(),
-        cost: $('#costTeach').val(),
+        cost: $('#costTeach').val().replace('.', ','),
         id_AspNetUsersTeach: $('#studentTeach').val(),
         description: $('#descriptionTeach').val()
     };
@@ -528,6 +530,7 @@ function RemoveTeach() {
 }
 
 function ValidTeach() {
+    isValid = true;
     if ($('#teacherTeach').val() === null) {
         $('#teacherTeach').css('border-color', 'Red');
         isValid = false;
@@ -556,6 +559,7 @@ function ValidTeach() {
     else {
         $('#costTeach').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function ClearTeach() {
@@ -656,7 +660,7 @@ function UpdateUser() {
         id: $('#idUser').val(),
         id_CMKO_TaxCatigories: $('#categoryUser').val(),
         dateToCMKO: $('#dateToCMKO').val(),
-        tax: $('#taxUser').val()
+        tax: $('#taxUser').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
@@ -676,6 +680,7 @@ function UpdateUser() {
 }
 
 function ValidUser() {
+    isValid = true;
     if ($('#categoryUser').val() === null) {
         $('#categoryUser').css('border-color', 'Red');
         isValid = false;
@@ -690,6 +695,7 @@ function ValidUser() {
     else {
         $('#taxUser').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 var objCategory = [
@@ -767,6 +773,7 @@ function AddCategory() {
 }
 
 function ValidCategory() {
+    isValid = true;
     if ($('#nameCategory').val() === null) {
         $('#nameCategory').css('border-color', 'Red');
         isValid = false;
@@ -781,6 +788,7 @@ function ValidCategory() {
     else {
         $('#selaryCategory').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function GetCategory(id) {
@@ -814,7 +822,7 @@ function UpdateCategory() {
     var updateObjCategory = {
         id: $('#idCategory').val(),
         catigoriesName: $('#nameCategory').val(),
-        salary: $('#selaryCategory').val()
+        salary: $('#selaryCategory').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
@@ -899,6 +907,7 @@ function AddPeriod() {
 }
 
 function ValidPeriod() {
+    isValid = true;
     if ($('#namePeriod').val() === null) {
         $('#namePeriod').css('border-color', 'Red');
         isValid = false;
@@ -906,6 +915,7 @@ function ValidPeriod() {
     else {
         $('#namePeriod').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 var objCalend = [
@@ -982,6 +992,7 @@ function AddCalend() {
 }
 
 function ValidCalend() {
+    isValid = true;
     if ($('#periodCalend').val() === null) {
         $('#periodCalend').css('border-color', 'Red');
         isValid = false;
@@ -996,6 +1007,7 @@ function ValidCalend() {
     else {
         $('#timeToOnePersonCalend').css('border-color', 'lightgrey');
     }
+    return isValid;
 }
 
 function GetCalend(id) {
@@ -1029,7 +1041,7 @@ function UpdateCalend() {
     var updateObjCalend = {
         id: $('#idCalend').val(),
         period: $('#periodCalend').val(),
-        timeToOnePerson: $('#timeToOnePersonCalend').val()
+        timeToOnePerson: $('#timeToOnePersonCalend').val().replace('.', ',')
     };
     $.ajax({
         cache: false,

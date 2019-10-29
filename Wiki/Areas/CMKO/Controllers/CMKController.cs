@@ -90,13 +90,16 @@ namespace Wiki.Areas.CMKO.Controllers
             var query = db.CMKO_Optimization
                 .AsNoTracking()
                 .Where(d => d.id == id)
+                .Include(d => d.CMKO_PeriodResult)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.AspNetUsers2)
                 .ToList();
             var data = query.Select(dataList => new
             {
                 idOptimization = dataList.id,
                 dateCreate = dataList.datetimeCreate.ToShortDateString() + " " + dataList.datetimeCreate.ToShortTimeString(),
                 userCreate = dataList.AspNetUsers.CiliricalName,
-                autor = dataList.AspNetUsers2.CiliricalName,
+                autor = dataList.id_AspNetUsersIdea,
                 textData = dataList.description,
                 dataList.CMKO_PeriodResult.period
             });
@@ -176,6 +179,8 @@ namespace Wiki.Areas.CMKO.Controllers
             data.datetimeCreate = DateTime.Now;
             data.datetimeUpdate = DateTime.Now;
             data.historyEdit = "";
+            if (data.description == null)
+                data.description = "";
             db.CMKO_Teach.Add(data);
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
@@ -209,7 +214,7 @@ namespace Wiki.Areas.CMKO.Controllers
             CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
             updateData.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
             updateData.datetimeUpdate = DateTime.Now;
-            if (updateData.description != postData.description)
+            if (updateData.description != postData.description && postData.description != null)
                 updateData.description = postData.description;
             if (updateData.id_AspNetUsersTeach != postData.id_AspNetUsersTeach)
                 updateData.id_AspNetUsersTeach = postData.id_AspNetUsersTeach;
