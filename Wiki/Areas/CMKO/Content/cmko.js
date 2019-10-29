@@ -1,11 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#optimizationTable').hide();
-    $('#teachTable').hide();
-    $('#usersTable').hide();
-    $('#categoryTable').hide();
-    $('#periodsTable').hide();
-    $('#calendTable').hide();
-    $('#cyrencyTable').hide();
+    HideAllTables();
     StartMenu();
 });
 
@@ -28,8 +22,43 @@ var objTeach = [
     { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true }
 ];
 
+function LoadData(id) {
+    HideAllTables();
+    if (id === 1) {
+        LoadOptimizationTable();
+    }
+    else if (id === 2) {
+        LoadTeachTable();
+    }
+    else if (id === 3) {
+        LoadUsersTable();
+    }
+    else if (id === 4) {
+        LoadCategoryTable();
+    }
+    else if (id === 5) {
+        LoadPeriodTable();
+    }
+    else if (id === 6) {
+        LoadCalendTable();
+    }
+    else if (id === 7) {
+        LoadCurencyTable();
+    }
+}
+
+function HideAllTables() {
+    $('#optimizationTable').hide();
+    $('#teachTable').hide();
+    $('#usersTable').hide();
+    $('#categoryTable').hide();
+    $('#periodsTable').hide();
+    $('#calendTable').hide();
+    $('#cyrencyTable').hide();
+}
+
 function StartMenu() {
-    $("#categoryTable").DataTable({
+    $("#optimizationTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMK/GetOptimizationList",
@@ -991,8 +1020,8 @@ function UpdateCalend() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#categoryTable').DataTable().ajax.reload(null, false);
-            $('#calendTable').modal('hide');
+            $('#calendTable').DataTable().ajax.reload(null, false);
+            $('#calendModal').modal('hide');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

@@ -279,7 +279,7 @@ namespace Wiki.Areas.CMKO.Controllers
                 ciliricNameUser = dataList.CiliricalName,
                 devisionNameUser = dataList.Devision1.name,
                 categoryUser = dataList.id_CMKO_TaxCatigories,
-                dateToCMKO = dataList.dateToCMKO,
+                dataList.dateToCMKO,
                 taxUser = dataList.tax
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
