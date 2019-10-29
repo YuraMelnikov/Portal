@@ -232,6 +232,7 @@ function LoadOptimizationTable() {
             "search": "Поиск"
         }
     });
+    $('#optimizationTable').show();
 }
 
 function AddOptimization() {
@@ -410,6 +411,7 @@ function LoadTeachTable() {
             "search": "Поиск"
         }
     });
+    $('#teachTable').show();
 }
 
 function AddTeach() {
@@ -608,6 +610,7 @@ function LoadUsersTable() {
             "search": "Поиск"
         }
     });
+    $('#usersTable').show();
 }
 
 function GetUser(id) {
@@ -710,6 +713,7 @@ function LoadCategoryTable() {
             "search": "Поиск"
         }
     });
+    $('#categoryTable').show();
 }
 
 function ClearCategory() {
@@ -847,6 +851,7 @@ function LoadPeriodTable() {
             "search": "Поиск"
         }
     });
+    $('#periodsTable').show();
 }
 
 function ClearPeriod() {
@@ -922,6 +927,7 @@ function LoadCalendTable() {
             "search": "Поиск"
         }
     });
+    $('#calendTable').show();
 }
 
 function ClearCalend() {
@@ -1059,4 +1065,5 @@ function LoadCurencyTable() {
             "search": "Поиск"
         }
     });
+    $('#cyrencyTable').show();
 }

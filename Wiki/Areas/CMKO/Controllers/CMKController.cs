@@ -31,7 +31,7 @@ namespace Wiki.Areas.CMKO.Controllers
                 .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
             ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
                 .Where(d => d.close == false)
-                .OrderByDescending(d => d.period), "id", "period");
+                .OrderByDescending(d => d.period), "period", "period");
             ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.OrderBy(d => d.catigoriesName), "id", "catigoriesName");
             return View();
         }
