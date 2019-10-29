@@ -48,13 +48,13 @@ function LoadData(id) {
 }
 
 function HideAllTables() {
-    $('#optimizationTable').hide();
-    $('#teachTable').hide();
-    $('#usersTable').hide();
-    $('#categoryTable').hide();
-    $('#periodsTable').hide();
-    $('#calendTable').hide();
-    $('#cyrencyTable').hide();
+    $('#optimizationDiv').hide();
+    $('#teachDiv').hide();
+    $('#usersDiv').hide();
+    $('#categoryDiv').hide();
+    $('#periodsDiv').hide();
+    $('#calendDiv').hide();
+    $('#curencyDiv').hide();
 }
 
 function StartMenu() {
@@ -70,6 +70,7 @@ function StartMenu() {
         "columns": objOptimization,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -91,6 +92,7 @@ function StartMenu() {
         "columns": objTeach,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -107,11 +109,12 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objUsers,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -133,6 +136,7 @@ function StartMenu() {
         "columns": objCategory,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -153,6 +157,7 @@ function StartMenu() {
         "processing": true,
         "columns": objPeriod,
         "scrollY": '75vh',
+        "searching": false,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -175,6 +180,7 @@ function StartMenu() {
         "columns": objCalend,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -196,6 +202,7 @@ function StartMenu() {
         "columns": objCurency,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -223,6 +230,7 @@ function LoadOptimizationTable() {
         "columns": objOptimization,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -232,7 +240,7 @@ function LoadOptimizationTable() {
             "search": "Поиск"
         }
     });
-    $('#optimizationTable').show();
+    $('#optimizationDiv').show();
 }
 
 function AddOptimization() {
@@ -274,7 +282,7 @@ function GetOptimization(id) {
         success: function (result) {
             $('#idOptimization').val(result.idOptimization);
             $('#userCreate').val(result.userCreate);
-            $('#dateCreate').va(result.dateCreate);
+            $('#dateCreate').val(result.dateCreate);
             $('#autor').val(result.autor);
             $('#period').val(result.period);
             $('#textData').val(result.textData);
@@ -402,6 +410,7 @@ function LoadTeachTable() {
         "columns": objTeach,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -411,7 +420,7 @@ function LoadTeachTable() {
             "search": "Поиск"
         }
     });
-    $('#teachTable').show();
+    $('#teachDiv').show();
 }
 
 function AddTeach() {
@@ -455,7 +464,7 @@ function GetTeach(id) {
         success: function (result) {
             $('#idTeach').val(result.idTeach);
             $('#teacherTeach').val(result.teacherTeach);
-            $('#studentTeach').va(result.studentTeach);
+            $('#studentTeach').val(result.studentTeach);
             $('#periodTeach').val(result.periodTeach);
             $('#costTeach').val(result.costTeach);
             $('#descriptionTeach').val(result.descriptionTeach);
@@ -596,12 +605,13 @@ function LoadUsersTable() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [[1, "asc"]],
         "processing": true,
         "columns": objUsers,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
+        "searching": false,
         "info": false,
         "scrollCollapse": true,
         "language": {
@@ -610,7 +620,7 @@ function LoadUsersTable() {
             "search": "Поиск"
         }
     });
-    $('#usersTable').show();
+    $('#usersDiv').show();
 }
 
 function GetUser(id) {
@@ -625,7 +635,7 @@ function GetUser(id) {
         success: function (result) {
             $('#idUser').val(result.idUser);
             $('#ciliricNameUser').val(result.ciliricNameUser);
-            $('#devisionNameUser').va(result.devisionNameUser);
+            $('#devisionNameUser').val(result.devisionNameUser);
             $('#categoryUser').val(result.categoryUser);
             $('#dateToCMKO').val(result.dateToCMKO);
             $('#taxUser').val(result.taxUser);
@@ -704,6 +714,7 @@ function LoadCategoryTable() {
         "columns": objCategory,
         "scrollY": '75vh',
         "scrollX": true,
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -713,7 +724,7 @@ function LoadCategoryTable() {
             "search": "Поиск"
         }
     });
-    $('#categoryTable').show();
+    $('#categoryDiv').show();
 }
 
 function ClearCategory() {
@@ -786,7 +797,7 @@ function GetCategory(id) {
         success: function (result) {
             $('#idCategory').val(result.idCategory);
             $('#nameCategory').val(result.nameCategory);
-            $('#selaryCategory').va(result.selaryCategory);
+            $('#selaryCategory').val(result.selaryCategory);
             $('#categoryModal').modal('show');
         },
         error: function (errormessage) {
@@ -844,6 +855,7 @@ function LoadPeriodTable() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -851,7 +863,7 @@ function LoadPeriodTable() {
             "search": "Поиск"
         }
     });
-    $('#periodsTable').show();
+    $('#periodsDiv').show();
 }
 
 function ClearPeriod() {
@@ -919,6 +931,7 @@ function LoadCalendTable() {
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
+        "searching": false,
         "info": false,
         "scrollCollapse": true,
         "language": {
@@ -927,7 +940,7 @@ function LoadCalendTable() {
             "search": "Поиск"
         }
     });
-    $('#calendTable').show();
+    $('#calendDiv').show();
 }
 
 function ClearCalend() {
@@ -999,7 +1012,7 @@ function GetCalend(id) {
         success: function (result) {
             $('#idCalend').val(result.idCalend);
             $('#periodCalend').val(result.periodCalend);
-            $('#timeToOnePersonCalend').va(result.timeToOnePersonCalend);
+            $('#timeToOnePersonCalend').val(result.timeToOnePersonCalend);
             $('#calendModal').modal('show');
         },
         error: function (errormessage) {
@@ -1058,6 +1071,7 @@ function LoadCurencyTable() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -1065,5 +1079,5 @@ function LoadCurencyTable() {
             "search": "Поиск"
         }
     });
-    $('#cyrencyTable').show();
+    $('#curencyDiv').show();
 }

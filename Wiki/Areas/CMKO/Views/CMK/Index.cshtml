@@ -3,7 +3,7 @@
     Layout = "~/Areas/CMKO/Views/Shared/_LayoutCMKO.cshtml";
 }
 <head>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -12,26 +12,22 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="~/Content/Highcharts/highcharts.js"></script>
     <script src="~/Content/Highcharts/highcharts-more.js"></script>
-    <script src="~/Content/Highcharts/exporting.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v0.3"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/bullet.js"></script>
+    <script src="~/Content/Highcharts/exporting.js"></script>*@
+    <script src="~/Areas/CMKO/Content/cmko.js?v0.4"></script>
+    @*<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/bullet.js"></script>*@
     <style>
-        #container1 {
-            max-width: 800px;
-            height: 115px;
-            margin: 1em auto;
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
         }
 
-        #container2, #container3 {
-            max-width: 800px;
-            height: 85px;
-            margin: 1em auto;
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
         }
 
-        .hc-cat-title {
-            font-size: 13px;
-            font-weight: bold;
+        .modal-wide .modal-body {
+            overflow-y: auto;
         }
 
         .colu-200 {
@@ -43,13 +39,32 @@
         }
     </style>
 </head>
-<table id="optimizationTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="teachTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="usersTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="categoryTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="periodsTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="calendTable" class="table table-hover table-striped" style="width:100%;"></table>
-<table id="cyrencyTable" class="table table-hover table-striped" style="width:100%;"></table>
+<div id="optimizationDiv">
+    <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#optimizationModal" onclick="ClearOptimization();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <table id="optimizationTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="teachDiv">
+    <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#teachModal" onclick="ClearTeach();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <table id="teachTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="usersDiv">
+    <table id="usersTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="categoryDiv">
+    <button type="button" class="btn-xs btn-primary" onclick="ClearCategory();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <table id="categoryTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="periodsDiv">
+    <button type="button" class="btn-xs btn-primary" onclick="ClearPeriod();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <table id="periodsTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="calendDiv">
+    <button type="button" class="btn-xs btn-primary" onclick="ClearCalend();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <table id="calendTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
+<div id="curencyDiv">
+     <table id="cyrencyTable" class="table table-hover table-striped" style="width:100%;"></table>
+</div>
 
 <div id="optimizationModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
@@ -61,15 +76,15 @@
                 <div class="row">
                     <div class="col-lg-1">
                         <label>Ид.:</label>
-                        <input type="text" class="form-control" id="idOptimization" disabled="dissabled" />
+                        <input type="text" class="form-control" id="idOptimization" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Создано:</label>
-                        <input type="text" class="form-control" id="userCreate" disabled="dissabled" />
+                        <input type="text" class="form-control" id="userCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Дата/время создания:</label>
-                        <input type="text" class="form-control" id="dateCreate" disabled="dissabled" />
+                        <input type="text" class="form-control" id="dateCreate" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Автор идеи:</label>
@@ -112,7 +127,7 @@
                 <div class="row">
                     <div class="col-lg-1">
                         <label>Ид.:</label>
-                        <input type="text" class="form-control" id="idTeach" disabled="dissabled" />
+                        <input type="text" class="form-control" id="idTeach" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Учитель:</label>
@@ -163,15 +178,15 @@
                 <div class="row">
                     <div class="col-lg-1">
                         <label>Ид.:</label>
-                        <input type="text" class="form-control" id="idUser" disabled="dissabled" />
+                        <input type="text" class="form-control" id="idUser" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>ФИО:</label>
-                        <input type="text" class="form-control" id="ciliricNameUser" disabled="dissabled" />
+                        <input type="text" class="form-control" id="ciliricNameUser" disabled="disabled" />
                     </div>
                    <div class="col-lg-2">
                         <label>Конструкторское бюро:</label>
-                        <input type="text" class="form-control" id="devisionNameUser" disabled="dissabled" />
+                        <input type="text" class="form-control" id="devisionNameUser" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Категория:</label>
@@ -209,7 +224,7 @@
                 <div class="row">
                     <div class="col-lg-1">
                         <label>Ид.:</label>
-                        <input type="text" class="form-control" id="idCategory" disabled="dissabled" />
+                        <input type="text" class="form-control" id="idCategory" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Наименование:</label>
@@ -270,7 +285,7 @@
                 <div class="row">
                     <div class="col-lg-1">
                         <label>Ид.:</label>
-                        <input type="text" class="form-control" id="idCalend" disabled="dissabled" />
+                        <input type="text" class="form-control" id="idCalend" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Период:</label>
@@ -303,5 +318,11 @@
             calendarWeeks: true,
             showTodayButton: true
         });
+    });
+</script>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
     });
 </script>

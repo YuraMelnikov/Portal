@@ -8,7 +8,7 @@ namespace Wiki.Areas.CMKO.Controllers
 {
     public class CMKController : Controller
     {
-        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
+        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
         {
@@ -240,7 +240,8 @@ namespace Wiki.Areas.CMKO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.AspNetUsers
                 .AsNoTracking()
-                .Where(d => d.LockoutEnabled == true && d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                .Where(d => d.LockoutEnabled == true)
+                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
                 .Include(d => d.CMKO_TaxCatigories)
                 .Include(d => d.Devision1)
                 .ToList();
