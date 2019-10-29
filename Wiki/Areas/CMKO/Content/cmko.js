@@ -14,12 +14,12 @@ var objOptimization = [
 
 var objTeach = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Учитель", "data": "teacher", "autowidth": true, "bSortable": true },
     { "title": "Обучаемый", "data": "student", "autowidth": true, "bSortable": true },
-    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' },
-    { "title": "Период (для учета)", "data": "period", "autowidth": true, "bSortable": true }
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
 ];
 
 function LoadData(id) {
@@ -433,8 +433,8 @@ function AddTeach() {
     $('#btnAddTeach').attr('disabled', true);
     var addObjTeach = {
         id: $('#idTeach').val(),
-        teacherTeach: $('#teacherTeach').val(),
-        studentTeach: $('#studentTeach').val(),
+        id_AspNetUsersTeacher: $('#teacherTeach').val(),
+        id_AspNetUsersTeach: $('#studentTeach').val(),
         id_CMKO_PeriodResult: $('#periodTeach').val(),
         cost: $('#costTeach').val().replace('.', ','),
         description: $('#descriptionTeach').val()

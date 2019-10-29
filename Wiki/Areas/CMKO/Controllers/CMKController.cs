@@ -9,30 +9,94 @@ namespace Wiki.Areas.CMKO.Controllers
     public class CMKController : Controller
     {
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        readonly JsonSerializerSettings settingsDNY = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
         {
-            ViewBag.period = new SelectList(db.CMKO_PeriodResult
-                .Where(d => d.close == false)
-                .OrderByDescending(x => x.period), "period", "period");
-            ViewBag.autor = new SelectList(db.AspNetUsers
-                .Where(d => d.LockoutEnabled == true)
-                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                .Where(d => d.LockoutEnabled == true)
-                .Where(d => d.dateToCMKO != null)
-                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                .Where(d => d.LockoutEnabled == true)
-                .Where(d => d.dateToCMKO == null)
-                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            string login = HttpContext.User.Identity.Name;
             ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
-                .Where(d => d.close == false)
-                .OrderByDescending(d => d.period), "period", "period");
+                                                       .Where(d => d.close == false)
+                                                       .OrderByDescending(d => d.period), "period", "period");
             ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.OrderBy(d => d.catigoriesName), "id", "catigoriesName");
+            ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.close == false).OrderByDescending(x => x.period), "period", "period");
+            if (login == "myi@katek.by")
+            {
+                 ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+
+            }
+            else if (login == "Kuchynski@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "nrf@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "fvs@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else 
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
+                ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
+                ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
+            }
             return View();
         }
 
@@ -285,7 +349,7 @@ namespace Wiki.Areas.CMKO.Controllers
                 ciliricNameUser = dataList.CiliricalName,
                 devisionNameUser = dataList.Devision1.name,
                 categoryUser = dataList.id_CMKO_TaxCatigories,
-                dataList.dateToCMKO,
+                dateToCMKO = JsonConvert.SerializeObject(dataList.dateToCMKO, settingsDNY).Replace(@"""", ""),
                 taxUser = dataList.tax
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
