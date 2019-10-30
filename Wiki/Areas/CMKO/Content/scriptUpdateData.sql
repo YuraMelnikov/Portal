@@ -8,9 +8,10 @@ DECLARE @periodQua NVARCHAR(6);
 --DECLARE @coefConvertCalendarNorm float;
 DECLARE	@coefBujetManager float;
 DECLARE	@coefBujetWorker float;
-declare @coenBujetNManager float;
-declare @coefBujetNWorker float;
-declare @cost1N float;
+DECLARE @coenBujetNManager float;
+DECLARE @coefBujetNWorker float;
+DECLARE @cost1N float;
+DECLARE @managerOrderPercent float;
 
 --SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
@@ -25,6 +26,7 @@ SET @coefBujetManager = 0.0020;
 SET @coenBujetNManager = 0.16;
 SET @coefBujetNWorker = 0.84;
 SET @cost1N = 4.9;
+SET @managerOrderPercent = 0.04;
 
 DELETE [PortalKATEK].[dbo].[CMKO_ThisPeriod]
 insert into [PortalKATEK].[dbo].[CMKO_ThisPeriod] select @periodQua
@@ -66,6 +68,8 @@ ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coenBujetNManager, 0), 0), 0) as [accruedManagerForNTaskKBM]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coefBujetNWorker, 0), 0), 0) as [accruedWorkerForNTaskKBE]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coenBujetNManager, 0), 0), 0) as [accruedManagerForNTaskKBE]
+,PortalKATEK.dbo.RKD_GIP.id_UserKBM
+,PortalKATEK.dbo.RKD_GIP.id_UserKBE
 FROM
 ProjectWebApp.dbo.MSP_EpmProject_UserView
 INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID
@@ -74,19 +78,37 @@ LEFT JOIN ProjectWebApp.dbo.MSP_EpmResource_UserView ON ProjectWebApp.dbo.MSP_Ep
 LEFT JOIN ReportKATEK.dbo.CMKO_TimeWorkOnOrder on ReportKATEK.dbo.CMKO_TimeWorkOnOrder.numberOrder = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 left join PortalKATEK.dbo.PZ_TEO on PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
 where
 (ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБ%')
 
+Delete PortalKATEK.dbo.CMKO_ThisOverflowsBujet
+insert into PortalKATEK.dbo.CMKO_ThisOverflowsBujet
+SELECT
+PortalKATEK.dbo.PZ_PlanZakaz.Id
+,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBMFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBM, 0)) as KBM
+,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBEFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBE, 0)) as KBE
+FROM
+ProjectWebApp.dbo.MSP_EpmProject_UserView
+left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
+left join (select id_PZ_PlanZakaz, sum([data]) as bujet from PortalKATEK.dbo.CMKO_ProjectFactBujet where devision like 'КБМ' group by id_PZ_PlanZakaz) as KBMFactBujet on KBMFactBujet.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select id_PZ_PlanZakaz, sum([data]) as bujet from PortalKATEK.dbo.CMKO_ProjectFactBujet where devision like 'КБЭ' group by id_PZ_PlanZakaz) as KBEFactBujet on KBEFactBujet.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select id_PZ_PlanZakaz, sum(accruedWorkerForTaskKBM) + sum(accruedManagerForTaskKBM) as [bujetKBM], sum(accruedWorkerForTaskKBE) + sum(accruedManagerForTaskKBE) as [bujetKBE] from PortalKATEK.dbo.CMKO_BujetList where PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua group by id_PZ_PlanZakaz) as ThisBujetList on ThisBujetList.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.PZ_TEO on PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+WHERE
+concat(year(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP),'.', (month(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP) + 2) / 3) = @periodQua
+group by PortalKATEK.dbo.PZ_PlanZakaz.Id
 
-SELECT 
-AspNetUsers.id
-,PortalKATEK.dbo.CMKO_PeriodResult.period
-,isnull(PortalKATEK.dbo.CMKO_TaxCatigories.salary, 0)
-,isnull(AspNetUsers.tax, 0)
-,AspNetUsers.CiliricalName
-FROM [PortalKATEK].[dbo].[CMKO_PeriodResult] left join
-(select * from PortalKATEK.dbo.AspNetUsers where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1  and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16))
-   as AspNetUsers on AspNetUsers.LockoutEnabled > 0 
-left join [PortalKATEK].[dbo].[CMKO_TaxFact] on [PortalKATEK].[dbo].[CMKO_TaxFact].id_AspNetUsers = AspNetUsers.Id
-left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = AspNetUsers.id_CMKO_TaxCatigories
-where [PortalKATEK].[dbo].[CMKO_TaxFact].id is null
+--SELECT 
+--AspNetUsers.id
+--,PortalKATEK.dbo.CMKO_PeriodResult.period
+--,isnull(PortalKATEK.dbo.CMKO_TaxCatigories.salary, 0)
+--,isnull(AspNetUsers.tax, 0)
+--,AspNetUsers.CiliricalName
+--FROM [PortalKATEK].[dbo].[CMKO_PeriodResult] left join
+--(select * from PortalKATEK.dbo.AspNetUsers where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1  and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16))
+--   as AspNetUsers on AspNetUsers.LockoutEnabled > 0 
+--left join [PortalKATEK].[dbo].[CMKO_TaxFact] on [PortalKATEK].[dbo].[CMKO_TaxFact].id_AspNetUsers = AspNetUsers.Id
+--left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = AspNetUsers.id_CMKO_TaxCatigories
+--where [PortalKATEK].[dbo].[CMKO_TaxFact].id is null
