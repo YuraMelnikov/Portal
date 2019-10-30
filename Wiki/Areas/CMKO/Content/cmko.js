@@ -774,14 +774,14 @@ function AddCategory() {
 
 function ValidCategory() {
     isValid = true;
-    if ($('#nameCategory').val() === null) {
+    if ($('#nameCategory').val() === "") {
         $('#nameCategory').css('border-color', 'Red');
         isValid = false;
     }
     else {
         $('#nameCategory').css('border-color', 'lightgrey');
     }
-    if ($('#selaryCategory').val() === null) {
+    if ($('#selaryCategory').val() === "") {
         $('#selaryCategory').css('border-color', 'Red');
         isValid = false;
     }
