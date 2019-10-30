@@ -45,9 +45,14 @@ function LoadData(id) {
     else if (id === 7) {
         LoadCurencyTable();
     }
+    else if (id === 8) {
+        LoadSpeedUsersTable();
+    }
+
 }
 
 function HideAllTables() {
+    $('#speedUsersDiv').hide();
     $('#optimizationDiv').hide();
     $('#teachDiv').hide();
     $('#usersDiv').hide();
@@ -210,6 +215,123 @@ function StartMenu() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        }
+    });
+    $("#speedUsersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetSpeedUserList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objSpeedUsers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+var objSpeedUsers = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true },
+    { "title": "ФИО", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Коэф.", "data": "coef", "autowidth": true, "bSortable": true }
+];
+
+function LoadSpeedUsersTable() {
+    var table = $('#speedUsersTable').DataTable();
+    table.destroy();
+    $('#speedUsersTable').empty();
+    $("#speedUsersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetSpeedUserList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSpeedUsers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#speedUsersDiv').show();
+}
+
+function ValidSpeedUser() {
+    isValid = true;
+    if ($('#coefSpeedUser').val() === "") {
+        $('#coefSpeedUser').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#coefSpeedUser').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function GetSpeedUser(id) {
+    $('#coefSpeedUser').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetSpeedUser/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idSpeedUser').val(result.idSpeedUser);
+            $('#userNameSpeedUser').val(result.userNameSpeedUser);
+            $('#periodSpeedUser').va(result.periodSpeedUser);
+            $('#coefSpeedUser').va(result.coefSpeedUser);
+            $('#speedUserModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdatSpeedUser() {
+    var res = ValidSpeedUser();
+    if (res === false) {
+        return false;
+    }
+    var updateObjSpeedUser = {
+        id: $('#idSpeedUser').val(),
+        k: $('#coefSpeedUser').val().val().replace('.', ',')
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateSpeedUser",
+        data: JSON.stringify(updateObjSpeedUser),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#speedUsersTable').DataTable().ajax.reload(null, false);
+            $('#speedUserModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

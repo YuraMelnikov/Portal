@@ -550,5 +550,67 @@ namespace Wiki.Areas.CMKO.Controllers
             });
             return Json(new { data });
         }
+
+        [HttpPost]
+        public JsonResult GetSpeedUserList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.DashboardKO_UsersMonthPlan
+                .AsNoTracking()
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.ProductionCalendar)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkProductionCalend(login, dataList.id),
+                dataList.ProductionCalendar.period,
+                user = dataList.AspNetUsers.CiliricalName,
+                coef = dataList.k
+            });
+            return Json(new { data });
+        }
+
+        string GetEditLinkSpeedUser(string login, int id)
+        {
+            if (login == "myi@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetSpeedUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult GetSpeedUser(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.DashboardKO_UsersMonthPlan
+                .AsNoTracking()
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.ProductionCalendar)
+                .Where(d => d.id == id)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idSpeedUser = dataList.id,
+                userNameSpeedUser = dataList.AspNetUsers.CiliricalName,
+                periodSpeedUser = dataList.ProductionCalendar.period,
+                coefSpeedUser = dataList.k
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateSpeedUser(DashboardKO_UsersMonthPlan postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            DashboardKO_UsersMonthPlan updateData = db.DashboardKO_UsersMonthPlan.First(d => d.id == postData.id);
+            if (updateData.k != postData.k)
+                updateData.k = postData.k;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }
