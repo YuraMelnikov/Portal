@@ -100,6 +100,13 @@ WHERE
 concat(year(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP),'.', (month(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP) + 2) / 3) = @periodQua
 group by PortalKATEK.dbo.PZ_PlanZakaz.Id
 
+
+
+SELECT
+[PortalKATEK].[dbo].[CMKO_BujetList]
+FROM
+[PortalKATEK].[dbo].[CMKO_BujetList] 
+
 --SELECT 
 --AspNetUsers.id
 --,PortalKATEK.dbo.CMKO_PeriodResult.period
