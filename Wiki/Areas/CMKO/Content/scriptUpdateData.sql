@@ -106,39 +106,62 @@ SET @percentMKBM = 0.08;
 --concat(year(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP),'.', (month(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP) + 2) / 3) = @periodQua
 --group by PortalKATEK.dbo.PZ_PlanZakaz.Id
 
-DELETE PortalKATEK.dbo.CMKO_ThisBujetDevision
-INSERT INTO PortalKATEK.dbo.CMKO_ThisBujetDevision
-SELECT
-sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) as accruedAllKBM
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) as accruedAllKBE
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) as accruedWorkerKBM
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) as accruedWorkerKBE
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) as accruedManagerKBM
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) as accruedManagerKBE
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) + max(Overflows.SumKBM) as accruedOverflowsKBM
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE) as accruedOverflowsKBE
-,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0))
-,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0))
-,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0)) + max(Overflows.SumKBM)
-,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0)) + max(Overflows.SumKBE)
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM)
-,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE)
-,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) + max(Overflows.SumKBM)) * @percentMKO
-,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE)) * @percentMKO
-,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM)) * @percentMKBM
-,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE)) * @percentMKBE
-,(sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0)) + max(Overflows.SumKBM)) * @managerOrderPercent 
-,(sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0)) + max(Overflows.SumKBE)) * @managerOrderPercent
-,0
-,0
-FROM
-[PortalKATEK].[dbo].[CMKO_BujetList] 
-left join (select MAX(id) as id, sum(KBM) as [SumKBM], sum(KBE) as [SumKBE] from PortalKATEK.dbo.CMKO_ThisOverflowsBujet) as Overflows on Overflows.id > 0
-where
-[PortalKATEK].[dbo].[CMKO_BujetList].quartalFinishTask = @periodQua
-update PortalKATEK.dbo.CMKO_ThisBujetDevision set
-bonusMFinal = bonusM - bujetMKOFromM - bujetMKBM - bujetGM
-,bonusEFinal = bonusE - bujetMKOFromE - bujetMKBE - bujetGE
+--DELETE PortalKATEK.dbo.CMKO_ThisBujetDevision
+--INSERT INTO PortalKATEK.dbo.CMKO_ThisBujetDevision
+--SELECT
+--sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) as accruedAllKBM
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) as accruedAllKBE
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) as accruedWorkerKBM
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) as accruedWorkerKBE
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) as accruedManagerKBM
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) as accruedManagerKBE
+--,(max(Overflows.SumKBM) * @coefBujetNWorker) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) as accruedWorkerOverflowsKBM
+--,(max(Overflows.SumKBE) * @coefBujetNWorker) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) as accruedWorkerOverflowsKBE
+--,(max(Overflows.SumKBM) * @coenBujetNManager) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) as accruedManagerOverflowsKBM
+--,(max(Overflows.SumKBE) * @coenBujetNManager) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) as accruedManagerOverflowsKBE
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) + max(Overflows.SumKBM) as accruedOverflowsKBM
+--,sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE) as accruedOverflowsKBE
+--,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0)) as accruedKBMG
+--,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0)) as accruedKBEG
+--,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0)) + max(Overflows.SumKBM) as accruedOverflowsKBMG
+--,sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0)) + max(Overflows.SumKBE) as accruedOverflowsKBEG
+--,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) + max(Overflows.SumKBM)) * @percentMKO as bujetMKOFromM
+--,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE)) * @percentMKO as bujetMKOFromE
+--,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBM) + max(Overflows.SumKBM)) * @percentMKBM as bujetMKBM
+--,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForNTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForNTaskKBE) + max(Overflows.SumKBE)) * @percentMKBE as bujetMKBE
+--,(sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBM is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM, 0), 0)) + max(Overflows.SumKBM)) * @managerOrderPercent as bujetGM
+--,(sum(iif(PortalKATEK.dbo.CMKO_BujetList.id_RKD_GIP_KBE is not null, isnull(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE, 0) + isnull(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE, 0), 0)) + max(Overflows.SumKBE)) * @managerOrderPercent as bujetGE
+--,0 as bonusMFinal
+--,0 as bonusEFinal
+--FROM
+--[PortalKATEK].[dbo].[CMKO_BujetList] 
+--left join (select MAX(id) as id, sum(KBM) as [SumKBM], sum(KBE) as [SumKBE] from PortalKATEK.dbo.CMKO_ThisOverflowsBujet) as Overflows on Overflows.id > 0
+--where
+--[PortalKATEK].[dbo].[CMKO_BujetList].quartalFinishTask = @periodQua
+
+--update PortalKATEK.dbo.CMKO_ThisBujetDevision set
+--bonusMFinal = accruedManagerOverflowsKBM - bujetMKOFromM - bujetMKBM - bujetGM
+--,bonusEFinal = accruedManagerOverflowsKBE - bujetMKOFromE - bujetMKBE - bujetGE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --SELECT 
 --AspNetUsers.id
