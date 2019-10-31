@@ -279,7 +279,17 @@ SET @percentMKBM = 0.08;
 
 
 
-
+Select
+PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
+,OptimizationTable.countIdea as optimization
+,SpeedUser.plan10 + SpeedUser.plan20 as speed
+,PortalKATEK.dbo.AspNetUsers.tax as rate1
+from
+PortalKATEK.dbo.CMKO_BujetList
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
+left join (select COUNT(id) as countIdea, id_AspNetUsersIdea from PortalKATEK.dbo.CMKO_Optimization group by PortalKATEK.dbo.CMKO_Optimization.id_AspNetUsersIdea) as OptimizationTable on OptimizationTable.id_AspNetUsersIdea = PortalKATEK.dbo.AspNetUsers.Id
+left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser on SpeedUser.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select * from [PortalKATEK].[dbo].[CurencyBYN] where YEAR([PortalKATEK].[dbo].[CurencyBYN].[date]) =  )
 
 
 
