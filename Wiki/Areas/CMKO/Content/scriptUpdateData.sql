@@ -278,18 +278,64 @@ SET @percentMKBM = 0.08;
 
 
 
-
+----?curency
+----?errorCoef
+----?nG
+delete [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus]
+insert into [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus]
 Select
 PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
-,OptimizationTable.countIdea as optimization
-,SpeedUser.plan10 + SpeedUser.plan20 as speed
-,PortalKATEK.dbo.AspNetUsers.tax as rate1
+,isnull(max(OptimizationTable.countIdea), 0) as optimization
+,isnull(max(SpeedUser1.plan10) + max(SpeedUser1.plan20), 0) as speed1
+,isnull(max(SpeedUser2.plan10) + max(SpeedUser2.plan20), 0) as speed2
+,isnull(max(SpeedUser3.plan10) + max(SpeedUser3.plan20), 0) as speed3
+,isnull(sum(TeachTable.cost), 0) as teach
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate1
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate2
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate3
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax1
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax2
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax3
+,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
+,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, 100, 0) as qualityBonus
+,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
+,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
+,0 as nhGPlan
+,0 as nhGFact
 from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
 left join (select COUNT(id) as countIdea, id_AspNetUsersIdea from PortalKATEK.dbo.CMKO_Optimization group by PortalKATEK.dbo.CMKO_Optimization.id_AspNetUsersIdea) as OptimizationTable on OptimizationTable.id_AspNetUsersIdea = PortalKATEK.dbo.AspNetUsers.Id
-left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser on SpeedUser.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select * from [PortalKATEK].[dbo].[CurencyBYN] where YEAR([PortalKATEK].[dbo].[CurencyBYN].[date]) =  )
+left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+
+left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+
+left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
+left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError, sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
+			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 1, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countErrorG from PortalKATEK.dbo.Reclamation 
+			left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
+			left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
+			left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
+			left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+			where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
+			and concat(year(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP),'.', (month(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP) + 2) / 3) = @periodQua
+			and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
+			and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
+			group by 
+			PortalKATEK.dbo.Reclamation.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
+left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
+
+left join (select * from PortalKATEK.dbo.CurencyBYN where year(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodQua, 0, 4) and month(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodQua, 5, 2))
+
+
+where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
+and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
+and PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua
+group by
+PortalKATEK.dbo.AspNetUsers.Id
+,ReclamationCounter.countError
+
 
 
 
