@@ -291,6 +291,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency2.USD is null, Curency1.USD, Curency2.USD) as tax2
 ,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency3.USD is null, iif(Curency2.USD is null, Curency1.USD, Curency2.USD), Curency3.USD) as tax3
 ,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
+,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
 ,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, 100, 0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
