@@ -291,7 +291,7 @@ SET @percentMKBM = 0.08;
 --,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency2.USD is null, Curency1.USD, Curency2.USD) as tax2
 --,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency3.USD is null, iif(Curency2.USD is null, Curency1.USD, Curency2.USD), Curency3.USD) as tax3
 --,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
---,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
+--,1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
 --,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, 100, 0) as qualityBonus
 --,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 --,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
@@ -305,7 +305,8 @@ SET @percentMKBM = 0.08;
 --left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 --left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 --left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
---left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError, sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
+--left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
+--			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
 --			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 1, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countErrorG 
 --			from PortalKATEK.dbo.Reclamation 
 --			left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
@@ -328,10 +329,10 @@ SET @percentMKBM = 0.08;
 --group by
 --PortalKATEK.dbo.AspNetUsers.Id
 --,ReclamationCounter.countError
+--,ReclamationCounter.countErrorG
 --,Curency1.USD 
 --,Curency2.USD 
 --,Curency3.USD 
-
 
 --update [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus] set
 --[PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus].nhGPlan = TableNorm.normPlan
@@ -347,6 +348,9 @@ SET @percentMKBM = 0.08;
 --group by
 --PortalKATEK.dbo.CMKO_ThisBujetUsersBonus.id_AspNetUsers) as TableNorm
 --where [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus].id_AspNetUsers = TableNorm.id_AspNetUsers
+
+
+
 
 
 
