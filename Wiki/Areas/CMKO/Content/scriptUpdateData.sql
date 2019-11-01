@@ -379,6 +379,16 @@ where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3)
 --,Curency2.USD 
 --,Curency3.USD 
 
+
+
+
+
+
+
+
+
+
+
 --update [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus] set
 --[PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus].nhGPlan = TableNorm.normPlan
 --,[PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus].nhGFact = TableNorm.normFact
@@ -393,36 +403,3 @@ where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3)
 --group by
 --PortalKATEK.dbo.CMKO_ThisBujetUsersBonus.id_AspNetUsers) as TableNorm
 --where [PortalKATEK].[dbo].[CMKO_ThisBujetUsersBonus].id_AspNetUsers = TableNorm.id_AspNetUsers
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---SELECT 
---AspNetUsers.id
---,PortalKATEK.dbo.CMKO_PeriodResult.period
---,isnull(PortalKATEK.dbo.CMKO_TaxCatigories.salary, 0)
---,isnull(AspNetUsers.tax, 0)
---,AspNetUsers.CiliricalName
---FROM [PortalKATEK].[dbo].[CMKO_PeriodResult] left join
---(select * from PortalKATEK.dbo.AspNetUsers where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1  and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16))
---   as AspNetUsers on AspNetUsers.LockoutEnabled > 0 
---left join [PortalKATEK].[dbo].[CMKO_TaxFact] on [PortalKATEK].[dbo].[CMKO_TaxFact].id_AspNetUsers = AspNetUsers.Id
---left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = AspNetUsers.id_CMKO_TaxCatigories
---where [PortalKATEK].[dbo].[CMKO_TaxFact].id is null
