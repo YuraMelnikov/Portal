@@ -22,6 +22,8 @@ namespace Wiki.Areas.AccountsReceivable.Models
                 mailToList.Add("myi@katek.by");
                 mailToList.Add("gea@katek.by");
                 mailToList.Add("mvv@katek.by");
+                mailToList.Add("omo@katek.by");
+                mailToList.Add("evy@katek.by");
                 foreach (var data in GetFileArray(path))
                 {
                     mail.Attachments.Add(new Attachment(data));
