@@ -394,6 +394,22 @@ group by
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers) as TableNorm
 where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers = TableNorm.id_AspNetUsers
 
+delete PortalKATEK.dbo.CMKO_ThisAccruedG
+insert into PortalKATEK.dbo.CMKO_ThisAccruedG
+select 
+PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
+,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan as [accruedPlan]
+,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact as [accruedFact]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefErrorG) as [withheldPlan]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefErrorG) as [withheldFact]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGPlan / TableNh.sumNhGPlan) * TableNh.sumNhGPlan) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefErrorG)) as [accruedTotalPlan]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhGFact / TableNh.sumNhGFact) * TableNh.sumNhGFact) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefErrorG)) as [accruedTotalFact]
+from
+PortalKATEK.dbo.CMKO_ThisIndicatorsUsers 
+left join [PortalKATEK].[dbo].[CMKO_ThisWageFund] on [PortalKATEK].[dbo].[CMKO_ThisWageFund].id > 0
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join (select sum([nhGPlan]) as [sumNhGPlan], sum([nhGFact]) as [sumNhGFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
 
 
