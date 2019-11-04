@@ -410,16 +410,6 @@ left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = Portal
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 left join (select sum([nhGPlan]) as [sumNhGPlan], sum([nhGFact]) as [sumNhGFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
-delete PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
-insert into PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
-select 
-0 as [reclamationPlan]
-,0 as [reclamationFact]
-,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldPlan) as [reclamationGPlan]
-,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact) as [reclamationGFact]
-from
-PortalKATEK.dbo.CMKO_ThisAccruedG
-
 delete PortalKATEK.dbo.CMKO_ThisAccruedG
 insert into PortalKATEK.dbo.CMKO_ThisAccruedG
 select 
@@ -442,12 +432,17 @@ left join (select sum([nhGPlan]) as [sumNhGPlan], sum([nhGFact]) as [sumNhGFact]
 delete PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
 insert into PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
 select 
-0 as [reclamationPlan]
-,0 as [reclamationFact]
-,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldPlan) as [reclamationGPlan]
-,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact) as [reclamationGFact]
+0 as [reclamationMPlan]
+,0 as [reclamationEPlan]
+,0 as [reclamationMFact]
+,0 as [reclamationEFact]
+,isnull(sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, PortalKATEK.dbo.CMKO_ThisAccruedG.withheldPlan, 0)), 0) as [reclamationMGPlan]
+,isnull(sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, PortalKATEK.dbo.CMKO_ThisAccruedG.withheldPlan, 0)), 0) as [reclamationEGPlan]
+,isnull(sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact, 0)), 0) as [reclamationMGFact]
+,isnull(sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact, 0)), 0) as [reclamationEGFact]
 from
-PortalKATEK.dbo.CMKO_ThisAccruedG
+PortalKATEK.dbo.CMKO_ThisAccruedG 
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisAccruedG.id_AspNetUsers
 
 delete PortalKATEK.dbo.CMKO_ThisAccrued
 insert into PortalKATEK.dbo.CMKO_ThisAccrued
@@ -471,8 +466,10 @@ left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.
 left join (select sum([nhPlan]) as [sumNhPlan], sum([nhFact]) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
 update PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund set 
-PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationPlan = TableResult.planData
-,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationFact = TableResult.factData
+PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = TableResult.planMData
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEPlan = TableResult.planEData
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMFact = TableResult.factMData
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEFact = TableResult.factEData
 from
-(select sum(PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan) as planData, sum(PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact) factData from PortalKATEK.dbo.CMKO_ThisAccrued) as TableResult
+(select sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planMData, sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factMData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planEData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factEData from PortalKATEK.dbo.CMKO_ThisAccrued left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers) as TableResult
 
