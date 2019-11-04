@@ -393,3 +393,10 @@ left join (select * from PortalKATEK.dbo.CMKO_BujetList where PortalKATEK.dbo.CM
 group by
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers) as TableNorm
 where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers = TableNorm.id_AspNetUsers
+
+
+
+
+
+
+
