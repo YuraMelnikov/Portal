@@ -411,7 +411,15 @@ left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = Portal
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 left join (select sum([nhGPlan]) as [sumNhGPlan], sum([nhGFact]) as [sumNhGFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
-
+delete PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
+insert into PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
+select 
+0 as [reclamationPlan]
+,0 as [reclamationFact]
+,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldPlan) as [reclamationGPlan]
+,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact) as [reclamationGFact]
+from
+PortalKATEK.dbo.CMKO_ThisAccruedG
 
 
 
