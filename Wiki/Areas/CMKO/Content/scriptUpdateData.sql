@@ -473,3 +473,21 @@ PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = TableResult.plan
 from
 (select sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planMData, sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factMData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planEData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factEData from PortalKATEK.dbo.CMKO_ThisAccrued left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers) as TableResult
 
+delete PortalKATEK.dbo.CMKO_ThisFinalBonus
+insert into PortalKATEK.dbo.CMKO_ThisFinalBonus
+SELECT 
+[PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationMPlan] + [PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationMGPlan] + [PortalKATEK].[dbo].[CMKO_ThisDeductionsBonusFund].[balanceBonusFundMPlan] - TableUsers.optimizationM - TableUsers.speedM - TableUsers.qualityBonusM as mPlan
+,[PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationMFact] + [PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationMGFact] + [PortalKATEK].[dbo].[CMKO_ThisDeductionsBonusFund].[balanceBonusFundMFact] - TableUsers.optimizationM - TableUsers.speedM - TableUsers.qualityBonusM as mFact
+,[PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationEPlan] + [PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationEGPlan] + [PortalKATEK].[dbo].[CMKO_ThisDeductionsBonusFund].[balanceBonusFundEPlan] - TableUsers.optimizationE - TableUsers.speedE - TableUsers.qualityBonusE as ePlan
+,[PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationEFact] + [PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund].[reclamationEGFact] + [PortalKATEK].[dbo].[CMKO_ThisDeductionsBonusFund].[balanceBonusFundEFact] - TableUsers.optimizationE - TableUsers.speedE - TableUsers.qualityBonusE AS eFact
+FROM [PortalKATEK].[dbo].[CMKO_ThisWithheldToBonusFund]
+left join [PortalKATEK].[dbo].[CMKO_ThisDeductionsBonusFund] on PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund.id > 0
+left join (SELECT 
+sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optimizationM]
+,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [optimization], 0)) as [optimizationE]
+,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [speed1], 0)) + sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [speed2], 0)) + sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [speed3], 0)) as [speedM]
+,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [speed1], 0)) + sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [speed2], 0)) + sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [speed3], 0)) as [speedE]
+,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [qualityBonus], 0)) as [qualityBonusM]
+,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [qualityBonus], 0)) as [qualityBonusE]
+  FROM [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join 
+  PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers) as TableUsers on TableUsers.optimizationE >= 0
