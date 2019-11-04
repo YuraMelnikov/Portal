@@ -448,3 +448,31 @@ select
 ,sum(PortalKATEK.dbo.CMKO_ThisAccruedG.withheldFact) as [reclamationGFact]
 from
 PortalKATEK.dbo.CMKO_ThisAccruedG
+
+delete PortalKATEK.dbo.CMKO_ThisAccrued
+insert into PortalKATEK.dbo.CMKO_ThisAccrued
+select 
+PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
+,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan]) as [accruedPlan]
+,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact]) as [accruedFact]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError) as [withheldPlan]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError) as [withheldFact]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan]))
+  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEPlan])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError)) as [accruedTotalPlan]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact]))
+  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundEFact])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError)) as [accruedTotalFact]
+,0 as [bonusPlan]
+,0 as [bonusFact]
+from
+PortalKATEK.dbo.CMKO_ThisIndicatorsUsers 
+left join [PortalKATEK].[dbo].[CMKO_ThisWageFund] on [PortalKATEK].[dbo].[CMKO_ThisWageFund].id > 0
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join (select sum([nhPlan]) as [sumNhPlan], sum([nhFact]) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
+
+update PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund set 
+PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationPlan = TableResult.planData
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationFact = TableResult.factData
+from
+(select sum(PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan) as planData, sum(PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact) factData from PortalKATEK.dbo.CMKO_ThisAccrued) as TableResult
+
