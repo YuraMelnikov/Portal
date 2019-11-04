@@ -491,3 +491,4 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
 ,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [qualityBonus], 0)) as [qualityBonusE]
   FROM [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join 
   PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers) as TableUsers on TableUsers.optimizationE >= 0
+
