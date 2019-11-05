@@ -288,10 +288,6 @@ function updateTE() {
         , planDescription: $('#planDescription').val()
         , dateSh: $('#dateSh').val()
     };
-    var res = validTE(opjTE.dateSh);
-    if (res === false) {
-        return false;
-    }
     $.ajax({
         cache: false,
         url: "/Verific/UpdateTE/",
@@ -307,38 +303,6 @@ function updateTE() {
             alert(errormessage.responseText);
         }
     });
-}
-
-function validTE(dateSh) {
-    dateSh = convertRuDateToDateISO(dateSh);
-    var isValid = true;
-    var monthDate = dateSh.getMonth();
-    var day = dateSh.getDate();
-    let now = new Date();
-    var dayNow = now.getDate();
-    if (dayNow >= 15) {
-        if (monthDate <= now.getMonth()) {
-            if ($('#planDate').val().trim() === "") {
-                $('#planDate').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#planDate').css('border-color', 'lightgrey');
-            }
-        }
-    }
-    else {
-        if (monthDate <= timeInMs.getMonth() + 1) {
-            if ($('#planDate').val().trim() === "") {
-                $('#planDate').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#planDate').css('border-color', 'lightgrey');
-            }
-        }
-    }
-    return isValid;
 }
 
 function updateOTK() {

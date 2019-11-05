@@ -614,46 +614,38 @@ namespace Wiki.Areas.CMKO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult GetUsersM1()
-        //{
-        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        var query = db.DashboardKOM1
-        //            .AsNoTracking()
-        //            .OrderByDescending(d => d.normHoure)
-        //            .ToList();
-
-
-        //        SummaryWageFund summaryWageFund = new SummaryWageFund();
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //        //int maxCounterValue = query.Count();
-        //        //Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
-        //        //for (int i = 0; i < maxCounterValue; i++)
-        //        //{
-        //        //    data[i] = new Models.UserResultMonth();
-        //        //}
-        //        //for (int i = 0; i < maxCounterValue; i++)
-        //        //{
-        //        //    data[i].userName = query[i].user;
-        //        //    data[i].count = query[i].normHoure;
-        //        //    data[i].month = query[i].month;
-        //        //}
-        //        return Json(data, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        public JsonResult GetSummaryWageFundWorker()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisWageFund.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan + fundData.wageFundOverflowsWorkerEPlan);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerEPlan);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

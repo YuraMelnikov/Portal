@@ -1232,7 +1232,7 @@ function LoadCurencyTable() {
     $('#curencyDiv').show();
 }
 
-function getUsersM1() {
+function GetSummaryWageFund() {
     $.ajax({
         url: "/ReportPage/GetUsersM1/",
         contentType: "application/json;charset=UTF-8",
