@@ -18,7 +18,6 @@ namespace Wiki
         public CMKO_PeriodResult()
         {
             this.CMKO_Optimization = new HashSet<CMKO_Optimization>();
-            this.CMKO_TaxFact = new HashSet<CMKO_TaxFact>();
             this.CMKO_Teach = new HashSet<CMKO_Teach>();
         }
     
@@ -27,8 +26,6 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Optimization> CMKO_Optimization { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_TaxFact> CMKO_TaxFact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Teach> CMKO_Teach { get; set; }
     }

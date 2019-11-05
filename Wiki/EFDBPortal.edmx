@@ -108,7 +108,20 @@
           <Property Name="accruedManagerForNTaskKBM" Type="float" Nullable="false" />
           <Property Name="accruedWorkerForNTaskKBE" Type="float" Nullable="false" />
           <Property Name="accruedManagerForNTaskKBE" Type="float" Nullable="false" />
+          <Property Name="id_RKD_GIP_KBM" Type="nvarchar" MaxLength="128" />
+          <Property Name="id_RKD_GIP_KBE" Type="nvarchar" MaxLength="128" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_CounterError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fromM" Type="int" Nullable="false" />
+          <Property Name="toM" Type="int" Nullable="false" />
+          <Property Name="counter" Type="int" Nullable="false" />
+          <Property Name="fromO" Type="int" Nullable="false" />
+          <Property Name="toO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_Optimization">
           <Key>
@@ -149,16 +162,6 @@
           <Property Name="catigoriesName" Type="varchar(max)" Nullable="false" />
           <Property Name="salary" Type="float" Nullable="false" />
         </EntityType>
-        <EntityType Name="CMKO_TaxFact">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="id_CMKO_PeriodResult" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="salary" Type="float" Nullable="false" />
-          <Property Name="tax" Type="float" Nullable="false" />
-        </EntityType>
         <EntityType Name="CMKO_Teach">
           <Key>
             <PropertyRef Name="id" />
@@ -175,28 +178,153 @@
           <Property Name="id_AspNetUsersUpdate" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="historyEdit" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_ThisAccrued">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="accruedPlan" Type="float" Nullable="false" />
+          <Property Name="accruedFact" Type="float" Nullable="false" />
+          <Property Name="withheldPlan" Type="float" Nullable="false" />
+          <Property Name="withheldFact" Type="float" Nullable="false" />
+          <Property Name="accruedTotalPlan" Type="float" Nullable="false" />
+          <Property Name="accruedTotalFact" Type="float" Nullable="false" />
+          <Property Name="bonusPlan" Type="float" Nullable="false" />
+          <Property Name="bonusFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisAccruedG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="accruedPlan" Type="float" Nullable="false" />
+          <Property Name="accruedFact" Type="float" Nullable="false" />
+          <Property Name="withheldPlan" Type="float" Nullable="false" />
+          <Property Name="withheldFact" Type="float" Nullable="false" />
+          <Property Name="accruedTotalPlan" Type="float" Nullable="false" />
+          <Property Name="accruedTotalFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisDeductionsBonusFund">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deductionsMKOMPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsMKOMFact" Type="float" Nullable="false" />
+          <Property Name="deductionsMKOEPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsMKOEFact" Type="float" Nullable="false" />
+          <Property Name="deductionsMMPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsMMFact" Type="float" Nullable="false" />
+          <Property Name="deductionsMEPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsMEFact" Type="float" Nullable="false" />
+          <Property Name="deductionsGMPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsGMFact" Type="float" Nullable="false" />
+          <Property Name="deductionsGEPlan" Type="float" Nullable="false" />
+          <Property Name="deductionsGEFact" Type="float" Nullable="false" />
+          <Property Name="balanceBonusFundMPlan" Type="float" Nullable="false" />
+          <Property Name="balanceBonusFundMFact" Type="float" Nullable="false" />
+          <Property Name="balanceBonusFundEPlan" Type="float" Nullable="false" />
+          <Property Name="balanceBonusFundEFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisFinalBonus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mPlan" Type="float" Nullable="false" />
+          <Property Name="mFact" Type="float" Nullable="false" />
+          <Property Name="ePlan" Type="float" Nullable="false" />
+          <Property Name="eFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisIndicatorsUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="optimization" Type="float" Nullable="false" />
+          <Property Name="speed1" Type="float" Nullable="false" />
+          <Property Name="speed2" Type="float" Nullable="false" />
+          <Property Name="speed3" Type="float" Nullable="false" />
+          <Property Name="teach" Type="float" Nullable="false" />
+          <Property Name="rate1" Type="float" Nullable="false" />
+          <Property Name="rate2" Type="float" Nullable="false" />
+          <Property Name="rate3" Type="float" Nullable="false" />
+          <Property Name="tax1" Type="float" Nullable="false" />
+          <Property Name="tax2" Type="float" Nullable="false" />
+          <Property Name="tax3" Type="float" Nullable="false" />
+          <Property Name="coefError" Type="float" Nullable="false" />
+          <Property Name="coefErrorG" Type="float" Nullable="false" />
+          <Property Name="qualityBonus" Type="float" Nullable="false" />
+          <Property Name="nhPlan" Type="float" Nullable="false" />
+          <Property Name="nhFact" Type="float" Nullable="false" />
+          <Property Name="nhGPlan" Type="float" Nullable="false" />
+          <Property Name="nhGFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisOverflowsBujet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_planZakaz" Type="int" Nullable="false" />
+          <Property Name="KBM" Type="float" Nullable="false" />
+          <Property Name="KBE" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMKO_ThisPeriod">
           <Key>
             <PropertyRef Name="periodThisReport" />
           </Key>
           <Property Name="periodThisReport" Type="nvarchar" MaxLength="6" Nullable="false" />
         </EntityType>
-        <EntityType Name="CMKO_WorkerResultThisPeriod">
+        <EntityType Name="CMKO_ThisWageFund">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="fOrdersAndN" Type="float" Nullable="false" />
-          <Property Name="fManagers" Type="float" Nullable="false" />
-          <Property Name="fManagerOrders" Type="float" Nullable="false" />
-          <Property Name="KPI" Type="float" Nullable="false" />
-          <Property Name="teach" Type="float" Nullable="false" />
-          <Property Name="optimizationTasks" Type="float" Nullable="false" />
-          <Property Name="qualityBonus" Type="float" Nullable="false" />
-          <Property Name="timeBonus" Type="float" Nullable="false" />
-          <Property Name="nk" Type="float" Nullable="false" />
-          <Property Name="fBonusRemaining" Type="float" Nullable="false" />
+          <Property Name="wageFundMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundWorkerMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundWorkerMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundWorkerEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundWorkerEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundManagerMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundManagerMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundManagerEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundManagerEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerEFact" Type="float" Nullable="false" />
+          <Property Name="wageFundGMPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundGMFact" Type="float" Nullable="false" />
+          <Property Name="wageFundGEPlan" Type="float" Nullable="false" />
+          <Property Name="wageFundGEFact" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisWithheldToBonusFund">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reclamationMPlan" Type="float" Nullable="false" />
+          <Property Name="reclamationEPlan" Type="float" Nullable="false" />
+          <Property Name="reclamationMFact" Type="float" Nullable="false" />
+          <Property Name="reclamationEFact" Type="float" Nullable="false" />
+          <Property Name="reclamationMGPlan" Type="float" Nullable="false" />
+          <Property Name="reclamationEGPlan" Type="float" Nullable="false" />
+          <Property Name="reclamationMGFact" Type="float" Nullable="false" />
+          <Property Name="reclamationEGFact" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -1684,7 +1812,7 @@
           <Property Name="idNewRem" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -1711,7 +1839,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.OTKMultiSelectList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OTKMultiSelectList">
           <Key>
             <PropertyRef Name="Id" />
@@ -1721,7 +1849,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.OTKMultiSelectList' does not 
           <Property Name="PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.ProjectMSP_EpmProject_UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1743,7 +1871,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.ProjectMSP_EpmProject_UserVie
           <Property Name="ProjectWorkVariance" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -1753,7 +1881,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1774,7 +1902,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1795,7 +1923,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -1867,7 +1995,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -1878,7 +2006,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VV_infPost">
           <Key>
             <PropertyRef Name="Id" />
@@ -1927,6 +2055,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="AspNetUsers">
               <PropertyRef Name="Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_BujetList_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="CMKO_BujetList" Type="Self.CMKO_BujetList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_BujetList">
+              <PropertyRef Name="id_RKD_GIP_KBM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_BujetList_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="CMKO_BujetList" Type="Self.CMKO_BujetList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_BujetList">
+              <PropertyRef Name="id_RKD_GIP_KBE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2002,30 +2154,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CMKO_TaxFact_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CMKO_TaxFact" Type="Self.CMKO_TaxFact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CMKO_TaxFact">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CMKO_TaxFact_CMKO_PeriodResult">
-          <End Role="CMKO_PeriodResult" Type="Self.CMKO_PeriodResult" Multiplicity="1" />
-          <End Role="CMKO_TaxFact" Type="Self.CMKO_TaxFact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CMKO_PeriodResult">
-              <PropertyRef Name="period" />
-            </Principal>
-            <Dependent Role="CMKO_TaxFact">
-              <PropertyRef Name="id_CMKO_PeriodResult" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CMKO_Teach_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="CMKO_Teach" Type="Self.CMKO_Teach" Multiplicity="*" />
@@ -2086,15 +2214,51 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CMKO_WorkerResultThisPeriod_AspNetUsers">
+        <Association Name="FK_CMKO_ThisAccrued_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CMKO_WorkerResultThisPeriod" Type="Self.CMKO_WorkerResultThisPeriod" Multiplicity="*" />
+          <End Role="CMKO_ThisAccrued" Type="Self.CMKO_ThisAccrued" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CMKO_WorkerResultThisPeriod">
+            <Dependent Role="CMKO_ThisAccrued">
               <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisAccruedG_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMKO_ThisAccruedG" Type="Self.CMKO_ThisAccruedG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisAccruedG">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMKO_ThisIndicatorsUsers" Type="Self.CMKO_ThisIndicatorsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisIndicatorsUsers">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="CMKO_ThisOverflowsBujet" Type="Self.CMKO_ThisOverflowsBujet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisOverflowsBujet">
+              <PropertyRef Name="id_PZ_planZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3770,14 +3934,21 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_BujetList" EntityType="Self.CMKO_BujetList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_CounterError" EntityType="Self.CMKO_CounterError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_Optimization" EntityType="Self.CMKO_Optimization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_PeriodResult" EntityType="Self.CMKO_PeriodResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ProjectFactBujet" EntityType="Self.CMKO_ProjectFactBujet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_TaxCatigories" EntityType="Self.CMKO_TaxCatigories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CMKO_TaxFact" EntityType="Self.CMKO_TaxFact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_Teach" EntityType="Self.CMKO_Teach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisAccrued" EntityType="Self.CMKO_ThisAccrued" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisAccruedG" EntityType="Self.CMKO_ThisAccruedG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisDeductionsBonusFund" EntityType="Self.CMKO_ThisDeductionsBonusFund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisFinalBonus" EntityType="Self.CMKO_ThisFinalBonus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisIndicatorsUsers" EntityType="Self.CMKO_ThisIndicatorsUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisOverflowsBujet" EntityType="Self.CMKO_ThisOverflowsBujet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisPeriod" EntityType="Self.CMKO_ThisPeriod" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CMKO_WorkerResultThisPeriod" EntityType="Self.CMKO_WorkerResultThisPeriod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisWageFund" EntityType="Self.CMKO_ThisWageFund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisWithheldToBonusFund" EntityType="Self.CMKO_ThisWithheldToBonusFund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_Company" EntityType="Self.CMO_Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_CompanyMailList" EntityType="Self.CMO_CompanyMailList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_FileOrder" EntityType="Self.CMO_FileOrder" Schema="dbo" store:Type="Tables" />
@@ -4098,6 +4269,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Devision" EntitySet="Devision" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_CMKO_BujetList_AspNetUsers" Association="Self.FK_CMKO_BujetList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_BujetList" EntitySet="CMKO_BujetList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_BujetList_AspNetUsers1" Association="Self.FK_CMKO_BujetList_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_BujetList" EntitySet="CMKO_BujetList" />
+          </AssociationSet>
           <AssociationSet Name="FK_CMKO_BujetList_PZ_PlanZakaz" Association="Self.FK_CMKO_BujetList_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMKO_BujetList" EntitySet="CMKO_BujetList" />
@@ -4122,14 +4301,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMKO_ProjectFactBujet" EntitySet="CMKO_ProjectFactBujet" />
           </AssociationSet>
-          <AssociationSet Name="FK_CMKO_TaxFact_AspNetUsers" Association="Self.FK_CMKO_TaxFact_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CMKO_TaxFact" EntitySet="CMKO_TaxFact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CMKO_TaxFact_CMKO_PeriodResult" Association="Self.FK_CMKO_TaxFact_CMKO_PeriodResult">
-            <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
-            <End Role="CMKO_TaxFact" EntitySet="CMKO_TaxFact" />
-          </AssociationSet>
           <AssociationSet Name="FK_CMKO_Teach_AspNetUsers" Association="Self.FK_CMKO_Teach_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CMKO_Teach" EntitySet="CMKO_Teach" />
@@ -4150,9 +4321,21 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
             <End Role="CMKO_Teach" EntitySet="CMKO_Teach" />
           </AssociationSet>
-          <AssociationSet Name="FK_CMKO_WorkerResultThisPeriod_AspNetUsers" Association="Self.FK_CMKO_WorkerResultThisPeriod_AspNetUsers">
+          <AssociationSet Name="FK_CMKO_ThisAccrued_AspNetUsers" Association="Self.FK_CMKO_ThisAccrued_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CMKO_WorkerResultThisPeriod" EntitySet="CMKO_WorkerResultThisPeriod" />
+            <End Role="CMKO_ThisAccrued" EntitySet="CMKO_ThisAccrued" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisAccruedG_AspNetUsers" Association="Self.FK_CMKO_ThisAccruedG_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_ThisAccruedG" EntitySet="CMKO_ThisAccruedG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers" Association="Self.FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_ThisIndicatorsUsers" EntitySet="CMKO_ThisIndicatorsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz" Association="Self.FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMKO_ThisOverflowsBujet" EntitySet="CMKO_ThisOverflowsBujet" />
           </AssociationSet>
           <AssociationSet Name="FK_CMO_CompanyMailList_CMO_Company" Association="Self.FK_CMO_CompanyMailList_CMO_Company">
             <End Role="CMO_Company" EntitySet="CMO_Company" />
@@ -4842,7 +5025,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
             <End Role="PostMatching" EntitySet="PostMatching" />
           </AssociationSet>
-          <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
           <EntitySet Name="ProjectMSP_EpmProject_UserView" EntityType="PortalKATEKModel.ProjectMSP_EpmProject_UserView" />
           <EntitySet Name="Соотношение_ИД" EntityType="PortalKATEKModel.Соотношение_ИД" />
           <EntitySet Name="DashboardKOHssPO" EntityType="PortalKATEKModel.DashboardKOHssPO" />
@@ -4855,36 +5037,40 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="DashboardKORemainingWork" EntityType="PortalKATEKModel.DashboardKORemainingWork" />
           <EntitySet Name="DashboardKORemainingWorkAll" EntityType="PortalKATEKModel.DashboardKORemainingWorkAll" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="PortalKATEKModel.DashboardKO_Quartal" />
-          <EntitySet Name="FolderDocument" EntityType="PortalKATEKModel.FolderDocument" />
-          <EntitySet Name="ProjectServer_CreateTasks" EntityType="PortalKATEKModel.ProjectServer_CreateTasks" />
           <EntitySet Name="sysdiagrams" EntityType="PortalKATEKModel.sysdiagrams" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="PortalKATEKModel.WBS_ClassicStruct" />
           <EntitySet Name="PWA_EmpProject" EntityType="PortalKATEKModel.PWA_EmpProject" />
-          <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
           <EntitySet Name="DashboardKOTimesheet" EntityType="PortalKATEKModel.DashboardKOTimesheet" />
-          <EntitySet Name="CMKO_ProjectFactBujet" EntityType="PortalKATEKModel.CMKO_ProjectFactBujet" />
           <EntitySet Name="DashboardKOMP1" EntityType="PortalKATEKModel.DashboardKOMP1" />
           <EntitySet Name="DashboardKOMP2" EntityType="PortalKATEKModel.DashboardKOMP2" />
-          <EntitySet Name="DashboardTV_MonthPlan" EntityType="PortalKATEKModel.DashboardTV_MonthPlan" />
           <EntitySet Name="PWA_EmpTaskAll" EntityType="PortalKATEKModel.PWA_EmpTaskAll" />
-          <EntitySet Name="ProjectServer_UpdateMustStartOn" EntityType="PortalKATEKModel.ProjectServer_UpdateMustStartOn" />
-          <EntitySet Name="WBS_BP" EntityType="PortalKATEKModel.WBS_BP" />
           <EntitySet Name="DashboardKOMP3" EntityType="PortalKATEKModel.DashboardKOMP3" />
           <EntitySet Name="DashboardTV_BasicPlanData" EntityType="PortalKATEKModel.DashboardTV_BasicPlanData" />
           <EntitySet Name="DashboardTV_DataForProjectPortfolio" EntityType="PortalKATEKModel.DashboardTV_DataForProjectPortfolio" />
           <EntitySet Name="DashboardBP_HSSPOSmall" EntityType="PortalKATEKModel.DashboardBP_HSSPOSmall" />
           <EntitySet Name="AspNetRoles" EntityType="PortalKATEKModel.AspNetRoles" />
+          <EntitySet Name="CMKO_TaxCatigories" EntityType="PortalKATEKModel.CMKO_TaxCatigories" />
+          <EntitySet Name="CMKO_ThisPeriod" EntityType="PortalKATEKModel.CMKO_ThisPeriod" />
+          <EntitySet Name="CurencyBYN" EntityType="PortalKATEKModel.CurencyBYN" />
+          <EntitySet Name="Devision" EntityType="PortalKATEKModel.Devision" />
+          <EntitySet Name="RenameTasksKBM" EntityType="PortalKATEKModel.RenameTasksKBM" />
           <EntitySet Name="AspNetUserClaims" EntityType="PortalKATEKModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="PortalKATEKModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="PortalKATEKModel.AspNetUsers" />
           <EntitySet Name="CMKO_BujetList" EntityType="PortalKATEKModel.CMKO_BujetList" />
+          <EntitySet Name="CMKO_CounterError" EntityType="PortalKATEKModel.CMKO_CounterError" />
           <EntitySet Name="CMKO_Optimization" EntityType="PortalKATEKModel.CMKO_Optimization" />
           <EntitySet Name="CMKO_PeriodResult" EntityType="PortalKATEKModel.CMKO_PeriodResult" />
-          <EntitySet Name="CMKO_TaxCatigories" EntityType="PortalKATEKModel.CMKO_TaxCatigories" />
-          <EntitySet Name="CMKO_TaxFact" EntityType="PortalKATEKModel.CMKO_TaxFact" />
+          <EntitySet Name="CMKO_ProjectFactBujet" EntityType="PortalKATEKModel.CMKO_ProjectFactBujet" />
           <EntitySet Name="CMKO_Teach" EntityType="PortalKATEKModel.CMKO_Teach" />
-          <EntitySet Name="CMKO_ThisPeriod" EntityType="PortalKATEKModel.CMKO_ThisPeriod" />
-          <EntitySet Name="CMKO_WorkerResultThisPeriod" EntityType="PortalKATEKModel.CMKO_WorkerResultThisPeriod" />
+          <EntitySet Name="CMKO_ThisAccrued" EntityType="PortalKATEKModel.CMKO_ThisAccrued" />
+          <EntitySet Name="CMKO_ThisAccruedG" EntityType="PortalKATEKModel.CMKO_ThisAccruedG" />
+          <EntitySet Name="CMKO_ThisDeductionsBonusFund" EntityType="PortalKATEKModel.CMKO_ThisDeductionsBonusFund" />
+          <EntitySet Name="CMKO_ThisFinalBonus" EntityType="PortalKATEKModel.CMKO_ThisFinalBonus" />
+          <EntitySet Name="CMKO_ThisIndicatorsUsers" EntityType="PortalKATEKModel.CMKO_ThisIndicatorsUsers" />
+          <EntitySet Name="CMKO_ThisOverflowsBujet" EntityType="PortalKATEKModel.CMKO_ThisOverflowsBujet" />
+          <EntitySet Name="CMKO_ThisWageFund" EntityType="PortalKATEKModel.CMKO_ThisWageFund" />
+          <EntitySet Name="CMKO_ThisWithheldToBonusFund" EntityType="PortalKATEKModel.CMKO_ThisWithheldToBonusFund" />
           <EntitySet Name="CMO_Company" EntityType="PortalKATEKModel.CMO_Company" />
           <EntitySet Name="CMO_CompanyMailList" EntityType="PortalKATEKModel.CMO_CompanyMailList" />
           <EntitySet Name="CMO_FileOrder" EntityType="PortalKATEKModel.CMO_FileOrder" />
@@ -4900,7 +5086,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="CMO_UploadResult" EntityType="PortalKATEKModel.CMO_UploadResult" />
           <EntitySet Name="CMO2_Order" EntityType="PortalKATEKModel.CMO2_Order" />
           <EntitySet Name="CMO2_Position" EntityType="PortalKATEKModel.CMO2_Position" />
-          <EntitySet Name="CurencyBYN" EntityType="PortalKATEKModel.CurencyBYN" />
           <EntitySet Name="DashboardBP_HSSPO" EntityType="PortalKATEKModel.DashboardBP_HSSPO" />
           <EntitySet Name="DashboardBP_ProjectList" EntityType="PortalKATEKModel.DashboardBP_ProjectList" />
           <EntitySet Name="DashboardBP_ProjectTasks" EntityType="PortalKATEKModel.DashboardBP_ProjectTasks" />
@@ -4910,6 +5095,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="DashboardRatePlan" EntityType="PortalKATEKModel.DashboardRatePlan" />
           <EntitySet Name="DashboardRemaining" EntityType="PortalKATEKModel.DashboardRemaining" />
           <EntitySet Name="DashboardTV_FinishWorkInStartWeek" EntityType="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek" />
+          <EntitySet Name="DashboardTV_MonthPlan" EntityType="PortalKATEKModel.DashboardTV_MonthPlan" />
           <EntitySet Name="Debit_CMR" EntityType="PortalKATEKModel.Debit_CMR" />
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
           <EntitySet Name="Debit_DataReportOprih" EntityType="PortalKATEKModel.Debit_DataReportOprih" />
@@ -4921,13 +5107,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Debit_TN" EntityType="PortalKATEKModel.Debit_TN" />
           <EntitySet Name="Debit_WorkBit" EntityType="PortalKATEKModel.Debit_WorkBit" />
           <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
-          <EntitySet Name="Devision" EntityType="PortalKATEKModel.Devision" />
+          <EntitySet Name="FolderDocument" EntityType="PortalKATEKModel.FolderDocument" />
           <EntitySet Name="MailGraphic" EntityType="PortalKATEKModel.MailGraphic" />
           <EntitySet Name="PF" EntityType="PortalKATEKModel.PF" />
           <EntitySet Name="PlanVerificationItems" EntityType="PortalKATEKModel.PlanVerificationItems" />
           <EntitySet Name="PlanVerificationItemsLog" EntityType="PortalKATEKModel.PlanVerificationItemsLog" />
           <EntitySet Name="PostAlertShip" EntityType="PortalKATEKModel.PostAlertShip" />
           <EntitySet Name="ProductionCalendar" EntityType="PortalKATEKModel.ProductionCalendar" />
+          <EntitySet Name="ProjectServer_CreateTasks" EntityType="PortalKATEKModel.ProjectServer_CreateTasks" />
+          <EntitySet Name="ProjectServer_UpdateMustStartOn" EntityType="PortalKATEKModel.ProjectServer_UpdateMustStartOn" />
           <EntitySet Name="ProjectTask" EntityType="PortalKATEKModel.ProjectTask" />
           <EntitySet Name="ProjectTaskLinks" EntityType="PortalKATEKModel.ProjectTaskLinks" />
           <EntitySet Name="ProjectTypesLine" EntityType="PortalKATEKModel.ProjectTypesLine" />
@@ -4952,7 +5140,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="Reclamation_TechnicalAdviceProtocol" EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocol" />
           <EntitySet Name="Reclamation_TechnicalAdviceProtocolPosition" EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceProtocolPosition" />
           <EntitySet Name="Reclamation_Type" EntityType="PortalKATEKModel.Reclamation_Type" />
-          <EntitySet Name="RenameTasksKBM" EntityType="PortalKATEKModel.RenameTasksKBM" />
           <EntitySet Name="RKD_Despatching" EntityType="PortalKATEKModel.RKD_Despatching" />
           <EntitySet Name="RKD_FileMailVersion" EntityType="PortalKATEKModel.RKD_FileMailVersion" />
           <EntitySet Name="RKD_GIP" EntityType="PortalKATEKModel.RKD_GIP" />
@@ -4983,6 +5170,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="PortalKATEKModel.TypeRKD_Mail_Version" />
           <EntitySet Name="TypeTaskForPZ" EntityType="PortalKATEKModel.TypeTaskForPZ" />
           <EntitySet Name="WBS" EntityType="PortalKATEKModel.WBS" />
+          <EntitySet Name="WBS_BP" EntityType="PortalKATEKModel.WBS_BP" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="PortalKATEKModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -4999,6 +5187,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="Devision" EntitySet="Devision" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_CMKO_BujetList_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_BujetList" EntitySet="CMKO_BujetList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_BujetList_AspNetUsers1" Association="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_BujetList" EntitySet="CMKO_BujetList" />
+          </AssociationSet>
           <AssociationSet Name="FK_CMKO_Optimization_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_Optimization_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CMKO_Optimization" EntitySet="CMKO_Optimization" />
@@ -5010,10 +5206,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_CMKO_Optimization_AspNetUsers2" Association="PortalKATEKModel.FK_CMKO_Optimization_AspNetUsers2">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CMKO_Optimization" EntitySet="CMKO_Optimization" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CMKO_TaxFact_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_TaxFact_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CMKO_TaxFact" EntitySet="CMKO_TaxFact" />
           </AssociationSet>
           <AssociationSet Name="FK_CMKO_Teach_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5031,9 +5223,17 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CMKO_Teach" EntitySet="CMKO_Teach" />
           </AssociationSet>
-          <AssociationSet Name="FK_CMKO_WorkerResultThisPeriod_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_WorkerResultThisPeriod_AspNetUsers">
+          <AssociationSet Name="FK_CMKO_ThisAccrued_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_ThisAccrued_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CMKO_WorkerResultThisPeriod" EntitySet="CMKO_WorkerResultThisPeriod" />
+            <End Role="CMKO_ThisAccrued" EntitySet="CMKO_ThisAccrued" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisAccruedG_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_ThisAccruedG_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_ThisAccruedG" EntitySet="CMKO_ThisAccruedG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_ThisIndicatorsUsers" EntitySet="CMKO_ThisIndicatorsUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_CMO2_Order_AspNetUsers" Association="PortalKATEKModel.FK_CMO2_Order_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5131,10 +5331,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
             <End Role="CMKO_Optimization" EntitySet="CMKO_Optimization" />
           </AssociationSet>
-          <AssociationSet Name="FK_CMKO_TaxFact_CMKO_PeriodResult" Association="PortalKATEKModel.FK_CMKO_TaxFact_CMKO_PeriodResult">
-            <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
-            <End Role="CMKO_TaxFact" EntitySet="CMKO_TaxFact" />
-          </AssociationSet>
           <AssociationSet Name="FK_CMKO_Teach_CMKO_PeriodResult" Association="PortalKATEKModel.FK_CMKO_Teach_CMKO_PeriodResult">
             <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
             <End Role="CMKO_Teach" EntitySet="CMKO_Teach" />
@@ -5142,6 +5338,10 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <AssociationSet Name="FK_CMKO_ProjectFactBujet_PZ_PlanZakaz" Association="PortalKATEKModel.FK_CMKO_ProjectFactBujet_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMKO_ProjectFactBujet" EntitySet="CMKO_ProjectFactBujet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz" Association="PortalKATEKModel.FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMKO_ThisOverflowsBujet" EntitySet="CMKO_ThisOverflowsBujet" />
           </AssociationSet>
           <AssociationSet Name="FK_CMO_CompanyMailList_CMO_Company" Association="PortalKATEKModel.FK_CMO_CompanyMailList_CMO_Company">
             <End Role="CMO_Company" EntitySet="CMO_Company" />
@@ -5591,6 +5791,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
+          <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -5690,76 +5892,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PWA_TasksForBP">
-          <Key>
-            <PropertyRef Name="PK" />
-          </Key>
-          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TaskUID" Type="Guid" />
-          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ProjectPercentCompleted" Type="Int16" />
-          <Property Name="TaskParentUID" Type="Guid" />
-          <Property Name="ProjectUID" Type="Guid" />
-          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TaskIsProjectSummary" Type="Boolean" />
-          <Property Name="TaskIsCritical" Type="Boolean" />
-          <Property Name="TaskIsSummary" Type="Boolean" />
-          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskActualWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskDurationVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskStartVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskFinishVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskDuration" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskActualDuration" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskActualFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskPercentCompleted" Type="Int16" />
-          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
-          <Property Name="TaskPhysicalPercentCompleted" Type="Int16" />
-          <Property Name="TaskPriority" Type="Int16" />
-          <Property Name="TaskDeadline" Type="DateTime" Precision="3" />
-          <Property Name="TaskIsExternal" Type="Boolean" />
-          <Property Name="TaskEarlyFinish" Type="DateTime" Precision="3" />
-          <Property Name="TaskEarlyStart" Type="DateTime" Precision="3" />
-          <Property Name="TaskLateFinish" Type="DateTime" Precision="3" />
-          <Property Name="TaskLateStart" Type="DateTime" Precision="3" />
-          <Property Name="TaskWorkVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskIsActive" Type="Boolean" />
-          <Property Name="TaskWBS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TaskRegularWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="TaskRemainingWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="TaskActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="TaskRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
-          <Property Name="TaskRemainingDuration" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="TaskBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskBaseline0Duration" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentActualWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentPercentWorkCompleted" Type="Int16" />
-          <Property Name="AssignmentStartDate" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentActualFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentDelay" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentStartVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentFinishVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentWorkVariance" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentPeakUnits" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentRegularWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="AssignmentRemainingWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="AssignmentActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
-          <Property Name="AssignmentRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
-          <Property Name="AssignmentBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="AssignmentBaseline0StartDate" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentBaseline0FinishDate" Type="DateTime" Precision="3" />
-          <Property Name="СДРес_Р" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="ResourceUID" Type="Guid" />
-          <Property Name="НК" Type="Decimal" Precision="25" Scale="6" />
-        </EntityType>
         <EntityType Name="ProjectMSP_EpmProject_UserView">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -5884,26 +6016,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="month" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="FolderDocument">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="adres" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ProjectServer_CreateTasks">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Work" Type="Int32" Nullable="false" />
-          <Property Name="Resource" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Devision" Type="Int32" />
-          <Property Name="update" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -5931,25 +6043,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="ProjectUID" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="PWA_EmpTask">
-          <Key>
-            <PropertyRef Name="TaskUID" />
-            <PropertyRef Name="ProjectUID" />
-            <PropertyRef Name="TaskName" />
-          </Key>
-          <Property Name="TaskUID" Type="Guid" Nullable="false" />
-          <Property Name="TaskParentUID" Type="Guid" />
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TaskWBS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
-          <Property Name="PlanZakaz" Type="Int32" />
-          <Property Name="ResourceUID" Type="Guid" />
-          <Property Name="ResourceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="DashboardKOTimesheet">
           <Key>
             <PropertyRef Name="id" />
@@ -5958,17 +6051,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="user" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="work" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="CMKO_ProjectFactBujet">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="period" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="data" Type="Double" Nullable="false" />
-          <Property Name="devision" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMKO_ProjectFactBujet_PZ_PlanZakaz" FromRole="CMKO_ProjectFactBujet" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="DashboardKOMP1">
           <Key>
@@ -6002,12 +6084,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="normHoureFact" Type="Double" Nullable="false" />
         </EntityType>
-        <EntityType Name="DashboardTV_MonthPlan">
-          <Key>
-            <PropertyRef Name="data" />
-          </Key>
-          <Property Name="data" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -6026,29 +6102,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="PlanZakaz" Type="Int32" />
           <Property Name="ResourceUID" Type="Guid" />
           <Property Name="ResourceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ProjectServer_UpdateMustStartOn">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
-          <Property Name="TaskUID" Type="Guid" Nullable="false" />
-          <Property Name="ActualStart" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="WBS_BP">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
-          <Property Name="id_WBS" Type="Int32" Nullable="false" />
-          <Property Name="duration" Type="Double" Nullable="false" />
-          <Property Name="start" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="finish" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="work" Type="Double" Nullable="false" />
-          <Property Name="percentComplite" Type="Double" Nullable="false" />
-          <Property Name="percentWorkComplite" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKOMP3">
           <Key>
@@ -6105,6 +6158,49 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
+        <EntityType Name="CMKO_TaxCatigories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="catigoriesName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="salary" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_CMKO_TaxCatigories" FromRole="CMKO_TaxCatigories" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisPeriod">
+          <Key>
+            <PropertyRef Name="periodThisReport" />
+          </Key>
+          <Property Name="periodThisReport" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CurencyBYN">
+          <Key>
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="USD" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Devision">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="OTK" Type="Boolean" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
+          <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
+          </EntityType>
+        <EntityType Name="RenameTasksKBM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="base" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="this" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
@@ -6152,15 +6248,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUserLogins" Relationship="PortalKATEKModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="CMKO_TaxCatigories" Relationship="PortalKATEKModel.FK_AspNetUsers_CMKO_TaxCatigories" FromRole="AspNetUsers" ToRole="CMKO_TaxCatigories" />
           <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="AspNetUsers" ToRole="Devision" />
+          <NavigationProperty Name="CMKO_BujetList" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_BujetList" />
+          <NavigationProperty Name="CMKO_BujetList1" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers1" FromRole="AspNetUsers" ToRole="CMKO_BujetList" />
           <NavigationProperty Name="CMKO_Optimization" Relationship="PortalKATEKModel.FK_CMKO_Optimization_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_Optimization" />
           <NavigationProperty Name="CMKO_Optimization1" Relationship="PortalKATEKModel.FK_CMKO_Optimization_AspNetUsers1" FromRole="AspNetUsers" ToRole="CMKO_Optimization" />
           <NavigationProperty Name="CMKO_Optimization2" Relationship="PortalKATEKModel.FK_CMKO_Optimization_AspNetUsers2" FromRole="AspNetUsers" ToRole="CMKO_Optimization" />
-          <NavigationProperty Name="CMKO_TaxFact" Relationship="PortalKATEKModel.FK_CMKO_TaxFact_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_TaxFact" />
           <NavigationProperty Name="CMKO_Teach" Relationship="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_Teach" />
           <NavigationProperty Name="CMKO_Teach1" Relationship="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers1" FromRole="AspNetUsers" ToRole="CMKO_Teach" />
           <NavigationProperty Name="CMKO_Teach2" Relationship="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers2" FromRole="AspNetUsers" ToRole="CMKO_Teach" />
           <NavigationProperty Name="CMKO_Teach3" Relationship="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers3" FromRole="AspNetUsers" ToRole="CMKO_Teach" />
-          <NavigationProperty Name="CMKO_WorkerResultThisPeriod" Relationship="PortalKATEKModel.FK_CMKO_WorkerResultThisPeriod_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_WorkerResultThisPeriod" />
+          <NavigationProperty Name="CMKO_ThisAccrued" Relationship="PortalKATEKModel.FK_CMKO_ThisAccrued_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_ThisAccrued" />
+          <NavigationProperty Name="CMKO_ThisAccruedG" Relationship="PortalKATEKModel.FK_CMKO_ThisAccruedG_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_ThisAccruedG" />
+          <NavigationProperty Name="CMKO_ThisIndicatorsUsers" Relationship="PortalKATEKModel.FK_CMKO_ThisIndicatorsUsers_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_ThisIndicatorsUsers" />
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_AspNetUsers" FromRole="AspNetUsers" ToRole="CMO2_Order" />
           <NavigationProperty Name="DashboardBP_ProjectTasks" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBP_ProjectTasks" />
           <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardKO_UsersMonthPlan" />
@@ -6223,8 +6322,23 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="accruedManagerForNTaskKBM" Type="Double" Nullable="false" />
           <Property Name="accruedWorkerForNTaskKBE" Type="Double" Nullable="false" />
           <Property Name="accruedManagerForNTaskKBE" Type="Double" Nullable="false" />
+          <Property Name="id_RKD_GIP_KBM" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_RKD_GIP_KBE" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers" FromRole="CMKO_BujetList" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers1" FromRole="CMKO_BujetList" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMKO_BujetList_PZ_PlanZakaz" FromRole="CMKO_BujetList" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="CMKO_CounterError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fromM" Type="Int32" Nullable="false" />
+          <Property Name="toM" Type="Int32" Nullable="false" />
+          <Property Name="counter" Type="Int32" Nullable="false" />
+          <Property Name="fromO" Type="Int32" Nullable="false" />
+          <Property Name="toO" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_Optimization">
           <Key>
@@ -6251,29 +6365,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="period" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="close" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CMKO_Optimization" Relationship="PortalKATEKModel.FK_CMKO_Optimization_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_Optimization" />
-          <NavigationProperty Name="CMKO_TaxFact" Relationship="PortalKATEKModel.FK_CMKO_TaxFact_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_TaxFact" />
           <NavigationProperty Name="CMKO_Teach" Relationship="PortalKATEKModel.FK_CMKO_Teach_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_Teach" />
         </EntityType>
-        <EntityType Name="CMKO_TaxCatigories">
+        <EntityType Name="CMKO_ProjectFactBujet">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="catigoriesName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="salary" Type="Double" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_CMKO_TaxCatigories" FromRole="CMKO_TaxCatigories" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="CMKO_TaxFact">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="id_CMKO_PeriodResult" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="salary" Type="Double" Nullable="false" />
-          <Property Name="tax" Type="Double" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_TaxFact_AspNetUsers" FromRole="CMKO_TaxFact" ToRole="AspNetUsers" />
-          <NavigationProperty Name="CMKO_PeriodResult" Relationship="PortalKATEKModel.FK_CMKO_TaxFact_CMKO_PeriodResult" FromRole="CMKO_TaxFact" ToRole="CMKO_PeriodResult" />
+          <Property Name="period" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="data" Type="Double" Nullable="false" />
+          <Property Name="devision" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMKO_ProjectFactBujet_PZ_PlanZakaz" FromRole="CMKO_ProjectFactBujet" ToRole="PZ_PlanZakaz" />
         </EntityType>
         <EntityType Name="CMKO_Teach">
           <Key>
@@ -6296,29 +6399,151 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers3" Relationship="PortalKATEKModel.FK_CMKO_Teach_AspNetUsers3" FromRole="CMKO_Teach" ToRole="AspNetUsers" />
           <NavigationProperty Name="CMKO_PeriodResult" Relationship="PortalKATEKModel.FK_CMKO_Teach_CMKO_PeriodResult" FromRole="CMKO_Teach" ToRole="CMKO_PeriodResult" />
         </EntityType>
-        <EntityType Name="CMKO_ThisPeriod">
-          <Key>
-            <PropertyRef Name="periodThisReport" />
-          </Key>
-          <Property Name="periodThisReport" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="CMKO_WorkerResultThisPeriod">
+        <EntityType Name="CMKO_ThisAccrued">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="fOrdersAndN" Type="Double" Nullable="false" />
-          <Property Name="fManagers" Type="Double" Nullable="false" />
-          <Property Name="fManagerOrders" Type="Double" Nullable="false" />
-          <Property Name="KPI" Type="Double" Nullable="false" />
+          <Property Name="accruedPlan" Type="Double" Nullable="false" />
+          <Property Name="accruedFact" Type="Double" Nullable="false" />
+          <Property Name="withheldPlan" Type="Double" Nullable="false" />
+          <Property Name="withheldFact" Type="Double" Nullable="false" />
+          <Property Name="accruedTotalPlan" Type="Double" Nullable="false" />
+          <Property Name="accruedTotalFact" Type="Double" Nullable="false" />
+          <Property Name="bonusPlan" Type="Double" Nullable="false" />
+          <Property Name="bonusFact" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_ThisAccrued_AspNetUsers" FromRole="CMKO_ThisAccrued" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisAccruedG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="accruedPlan" Type="Double" Nullable="false" />
+          <Property Name="accruedFact" Type="Double" Nullable="false" />
+          <Property Name="withheldPlan" Type="Double" Nullable="false" />
+          <Property Name="withheldFact" Type="Double" Nullable="false" />
+          <Property Name="accruedTotalPlan" Type="Double" Nullable="false" />
+          <Property Name="accruedTotalFact" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_ThisAccruedG_AspNetUsers" FromRole="CMKO_ThisAccruedG" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisDeductionsBonusFund">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deductionsMKOMPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsMKOMFact" Type="Double" Nullable="false" />
+          <Property Name="deductionsMKOEPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsMKOEFact" Type="Double" Nullable="false" />
+          <Property Name="deductionsMMPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsMMFact" Type="Double" Nullable="false" />
+          <Property Name="deductionsMEPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsMEFact" Type="Double" Nullable="false" />
+          <Property Name="deductionsGMPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsGMFact" Type="Double" Nullable="false" />
+          <Property Name="deductionsGEPlan" Type="Double" Nullable="false" />
+          <Property Name="deductionsGEFact" Type="Double" Nullable="false" />
+          <Property Name="balanceBonusFundMPlan" Type="Double" Nullable="false" />
+          <Property Name="balanceBonusFundMFact" Type="Double" Nullable="false" />
+          <Property Name="balanceBonusFundEPlan" Type="Double" Nullable="false" />
+          <Property Name="balanceBonusFundEFact" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisFinalBonus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mPlan" Type="Double" Nullable="false" />
+          <Property Name="mFact" Type="Double" Nullable="false" />
+          <Property Name="ePlan" Type="Double" Nullable="false" />
+          <Property Name="eFact" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisIndicatorsUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="optimization" Type="Double" Nullable="false" />
+          <Property Name="speed1" Type="Double" Nullable="false" />
+          <Property Name="speed2" Type="Double" Nullable="false" />
+          <Property Name="speed3" Type="Double" Nullable="false" />
           <Property Name="teach" Type="Double" Nullable="false" />
-          <Property Name="optimizationTasks" Type="Double" Nullable="false" />
+          <Property Name="rate1" Type="Double" Nullable="false" />
+          <Property Name="rate2" Type="Double" Nullable="false" />
+          <Property Name="rate3" Type="Double" Nullable="false" />
+          <Property Name="tax1" Type="Double" Nullable="false" />
+          <Property Name="tax2" Type="Double" Nullable="false" />
+          <Property Name="tax3" Type="Double" Nullable="false" />
+          <Property Name="coefError" Type="Double" Nullable="false" />
+          <Property Name="coefErrorG" Type="Double" Nullable="false" />
           <Property Name="qualityBonus" Type="Double" Nullable="false" />
-          <Property Name="timeBonus" Type="Double" Nullable="false" />
-          <Property Name="nk" Type="Double" Nullable="false" />
-          <Property Name="fBonusRemaining" Type="Double" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_WorkerResultThisPeriod_AspNetUsers" FromRole="CMKO_WorkerResultThisPeriod" ToRole="AspNetUsers" />
+          <Property Name="nhPlan" Type="Double" Nullable="false" />
+          <Property Name="nhFact" Type="Double" Nullable="false" />
+          <Property Name="nhGPlan" Type="Double" Nullable="false" />
+          <Property Name="nhGFact" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_ThisIndicatorsUsers_AspNetUsers" FromRole="CMKO_ThisIndicatorsUsers" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisOverflowsBujet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_planZakaz" Type="Int32" Nullable="false" />
+          <Property Name="KBM" Type="Double" Nullable="false" />
+          <Property Name="KBE" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz" FromRole="CMKO_ThisOverflowsBujet" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisWageFund">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wageFundMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundWorkerMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundWorkerMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundWorkerEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundWorkerEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundManagerMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundManagerMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundManagerEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundManagerEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsWorkerEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundOverflowsManagerEFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundGMPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundGMFact" Type="Double" Nullable="false" />
+          <Property Name="wageFundGEPlan" Type="Double" Nullable="false" />
+          <Property Name="wageFundGEFact" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMKO_ThisWithheldToBonusFund">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reclamationMPlan" Type="Double" Nullable="false" />
+          <Property Name="reclamationEPlan" Type="Double" Nullable="false" />
+          <Property Name="reclamationMFact" Type="Double" Nullable="false" />
+          <Property Name="reclamationEFact" Type="Double" Nullable="false" />
+          <Property Name="reclamationMGPlan" Type="Double" Nullable="false" />
+          <Property Name="reclamationEGPlan" Type="Double" Nullable="false" />
+          <Property Name="reclamationMGFact" Type="Double" Nullable="false" />
+          <Property Name="reclamationEGFact" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="CMO_Company">
           <Key>
@@ -6524,13 +6749,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO2_Order" FromRole="CMO2_Position" ToRole="CMO2_Order" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="CMO2_Position" ToRole="PZ_PlanZakaz" />
         </EntityType>
-        <EntityType Name="CurencyBYN">
-          <Key>
-            <PropertyRef Name="date" />
-          </Key>
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="USD" Type="Double" Nullable="false" />
-        </EntityType>
         <EntityType Name="DashboardBP_HSSPO">
           <Key>
             <PropertyRef Name="id" />
@@ -6685,6 +6903,12 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="dateFinishWork" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardTV_FinishWorkInStartWeek_PZ_PlanZakaz" FromRole="DashboardTV_FinishWorkInStartWeek" ToRole="PZ_PlanZakaz" />
         </EntityType>
+        <EntityType Name="DashboardTV_MonthPlan">
+          <Key>
+            <PropertyRef Name="data" />
+          </Key>
+          <Property Name="data" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Debit_CMR">
           <Key>
             <PropertyRef Name="id" />
@@ -6827,18 +7051,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="dateClose" Type="DateTime" Precision="0" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="DebitReclamation" ToRole="PZ_PlanZakaz" />
         </EntityType>
-        <EntityType Name="Devision">
+        <EntityType Name="FolderDocument">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="OTK" Type="Boolean" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
-          <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
-          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
-          <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
-          <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
+          <Property Name="adres" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MailGraphic">
           <Key>
@@ -6910,6 +7129,27 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="timeToOnePerson" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" FromRole="ProductionCalendar" ToRole="DashboardKO_UsersMonthPlan" />
+        </EntityType>
+        <EntityType Name="ProjectServer_CreateTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Work" Type="Int32" Nullable="false" />
+          <Property Name="Resource" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Devision" Type="Int32" />
+          <Property Name="update" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectServer_UpdateMustStartOn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskUID" Type="Guid" Nullable="false" />
+          <Property Name="ActualStart" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="ProjectTask">
           <Key>
@@ -7073,6 +7313,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="PZ_PlanZakaz" ToRole="AspNetUsers" />
           <NavigationProperty Name="CMKO_BujetList" Relationship="PortalKATEKModel.FK_CMKO_BujetList_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMKO_BujetList" />
           <NavigationProperty Name="CMKO_ProjectFactBujet" Relationship="PortalKATEKModel.FK_CMKO_ProjectFactBujet_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMKO_ProjectFactBujet" />
+          <NavigationProperty Name="CMKO_ThisOverflowsBujet" Relationship="PortalKATEKModel.FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMKO_ThisOverflowsBujet" />
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO_PositionPreOrder" />
           <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMO2_Position" />
@@ -7302,14 +7543,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="activeService" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation_Type" ToRole="Reclamation" />
           <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="Reclamation_Type" ToRole="ServiceRemarksTypes" />
-        </EntityType>
-        <EntityType Name="RenameTasksKBM">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="base" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="this" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="RKD_Despatching">
           <Key>
@@ -7673,6 +7906,20 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <Property Name="WBSLongCiliricName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DashboardBP_ProjectTasks" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectTasks_WBS" FromRole="WBS" ToRole="DashboardBP_ProjectTasks" />
         </EntityType>
+        <EntityType Name="WBS_BP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_WBS" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Double" Nullable="false" />
+          <Property Name="start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="finish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="work" Type="Double" Nullable="false" />
+          <Property Name="percentComplite" Type="Double" Nullable="false" />
+          <Property Name="percentWorkComplite" Type="Double" Nullable="false" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -7725,6 +7972,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CMKO_BujetList_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.CMKO_BujetList" Role="CMKO_BujetList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_BujetList">
+              <PropertyRef Name="id_RKD_GIP_KBM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_BujetList_AspNetUsers1">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.CMKO_BujetList" Role="CMKO_BujetList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_BujetList">
+              <PropertyRef Name="id_RKD_GIP_KBE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CMKO_Optimization_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="PortalKATEKModel.CMKO_Optimization" Role="CMKO_Optimization" Multiplicity="*" />
@@ -7758,18 +8029,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="CMKO_Optimization">
               <PropertyRef Name="id_AspNetUsersIdea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CMKO_TaxFact_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.CMKO_TaxFact" Role="CMKO_TaxFact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CMKO_TaxFact">
-              <PropertyRef Name="id_AspNetUsers" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7821,14 +8080,38 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CMKO_WorkerResultThisPeriod_AspNetUsers">
+        <Association Name="FK_CMKO_ThisAccrued_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.CMKO_WorkerResultThisPeriod" Role="CMKO_WorkerResultThisPeriod" Multiplicity="*" />
+          <End Type="PortalKATEKModel.CMKO_ThisAccrued" Role="CMKO_ThisAccrued" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CMKO_WorkerResultThisPeriod">
+            <Dependent Role="CMKO_ThisAccrued">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisAccruedG_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_ThisAccruedG" Role="CMKO_ThisAccruedG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisAccruedG">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_ThisIndicatorsUsers" Role="CMKO_ThisIndicatorsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisIndicatorsUsers">
               <PropertyRef Name="id_AspNetUsers" />
             </Dependent>
           </ReferentialConstraint>
@@ -8121,18 +8404,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CMKO_TaxFact_CMKO_PeriodResult">
-          <End Type="PortalKATEKModel.CMKO_PeriodResult" Role="CMKO_PeriodResult" Multiplicity="1" />
-          <End Type="PortalKATEKModel.CMKO_TaxFact" Role="CMKO_TaxFact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CMKO_PeriodResult">
-              <PropertyRef Name="period" />
-            </Principal>
-            <Dependent Role="CMKO_TaxFact">
-              <PropertyRef Name="id_CMKO_PeriodResult" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CMKO_Teach_CMKO_PeriodResult">
           <End Type="PortalKATEKModel.CMKO_PeriodResult" Role="CMKO_PeriodResult" Multiplicity="1" />
           <End Type="PortalKATEKModel.CMKO_Teach" Role="CMKO_Teach" Multiplicity="*" />
@@ -8154,6 +8425,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             </Principal>
             <Dependent Role="CMKO_ProjectFactBujet">
               <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_ThisOverflowsBujet" Role="CMKO_ThisOverflowsBujet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_ThisOverflowsBujet">
+              <PropertyRef Name="id_PZ_planZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9493,6 +9776,95 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="PWA_EmpTask">
+          <Key>
+            <PropertyRef Name="TaskUID" />
+            <PropertyRef Name="ProjectUID" />
+            <PropertyRef Name="TaskName" />
+          </Key>
+          <Property Name="TaskUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskParentUID" Type="Guid" />
+          <Property Name="ProjectUID" Type="Guid" Nullable="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskWBS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="PlanZakaz" Type="Int32" />
+          <Property Name="ResourceUID" Type="Guid" />
+          <Property Name="ResourceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PWA_TasksForBP">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskUID" Type="Guid" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectPercentCompleted" Type="Int16" />
+          <Property Name="TaskParentUID" Type="Guid" />
+          <Property Name="ProjectUID" Type="Guid" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskIsProjectSummary" Type="Boolean" />
+          <Property Name="TaskIsCritical" Type="Boolean" />
+          <Property Name="TaskIsSummary" Type="Boolean" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDurationVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskFinishVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualDuration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskActualFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskPercentCompleted" Type="Int16" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="TaskPhysicalPercentCompleted" Type="Int16" />
+          <Property Name="TaskPriority" Type="Int16" />
+          <Property Name="TaskDeadline" Type="DateTime" Precision="3" />
+          <Property Name="TaskIsExternal" Type="Boolean" />
+          <Property Name="TaskEarlyFinish" Type="DateTime" Precision="3" />
+          <Property Name="TaskEarlyStart" Type="DateTime" Precision="3" />
+          <Property Name="TaskLateFinish" Type="DateTime" Precision="3" />
+          <Property Name="TaskLateStart" Type="DateTime" Precision="3" />
+          <Property Name="TaskWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskIsActive" Type="Boolean" />
+          <Property Name="TaskWBS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
+          <Property Name="TaskRemainingDuration" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskBaseline0Duration" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentActualWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPercentWorkCompleted" Type="Int16" />
+          <Property Name="AssignmentStartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentActualFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentDelay" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentStartVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentFinishVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentPeakUnits" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
+          <Property Name="AssignmentBaseline0Work" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="AssignmentBaseline0StartDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="СДРес_Р" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ResourceUID" Type="Guid" />
+          <Property Name="НК" Type="Decimal" Precision="25" Scale="6" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9699,77 +10071,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PWA_TasksForBP">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_TasksForBP">
-              <MappingFragment StoreEntitySet="PWA_TasksForBP">
-                <ScalarProperty Name="НК" ColumnName="НК" />
-                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
-                <ScalarProperty Name="СДРес_Р" ColumnName="СДРес_Р" />
-                <ScalarProperty Name="AssignmentBaseline0FinishDate" ColumnName="AssignmentBaseline0FinishDate" />
-                <ScalarProperty Name="AssignmentBaseline0StartDate" ColumnName="AssignmentBaseline0StartDate" />
-                <ScalarProperty Name="AssignmentBaseline0Work" ColumnName="AssignmentBaseline0Work" />
-                <ScalarProperty Name="AssignmentRemainingRegularWork" ColumnName="AssignmentRemainingRegularWork" />
-                <ScalarProperty Name="AssignmentActualRegularWork" ColumnName="AssignmentActualRegularWork" />
-                <ScalarProperty Name="AssignmentRemainingWork" ColumnName="AssignmentRemainingWork" />
-                <ScalarProperty Name="AssignmentRegularWork" ColumnName="AssignmentRegularWork" />
-                <ScalarProperty Name="AssignmentPeakUnits" ColumnName="AssignmentPeakUnits" />
-                <ScalarProperty Name="AssignmentWorkVariance" ColumnName="AssignmentWorkVariance" />
-                <ScalarProperty Name="AssignmentFinishVariance" ColumnName="AssignmentFinishVariance" />
-                <ScalarProperty Name="AssignmentStartVariance" ColumnName="AssignmentStartVariance" />
-                <ScalarProperty Name="AssignmentDelay" ColumnName="AssignmentDelay" />
-                <ScalarProperty Name="AssignmentActualFinishDate" ColumnName="AssignmentActualFinishDate" />
-                <ScalarProperty Name="AssignmentActualStartDate" ColumnName="AssignmentActualStartDate" />
-                <ScalarProperty Name="AssignmentFinishDate" ColumnName="AssignmentFinishDate" />
-                <ScalarProperty Name="AssignmentStartDate" ColumnName="AssignmentStartDate" />
-                <ScalarProperty Name="AssignmentPercentWorkCompleted" ColumnName="AssignmentPercentWorkCompleted" />
-                <ScalarProperty Name="AssignmentActualWork" ColumnName="AssignmentActualWork" />
-                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
-                <ScalarProperty Name="TaskBaseline0Duration" ColumnName="TaskBaseline0Duration" />
-                <ScalarProperty Name="TaskBaseline0FinishDate" ColumnName="TaskBaseline0FinishDate" />
-                <ScalarProperty Name="TaskBaseline0StartDate" ColumnName="TaskBaseline0StartDate" />
-                <ScalarProperty Name="TaskBaseline0Work" ColumnName="TaskBaseline0Work" />
-                <ScalarProperty Name="TaskRemainingDuration" ColumnName="TaskRemainingDuration" />
-                <ScalarProperty Name="TaskRemainingRegularWork" ColumnName="TaskRemainingRegularWork" />
-                <ScalarProperty Name="TaskActualRegularWork" ColumnName="TaskActualRegularWork" />
-                <ScalarProperty Name="TaskRemainingWork" ColumnName="TaskRemainingWork" />
-                <ScalarProperty Name="TaskRegularWork" ColumnName="TaskRegularWork" />
-                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
-                <ScalarProperty Name="TaskIsActive" ColumnName="TaskIsActive" />
-                <ScalarProperty Name="TaskWorkVariance" ColumnName="TaskWorkVariance" />
-                <ScalarProperty Name="TaskLateStart" ColumnName="TaskLateStart" />
-                <ScalarProperty Name="TaskLateFinish" ColumnName="TaskLateFinish" />
-                <ScalarProperty Name="TaskEarlyStart" ColumnName="TaskEarlyStart" />
-                <ScalarProperty Name="TaskEarlyFinish" ColumnName="TaskEarlyFinish" />
-                <ScalarProperty Name="TaskIsExternal" ColumnName="TaskIsExternal" />
-                <ScalarProperty Name="TaskDeadline" ColumnName="TaskDeadline" />
-                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
-                <ScalarProperty Name="TaskPhysicalPercentCompleted" ColumnName="TaskPhysicalPercentCompleted" />
-                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
-                <ScalarProperty Name="TaskPercentCompleted" ColumnName="TaskPercentCompleted" />
-                <ScalarProperty Name="TaskActualFinishDate" ColumnName="TaskActualFinishDate" />
-                <ScalarProperty Name="TaskActualStartDate" ColumnName="TaskActualStartDate" />
-                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
-                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
-                <ScalarProperty Name="TaskActualDuration" ColumnName="TaskActualDuration" />
-                <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
-                <ScalarProperty Name="TaskFinishVariance" ColumnName="TaskFinishVariance" />
-                <ScalarProperty Name="TaskStartVariance" ColumnName="TaskStartVariance" />
-                <ScalarProperty Name="TaskDurationVariance" ColumnName="TaskDurationVariance" />
-                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
-                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
-                <ScalarProperty Name="TaskIsSummary" ColumnName="TaskIsSummary" />
-                <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
-                <ScalarProperty Name="TaskIsProjectSummary" ColumnName="TaskIsProjectSummary" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
-                <ScalarProperty Name="ProjectPercentCompleted" ColumnName="ProjectPercentCompleted" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-                <ScalarProperty Name="PK" ColumnName="PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProjectMSP_EpmProject_UserView">
             <EntityTypeMapping TypeName="PortalKATEKModel.ProjectMSP_EpmProject_UserView">
               <MappingFragment StoreEntitySet="ProjectMSP_EpmProject_UserView">
@@ -9905,28 +10206,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FolderDocument">
-            <EntityTypeMapping TypeName="PortalKATEKModel.FolderDocument">
-              <MappingFragment StoreEntitySet="FolderDocument">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="adres" ColumnName="adres" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectServer_CreateTasks">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_CreateTasks">
-              <MappingFragment StoreEntitySet="ProjectServer_CreateTasks">
-                <ScalarProperty Name="update" ColumnName="update" />
-                <ScalarProperty Name="Devision" ColumnName="Devision" />
-                <ScalarProperty Name="Resource" ColumnName="Resource" />
-                <ScalarProperty Name="Work" ColumnName="Work" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="PortalKATEKModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -9956,24 +10235,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PWA_EmpTask">
-            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpTask">
-              <MappingFragment StoreEntitySet="PWA_EmpTask">
-                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
-                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
-                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
-                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
-                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
-                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
-                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
-                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
-                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DashboardKOTimesheet">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardKOTimesheet">
               <MappingFragment StoreEntitySet="DashboardKOTimesheet">
@@ -9981,17 +10242,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="work" ColumnName="work" />
                 <ScalarProperty Name="user" ColumnName="user" />
                 <ScalarProperty Name="date" ColumnName="date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CMKO_ProjectFactBujet">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ProjectFactBujet">
-              <MappingFragment StoreEntitySet="CMKO_ProjectFactBujet">
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="devision" ColumnName="devision" />
-                <ScalarProperty Name="data" ColumnName="data" />
-                <ScalarProperty Name="period" ColumnName="period" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10029,13 +10279,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DashboardTV_MonthPlan">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_MonthPlan">
-              <MappingFragment StoreEntitySet="DashboardTV_MonthPlan">
-                <ScalarProperty Name="data" ColumnName="data" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PWA_EmpTaskAll">
             <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpTaskAll">
               <MappingFragment StoreEntitySet="PWA_EmpTaskAll">
@@ -10051,31 +10294,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
                 <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
                 <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
                 <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectServer_UpdateMustStartOn">
-            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_UpdateMustStartOn">
-              <MappingFragment StoreEntitySet="ProjectServer_UpdateMustStartOn">
-                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
-                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
-                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WBS_BP">
-            <EntityTypeMapping TypeName="PortalKATEKModel.WBS_BP">
-              <MappingFragment StoreEntitySet="WBS_BP">
-                <ScalarProperty Name="percentWorkComplite" ColumnName="percentWorkComplite" />
-                <ScalarProperty Name="percentComplite" ColumnName="percentComplite" />
-                <ScalarProperty Name="work" ColumnName="work" />
-                <ScalarProperty Name="finish" ColumnName="finish" />
-                <ScalarProperty Name="start" ColumnName="start" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
-                <ScalarProperty Name="id_WBS" ColumnName="id_WBS" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10138,6 +10356,48 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_TaxCatigories">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_TaxCatigories">
+              <MappingFragment StoreEntitySet="CMKO_TaxCatigories">
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="catigoriesName" ColumnName="catigoriesName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisPeriod">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisPeriod">
+              <MappingFragment StoreEntitySet="CMKO_ThisPeriod">
+                <ScalarProperty Name="periodThisReport" ColumnName="periodThisReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurencyBYN">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CurencyBYN">
+              <MappingFragment StoreEntitySet="CurencyBYN">
+                <ScalarProperty Name="USD" ColumnName="USD" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devision">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Devision">
+              <MappingFragment StoreEntitySet="Devision">
+                <ScalarProperty Name="OTK" ColumnName="OTK" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenameTasksKBM">
+            <EntityTypeMapping TypeName="PortalKATEKModel.RenameTasksKBM">
+              <MappingFragment StoreEntitySet="RenameTasksKBM">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="this" ColumnName="this" />
+                <ScalarProperty Name="base" ColumnName="base" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="PortalKATEKModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
@@ -10185,6 +10445,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
             <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_BujetList">
               <MappingFragment StoreEntitySet="CMKO_BujetList">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_RKD_GIP_KBE" ColumnName="id_RKD_GIP_KBE" />
+                <ScalarProperty Name="id_RKD_GIP_KBM" ColumnName="id_RKD_GIP_KBM" />
                 <ScalarProperty Name="accruedManagerForNTaskKBE" ColumnName="accruedManagerForNTaskKBE" />
                 <ScalarProperty Name="accruedWorkerForNTaskKBE" ColumnName="accruedWorkerForNTaskKBE" />
                 <ScalarProperty Name="accruedManagerForNTaskKBM" ColumnName="accruedManagerForNTaskKBM" />
@@ -10222,6 +10484,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_CounterError">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_CounterError">
+              <MappingFragment StoreEntitySet="CMKO_CounterError">
+                <ScalarProperty Name="toO" ColumnName="toO" />
+                <ScalarProperty Name="fromO" ColumnName="fromO" />
+                <ScalarProperty Name="counter" ColumnName="counter" />
+                <ScalarProperty Name="toM" ColumnName="toM" />
+                <ScalarProperty Name="fromM" ColumnName="fromM" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CMKO_Optimization">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_Optimization">
               <MappingFragment StoreEntitySet="CMKO_Optimization">
@@ -10245,22 +10519,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CMKO_TaxCatigories">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_TaxCatigories">
-              <MappingFragment StoreEntitySet="CMKO_TaxCatigories">
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="catigoriesName" ColumnName="catigoriesName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CMKO_TaxFact">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_TaxFact">
-              <MappingFragment StoreEntitySet="CMKO_TaxFact">
-                <ScalarProperty Name="tax" ColumnName="tax" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="id_CMKO_PeriodResult" ColumnName="id_CMKO_PeriodResult" />
-                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+          <EntitySetMapping Name="CMKO_ProjectFactBujet">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ProjectFactBujet">
+              <MappingFragment StoreEntitySet="CMKO_ProjectFactBujet">
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="devision" ColumnName="devision" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="period" ColumnName="period" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10282,27 +10547,152 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CMKO_ThisPeriod">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisPeriod">
-              <MappingFragment StoreEntitySet="CMKO_ThisPeriod">
-                <ScalarProperty Name="periodThisReport" ColumnName="periodThisReport" />
+          <EntitySetMapping Name="CMKO_ThisAccrued">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisAccrued">
+              <MappingFragment StoreEntitySet="CMKO_ThisAccrued">
+                <ScalarProperty Name="bonusFact" ColumnName="bonusFact" />
+                <ScalarProperty Name="bonusPlan" ColumnName="bonusPlan" />
+                <ScalarProperty Name="accruedTotalFact" ColumnName="accruedTotalFact" />
+                <ScalarProperty Name="accruedTotalPlan" ColumnName="accruedTotalPlan" />
+                <ScalarProperty Name="withheldFact" ColumnName="withheldFact" />
+                <ScalarProperty Name="withheldPlan" ColumnName="withheldPlan" />
+                <ScalarProperty Name="accruedFact" ColumnName="accruedFact" />
+                <ScalarProperty Name="accruedPlan" ColumnName="accruedPlan" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CMKO_WorkerResultThisPeriod">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_WorkerResultThisPeriod">
-              <MappingFragment StoreEntitySet="CMKO_WorkerResultThisPeriod">
-                <ScalarProperty Name="fBonusRemaining" ColumnName="fBonusRemaining" />
-                <ScalarProperty Name="nk" ColumnName="nk" />
-                <ScalarProperty Name="timeBonus" ColumnName="timeBonus" />
-                <ScalarProperty Name="qualityBonus" ColumnName="qualityBonus" />
-                <ScalarProperty Name="optimizationTasks" ColumnName="optimizationTasks" />
-                <ScalarProperty Name="teach" ColumnName="teach" />
-                <ScalarProperty Name="KPI" ColumnName="KPI" />
-                <ScalarProperty Name="fManagerOrders" ColumnName="fManagerOrders" />
-                <ScalarProperty Name="fManagers" ColumnName="fManagers" />
-                <ScalarProperty Name="fOrdersAndN" ColumnName="fOrdersAndN" />
+          <EntitySetMapping Name="CMKO_ThisAccruedG">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisAccruedG">
+              <MappingFragment StoreEntitySet="CMKO_ThisAccruedG">
+                <ScalarProperty Name="accruedTotalFact" ColumnName="accruedTotalFact" />
+                <ScalarProperty Name="accruedTotalPlan" ColumnName="accruedTotalPlan" />
+                <ScalarProperty Name="withheldFact" ColumnName="withheldFact" />
+                <ScalarProperty Name="withheldPlan" ColumnName="withheldPlan" />
+                <ScalarProperty Name="accruedFact" ColumnName="accruedFact" />
+                <ScalarProperty Name="accruedPlan" ColumnName="accruedPlan" />
                 <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisDeductionsBonusFund">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisDeductionsBonusFund">
+              <MappingFragment StoreEntitySet="CMKO_ThisDeductionsBonusFund">
+                <ScalarProperty Name="balanceBonusFundEFact" ColumnName="balanceBonusFundEFact" />
+                <ScalarProperty Name="balanceBonusFundEPlan" ColumnName="balanceBonusFundEPlan" />
+                <ScalarProperty Name="balanceBonusFundMFact" ColumnName="balanceBonusFundMFact" />
+                <ScalarProperty Name="balanceBonusFundMPlan" ColumnName="balanceBonusFundMPlan" />
+                <ScalarProperty Name="deductionsGEFact" ColumnName="deductionsGEFact" />
+                <ScalarProperty Name="deductionsGEPlan" ColumnName="deductionsGEPlan" />
+                <ScalarProperty Name="deductionsGMFact" ColumnName="deductionsGMFact" />
+                <ScalarProperty Name="deductionsGMPlan" ColumnName="deductionsGMPlan" />
+                <ScalarProperty Name="deductionsMEFact" ColumnName="deductionsMEFact" />
+                <ScalarProperty Name="deductionsMEPlan" ColumnName="deductionsMEPlan" />
+                <ScalarProperty Name="deductionsMMFact" ColumnName="deductionsMMFact" />
+                <ScalarProperty Name="deductionsMMPlan" ColumnName="deductionsMMPlan" />
+                <ScalarProperty Name="deductionsMKOEFact" ColumnName="deductionsMKOEFact" />
+                <ScalarProperty Name="deductionsMKOEPlan" ColumnName="deductionsMKOEPlan" />
+                <ScalarProperty Name="deductionsMKOMFact" ColumnName="deductionsMKOMFact" />
+                <ScalarProperty Name="deductionsMKOMPlan" ColumnName="deductionsMKOMPlan" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisFinalBonus">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisFinalBonus">
+              <MappingFragment StoreEntitySet="CMKO_ThisFinalBonus">
+                <ScalarProperty Name="eFact" ColumnName="eFact" />
+                <ScalarProperty Name="ePlan" ColumnName="ePlan" />
+                <ScalarProperty Name="mFact" ColumnName="mFact" />
+                <ScalarProperty Name="mPlan" ColumnName="mPlan" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisIndicatorsUsers">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisIndicatorsUsers">
+              <MappingFragment StoreEntitySet="CMKO_ThisIndicatorsUsers">
+                <ScalarProperty Name="nhGFact" ColumnName="nhGFact" />
+                <ScalarProperty Name="nhGPlan" ColumnName="nhGPlan" />
+                <ScalarProperty Name="nhFact" ColumnName="nhFact" />
+                <ScalarProperty Name="nhPlan" ColumnName="nhPlan" />
+                <ScalarProperty Name="qualityBonus" ColumnName="qualityBonus" />
+                <ScalarProperty Name="coefErrorG" ColumnName="coefErrorG" />
+                <ScalarProperty Name="coefError" ColumnName="coefError" />
+                <ScalarProperty Name="tax3" ColumnName="tax3" />
+                <ScalarProperty Name="tax2" ColumnName="tax2" />
+                <ScalarProperty Name="tax1" ColumnName="tax1" />
+                <ScalarProperty Name="rate3" ColumnName="rate3" />
+                <ScalarProperty Name="rate2" ColumnName="rate2" />
+                <ScalarProperty Name="rate1" ColumnName="rate1" />
+                <ScalarProperty Name="teach" ColumnName="teach" />
+                <ScalarProperty Name="speed3" ColumnName="speed3" />
+                <ScalarProperty Name="speed2" ColumnName="speed2" />
+                <ScalarProperty Name="speed1" ColumnName="speed1" />
+                <ScalarProperty Name="optimization" ColumnName="optimization" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisOverflowsBujet">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisOverflowsBujet">
+              <MappingFragment StoreEntitySet="CMKO_ThisOverflowsBujet">
+                <ScalarProperty Name="KBE" ColumnName="KBE" />
+                <ScalarProperty Name="KBM" ColumnName="KBM" />
+                <ScalarProperty Name="id_PZ_planZakaz" ColumnName="id_PZ_planZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisWageFund">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisWageFund">
+              <MappingFragment StoreEntitySet="CMKO_ThisWageFund">
+                <ScalarProperty Name="wageFundGEFact" ColumnName="wageFundGEFact" />
+                <ScalarProperty Name="wageFundGEPlan" ColumnName="wageFundGEPlan" />
+                <ScalarProperty Name="wageFundGMFact" ColumnName="wageFundGMFact" />
+                <ScalarProperty Name="wageFundGMPlan" ColumnName="wageFundGMPlan" />
+                <ScalarProperty Name="wageFundOverflowsManagerEFact" ColumnName="wageFundOverflowsManagerEFact" />
+                <ScalarProperty Name="wageFundOverflowsManagerEPlan" ColumnName="wageFundOverflowsManagerEPlan" />
+                <ScalarProperty Name="wageFundOverflowsManagerMFact" ColumnName="wageFundOverflowsManagerMFact" />
+                <ScalarProperty Name="wageFundOverflowsManagerMPlan" ColumnName="wageFundOverflowsManagerMPlan" />
+                <ScalarProperty Name="wageFundOverflowsWorkerEFact" ColumnName="wageFundOverflowsWorkerEFact" />
+                <ScalarProperty Name="wageFundOverflowsWorkerEPlan" ColumnName="wageFundOverflowsWorkerEPlan" />
+                <ScalarProperty Name="wageFundOverflowsWorkerMFact" ColumnName="wageFundOverflowsWorkerMFact" />
+                <ScalarProperty Name="wageFundOverflowsWorkerMPlan" ColumnName="wageFundOverflowsWorkerMPlan" />
+                <ScalarProperty Name="wageFundOverflowsEFact" ColumnName="wageFundOverflowsEFact" />
+                <ScalarProperty Name="wageFundOverflowsEPlan" ColumnName="wageFundOverflowsEPlan" />
+                <ScalarProperty Name="wageFundOverflowsMFact" ColumnName="wageFundOverflowsMFact" />
+                <ScalarProperty Name="wageFundOverflowsMPlan" ColumnName="wageFundOverflowsMPlan" />
+                <ScalarProperty Name="wageFundManagerEFact" ColumnName="wageFundManagerEFact" />
+                <ScalarProperty Name="wageFundManagerEPlan" ColumnName="wageFundManagerEPlan" />
+                <ScalarProperty Name="wageFundManagerMFact" ColumnName="wageFundManagerMFact" />
+                <ScalarProperty Name="wageFundManagerMPlan" ColumnName="wageFundManagerMPlan" />
+                <ScalarProperty Name="wageFundWorkerEFact" ColumnName="wageFundWorkerEFact" />
+                <ScalarProperty Name="wageFundWorkerEPlan" ColumnName="wageFundWorkerEPlan" />
+                <ScalarProperty Name="wageFundWorkerMFact" ColumnName="wageFundWorkerMFact" />
+                <ScalarProperty Name="wageFundWorkerMPlan" ColumnName="wageFundWorkerMPlan" />
+                <ScalarProperty Name="wageFundEFact" ColumnName="wageFundEFact" />
+                <ScalarProperty Name="wageFundEPlan" ColumnName="wageFundEPlan" />
+                <ScalarProperty Name="wageFundMFact" ColumnName="wageFundMFact" />
+                <ScalarProperty Name="wageFundMPlan" ColumnName="wageFundMPlan" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisWithheldToBonusFund">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisWithheldToBonusFund">
+              <MappingFragment StoreEntitySet="CMKO_ThisWithheldToBonusFund">
+                <ScalarProperty Name="reclamationEGFact" ColumnName="reclamationEGFact" />
+                <ScalarProperty Name="reclamationMGFact" ColumnName="reclamationMGFact" />
+                <ScalarProperty Name="reclamationEGPlan" ColumnName="reclamationEGPlan" />
+                <ScalarProperty Name="reclamationMGPlan" ColumnName="reclamationMGPlan" />
+                <ScalarProperty Name="reclamationEFact" ColumnName="reclamationEFact" />
+                <ScalarProperty Name="reclamationMFact" ColumnName="reclamationMFact" />
+                <ScalarProperty Name="reclamationEPlan" ColumnName="reclamationEPlan" />
+                <ScalarProperty Name="reclamationMPlan" ColumnName="reclamationMPlan" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10488,14 +10878,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CurencyBYN">
-            <EntityTypeMapping TypeName="PortalKATEKModel.CurencyBYN">
-              <MappingFragment StoreEntitySet="CurencyBYN">
-                <ScalarProperty Name="USD" ColumnName="USD" />
-                <ScalarProperty Name="date" ColumnName="date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DashboardBP_HSSPO">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
               <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
@@ -10640,6 +11022,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DashboardTV_MonthPlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_MonthPlan">
+              <MappingFragment StoreEntitySet="DashboardTV_MonthPlan">
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Debit_CMR">
             <EntityTypeMapping TypeName="PortalKATEKModel.Debit_CMR">
               <MappingFragment StoreEntitySet="Debit_CMR">
@@ -10773,11 +11162,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Devision">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Devision">
-              <MappingFragment StoreEntitySet="Devision">
-                <ScalarProperty Name="OTK" ColumnName="OTK" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="FolderDocument">
+            <EntityTypeMapping TypeName="PortalKATEKModel.FolderDocument">
+              <MappingFragment StoreEntitySet="FolderDocument">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10847,6 +11236,29 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <MappingFragment StoreEntitySet="ProductionCalendar">
                 <ScalarProperty Name="timeToOnePerson" ColumnName="timeToOnePerson" />
                 <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectServer_CreateTasks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_CreateTasks">
+              <MappingFragment StoreEntitySet="ProjectServer_CreateTasks">
+                <ScalarProperty Name="update" ColumnName="update" />
+                <ScalarProperty Name="Devision" ColumnName="Devision" />
+                <ScalarProperty Name="Resource" ColumnName="Resource" />
+                <ScalarProperty Name="Work" ColumnName="Work" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectServer_UpdateMustStartOn">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ProjectServer_UpdateMustStartOn">
+              <MappingFragment StoreEntitySet="ProjectServer_UpdateMustStartOn">
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -11180,15 +11592,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RenameTasksKBM">
-            <EntityTypeMapping TypeName="PortalKATEKModel.RenameTasksKBM">
-              <MappingFragment StoreEntitySet="RenameTasksKBM">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="this" ColumnName="this" />
-                <ScalarProperty Name="base" ColumnName="base" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RKD_Despatching">
             <EntityTypeMapping TypeName="PortalKATEKModel.RKD_Despatching">
               <MappingFragment StoreEntitySet="RKD_Despatching">
@@ -11511,6 +11914,21 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WBS_BP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.WBS_BP">
+              <MappingFragment StoreEntitySet="WBS_BP">
+                <ScalarProperty Name="percentWorkComplite" ColumnName="percentWorkComplite" />
+                <ScalarProperty Name="percentComplite" ColumnName="percentComplite" />
+                <ScalarProperty Name="work" ColumnName="work" />
+                <ScalarProperty Name="finish" ColumnName="finish" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="id_WBS" ColumnName="id_WBS" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="PortalKATEKModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
@@ -11519,6 +11937,95 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.VV_infPost' does not have a p
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PWA_EmpTask">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_EmpTask">
+              <MappingFragment StoreEntitySet="PWA_EmpTask">
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
+                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PWA_TasksForBP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PWA_TasksForBP">
+              <MappingFragment StoreEntitySet="PWA_TasksForBP">
+                <ScalarProperty Name="НК" ColumnName="НК" />
+                <ScalarProperty Name="ResourceUID" ColumnName="ResourceUID" />
+                <ScalarProperty Name="СДРес_Р" ColumnName="СДРес_Р" />
+                <ScalarProperty Name="AssignmentBaseline0FinishDate" ColumnName="AssignmentBaseline0FinishDate" />
+                <ScalarProperty Name="AssignmentBaseline0StartDate" ColumnName="AssignmentBaseline0StartDate" />
+                <ScalarProperty Name="AssignmentBaseline0Work" ColumnName="AssignmentBaseline0Work" />
+                <ScalarProperty Name="AssignmentRemainingRegularWork" ColumnName="AssignmentRemainingRegularWork" />
+                <ScalarProperty Name="AssignmentActualRegularWork" ColumnName="AssignmentActualRegularWork" />
+                <ScalarProperty Name="AssignmentRemainingWork" ColumnName="AssignmentRemainingWork" />
+                <ScalarProperty Name="AssignmentRegularWork" ColumnName="AssignmentRegularWork" />
+                <ScalarProperty Name="AssignmentPeakUnits" ColumnName="AssignmentPeakUnits" />
+                <ScalarProperty Name="AssignmentWorkVariance" ColumnName="AssignmentWorkVariance" />
+                <ScalarProperty Name="AssignmentFinishVariance" ColumnName="AssignmentFinishVariance" />
+                <ScalarProperty Name="AssignmentStartVariance" ColumnName="AssignmentStartVariance" />
+                <ScalarProperty Name="AssignmentDelay" ColumnName="AssignmentDelay" />
+                <ScalarProperty Name="AssignmentActualFinishDate" ColumnName="AssignmentActualFinishDate" />
+                <ScalarProperty Name="AssignmentActualStartDate" ColumnName="AssignmentActualStartDate" />
+                <ScalarProperty Name="AssignmentFinishDate" ColumnName="AssignmentFinishDate" />
+                <ScalarProperty Name="AssignmentStartDate" ColumnName="AssignmentStartDate" />
+                <ScalarProperty Name="AssignmentPercentWorkCompleted" ColumnName="AssignmentPercentWorkCompleted" />
+                <ScalarProperty Name="AssignmentActualWork" ColumnName="AssignmentActualWork" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TaskBaseline0Duration" ColumnName="TaskBaseline0Duration" />
+                <ScalarProperty Name="TaskBaseline0FinishDate" ColumnName="TaskBaseline0FinishDate" />
+                <ScalarProperty Name="TaskBaseline0StartDate" ColumnName="TaskBaseline0StartDate" />
+                <ScalarProperty Name="TaskBaseline0Work" ColumnName="TaskBaseline0Work" />
+                <ScalarProperty Name="TaskRemainingDuration" ColumnName="TaskRemainingDuration" />
+                <ScalarProperty Name="TaskRemainingRegularWork" ColumnName="TaskRemainingRegularWork" />
+                <ScalarProperty Name="TaskActualRegularWork" ColumnName="TaskActualRegularWork" />
+                <ScalarProperty Name="TaskRemainingWork" ColumnName="TaskRemainingWork" />
+                <ScalarProperty Name="TaskRegularWork" ColumnName="TaskRegularWork" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskIsActive" ColumnName="TaskIsActive" />
+                <ScalarProperty Name="TaskWorkVariance" ColumnName="TaskWorkVariance" />
+                <ScalarProperty Name="TaskLateStart" ColumnName="TaskLateStart" />
+                <ScalarProperty Name="TaskLateFinish" ColumnName="TaskLateFinish" />
+                <ScalarProperty Name="TaskEarlyStart" ColumnName="TaskEarlyStart" />
+                <ScalarProperty Name="TaskEarlyFinish" ColumnName="TaskEarlyFinish" />
+                <ScalarProperty Name="TaskIsExternal" ColumnName="TaskIsExternal" />
+                <ScalarProperty Name="TaskDeadline" ColumnName="TaskDeadline" />
+                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
+                <ScalarProperty Name="TaskPhysicalPercentCompleted" ColumnName="TaskPhysicalPercentCompleted" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskPercentCompleted" ColumnName="TaskPercentCompleted" />
+                <ScalarProperty Name="TaskActualFinishDate" ColumnName="TaskActualFinishDate" />
+                <ScalarProperty Name="TaskActualStartDate" ColumnName="TaskActualStartDate" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskActualDuration" ColumnName="TaskActualDuration" />
+                <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
+                <ScalarProperty Name="TaskFinishVariance" ColumnName="TaskFinishVariance" />
+                <ScalarProperty Name="TaskStartVariance" ColumnName="TaskStartVariance" />
+                <ScalarProperty Name="TaskDurationVariance" ColumnName="TaskDurationVariance" />
+                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskIsSummary" ColumnName="TaskIsSummary" />
+                <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
+                <ScalarProperty Name="TaskIsProjectSummary" ColumnName="TaskIsProjectSummary" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="TaskParentUID" ColumnName="TaskParentUID" />
+                <ScalarProperty Name="ProjectPercentCompleted" ColumnName="ProjectPercentCompleted" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

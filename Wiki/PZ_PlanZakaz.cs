@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.CMKO_BujetList = new HashSet<CMKO_BujetList>();
             this.CMKO_ProjectFactBujet = new HashSet<CMKO_ProjectFactBujet>();
+            this.CMKO_ThisOverflowsBujet = new HashSet<CMKO_ThisOverflowsBujet>();
             this.CMO_PositionOrder = new HashSet<CMO_PositionOrder>();
             this.CMO_PositionPreOrder = new HashSet<CMO_PositionPreOrder>();
             this.CMO2_Position = new HashSet<CMO2_Position>();
@@ -94,6 +95,8 @@ namespace Wiki
         public virtual ICollection<CMKO_BujetList> CMKO_BujetList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_ThisOverflowsBujet> CMKO_ThisOverflowsBujet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO_PositionOrder> CMO_PositionOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -48,8 +48,12 @@ namespace Wiki
         public double accruedManagerForNTaskKBM { get; set; }
         public double accruedWorkerForNTaskKBE { get; set; }
         public double accruedManagerForNTaskKBE { get; set; }
+        public string id_RKD_GIP_KBM { get; set; }
+        public string id_RKD_GIP_KBE { get; set; }
         public int id { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }
 }

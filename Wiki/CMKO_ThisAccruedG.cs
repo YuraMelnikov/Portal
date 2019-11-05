@@ -12,20 +12,16 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class CMKO_WorkerResultThisPeriod
+    public partial class CMKO_ThisAccruedG
     {
         public int id { get; set; }
         public string id_AspNetUsers { get; set; }
-        public double fOrdersAndN { get; set; }
-        public double fManagers { get; set; }
-        public double fManagerOrders { get; set; }
-        public double KPI { get; set; }
-        public double teach { get; set; }
-        public double optimizationTasks { get; set; }
-        public double qualityBonus { get; set; }
-        public double timeBonus { get; set; }
-        public double nk { get; set; }
-        public double fBonusRemaining { get; set; }
+        public double accruedPlan { get; set; }
+        public double accruedFact { get; set; }
+        public double withheldPlan { get; set; }
+        public double withheldFact { get; set; }
+        public double accruedTotalPlan { get; set; }
+        public double accruedTotalFact { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
     }

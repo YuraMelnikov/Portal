@@ -378,6 +378,9 @@
     <Compile Include="CMKO_BujetList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMKO_CounterError.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_Optimization.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -390,16 +393,34 @@
     <Compile Include="CMKO_TaxCatigories.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMKO_TaxFact.cs">
+    <Compile Include="CMKO_Teach.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMKO_Teach.cs">
+    <Compile Include="CMKO_ThisAccrued.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisAccruedG.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisDeductionsBonusFund.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisFinalBonus.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisIndicatorsUsers.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisOverflowsBujet.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="CMKO_ThisPeriod.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMKO_WorkerResultThisPeriod.cs">
+    <Compile Include="CMKO_ThisWageFund.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMKO_ThisWithheldToBonusFund.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="CMO2_Order.cs">
