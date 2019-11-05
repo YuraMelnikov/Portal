@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    getPeriodReport();
     HideAllTables();
     StartMenu();
 });
@@ -21,6 +22,20 @@ var objTeach = [
     { "title": "Обучаемый", "data": "student", "autowidth": true, "bSortable": true },
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false, "class": 'colu-300' }
 ];
+
+function getPeriodReport() {
+    $.ajax({
+        url: "/BP/GetPeriodReport/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById("periodReportString").textContent = result;
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
 function LoadData(id) {
     HideAllTables();
