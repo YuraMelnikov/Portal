@@ -500,8 +500,8 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
 --PortalKATEK.dbo.PZ_PlanZakaz.id
 
 update PortalKATEK.dbo.CMKO_ThisAccrued set 
-PortalKATEK.dbo.CMKO_ThisAccrued.accruedPlan = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
-,PortalKATEK.dbo.CMKO_ThisAccrued.accruedFact = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])
+PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
+,PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])
 from
 PortalKATEK.dbo.CMKO_ThisIndicatorsUsers
 join PortalKATEK.dbo.CMKO_ThisAccrued on PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
