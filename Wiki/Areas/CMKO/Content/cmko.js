@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     getPeriodReport();
     HideAllTables();
-    StartMenu();
+    //StartMenu();
     GetSummaryWageFundWorker();
 });
 
@@ -1258,7 +1258,9 @@ function GetSummaryWageFundWorker() {
             });
             Highcharts.chart('summaryWageFundWorker', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    marginLeft: 50,
+                    marginBottom: 90
                 },
                 navigation: {
                     buttonOptions: {
@@ -1275,21 +1277,16 @@ function GetSummaryWageFundWorker() {
                 xAxis: {
                     categories: ['Всего', 'КБМ', 'КБЭ']
                 },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'начислено с учетом перетоков (USD)'
-                    }
-                },
-                legend: {
-                    reversed: true
-                },
+                //yAxis: {
+                //    title: {
+                //        enabled: true
+                //    }
+                //},
                 plotOptions: {
                     series: {
                         stacking: 'normal',
                         dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
+                            enabled: true
                         }
                     }
                 },
@@ -1310,4 +1307,8 @@ function GetSummaryWageFundWorker() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function renderToNullString(text) {
+            return numeral(text).format('0,0');
 }
