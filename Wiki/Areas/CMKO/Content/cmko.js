@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     getPeriodReport();
     HideAllTables();
-    //StartMenu();
+    StartMenu();
     GetSummaryWageFundWorker();
 });
 
@@ -1277,11 +1277,12 @@ function GetSummaryWageFundWorker() {
                 xAxis: {
                     categories: ['Всего', 'КБМ', 'КБЭ']
                 },
-                //yAxis: {
-                //    title: {
-                //        enabled: true
-                //    }
-                //},
+//                yAxis: {
+//,
+//                    title: {
+//                        enabled: true
+//                    }
+//                },
                 plotOptions: {
                     series: {
                         stacking: 'normal',
