@@ -2,7 +2,7 @@
     getPeriodReport();
     HideAllTables();
     StartMenu();
-
+    GetSummaryWageFundWorker();
 });
 
 var objOptimization = [
@@ -1232,31 +1232,48 @@ function LoadCurencyTable() {
     $('#curencyDiv').show();
 }
 
-function GetSummaryWageFund() {
+function GetSummaryWageFundWorker() {
     $.ajax({
-        url: "/ReportPage/GetUsersM1/",
+        url: "/CMK/GetSummaryWageFundWorker/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             
             var lenghtArrayResult = Object.keys(result).length;
-            var kbmArray = new Array();
-            var kbeArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+
+            factArray.push(result[0].Fact);
+            factArray.push(result[1].Fact);
+            factArray.push(result[2].Fact);
 
             Highcharts.setOptions({
                 credits: {
                     enabled: false
                 }
             });
-            Highcharts.chart('container', {
+            Highcharts.chart('summaryWageFundWorker', {
                 chart: {
                     type: 'bar'
                 },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
                 title: {
-                    text: 'ФОТ сотрудников (по заказам)'
+                    text: 'ФОТ заказов',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
                 },
                 xAxis: {
-                    categories: ['КБМ', 'КБЭ']
+                    categories: ['Всего', 'КБМ', 'КБЭ']
                 },
                 yAxis: {
                     min: 0,
@@ -1269,15 +1286,19 @@ function GetSummaryWageFund() {
                 },
                 plotOptions: {
                     series: {
-                        stacking: 'normal'
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
                     }
                 },
                 series: [{
-                    name: 'КБМ',
-                    data: kbmArray
+                    name: 'План',
+                    data: planArray
                 }, {
-                    name: 'КБЭ',
-                    data: kbeArray
+                    name: 'Факт',
+                    data: factArray
                 }]
             });
             

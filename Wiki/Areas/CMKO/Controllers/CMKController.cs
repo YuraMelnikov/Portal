@@ -628,19 +628,19 @@ namespace Wiki.Areas.CMKO.Controllers
                     if (i == 0)
                     {
                         summaryWageFund[i].DevisionId = 0;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan + fundData.wageFundOverflowsWorkerEPlan);
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan + fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
                         summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
                     }
                     else if (i == 1)
                     {
                         summaryWageFund[i].DevisionId = 1;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan);
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
                         summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
                     }
                     else
                     {
                         summaryWageFund[i].DevisionId = 2;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerEPlan);
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
                         summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
                     }
                 }
