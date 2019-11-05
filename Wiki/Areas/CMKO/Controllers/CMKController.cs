@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System;
 using Newtonsoft.Json;
+using Wiki.Areas.CMKO.Types;
 
 namespace Wiki.Areas.CMKO.Controllers
 {
@@ -612,5 +613,47 @@ namespace Wiki.Areas.CMKO.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        //public JsonResult GetUsersM1()
+        //{
+        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
+        //    {
+        //        db.Configuration.ProxyCreationEnabled = false;
+        //        db.Configuration.LazyLoadingEnabled = false;
+        //        var query = db.DashboardKOM1
+        //            .AsNoTracking()
+        //            .OrderByDescending(d => d.normHoure)
+        //            .ToList();
+
+
+        //        SummaryWageFund summaryWageFund = new SummaryWageFund();
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //        //int maxCounterValue = query.Count();
+        //        //Models.UserResultMonth[] data = new Models.UserResultMonth[maxCounterValue];
+        //        //for (int i = 0; i < maxCounterValue; i++)
+        //        //{
+        //        //    data[i] = new Models.UserResultMonth();
+        //        //}
+        //        //for (int i = 0; i < maxCounterValue; i++)
+        //        //{
+        //        //    data[i].userName = query[i].user;
+        //        //    data[i].count = query[i].normHoure;
+        //        //    data[i].month = query[i].month;
+        //        //}
+        //        return Json(data, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
     }
 }

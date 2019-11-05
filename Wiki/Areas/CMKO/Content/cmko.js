@@ -2,6 +2,7 @@
     getPeriodReport();
     HideAllTables();
     StartMenu();
+
 });
 
 var objOptimization = [
@@ -1229,4 +1230,63 @@ function LoadCurencyTable() {
         }
     });
     $('#curencyDiv').show();
+}
+
+function getUsersM1() {
+    $.ajax({
+        url: "/ReportPage/GetUsersM1/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            
+            var lenghtArrayResult = Object.keys(result).length;
+            var kbmArray = new Array();
+            var kbeArray = new Array();
+
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'ФОТ сотрудников (по заказам)'
+                },
+                xAxis: {
+                    categories: ['КБМ', 'КБЭ']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'начислено с учетом перетоков (USD)'
+                    }
+                },
+                legend: {
+                    reversed: true
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'КБМ',
+                    data: kbmArray
+                }, {
+                    name: 'КБЭ',
+                    data: kbeArray
+                }]
+            });
+            
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
