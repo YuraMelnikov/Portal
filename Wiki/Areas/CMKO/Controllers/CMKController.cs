@@ -814,5 +814,30 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetGAccrued()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisAccruedG
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.accruedTotalPlan > 0)
+                    .OrderByDescending(d => d.accruedTotalPlan)
+                    .ToList();
+                int coluntList = fundData.Count;
+                SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFundUser();
+                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
+                    summaryWageFund[i].Plan = (int)fundData[i].accruedTotalPlan - (int)fundData[i].accruedTotalFact;
+                    summaryWageFund[i].Fact = (int)fundData[i].accruedTotalFact;
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@
     GetRemainingBonus();
     GetWithheldToBonusFund();
     GetOverflowsBujet();
+    GetGAccrued();
 });
 
 var objOptimization = [
@@ -1345,8 +1346,7 @@ function GetSummaryWageFundManager() {
                     text: 'ФОТ руководителей',
                     style: {
                         "font-size": "13px"
-                    },
-                    margin: 0
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1420,83 +1420,7 @@ function GetSummaryWageFundG() {
                     text: 'ФОТ ГИПов',
                     style: {
                         "font-size": "13px"
-                    },
-                    margin: 0
-                },
-                yAxis: {
-                    title: {
-                        enabled: false
-                    },    
-                    stackLabels: {
-                        enabled: true
                     }
-                },
-                xAxis: {
-                    categories: ['Всего', 'КБМ', 'КБЭ']
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                fontSize: "0px",
-                                textOutline: "0px contrast"
-                            }
-                        },
-                        stacking: 'normal'
-                    }
-                },
-                series: [{
-                    name: 'План',
-                    data: planArray
-                }, {
-                    name: 'Факт',
-                    data: factArray
-                }]
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function GetSummaryWageFundG() {
-    $.ajax({
-        url: "/CMK/GetSummaryWageFundG/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var planArray = new Array();
-            var factArray = new Array();
-            planArray.push(result[0].Plan);
-            planArray.push(result[1].Plan);
-            planArray.push(result[2].Plan);
-            factArray.push(result[0].Fact);
-            factArray.push(result[1].Fact);
-            factArray.push(result[2].Fact);
-            Highcharts.setOptions({
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('summaryWageFundG', {
-                chart: {
-                    type: 'bar',
-                    marginBottom: 60
-                },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                title: {
-                    margin: 0,
-                    text: 'ФОТ ГИПов',
-                    style: {
-                        "font-size": "13px"
-                    },
-                    margin: 0
                 },
                 yAxis: {
                     title: {
@@ -1570,8 +1494,7 @@ function GetRemainingBonus() {
                     text: 'Остаток бонусного ФОТ',
                     style: {
                         "font-size": "13px"
-                    },
-                    margin: 0
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1645,8 +1568,7 @@ function GetWithheldToBonusFund() {
                     text: 'Удержано за ошибки',
                     style: {
                         "font-size": "13px"
-                    },
-                    margin: 0
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1716,8 +1638,7 @@ function GetOverflowsBujet() {
                     text: 'Перетоки',
                     style: {
                         "font-size": "13px"
-                    },
-                    margin: 0
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1745,6 +1666,81 @@ function GetOverflowsBujet() {
                 series: [{
                     name: 'Перетоки',
                     data: planArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetGAccrued() {
+    $.ajax({
+        url: "/CMK/GetGAccrued/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var workerArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+            for (var i = 0; i < counter; i++) {
+                workerArray.push(result[i].FullName);
+                planArray.push(result[i].Plan);
+                factArray.push(result[i].Fact);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('accruedG', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Итоговые начисления ГИПов',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: workerArray
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
                 }]
             });
         },
