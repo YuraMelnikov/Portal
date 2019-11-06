@@ -647,5 +647,39 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetSummaryWageFundManager()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisDeductionsBonusFund.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = (Convert.ToInt32(fundData.deductionsMKOMPlan) + Convert.ToInt32(fundData.deductionsMKOEPlan)) - (Convert.ToInt32(fundData.deductionsMKOMFact) + Convert.ToInt32(fundData.deductionsMKOEFact));
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsMKOMFact) + Convert.ToInt32(fundData.deductionsMKOEFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.deductionsMMPlan) - Convert.ToInt32(fundData.deductionsMMFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsMMFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.deductionsMEPlan) - Convert.ToInt32(fundData.deductionsMEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsMEFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

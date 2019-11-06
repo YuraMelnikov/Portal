@@ -3,6 +3,7 @@
     HideAllTables();
     StartMenu();
     GetSummaryWageFundWorker();
+    GetSummaryWageFundManager();
 });
 
 var objOptimization = [
@@ -1254,7 +1255,6 @@ function GetSummaryWageFundWorker() {
             Highcharts.chart('summaryWageFundWorker', {
                 chart: {
                     type: 'bar',
-                    marginLeft: 45,
                     marginBottom: 60
                 },
                 navigation: {
@@ -1263,7 +1263,82 @@ function GetSummaryWageFundWorker() {
                     }
                 },
                 title: {
+                    margin: 0,
                     text: 'ФОТ заказов',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ['Всего', 'КБМ', 'КБЭ']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetSummaryWageFundManager() {
+    $.ajax({
+        url: "/CMK/GetSummaryWageFundManager/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var planArray = new Array();
+            var factArray = new Array();
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+            factArray.push(result[0].Fact);
+            factArray.push(result[1].Fact);
+            factArray.push(result[2].Fact);
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('summaryWageFundManager', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'ФОТ руководителей',
                     style: {
                         "font-size": "13px"
                     },
@@ -1278,7 +1353,7 @@ function GetSummaryWageFundWorker() {
                     }
                 },
                 xAxis: {
-                    categories: ['Всего', 'КБМ', 'КБЭ']
+                    categories: ['КО', 'КБМ', 'КБЭ']
                 },
                 plotOptions: {
                     bar: {
