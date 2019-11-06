@@ -1238,19 +1238,15 @@ function GetSummaryWageFundWorker() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            
             var lenghtArrayResult = Object.keys(result).length;
             var planArray = new Array();
             var factArray = new Array();
-
             planArray.push(result[0].Plan);
             planArray.push(result[1].Plan);
             planArray.push(result[2].Plan);
-
             factArray.push(result[0].Fact);
             factArray.push(result[1].Fact);
             factArray.push(result[2].Fact);
-
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -1277,12 +1273,6 @@ function GetSummaryWageFundWorker() {
                 xAxis: {
                     categories: ['Всего', 'КБМ', 'КБЭ']
                 },
-//                yAxis: {
-//,
-//                    title: {
-//                        enabled: true
-//                    }
-//                },
                 plotOptions: {
                     series: {
                         stacking: 'normal',
@@ -1299,10 +1289,6 @@ function GetSummaryWageFundWorker() {
                     data: factArray
                 }]
             });
-            
-
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
