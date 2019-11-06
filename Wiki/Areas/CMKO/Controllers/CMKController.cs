@@ -681,5 +681,39 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetSummaryWageFundG()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisDeductionsBonusFund.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = (Convert.ToInt32(fundData.deductionsGMPlan) + Convert.ToInt32(fundData.deductionsGEPlan)) - (Convert.ToInt32(fundData.deductionsGMFact) + Convert.ToInt32(fundData.deductionsGEFact));
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsGMFact) + Convert.ToInt32(fundData.deductionsGEFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.deductionsGMPlan) - Convert.ToInt32(fundData.deductionsGMFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsGMFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.deductionsGEPlan) - Convert.ToInt32(fundData.deductionsGEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.deductionsGEFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
