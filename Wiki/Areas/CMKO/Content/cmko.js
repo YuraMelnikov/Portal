@@ -6,6 +6,8 @@
     GetSummaryWageFundManager();
     GetSummaryWageFundG();
     GetRemainingBonus();
+    GetWithheldToBonusFund();
+    GetOverflowsBujet();
 });
 
 var objOptimization = [
@@ -1600,6 +1602,149 @@ function GetRemainingBonus() {
                 }, {
                     name: 'Факт',
                     data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetWithheldToBonusFund() {
+    $.ajax({
+        url: "/CMK/GetWithheldToBonusFund/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var planArray = new Array();
+            var factArray = new Array();
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+            factArray.push(result[0].Fact);
+            factArray.push(result[1].Fact);
+            factArray.push(result[2].Fact);
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('withheldToBonusFund', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Удержано за ошибки',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ['Всего', 'КБМ', 'КБЭ']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetOverflowsBujet() {
+    $.ajax({
+        url: "/CMK/GetOverflowsBujet/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var planArray = new Array();
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('overflowsBujet', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Перетоки',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ['Всего', 'КБМ', 'КБЭ']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Перетоки',
+                    data: planArray
                 }]
             });
         },

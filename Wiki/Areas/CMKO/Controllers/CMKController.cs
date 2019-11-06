@@ -749,5 +749,70 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetWithheldToBonusFund()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisWithheldToBonusFund.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan + fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan) - Convert.ToInt32(fundData.reclamationMFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationEFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetOverflowsBujet()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisOverflowsBujet.AsNoTracking().ToList();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.Sum(d => d.KBM) + fundData.Sum(d => d.KBE));
+                     }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.Sum(d => d.KBM));
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.Sum(d => d.KBE));
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
