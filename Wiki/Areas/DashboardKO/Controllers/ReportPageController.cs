@@ -821,15 +821,6 @@ namespace Wiki.Areas.DashboardKO.Controllers
             }
         }
 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-
         public JsonResult GetUsersMMP8()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
