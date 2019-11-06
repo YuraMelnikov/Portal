@@ -111,6 +111,7 @@ namespace Wiki.Areas.VerifPlan.Models
 
         bool GetMailListCreate()
         {
+            mailToList.Add("Kuchynski@katek.by");
             mailToList.Add("myi@katek.by");
             mailToList.Add("Medvedev@katek.by");
             mailToList.Add("pev@katek.by");

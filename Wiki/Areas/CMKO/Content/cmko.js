@@ -1238,7 +1238,6 @@ function GetSummaryWageFundWorker() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var lenghtArrayResult = Object.keys(result).length;
             var planArray = new Array();
             var factArray = new Array();
             planArray.push(result[0].Plan);
@@ -1255,8 +1254,8 @@ function GetSummaryWageFundWorker() {
             Highcharts.chart('summaryWageFundWorker', {
                 chart: {
                     type: 'bar',
-                    marginLeft: 50,
-                    marginBottom: 90
+                    marginLeft: 45,
+                    marginBottom: 60
                 },
                 navigation: {
                     buttonOptions: {
@@ -1270,15 +1269,27 @@ function GetSummaryWageFundWorker() {
                     },
                     margin: 0
                 },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
                 xAxis: {
                     categories: ['Всего', 'КБМ', 'КБЭ']
                 },
                 plotOptions: {
-                    series: {
-                        stacking: 'normal',
+                    bar: {
                         dataLabels: {
-                            enabled: true
-                        }
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
                     }
                 },
                 series: [{
@@ -1294,8 +1305,4 @@ function GetSummaryWageFundWorker() {
             alert(errormessage.responseText);
         }
     });
-}
-
-function renderToNullString(text) {
-            return numeral(text).format('0,0');
 }
