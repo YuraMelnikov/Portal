@@ -9,6 +9,9 @@
     GetWithheldToBonusFund();
     GetOverflowsBujet();
     GetGAccrued();
+    GetHSSPO();
+    GetHSSKBM();
+    GetHSSKBE();
 });
 
 var objOptimization = [
@@ -1749,3 +1752,205 @@ function GetGAccrued() {
         }
     });
 }
+
+function GetHSSPO() {
+    $.ajax({
+        url: "/ReportPage/GetHSSPO/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('hssPO', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'ХСС производства',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'ХСС',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetHSSKBM() {
+    $.ajax({
+        url: "/ReportPage/GetHSSKBM/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('hssKBM', {
+                legend: {
+                    enabled: true
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'ХСС КБМ',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray
+                },
+                series: [{
+                    name: 'ХСС',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetHSSKBE() {
+    $.ajax({
+        url: "/ReportPage/GetHSSKBE/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('hssKBE', {
+                legend: {
+                    enabled: true
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'ХСС КБЭ',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'ХСС',
+                    data: dataArray
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
