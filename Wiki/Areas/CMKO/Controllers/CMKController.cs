@@ -715,5 +715,39 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetRemainingBonus()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisFinalBonus.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.mPlan + fundData.ePlan) - Convert.ToInt32(fundData.mFact + fundData.eFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.mFact + fundData.eFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.mPlan) - Convert.ToInt32(fundData.mFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.mFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.ePlan) - Convert.ToInt32(fundData.eFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.eFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

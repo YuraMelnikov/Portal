@@ -4,6 +4,8 @@
     StartMenu();
     GetSummaryWageFundWorker();
     GetSummaryWageFundManager();
+    GetSummaryWageFundG();
+    GetRemainingBonus();
 });
 
 var objOptimization = [
@@ -1414,6 +1416,156 @@ function GetSummaryWageFundG() {
                 title: {
                     margin: 0,
                     text: 'ФОТ ГИПов',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ['Всего', 'КБМ', 'КБЭ']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetSummaryWageFundG() {
+    $.ajax({
+        url: "/CMK/GetSummaryWageFundG/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var planArray = new Array();
+            var factArray = new Array();
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+            factArray.push(result[0].Fact);
+            factArray.push(result[1].Fact);
+            factArray.push(result[2].Fact);
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('summaryWageFundG', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'ФОТ ГИПов',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ['Всего', 'КБМ', 'КБЭ']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetRemainingBonus() {
+    $.ajax({
+        url: "/CMK/GetRemainingBonus/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var planArray = new Array();
+            var factArray = new Array();
+            planArray.push(result[0].Plan);
+            planArray.push(result[1].Plan);
+            planArray.push(result[2].Plan);
+            factArray.push(result[0].Fact);
+            factArray.push(result[1].Fact);
+            factArray.push(result[2].Fact);
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('remainingBonus', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Остаток бонусного ФОТ',
                     style: {
                         "font-size": "13px"
                     },
