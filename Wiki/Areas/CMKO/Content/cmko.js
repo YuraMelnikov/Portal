@@ -12,7 +12,7 @@
     GetHSSPO();
     GetHSSKBM();
     GetHSSKBE();
-    manpowerUsersInMonth();
+    GetManpowerFirstPeriod();
 });
 
 var objOptimization = [
@@ -86,6 +86,9 @@ function HideAllTables() {
     $('#periodsDiv').hide();
     $('#calendDiv').hide();
     $('#curencyDiv').hide();
+    $('#speedWorkers1').hide();
+    $('#speedWorkers2').hide();
+    $('#speedWorkers3').hide();
 }
 
 function StartMenu() {
@@ -1809,8 +1812,7 @@ function GetHSSPO() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
+                            enabled: true
                         }
                     }
                 }
@@ -1842,7 +1844,7 @@ function GetHSSKBM() {
             });
             Highcharts.chart('hssKBM', {
                 legend: {
-                    enabled: true
+                    enabled: false
                 },
                 navigation: {
                     buttonOptions: {
@@ -1860,7 +1862,10 @@ function GetHSSKBM() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
                 },
                 series: [{
                     name: 'ХСС',
@@ -1874,8 +1879,7 @@ function GetHSSKBM() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
+                            enabled: true
                         }
                     }
                 }
@@ -1907,7 +1911,7 @@ function GetHSSKBE() {
             });
             Highcharts.chart('hssKBE', {
                 legend: {
-                    enabled: true
+                    enabled: false
                 },
                 navigation: {
                     buttonOptions: {
@@ -1942,8 +1946,7 @@ function GetHSSKBE() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
+                            enabled: true
                         }
                     }
                 }
@@ -1955,32 +1958,45 @@ function GetHSSKBE() {
     });
 }
 
-function manpowerUsersInMonth() {
-    //01
+function GetManpowerFirstPeriod() {
     $.ajax({
-        url: "/ReportPage/GetUsersMMP1/",
+        url: "/CMK/GetManpowerFirstPeriod/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {     
+            if(result === 1){
+                ManpowerUsersInMonth1();
+            }
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function ManpowerUsersInMonth1() {
+    $('#speedWorkers1').show();
+    $.ajax({
+        url: "/CMK/GetUsersMMP1_1/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
             document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
             document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
-            var lenghtArrayResult = Object.keys(result).length;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container1', {
+            Highcharts.chart('container1-1', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2004,11 +2020,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2018,7 +2037,7 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: '#FFED66',
+                            color: '#91e8e1',
                             label: {
                                 "text": dataArray10,
                                 align: 'right',
@@ -2028,19 +2047,8 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: '#D8D8D8',
+                            color: '#2b908f',
                             label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                            color: '#00CECB',
-                            label: {
-                                "text": dataArray30,
                                 align: 'right',
                                 x: 10,
                                 y: -10
@@ -2074,29 +2082,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //02
     $.ajax({
-        url: "/ReportPage/GetUsersMMP2/",
+        url: "/CMK/GetUsersMMP1_2/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container2', {
+            Highcharts.chart('container1-2', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2120,11 +2126,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2134,33 +2143,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2190,29 +2188,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //03
     $.ajax({
-        url: "/ReportPage/GetUsersMMP3/",
+        url: "/CMK/GetUsersMMP1_3/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container3', {
+            Highcharts.chart('container1-3', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2236,11 +2232,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2250,33 +2249,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2306,29 +2294,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //04
     $.ajax({
-        url: "/ReportPage/GetUsersMMP4/",
+        url: "/CMK/GetUsersMMP1_4/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container4', {
+            Highcharts.chart('container1-4', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2352,11 +2338,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2366,33 +2355,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2422,29 +2400,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //05
     $.ajax({
-        url: "/ReportPage/GetUsersMMP5/",
+        url: "/CMK/GetUsersMMP1_5/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container5', {
+            Highcharts.chart('container1-5', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2468,11 +2444,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2482,33 +2461,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2538,29 +2506,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //06
     $.ajax({
-        url: "/ReportPage/GetUsersMMP6/",
+        url: "/CMK/GetUsersMMP1_6/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container6', {
+            Highcharts.chart('container1-6', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2584,11 +2550,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2598,33 +2567,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2654,29 +2612,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //07
     $.ajax({
-        url: "/ReportPage/GetUsersMMP7/",
+        url: "/CMK/GetUsersMMP1_7/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container7', {
+            Highcharts.chart('container1-7', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2700,11 +2656,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2714,33 +2673,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2770,29 +2718,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //08
     $.ajax({
-        url: "/ReportPage/GetUsersMMP8/",
+        url: "/CMK/GetUsersMMP1_8/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container8', {
+            Highcharts.chart('container1-8', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2816,11 +2762,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2830,33 +2779,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -2886,29 +2824,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //09
     $.ajax({
-        url: "/ReportPage/GetUsersMMP9/",
+        url: "/CMK/GetUsersMMP1_9/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container9', {
+            Highcharts.chart('container1-9', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -2932,11 +2868,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -2946,33 +2885,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3002,29 +2930,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //10
     $.ajax({
-        url: "/ReportPage/GetUsersMMP10/",
+        url: "/CMK/GetUsersMMP1_10/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container10', {
+            Highcharts.chart('container1-10', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3048,11 +2974,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3062,33 +2991,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3118,29 +3036,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //11
     $.ajax({
-        url: "/ReportPage/GetUsersMMP11/",
+        url: "/CMK/GetUsersMMP1_11/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container11', {
+            Highcharts.chart('container1-11', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3164,11 +3080,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3178,33 +3097,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3234,29 +3142,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //12
     $.ajax({
-        url: "/ReportPage/GetUsersMMP12/",
+        url: "/CMK/GetUsersMMP1_12/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container12', {
+            Highcharts.chart('container1-12', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3280,11 +3186,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3294,33 +3203,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3350,29 +3248,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //13
     $.ajax({
-        url: "/ReportPage/GetUsersMMP13/",
+        url: "/CMK/GetUsersMMP1_13/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container13', {
+            Highcharts.chart('container1-13', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3396,11 +3292,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3410,33 +3309,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3466,29 +3354,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //14
     $.ajax({
-        url: "/ReportPage/GetUsersMMP14/",
+        url: "/CMK/GetUsersMMP1_14/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container14', {
+            Highcharts.chart('container1-14', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3512,11 +3398,14 @@ function manpowerUsersInMonth() {
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3526,33 +3415,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0
@@ -3582,29 +3460,27 @@ function manpowerUsersInMonth() {
             alert(errormessage.responseText);
         }
     });
-    //15
     $.ajax({
-        url: "/ReportPage/GetUsersMMP15/",
+        url: "/CMK/GetUsersMMP1_15/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            var lenghtArrayResult = Object.keys(result).length;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
-            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
-                dataArray30 = result[i].plan30;
             }
-            Highcharts.chart('container15', {
+            Highcharts.chart('container1-15', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -3624,15 +3500,18 @@ function manpowerUsersInMonth() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Филончик']
+                    categories: ['Филонcик']
                 },
                 yAxis: {
                     min: 0,
-                    max: dataArray30,
+                    max: dataArray20,
+                    labels:{
+                        enabled: false
+                    },
                     plotBands: [{
                         from: 0,
                         to: dataArrayPlan,
-                        color: '#FF5E5B',
+                        color: '#f45b5b',
                         label: {
                             "text": dataArrayPlan,
                             align: 'right',
@@ -3642,33 +3521,22 @@ function manpowerUsersInMonth() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                        color: '#FFED66',
-                        label: {
-                            "text": dataArray10,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#91e8e1',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                        color: '#D8D8D8',
-                        label: {
-                            "text": dataArray20,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
-                    }, {
-                        from: dataArray20,
-                        to: dataArray30,
-                        color: '#00CECB',
-                        label: {
-                            "text": dataArray30,
-                            align: 'right',
-                            x: 10,
-                            y: -10
-                        }
+                            color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
                     }],
                     title: null,
                     gridLineWidth: 0

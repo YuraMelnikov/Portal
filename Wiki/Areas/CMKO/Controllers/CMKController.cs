@@ -866,59 +866,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetHSSKBM()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOKBHss
-                    .AsNoTracking()
-                    .OrderBy(d => d.Quart)
-                    .ToList();
-                int maxCounterValue = query.Count();
-                UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i] = new UserResultWithDevision();
-                }
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBM * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBMR * 1000 / 12.5;
-                }
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult GetHSSKBE()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOKBHss
-                    .AsNoTracking()
-                    .OrderBy(d => d.Quart)
-                    .ToList();
-                int maxCounterValue = query.Count();
-                UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i] = new UserResultWithDevision();
-                }
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBE * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBER * 1000 / 12.5;
-                }
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult GetUsersMMP1()
+        public JsonResult GetUsersMMP1_1()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -949,7 +897,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP2()
+        public JsonResult GetUsersMMP1_2()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -980,7 +928,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP3()
+        public JsonResult GetUsersMMP1_3()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1011,7 +959,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP4()
+        public JsonResult GetUsersMMP1_4()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1042,7 +990,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP5()
+        public JsonResult GetUsersMMP1_5()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1073,7 +1021,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP6()
+        public JsonResult GetUsersMMP1_6()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1104,7 +1052,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP7()
+        public JsonResult GetUsersMMP1_7()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1135,7 +1083,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP8()
+        public JsonResult GetUsersMMP1_8()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1166,7 +1114,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP9()
+        public JsonResult GetUsersMMP1_9()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1197,7 +1145,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP10()
+        public JsonResult GetUsersMMP1_10()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1228,7 +1176,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP11()
+        public JsonResult GetUsersMMP1_11()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1259,7 +1207,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP12()
+        public JsonResult GetUsersMMP1_12()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1290,7 +1238,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP13()
+        public JsonResult GetUsersMMP1_13()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1321,7 +1269,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP14()
+        public JsonResult GetUsersMMP1_14()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1352,7 +1300,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetUsersMMP15()
+        public JsonResult GetUsersMMP1_15()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1383,15 +1331,15 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        public JsonResult GetHSSPO()
+        public JsonResult GetHSSKBM()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOHssPO
+                var query = db.CMKO_ThisHSS
                     .AsNoTracking()
-                    .OrderBy(d => d.quart)
+                    .OrderBy(d => d.quartal)
                     .ToList();
                 int maxCounterValue = query.Count();
                 UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
@@ -1401,34 +1349,8 @@ namespace Wiki.Areas.CMKO.Controllers
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].userName = query[i].quart;
-                    data[i].count = (int)query[i].hss;
-                }
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult GetHSSKBM()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOKBHss
-                    .AsNoTracking()
-                    .OrderBy(d => d.Quart)
-                    .ToList();
-                int maxCounterValue = query.Count();
-                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i] = new Models.UserResultWithDevision();
-                }
-                for (int i = 0; i < maxCounterValue; i++)
-                {
-                    data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBM * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBMR * 1000 / 12.5;
+                    data[i].userName = query[i].quartal;
+                    data[i].count = query[i].KBM;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1440,23 +1362,43 @@ namespace Wiki.Areas.CMKO.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOKBHss
+                var query = db.CMKO_ThisHSS
                     .AsNoTracking()
-                    .OrderBy(d => d.Quart)
+                    .OrderBy(d => d.quartal)
                     .ToList();
                 int maxCounterValue = query.Count();
-                Models.UserResultWithDevision[] data = new Models.UserResultWithDevision[maxCounterValue];
+                UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i] = new Models.UserResultWithDevision();
+                    data[i] = new UserResultWithDevision();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].userName = query[i].Quart;
-                    data[i].count = (int)query[i].KBE * 1000 / 12.5;
-                    data[i].realHss = (int)query[i].KBER * 1000 / 12.5;
+                    data[i].userName = query[i].quartal;
+                    data[i].count = query[i].KBE;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetManpowerFirstPeriod()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int query = db.DashboardKOMP1
+                    .AsNoTracking()
+                    .Count();
+                if(query > 0)
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
             }
         }
     }

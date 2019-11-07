@@ -16,6 +16,7 @@ DECLARE @percentMKO float;
 DECLARE @percentMKBE float;
 DECLARE @percentMKBM float;
 
+
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
 SET @periodM1 ='2019.10';
@@ -33,6 +34,7 @@ SET @managerOrderPercent = 0.04;
 SET @percentMKO = 0.025;
 SET @percentMKBE = 0.11;
 SET @percentMKBM = 0.08;
+
 
 DELETE [PortalKATEK].[dbo].[CMKO_ThisPeriod]
 insert into [PortalKATEK].[dbo].[CMKO_ThisPeriod] select @periodQua
@@ -519,4 +521,18 @@ FROM [Dashboard].[dbo].[1910_DB_прибыль]
 where
 [Dashboard].[dbo].[1910_DB_прибыль].[year] > year(getdate()) - 2
 group by [Dashboard].[dbo].[1910_DB_прибыль].[quart]
+
+delete PortalKATEK.dbo.CMKO_ThisHSS
+insert into PortalKATEK.dbo.CMKO_ThisHSS
+select 
+PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
+,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBM) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBM)) / (@coefBujetWorker + @coefBujetManager)
+,(sum(PortalKATEK.dbo.CMKO_BujetList.accruedWorkerForTaskKBE) + sum(PortalKATEK.dbo.CMKO_BujetList.accruedManagerForTaskKBE)) / (@coefBujetWorker + @coefBujetManager)
+from
+PortalKATEK.dbo.CMKO_BujetList
+where YEAR(PortalKATEK.dbo.CMKO_BujetList.TaskFinishDate) > YEAR(GETDATE()) - 2
+group by
+PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
+order by
+PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
 
