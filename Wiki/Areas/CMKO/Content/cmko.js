@@ -12,6 +12,7 @@
     GetHSSPO();
     GetHSSKBM();
     GetHSSKBE();
+    manpowerUsersInMonth();
 });
 
 var objOptimization = [
@@ -1755,7 +1756,7 @@ function GetGAccrued() {
 
 function GetHSSPO() {
     $.ajax({
-        url: "/ReportPage/GetHSSPO/",
+        url: "/CMK/GetHSSPO/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
@@ -1823,7 +1824,7 @@ function GetHSSPO() {
 
 function GetHSSKBM() {
     $.ajax({
-        url: "/ReportPage/GetHSSKBM/",
+        url: "/CMK/GetHSSKBM/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
@@ -1888,7 +1889,7 @@ function GetHSSKBM() {
 
 function GetHSSKBE() {
     $.ajax({
-        url: "/ReportPage/GetHSSKBE/",
+        url: "/CMK/GetHSSKBE/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
@@ -1954,3 +1955,1747 @@ function GetHSSKBE() {
     });
 }
 
+function manpowerUsersInMonth() {
+    //01
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP1/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container1', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Васюхневич']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                            color: '#FFED66',
+                            label: {
+                                "text": dataArray10,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                            color: '#D8D8D8',
+                            label: {
+                                "text": dataArray20,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                            color: '#00CECB',
+                            label: {
+                                "text": dataArray30,
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //02
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP2/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container2', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Волкова']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //03
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP3/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container3', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Глебик']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //04
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP4/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container4', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Кальчинский']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //05
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP5/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container5', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Маляревич']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //06
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP6/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container6', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Носик']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //07
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP7/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container7', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Фейгина']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //08
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP8/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container8', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Добыш']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //09
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP9/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container9', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Жибуль']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //10
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP10/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container10', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Жук']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //11
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP11/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container11', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Климович']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //12
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP12/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container12', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Кучинский']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //13
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP13/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container13', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Тимашкова']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //14
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP14/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container14', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Тиханский']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    //15
+    $.ajax({
+        url: "/ReportPage/GetUsersMMP15/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var labelName = result[0].period;
+            var lenghtArrayResult = Object.keys(result).length;
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container15', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Филончик']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: '#FF5E5B',
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: '#FFED66',
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: '#D8D8D8',
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: '#00CECB',
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+} 

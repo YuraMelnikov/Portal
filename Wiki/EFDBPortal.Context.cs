@@ -187,5 +187,6 @@ namespace Wiki
         public virtual DbSet<WBS_BP> WBS_BP { get; set; }
         public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
+        public virtual DbSet<CMKO_ThisHSS> CMKO_ThisHSS { get; set; }
     }
 }

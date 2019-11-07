@@ -409,6 +409,9 @@
     <Compile Include="CMKO_ThisFinalBonus.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMKO_ThisHSS.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_ThisIndicatorsUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

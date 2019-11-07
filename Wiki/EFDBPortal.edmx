@@ -238,6 +238,15 @@
           <Property Name="ePlan" Type="float" Nullable="false" />
           <Property Name="eFact" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_ThisHSS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quartal" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="KBM" Type="int" Nullable="false" />
+          <Property Name="KBE" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMKO_ThisIndicatorsUsers">
           <Key>
             <PropertyRef Name="id" />
@@ -3944,6 +3953,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMKO_ThisAccruedG" EntityType="Self.CMKO_ThisAccruedG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisDeductionsBonusFund" EntityType="Self.CMKO_ThisDeductionsBonusFund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisFinalBonus" EntityType="Self.CMKO_ThisFinalBonus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_ThisHSS" EntityType="Self.CMKO_ThisHSS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisIndicatorsUsers" EntityType="Self.CMKO_ThisIndicatorsUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisOverflowsBujet" EntityType="Self.CMKO_ThisOverflowsBujet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisPeriod" EntityType="Self.CMKO_ThisPeriod" Schema="dbo" store:Type="Tables" />
@@ -5793,6 +5803,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           </AssociationSet>
           <EntitySet Name="PWA_EmpTask" EntityType="PortalKATEKModel.PWA_EmpTask" />
           <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
+          <EntitySet Name="CMKO_ThisHSS" EntityType="PortalKATEKModel.CMKO_ThisHSS" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -9865,6 +9876,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="ResourceUID" Type="Guid" />
           <Property Name="НК" Type="Decimal" Precision="25" Scale="6" />
         </EntityType>
+        <EntityType Name="CMKO_ThisHSS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quartal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="KBM" Type="Int32" Nullable="false" />
+          <Property Name="KBE" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12023,6 +12043,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="TaskUID" ColumnName="TaskUID" />
                 <ScalarProperty Name="PK" ColumnName="PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_ThisHSS">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisHSS">
+              <MappingFragment StoreEntitySet="CMKO_ThisHSS">
+                <ScalarProperty Name="KBE" ColumnName="KBE" />
+                <ScalarProperty Name="KBM" ColumnName="KBM" />
+                <ScalarProperty Name="quartal" ColumnName="quartal" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

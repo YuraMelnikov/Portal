@@ -323,6 +323,7 @@
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTask" Width="1.5" PointX="12.75" PointY="10.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_TasksForBP" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMKO_ThisHSS" Width="1.5" PointX="13.375" PointY="14.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

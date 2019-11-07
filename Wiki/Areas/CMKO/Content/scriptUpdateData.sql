@@ -510,3 +510,13 @@ left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = Portal
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 left join (select sum([nhPlan] * coefError) as [sumNhPlan], sum([nhFact] * coefError) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 where PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
+
+delete PortalKatek.dbo.DashboardKOHssPO
+insert into PortalKatek.dbo.DashboardKOHssPO
+SELECT [Dashboard].[dbo].[1910_DB_прибыль].[quart]
+      ,sum([Dashboard].[dbo].[1910_DB_прибыль].[ХСС]) as hss
+FROM [Dashboard].[dbo].[1910_DB_прибыль]
+where
+[Dashboard].[dbo].[1910_DB_прибыль].[year] > year(getdate()) - 2
+group by [Dashboard].[dbo].[1910_DB_прибыль].[quart]
+
