@@ -15,6 +15,8 @@
     GetManpowerFirstPeriod();
     GetManpowerSecondPeriod();
     GetManpowerThreePeriod();
+    GetAccuredPlan();
+    GetAccuredFact();
 });
 
 var objOptimization = [
@@ -6790,3 +6792,212 @@ function ManpowerUsersInMonth3() {
     });
 } 
 
+function GetAccuredPlan() {
+    $.ajax({
+        url: "/CMK/GetAccuredPlan/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var ciliricName = new Array();
+            var bonusReversed = new Array();
+            var accrued = new Array();
+            var accruedg = new Array();
+            var manager = new Array();
+            var bonusQuality = new Array();
+            var speed = new Array();
+            var optimization = new Array();
+            var teach = new Array();
+            for(var i = 0; i < counter; i++) {
+                ciliricName.push(result[0].CiliricName);
+                bonusReversed.push(result[0].BonusReversed);
+                accrued.push(result[0].Accrued);
+                accruedg.push(result[0].Accruedg);
+                manager.push(result[0].Manager);
+                bonusQuality.push(result[0].BonusQuality);
+                speed.push(result[0].Speed);
+                optimization.push(result[0].Optimization);
+                teach.push(result[0].Teach);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('usersAccuredPlan', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'ФОТ заказов',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ciliricName
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Начисления по заказам',
+                    data: Accrued
+                },{
+                    name: 'Начисления ГИПов',
+                    data: Accruedg
+                },{
+                    name: 'Бонус за отработку',
+                    data: Speed
+                },{
+                    name: 'Остаток бонусного фонда',
+                    data: BonusReversed
+                },{
+                    name: 'Бонус за качество',
+                    data: BonusQuality
+                },{
+                    name: 'Бонус за оптимизацию',
+                    data: Optimization
+                },{
+                    name: 'Начисление за обучение',
+                    data: Teach
+                },{
+                    name: 'Руководительские начисления',
+                    data: Manager
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetAccuredFact() {
+    $.ajax({
+        url: "/CMK/GetAccuredFact/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var ciliricName = new Array();
+            var bonusReversed = new Array();
+            var accrued = new Array();
+            var accruedg = new Array();
+            var manager = new Array();
+            var bonusQuality = new Array();
+            var speed = new Array();
+            var optimization = new Array();
+            var teach = new Array();
+            for(var i = 0; i < counter; i++) {
+                ciliricName.push(result[0].CiliricName);
+                bonusReversed.push(result[0].BonusReversed);
+                accrued.push(result[0].Accrued);
+                accruedg.push(result[0].Accruedg);
+                manager.push(result[0].Manager);
+                bonusQuality.push(result[0].BonusQuality);
+                speed.push(result[0].Speed);
+                optimization.push(result[0].Optimization);
+                teach.push(result[0].Teach);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('usersAccuredFact', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'ФОТ заказов',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: ciliricName
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Начисления по заказам',
+                    data: Accrued
+                },{
+                    name: 'Начисления ГИПов',
+                    data: Accruedg
+                },{
+                    name: 'Бонус за отработку',
+                    data: Speed
+                },{
+                    name: 'Остаток бонусного фонда',
+                    data: BonusReversed
+                },{
+                    name: 'Бонус за качество',
+                    data: BonusQuality
+                },{
+                    name: 'Бонус за оптимизацию',
+                    data: Optimization
+                },{
+                    name: 'Начисление за обучение',
+                    data: Teach
+                },{
+                    name: 'Руководительские начисления',
+                    data: Manager
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}

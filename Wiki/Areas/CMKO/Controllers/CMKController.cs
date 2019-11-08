@@ -2373,5 +2373,67 @@ namespace Wiki.Areas.CMKO.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetAccuredPlan()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                Types.UserResult[] data = new Types.UserResult[counterUsers];
+                for (int i = 0; i < counterUsers; i++)
+                {
+                    data[i] = new Types.UserResult();
+                }
+                var accuredList = db.CMKO_ThisAccrued.AsNoTracking().Include(d => d.AspNetUsers).ToList();
+                for (int i = 0; i < counterUsers; i++)
+                {
+                    string tmp = accuredList[i].id_AspNetUsers;
+                    CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.First(d => d.id_AspNetUsers == tmp);
+                    data[i].CiliricName = accuredList[i].AspNetUsers.CiliricalName;
+                    data[i].BonusReversed = (int)accuredList[i].bonusPlan;
+                    data[i].Accrued = (int)accuredList[i].accruedPlan;
+                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedPlan;
+                    data[i].Manager = 0;
+                    data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
+                    data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
+                    data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
+                    data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetAccuredFact()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                Types.UserResult[] data = new Types.UserResult[counterUsers];
+                for (int i = 0; i < counterUsers; i++)
+                {
+                    data[i] = new Types.UserResult();
+                }
+                var accuredList = db.CMKO_ThisAccrued.AsNoTracking().Include(d => d.AspNetUsers).ToList();
+                for (int i = 0; i < counterUsers; i++)
+                {
+                    string tmp = accuredList[i].id_AspNetUsers;
+                    CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.AsNoTracking().First(d => d.id_AspNetUsers == tmp);
+                    data[i].CiliricName = accuredList[i].AspNetUsers.CiliricalName;
+                    data[i].BonusReversed = (int)accuredList[i].bonusFact;
+                    data[i].Accrued = (int)accuredList[i].accruedFact;
+                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedFact;
+                    data[i].Manager = 0;
+                    data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
+                    data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
+                    data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
+                    data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
