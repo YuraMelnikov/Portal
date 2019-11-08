@@ -1401,5 +1401,977 @@ namespace Wiki.Areas.CMKO.Controllers
                 }
             }
         }
+
+        public JsonResult GetManpowerSecondPeriod()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Count();
+                if(query > 0)
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public JsonResult GetManpowerThreePeriod()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Count();
+                if(query > 0)
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public JsonResult GetUsersMMP3_1()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Васюхневич Илья")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_2()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Волкова Алёна Александровна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_3()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Глебик Оксана Анатольевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_4()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Кальчинский Александр Владимирович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_5()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Маляревич Павел Анатольевич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_6()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Носик Роман Федорович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_7()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Фейгина Анастасия Аркадьевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_8()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Добыш Константин Викторович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_9()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Жибуль Дмитрий Олегович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_10()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Жук Марина Владимировна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_11()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Климович Ксения Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_12()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Кучинский Андрей")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_13()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Тимашкова Юлия Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_14()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Тиханский Максим Васильевич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_15()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Филончик Валентина Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_1()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Васюхневич Илья")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_2()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Волкова Алёна Александровна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_3()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Глебик Оксана Анатольевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_4()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Кальчинский Александр Владимирович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_5()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Маляревич Павел Анатольевич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_6()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Носик Роман Федорович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_7()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Фейгина Анастасия Аркадьевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_8()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Добыш Константин Викторович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_9()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Жибуль Дмитрий Олегович")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_10()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Жук Марина Владимировна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_11()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Климович Ксения Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_12()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Кучинский Андрей")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_13()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Тимашкова Юлия Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_14()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Тиханский Максим Васильевич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_15()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Филончик Валентина Сергеевна")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
