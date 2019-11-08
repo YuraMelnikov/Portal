@@ -6809,15 +6809,15 @@ function GetAccuredPlan() {
             var optimization = new Array();
             var teach = new Array();
             for(var i = 0; i < counter; i++) {
-                ciliricName.push(result[0].CiliricName);
-                bonusReversed.push(result[0].BonusReversed);
-                accrued.push(result[0].Accrued);
-                accruedg.push(result[0].Accruedg);
-                manager.push(result[0].Manager);
-                bonusQuality.push(result[0].BonusQuality);
-                speed.push(result[0].Speed);
-                optimization.push(result[0].Optimization);
-                teach.push(result[0].Teach);
+                ciliricName.push(result[i].CiliricName);
+                bonusReversed.push(result[i].BonusReversed);
+                accrued.push(result[i].Accrued);
+                accruedg.push(result[i].Accruedg);
+                manager.push(result[i].Manager);
+                bonusQuality.push(result[i].BonusQuality);
+                speed.push(result[i].Speed);
+                optimization.push(result[i].Optimization);
+                teach.push(result[i].Teach);
             }
             Highcharts.setOptions({
                 credits: {
@@ -6826,8 +6826,7 @@ function GetAccuredPlan() {
             });
             Highcharts.chart('usersAccuredPlan', {
                 chart: {
-                    type: 'bar',
-                    marginBottom: 60
+                    type: 'bar'
                 },
                 navigation: {
                     buttonOptions: {
@@ -6836,7 +6835,7 @@ function GetAccuredPlan() {
                 },
                 title: {
                     margin: 0,
-                    text: 'ФОТ заказов',
+                    text: 'Плановые начисления сотрудников',
                     style: {
                         "font-size": "13px"
                     }
@@ -6866,28 +6865,28 @@ function GetAccuredPlan() {
                 },
                 series: [{
                     name: 'Начисления по заказам',
-                    data: Accrued
+                    data: accrued
                 },{
                     name: 'Начисления ГИПов',
-                    data: Accruedg
+                    data: accruedg
                 },{
                     name: 'Бонус за отработку',
-                    data: Speed
+                    data: speed
                 },{
                     name: 'Остаток бонусного фонда',
-                    data: BonusReversed
+                    data: bonusReversed
                 },{
                     name: 'Бонус за качество',
-                    data: BonusQuality
+                    data: bonusQuality
                 },{
                     name: 'Бонус за оптимизацию',
-                    data: Optimization
+                    data: optimization
                 },{
                     name: 'Начисление за обучение',
-                    data: Teach
+                    data: teach
                 },{
                     name: 'Руководительские начисления',
-                    data: Manager
+                    data: manager
                 }]
             });
         },
@@ -6914,15 +6913,15 @@ function GetAccuredFact() {
             var optimization = new Array();
             var teach = new Array();
             for(var i = 0; i < counter; i++) {
-                ciliricName.push(result[0].CiliricName);
-                bonusReversed.push(result[0].BonusReversed);
-                accrued.push(result[0].Accrued);
-                accruedg.push(result[0].Accruedg);
-                manager.push(result[0].Manager);
-                bonusQuality.push(result[0].BonusQuality);
-                speed.push(result[0].Speed);
-                optimization.push(result[0].Optimization);
-                teach.push(result[0].Teach);
+                ciliricName.push(result[i].CiliricName);
+                bonusReversed.push(result[i].BonusReversed);
+                accrued.push(result[i].Accrued);
+                accruedg.push(result[i].Accruedg);
+                manager.push(result[i].Manager);
+                bonusQuality.push(result[i].BonusQuality);
+                speed.push(result[i].Speed);
+                optimization.push(result[i].Optimization);
+                teach.push(result[i].Teach);
             }
             Highcharts.setOptions({
                 credits: {
@@ -6931,8 +6930,7 @@ function GetAccuredFact() {
             });
             Highcharts.chart('usersAccuredFact', {
                 chart: {
-                    type: 'bar',
-                    marginBottom: 60
+                    type: 'bar'
                 },
                 navigation: {
                     buttonOptions: {
@@ -6941,7 +6939,7 @@ function GetAccuredFact() {
                 },
                 title: {
                     margin: 0,
-                    text: 'ФОТ заказов',
+                    text: 'Фактические начисления сотрудников',
                     style: {
                         "font-size": "13px"
                     }
@@ -6971,28 +6969,28 @@ function GetAccuredFact() {
                 },
                 series: [{
                     name: 'Начисления по заказам',
-                    data: Accrued
+                    data: accrued
                 },{
                     name: 'Начисления ГИПов',
-                    data: Accruedg
+                    data: accruedg
                 },{
                     name: 'Бонус за отработку',
-                    data: Speed
+                    data: speed
                 },{
                     name: 'Остаток бонусного фонда',
-                    data: BonusReversed
+                    data: bonusReversed
                 },{
                     name: 'Бонус за качество',
-                    data: BonusQuality
+                    data: bonusQuality
                 },{
                     name: 'Бонус за оптимизацию',
-                    data: Optimization
+                    data: optimization
                 },{
                     name: 'Начисление за обучение',
-                    data: Teach
+                    data: teach
                 },{
                     name: 'Руководительские начисления',
-                    data: Manager
+                    data: manager
                 }]
             });
         },
