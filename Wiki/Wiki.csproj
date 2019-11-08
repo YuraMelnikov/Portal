@@ -274,6 +274,7 @@
     <Compile Include="Areas\CMKO\Controllers\CMKController.cs" />
     <Compile Include="Areas\CMKO\Types\SummaryWageFund.cs" />
     <Compile Include="Areas\CMKO\Types\SummaryWageFundUser.cs" />
+    <Compile Include="Areas\CMKO\Types\UserResult.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
