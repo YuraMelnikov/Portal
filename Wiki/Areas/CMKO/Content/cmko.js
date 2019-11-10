@@ -1968,7 +1968,7 @@ function GetManpowerFirstPeriod() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {     
-            if(result === 1){
+            if(result === 1) {
                 ManpowerUsersInMonth1();
             }
         },
