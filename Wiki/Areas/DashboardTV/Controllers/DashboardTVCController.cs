@@ -55,7 +55,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 var projectList = db.DashboardTV_DataForProjectPortfolio
                     .GroupBy(d => d.orderNumber)
                     .OrderBy(d => d.Key)
-                    //.Take(40)
+                    //.Take(33)
                     .ToList();
                 DateTime minDate = GetMinDate();
                 DateTime maxDate = GetMaxDate();
@@ -101,7 +101,11 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     .AsNoTracking()
                     .Include(d => d.PZ_PlanZakaz)
                     .ToList();
-                var portfolioList = db.DashboardTV_DataForProjectPortfolio.AsNoTracking().ToList();
+                var portfolioList = db.DashboardTV_DataForProjectPortfolio
+                    .AsNoTracking()
+                    //.OrderBy(d => d.orderNumber)
+                    //.Take(33)
+                    .ToList();
                 int j = 0;
                 string orderNumberList = "";
                 foreach (var dataInList in portfolioList.OrderBy(d => d.orderNumber))

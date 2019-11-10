@@ -61,7 +61,8 @@ function getGanttProjects() {
             }
             var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.8;
             pointWidthForGantt = 14;
-            var widthGanttSize = pointWidthForGantt * Object.keys(myJSON).length * 1.5;
+            //var widthGanttSize = pointWidthForGantt * Object.keys(myJSON).length * 1.5;
+            var widthGanttSize = 700;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
