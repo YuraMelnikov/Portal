@@ -52,7 +52,9 @@ function getGanttProjects() {
         dataType: "json",
         success: function (result) {
             var myJSON = JSON.parse(JSON.stringify(result));
-            for (var i = 0; i < Object.keys(myJSON).length; i++) {
+
+
+            for (var i = 0; i < 33; i++) {
                 for (var j = 0; j < Object.keys(myJSON[i].Deals).length; j++) {
                     myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
@@ -97,6 +99,7 @@ function getGanttProjects() {
                     current: myJSON.Deals[myJSON.Current]
                 };
             });
+            series = series.slice(0, 33);
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
