@@ -1984,7 +1984,7 @@ function GetManpowerSecondPeriod() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {     
-            if(result === 1){
+            if(result === 1) {
                 ManpowerUsersInMonth2();
             }
         },
@@ -2018,8 +2018,8 @@ function ManpowerUsersInMonth1() {
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
+            document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString1").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2123,9 +2123,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2229,9 +2226,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2335,9 +2329,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2441,9 +2432,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2547,10 +2535,7 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
-            var normHoure = 0;
+             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
             var dataArray10 = 0;
@@ -2653,9 +2638,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2759,9 +2741,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2865,9 +2844,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -2971,9 +2947,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3077,9 +3050,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3183,9 +3153,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3289,9 +3256,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3395,9 +3359,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3501,9 +3462,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3612,8 +3570,8 @@ function ManpowerUsersInMonth2() {
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
+            document.getElementById("periodReportUsersKBMString2").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString2").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3717,9 +3675,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3823,9 +3778,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3929,9 +3881,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4035,9 +3984,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4141,9 +4087,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4247,9 +4190,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4353,9 +4293,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4459,9 +4396,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4565,9 +4499,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4671,9 +4602,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4777,9 +4705,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4883,9 +4808,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -4989,9 +4911,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5095,9 +5014,6 @@ function ManpowerUsersInMonth2() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5206,8 +5122,8 @@ function ManpowerUsersInMonth3() {
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
+            document.getElementById("periodReportUsersKBMString3").textContent = 'Выработка НЧ КБМ за ' + labelName;
+            document.getElementById("periodReportUsersKBEString3").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5311,9 +5227,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5417,9 +5330,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5523,9 +5433,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5629,9 +5536,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5735,9 +5639,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5841,9 +5742,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5947,9 +5845,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6053,9 +5948,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6159,9 +6051,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6265,9 +6154,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6371,9 +6257,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6477,9 +6360,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6583,9 +6463,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6689,9 +6566,6 @@ function ManpowerUsersInMonth3() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;

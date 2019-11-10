@@ -348,9 +348,9 @@ from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
 left join (select COUNT(id) as countIdea, id_AspNetUsersIdea from PortalKATEK.dbo.CMKO_Optimization group by PortalKATEK.dbo.CMKO_Optimization.id_AspNetUsersIdea) as OptimizationTable on OptimizationTable.id_AspNetUsersIdea = PortalKATEK.dbo.AspNetUsers.Id
-left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan10 < normHoureFact, 50, 0) as plan10, iif(plan20 < normHoureFact, 100, 0) as plan20, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
 left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
