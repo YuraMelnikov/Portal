@@ -59,7 +59,9 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
-            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.6;
+            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.8;
+            pointWidthForGantt = 14;
+            var widthGanttSize = pointWidthForGantt * Object.keys(myJSON).length * 1.5;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -127,7 +129,7 @@ function getGanttProjects() {
                             format: '{point.name}',
                             style: {
                                 color: "contrast",
-                                fontSize: pointWidthForGantt - 1,
+                                fontSize: pointWidthForGantt - 4,
                                 fontWeight: "bold",
                                 textOutline: "1px contrast"
                             }
@@ -152,13 +154,12 @@ function getGanttProjects() {
                 },
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, 
-                    //currentDateIndicator: true,
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt
+                            "fontSize": pointWidthForGantt - 4
                         }
                     }
                 },
@@ -166,7 +167,7 @@ function getGanttProjects() {
                     labels: {
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt
+                            "fontSize": pointWidthForGantt - 4
                         }
                     },
                     type: 'category',
@@ -189,7 +190,7 @@ function getGanttProjects() {
                     }
                 },
                 chart: {
-                    height: '700px'
+                    height: widthGanttSize + 'px'
                 }
             });
         }
