@@ -535,4 +535,3 @@ group by
 PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
 order by
 PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
-
