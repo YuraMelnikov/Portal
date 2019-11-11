@@ -17,6 +17,8 @@
     GetManpowerThreePeriod();
     GetAccuredPlan();
     GetAccuredFact();
+    GetNhUsersThisQua();
+    GetTimeSheet();
 });
 
 var objOptimization = [
@@ -1761,7 +1763,7 @@ function GetGAccrued() {
     });
 }
 
-function GetGAccrued() {
+function GetNhUsersThisQua() {
     $.ajax({
         url: "/CMK/GetNhUsersThisQua/",
         contentType: "application/json;charset=UTF-8",
@@ -6940,6 +6942,76 @@ function GetAccuredFact() {
                 },{
                     name: 'Руководительские начисления',
                     data: manager
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetTimeSheet() {
+    $.ajax({
+        url: "/CMK/GetTimesheet/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = result[0].stepDate;
+            var dateArray = new Array();
+            for (var i = 1; i < lenghtArrayResult + 1; i++) {
+                dateArray.push(result[i].date);
+            }
+            var usersArray = new Array();
+            lenghtArrayResult = Object.keys(result).length;
+            for (i = 1; i < lenghtArrayResult; i = i + result[0].stepDate) {
+                usersArray.push(result[i].user);
+            }
+            var dataArray = new Array();
+            var dataForArray = new Array();
+            for (i = 1; i < lenghtArrayResult; i++) {
+                dataForArray = [result[i].stepDate, result[i].stepUser, result[i].data];
+                dataArray.push(dataForArray);
+            }
+            Highcharts.chart('timesheetContainer', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'heatmap'
+                },
+                title: {
+                    text: '* согласно проставленным часам в timesheet',
+                    style: {
+                        "font-size": "13px"
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: dateArray
+                },
+                yAxis: {
+                    categories: usersArray,
+                    title: null
+                },
+                colorAxis: {
+                    min: 0,
+                    minColor: '#ffffff',
+                    maxColor: '#90ed7d'
+                },
+                series: [{
+                    name: 'ч.',
+                    borderWidth: 1,
+                    data: dataArray,
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000'
+                    }
                 }]
             });
         },

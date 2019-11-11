@@ -2442,11 +2442,10 @@ namespace Wiki.Areas.CMKO.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisAccruedG
+                var fundData = db.CMKO_ThisIndicatorsUsers
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.accruedTotalPlan > 0)
-                    .OrderByDescending(d => d.accruedTotalPlan)
+                    .OrderByDescending(d => d.nhPlan)
                     .ToList();
                 int coluntList = fundData.Count;
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
@@ -2454,10 +2453,59 @@ namespace Wiki.Areas.CMKO.Controllers
                 {
                     summaryWageFund[i] = new SummaryWageFundUser();
                     summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
-                    summaryWageFund[i].Plan = (int)fundData[i].accruedTotalPlan - (int)fundData[i].accruedTotalFact;
-                    summaryWageFund[i].Fact = (int)fundData[i].accruedTotalFact;
+                    summaryWageFund[i].Plan = (int)fundData[i].nhPlan - (int)fundData[i].nhFact;
+                    summaryWageFund[i].Fact = (int)fundData[i].nhFact;
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTimesheet()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOTimesheet
+                    .AsNoTracking()
+                    .ToList();
+                var queryUsers = db.DashboardKOTimesheet
+                    .AsNoTracking()
+                    .OrderByDescending(d => d.user)
+                    .GroupBy(d => d.user)
+                    .ToList();
+                queryUsers = queryUsers.OrderByDescending(d => d.Key).ToList();
+                var queryDate = db.DashboardKOTimesheet
+                    .AsNoTracking()
+                    .OrderBy(d => d.date)
+                    .GroupBy(d => d.date)
+                    .ToList();
+                int usersCount = queryUsers.Count();
+                int dateCount = queryDate.Count();
+                int maxCounterValue = usersCount * dateCount + 1;
+                TimesheetElamaent[] data = new TimesheetElamaent[maxCounterValue];
+                DashboardKOTimesheet dashboardKOTimesheet = new DashboardKOTimesheet();
+                data[0] = new TimesheetElamaent("", "", usersCount, dateCount, 0);
+                for (int i = 1; i < maxCounterValue; i++)
+                {
+                    for (int j = 0; j < usersCount; j++)
+                    {
+                        for (int k = 0; k < dateCount; k++)
+                        {
+                            try
+                            {
+                                dashboardKOTimesheet = query.First(d => d.user == queryUsers[j].Key && d.date.Ticks == queryDate[k].Key.Ticks);
+                            }
+                            catch
+                            {
+                                dashboardKOTimesheet = new DashboardKOTimesheet();
+                            }
+                            data[i] = new TimesheetElamaent(queryUsers[j].Key, queryDate[k].Key.ToShortDateString(), j, k, dashboardKOTimesheet.work);
+                            i++;
+                        }
+                    }
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
     }
