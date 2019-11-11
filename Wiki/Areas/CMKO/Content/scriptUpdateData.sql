@@ -16,7 +16,6 @@ DECLARE @percentMKO float;
 DECLARE @percentMKBE float;
 DECLARE @percentMKBM float;
 
-
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
 SET @periodM1 ='2019.10';

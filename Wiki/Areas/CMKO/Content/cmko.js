@@ -1626,7 +1626,7 @@ function GetOverflowsBujet() {
         dataType: "json",
         success: function (result) {
             var planArray = new Array();
-            planArray.push(result[0].Plan);
+            //planArray.push(result[0].Plan);
             planArray.push(result[1].Plan);
             planArray.push(result[2].Plan);
             Highcharts.setOptions({
@@ -1660,7 +1660,7 @@ function GetOverflowsBujet() {
                     }
                 },
                 xAxis: {
-                    categories: ['Всего', 'КБМ', 'КБЭ']
+                    categories: ['КБМ', 'КБЭ']
                 },
                 plotOptions: {
                     bar: {
