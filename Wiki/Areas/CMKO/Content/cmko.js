@@ -1626,7 +1626,6 @@ function GetOverflowsBujet() {
         dataType: "json",
         success: function (result) {
             var planArray = new Array();
-            //planArray.push(result[0].Plan);
             planArray.push(result[1].Plan);
             planArray.push(result[2].Plan);
             Highcharts.setOptions({
@@ -1671,7 +1670,8 @@ function GetOverflowsBujet() {
                                 textOutline: "0px contrast"
                             }
                         },
-                        stacking: 'normal'
+                        stacking: 'normal',
+                        color: '#910000'
                     }
                 },
                 series: [{
@@ -1719,6 +1719,81 @@ function GetGAccrued() {
                 title: {
                     margin: 0,
                     text: 'Итоговые начисления ГИПов',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: workerArray
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: planArray
+                }, {
+                    name: 'Факт',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetGAccrued() {
+    $.ajax({
+        url: "/CMK/GetNhUsersThisQua/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var workerArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+            for (var i = 0; i < counter; i++) {
+                workerArray.push(result[i].FullName);
+                planArray.push(result[i].Plan);
+                factArray.push(result[i].Fact);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('nhUsersThisQua', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Нормачасы сотрудников',
                     style: {
                         "font-size": "13px"
                     }
