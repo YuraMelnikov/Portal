@@ -2530,7 +2530,46 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
-        //GetCoefWorker
-        //GetCoefWorkerG
+        public JsonResult GetCoefWorker()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefError, 3));
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        public JsonResult GetCoefWorkerG()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefErrorG, 3));
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

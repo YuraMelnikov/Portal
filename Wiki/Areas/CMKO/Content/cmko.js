@@ -7108,18 +7108,16 @@ function GetCoefWorker() {
             var counter = Object.keys(result).length;
             var workerArray = new Array();
             var planArray = new Array();
-            var factArray = new Array();
             for (var i = 0; i < counter; i++) {
                 workerArray.push(result[i].FullName);
-                planArray.push(result[i].Plan);
-                factArray.push(result[i].Fact);
+                planArray.push(result[i].Data);
             }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
                 }
             });
-            Highcharts.chart('salaryAndRateWorkers', {
+            Highcharts.chart('coefWorker', {
                 chart: {
                     type: 'bar',
                     marginBottom: 60
@@ -7131,7 +7129,7 @@ function GetCoefWorker() {
                 },
                 title: {
                     margin: 0,
-                    text: 'Расчетный оклад и налоги (квартальный)',
+                    text: 'Коэф. качества инженеров-конструкторов',
                     style: {
                         "font-size": "13px"
                     }
@@ -7160,11 +7158,8 @@ function GetCoefWorker() {
                     }
                 },
                 series: [{
-                    name: 'Оклад',
+                    name: 'Коэф.',
                     data: planArray
-                }, {
-                    name: 'Налоги',
-                    data: factArray
                 }]
             });
         },
@@ -7183,18 +7178,16 @@ function GetCoefWorkerG() {
             var counter = Object.keys(result).length;
             var workerArray = new Array();
             var planArray = new Array();
-            var factArray = new Array();
             for (var i = 0; i < counter; i++) {
                 workerArray.push(result[i].FullName);
-                planArray.push(result[i].Plan);
-                factArray.push(result[i].Fact);
+                planArray.push(result[i].Data);
             }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
                 }
             });
-            Highcharts.chart('salaryAndRateWorkers', {
+            Highcharts.chart('coefWorkerG', {
                 chart: {
                     type: 'bar',
                     marginBottom: 60
@@ -7206,7 +7199,7 @@ function GetCoefWorkerG() {
                 },
                 title: {
                     margin: 0,
-                    text: 'Расчетный оклад и налоги (квартальный)',
+                    text: 'Коэф. качества ГИПов',
                     style: {
                         "font-size": "13px"
                     }
@@ -7235,11 +7228,8 @@ function GetCoefWorkerG() {
                     }
                 },
                 series: [{
-                    name: 'Оклад',
+                    name: 'Коэф.',
                     data: planArray
-                }, {
-                    name: 'Налоги',
-                    data: factArray
                 }]
             });
         },
