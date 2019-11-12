@@ -574,7 +574,7 @@ namespace Wiki.Areas.CMKO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
-                editLink = GetEditLinkProductionCalend(login, dataList.id),
+                editLink = GetEditLinkSpeedUser(login, dataList.id),
                 dataList.ProductionCalendar.period,
                 user = dataList.AspNetUsers.CiliricalName,
                 coef = dataList.k
@@ -2475,6 +2475,7 @@ namespace Wiki.Areas.CMKO.Controllers
             else
                 return "<td></td>";
         }
+
         string GetEditLinkProductionCalend(string login, int id)
         {
             if (login == "myi@katek.by")

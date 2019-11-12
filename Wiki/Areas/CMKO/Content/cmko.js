@@ -338,8 +338,8 @@ function GetSpeedUser(id) {
         success: function (result) {
             $('#idSpeedUser').val(result.idSpeedUser);
             $('#userNameSpeedUser').val(result.userNameSpeedUser);
-            $('#periodSpeedUser').va(result.periodSpeedUser);
-            $('#coefSpeedUser').va(result.coefSpeedUser);
+            $('#periodSpeedUser').val(result.periodSpeedUser);
+            $('#coefSpeedUser').val(result.coefSpeedUser);
             $('#speedUserModal').modal('show');
         },
         error: function (errormessage) {
@@ -355,7 +355,7 @@ function UpdatSpeedUser() {
     }
     var updateObjSpeedUser = {
         id: $('#idSpeedUser').val(),
-        k: $('#coefSpeedUser').val().val().replace('.', ',')
+        k: $('#coefSpeedUser').val().replace('.', ',')
     };
     $.ajax({
         cache: false,

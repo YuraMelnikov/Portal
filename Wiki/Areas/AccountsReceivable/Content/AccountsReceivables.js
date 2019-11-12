@@ -52,9 +52,96 @@ function loadData(listId) {
         tasksPM();
         document.getElementById('labelList').innerHTML = "Задачи по заказам";
     }
+    else if (listId === 14 || listId === "14") {
+        tasksPM();
+        document.getElementById('labelList').innerHTML = "Отправить в 1с новые сроки отгрузки";
+    }
     else {
         loadData(1);
     }
+}
+
+var obj1cData = [
+    { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": true },
+    { "title": "№ заказа", "data": "orderNumber", "autowidth": true, "bSortable": true },
+    { "title": "Текущий срок отгрузки", "data": "dateSh", "autowidth": true, "bSortable": true }
+];
+
+function GetOrders1c() {
+    var table = $('#tableData').DataTable();
+    table.destroy();
+    $('#tableData').empty();
+    $("#tableData").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/AccountsReceivables/GetOrders1c",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": obj1cData,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function GetOrder1c(id) {
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/GetOrder1c/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idOrder1c').val("");
+            $('#orderName1c').val("");
+            $('#dateSh1c').val("");
+            $('#idOrder1c').val(result.idOrder1c);
+            $('#orderName1c').val(result.orderName1c);
+            $('#dateSh1c').val(result.dateSh1c);
+            $('#order1cModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function UpdateOrder1c() {
+    var res = validTN();
+    if (res === false) {
+        return false;
+    }
+    var objTNData = {
+        idOrder1c: $('#idOrder1c').val(),
+        dateSh1c: $('#dateSh1c').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/AccountsReceivables/UpdateOrder1c/",
+        data: JSON.stringify(objTNData),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tableData').DataTable().ajax.reload(null, false);
+            $('#order1cModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
 
 var objTasks = [
