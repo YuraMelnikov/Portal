@@ -594,6 +594,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 id_AspNetUsersCreate = id_AspNetUser,
                 id_Reclamation = id_Reclamation,
                 dateTimeCreate = DateTime.Now,
+
                 text = ""
             };
             db.Reclamation_TechnicalAdvice.Add(technicalAdvice);

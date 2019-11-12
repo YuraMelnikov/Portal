@@ -11,6 +11,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         PortalKATEKEntities db = new PortalKATEKEntities();
         public ActionResult Index()
         {
+            ViewBag.id_AspNetUserResponsible = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             return View();
         }
 

@@ -83,6 +83,21 @@
                     </div>
                 </div>
                 <hr />
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Ответственный исполнитель:</label>
+                        @Html.DropDownList("id_AspNetUserResponsible", ViewBag.id_AspNetUserResponsible as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Крайний срок:</label>
+                        <input type="text" class="form-control" id="deadline" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Задача закрыта:</label>
+                        <input type="checkbox" id="close" />
+                    </div>
+                </div>
+                <hr />
             </div>
             <div class="modal-footer">
                 <div class="row">
