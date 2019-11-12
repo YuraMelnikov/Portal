@@ -1,24 +1,24 @@
-﻿using System.Web.Mvc;
-using Wiki.Areas.Reclamation.Models;
-using System.Linq;
-using Newtonsoft.Json;
-using System;
-using Wiki.Models;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using NLog;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using NLog;
+using System.Linq;
+using System.Web.Mvc;
+using Wiki.Areas.Reclamation.Models;
+using Wiki.Models;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
     public class RemarksController : Controller
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        PortalKATEKEntities db = new PortalKATEKEntities();
-        readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
-        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
-        readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
+        private PortalKATEKEntities db = new PortalKATEKEntities();
+        private readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
+        private readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
+        private readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
 
         public ActionResult Debug()
         {
@@ -41,7 +41,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             catch
             {
-
             }
             ViewBag.DevisionsManufacturing = new SelectList(new DevisionsManufacturing().Devisions.OrderBy(d => d.name), "id", "name");
             if (login == "fvs@katek.by")
@@ -362,7 +361,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                     }
                     catch
                     {
-
                     }
                 }
             }
@@ -376,7 +374,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             Wiki.Reclamation order = db.Reclamation.Find(reclamation.id);
             _ = new EmailReclamation(order, login, 4);
 
-            foreach(var data in db.Reclamation_PZ.Where(d => d.id_Reclamation == reclamation.id))
+            foreach (var data in db.Reclamation_PZ.Where(d => d.id_Reclamation == reclamation.id))
             {
                 db.Reclamation_PZ.Remove(data);
             }
@@ -385,14 +383,14 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText, 
+        public JsonResult Update(Wiki.Reclamation reclamation, int[] pZ_PlanZakaz, string answerText,
             bool? reload, int? reloadDevision, bool? trash)
         {
             string login = HttpContext.User.Identity.Name;
             AspNetUsers aspNetUser = db.AspNetUsers.First(d => d.Email == login);
-            if(aspNetUser.Devision == 6)
+            if (aspNetUser.Devision == 6)
             {
-                if(reclamation.close == true)
+                if (reclamation.close == true)
                 {
                     string textAnswer = "";
                     textAnswer = "Замечание закрыто ОТК";
@@ -532,7 +530,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return text;
         }
 
-        string[] GetPlanZakazArray(List<Reclamation_PZ> reclamation_PZs)
+        private string[] GetPlanZakazArray(List<Reclamation_PZ> reclamation_PZs)
         {
             string[] pZ_PlanZakaz = new string[reclamation_PZs.Count];
             for (int i = 0; i < reclamation_PZs.Count; i++)
@@ -542,7 +540,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return pZ_PlanZakaz;
         }
 
-        int GetIdDevision(string loginUser)
+        private int GetIdDevision(string loginUser)
         {
             int id_Devision = 0;
             try
@@ -551,7 +549,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             catch
             {
-
             }
             return id_Devision;
         }
@@ -571,7 +568,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return login;
         }
 
-        bool CreateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
+        private bool CreateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
         {
             foreach (var pz in pZ_PlanZakaz)
             {
@@ -586,7 +583,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return true;
         }
 
-        bool CreateTechnicalAdvice(int id_Reclamation, string id_AspNetUser)
+        private bool CreateTechnicalAdvice(int id_Reclamation, string id_AspNetUser)
         {
             Reclamation_TechnicalAdvice technicalAdvice = new Reclamation_TechnicalAdvice
             {
@@ -602,7 +599,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return true;
         }
 
-        bool UpdateTechnicalAdvice(int id_Reclamation, string aspNetUser)
+        private bool UpdateTechnicalAdvice(int id_Reclamation, string aspNetUser)
         {
             if (db.Reclamation_TechnicalAdvice.Where(d => d.id_Reclamation == id_Reclamation).Count() == 0)
             {
@@ -621,7 +618,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             return true;
         }
 
-        bool UpdateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
+        private bool UpdateReclamation_PZ(int[] pZ_PlanZakaz, int id_Reclamation)
         {
             var listLastPz = db.Reclamation_PZ.Where(d => d.id_Reclamation == id_Reclamation).ToList();
             foreach (var lastReclamationPZ in listLastPz)
@@ -769,7 +766,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else
             {
-
             }
             if (list.Count != 0)
             {
@@ -1106,7 +1102,6 @@ namespace Wiki.Areas.Reclamation.Controllers
                     string history = "";
                     foreach (var dataAnswer in data.Reclamation_Answer)
                     {
-
                         history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
                     }
                     string userError = "";

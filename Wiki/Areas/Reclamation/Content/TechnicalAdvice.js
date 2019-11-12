@@ -18,7 +18,7 @@ function loadData(listId) {
         $('#btnExpert').hide();
         allDataProtocols();
     }
-    else if (listId === 3 || listId === "3") {
+    else if (listId === 4 || listId === "4") {
         $('#btnExpert').hide();
         GetRemarksActiveWorkList();
     }
@@ -58,6 +58,18 @@ var objProtocol = [
     { "title": "См", "data": "LinkToView", "autowidth": true, "bSortable": false },
     { "title": "Дата заседания", "data": "DateProtocol", "autowidth": true, "bSortable": true },
     { "title": "Кол-во рекламаций", "data": "CountReclamation", "autowidth": true, "bSortable": true }
+];
+
+var objNoClose = [
+    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
+    { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
+    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Решение", "data": "Decision", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
+    { "title": "Ответственный исполнитель", "data": "Id_AspNetUserResponsible", "autowidth": true, "bSortable": true },
+    { "title": "Срок", "data": "Deadline", "autowidth": true, "bSortable": true }
 ];
 
 function startMenu() {
@@ -149,7 +161,7 @@ function GetRemarksActiveWorkList() {
         "bDestroy": true,
         "order": [[2, "desc"]],
         "processing": true,
-        "columns": objRemarksListNoEdit,
+        "columns": objNoClose,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

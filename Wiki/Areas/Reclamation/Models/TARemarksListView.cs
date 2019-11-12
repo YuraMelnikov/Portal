@@ -5,15 +5,15 @@ namespace Wiki.Areas.Reclamation.Models
 {
     public class TARemarksListView
     {
-        PortalKATEKEntities db = new PortalKATEKEntities();
-        List<TARemarkView> tARemarkViews;
+        private PortalKATEKEntities db = new PortalKATEKEntities();
+        private List<TARemarkView> tARemarkViews;
 
         public List<TARemarkView> TARemarkViews { get => tARemarkViews; set => tARemarkViews = value; }
 
         public List<TARemarkView> GetActiveTA()
         {
             InitializationList();
-            foreach(var data in db.Reclamation_TechnicalAdvice.Where(d => d.Reclamation_TechnicalAdviceProtocolPosition.Count == 0).ToList())
+            foreach (var data in db.Reclamation_TechnicalAdvice.Where(d => d.Reclamation_TechnicalAdviceProtocolPosition.Count == 0).ToList())
             {
                 TARemarkViews.Add(new TARemarkView(data));
             }
@@ -39,6 +39,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             return tARemarkViews;
         }
+
         public List<TARemarkView> GetRemarksPO()
         {
             InitializationList();
@@ -49,7 +50,7 @@ namespace Wiki.Areas.Reclamation.Models
             return tARemarkViews;
         }
 
-        public List<TARemarkView> GetRemarksNull ()
+        public List<TARemarkView> GetRemarksNull()
         {
             InitializationList();
             return tARemarkViews;
@@ -67,7 +68,7 @@ namespace Wiki.Areas.Reclamation.Models
             return tARemarkViews;
         }
 
-        bool InitializationList()
+        private bool InitializationList()
         {
             tARemarkViews = new List<TARemarkView>();
             return true;
@@ -76,7 +77,7 @@ namespace Wiki.Areas.Reclamation.Models
         public List<TARemarkView> GetNoCloseTA()
         {
             InitializationList();
-            foreach (var data in db.Reclamation_TechnicalAdvice.Where(d => d.close == false).ToList())
+            foreach (var data in db.Reclamation_TechnicalAdvice.Where(d => d.close == false && d.dateTimeClose != null).ToList())
             {
                 TARemarkViews.Add(new TARemarkView(data));
             }

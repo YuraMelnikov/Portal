@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Wiki.Areas.Reclamation.Models
 {
@@ -23,6 +24,8 @@ namespace Wiki.Areas.Reclamation.Models
         string firstPartLinkToView = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTAView('";
         string secondPartLinkToView = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
         string firstPartLinkToEditCounter = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationExpert('";
+        string deadline;
+        string id_AspNetUserResponsible;
 
         public int Id_Reclamation { get => id_Reclamation; set => id_Reclamation = value; }
         public string LinkToEdit { get => linkToEdit; set => linkToEdit = value; }
@@ -37,6 +40,8 @@ namespace Wiki.Areas.Reclamation.Models
         public string DevisionReclamation { get => devisionReclamation; set => devisionReclamation = value; }
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
         public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
+        public string Deadline { get => deadline; set => deadline = value; }
+        public string Id_AspNetUserResponsible { get => id_AspNetUserResponsible; set => id_AspNetUserResponsible = value; }
 
         public TARemarkView(Reclamation_TechnicalAdvice reclamation)
         {
@@ -53,6 +58,28 @@ namespace Wiki.Areas.Reclamation.Models
             devisionReclamation = reclamation.Reclamation.Devision.name;
             leavelReclamation = reclamation.Reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation.Reclamation_CountError1.name;
+            deadline = GetDeadLine(reclamation.deadline.ToString());
+            id_AspNetUserResponsible = GetUser(reclamation);
+        }
+
+        string GetUser(Reclamation_TechnicalAdvice reclamation)
+        {
+            try
+            {
+                return reclamation.AspNetUsers1.CiliricalName;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        string GetDeadLine(string input)
+        {
+            if (input == "")
+                return "";
+            else
+                return input.Substring(0, 10);
         }
 
         public TARemarkView(Wiki.Reclamation reclamation)
