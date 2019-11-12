@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="exportImportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="exportImportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="planZakaz">
           <Key>
             <PropertyRef Name="id" />
@@ -53,12 +53,12 @@
           <Property Name="obekt" Type="varchar(max)" />
           <Property Name="kolvo" Type="varchar(max)" />
           <Property Name="weight" Type="float" />
+          <Property Name="updateData" Type="bit" />
         </EntityType>
         <EntityContainer Name="exportImportModelStoreContainer">
           <EntitySet Name="planZakaz" EntityType="Self.planZakaz" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="exportImportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -110,6 +110,7 @@
           <Property Name="obekt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="kolvo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="weight" Type="Double" />
+          <Property Name="updateData" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="planZakaz" EntityType="Self.planZakaz" />
@@ -123,6 +124,7 @@
           <EntitySetMapping Name="planZakaz">
             <EntityTypeMapping TypeName="exportImportModel.planZakaz">
               <MappingFragment StoreEntitySet="planZakaz">
+                <ScalarProperty Name="updateData" ColumnName="updateData" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Zakaz" ColumnName="Zakaz" />
                 <ScalarProperty Name="Otgruzka" ColumnName="Otgruzka" />

@@ -13,10 +13,10 @@ namespace Wiki
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ExportImportEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public ExportImportEntities()
-            : base("name=ExportImportEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

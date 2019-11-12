@@ -58,5 +58,6 @@ namespace Wiki
         public string obekt { get; set; }
         public string kolvo { get; set; }
         public Nullable<double> weight { get; set; }
+        public Nullable<bool> updateData { get; set; }
     }
 }
