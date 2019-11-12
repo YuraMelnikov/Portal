@@ -60,18 +60,6 @@ var objProtocol = [
     { "title": "Кол-во рекламаций", "data": "CountReclamation", "autowidth": true, "bSortable": true }
 ];
 
-var objRemarksActiveWorkList = [
-    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
-    { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
-    { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
-    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Решение", "data": "Decision", "autowidth": true, "bSortable": false, "class": 'colu-200' },
-    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
-    { "title": "Ответственный исполнитель", "data": "id_AspNetUserResponsible", "autowidth": true, "bSortable": true },
-    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true }
-];
-
 function startMenu() {
     $("#myTable").DataTable({
         "ajax": {
@@ -154,14 +142,14 @@ function GetRemarksActiveWorkList() {
     $("#myTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/TechnicalAdvice/GetRemarksActiveWorkList",
+            "url": "/TechnicalAdvice/GetNoCloseTA",
             "type": "POST",
             "datatype": "json"
         },
         "bDestroy": true,
         "order": [[2, "desc"]],
         "processing": true,
-        "columns": objRemarksActiveWorkList,
+        "columns": objRemarksListNoEdit,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

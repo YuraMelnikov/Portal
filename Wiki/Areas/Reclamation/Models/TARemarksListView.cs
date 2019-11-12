@@ -72,5 +72,15 @@ namespace Wiki.Areas.Reclamation.Models
             tARemarkViews = new List<TARemarkView>();
             return true;
         }
+
+        public List<TARemarkView> GetNoCloseTA()
+        {
+            InitializationList();
+            foreach (var data in db.Reclamation_TechnicalAdvice.Where(d => d.close == false).ToList())
+            {
+                TARemarkViews.Add(new TARemarkView(data));
+            }
+            return tARemarkViews;
+        }
     }
 }

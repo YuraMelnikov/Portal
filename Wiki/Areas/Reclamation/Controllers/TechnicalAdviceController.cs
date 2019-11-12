@@ -27,6 +27,12 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(new { data });
         }
 
+        public JsonResult GetNoCloseTA()
+        {
+            var data = new TARemarksListView().GetNoCloseTA();
+            return Json(new { data });
+        }
+
         public JsonResult GetAllRemarks()
         {
             var data = new TARemarksListView().GetAllRemarks();
@@ -47,7 +53,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 userCreateReclamation = dataList.Reclamation.UserCreate,
                 devisionReclamation = dataList.Reclamation.Devision,
                 reclamationText = dataList.Reclamation.Text,
-                answerHistiryText = dataList.Reclamation.Answers
+                answerHistiryText = dataList.Reclamation.Answers,
+                close = dataList.Reclamation_TechnicalAdvice.close,
+                id_AspNetUserResponsible = dataList.Reclamation_TechnicalAdvice.id_AspNetUserResponsible,
+                deadline = dataList.Reclamation_TechnicalAdvice.deadline
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
@@ -112,7 +121,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         //{ "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
         //{ "title": "Ответственный исполнитель", "data": "id_AspNetUserResponsible", "autowidth": true, "bSortable": true },
         //{ "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true }
-        //GetTA
-        //
+
+
     }
 }
