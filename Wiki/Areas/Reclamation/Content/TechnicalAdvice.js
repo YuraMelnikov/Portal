@@ -18,6 +18,10 @@ function loadData(listId) {
         $('#btnExpert').hide();
         allDataProtocols();
     }
+    else if (listId === 3 || listId === "3") {
+        $('#btnExpert').hide();
+        GetRemarksActiveWorkList();
+    }
     else {
         $('#btnExpert').hide();
         activeTA();
@@ -54,6 +58,18 @@ var objProtocol = [
     { "title": "См", "data": "LinkToView", "autowidth": true, "bSortable": false },
     { "title": "Дата заседания", "data": "DateProtocol", "autowidth": true, "bSortable": true },
     { "title": "Кол-во рекламаций", "data": "CountReclamation", "autowidth": true, "bSortable": true }
+];
+
+var objRemarksActiveWorkList = [
+    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
+    { "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
+    { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
+    { "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Решение", "data": "Decision", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
+    { "title": "Ответственный исполнитель", "data": "id_AspNetUserResponsible", "autowidth": true, "bSortable": true },
+    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true }
 ];
 
 function startMenu() {
@@ -129,6 +145,36 @@ function activeTA() {
     }
 }
 
+function GetRemarksActiveWorkList() {
+    var countRedPosition = 0;
+    var countPosition = 0;
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/TechnicalAdvice/GetRemarksActiveWorkList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "desc"]],
+        "processing": true,
+        "columns": objRemarksActiveWorkList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
 function protocols() {
     var table = $('#myTable').DataTable();
     table.destroy();
@@ -202,6 +248,9 @@ function getTAEdit(id) {
             $('#devisionReclamation').val(result.devisionReclamation);
             $('#reclamationText').val(result.reclamationText);
             $('#answerHistiryText').val(result.answerHistiryText);
+            $('#id_AspNetUserResponsible').val(result.id_AspNetUserResponsible);
+            $('#deadline').val(result.deadline);
+            $('#close').prop('checked', result.close);
             $('#viewReclamation').modal('show');
             $('#btnUpdate').show();
         },
@@ -216,7 +265,10 @@ function update() {
     var objRemark = {
         id: $('#id').val(),
         text: $('#text').val(),
-        description: $('#description').val()
+        description: $('#description').val(),
+        close: $('#close').is(":checked"),
+        deadline: $('#deadline').val(),
+        id_AspNetUserResponsible: $('#id_AspNetUserResponsible').val()
     };
     $.ajax({
         cache: false,
@@ -227,7 +279,6 @@ function update() {
         dataType: "json",
         success: function (result) {
             $('#viewReclamation').modal('hide');
-            //loadData(document.getElementById('pageData').innerHTML);
             $('#myTable').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {

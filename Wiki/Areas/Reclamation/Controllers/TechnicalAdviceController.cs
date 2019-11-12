@@ -60,6 +60,11 @@ namespace Wiki.Areas.Reclamation.Controllers
                 technicalAdvice.text = ta.text;
             if(ta.description != null)
                 technicalAdvice.description = ta.description;
+            technicalAdvice.close = ta.close;
+            if (ta.id_AspNetUserResponsible != null)
+                technicalAdvice.id_AspNetUserResponsible = ta.id_AspNetUserResponsible;
+            if (ta.deadline != null)
+                technicalAdvice.deadline = ta.deadline;
             db.Entry(technicalAdvice).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
@@ -96,5 +101,18 @@ namespace Wiki.Areas.Reclamation.Controllers
             var data = new TARemarksListView().GetRemarksProtocol(id);
             return Json(new { data });
         }
+
+        //GetRemarksActiveWorkList
+        //    { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
+        //{ "title": "Ред", "data": "LinkToEdit", "autowidth": true, "bSortable": false },
+        //{ "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
+        //{ "title": "Описание", "data": "TextReclamation", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+        //{ "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+        //{ "title": "Решение", "data": "Decision", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+        //{ "title": "Прим.", "data": "DescriptionReclamation", "autowidth": true, "bSortable": false },
+        //{ "title": "Ответственный исполнитель", "data": "id_AspNetUserResponsible", "autowidth": true, "bSortable": true },
+        //{ "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true }
+        //GetTA
+        //
     }
 }

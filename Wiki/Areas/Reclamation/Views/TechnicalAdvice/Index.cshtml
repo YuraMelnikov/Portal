@@ -15,6 +15,7 @@
             <li><a onclick="return loadData(1);">Список на заседание ТС</a></li>
             <li><a onclick="return loadData(2);">Протоколы ТС</a></li>
             <li><a onclick="return loadData(3);">Список решений ТС</a></li>
+            <li><a onclick="return loadData(4);">Незакрытые вопросы</a></li>
             <li><a href="/Reclamation/Remarks/Index/">Рекламации</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -117,5 +118,15 @@
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
         $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#deadline').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
     });
 </script>
