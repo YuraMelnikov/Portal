@@ -2505,5 +2505,32 @@ namespace Wiki.Areas.CMKO.Controllers
             else
                 return "<td></td>";
         }
+
+        public JsonResult GetSalaryAndRateWorkers()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFundUser();
+                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
+                    summaryWageFund[i].Plan = (int)(fundData[i].rate1 + fundData[i].rate2 + fundData[i].rate3);
+                    summaryWageFund[i].Fact = (int)(fundData[i].tax1 + fundData[i].tax2 + fundData[i].tax3);
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //GetCoefWorker
+        //GetCoefWorkerG
     }
 }

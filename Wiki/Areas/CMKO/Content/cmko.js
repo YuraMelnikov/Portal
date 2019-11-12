@@ -19,6 +19,9 @@
     GetAccuredFact();
     GetNhUsersThisQua();
     GetTimeSheet();
+    GetSalaryAndRateWorkers();
+    GetCoefWorker();
+    GetCoefWorkerG();
 });
 
 var objOptimization = [
@@ -7012,6 +7015,231 @@ function GetTimeSheet() {
                         enabled: true,
                         color: '#000000'
                     }
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetSalaryAndRateWorkers() {
+    $.ajax({
+        url: "/CMK/GetSalaryAndRateWorkers/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var workerArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+            for (var i = 0; i < counter; i++) {
+                workerArray.push(result[i].FullName);
+                planArray.push(result[i].Plan);
+                factArray.push(result[i].Fact);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('salaryAndRateWorkers', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Расчетный оклад и налоги (квартальный)',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: workerArray
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Оклад',
+                    data: planArray
+                }, {
+                    name: 'Налоги',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetCoefWorker() {
+    $.ajax({
+        url: "/CMK/GetCoefWorker/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var workerArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+            for (var i = 0; i < counter; i++) {
+                workerArray.push(result[i].FullName);
+                planArray.push(result[i].Plan);
+                factArray.push(result[i].Fact);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('salaryAndRateWorkers', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Расчетный оклад и налоги (квартальный)',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: workerArray
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Оклад',
+                    data: planArray
+                }, {
+                    name: 'Налоги',
+                    data: factArray
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetCoefWorkerG() {
+    $.ajax({
+        url: "/CMK/GetCoefWorkerG/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var counter = Object.keys(result).length;
+            var workerArray = new Array();
+            var planArray = new Array();
+            var factArray = new Array();
+            for (var i = 0; i < counter; i++) {
+                workerArray.push(result[i].FullName);
+                planArray.push(result[i].Plan);
+                factArray.push(result[i].Fact);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('salaryAndRateWorkers', {
+                chart: {
+                    type: 'bar',
+                    marginBottom: 60
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: 'Расчетный оклад и налоги (квартальный)',
+                    style: {
+                        "font-size": "13px"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    stackLabels: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    categories: workerArray
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Оклад',
+                    data: planArray
+                }, {
+                    name: 'Налоги',
+                    data: factArray
                 }]
             });
         },
