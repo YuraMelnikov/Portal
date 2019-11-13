@@ -1579,12 +1579,13 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 var sucursalList = db.planZakaz
                     .AsNoTracking()
                     .Where(d => d.id == id)
-                    .OrderByDescending(d => d.Zakaz);
+                    .OrderByDescending(d => d.Zakaz)
+                    .ToList();
                 var data = sucursalList.Select(m => new
                 {
                     idOrder1c = m.id,
                     orderName1c = m.Zakaz,
-                    dateSh1c = JsonConvert.SerializeObject(m.Otgruzka, shortSetting).Replace(@"""", "")
+                    dateSh1c = JsonConvert.SerializeObject(m.Otgruzka, shortSettingRu).Replace(@"""", "")
                 });
                 return Json(data.ToList(), JsonRequestBehavior.AllowGet);
             }

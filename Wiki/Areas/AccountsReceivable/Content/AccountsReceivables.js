@@ -53,7 +53,7 @@ function loadData(listId) {
         document.getElementById('labelList').innerHTML = "Задачи по заказам";
     }
     else if (listId === 14 || listId === "14") {
-        tasksPM();
+        GetOrders1c();
         document.getElementById('labelList').innerHTML = "Отправить в 1с новые сроки отгрузки";
     }
     else {
@@ -106,9 +106,9 @@ function GetOrder1c(id) {
             $('#idOrder1c').val("");
             $('#orderName1c').val("");
             $('#dateSh1c').val("");
-            $('#idOrder1c').val(result.idOrder1c);
-            $('#orderName1c').val(result.orderName1c);
-            $('#dateSh1c').val(result.dateSh1c);
+            $('#idOrder1c').val(result[0].idOrder1c);
+            $('#orderName1c').val(result[0].orderName1c);
+            $('#dateSh1c').val(result[0].dateSh1c);
             $('#order1cModal').modal('show');
         },
         error: function (errormessage) {
@@ -119,10 +119,6 @@ function GetOrder1c(id) {
 }
 
 function UpdateOrder1c() {
-    var res = validTN();
-    if (res === false) {
-        return false;
-    }
     var objTNData = {
         idOrder1c: $('#idOrder1c').val(),
         dateSh1c: $('#dateSh1c').val()
