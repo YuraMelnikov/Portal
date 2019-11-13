@@ -61,7 +61,7 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
-            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.8;
+            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.75;
             pointWidthForGantt = 14;
             //var widthGanttSize = pointWidthForGantt * Object.keys(myJSON).length * 1.5;
             var widthGanttSize = 700;

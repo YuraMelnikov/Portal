@@ -502,6 +502,7 @@ function getSmTy1() {
         }
     });
 }
+
 function getSmTy2() {
     $.ajax({
         url: "/VBP/GetSppedometrThisYear1Month/2",

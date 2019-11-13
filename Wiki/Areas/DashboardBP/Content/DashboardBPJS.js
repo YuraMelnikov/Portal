@@ -9,13 +9,59 @@
 
 function getGanttProjectPortfolio() {
     $.ajax({
-        url: "/BP/GetProjectsPortfolio/",
+        url: "/DashboardTVC/GetProjectsPortfolio/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var arrayToJSON = result.projects;
-            var myJSON = JSON.parse(JSON.stringify(arrayToJSON));
-            var countLine = myJSON.length;
+            var myJSON = JSON.parse(JSON.stringify(result));
+
+
+            for (var i = 0; i < 33; i++) {
+                for (var j = 0; j < Object.keys(myJSON[i].Deals).length; j++) {
+                    myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
+                    myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
+                }
+                myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
+            }
+            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.8;
+            pointWidthForGantt = 14;
+            //var widthGanttSize = pointWidthForGantt * Object.keys(myJSON).length * 1.5;
+            var widthGanttSize = 700;
+            var today = new Date(),
+                day = 1000 * 60 * 60 * 24,
+                map = Highcharts.map,
+                dateFormat = Highcharts.dateFormat,
+                series,
+                cars;
+            today.setUTCHours(0);
+            today.setUTCMinutes(0);
+            today.setUTCSeconds(0);
+            today.setUTCMilliseconds(0);
+            today = today.getTime();
+            series = myJSON.map(function (myJSON, i) {
+                var data = myJSON.Deals.map(function (deal) {
+                    return {
+                        id: 'deal-' + i,
+                        rentedTo: deal.TCPM,
+                        start: deal.From,
+                        end: deal.To,
+                        color: deal.Color,
+                        dependency: 'prototype',
+                        name: renderToNullString(deal.TCPM, deal.Milestone),
+                        pointWidth: pointWidthForGantt,
+                        milestone: deal.Milestone,
+                        y: i
+                    };
+                });
+                return {
+                    dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
+                    name: myJSON.OrderNumber,
+                    color: myJSON.Color,
+                    data: data,
+                    current: myJSON.Deals[myJSON.Current]
+                };
+            });
+            series = series.slice(0, 33);
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
@@ -39,148 +85,80 @@ function getGanttProjectPortfolio() {
                     enabled: false
                 }
             });
-            var today = new Date(),
-                day = 1000 * 60 * 60 * 24,
-                dateFormat = Highcharts.dateFormat,
-                defined = Highcharts.defined,
-                isObject = Highcharts.isObject,
-                reduce = Highcharts.reduce;
-            today.setUTCHours(0);
-            today.setUTCMinutes(0);
-            today.setUTCSeconds(0);
-            today.setUTCMilliseconds(0);
-            today = today.getTime();
             Highcharts.ganttChart('projectPortfolio', {
-                xAxis: {
-                    scrollbar: {
-                        enabled: true
-                    },
-                    currentDateIndicator: true,
-                    min: today - 7 * day,
-                    max: today + 120 * day,
-                    labels: {
-                        style: {
-                            "color": "#666666",
-                            "fontSize": "13px"
-                        }
+                series: series,
+                plotOptions: {
+                    series: {
+                        animation: false,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}',
+                            style: {
+                                color: "contrast",
+                                fontSize: pointWidthForGantt - 4,
+                                fontWeight: "bold",
+                                textOutline: "1px contrast"
+                            }
+                        },
+
+                        allowPointSelect: true
                     }
                 },
-                chart: {
-                    height: '900px'
+                title: {
+                    enabled: false
                 },
-                series: [{
-                    pointWidth: 13,
-                    name: 'Заказ',
-                    data: myJSON
-                }], 
-                yAxis: {
-                    type: 'category',
-                    grid: {
-                        scrollbar: {
-                            enabled: false
-                        },
-                        columns: [{
-                            title: {
-                                text: 'Заказ'
-                            },
-                            labels: {
-                                format: '{point.name}'
-                            },
-                            scrollbar: {
-                                enabled: false
-                            }
-                        }, {
-                            title: {
-                                text: 'Контракт'
-                            },
-                            labels: {
-                                format: '{point.contractDate:%e. %b}'
-                            },
-                            scrollbar: {
-                                enabled: false
-                            }
-
-                        }, {
-                            title: {
-                                text: 'План'
-                            },
-                            labels: {
-                                format: '{point.end:%e. %b}'
-                            },
-                            scrollbar: {
-                                enabled: false
-                            }
-                        }, {
-                            title: {
-                                text: 'Откл.'
-                            },
-                            labels: {
-                                formatter: function () {
-                                    var point = this.point,
-                                        days = 1000 * 60 * 60 * 24,
-                                        number = (point.contractDate - point.end) / days;
-                                    if (Math.round(number * 100) / 100 < 0) {
-                                        return '<span style="fill: red; font-weight:bold;">' + Math.round(number * 100) / 100 + '</span>';
-                                    } else {
-                                        return Math.round(number * 100) / 100;
-                                    }
-                                }
-                            }
-                        }]
-                    },
-                    scrollbar: {
-                        enabled: true
-                    },
-                    min: 0,
-                    max: 40,
-                    labels: {
-                        style: {
-                            "color": "#666666",
-                            "fontSize": "10px"
-                        }
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
                     }
                 },
                 tooltip: {
-                    pointFormatter: function () {
-                        var point = this,
-                            format = '%e. %b',
-                            options = point.options,
-                            completed = options.completed,
-                            amount = isObject(completed) ? completed.amount : completed,
-                            status = (amount || 0) * 100 + '%',
-                            lines;
-                        lines = [{
-                            value: point.name,
-                            style: 'font-weight: bold;'
-                        }, {
-                            title: 'Начало',
-                            value: dateFormat(format, point.start)
-                        }, {
-                            visible: !options.milestone,
-                            title: 'Окончание',
-                            value: dateFormat(format, point.end)
-                        }, {
-                            visible: !options.milestone,
-                            title: 'Контрактный срок',
-                            value: dateFormat(format, point.contractDate)
-                        }, {
-                            title: 'Владелец',
-                            value: options.owner || 'unassigned'
-                        }];
-                        return reduce(lines, function (str, line) {
-                            var s = '',
-                                style = defined(line.style) ? line.style : 'font-size: 0.8em;';
-                            if (line.visible !== false) {
-                                s = '<span style="' + style + '">' + (defined(line.title) ? line.title + ': ' : '') + (defined(line.value) ? line.value : '') + '</span><br/>';
-                            }
-                            return str + s;
-                        }, '');
+                    pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
+                },
+                xAxis: {
+                    tickInterval: 1000 * 60 * 60 * 24 * 30,
+                    min: getMinDate(),
+                    max: getMaxDate(),
+                    labels: {
+                        style: {
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt - 4
+                        }
                     }
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt - 4
+                        }
+                    },
+                    type: 'category',
+                    grid: {
+                        columns: [{
+                            title: {
+                                text: 'Дата отгрузки'
+                            },
+                            categories: map(series, function (s) {
+                                return dateFormat('%e. %b', s.dataOtgruzkiBP);
+                            })
+                        }, {
+                            title: {
+                                text: '№ заказа'
+                            },
+                            categories: map(series, function (s) {
+                                return s.name;
+                            })
+                        }]
+                    }
+                },
+                chart: {
+                    height: widthGanttSize + 'px'
                 }
             });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
