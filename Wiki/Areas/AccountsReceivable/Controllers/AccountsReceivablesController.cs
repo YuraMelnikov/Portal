@@ -1554,77 +1554,54 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                if (login == "myi@katek.by" || login == "gea@katek.by")
+
+                var query = db.planZakaz
+                   .AsNoTracking()
+                   .Where(d => d.updateData == true)
+                   .OrderByDescending(d => d.Zakaz)
+                   .ToList();
+                var data = query.Select(dataList => new
                 {
-                    var query = db.planZakaz
-                       .AsNoTracking()
-                       .Where(d => d.clo < 9000)
-                       .OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz)
-                       .ToList();
-                    var data = query.Select(dataList => new
-                    {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTEO('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                        order = dataList.PZ_PlanZakaz.PlanZakaz,
-                        dataList.Rate,
-                        dataList.SSM,
-                        dataList.SSR,
-                        dataList.IzdKom,
-                        dataList.IzdPPKredit,
-                        dataList.PI,
-                        dataList.NOP,
-                        dataList.KI_S,
-                        dataList.KI_prochee,
-                        dataList.OtpuskChena,
-                        Currency = dataList.PZ_Currency.Name,
-                        dataList.NDS
-                    });
-                    try
-                    {
-                        logger.Debug("TEOList: " + login);
-                    }
-                    catch
-                    {
-                    }
-                    return Json(new { data });
-                }
-                else
-                {
-                    var query = db.PZ_TEO
-                       .AsNoTracking()
-                       .Include(d => d.PZ_PlanZakaz)
-                       .Include(d => d.PZ_Currency)
-                       .Where(d => d.id == 0)
-                       .OrderByDescending(d => d.PZ_PlanZakaz.PlanZakaz)
-                       .ToList();
-                    var data = query.Select(dataList => new
-                    {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getTEO('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                        order = dataList.PZ_PlanZakaz.PlanZakaz,
-                        dataList.Rate,
-                        dataList.SSM,
-                        dataList.SSR,
-                        dataList.IzdKom,
-                        dataList.IzdPPKredit,
-                        dataList.PI,
-                        dataList.NOP,
-                        dataList.KI_S,
-                        dataList.KI_prochee,
-                        dataList.OtpuskChena,
-                        Currency = dataList.PZ_Currency.Name,
-                        dataList.NDS
-                    });
-                    try
-                    {
-                        logger.Debug("TEOList: " + login);
-                    }
-                    catch
-                    {
-                    }
-                    return Json(new { data });
-                }
+                    edit = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder1c('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    orderNumber = dataList.Zakaz,
+                    dateSh = dataList.Otgruzka.ToString().Substring(0, 10)
+                });
+                return Json(new { data });
             }
         }
-        GetOrder1c
-        UpdateOrder1c
+
+        public JsonResult GetOrder1c(int id)
+        {
+            using (ExportImportEntities db = new ExportImportEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var sucursalList = db.planZakaz
+                    .AsNoTracking()
+                    .Where(d => d.id == id)
+                    .OrderByDescending(d => d.Zakaz);
+                var data = sucursalList.Select(m => new
+                {
+                    idOrder1c = m.id,
+                    orderName1c = m.Zakaz,
+                    dateSh1c = JsonConvert.SerializeObject(m.Otgruzka, shortSetting).Replace(@"""", "")
+                });
+                return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateOrder1c(int idOrder1c, DateTime dateSh1c)
+        {
+            using (ExportImportEntities db = new ExportImportEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                planZakaz order = db.planZakaz.First(d => d.id == idOrder1c);
+                order.Otgruzka = dateSh1c;
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
