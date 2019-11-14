@@ -15,6 +15,11 @@ namespace Wiki.Areas.DashboardTV.Controllers
             return View();
         }
 
+        public ActionResult IndexForDesc()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult GetTablePlan()
         {

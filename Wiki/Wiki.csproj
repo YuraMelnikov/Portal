@@ -1011,6 +1011,7 @@
     <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
     <Content Include="Areas\DashboardBP\Content\createHSSPO.sql" />
     <Content Include="Areas\DashboardBP\Content\DashboardBPJS.js" />
+    <Content Include="Areas\DashboardTV\Content\DashboardDT.js" />
     <Content Include="Areas\DashboardTV\Content\updateDataEveryMonth.sql" />
     <Content Include="Areas\DashboardTV\Content\updateDataEveryDay.sql" />
     <Content Include="Areas\DashboardTV\Content\DashboardTV.js" />
@@ -1737,6 +1738,7 @@
     </Content>
     <Content Include="Areas\CMKO\Views\Shared\_LayoutCMKO.cshtml" />
     <Content Include="Areas\CMKO\Views\CMK\Index.cshtml" />
+    <Content Include="Areas\DashboardTV\Views\DashboardTVC\IndexForDesc.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

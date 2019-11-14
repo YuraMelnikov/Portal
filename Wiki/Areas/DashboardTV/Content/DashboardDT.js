@@ -51,17 +51,16 @@ function getGanttProjects() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var myJSON = JSON.parse(JSON.stringify(result));
-            for (var i = 0; i < 33; i++) {
-                for (var p = 0; p < Object.keys(myJSON[i].Deals).length; p++) {
-                    myJSON[i].Deals[p].From = converDateJSON(myJSON[i].Deals[p].From);
-                    myJSON[i].Deals[p].To = converDateJSON(myJSON[i].Deals[p].To);
+            var myJSONDT = JSON.parse(JSON.stringify(result));
+            for (var l = 0; l < Object.keys(myJSONDT).length; l++) {
+                for (var j = 0; j < Object.keys(myJSONDT[l].Deals).length; j++) {
+                    myJSONDT[l].Deals[j].From = converDateJSON(myJSONDT[l].Deals[j].From);
+                    myJSONDT[l].Deals[j].To = converDateJSON(myJSONDT[l].Deals[j].To);
                 }
-                myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
+                myJSONDT[l].DataOtgruzkiBP = converDateJSON(myJSONDT[l].DataOtgruzkiBP);
             }
-            var pointWidthForGantt = 650 / Object.keys(myJSON).length * 0.75;
+            var widthGanttSizeFDT = 14 * Object.keys(myJSONDT).length * 1.5;
             pointWidthForGantt = 14;
-            var widthGanttSize = 700;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -74,8 +73,8 @@ function getGanttProjects() {
             today.setUTCSeconds(0);
             today.setUTCMilliseconds(0);
             today = today.getTime();
-            series = myJSON.map(function (myJSON, i) {
-                var data = myJSON.Deals.map(function (deal) {
+            seriesDT = myJSONDT.map(function (myJSONDT, i) {
+                var data = myJSONDT.Deals.map(function (deal) {
                     return {
                         id: 'deal-' + i,
                         rentedTo: deal.TCPM,
@@ -90,14 +89,14 @@ function getGanttProjects() {
                     };
                 });
                 return {
-                    dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
-                    name: myJSON.OrderNumber,
-                    color: myJSON.Color,
+                    dataOtgruzkiBP: myJSONDT.DataOtgruzkiBP,
+                    name: myJSONDT.OrderNumber,
+                    color: myJSONDT.Color,
                     data: data,
-                    current: myJSON.Deals[myJSON.Current]
+                    current: myJSONDT.Deals[myJSONDT.Current]
                 };
             });
-            series = series.slice(0, 33);
+            var seriesForDesc = seriesDT;
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
@@ -121,8 +120,8 @@ function getGanttProjects() {
                     enabled: false
                 }
             });
-            Highcharts.ganttChart('projectPortfolio', {
-                series: series,
+            Highcharts.ganttChart('projectPortfolioForDescTop', {
+                series: seriesForDesc,
                 plotOptions: {
                     series: {
                         animation: false,
@@ -131,12 +130,11 @@ function getGanttProjects() {
                             format: '{point.name}',
                             style: {
                                 color: "contrast",
-                                fontSize: pointWidthForGantt - 4,
+                                fontSize: pointWidthForGantt - 5,
                                 fontWeight: "bold",
                                 textOutline: "1px contrast"
                             }
                         },
-
                         allowPointSelect: true
                     }
                 },
@@ -155,13 +153,13 @@ function getGanttProjects() {
                     pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
                 },
                 xAxis: {
-                    tickInterval: 1000 * 60 * 60 * 24 * 30, 
+                    tickInterval: 1000 * 60 * 60 * 24 * 30,
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt - 4
+                            "fontSize": pointWidthForGantt - 5
                         }
                     }
                 },
@@ -169,7 +167,7 @@ function getGanttProjects() {
                     labels: {
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt - 4
+                            "fontSize": pointWidthForGantt - 5
                         }
                     },
                     type: 'category',
@@ -178,21 +176,21 @@ function getGanttProjects() {
                             title: {
                                 text: 'Дата отгрузки'
                             },
-                            categories: map(series, function (s) {
+                            categories: map(seriesForDesc, function (s) {
                                 return dateFormat('%e. %b', s.dataOtgruzkiBP);
                             })
                         }, {
                             title: {
                                 text: '№ заказа'
                             },
-                            categories: map(series, function (s) {
+                                categories: map(seriesForDesc, function (s) {
                                 return s.name;
                             })
                         }]
                     }
                 },
                 chart: {
-                    height: widthGanttSize + 'px'
+                    height: widthGanttSizeFDT + 'px'
                 }
             });
         }
