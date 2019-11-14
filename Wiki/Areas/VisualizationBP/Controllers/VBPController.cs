@@ -29,7 +29,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-
         List<DashboardBP_HSSPOSmall> GetHSSSnall(int numberMonth)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())

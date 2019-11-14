@@ -6,7 +6,34 @@ $(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
     getSmTy();
+    getTablePlan();
 });
+
+var objTableData = [
+    { "title": "План на начало месяца", "data": "monthPlan", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+    { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+    { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+    { "title": "", "data": "glyphicon1", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "", "data": "glyphicon", "autowidth": true, "bSortable": false, "className": 'text-center' }
+];
+
+function getTablePlan() {
+    $("#tablePlan").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/DashboardTVC/GetTablePlan",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": objTableData,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "ordering": false
+    });
+}
 
 function getPeriodReport() {
     $.ajax({
@@ -39,7 +66,7 @@ function getGanttProjects() {
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
             }
             var pointWidthForGantt = 14;
-            var widthGanttSize = pointWidthForGantt * lenghtElements * 1.5;
+            var widthGanttSize = pointWidthForGantt * lenghtElements * 1.4;
             var today = new Date(),
                 day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
@@ -128,7 +155,7 @@ function getGanttProjects() {
                     }
                 },
                 tooltip: {
-                    pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
+                    pointFormat: '<span>ХСС: {point.rentedTo}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
                 },
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, 
@@ -152,14 +179,28 @@ function getGanttProjects() {
                     grid: {
                         columns: [{
                             title: {
-                                text: 'Дата отгрузки'
+                                text: 'Отгрузка'
                             },
                             categories: map(series, function (s) {
                                 return dateFormat('%e. %b', s.dataOtgruzkiBP);
                             })
                         }, {
                             title: {
-                                text: '№ заказа'
+                                text: 'Откл.'
+                            },
+                            categories: map(series, function (s) {
+                                return s.name;
+                            })
+                        }, {
+                            title: {
+                                text: 'КС'
+                            },
+                            categories: map(series, function (s) {
+                                return s.name;
+                            })
+                        }, {
+                            title: {
+                                text: 'Заказ'
                             },
                             categories: map(series, function (s) {
                                 return s.name;
@@ -482,7 +523,6 @@ function getSmTy1() {
         }
     });
 }
-
 function getSmTy2() {
     $.ajax({
         url: "/VBP/GetSppedometrThisYear1Month/2",
