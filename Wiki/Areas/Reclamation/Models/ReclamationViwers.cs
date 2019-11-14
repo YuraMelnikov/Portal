@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Wiki.Areas.Reclamation.Models
@@ -21,6 +20,7 @@ namespace Wiki.Areas.Reclamation.Models
         string leavelReclamation;
         string lastLeavelReclamation;
         string onePZName;
+        string pfName;
 
         public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
         public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
@@ -36,6 +36,7 @@ namespace Wiki.Areas.Reclamation.Models
         public string LeavelReclamation { get => leavelReclamation; set => leavelReclamation = value; }
         public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
         public string OnePZName { get => onePZName; set => onePZName = value; }
+        public string PfName { get => pfName; set => pfName = value; }
 
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {
@@ -78,6 +79,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            pfName = reclamation.PF.name;
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
@@ -123,6 +125,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            pfName = reclamation.PF.name;
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, string onePZName) 
@@ -166,6 +169,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            pfName = reclamation.PF.name;
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision, string onePZName) 
@@ -211,6 +215,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            pfName = reclamation.PF.name;
         }
     }
 }

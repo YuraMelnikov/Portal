@@ -31,6 +31,7 @@ namespace Wiki.Areas.Reclamation.Models
                 .Include(d => d.AspNetUsers1)
                 .Include(d => d.Reclamation_CountError)
                 .Include(d => d.Reclamation_CountError1)
+                .Include(d => d.PF)
                 .ToList();
         }
 
@@ -45,6 +46,7 @@ namespace Wiki.Areas.Reclamation.Models
                 .Include(d => d.AspNetUsers1)
                 .Include(d => d.Reclamation_CountError)
                 .Include(d => d.Reclamation_CountError1)
+                                .Include(d => d.PF)
                 .Where(d => d.id == id)
                 .ToList();
         }
@@ -65,6 +67,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             }
             else
@@ -78,6 +81,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             }
         }
@@ -94,6 +98,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             else if (id_Devision == 28)
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionCreate == id_Devision)
@@ -104,6 +109,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             else if(id_Devision == 8)
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == 8 || d.id_DevisionReclamation == 20)
@@ -114,6 +120,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             else if (id_Devision == 9)
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == 9 || d.id_DevisionReclamation == 22)
@@ -123,6 +130,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             else if (id_Devision == 29)
@@ -134,6 +142,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             else
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == id_Devision)
@@ -143,6 +152,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
         }
@@ -162,6 +172,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
@@ -177,6 +188,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
@@ -192,6 +204,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
+                                    .Include(d => d.PF)
                     .ToList();
             }
             else if (id_Devision == 0)
@@ -204,6 +217,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .Where(d => d.Reclamation_PZ.Max(s => s.PZ_PlanZakaz.dataOtgruzkiBP) > DateTime.Now)
                     .ToList();
@@ -216,6 +230,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -231,6 +246,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -245,6 +261,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -258,6 +275,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -274,6 +292,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
@@ -291,6 +310,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -306,6 +326,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -323,6 +344,7 @@ namespace Wiki.Areas.Reclamation.Models
                 .Include(d => d.Devision)
                 .Include(d => d.AspNetUsers)
                 .Include(d => d.AspNetUsers1)
+                                .Include(d => d.PF)
                 .Include(d => d.Reclamation_CountError)
                 .Include(d => d.Reclamation_CountError1)
                 .ToList();
@@ -341,6 +363,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
@@ -355,6 +378,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
@@ -368,6 +392,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -382,6 +407,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -397,6 +423,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
@@ -410,6 +437,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -423,6 +451,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -437,6 +466,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -459,6 +489,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
+                                    .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
@@ -473,6 +504,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -489,6 +521,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -506,6 +539,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -522,6 +556,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -537,6 +572,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -553,6 +589,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
                     .Include(d => d.AspNetUsers)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
                     .Include(d => d.Reclamation_CountError1)
@@ -568,6 +605,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
+                                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)
@@ -588,6 +626,7 @@ namespace Wiki.Areas.Reclamation.Models
                 .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                 .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                 .Include(d => d.Devision)
+                                .Include(d => d.PF)
                 .Include(d => d.AspNetUsers)
                 .Include(d => d.AspNetUsers1)
                 .Include(d => d.Reclamation_CountError)

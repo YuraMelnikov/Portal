@@ -125,6 +125,7 @@ var objRemarksList = [
     { "title": "СП", "data": "Devision", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "Text", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false },
+    { "title": "Полуфабрикат", "data": "PfName", "autowidth": true, "bSortable": true },
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },

@@ -41,7 +41,7 @@ namespace Wiki.Areas.Reclamation.Models
             ReclamationCount = pZ_PlanZakaz.Reclamation_PZ.Count;
             ReclamationActive = active;
             ReclamationClose = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.close == true).Count();
-            if(active > 0)
+            if (active > 0)
                 OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt colorWhite" + '\u0022' + "></span></a></td>";
             else
                 OpenLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return chackList('" + pZ_PlanZakaz.Id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
