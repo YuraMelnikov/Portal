@@ -1082,6 +1082,7 @@
     <Content Include="Areas\UsersKO\Content\UsersKO.js" />
     <Content Include="Areas\VerifPlan\Content\updateBP.sql" />
     <Content Include="Areas\VerifPlan\Content\VerifPlan.js" />
+    <Content Include="Areas\VisualizationBP\Content\scriptUpdateData.sql" />
     <Content Include="Areas\VisualizationBP\Content\VBP.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
