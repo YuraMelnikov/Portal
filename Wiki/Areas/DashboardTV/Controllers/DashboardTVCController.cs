@@ -129,7 +129,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
             }
         }
-
+        
         private int GetHSSToMonth(DateTime dateTime)
         {
             int result = 0;

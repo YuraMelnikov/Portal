@@ -64,6 +64,7 @@ function getGanttProjects() {
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
+                myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
             }
             var pointWidthForGantt = 14;
             var widthGanttSize = pointWidthForGantt * lenghtElements * 1.4;
@@ -95,6 +96,11 @@ function getGanttProjects() {
                 });
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
+
+                    failure: myJSON.Failure,
+                    contractDateComplited: myJSON.ContractDateComplited,
+
+
                     name: myJSON.OrderNumber,
                     color: myJSON.Color,
                     data: data,
@@ -151,13 +157,18 @@ function getGanttProjects() {
                 },
                 xAxis: {
                     tickInterval: 1000 * 60 * 60 * 24 * 30, 
+                    tickPixelInterval: 50,
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
+                        align: 0,
                         style: {
                             "color": "#0d233a",
                             "fontSize": pointWidthForGantt - 5
                         }
+                    },
+                    grid:{
+                        cellHeight: 1
                     }
                 },
                 yAxis: {
@@ -171,28 +182,44 @@ function getGanttProjects() {
                     grid: {
                         columns: [{
                             title: {
-                                text: 'Отгрузка'
+                                text: 'Отгрузка',
+                                style: {
+                                    "color": "#0d233a",
+                                    "fontSize": pointWidthForGantt - 5
+                                }
                             },
                             categories: map(series, function (s) {
                                 return dateFormat('%e. %b', s.dataOtgruzkiBP);
                             })
                         }, {
                             title: {
-                                text: 'Откл.'
+                                text: 'Откл.',
+                                style: {
+                                    "color": "#0d233a",
+                                    "fontSize": pointWidthForGantt - 5
+                                }
                             },
                             categories: map(series, function (s) {
-                                return s.name;
+                                return s.failure;
                             })
                         }, {
                             title: {
-                                text: 'КС'
+                                text: 'КС',
+                                style: {
+                                    "color": "#0d233a",
+                                    "fontSize": pointWidthForGantt - 5
+                                }
                             },
                             categories: map(series, function (s) {
-                                return s.name;
+                                return dateFormat('%e. %b', s.contractDateComplited);
                             })
                         }, {
                             title: {
-                                text: 'Заказ'
+                                text: 'Заказ',
+                                style: {
+                                    "color": "#0d233a",
+                                    "fontSize": pointWidthForGantt - 5
+                                }
                             },
                             categories: map(series, function (s) {
                                 return s.name;
