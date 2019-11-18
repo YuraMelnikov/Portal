@@ -16,6 +16,7 @@ DECLARE @percentMKO float;
 DECLARE @percentMKBE float;
 DECLARE @percentMKBM float;
 
+
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
 SET @periodM1 ='2019.10';
@@ -34,6 +35,12 @@ SET @percentMKO = 0.025;
 SET @percentMKBE = 0.11;
 SET @percentMKBM = 0.08;
 
+update PortalKATEK.dbo.PZ_TEO
+set PortalKATEK.dbo.PZ_TEO.SSMToBYN = PortalKATEK.dbo.CurencyBYN.USD * PortalKATEK.dbo.PZ_TEO.SSM
+from
+PortalKATEK.dbo.PZ_TEO left join
+PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz left join
+PortalKATEK.dbo.CurencyBYN on PortalKATEK.dbo.PZ_PlanZakaz.DateCreate = PortalKATEK.dbo.CurencyBYN.[date]
 
 DELETE [PortalKATEK].[dbo].[CMKO_ThisPeriod]
 insert into [PortalKATEK].[dbo].[CMKO_ThisPeriod] select @periodQua
