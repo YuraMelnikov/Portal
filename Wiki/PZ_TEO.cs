@@ -33,6 +33,7 @@ namespace Wiki
         public Nullable<double> percentYear { get; set; }
         public Nullable<double> percentPI { get; set; }
         public Nullable<double> durationBeforePay { get; set; }
+        public Nullable<double> SSMToBYN { get; set; }
     
         public virtual PZ_Currency PZ_Currency { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }

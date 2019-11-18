@@ -1308,6 +1308,7 @@
           <Property Name="percentYear" Type="float" />
           <Property Name="percentPI" Type="float" />
           <Property Name="durationBeforePay" Type="float" />
+          <Property Name="SSMToBYN" Type="float" />
         </EntityType>
         <EntityType Name="PZ_TypeShip">
           <Key>
@@ -7437,6 +7438,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="durationBeforePay" Type="Double" />
           <NavigationProperty Name="PZ_Currency" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_Currency" FromRole="PZ_TEO" ToRole="PZ_Currency" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz" FromRole="PZ_TEO" ToRole="PZ_PlanZakaz" />
+          <Property Name="SSMToBYN" Type="Double" />
         </EntityType>
         <EntityType Name="PZ_TypeShip">
           <Key>
@@ -11508,6 +11510,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="PZ_TEO">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_TEO">
               <MappingFragment StoreEntitySet="PZ_TEO">
+                <ScalarProperty Name="SSMToBYN" ColumnName="SSMToBYN" />
                 <ScalarProperty Name="durationBeforePay" ColumnName="durationBeforePay" />
                 <ScalarProperty Name="percentPI" ColumnName="percentPI" />
                 <ScalarProperty Name="percentYear" ColumnName="percentYear" />
