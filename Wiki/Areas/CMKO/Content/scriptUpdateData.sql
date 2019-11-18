@@ -68,21 +68,21 @@ ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate
 ,substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) as [Devision]
 ,substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 4, 5) as [DevisionKBE]
-,isnull(PortalKATEK.dbo.PZ_TEO.SSM, 0)
-,isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) as [bujetWorkers]
-,isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) as [bujetManagers]
+,isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN, 0)
+,isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) as [bujetWorkers]
+,isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) as [bujetManagers]
 ,MSP_EpmTask_UserView.TaskWork
 ,isnull(ProjectWebApp.dbo.MSP_EpmTask_UserView.нк, 0) as [normH]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM], 0), 0) as [normHOrderKBM]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE], 0), 0) as [normHOrderKBE]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM]), 0), 0) as [cost1NHWorkerKBM]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM]), 0), 0) as [cost1NHManagerKBM]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedWorkerForTaskKBM]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedManagerForTaskKBM]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE]), 0), 0) as [cost1NHWorkerKBE]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE]), 0), 0) as [cost1NHManagerKBE]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedWorkerForTaskKBE]
-,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedManagerForTaskKBE]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM]), 0), 0) as [cost1NHWorkerKBM]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM]), 0), 0) as [cost1NHManagerKBM]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedWorkerForTaskKBM]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBM] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedManagerForTaskKBM]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE]), 0), 0) as [cost1NHWorkerKBE]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE]), 0), 0) as [cost1NHManagerKBE]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedWorkerForTaskKBE]
+,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] = 0, 0, (PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager) / ReportKATEK.dbo.CMKO_TimeWorkOnOrder.[normHourKBE] * ProjectWebApp.dbo.MSP_EpmTask_UserView.НК), 0), 0) as [accruedManagerForTaskKBE]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coefBujetNWorker, 0), 0), 0) as [accruedWorkerForNTaskKBM]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coenBujetNManager, 0), 0), 0) as [accruedManagerForNTaskKBM]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coefBujetNWorker, 0), 0), 0) as [accruedWorkerForNTaskKBE]
@@ -106,8 +106,8 @@ Delete PortalKATEK.dbo.CMKO_ThisOverflowsBujet
 insert into PortalKATEK.dbo.CMKO_ThisOverflowsBujet
 SELECT
 PortalKATEK.dbo.PZ_PlanZakaz.Id
-,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBMFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBM, 0)) as KBM
-,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSM * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBEFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBE, 0)) as KBE
+,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBMFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBM, 0)) as KBM
+,sum(isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetWorker, 0) + isnull(PortalKATEK.dbo.PZ_TEO.SSMToBYN * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] * @coefBujetManager, 0) - isnull(KBEFactBujet.bujet, 0) - isnull(ThisBujetList.bujetKBE, 0)) as KBE
 FROM
 ProjectWebApp.dbo.MSP_EpmProject_UserView
 left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
@@ -342,12 +342,12 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(SpeedUser2.plan10) + max(SpeedUser2.plan20), 0) as speed2
 ,isnull(max(SpeedUser3.plan10) + max(SpeedUser3.plan20), 0) as speed3
 ,isnull(sum(TeachTable.cost), 0) as teach
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) / Curency1.USD as rate1
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) / iif(Curency2.USD is null, Curency1.USD, Curency2.USD) as rate2
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) / iif(Curency3.USD is null, iif(Curency2.USD is null, Curency1.USD, Curency2.USD), Curency3.USD) as rate3
-,max(PortalKATEK.dbo.AspNetUsers.tax) / Curency1.USD as tax1
-,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency2.USD is null, Curency1.USD, Curency2.USD) as tax2
-,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency3.USD is null, iif(Curency2.USD is null, Curency1.USD, Curency2.USD), Curency3.USD) as tax3
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate1
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate2
+,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate3
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax1
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax2
+,max(PortalKATEK.dbo.AspNetUsers.tax) as tax3
 ,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
 ,1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
 ,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, @sizeQualityBonus, 0) as qualityBonus
@@ -359,9 +359,9 @@ from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
 left join (select COUNT(id) as countIdea, id_AspNetUsersIdea from PortalKATEK.dbo.CMKO_Optimization group by PortalKATEK.dbo.CMKO_Optimization.id_AspNetUsersIdea) as OptimizationTable on OptimizationTable.id_AspNetUsersIdea = PortalKATEK.dbo.AspNetUsers.Id
-left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan20 < normHoureFact, 150, 0) as plan20, iif(plan10 < normHoureFact, 50, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
 left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
@@ -378,9 +378,6 @@ left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			group by 
 			PortalKATEK.dbo.Reclamation.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
-left join (select top 1 * from PortalKATEK.dbo.CurencyBYN where YEAR(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM1, 0, 5) and month(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM1, 6, 3) order by PortalKATEK.dbo.CurencyBYN.date desc) as Curency1 on Curency1.USD > 0
-left join (select top 1 * from PortalKATEK.dbo.CurencyBYN where YEAR(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM2, 0, 5) and month(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM2, 6, 3) order by PortalKATEK.dbo.CurencyBYN.date desc) as Curency2 on Curency1.USD > 0
-left join (select top 1 * from PortalKATEK.dbo.CurencyBYN where YEAR(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM3, 0, 5) and month(PortalKATEK.dbo.CurencyBYN.[date]) = SUBSTRING(@periodM3, 6, 3) order by PortalKATEK.dbo.CurencyBYN.date desc) as Curency3 on Curency1.USD > 0
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 and PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua
@@ -388,9 +385,6 @@ group by
 PortalKATEK.dbo.AspNetUsers.Id
 ,ReclamationCounter.countError
 ,ReclamationCounter.countErrorG
-,Curency1.USD 
-,Curency2.USD 
-,Curency3.USD 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] set
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGPlan = TableNorm.normPlan
