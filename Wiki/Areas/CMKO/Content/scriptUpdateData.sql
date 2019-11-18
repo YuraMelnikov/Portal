@@ -15,7 +15,9 @@ DECLARE @managerOrderPercent float;
 DECLARE @percentMKO float;
 DECLARE @percentMKBE float;
 DECLARE @percentMKBM float;
-
+DECLARE @sizeQualityBonus float;
+DECLARE @sizeSpeed1 float;
+DECLARE @sizeSpeed2 float;
 
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
@@ -29,11 +31,14 @@ SET @coefBujetWorker = 0.0105;
 SET @coefBujetManager = 0.0020;
 SET @coenBujetNManager = 0.16;
 SET @coefBujetNWorker = 0.84;
-SET @cost1N = 4.9;
+SET @cost1N = 10;
 SET @managerOrderPercent = 0.04;
 SET @percentMKO = 0.025;
 SET @percentMKBE = 0.11;
 SET @percentMKBM = 0.08;
+SET @sizeQualityBonus = 200;
+SET @sizeSpeed1 = 100;
+SET @sizeSpeed2 = 200;
 
 update PortalKATEK.dbo.PZ_TEO
 set PortalKATEK.dbo.PZ_TEO.SSMToBYN = PortalKATEK.dbo.CurencyBYN.USD * PortalKATEK.dbo.PZ_TEO.SSM
@@ -345,7 +350,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,max(PortalKATEK.dbo.AspNetUsers.tax) / iif(Curency3.USD is null, iif(Curency2.USD is null, Curency1.USD, Curency2.USD), Curency3.USD) as tax3
 ,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
 ,1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
-,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, 100, 0) as qualityBonus
+,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, @sizeQualityBonus, 0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
 ,0 as nhGPlan
