@@ -1,5 +1,13 @@
-insert into PortalKATEK.dbo.DashboardBP_ProjectList
-Select
+DECLARE	@planHSSToYear int;
+
+
+SET @planHSSToYear = 0;
+
+
+DELETE [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
+DELETE PortalKATEK.dbo.DashboardBP_ProjectList
+INSERT INTO PortalKATEK.dbo.DashboardBP_ProjectList
+SELECT
 [PortalKATEK].dbo.PZ_PlanZakaz.id,
 PortalKATEK.dbo.DashboardBP_State.id,
 PortalKATEK.dbo.PZ_PlanZakaz.DateShipping,
@@ -7,15 +15,17 @@ PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP
 ,isnull(PortalKATEK.dbo.ProjectMSP_EpmProject_UserView.ProjectStartDate, getdate())
 ,isnull(PortalKATEK.dbo.ProjectMSP_EpmProject_UserView.ProjectDuration, 0)
 ,isnull(PortalKATEK.dbo.ProjectMSP_EpmProject_UserView.ProjectPercentCompleted, 0)
-from
+FROM
 [PortalKATEK].[dbo].[PZ_PlanZakaz] 
 left join [PortalKATEK].[dbo].[DashboardBP_State] on [PortalKATEK].[dbo].[DashboardBP_State].id > 0
 left join [PortalKATEK].dbo.ProjectMSP_EpmProject_UserView on PortalKATEK.dbo.ProjectMSP_EpmProject_UserView.ProjectUID = PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID
-where
+WHERE
 [PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP > GETDATE()
 and [PortalKATEK].dbo.DashboardBP_State.active = 1
 
-insert into [PortalKATEK].[dbo].[DashboardBP_HSSPO]
+
+DELETE [PortalKATEK].[dbo].[DashboardBP_HSSPO]
+INSERT INTO [PortalKATEK].[dbo].[DashboardBP_HSSPO]
 SELECT     
 [PortalKATEK].[dbo].[DashboardBP_State].id,
 PortalKatek.dbo.PZ_PlanZakaz.Id AS OrderPZ, 
@@ -82,8 +92,10 @@ and
                       ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÈ%' OR
                       ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÝÓ%') AND (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
 
-insert into [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
-Select
+
+DELETE [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
+INSERT INTO [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
+SELECT
   PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0Duration,
   PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0StartDate
   ,PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0FinishDate
@@ -119,6 +131,8 @@ Select
   and (PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
   delete [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [PortalKATEK].[dbo].[DashboardBP_ProjectTasks].id_WBS is null
 
+
+DELETE PortalKATEK.dbo.DashboardBP_HSSPOSmall
 insert into PortalKATEK.dbo.DashboardBP_HSSPOSmall
 SELECT 
 PortalKATEK.dbo.DashboardBP_State.id
@@ -133,3 +147,12 @@ PortalKATEK.dbo.DashboardBP_State.id
   PortalKATEK.dbo.DashboardBP_State.id
 ,PortalKATEK.dbo.DashboardBP_HSSPO.year
 ,month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)
+
+
+DELETE PortalKATEK.dbo.DashboardHSSPlan
+INSERT INTO PortalKATEK.dbo.DashboardHSSPlan
+select  sum(PortalKATEK.dbo.DashboardBP_HSSPOSmall.[data]), @planHSSToYear
+from PortalKATEK.dbo.DashboardBP_HSSPOSmall left join PortalKATEK.dbo.DashboardBP_State on PortalKATEK.dbo.DashboardBP_State.id = PortalKATEK.dbo.DashboardBP_HSSPOSmall.id_DashboardBP_State
+where PortalKATEK.dbo.DashboardBP_HSSPOSmall.year = year(GETDATE()) and PortalKATEK.dbo.DashboardBP_State.id is not null
+
+
