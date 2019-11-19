@@ -77,6 +77,7 @@ namespace Wiki
         public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<CMKO_ThisHSS> CMKO_ThisHSS { get; set; }
+        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -110,7 +111,6 @@ namespace Wiki
         public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
-        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
         public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }

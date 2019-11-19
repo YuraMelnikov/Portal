@@ -15,10 +15,7 @@ namespace Wiki
     public partial class DashboardRemaining
     {
         public int id { get; set; }
-        public int id_DashboardBP_State { get; set; }
-        public double hss { get; set; }
+        public double fact { get; set; }
         public double plan { get; set; }
-    
-        public virtual DashboardBP_State DashboardBP_State { get; set; }
     }
 }
