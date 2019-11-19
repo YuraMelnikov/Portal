@@ -736,9 +736,6 @@
     <Compile Include="Models\WordDocumentAttribute.cs" />
     <Compile Include="Models\WorkDeskKO.cs" />
     <Compile Include="Models\WorkingDays.cs" />
-    <Compile Include="OTKMultiSelectList.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="PF.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
