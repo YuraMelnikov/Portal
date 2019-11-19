@@ -286,7 +286,6 @@
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
     <Compile Include="Areas\DashboardBP\Models\Complited.cs" />
     <Compile Include="Areas\DashboardBP\Models\DataGanttProjectsPortfolio.cs" />
-    <Compile Include="Areas\DashboardBP\Models\HssPlan.cs" />
     <Compile Include="Areas\DashboardBP\Models\HSSToDay.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
     <Compile Include="Areas\DashboardBP\Models\RatePlan.cs" />

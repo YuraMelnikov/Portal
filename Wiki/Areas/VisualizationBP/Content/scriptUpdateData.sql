@@ -1,7 +1,7 @@
 DECLARE	@planHSSToYear int;
 
 
-SET @planHSSToYear = 0;
+SET @planHSSToYear = 10000000;
 
 
 DELETE [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
