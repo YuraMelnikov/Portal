@@ -262,7 +262,7 @@ function convertToInteger(value) {
 
 function getHSSPlanToYear() {
     $.ajax({
-        url: "/BP/GetHSSPlanToYear/",
+        url: "/VBP/GetHSSPlanToYear/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {

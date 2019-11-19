@@ -119,16 +119,12 @@ SELECT
   ,PortalKATEK.dbo.DashboardBP_ProjectList.id
   ,PortalKATEK.dbo.PWA_TasksForBP.TaskUID
   ,PortalKATEK.dbo.AspNetUsers.Id
-  from
-  PortalKATEK.dbo.DashboardBP_State 
-  left join PortalKATEK.dbo.DashboardBP_ProjectList on PortalKATEK.dbo.DashboardBP_ProjectList.id_DashboardBP_State = PortalKATEK.dbo.DashboardBP_State.id
-  left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.DashboardBP_ProjectList.id_PZ_PlanZakaz
+  from PortalKATEK.dbo.DashboardBP_ProjectList left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.DashboardBP_ProjectList.id_PZ_PlanZakaz
   left join PortalKATEK.dbo.PWA_TasksForBP on PortalKATEK.dbo.PWA_TasksForBP.ProjectUID = PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID
   left join PortalKATEK.dbo.WBS on PortalKATEK.dbo.wbs.WBSName = PortalKATEK.dbo.PWA_TasksForBP.TaskWBS
   left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.PWA_TasksForBP.ResourceUID
   where
-  PortalKATEK.dbo.DashboardBP_State.active = 1
-  and (PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
+  (PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
   delete [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [PortalKATEK].[dbo].[DashboardBP_ProjectTasks].id_WBS is null
 
 
