@@ -5,7 +5,7 @@ var speedometerGreenTo = 1250;
 $(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
-
+    GetHSSPlanToYear();
 });
 
 var objTableData = [
@@ -260,7 +260,7 @@ function convertToInteger(value) {
     return data;
 }
 
-function getHSSPlanToYear() {
+function GetHSSPlanToYear() {
     $.ajax({
         url: "/VBP/GetHSSPlanToYear/",
         contentType: "application/json;charset=UTF-8",

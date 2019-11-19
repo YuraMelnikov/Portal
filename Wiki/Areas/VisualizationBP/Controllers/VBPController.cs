@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
-using System;
-using System.Data.Entity;
 
 namespace Wiki.Areas.VisualizationBP.Controllers
 {
