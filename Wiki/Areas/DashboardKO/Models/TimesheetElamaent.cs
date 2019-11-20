@@ -1,4 +1,6 @@
-﻿namespace Wiki.Areas.DashboardKO.Models
+﻿using System;
+
+namespace Wiki.Areas.DashboardKO.Models
 {
     public class TimesheetElamaent
     {
@@ -19,7 +21,7 @@
             this.date = date;
             this.stepUser = stepUser;
             this.stepDate = stepDate;
-            this.data = data;
+            this.data = Math.Round(data, 1);
         }
     }
 }

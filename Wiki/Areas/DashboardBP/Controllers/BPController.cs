@@ -131,12 +131,10 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardRemaining
                     .AsNoTracking()
-                    .Include(d => d.DashboardBP_State)
-                    .Where(d => d.DashboardBP_State.active == true)
                     .ToList();
                 int[] data = new int[2];
-                data[0] = (int)query[0].plan - (int)query[0].hss;
-                data[1] = (int)query[0].hss;
+                data[0] = (int)query[0].plan - (int)query[0].fact;
+                data[1] = (int)query[0].fact;
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -149,12 +147,10 @@ namespace Wiki.Areas.DashboardBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardRatePlan
                     .AsNoTracking()
-                    .Include(d => d.DashboardBP_State)
-                    .Where(d => d.DashboardBP_State.active == true)
                     .ToList();
                 int[] data = new int[2];
-                data[0] = (int)query[0].plan - (int)query[0].rate;
-                data[1] = (int)query[0].rate;
+                data[0] = (int)query[0].plan - (int)query[0].fact;
+                data[1] = (int)query[0].fact;
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

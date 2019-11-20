@@ -14,8 +14,7 @@ namespace Wiki.Areas.DashboardBP.Models
                 DashboardRemaining remainingHss = new DashboardRemaining
                 {
                     plan = plan,
-                    id_DashboardBP_State = db.DashboardBP_State.First(d => d.active == true).id,
-                    hss = new TEOData().GetRemainingHSS()
+                    fact = new TEOData().GetRemainingHSS()
                 };
                 db.DashboardRemaining.Add(remainingHss);
                 db.SaveChanges();
