@@ -4,6 +4,8 @@ var speedometerGreenTo = 1250;
 var sizeTextLabetGraphic = '11px';
 var marginForTitle = -10;
 var heightForStatusLine = '69px';
+var minusPxTextForGantt = 5;
+
 
 $(document).ready(function () {
     getPeriodReport();
@@ -13,15 +15,15 @@ $(document).ready(function () {
     GetRemainingHSS();
 });
 
-var objTableData = [
-    { "title": "План на начало месяца", "data": "monthPlan", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-    { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-    { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
-    { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-    { "title": "", "data": "glyphicon1", "autowidth": true, "bSortable": false, "className": 'text-center' },
-    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
-    { "title": "", "data": "glyphicon", "autowidth": true, "bSortable": false, "className": 'text-center' }
-];
+//var objTableData = [
+//    { "title": "План на начало месяца", "data": "monthPlan", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+//    { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+//    { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
+//    { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
+//    { "title": "", "data": "glyphicon1", "autowidth": true, "bSortable": false, "className": 'text-center' },
+//    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
+//    { "title": "", "data": "glyphicon", "autowidth": true, "bSortable": false, "className": 'text-center' }
+//];
 
 function getPeriodReport() {
     $.ajax({
@@ -57,11 +59,9 @@ function getGanttProjects() {
             var pointWidthForGantt = 14;
             var widthGanttSize = pointWidthForGantt * lenghtElements * 1.4;
             var today = new Date(),
-                day = 1000 * 60 * 60 * 24,
                 map = Highcharts.map,
                 dateFormat = Highcharts.dateFormat,
-                series,
-                cars;
+                series;
             today.setUTCHours(0);
             today.setUTCMinutes(0);
             today.setUTCSeconds(0);
@@ -84,11 +84,8 @@ function getGanttProjects() {
                 });
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
-
                     failure: myJSON.Failure,
                     contractDateComplited: myJSON.ContractDateComplited,
-
-
                     name: myJSON.OrderNumber,
                     color: myJSON.Color,
                     data: data,
@@ -121,7 +118,7 @@ function getGanttProjects() {
                             format: '{point.name}',
                             style: {
                                 color: "contrast",
-                                fontSize: pointWidthForGantt - 5,
+                                fontSize: pointWidthForGantt - minusPxTextForGantt,
                                 fontWeight: "bold",
                                 textOutline: "1px contrast"
                             }
@@ -152,7 +149,7 @@ function getGanttProjects() {
                         align: 0,
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt - 5
+                            "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
                     },
                     grid:{
@@ -163,7 +160,7 @@ function getGanttProjects() {
                     labels: {
                         style: {
                             "color": "#0d233a",
-                            "fontSize": pointWidthForGantt - 5
+                            "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
                     },
                     type: 'category',
@@ -173,7 +170,7 @@ function getGanttProjects() {
                                 text: 'Отгрузка',
                                 style: {
                                     "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - 5
+                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
                                 }
                             },
                             categories: map(series, function (s) {
@@ -184,7 +181,7 @@ function getGanttProjects() {
                                 text: 'Откл.',
                                 style: {
                                     "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - 5
+                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
                                 }
                             },
                             categories: map(series, function (s) {
@@ -195,7 +192,7 @@ function getGanttProjects() {
                                 text: 'КС',
                                 style: {
                                     "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - 5
+                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
                                 }
                             },
                             categories: map(series, function (s) {
@@ -206,7 +203,7 @@ function getGanttProjects() {
                                 text: 'Заказ',
                                 style: {
                                     "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - 5
+                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
                                 }
                             },
                             categories: map(series, function (s) {
@@ -232,7 +229,7 @@ function getMinDate() {
 
 function getMaxDate() {
     var today = new Date();
-    today = today.setDate(120);
+    today = today.setDate(100);
     var tmp = new Date(today);
     var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
     return minDate.getTime();
