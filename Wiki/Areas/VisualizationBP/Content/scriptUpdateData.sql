@@ -154,3 +154,10 @@ from PortalKATEK.dbo.DashboardBP_HSSPOSmall left join PortalKATEK.dbo.DashboardB
 where PortalKATEK.dbo.DashboardBP_HSSPOSmall.year = year(GETDATE()) and PortalKATEK.dbo.DashboardBP_State.id is not null
 
 
+delete PortalKATEK.dbo.DashboardRemaining
+insert into PortalKATEK.dbo.DashboardRemaining
+SELECT sum([xSsm])
+FROM [PortalKATEK].[dbo].[DashboardBP_HSSPO]
+where PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay >= getdate()
+
+

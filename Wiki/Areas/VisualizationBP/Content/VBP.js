@@ -8,6 +8,7 @@ $(document).ready(function () {
     getGanttProjects();
     GetHSSPlanToYear();
     GetRatePlanToYear();
+    GetRemainingHSS();
 });
 
 var objTableData = [
@@ -294,7 +295,7 @@ function GetHSSPlanToYear() {
                     height: "100px"
                 },
                 title: {
-                    text: 'ХСС производства',
+                    text: 'ХСС',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
@@ -466,7 +467,7 @@ function GetRemainingHSS() {
                     enabled: false
                 }
             });
-            Highcharts.chart('ratePlanToYear', {
+            Highcharts.chart('remainingHSS', {
                 credits: {
                     enabled: false
                 },
