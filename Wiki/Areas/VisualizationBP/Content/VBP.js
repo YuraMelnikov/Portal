@@ -229,10 +229,10 @@ function getMinDate() {
 
 function getMaxDate() {
     var today = new Date();
-    today = today.setDate(100);
+    today = today.setDate(90);
     var tmp = new Date(today);
-    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
-    return minDate.getTime();
+    var maxDate = new Date(tmp.getFullYear(), tmp.getMonth(), 31, 0, 0, 0, 0);
+    return maxDate.getTime();
 }
 
 function renderToNullString(text, milestone) {
@@ -294,7 +294,8 @@ function GetHSSPlanToYear() {
                     height: heightForStatusLine
                 },
                 title: {
-                    text: 'ХСС',
+                    align: 'left',
+                    text: 'ХСС (тыс.)',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
@@ -389,7 +390,8 @@ function GetRatePlanToYear() {
                     height: heightForStatusLine
                 },
                 title: {
-                    text: 'Прибыль',
+                    align: 'left',
+                    text: 'Прибыль (тыс.)',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
@@ -459,7 +461,6 @@ function GetRemainingHSS() {
         dataType: "json",
         success: function (result) {
             var myJSONRemainingPlan = new Array();
-            var myJSONFact = new Array();
             myJSONRemainingPlan[0] = result[0];
             Highcharts.setOptions({
                 credits: {
@@ -483,7 +484,8 @@ function GetRemainingHSS() {
                     height: heightForStatusLine
                 },
                 title: {
-                    text: 'Оставшийся ХСС',
+                    align: 'left',
+                    text: 'Ост. ХСС (тыс.)',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
