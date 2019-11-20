@@ -5,6 +5,7 @@ var sizeTextLabetGraphic = '11px';
 var marginForTitle = -10;
 var heightForStatusLine = '69px';
 var minusPxTextForGantt = 5;
+var redZoneReamainingHSS = 2000;
 
 
 $(document).ready(function () {
@@ -146,15 +147,16 @@ function getGanttProjects() {
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
-                        align: 0,
+                        distance: 1,
+                        y: 0,
                         style: {
                             "color": "#0d233a",
                             "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
-                    },
-                    grid:{
-                        cellHeight: 1
                     }
+                    //,grid: {
+                    //    height: 1000
+                    //}
                 },
                 yAxis: {
                     labels: {
@@ -462,6 +464,10 @@ function GetRemainingHSS() {
         success: function (result) {
             var myJSONRemainingPlan = new Array();
             myJSONRemainingPlan[0] = result[0];
+            var colorLen = '#2b908f';
+            if(result[0] < redZoneReamainingHSS){
+                colorLen = '#910000';
+            }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -512,7 +518,7 @@ function GetRemainingHSS() {
                 series: [{
                     name: 'Остаток',
                     data: myJSONRemainingPlan,
-                    color: '#2b908f',
+                    color: colorLen,
                     dataLabels: {
                         enabled: true,
                         align: 'left',
