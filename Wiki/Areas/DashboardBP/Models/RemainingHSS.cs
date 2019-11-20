@@ -13,7 +13,6 @@ namespace Wiki.Areas.DashboardBP.Models
             {
                 DashboardRemaining remainingHss = new DashboardRemaining
                 {
-                    plan = plan,
                     fact = new TEOData().GetRemainingHSS()
                 };
                 db.DashboardRemaining.Add(remainingHss);

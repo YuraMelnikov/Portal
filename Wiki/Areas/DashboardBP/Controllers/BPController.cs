@@ -133,7 +133,6 @@ namespace Wiki.Areas.DashboardBP.Controllers
                     .AsNoTracking()
                     .ToList();
                 int[] data = new int[2];
-                data[0] = (int)query[0].plan - (int)query[0].fact;
                 data[1] = (int)query[0].fact;
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

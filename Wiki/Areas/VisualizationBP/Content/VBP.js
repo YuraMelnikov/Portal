@@ -483,7 +483,7 @@ function GetRemainingHSS() {
                     height: "100px"
                 },
                 title: {
-                    text: 'Прибыль',
+                    text: 'Оставшийся ХСС',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
