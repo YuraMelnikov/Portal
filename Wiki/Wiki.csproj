@@ -1076,7 +1076,7 @@
     <Content Include="Areas\ServiceReclamations\migrate db\importListsPWASC.sql" />
     <Content Include="Areas\UsersKO\Content\scriptNewPeriod.sql" />
     <Content Include="Areas\UsersKO\Content\UsersKO.js" />
-    <Content Include="Areas\VerifPlan\Content\updateBP.sql" />
+    <Content Include="Areas\VerifPlan\Content\postMail.sql" />
     <Content Include="Areas\VerifPlan\Content\VerifPlan.js" />
     <Content Include="Areas\VisualizationBP\Content\scriptUpdateData.sql" />
     <Content Include="Areas\VisualizationBP\Content\VBP.js" />
