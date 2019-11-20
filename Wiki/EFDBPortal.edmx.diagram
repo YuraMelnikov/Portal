@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="10">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="187">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="85.875" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="93.5" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="85.5" PointY="8.125" IsExpanded="true" />
@@ -93,8 +93,6 @@
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_ProjectTasks" Width="1.5" PointX="23.25" PointY="40.875" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_State" Width="1.5" PointX="35.25" PointY="12.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardKO_UsersMonthPlan" Width="1.5" PointX="29.25" PointY="36.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRatePlan" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRemaining" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek" Width="1.5" PointX="34.5" PointY="81.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_CMR" Width="1.5" PointX="39.75" PointY="40.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_CostUpdate" Width="1.5" PointX="34.5" PointY="15.75" />
@@ -321,6 +319,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" />
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRatePlan" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardRemaining" Width="1.5" PointX="2.75" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

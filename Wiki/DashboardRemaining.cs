@@ -16,6 +16,5 @@ namespace Wiki
     {
         public int id { get; set; }
         public double fact { get; set; }
-        public double plan { get; set; }
     }
 }

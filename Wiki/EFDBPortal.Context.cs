@@ -112,8 +112,6 @@ namespace Wiki
         public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
         public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
-        public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
-        public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
         public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
@@ -187,5 +185,7 @@ namespace Wiki
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
+        public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
+        public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
     }
 }

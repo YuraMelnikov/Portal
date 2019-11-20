@@ -793,7 +793,6 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fact" Type="float" Nullable="false" />
-          <Property Name="plan" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_BasicPlanData">
           <Key>
@@ -5061,8 +5060,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardBP_ProjectTasks" EntityType="PortalKATEKModel.DashboardBP_ProjectTasks" />
           <EntitySet Name="DashboardBP_State" EntityType="PortalKATEKModel.DashboardBP_State" />
           <EntitySet Name="DashboardKO_UsersMonthPlan" EntityType="PortalKATEKModel.DashboardKO_UsersMonthPlan" />
-          <EntitySet Name="DashboardRatePlan" EntityType="PortalKATEKModel.DashboardRatePlan" />
-          <EntitySet Name="DashboardRemaining" EntityType="PortalKATEKModel.DashboardRemaining" />
           <EntitySet Name="DashboardTV_FinishWorkInStartWeek" EntityType="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek" />
           <EntitySet Name="Debit_CMR" EntityType="PortalKATEKModel.Debit_CMR" />
           <EntitySet Name="Debit_CostUpdate" EntityType="PortalKATEKModel.Debit_CostUpdate" />
@@ -5748,6 +5745,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DashboardRatePlan" EntityType="PortalKATEKModel.DashboardRatePlan" />
+          <EntitySet Name="DashboardRemaining" EntityType="PortalKATEKModel.DashboardRemaining" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -6950,22 +6949,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="k" Type="Double" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" FromRole="DashboardKO_UsersMonthPlan" ToRole="AspNetUsers" />
           <NavigationProperty Name="ProductionCalendar" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" FromRole="DashboardKO_UsersMonthPlan" ToRole="ProductionCalendar" />
-        </EntityType>
-        <EntityType Name="DashboardRatePlan">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fact" Type="Double" Nullable="false" />
-          <Property Name="plan" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DashboardRemaining">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fact" Type="Double" Nullable="false" />
-          <Property Name="plan" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_FinishWorkInStartWeek">
           <Key>
@@ -9794,6 +9777,21 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="DashboardRatePlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fact" Type="Double" Nullable="false" />
+          <Property Name="plan" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardRemaining">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fact" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11057,24 +11055,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DashboardRatePlan">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRatePlan">
-              <MappingFragment StoreEntitySet="DashboardRatePlan">
-                <ScalarProperty Name="plan" ColumnName="plan" />
-                <ScalarProperty Name="fact" ColumnName="fact" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DashboardRemaining">
-            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRemaining">
-              <MappingFragment StoreEntitySet="DashboardRemaining">
-                <ScalarProperty Name="plan" ColumnName="plan" />
-                <ScalarProperty Name="fact" ColumnName="fact" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DashboardTV_FinishWorkInStartWeek">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_FinishWorkInStartWeek">
               <MappingFragment StoreEntitySet="DashboardTV_FinishWorkInStartWeek">
@@ -11958,6 +11938,23 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DashboardRatePlan">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRatePlan">
+              <MappingFragment StoreEntitySet="DashboardRatePlan">
+                <ScalarProperty Name="plan" ColumnName="plan" />
+                <ScalarProperty Name="fact" ColumnName="fact" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRemaining">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardRemaining">
+              <MappingFragment StoreEntitySet="DashboardRemaining">
+                <ScalarProperty Name="fact" ColumnName="fact" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
