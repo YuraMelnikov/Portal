@@ -1,7 +1,9 @@
 ﻿var speedometerRed1To = 700;
 var speedometerYellowTo = 1000;
 var speedometerGreenTo = 1250;
-var sizeTextLabetGraphic = '13px';
+var sizeTextLabetGraphic = '11px';
+var marginForTitle = -10;
+var heightForStatusLine = '69px';
 
 $(document).ready(function () {
     getPeriodReport();
@@ -292,14 +294,14 @@ function GetHSSPlanToYear() {
                 },
                 chart: {
                     type: 'bar',
-                    height: "100px"
+                    height: heightForStatusLine
                 },
                 title: {
                     text: 'ХСС',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
-                    margin: 0
+                    margin: marginForTitle
                 },
                 xAxis: {
                     categories: [''],
@@ -337,7 +339,7 @@ function GetHSSPlanToYear() {
                 }, {
                     name: 'Факт',
                     data: myJSONFact,
-                    color: '#4572A7',
+                    color: '#2b908f',
                     dataLabels: {
                         enabled: true,
                         align: 'left',
@@ -387,14 +389,14 @@ function GetRatePlanToYear() {
                 },
                 chart: {
                     type: 'bar',
-                    height: "100px"
+                    height: heightForStatusLine
                 },
                 title: {
                     text: 'Прибыль',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
-                    margin: 0
+                    margin: marginForTitle
                 },
                 xAxis: {
                     categories: [''],
@@ -432,7 +434,7 @@ function GetRatePlanToYear() {
                 }, {
                     name: 'Факт',
                     data: myJSONFact,
-                    color: '#4572A7',
+                    color: '#2b908f',
                     dataLabels: {
                         enabled: true,
                         align: 'left',
@@ -481,14 +483,14 @@ function GetRemainingHSS() {
                 },
                 chart: {
                     type: 'bar',
-                    height: "100px"
+                    height: heightForStatusLine
                 },
                 title: {
                     text: 'Оставшийся ХСС',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
-                    margin: 0
+                    margin: marginForTitle
                 },
                 xAxis: {
                     categories: [''],
