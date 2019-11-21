@@ -20,5 +20,8 @@ namespace Wiki
         public System.DateTime from { get; set; }
         public System.DateTime to { get; set; }
         public System.DateTime dataOtgruzkiBP { get; set; }
+        public int remainingDuration { get; set; }
+        public int duration { get; set; }
+        public int percentComplited { get; set; }
     }
 }
