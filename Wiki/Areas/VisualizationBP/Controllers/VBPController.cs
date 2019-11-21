@@ -56,7 +56,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult GetTaskThisDayTable()
         {
@@ -85,7 +84,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     remainingWork = Math.Round(dataList.remainingWork, 1)
                 });
 
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return Json(new { data });
             }
         }
 
@@ -116,7 +115,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     remainingWork = Math.Round(dataList.remainingWork, 1)
                 });
 
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return Json(new { data });
             }
         }
     }

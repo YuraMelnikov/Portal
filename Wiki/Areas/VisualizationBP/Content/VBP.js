@@ -608,7 +608,7 @@ function GetTaskThisDayTable(){
     $("#tableTasksThisDay").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/VBP/GetTaskThisDayTable/",
+            "url": "/VBP/GetTaskThisDayTable",
             "type": "POST",
             "datatype": "json"
         },
@@ -617,7 +617,7 @@ function GetTaskThisDayTable(){
         "columns": objTableTaskData,
         "cache": false,
         "async": false,
-        //"scrollY": '75vh',
+        "scrollY": '230px',
         "scrollX": true,
         "paging": false,
         "searching": false,
@@ -625,7 +625,8 @@ function GetTaskThisDayTable(){
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи"
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
         }
     });
 }
@@ -643,7 +644,7 @@ function GetVarianceTasksTable(){
         "columns": objTableTaskData,
         "cache": false,
         "async": false,
-        "scrollY": '75vh',
+        //"scrollY": '230px',
         "scrollX": true,
         "paging": false,
         "searching": false,
