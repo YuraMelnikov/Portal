@@ -89,17 +89,17 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 }
                 for (int i = 1; i < projectList.Count + 1; i++)
                 {
-                    string indexOrder = dataList[i].OrderNumber;
-                    int integerIndexOrder = Convert.ToInt32(indexOrder);
-                    DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
                     dataList[i].OrderNumber = projectList[i - 1].Key;
-                    dataList[i].ContractDateComplited = dashboardTV_DataForProjectPortfolio.;
+                    string indexOrder = dataList[i].OrderNumber;
+                    int integerIndexOrder = Convert.ToInt32(indexOrder);
+                    DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
+                    dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;
                     dataList[i].Color = "#2b908f";
                     dataList[i].DataOtgruzkiBP = dashboardTV_DataForProjectPortfolio.dataOtgruzkiBP;
-                    dataList[i].Duration = dashboardTV_DataForProjectPortfolio.duration;
-                    dataList[i].RemainingDuration = dashboardTV_DataForProjectPortfolio.remainingDuration;
+                    dataList[i].Duration = dashboardTV_DataForProjectPortfolio.duration / 8.0;
+                    dataList[i].RemainingDuration = dashboardTV_DataForProjectPortfolio.remainingDuration / 8.0;
                     dataList[i].PercentComplited = dashboardTV_DataForProjectPortfolio.percentComplited;
                     dataList[i].Failure = (int)(dataList[i].ContractDateComplited - dataList[i].DataOtgruzkiBP).TotalDays;
                     int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();

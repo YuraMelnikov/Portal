@@ -57,6 +57,9 @@ function getGanttProjects() {
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
                 myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
+                myJSON[i].RemainingDuration = myJSON[i].RemainingDuration;
+                myJSON[i].PercentComplited = myJSON[i].PercentComplited;
+                myJSON[i].Duration = myJSON[i].Duration;
             }
             var today = new Date(),
                 map = Highcharts.map,
@@ -85,6 +88,9 @@ function getGanttProjects() {
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
                     failure: myJSON.Failure,
+                    remainingDuration: myJSON.RemainingDuration,
+                    duration: myJSON.Duration,
+                    percentComplited: myJSON.PercentComplited,
                     contractDateComplited: myJSON.ContractDateComplited,
                     name: myJSON.OrderNumber,
                     color: myJSON.Color,
@@ -151,7 +157,7 @@ function getGanttProjects() {
                     },
                     type: 'category',
                     gridLineWidth: 1
-                    }, {
+                }, {
                     visible: false,
                     opposite: false
                 }],
@@ -186,7 +192,43 @@ function getGanttProjects() {
                             categories: map(series, function (s) {
                                 return s.failure;
                             })
-                        }, {
+                            }, {
+                                title: {
+                                    text: '%',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.percentComplited;
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Ост. длит.',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.remainingDuration;
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Длит.',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.duration;
+                                })
+                            },
+                            {
                             title: {
                                 text: 'КС',
                                 style: {
@@ -212,8 +254,9 @@ function getGanttProjects() {
                                 enabled: true,
                                 showFull: false
                             }
-                        },
-                    ]},
+                        }
+                        ]
+                    },
                     max: 20
                 },
                 chart: {
@@ -227,7 +270,7 @@ function getGanttProjects() {
 function getMinDate() {
     var today = new Date();
     var tmp = new Date(today);
-    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
+    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 2, 0, 0, 0, 0);
     return minDate.getTime();
 }
 
@@ -467,7 +510,7 @@ function GetRemainingHSS() {
             var myJSONRemainingPlan = new Array();
             myJSONRemainingPlan[0] = result[0];
             var colorLen = '#2b908f';
-            if(result[0] < redZoneReamainingHSS){
+            if (result[0] < redZoneReamainingHSS) {
                 colorLen = '#910000';
             }
             Highcharts.setOptions({

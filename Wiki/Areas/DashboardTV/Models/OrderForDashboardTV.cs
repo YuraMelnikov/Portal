@@ -12,8 +12,8 @@ namespace Wiki.Areas.DashboardTV.Models
         DealsForDashboardTV[] deals;
         string color;
         bool milestone;
-        int duration;
-        int remainingDuration;
+        double duration;
+        double remainingDuration;
         int percentComplited;
 
         public string OrderNumber { get => orderNumber; set => orderNumber = value; }
@@ -24,8 +24,8 @@ namespace Wiki.Areas.DashboardTV.Models
         public bool Milestone { get => milestone; set => milestone = value; }
         public DateTime ContractDateComplited { get => contractDateComplited; set => contractDateComplited = value; }
         public int Failure { get => failure; set => failure = value; }
-        public int Duration { get => duration; set => duration = value; }
-        public int RemainingDuration { get => remainingDuration; set => remainingDuration = value; }
+        public double Duration { get => Math.Round(duration, 1); set => duration = value; }
+        public double RemainingDuration { get => Math.Round(remainingDuration, 1); set => remainingDuration = value; }
         public int PercentComplited { get => percentComplited; set => percentComplited = value; }
     }
 }
