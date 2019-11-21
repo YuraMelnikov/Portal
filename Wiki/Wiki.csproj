@@ -288,8 +288,6 @@
     <Compile Include="Areas\DashboardBP\Models\DataGanttProjectsPortfolio.cs" />
     <Compile Include="Areas\DashboardBP\Models\HSSToDay.cs" />
     <Compile Include="Areas\DashboardBP\Models\Project.cs" />
-    <Compile Include="Areas\DashboardBP\Models\RatePlan.cs" />
-    <Compile Include="Areas\DashboardBP\Models\RemainingHSS.cs" />
     <Compile Include="Areas\DashboardBP\Models\SQLHSSPO.cs" />
     <Compile Include="Areas\DashboardBP\Models\State.cs" />
     <Compile Include="Areas\DashboardBP\Models\Task.cs" />

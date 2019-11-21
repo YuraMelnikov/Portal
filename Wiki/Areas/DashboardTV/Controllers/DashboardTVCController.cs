@@ -74,6 +74,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 dataList[0].Failure = 0;
                 dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
                 dataList[0].Milestone = false;
+
                 int countForDeals = 0;
                 for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
                 {
@@ -88,14 +89,18 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 }
                 for (int i = 1; i < projectList.Count + 1; i++)
                 {
+                    string indexOrder = dataList[i].OrderNumber;
+                    int integerIndexOrder = Convert.ToInt32(indexOrder);
+                    DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
                     dataList[i].OrderNumber = projectList[i - 1].Key;
-                    string indexOrder = dataList[i].OrderNumber;
-                    int integerIndexOrder = Convert.ToInt32(indexOrder);
-                    dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;
+                    dataList[i].ContractDateComplited = dashboardTV_DataForProjectPortfolio.;
                     dataList[i].Color = "#2b908f";
-                    dataList[i].DataOtgruzkiBP = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder).dataOtgruzkiBP;
+                    dataList[i].DataOtgruzkiBP = dashboardTV_DataForProjectPortfolio.dataOtgruzkiBP;
+                    dataList[i].Duration = dashboardTV_DataForProjectPortfolio.duration;
+                    dataList[i].RemainingDuration = dashboardTV_DataForProjectPortfolio.remainingDuration;
+                    dataList[i].PercentComplited = dashboardTV_DataForProjectPortfolio.percentComplited;
                     dataList[i].Failure = (int)(dataList[i].ContractDateComplited - dataList[i].DataOtgruzkiBP).TotalDays;
                     int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
                     dataList[i].Deals = new DealsForDashboardTV[countDeals];
