@@ -8,6 +8,23 @@ var minusPxTextForGantt = 5;
 var redZoneReamainingHSS = 2000;
 var pointWidthForGantt = 14;
 
+//$.extend( true, $.fn.dataTable.defaults, {
+//    "order": [[0, "asc"]],
+//    "processing": true,
+//    "columns": objTableTaskData,
+//    "cache": false,
+//    "async": false,
+//    "scrollY": '75vh',
+//    "scrollX": true,
+//    "paging": false,
+//    "searching": false,
+//    "info": false,
+//    "scrollCollapse": true,
+//    "language": {
+//        "zeroRecords": "Отсутствуют записи",
+//        "infoEmpty": "Отсутствуют записи"
+//    }
+//});
 
 $(document).ready(function () {
     getPeriodReport();
@@ -15,17 +32,20 @@ $(document).ready(function () {
     GetHSSPlanToYear();
     GetRatePlanToYear();
     GetRemainingHSS();
+    GetTaskThisDayTable();
+    //GetVarianceTasksTable();
 });
 
-//var objTableData = [
-//    { "title": "План на начало месяца", "data": "monthPlan", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-//    { "title": "Освоено на сегодняшний день", "data": "inThisDay", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-//    { "title": "% выполнения к мес. плану", "data": "inThisDayPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
-//    { "title": "Ожидаемое освоение материалов", "data": "inThisMonth", "autowidth": true, "bSortable": false, "className": 'text-center', render: $.fn.dataTable.render.number(',', '.', 0, '') },
-//    { "title": "", "data": "glyphicon1", "autowidth": true, "bSortable": false, "className": 'text-center' },
-//    { "title": "% ожидаемого освоения к плану", "data": "inThisMonthPercent", "autowidth": true, "bSortable": false, "className": 'text-center' },
-//    { "title": "", "data": "glyphicon", "autowidth": true, "bSortable": false, "className": 'text-center' }
-//];
+var objTableTaskData = [
+    { "title": "Заказ", "data": "orderNumber", "autowidth": true, "bSortable": true },
+    { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": false },
+    { "title": "Исполнитель", "data": "executorName", "autowidth": true, "bSortable": true },
+    { "title": "БНачало", "data": "basicStartDate", "autowidth": true, "bSortable": true },
+    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true },
+    { "title": "БОкончание", "data": "basicFinishDate", "autowidth": true, "bSortable": true },
+    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true },
+    { "title": "Ост. тр-ты", "data": "remainingWork", "autowidth": true, "bSortable": false }
+];
 
 function getPeriodReport() {
     $.ajax({
@@ -580,6 +600,58 @@ function GetRemainingHSS() {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetTaskThisDayTable(){
+    $("#tableTasksThisDay").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetTaskThisDayTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objTableTaskData,
+        "cache": false,
+        "async": false,
+        //"scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи"
+        }
+    });
+}
+
+function GetVarianceTasksTable(){
+    $("#tableVarianceTasks").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetVarianceTasksTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objTableTaskData,
+        "cache": false,
+        "async": false,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи"
         }
     });
 }

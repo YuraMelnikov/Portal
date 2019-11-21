@@ -685,6 +685,7 @@
     <Compile Include="ModelIdentity\AppRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointments.cs" />
+    <Compile Include="Models\AspNetUsersContext.cs" />
     <Compile Include="Models\Despatching.cs" />
     <Compile Include="Models\DespatchingTmp.cs" />
     <Compile Include="Models\DevisionsManufacturing.cs" />
