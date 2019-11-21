@@ -6,6 +6,7 @@ var marginForTitle = -10;
 var heightForStatusLine = '69px';
 var minusPxTextForGantt = 5;
 var redZoneReamainingHSS = 2000;
+var pointWidthForGantt = 14;
 
 
 $(document).ready(function () {
@@ -57,8 +58,6 @@ function getGanttProjects() {
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
                 myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
             }
-            var pointWidthForGantt = 14;
-            var widthGanttSize = pointWidthForGantt * lenghtElements * 1.4;
             var today = new Date(),
                 map = Highcharts.map,
                 dateFormat = Highcharts.dateFormat,
@@ -141,23 +140,21 @@ function getGanttProjects() {
                 tooltip: {
                     pointFormat: '<span>ХСС: {point.rentedTo}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
                 },
-                xAxis: {
-                    tickInterval: 1000 * 60 * 60 * 24 * 30, 
-                    tickPixelInterval: 50,
+                xAxis: [{
                     min: getMinDate(),
                     max: getMaxDate(),
                     labels: {
-                        distance: 1,
-                        y: 0,
                         style: {
                             "color": "#0d233a",
                             "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
-                    }
-                    //,grid: {
-                    //    height: 1000
-                    //}
-                },
+                    },
+                    type: 'category',
+                    gridLineWidth: 1
+                    }, {
+                    visible: false,
+                    opposite: false
+                }],
                 yAxis: {
                     labels: {
                         style: {
@@ -210,12 +207,17 @@ function getGanttProjects() {
                             },
                             categories: map(series, function (s) {
                                 return s.name;
-                            })
-                        }]
-                    }
+                            }),
+                            scrollbar: {
+                                enabled: true,
+                                showFull: false
+                            }
+                        },
+                    ]},
+                    max: 20
                 },
                 chart: {
-                    height: widthGanttSize + 'px'
+                    height: '480px'
                 }
             });
         }
