@@ -20,14 +20,14 @@ $(document).ready(function () {
 });
 
 var objTableTaskData = [
-    { "title": "Заказ", "data": "orderNumber", "autowidth": true, "bSortable": true },
+    { "title": "Заказ", "data": "orderNumber", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": false },
-    { "title": "БНачало", "data": "basicStartDate", "autowidth": true, "bSortable": true },
-    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true },
-    { "title": "БОконч.", "data": "basicFinishDate", "autowidth": true, "bSortable": true },
-    { "title": "Оконч.", "data": "finishDate", "autowidth": true, "bSortable": true },
+    { "title": "БНачало", "data": "basicStartDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "БОконч.", "data": "basicFinishDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Оконч.", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Исполнитель", "data": "executorName", "autowidth": true, "bSortable": true },
-    { "title": "Тр", "data": "remainingWork", "autowidth": true, "bSortable": false }
+    { "title": "Тр (ч)", "data": "remainingWork", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
 
 function getPeriodReport() {
@@ -603,10 +603,10 @@ function GetTaskThisDayTable() {
         "columns": objTableTaskData,
         "rowCallback": function (row, data, index) {
             if (data.basicStartDate === dateString) {
-                $('td', row).css('background-color', '#ebaca2');
+                $('td', row).eq(2).addClass('colorTdTaskThisDay');
             }
             if (data.basicFinishDate === dateString) {
-                $('td', row).css('background-color', '#ebaca2');
+                $('td', row).eq(4).addClass('colorTdTaskThisDay');
             }
         },
         "cache": false,
@@ -626,7 +626,11 @@ function GetTaskThisDayTable() {
     $("div.toolbar").html('<b>Планируемое начало/окончание работ</b>');
 }
 
-function GetVarianceTasksTable(){
+function GetVarianceTasksTable() {
+    //var today = new Date();
+    var today = moment();
+    var tomorrow = moment(today).add(-1, 'days');
+    var dateString = ConvertDateToGlobalShortString(tomorrow._d);
     $("#tableVarianceTasks").DataTable({
         "dom": '<"toolbar">frtip',
         "ajax": {
@@ -638,6 +642,14 @@ function GetVarianceTasksTable(){
         "order": [[0, "asc"]],
         "processing": true,
         "columns": objTableTaskData,
+        "rowCallback": function (row, data, index) {
+            if (data.basicStartDate === dateString) {
+                $('td', row).eq(2).addClass('colorTdVarianceTaskThisDay');
+            }
+            if (data.basicFinishDate === dateString) {
+                $('td', row).eq(4).addClass('colorTdVarianceTaskThisDay');
+            }
+        },
         "cache": false,
         "async": false,
         "scrollY": heightTableTasks,
