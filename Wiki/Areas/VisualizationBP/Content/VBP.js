@@ -7,24 +7,7 @@ var heightForStatusLine = '69px';
 var minusPxTextForGantt = 5;
 var redZoneReamainingHSS = 2000;
 var pointWidthForGantt = 14;
-
-//$.extend( true, $.fn.dataTable.defaults, {
-//    "order": [[0, "asc"]],
-//    "processing": true,
-//    "columns": objTableTaskData,
-//    "cache": false,
-//    "async": false,
-//    "scrollY": '75vh',
-//    "scrollX": true,
-//    "paging": false,
-//    "searching": false,
-//    "info": false,
-//    "scrollCollapse": true,
-//    "language": {
-//        "zeroRecords": "Отсутствуют записи",
-//        "infoEmpty": "Отсутствуют записи"
-//    }
-//});
+var heightTableTasks = '190px';
 
 $(document).ready(function () {
     getPeriodReport();
@@ -33,18 +16,18 @@ $(document).ready(function () {
     GetRatePlanToYear();
     GetRemainingHSS();
     GetTaskThisDayTable();
-    //GetVarianceTasksTable();
+    GetVarianceTasksTable();
 });
 
 var objTableTaskData = [
     { "title": "Заказ", "data": "orderNumber", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": false },
-    { "title": "Исполнитель", "data": "executorName", "autowidth": true, "bSortable": true },
     { "title": "БНачало", "data": "basicStartDate", "autowidth": true, "bSortable": true },
     { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true },
-    { "title": "БОкончание", "data": "basicFinishDate", "autowidth": true, "bSortable": true },
-    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true },
-    { "title": "Ост. тр-ты", "data": "remainingWork", "autowidth": true, "bSortable": false }
+    { "title": "БОконч.", "data": "basicFinishDate", "autowidth": true, "bSortable": true },
+    { "title": "Оконч.", "data": "finishDate", "autowidth": true, "bSortable": true },
+    { "title": "Исполнитель", "data": "executorName", "autowidth": true, "bSortable": true },
+    { "title": "Тр", "data": "remainingWork", "autowidth": true, "bSortable": false }
 ];
 
 function getPeriodReport() {
@@ -280,7 +263,7 @@ function getGanttProjects() {
                     max: 20
                 },
                 chart: {
-                    height: '480px'
+                    height: '515px'
                 }
             });
         }
@@ -604,8 +587,11 @@ function GetRemainingHSS() {
     });
 }
 
-function GetTaskThisDayTable(){
+function GetTaskThisDayTable() {
+    var today = new Date();
+    var dateString = ConvertDateToGlobalShortString(today);
     $("#tableTasksThisDay").DataTable({
+        "dom": '<"toolbar">frtip',
         "ajax": {
             "cache": false,
             "url": "/VBP/GetTaskThisDayTable",
@@ -615,9 +601,17 @@ function GetTaskThisDayTable(){
         "order": [[0, "asc"]],
         "processing": true,
         "columns": objTableTaskData,
+        "rowCallback": function (row, data, index) {
+            if (data.basicStartDate === dateString) {
+                $('td', row).css('background-color', '#ebaca2');
+            }
+            if (data.basicFinishDate === dateString) {
+                $('td', row).css('background-color', '#ebaca2');
+            }
+        },
         "cache": false,
         "async": false,
-        "scrollY": '230px',
+        "scrollY": heightTableTasks,
         "scrollX": true,
         "paging": false,
         "searching": false,
@@ -629,10 +623,12 @@ function GetTaskThisDayTable(){
             "search": "Поиск"
         }
     });
+    $("div.toolbar").html('<b>Планируемое начало/окончание работ</b>');
 }
 
 function GetVarianceTasksTable(){
     $("#tableVarianceTasks").DataTable({
+        "dom": '<"toolbar">frtip',
         "ajax": {
             "cache": false,
             "url": "/VBP/GetVarianceTasksTable/",
@@ -644,7 +640,7 @@ function GetVarianceTasksTable(){
         "columns": objTableTaskData,
         "cache": false,
         "async": false,
-        //"scrollY": '230px',
+        "scrollY": heightTableTasks,
         "scrollX": true,
         "paging": false,
         "searching": false,
@@ -655,4 +651,5 @@ function GetVarianceTasksTable(){
             "infoEmpty": "Отсутствуют записи"
         }
     });
+    $("div.toolbar").html('<b>Срывы планируемого начала/окончания задач:</b>');
 }

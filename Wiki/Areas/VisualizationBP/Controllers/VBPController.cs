@@ -75,7 +75,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var data = query.Select(dataList => new
                 {
                     orderNumber = dataList.DashboardBP_ProjectList.PZ_PlanZakaz.PlanZakaz,
-                    taskName = dataList.WBS.WBSName,
+                    taskName = dataList.WBS.WBSLongCiliricName,
                     executorName = new AspNetUsersContext().GetCiliricalName(dataList.AspNetUsers),
                     basicStartDate = JsonConvert.SerializeObject(dataList.basicStart, shortDateString).Replace(@"""", ""),
                     startDate = JsonConvert.SerializeObject(dataList.start, shortDateString).Replace(@"""", ""),
@@ -106,7 +106,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var data = query.Select(dataList => new
                 {
                     orderNumber = dataList.DashboardBP_ProjectList.PZ_PlanZakaz.PlanZakaz,
-                    taskName = dataList.WBS.WBSName,
+                    taskName = dataList.WBS.WBSLongCiliricName,
                     executorName = new AspNetUsersContext().GetCiliricalName(dataList.AspNetUsers),
                     basicStartDate = JsonConvert.SerializeObject(dataList.basicStart, shortDateString).Replace(@"""", ""),
                     startDate = JsonConvert.SerializeObject(dataList.start, shortDateString).Replace(@"""", ""),
