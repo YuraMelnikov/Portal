@@ -627,7 +627,6 @@ function GetTaskThisDayTable() {
 }
 
 function GetVarianceTasksTable() {
-    //var today = new Date();
     var today = moment();
     var tomorrow = moment(today).add(-1, 'days');
     var dateString = ConvertDateToGlobalShortString(tomorrow._d);

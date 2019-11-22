@@ -1335,10 +1335,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     List<int> idList = new List<int>();
                     foreach (var pz in pZ_PlanZakazRemoveTask)
                     {
-                        var listWork = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == pz && d.close == false &&
-                            d.id_TaskForPZ != 1 && d.id_TaskForPZ != 2 && d.id_TaskForPZ != 3 && d.id_TaskForPZ != 4
-                            && d.id_TaskForPZ != 15 && d.id_TaskForPZ != 41 && d.id_TaskForPZ != 42 && d.id_TaskForPZ != 43
-                            && d.id_TaskForPZ != 44 && d.id_TaskForPZ != 45 && d.id_TaskForPZ != 46);
+                        var listWork = db.Debit_WorkBit.Where(d => d.id_PlanZakaz == pz && d.close == false && d.id_TaskForPZ != 15);
                         foreach (var task in listWork)
                         {
                             idList.Add(task.id);
