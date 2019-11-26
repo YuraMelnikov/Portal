@@ -486,6 +486,9 @@
     <Compile Include="CurencyBYN.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardBPComments.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardBPManufacturingPower.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

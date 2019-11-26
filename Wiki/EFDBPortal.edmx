@@ -609,6 +609,19 @@
           <Property Name="numberWeek" Type="smallint" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBPComments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="taskUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="orderNumber" Type="int" Nullable="false" />
+          <Property Name="taskName" Type="varchar(max)" Nullable="false" />
+          <Property Name="workerName" Type="varchar(max)" Nullable="false" />
+          <Property Name="counterState1" Type="int" Nullable="false" />
+          <Property Name="counterState2" Type="int" Nullable="false" />
+          <Property Name="notes" Type="varchar(max)" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardBPManufacturingPower">
           <Key>
             <PropertyRef Name="id" />
@@ -3976,6 +3989,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardBP_ProjectList" EntityType="Self.DashboardBP_ProjectList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_ProjectTasks" EntityType="Self.DashboardBP_ProjectTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_State" EntityType="Self.DashboardBP_State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBPComments" EntityType="Self.DashboardBPComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBPManufacturingPower" EntityType="Self.DashboardBPManufacturingPower" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
@@ -5787,6 +5801,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="Devision" EntitySet="Devision" />
             <End Role="DashboardBPManufacturingPower" EntitySet="DashboardBPManufacturingPower" />
           </AssociationSet>
+          <EntitySet Name="DashboardBPComments" EntityType="PortalKATEKModel.DashboardBPComments" />
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -9864,6 +9879,19 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardBPComments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="taskUID" Type="Guid" Nullable="false" />
+          <Property Name="orderNumber" Type="Int32" Nullable="false" />
+          <Property Name="taskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="workerName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="counterState1" Type="Int32" Nullable="false" />
+          <Property Name="counterState2" Type="Int32" Nullable="false" />
+          <Property Name="notes" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12043,6 +12071,20 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="workers" ColumnName="workers" />
                 <ScalarProperty Name="id_Devision" ColumnName="id_Devision" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBPComments">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPComments">
+              <MappingFragment StoreEntitySet="DashboardBPComments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="counterState2" ColumnName="counterState2" />
+                <ScalarProperty Name="counterState1" ColumnName="counterState1" />
+                <ScalarProperty Name="workerName" ColumnName="workerName" />
+                <ScalarProperty Name="taskName" ColumnName="taskName" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="taskUID" ColumnName="taskUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

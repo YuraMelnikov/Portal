@@ -188,5 +188,6 @@ namespace Wiki
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
         public virtual DbSet<DashboardBPManufacturingPower> DashboardBPManufacturingPower { get; set; }
+        public virtual DbSet<DashboardBPComments> DashboardBPComments { get; set; }
     }
 }

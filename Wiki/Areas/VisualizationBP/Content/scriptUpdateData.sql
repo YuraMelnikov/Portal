@@ -161,7 +161,6 @@ FROM [PortalKATEK].[dbo].[DashboardBP_HSSPO]
 where PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay >= getdate()
 
 
---update 26.11.19
 insert into PortalKATEK.dbo.DashboardBPComments
 select
 [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].TaskUID
