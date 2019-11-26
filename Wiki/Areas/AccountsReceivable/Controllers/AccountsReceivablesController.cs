@@ -27,6 +27,10 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
             ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
+
+            var pzList = db.PZ_PlanZakaz.Where(d => d.Folder == "").ToList();
+            if (pzList.Count > 0)
+                GetAdressFolder(pzList);
             try
             {
                 string login = HttpContext.User.Identity.Name;
@@ -36,6 +40,94 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             {
             }
             return View();
+        }
+
+        public void GetAdressFolder(List<PZ_PlanZakaz> pzList)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                foreach(var dataInList in pzList)
+                {
+                    int substringLan = 0;
+                    string adres = db.Folder.Find(1).adres;
+                    adres += db.FolderDocument.Find(2).adres;
+                    int planZakaz = db.PZ_PlanZakaz.Find(dataInList.Id).PlanZakaz;
+                    string[] files = Directory.GetDirectories(adres, "*.*", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        try
+                        {
+                            if (Convert.ToInt32(files[i].Substring(files[i].Length - 4)) > planZakaz)
+                            {
+                                adres = files[i];
+                                break;
+                            }
+                        }
+                        catch
+                        { }
+                    }
+                    substringLan = adres.Length + 1;
+                    files = null;
+                    files = Directory.GetDirectories(adres, "*.*", SearchOption.TopDirectoryOnly);
+                    string myLan = "";
+                    string myLan2 = "";
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        myLan = files[i];
+                        myLan = files[i].Substring(substringLan, files[i].Length - substringLan);
+                        myLan = myLan.Substring(0, 4);
+                        try
+                        {
+                            myLan2 = files[i];
+                            myLan2 = files[i].Substring(substringLan, files[i].Length - substringLan);
+                            myLan2 = myLan2.Substring(5, 4);
+                            int counterStep = Convert.ToInt32(myLan2) - Convert.ToInt32(myLan);
+                            for (int j = 0; j <= counterStep; j++)
+                            {
+                                try
+                                {
+                                    if (Convert.ToInt32(myLan) + j == planZakaz)
+                                    {
+                                        adres = files[i];
+                                        if (Convert.ToInt32(myLan) + j > planZakaz)
+                                        {
+                                            adres = files[i - 1];
+                                            break;
+                                        }
+                                        break;
+                                    }
+                                }
+                                catch
+                                { }
+                            }
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                if (Convert.ToInt32(myLan) == planZakaz)
+                                {
+                                    adres = files[i];
+                                    if (Convert.ToInt32(myLan) > planZakaz)
+                                    {
+                                        adres = files[i - 1];
+                                        break;
+                                    }
+                                    break;
+                                }
+                            }
+                            catch
+                            { }
+                        }
+                    }
+                    PZ_PlanZakaz pZ_PlanZakaz = db.PZ_PlanZakaz.Find(dataInList.Id);
+                    pZ_PlanZakaz.Folder = adres;
+                    db.Entry(pZ_PlanZakaz).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
         }
 
         public JsonResult TEOList()
