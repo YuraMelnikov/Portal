@@ -161,3 +161,33 @@ FROM [PortalKATEK].[dbo].[DashboardBP_HSSPO]
 where PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay >= getdate()
 
 
+--update 26.11.19
+insert into PortalKATEK.dbo.DashboardBPComments
+select
+[ProjectWebApp].[dbo].[MSP_EpmTask_UserView].TaskUID
+,[ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[¹ çàêàçà]
+,[ProjectWebApp].[dbo].[MSP_EpmTask_UserView].TaskName
+,[ProjectWebApp].[dbo].[MSP_EpmResource_UserView].ResourceName
+,LEN([ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))))
+,0
+,[ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))) AS [Ïðèì.]
+FROM [ProjectWebApp].[dbo].[MSP_EpmProject_UserView]
+INNER JOIN [ProjectWebApp].[dbo].[MSP_EpmTask_UserView] ON [ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[ProjectUID] = [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].[ProjectUID]
+LEFT OUTER JOIN [ProjectWebApp].[dbo].[MSP_EpmAssignment_UserView] ON [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].[TaskUID] = [ProjectWebApp].[dbo].[MSP_EpmAssignment_UserView].[TaskUID]
+AND [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].[ProjectUID] = [ProjectWebApp].[dbo].[MSP_EpmAssignment_UserView].[ProjectUID]
+LEFT OUTER JOIN [ProjectWebApp].[dbo].[MSP_EpmResource_UserView] ON MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
+left join ProjectWebApp.pub.[MSP_TASKS] on ProjectWebApp.pub.[MSP_TASKS].TASK_UID = [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].[TaskUID]
+left join PortalKATEK.dbo.DashboardBPComments on PortalKATEK.dbo.DashboardBPComments.taskUID = [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].TaskUID
+where
+[ProjectWebApp].[dbo].[MSP_EpmProject_UserView].ProjectPercentCompleted < 100 
+and [ProjectWebApp].[dbo].[MSP_EpmTask_UserView].[TaskPercentCompleted] < 100
+and [ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[¹ çàêàçà] not like '%Çàäàíèå%'
+and [ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[¹ çàêàçà] not like '%Ïðî÷èå%'
+and [ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[¹ çàêàçà] not like '%ÍÈÎÊÐ%'
+and (ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÑÐ%'
+OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÈØ%'
+OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÑÌÊ%'
+OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÑÑ%'
+OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÝÓ%')
+and ([ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))) is not null)
+and (PortalKATEK.dbo.DashboardBPComments.taskUID is null)
