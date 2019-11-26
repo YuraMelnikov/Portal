@@ -118,5 +118,36 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 return Json(new { data });
             }
         }
+
+        public JsonResult GetCountComments()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int cont = db.DashboardBPComments.Where(d => d.counterState1 != d.counterState2).Count();
+
+                return Json(cont, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetCommentsList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardBPComments.AsNoTracking().Where(d => d.counterState1 != d.counterState2).ToList();
+                var data = query.Select(datalist => new
+                {
+                    datalist.orderNumber,
+                    datalist.taskName,
+                    datalist.notes,
+                    datalist.workerName
+                });
+
+                return Json(new { data });
+            }
+        }
     }
 }

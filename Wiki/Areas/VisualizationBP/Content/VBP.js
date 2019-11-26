@@ -593,7 +593,7 @@ function GetTaskThisDayTable() {
     var today = new Date();
     var dateString = ConvertDateToGlobalShortString(today);
     $("#tableTasksThisDay").DataTable({
-        "dom": '<"toolbar">frtip',
+        "dom": '<"toolbar1">frtip',
         "ajax": {
             "cache": false,
             "url": "/VBP/GetTaskThisDayTable",
@@ -625,7 +625,7 @@ function GetTaskThisDayTable() {
             "search": "Поиск"
         }
     });
-    $("div.toolbar").html('<b>Планируемое начало/окончание работ</b>');
+    $("div.toolbar1").html('<b>Планируемое начало/окончание работ</b>');
 }
 
 function GetVarianceTasksTable() {
