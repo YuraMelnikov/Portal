@@ -840,6 +840,35 @@ function GetCountComments() {
     });
 }
 
-function GetCommentsList() {
+var objCommentsForTable = [
+    { "title": "Заказ", "data": "orderNumber", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Задача", "data": "taskName", "autowidth": true, "bSortable": false },
+    { "title": "Комментарий", "data": "notes", "autowidth": true, "bSortable": false },
+    { "title": "Исполнитель", "data": "workerName", "autowidth": true, "bSortable": true }
+];
 
+function GetCommentsList() {
+    $("#tableComments").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetCommentsList/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objCommentsForTable,
+        "cache": false,
+        "async": false,
+        "scrollY": heightTableTasks,
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи"
+        }
+    });
 }
