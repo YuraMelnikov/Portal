@@ -2257,6 +2257,14 @@ namespace Wiki.Areas.CMKO.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
+
+
+
+
+
+
+
+
             ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
                                                        .Where(d => d.close == false)
                                                        .OrderByDescending(d => d.period), "period", "period");
@@ -2342,6 +2350,7 @@ namespace Wiki.Areas.CMKO.Controllers
             }
             return View();
         }
+
         public JsonResult RemoveOptimization(CMKO_Optimization optimization)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -2571,6 +2580,21 @@ namespace Wiki.Areas.CMKO.Controllers
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
         }
     }
 }
