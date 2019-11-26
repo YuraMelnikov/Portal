@@ -168,7 +168,7 @@ select
 ,[ProjectWebApp].[dbo].[MSP_EpmProject_UserView].[¹ çàêàçà]
 ,[ProjectWebApp].[dbo].[MSP_EpmTask_UserView].TaskName
 ,[ProjectWebApp].[dbo].[MSP_EpmResource_UserView].ResourceName
-,LEN([ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))))
+,0
 ,0
 ,[ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))) AS [Ïðèì.]
 FROM [ProjectWebApp].[dbo].[MSP_EpmProject_UserView]
@@ -191,3 +191,14 @@ OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÓÑÑ%'
 OR ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ LIKE '%ÝÓ%')
 and ([ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))) is not null)
 and (PortalKATEK.dbo.DashboardBPComments.taskUID is null)
+
+delete PortalKATEK.dbo.DashboardBPComments
+from ProjectWebApp.dbo.MSP_EpmTask  join PortalKATEK.dbo.DashboardBPComments on PortalKATEK.dbo.DashboardBPComments.taskUID = ProjectWebApp.dbo.MSP_EpmTask.TaskUID
+where ProjectWebApp.dbo.MSP_EpmTask.TaskPercentCompleted = 100
+
+update PortalKATEK.dbo.DashboardBPComments set
+counterState1 = counterState2
+where counterState2 != 0
+
+update PortalKATEK.dbo.DashboardBPComments set
+counterState2 = LEN(PortalKATEK.dbo.DashboardBPComments.notes)
