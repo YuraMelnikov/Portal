@@ -8,6 +8,7 @@ var minusPxTextForGantt = 5;
 var redZoneReamainingHSS = 2000;
 var pointWidthForGantt = 14;
 var heightTableTasks = '190px';
+var heightTableComments = '600px';
 
 $(document).ready(function () {
     getPeriodReport();
@@ -848,7 +849,8 @@ var objCommentsForTable = [
 ];
 
 function GetCommentsList() {
-    $("#tableComments").DataTable({
+    $('#commentsModal').modal('show');
+    $("#commentsTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/VBP/GetCommentsList/",
@@ -860,7 +862,7 @@ function GetCommentsList() {
         "columns": objCommentsForTable,
         "cache": false,
         "async": false,
-        "scrollY": heightTableTasks,
+        "scrollY": heightTableComments,
         "scrollX": true,
         "paging": false,
         "searching": false,
