@@ -131,6 +131,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
+        [HttpPost]
         public JsonResult GetCommentsList()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())

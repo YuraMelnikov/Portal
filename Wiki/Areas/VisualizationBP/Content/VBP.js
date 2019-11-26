@@ -19,6 +19,7 @@ $(document).ready(function () {
     GetVarianceTasksTable();
     getRemainingWorkE();
     getRemainingWork();
+    GetCountComments();
 });
 
 var objTableTaskData = [
@@ -823,4 +824,22 @@ function getRemainingWork() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function GetCountComments() {
+    $.ajax({
+        url: "/VBP/GetCountComments/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById('commentsLink').innerHTML = 'Комментарии: ' + result;
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetCommentsList() {
+
 }
