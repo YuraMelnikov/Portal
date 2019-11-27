@@ -860,6 +860,9 @@
     <Compile Include="Reclamation_TechnicalAdviceProtocolPosition.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reclamation_TechnicalAdviceTasks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reclamation_Type.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

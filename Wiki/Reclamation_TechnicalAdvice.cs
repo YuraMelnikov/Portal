@@ -18,6 +18,7 @@ namespace Wiki
         public Reclamation_TechnicalAdvice()
         {
             this.Reclamation_TechnicalAdviceProtocolPosition = new HashSet<Reclamation_TechnicalAdviceProtocolPosition>();
+            this.Reclamation_TechnicalAdviceTasks = new HashSet<Reclamation_TechnicalAdviceTasks>();
         }
     
         public int id { get; set; }
@@ -36,5 +37,7 @@ namespace Wiki
         public virtual Reclamation Reclamation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdviceProtocolPosition> Reclamation_TechnicalAdviceProtocolPosition { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_TechnicalAdviceTasks> Reclamation_TechnicalAdviceTasks { get; set; }
     }
 }

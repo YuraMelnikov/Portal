@@ -1442,6 +1442,17 @@
           <Property Name="id_Reclamation_TechnicalAdvice" Type="int" Nullable="false" />
           <Property Name="id_Reclamation_TechnicalAdviceProtocol" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reclamation_TechnicalAdviceTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Reclamation_TechnicalAdvice" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="textTask" Type="varchar(max)" Nullable="false" />
+          <Property Name="deadline" Type="date" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Reclamation_Type">
           <Key>
             <PropertyRef Name="id" />
@@ -3440,6 +3451,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_TechnicalAdviceTasks_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Reclamation_TechnicalAdviceTasks" Type="Self.Reclamation_TechnicalAdviceTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdviceTasks">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice">
+          <End Role="Reclamation_TechnicalAdvice" Type="Self.Reclamation_TechnicalAdvice" Multiplicity="1" />
+          <End Role="Reclamation_TechnicalAdviceTasks" Type="Self.Reclamation_TechnicalAdviceTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_TechnicalAdvice">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdviceTasks">
+              <PropertyRef Name="id_Reclamation_TechnicalAdvice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RKD_Despatching_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="RKD_Despatching" Type="Self.RKD_Despatching" Multiplicity="*" />
@@ -4062,6 +4097,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="Reclamation_TechnicalAdvice" EntityType="Self.Reclamation_TechnicalAdvice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_TechnicalAdviceProtocol" EntityType="Self.Reclamation_TechnicalAdviceProtocol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_TechnicalAdviceProtocolPosition" EntityType="Self.Reclamation_TechnicalAdviceProtocolPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamation_TechnicalAdviceTasks" EntityType="Self.Reclamation_TechnicalAdviceTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_Type" EntityType="Self.Reclamation_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenameTasksKBM" EntityType="Self.RenameTasksKBM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_Despatching" EntityType="Self.RKD_Despatching" Schema="dbo" store:Type="Tables" />
@@ -4731,6 +4767,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol" Association="Self.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdviceProtocol">
             <End Role="Reclamation_TechnicalAdviceProtocol" EntitySet="Reclamation_TechnicalAdviceProtocol" />
             <End Role="Reclamation_TechnicalAdviceProtocolPosition" EntitySet="Reclamation_TechnicalAdviceProtocolPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" Association="Self.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_TechnicalAdviceTasks" EntitySet="Reclamation_TechnicalAdviceTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" Association="Self.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice">
+            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
+            <End Role="Reclamation_TechnicalAdviceTasks" EntitySet="Reclamation_TechnicalAdviceTasks" />
           </AssociationSet>
           <AssociationSet Name="FK_RKD_Despatching_AspNetUsers" Association="Self.FK_RKD_Despatching_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5802,6 +5846,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="DashboardBPManufacturingPower" EntitySet="DashboardBPManufacturingPower" />
           </AssociationSet>
           <EntitySet Name="DashboardBPComments" EntityType="PortalKATEKModel.DashboardBPComments" />
+          <EntitySet Name="Reclamation_TechnicalAdviceTasks" EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceTasks" />
+          <AssociationSet Name="FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reclamation_TechnicalAdviceTasks" EntitySet="Reclamation_TechnicalAdviceTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice">
+            <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
+            <End Role="Reclamation_TechnicalAdviceTasks" EntitySet="Reclamation_TechnicalAdviceTasks" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -6512,6 +6565,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Reclamation_TechnicalAdviceTasks" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdviceTasks" />
         </EntityType>
         <EntityType Name="CMKO_BujetList">
           <Key>
@@ -7610,6 +7664,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_AspNetUsers1" FromRole="Reclamation_TechnicalAdvice" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation_TechnicalAdviceProtocolPosition" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceProtocolPosition_Reclamation_TechnicalAdvice" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation_TechnicalAdviceProtocolPosition" />
+          <NavigationProperty Name="Reclamation_TechnicalAdviceTasks" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" FromRole="Reclamation_TechnicalAdvice" ToRole="Reclamation_TechnicalAdviceTasks" />
         </EntityType>
         <EntityType Name="Reclamation_TechnicalAdviceProtocol">
           <Key>
@@ -9892,6 +9947,43 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="notes" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="Reclamation_TechnicalAdviceTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation_TechnicalAdvice" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="textTask" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" FromRole="Reclamation_TechnicalAdviceTasks" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" FromRole="Reclamation_TechnicalAdviceTasks" ToRole="Reclamation_TechnicalAdvice" />
+        </EntityType>
+        <Association Name="FK_Reclamation_TechnicalAdviceTasks_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_TechnicalAdviceTasks" Role="Reclamation_TechnicalAdviceTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdviceTasks">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice">
+          <End Type="PortalKATEKModel.Reclamation_TechnicalAdvice" Role="Reclamation_TechnicalAdvice" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation_TechnicalAdviceTasks" Role="Reclamation_TechnicalAdviceTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_TechnicalAdvice">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation_TechnicalAdviceTasks">
+              <PropertyRef Name="id_Reclamation_TechnicalAdvice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12085,6 +12177,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="taskName" ColumnName="taskName" />
                 <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
                 <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamation_TechnicalAdviceTasks">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdviceTasks">
+              <MappingFragment StoreEntitySet="Reclamation_TechnicalAdviceTasks">
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="textTask" ColumnName="textTask" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id_Reclamation_TechnicalAdvice" ColumnName="id_Reclamation_TechnicalAdvice" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
