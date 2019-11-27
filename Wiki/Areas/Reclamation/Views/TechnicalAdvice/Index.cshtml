@@ -43,7 +43,11 @@
             <div class="modal-body">
                 @Html.HiddenFor(model => model.id)
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
+                        <label>Ид.:</label>
+                        <input type="text" class="form-control" id="id" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
                         <label>План-Заказ/ы №№:</label>
                         <input type="text" class="form-control" id="orders" disabled="disabled" />
                     </div>
@@ -101,12 +105,13 @@
                 <hr />
                 <h5>Задачи в рамках решения вопроса:</h5>
                 <table id="taskTable" class="table table-hover table-striped" style="width:100%;"></table>
+                <hr />
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col-lg-2">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" id="btnAddTask" onclick="addNewTask()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                    <button class="btn btn-primary" id="btnAddTask" onclick="AddTask()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                 </span>
                                 @Html.DropDownList("id_AspNetUserTask", ViewBag.id_AspNetUserTask as MultiSelectList, new { @class = "form-control" })
                             </div>

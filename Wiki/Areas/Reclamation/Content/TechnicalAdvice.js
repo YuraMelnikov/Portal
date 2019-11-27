@@ -42,13 +42,13 @@ var objRemarksList = [
 ];
 
 var objAdviceTask = [
-    { "title": "", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№", "data": "idTask", "autowidth": true, "bSortable": true },
     { "title": "Задача", "data": "textTask", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Результат", "data": "textAnswer", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true },
     { "title": "Закрыта", "data": "dateComplited", "autowidth": true, "bSortable": false },
-    { "title": "Исполнитель", "user": "answers", "autowidth": true, "bSortable": true }
+    { "title": "Исполнитель", "data": "answers", "autowidth": true, "bSortable": true }
 ];
 
 function GetAdviseTasks(id) {
@@ -177,6 +177,27 @@ function startMenu() {
         },
         "columns": objRemarksListNoEdit,
         "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#taskTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/TechnicalAdvice/GetAdviseTasks/" + 50,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "processing": true,
+        "columns": objAdviceTask,
+        "searching": false,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -427,6 +448,35 @@ function getProtocol(id) {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        }
+    });
+}
+
+function AddTask() {
+    $("#btnAddTask").attr('disabled', true);
+    var objRemark = {
+        id_AspNetUserTask: $('#id_AspNetUserTask').val(),
+        textTask: $('#textTask').val(),
+        id: $('#id').val(),
+        deadlineTask: $('#deadlineTask').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/AddTask/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#taskTable').DataTable().ajax.reload(null, false);
+            $("#btnAddTask").attr('disabled', false);
+            $('#id_AspNetUserTask').val("");
+            $('#textTask').val("");
+            $('#deadlineTask').val("");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+            $("#btnAddTask").attr('disabled', false);
         }
     });
 }
