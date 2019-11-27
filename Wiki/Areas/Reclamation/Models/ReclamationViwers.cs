@@ -65,7 +65,7 @@ namespace Wiki.Areas.Reclamation.Models
             var answerList = reclamation.Reclamation_Answer.OrderByDescending(d => d.dateTimeCreate).ToList();
             for (int i = 0; i < answerList.Count; i++)
             {
-                answers += answerList[i].AspNetUsers.CiliricalName + " : " + answerList[i].answer + "<br>";
+                answers += answerList[i].dateTimeCreate.ToString().Substring(0, 5) + " | " + answerList[i].AspNetUsers.CiliricalName + " | " + answerList[i].answer + "\n\r";
             }
             devision = reclamation.Devision.name;
             userCreate = reclamation.AspNetUsers.CiliricalName;

@@ -524,7 +524,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 foreach (var data in reclamation_Answers.OrderByDescending(d => d.dateTimeCreate))
                 {
-                    text += data.dateTimeCreate.ToString().Substring(0, 5) + " | " + data.answer + " | " + data.AspNetUsers.CiliricalName + "/n/n";
+                    text += data.dateTimeCreate.ToString().Substring(0, 5) + " | " + data.AspNetUsers.CiliricalName + " | " + data.answer + "\n";
                 }
             }
             return text;
