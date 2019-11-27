@@ -1079,6 +1079,66 @@ function validateUpdateKO() {
     return isValid;
 }
 
+function GetWeightData(Id) {
+    $.ajax({
+        cache: false,
+        url: "/Order/GetWeightData/" + Id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idWeight').val(result.idWeight);
+            $('#orderNumberWeight').val(result.orderNumberWeight);
+            $('#massaWeight').val(result.massaWeight);
+            $('#orderWeightModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function UpdateWeightData() {
+    var res = validateWeight();
+    if (res === false) {
+        return false;
+    }
+    $("#btnUpdateWeight").attr('disabled', true);
+    var typeObj = {
+        idWeight: $('#idWeight').val(),
+        massaWeight: $('#massaWeight').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Order/UpdateWeightData/",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#myTable').DataTable().ajax.reload(null, false);
+            $('#orderWeightModal').modal('hide');
+            $("#btnUpdateWeight").attr('disabled', false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function validateWeight() {
+    var isValid = true;
+    if ($('#massaWeight').val() < 1) {
+        $('#massaWeight').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#massaWeight').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
 function clearTextBoxTableOrders() {
     $("#btnTableOrders").attr('disabled', false);
     $('#tOrders').val("");

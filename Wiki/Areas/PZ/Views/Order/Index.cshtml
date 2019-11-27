@@ -561,6 +561,35 @@
         </div>
     </div>
 </div>
+<div id="orderWeightModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <label for="idWeight">Ид.:</label>
+                        <input type="text" class="form-control" id="idWeight" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="orderNumberWeight">Заводской номер:</label>
+                        <input type="text" class="form-control" id="orderNumberWeight" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Расчетная масса изделия (кг):</label>
+                        <input type="text" class="form-control" id="massaWeight" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdateWeight" onclick="UpdateWeightData();">Обновить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="tablesModal" class="modal modal-wide fade">
     <div class="modal-dialog">
         <div class="modal-content">

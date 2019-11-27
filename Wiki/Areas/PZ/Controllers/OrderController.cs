@@ -37,6 +37,7 @@ namespace Wiki.Areas.PZ.Controllers
             }
             catch
             {
+
             }
             return View();
         }
@@ -886,6 +887,62 @@ namespace Wiki.Areas.PZ.Controllers
             db.PZ_PZNotes.Add(pZ_PZNotes);
             db.SaveChanges();
             return Json(idPZ, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWeightData(int Id)
+        {
+            using (PortalKATEKEntities dbc = new PortalKATEKEntities())
+            {
+                var query = db.PZ_PlanZakaz
+                    .AsNoTracking()
+                    .Where(d => d.Id == Id)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    idWeight = dataList.Id,
+                    orderNumberWeight = dataList.PlanZakaz,
+                    massaWeight = dataList.massa
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateWeightData(int idWeight, double massaWeight)
+        {
+            string login = HttpContext.User.Identity.Name;
+            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == idWeight);
+            if (editPZ.massa != massaWeight)
+            {
+                try
+                {
+                    EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.massa, massaWeight, login, false);
+                    emailRename.SendEmailMassa();
+                }
+                catch
+                {
+
+                }
+                editPZ.massa = massaWeight;
+                try
+                {
+                    using (ExportImportEntities dbc = new ExportImportEntities())
+                    {
+                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz.ToString());
+                        pzImport.weight = editPZ.massa;
+                        dbc.Entry(pzImport).State = EntityState.Modified;
+                        dbc.SaveChanges();
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
+            editPZ = correctPlanZakaz.PZ_PlanZakaz;
+            db.Entry(editPZ).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }
