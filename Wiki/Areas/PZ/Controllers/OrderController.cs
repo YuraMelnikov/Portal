@@ -928,7 +928,7 @@ namespace Wiki.Areas.PZ.Controllers
         public JsonResult UpdateWeightData(int idWeight, double massaWeight)
         {
             string login = HttpContext.User.Identity.Name;
-            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == idWeight);
+            PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.Id == idWeight);
             if (editPZ.massa != massaWeight)
             {
                 try
