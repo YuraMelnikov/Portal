@@ -135,6 +135,55 @@
         </div>
     </div>
 </div>
+
+
+<div id="adviceTaskModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Ид.:</label>
+                        <input type="text" class="form-control" id="idAdviceTask" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Исполнитель:</label>
+                        <input type="text" class="form-control" id="adviceUser" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Срок:</label>
+                        <input type="text" class="form-control" id="adviceDeadline" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Текст рекламации:</label>
+                        <textarea name="reclamationText" id="reclamationText" class="form-control" rows=5 disabled="disabled"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>История переписки:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=5 disabled="disabled"></textarea>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnUpdateAdviceTask" onclick="UpdateAdviceTask();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
@@ -161,3 +210,15 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $(function () {
+        $('#adviceDeadline').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+
+

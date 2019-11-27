@@ -41,6 +41,74 @@ var objRemarksList = [
     { "title": "Ответственное СП", "data": "DevisionReclamation", "autowidth": true, "bSortable": true }
 ];
 
+var objAdviceTask = [
+    { "title": "", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "№", "data": "idTask", "autowidth": true, "bSortable": true },
+    { "title": "Задача", "data": "textTask", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Результат", "data": "textAnswer", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true },
+    { "title": "Исполнитель", "user": "Answers", "autowidth": true, "bSortable": true }
+];
+
+function GetAdviseTasks(id) {
+    var table = $('#taskTable').DataTable();
+    table.destroy();
+    $('#taskTable').empty();
+    $("#taskTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/TechnicalAdvice/GetAdviseTasks/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[4, "asc"]],
+        "processing": true,
+        "columns": objAdviceTask,
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function GetAdviceTask(id) {
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/GetAdviceTask/" + id,
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            disabledFalse();
+            $('#id').val(result.id);
+            $('#userUploadReclamation').val(result.userUploadReclamation);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#orders').val(result.orders);
+            $('#userCreateReclamation').val(result.userCreateReclamation);
+            $('#devisionReclamation').val(result.devisionReclamation);
+            $('#reclamationText').val(result.reclamationText);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#id_AspNetUserResponsible').val(result.id_AspNetUserResponsible);
+            $('#deadline').val(result.deadline);
+            $('#close').prop('checked', result.close);
+            $('#viewReclamation').modal('show');
+            $('#btnUpdate').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
 var objRemarksListNoEdit = [
     { "title": "№", "data": "Id_Reclamation", "autowidth": true, "bSortable": true },
     { "title": "Заказ", "data": "Orders", "autowidth": true, "bSortable": false },
