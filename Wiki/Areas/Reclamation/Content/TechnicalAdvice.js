@@ -47,7 +47,8 @@ var objAdviceTask = [
     { "title": "Задача", "data": "textTask", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Результат", "data": "textAnswer", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true },
-    { "title": "Исполнитель", "user": "Answers", "autowidth": true, "bSortable": true }
+    { "title": "Закрыта", "data": "dateComplited", "autowidth": true, "bSortable": false },
+    { "title": "Исполнитель", "user": "answers", "autowidth": true, "bSortable": true }
 ];
 
 function GetAdviseTasks(id) {
@@ -89,8 +90,9 @@ function GetAdviceTask(id) {
             $('#idAdviceTask').val(result.idAdviceTask);
             $('#adviceUser').val(result.adviceUser);
             $('#adviceDeadline').val(result.adviceDeadline);
-            $('#reclamationText').val(result.reclamationText);
-            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#adviceTextTask').val(result.adviceTextTask);
+            $('#adviceAnswerTask').val(result.adviceAnswerTask);
+            $('#dateComplitedTask').val(result.dateComplitedTask);
             $('#adviceTaskModal').modal('show');
         },
         error: function (errormessage) {
@@ -104,8 +106,9 @@ function UpdateAdviceTask() {
     var objRemark = {
         idAdviceTask: $('#idAdviceTask').val(),
         adviceDeadline: $('#adviceDeadline').val(),
-        reclamationText: $('#reclamationText').val(),
-        answerHistiryText: $('#answerHistiryText').val()
+        adviceTextTask: $('#adviceTextTask').val(),
+        dateComplitedTask: $('#dateComplitedTask').val(),
+        adviceAnswerTask: $('#adviceAnswerTask').val()
     };
     $.ajax({
         cache: false,
@@ -341,6 +344,7 @@ function getTAEdit(id) {
             alert(errormessage.responseText);
         }
     });
+    GetAdviseTasks(id);
     return false;
 }
 

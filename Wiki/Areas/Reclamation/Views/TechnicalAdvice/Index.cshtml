@@ -152,16 +152,20 @@
                         <label>Срок:</label>
                         <input type="text" class="form-control" id="adviceDeadline" />
                     </div>
+                    <div class="col-lg-2">
+                        <label>Дата закрытия:</label>
+                        <input type="text" class="form-control" id="dateComplitedTask" />
+                    </div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6">
                         <label>Задача:</label>
-                        <textarea name="adviceText" id="reclamationText" class="form-control" rows=4></textarea>
+                        <textarea name="adviceText" id="adviceTextTask" class="form-control" rows=4></textarea>
                     </div>
                     <div class="col-lg-6">
                         <label>Решение:</label>
-                        <textarea name="adviceAnswer" id="answerHistiryText" class="form-control" rows=4></textarea>
+                        <textarea name="adviceAnswer" id="adviceAnswerTask" class="form-control" rows=4></textarea>
                     </div>
                 </div>
                 <hr />
@@ -218,5 +222,14 @@
         });
     });
 </script>
-
+<script type="text/javascript">
+    $(function () {
+        $('#dateComplitedTask').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
 

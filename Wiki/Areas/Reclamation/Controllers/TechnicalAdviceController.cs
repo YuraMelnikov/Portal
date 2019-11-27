@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Wiki.Areas.Reclamation.Models;
+using System.Data.Entity;
 
 namespace Wiki.Areas.Reclamation.Controllers
 {
@@ -113,6 +114,79 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             var data = new TARemarksListView().GetRemarksProtocol(id);
             return Json(new { data });
+        }
+
+        public JsonResult GetActiveTA(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities)
+            {
+                var query = db.Reclamation_TechnicalAdviceTasks
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_Reclamation_TechnicalAdvice == id)
+                    .ToList();
+                var data = query.Select(datalist => new
+                {
+                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('" + datalist.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                    idTask = datalist.id,
+                    textTask = datalist.textTask,
+                    textAnswer = datalist.textAnswer,
+                    deadline = datalist.deadline.ToString().Substring(0, 10),
+                    dateComplited = GetDateComplited(datalist.dateClose),
+                    answers = datalist.textAnswer
+                });;
+
+                return Json(new { data });
+            }
+        }
+
+
+        string GetDateComplited(DateTime? date)
+        {
+            try
+            {
+                return date.ToString().Substring(0, 10);
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public JsonResult GetAdviceTask(int id)
+        {
+            var query = db.Reclamation_TechnicalAdviceTasks
+                .AsNoTracking()
+                .Where(d => d.id == id)
+                .ToList();
+
+            var data = query.Select(dataList => new
+            {
+                idAdviceTask = dataList.id,
+                adviceUser = dataList.AspNetUsers.CiliricalName,
+                adviceDeadline = dataList.deadline.ToString().Substring(0, 10),
+                reclamationText = dataList.textTask,
+                adviceAnswerTask = dataList.textAnswer,
+                dateComplitedTask = GetDateComplited(dataList.dateClose)
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateAdviceTask(int idAdviceTask, DateTime adviceDeadline, string textTask, 
+            DateTime? dateComplitedTask, string textAnswer)
+        {
+            Reclamation_TechnicalAdviceTasks reclamation_TechnicalAdviceTasks = db.Reclamation_TechnicalAdviceTasks.Find(idAdviceTask);
+            if (adviceDeadline != reclamation_TechnicalAdviceTasks.deadline)
+                reclamation_TechnicalAdviceTasks.deadline = adviceDeadline;
+            if (textTask != reclamation_TechnicalAdviceTasks.textTask)
+                reclamation_TechnicalAdviceTasks.textTask = textTask;
+            if (dateComplitedTask != reclamation_TechnicalAdviceTasks.dateClose)
+                reclamation_TechnicalAdviceTasks.dateClose = dateComplitedTask;
+            if (textAnswer != reclamation_TechnicalAdviceTasks.textAnswer)
+                reclamation_TechnicalAdviceTasks.textAnswer = textAnswer;
+            db.Entry(reclamation_TechnicalAdviceTasks).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }
