@@ -86,27 +86,42 @@ function GetAdviceTask(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            disabledFalse();
-            $('#id').val(result.id);
-            $('#userUploadReclamation').val(result.userUploadReclamation);
-            $('#text').val(result.text);
-            $('#description').val(result.description);
-            $('#orders').val(result.orders);
-            $('#userCreateReclamation').val(result.userCreateReclamation);
-            $('#devisionReclamation').val(result.devisionReclamation);
+            $('#idAdviceTask').val(result.idAdviceTask);
+            $('#adviceUser').val(result.adviceUser);
+            $('#adviceDeadline').val(result.adviceDeadline);
             $('#reclamationText').val(result.reclamationText);
             $('#answerHistiryText').val(result.answerHistiryText);
-            $('#id_AspNetUserResponsible').val(result.id_AspNetUserResponsible);
-            $('#deadline').val(result.deadline);
-            $('#close').prop('checked', result.close);
-            $('#viewReclamation').modal('show');
-            $('#btnUpdate').show();
+            $('#adviceTaskModal').modal('show');
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
+}
+
+function UpdateAdviceTask() {
+    var objRemark = {
+        idAdviceTask: $('#idAdviceTask').val(),
+        adviceDeadline: $('#adviceDeadline').val(),
+        reclamationText: $('#reclamationText').val(),
+        answerHistiryText: $('#answerHistiryText').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/TechnicalAdvice/UpdateAdviceTask/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#adviceTaskModal').modal('hide');
+            $('#taskTable').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
 
 var objRemarksListNoEdit = [

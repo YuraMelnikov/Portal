@@ -1453,6 +1453,7 @@
           <Property Name="deadline" Type="date" Nullable="false" />
           <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
           <Property Name="textAnswer" Type="varchar(max)" Nullable="false" />
+          <Property Name="dateClose" Type="date" />
         </EntityType>
         <EntityType Name="Reclamation_Type">
           <Key>
@@ -9961,6 +9962,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" FromRole="Reclamation_TechnicalAdviceTasks" ToRole="AspNetUsers" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" FromRole="Reclamation_TechnicalAdviceTasks" ToRole="Reclamation_TechnicalAdvice" />
           <Property Name="textAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dateClose" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_Reclamation_TechnicalAdviceTasks_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -12185,6 +12187,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="Reclamation_TechnicalAdviceTasks">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation_TechnicalAdviceTasks">
               <MappingFragment StoreEntitySet="Reclamation_TechnicalAdviceTasks">
+                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
                 <ScalarProperty Name="textAnswer" ColumnName="textAnswer" />
                 <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
                 <ScalarProperty Name="deadline" ColumnName="deadline" />
