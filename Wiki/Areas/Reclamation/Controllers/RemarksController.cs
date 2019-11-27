@@ -772,7 +772,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
                 Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор замечания", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
                     "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст замечания", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
-                    "", "", "", "", "", "", "", "", "", 17);
+                    "Шум", "", "", "", "", "", "", "", "", 18);
                 excelRows.Add(excelRow);
                 foreach (var data in list)
                 {
@@ -786,6 +786,12 @@ namespace Wiki.Areas.Reclamation.Controllers
                     {
                         history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
                     }
+                    string trash = "Нет";
+                    foreach (var dataAnswer in data.Reclamation_Answer)
+                    {
+                        if (dataAnswer.trash == true)
+                            trash = "Да";
+                    }
                     string userError = "";
                     try
                     {
@@ -798,7 +804,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
                             data.Devision.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
                             data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
-                            data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
+                            data.gip.ToString(), trash, "", "", "", "", "", "", "", "", 17);
                     excelRows.Add(excelRow1);
                 }
                 Wiki.Models.ExcelColumn excelColumnIndex = new Wiki.Models.ExcelColumn();
@@ -1090,7 +1096,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 List<Wiki.Models.ExcelRow> excelRows = new List<Wiki.Models.ExcelRow>();
                 Wiki.Models.ExcelRow excelRow = new Wiki.Models.ExcelRow("№", "План-Заказ/ы №№:", "Автор замечания", "Создана", "Ответственное СП", "Ответственный сотрудник", "Критерий ошибки",
                     "Критерий ошибки (утв.)", "Поиск (ч.)", "Устранение (ч.)", "Текст замечания", "Прим.", "Полуфабрикат", "РСАМ", "История переписки", "На техсовет", "ГИП",
-                    "", "", "", "", "", "", "", "", "", 17);
+                    "Шум", "", "", "", "", "", "", "", "", 18);
                 excelRows.Add(excelRow);
                 foreach (var data in list)
                 {
@@ -1104,6 +1110,12 @@ namespace Wiki.Areas.Reclamation.Controllers
                     {
                         history += dataAnswer.AspNetUsers.CiliricalName + " | " + dataAnswer.answer + "\n";
                     }
+                    string trash = "Нет";
+                    foreach (var dataAnswer in data.Reclamation_Answer)
+                    {
+                        if (dataAnswer.trash == true)
+                            trash = "Да";
+                    }
                     string userError = "";
                     try
                     {
@@ -1116,7 +1128,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     Wiki.Models.ExcelRow excelRow1 = new Wiki.Models.ExcelRow(data.id.ToString(), ordersName, data.AspNetUsers.CiliricalName, data.dateTimeCreate.ToString().Substring(0, 10),
                             data.Devision.name, userError, data.Reclamation_CountError.name, data.Reclamation_CountError1.name,
                             data.timeToSearch.ToString(), data.timeToEliminate.ToString(), data.text, data.description, data.PF.name, data.PCAM, history, data.technicalAdvice.ToString(),
-                            data.gip.ToString(), "", "", "", "", "", "", "", "", "", 17);
+                            data.gip.ToString(), trash, "", "", "", "", "", "", "", "", 17);
                     excelRows.Add(excelRow1);
                 }
                 Wiki.Models.ExcelColumn excelColumnIndex = new Wiki.Models.ExcelColumn();
