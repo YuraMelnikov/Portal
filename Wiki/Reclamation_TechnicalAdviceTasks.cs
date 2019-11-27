@@ -20,6 +20,7 @@ namespace Wiki
         public string textTask { get; set; }
         public System.DateTime deadline { get; set; }
         public System.DateTime datetimeCreate { get; set; }
+        public string textAnswer { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Reclamation_TechnicalAdvice Reclamation_TechnicalAdvice { get; set; }
