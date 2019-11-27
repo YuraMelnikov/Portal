@@ -17,6 +17,7 @@ namespace Wiki.Areas.PZ.Controllers
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings settingsLong = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly string firstPartLinkEditOP = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyID('";
+        readonly string firstPartLinkEditWeight = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetWeightData('";
         readonly string firstPartLinkEditKO = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getbyKOID('";
         readonly string lastPartEdit = "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
 
@@ -132,6 +133,11 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
+            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            {
+                linkPartOne = firstPartLinkEditWeight;
+                linkPartTwo = lastPartEdit;
+            }
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
@@ -232,7 +238,11 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-
+            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            {
+                linkPartOne = firstPartLinkEditWeight;
+                linkPartTwo = lastPartEdit;
+            }
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
@@ -319,7 +329,11 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-
+            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            {
+                linkPartOne = firstPartLinkEditWeight;
+                linkPartTwo = lastPartEdit;
+            }
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
@@ -406,7 +420,11 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-
+            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            {
+                linkPartOne = firstPartLinkEditWeight;
+                linkPartTwo = lastPartEdit;
+            }
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
