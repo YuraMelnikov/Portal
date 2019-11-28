@@ -1305,6 +1305,102 @@ namespace Wiki.Areas.CMKO.Controllers
             }
         }
 
+        public JsonResult GetUsersMMP1_16()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP1
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Рачкевич Виталий Игоревич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP2_16()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP2
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Рачкевич Виталий Игоревич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUsersMMP3_16()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOMP3
+                    .AsNoTracking()
+                    .Where(d => d.ciliricalName == "Рачкевич Виталий Игоревич")
+                    .OrderByDescending(d => d.ciliricalName)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UsersKOPlamMonth[] data = new UsersKOPlamMonth[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UsersKOPlamMonth();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].period = query[i].period;
+                    data[i].ciliricalName = query[i].ciliricalName;
+                    data[i].plan = (int)query[i].plan;
+                    data[i].plan10 = (int)query[i].plan10;
+                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
+                    data[i].normHoure = (int)query[i].normHoure;
+                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetUsersMMP2_1()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
