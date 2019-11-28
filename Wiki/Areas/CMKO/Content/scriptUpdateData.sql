@@ -119,9 +119,13 @@ left join (select id_PZ_PlanZakaz, sum([data]) as bujet from PortalKATEK.dbo.CMK
 left join (select id_PZ_PlanZakaz, sum([data]) as bujet from PortalKATEK.dbo.CMKO_ProjectFactBujet where devision like 'КБЭ' group by id_PZ_PlanZakaz) as KBEFactBujet on KBEFactBujet.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 left join (select id_PZ_PlanZakaz, sum(accruedWorkerForTaskKBM) + sum(accruedManagerForTaskKBM) as [bujetKBM], sum(accruedWorkerForTaskKBE) + sum(accruedManagerForTaskKBE) as [bujetKBE] from PortalKATEK.dbo.CMKO_BujetList where PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua group by id_PZ_PlanZakaz) as ThisBujetList on ThisBujetList.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 left join PortalKATEK.dbo.PZ_TEO on PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 45) as TableWorkKBM on TableWorkKBM.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 46) as TableWorkKBE on TableWorkKBE.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 WHERE
 concat(year(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP),'.', (month(PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP) + 2) / 3) = @periodQua
+and (convert(int, isnull(TableWorkKBM.[close], 1)) * convert(int, isnull(TableWorkKBE.[close], 1)) != 0)
 group by PortalKATEK.dbo.PZ_PlanZakaz.Id
+
 
 DELETE PortalKATEK.dbo.CMKO_ThisWageFund
 INSERT INTO PortalKATEK.dbo.CMKO_ThisWageFund
