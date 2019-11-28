@@ -4,7 +4,6 @@ var titleDiagrammColor = '#717171';
 var colorStackLabels = '#717171';
 var titleFontSize = "14px";
 var colorMinusData = '#fa292a';
-//
 var colorBgBasicLine = '#fa292a';
 var colorBg10Line = '#fae596';
 var colorBg20Line = '#3fb0ac';
@@ -1605,19 +1604,6 @@ function GetOverflowsBujet() {
             var planArray = new Array();
             planArray.push(result[1].Plan);
             planArray.push(result[2].Plan);
-            var colorArray = new Array();
-            if(planArray[0] > 0){
-                colorArray.push(colorFactData);
-            }
-            else{
-                colorArray.push(colorMinusData);
-            }
-            if(planArray[1] > 0) {
-                colorArray.push(colorMinusData);
-            }
-            else{
-                colorArray.push(colorFactData);
-            }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -1673,7 +1659,7 @@ function GetOverflowsBujet() {
                 series: [{
                     name: 'Перетоки',
                     data: planArray,
-                    color: colorArray
+                    color: colorFactData
                 }]
             });
         },
