@@ -35,22 +35,26 @@
         .colu-300 {
             min-width: 300px;
         }
+
+        hr.standart {
+            border: 1px solid #717171;
+        }
     </style>
 </head>
 
 <div id="dashboardBody">
     <div class="row" id="divPeriodReportTitle">
         <div class="col-lg-12">
-            <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
+            <h5 id="periodReportString" style="font-weight: bold; color: #717171"></h5>
         </div>
     </div>
-
-    <div class="row" id="summaryDivTitle">
-        <div class="col-lg-12">
-            <h5 style="font-weight: bold; color: #910000; text-align: center">Суммарные показатели</h5>
-        </div>
-    </div>
+    <hr class="standart">
     <div class="row" id="summaryDivForManager">
+        <div class="row" id="summaryDivTitle">
+            <div class="col-lg-12">
+                <h5 style="font-weight: bold; color: #717171; text-align: center">Суммарные показатели</h5>
+            </div>
+        </div>
         <div class="col-lg-2">
             <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
         </div>
@@ -70,7 +74,7 @@
             <div id="overflowsBujet" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
         </div>
     </div>
-
+    <hr class="standart">
     <div class="row" id="accuredDiv">
         <div class="col-lg-6">
             <div id="accruedG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
@@ -79,7 +83,7 @@
             <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
         </div>
     </div>
-
+    <hr class="standart">
     <div class="row" id="hss">
         <div class="col-lg-4">
             <div id="hssKBM" style="margin: 0 auto"></div>
@@ -91,13 +95,7 @@
             <div id="hssPO" style="margin: 0 auto"></div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 style="font-weight: bold; color: #910000; text-align: center">Квартальные начисления сотрудников</h5>
-        </div>
-    </div>
-
+    <hr class="standart">
     <div class="row" id="divAccuredUsers">
         <div class="col-lg-6">
             <div id="usersAccuredPlan" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
@@ -106,225 +104,149 @@
             <div id="usersAccuredFact" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
         </div>
     </div>
-
+    <hr class="standart">
     <div id="speedWorkers1">
         <div class="row">
             <div class="col-lg-12">
-                <h5 id="periodReportUsersKBMString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
+                <h5 id="periodReportUsersKBMString1" style="font-weight: bold; text-align:center; color: #717171"></h5>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed1" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-1" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-1" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-2" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-1" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-3" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-1" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed2" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-4" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-2" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-5" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-2" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-6" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-2" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed3" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-7" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-3" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-3" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-3" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 id="periodReportUsersKBEString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
+        <div class="row" id="speed4" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
+            <div class="col-lg-4">
+                <div id="container1-4" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-4" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-4" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed5" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-8" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-5" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-9" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-5" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-10" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-5" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed6" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-11" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-6" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-12" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-6" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-13" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-6" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed7" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container1-14" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-7" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container1-15" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-7" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-7" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-    </div>
-    <div id="speedWorkers2">
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 id="periodReportUsersKBMString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
+        <div class="row" id="speed8" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
+            <div class="col-lg-4">
+                <div id="container1-8" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-8" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-8" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed9" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container2-1" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-9" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container2-2" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-9" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container2-3" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-9" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed10" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container2-4" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-10" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container2-5" style="height: 70px; margin: 0 auto"></div>
+                <div id="container2-10" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
             <div class="col-lg-4">
-                <div id="container2-6" style="height: 70px; margin: 0 auto"></div>
+                <div id="container3-10" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="speed11" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
             <div class="col-lg-4">
-                <div id="container2-7" style="height: 70px; margin: 0 auto"></div>
+                <div id="container1-11" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-11" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-11" style="height: 68px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 id="periodReportUsersKBEString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container2-8" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container2-9" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container2-10" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container2-11" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container2-12" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container2-13" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container2-14" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container2-15" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-    </div>
-    <div id="speedWorkers3">
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 id="periodReportUsersKBMString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-1" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-2" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-3" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-4" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-5" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-6" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-7" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 id="periodReportUsersKBEString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-8" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-9" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-10" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-11" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-12" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-13" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div id="container3-14" style="height: 70px; margin: 0 auto"></div>
-            </div>
-            <div class="col-lg-4">
-                <div id="container3-15" style="height: 70px; margin: 0 auto"></div>
-            </div>
-        </div>
-    </div>
 
+
+
+
+
+
+
+    </div>
+    <hr class="standart">
     <div class="row" id="timeSheetAndSalaryTax">
         <div class="col-lg-6">
-            <h5 style="font-weight: bold; text-align: center; color: #910000">Отработанное время сотрудниками</h5>
             <div id="timesheetContainer"></div>
         </div>
-        <div class="col-lg-6">
-            <div id="salaryAndRateWorkers" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-        </div>
     </div>
-
+    <hr class="standart">
     <div class="row" id="divCoef">
         <div class="col-lg-6">
             <div id="coefWorker" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
@@ -333,10 +255,10 @@
             <div id="coefWorkerG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
         </div>
     </div>
-
+    <hr class="standart">
     <div class="row">
         <div class="col-lg-12">
-            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБМ</h5>
+            <h5 style="font-weight: bold; text-align: center; color: #717171">Оставшиеся тр-ты сотрудников КБМ</h5>
         </div>
     </div>
     <div class="row">
@@ -349,7 +271,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБЭ</h5>
+            <h5 style="font-weight: bold; text-align: center; color: #717171">Оставшиеся тр-ты сотрудников КБЭ</h5>
         </div>
     </div>
     <div class="row">
@@ -362,17 +284,18 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты бюро</h5>
+            <h5 style="font-weight: bold; text-align: center; color: #717171">Оставшиеся тр-ты бюро</h5>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <div id="remainingWorkDevisionAll" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
+            <div id="remainingWorkDevisionAll" style="max-height: 130px; height: 130px; margin: 0 auto"></div>
         </div>
         <div class="col-lg-6">
-            <div id="remainingWorkDevision" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
+            <div id="remainingWorkDevision" style="max-height: 130px; height: 130px; margin: 0 auto"></div>
         </div>
     </div>
+        <hr class="standart">
 </div>
 
 

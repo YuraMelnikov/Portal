@@ -1,5 +1,9 @@
 ﻿var colorPlanData = '#e3e3e3';
 var colorFactData = '#3fb0ac';
+var titleDiagrammColor = '#717171';
+var colorStackLabels = '#717171';
+var titleFontSize = "14px";
+var colorMinusData = '#fa292a';
 
 $(document).ready(function () {
     LoadData(9);
@@ -85,7 +89,6 @@ function LoadData(id) {
         GetAccuredFact();
         GetNhUsersThisQua();
         GetTimeSheet();
-        GetSalaryAndRateWorkers();
         GetCoefWorker();
         GetCoefWorkerG();
         getRemainingWorkAll();
@@ -1221,8 +1224,8 @@ function GetSummaryWageFundWorker() {
                     margin: 0,
                     text: 'ФОТ заказов',
                     style: {
-                        "font-size": "13px",
-                        "color": "#717171"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1232,7 +1235,7 @@ function GetSummaryWageFundWorker() {
                     stackLabels: {
                         enabled: true,
                         style: {
-                            color: "#717171"
+                            color: colorStackLabels
                         }
                     }
                 },
@@ -1301,7 +1304,8 @@ function GetSummaryWageFundManager() {
                     margin: 0,
                     text: 'ФОТ руководителей',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1309,7 +1313,10 @@ function GetSummaryWageFundManager() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1329,10 +1336,12 @@ function GetSummaryWageFundManager() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1375,7 +1384,8 @@ function GetSummaryWageFundG() {
                     margin: 0,
                     text: 'ФОТ ГИПов',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1383,7 +1393,10 @@ function GetSummaryWageFundG() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1403,10 +1416,12 @@ function GetSummaryWageFundG() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1449,7 +1464,8 @@ function GetRemainingBonus() {
                     margin: 0,
                     text: 'Остаток бонусного ФОТ',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1457,7 +1473,10 @@ function GetRemainingBonus() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1477,10 +1496,12 @@ function GetRemainingBonus() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1523,7 +1544,8 @@ function GetWithheldToBonusFund() {
                     margin: 0,
                     text: 'Удержано за ошибки',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1531,7 +1553,10 @@ function GetWithheldToBonusFund() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1551,10 +1576,12 @@ function GetWithheldToBonusFund() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1573,12 +1600,28 @@ function GetOverflowsBujet() {
             var planArray = new Array();
             planArray.push(result[1].Plan);
             planArray.push(result[2].Plan);
+            var colorArray = new Array();
+            if(planArray[0] > 0){
+                colorArray.push(colorFactData);
+            }
+            else{
+                colorArray.push(colorMinusData);
+            }
+            if(planArray[1] > 0) {
+                colorArray.push(colorMinusData);
+            }
+            else{
+                colorArray.push(colorFactData);
+            }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
                 }
             });
             Highcharts.chart('overflowsBujet', {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     type: 'bar',
                     marginBottom: 60
@@ -1592,7 +1635,8 @@ function GetOverflowsBujet() {
                     margin: 0,
                     text: 'Перетоки',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1600,7 +1644,10 @@ function GetOverflowsBujet() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1615,13 +1662,13 @@ function GetOverflowsBujet() {
                                 textOutline: "0px contrast"
                             }
                         },
-                        stacking: 'normal',
-                        color: '#910000'
+                        stacking: 'normal'
                     }
                 },
                 series: [{
                     name: 'Перетоки',
-                    data: planArray
+                    data: planArray,
+                    color: colorArray
                 }]
             });
         },
@@ -1665,7 +1712,8 @@ function GetGAccrued() {
                     margin: 0,
                     text: 'Итоговые начисления ГИПов',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1673,7 +1721,10 @@ function GetGAccrued() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1693,10 +1744,12 @@ function GetGAccrued() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1740,7 +1793,8 @@ function GetNhUsersThisQua() {
                     margin: 0,
                     text: 'Нормачасы сотрудников',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -1748,7 +1802,10 @@ function GetNhUsersThisQua() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -1768,10 +1825,12 @@ function GetNhUsersThisQua() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -1814,7 +1873,8 @@ function GetHSSPO() {
                 title: {
                     text: 'ХСС производства',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
@@ -1826,7 +1886,8 @@ function GetHSSPO() {
                 },
                 series: [{
                     name: 'ХСС',
-                    data: dataArray
+                    data: dataArray,
+                    color: colorFactData
                 }],
                 yAxis: {
                     title: {
@@ -1836,7 +1897,10 @@ function GetHSSPO() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            style:{
+                                color: colorStackLabels
+                            }
                         }
                     }
                 }
@@ -1881,7 +1945,8 @@ function GetHSSKBM() {
                 title: {
                     text: 'ХСС КБМ',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
@@ -1893,7 +1958,8 @@ function GetHSSKBM() {
                 },
                 series: [{
                     name: 'ХСС',
-                    data: dataArray
+                    data: dataArray,
+                    color: colorFactData
                 }],
                 yAxis: {
                     title: {
@@ -1903,7 +1969,10 @@ function GetHSSKBM() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            style:{
+                                color: colorStackLabels
+                            }
                         }
                     }
                 }
@@ -1948,7 +2017,8 @@ function GetHSSKBE() {
                 title: {
                     text: 'ХСС КБЭ',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
@@ -1960,7 +2030,8 @@ function GetHSSKBE() {
                 },
                 series: [{
                     name: 'ХСС',
-                    data: dataArray
+                    data: dataArray,
+                    color: colorFactData
                 }],
                 yAxis: {
                     title: {
@@ -1970,7 +2041,10 @@ function GetHSSKBE() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            style:{
+                                color: colorStackLabels
+                            }
                         }
                     }
                 }
@@ -2037,9 +2111,7 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString1").textContent = 'Выработка НЧ КБЭ за ' + labelName;
+            document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -3583,15 +3655,12 @@ function ManpowerUsersInMonth1() {
 } 
 
 function ManpowerUsersInMonth2() {
-    $('#speedWorkers2').show();
     $.ajax({
         url: "/CMK/GetUsersMMP2_1/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString2").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString2").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -5135,15 +5204,12 @@ function ManpowerUsersInMonth2() {
 } 
 
 function ManpowerUsersInMonth3() {
-    $('#speedWorkers3').show();
     $.ajax({
         url: "/CMK/GetUsersMMP3_1/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var labelName = result[0].period;
-            document.getElementById("periodReportUsersKBMString3").textContent = 'Выработка НЧ КБМ за ' + labelName;
-            document.getElementById("periodReportUsersKBEString3").textContent = 'Выработка НЧ КБЭ за ' + labelName;
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
@@ -6731,7 +6797,8 @@ function GetAccuredPlan() {
                     margin: 0,
                     text: 'Плановые начисления сотрудников',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -6739,7 +6806,10 @@ function GetAccuredPlan() {
                         enabled: false
                     },
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -6835,7 +6905,8 @@ function GetAccuredFact() {
                     margin: 0,
                     text: 'Фактические начисления сотрудников',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
@@ -6843,7 +6914,10 @@ function GetAccuredFact() {
                         enabled: false
                     },
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -6929,9 +7003,10 @@ function GetTimeSheet() {
                     type: 'heatmap'
                 },
                 title: {
-                    text: '* согласно проставленным часам в timesheet',
+                    text: 'Отработанное время сотрудниками',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
@@ -6943,94 +7018,24 @@ function GetTimeSheet() {
                     title: null
                 },
                 colorAxis: {
-                    min: 0,
-                    minColor: '#ffffff',
-                    maxColor: '#90ed7d'
+                    minColor: "#fff",
+                    maxColor: colorFactData
                 },
                 series: [{
                     name: 'ч.',
-                    borderWidth: 1,
+                    borderWidth: 0,
                     data: dataArray,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000'
+                        color: titleDiagrammColor,
+                        style: {
+                            textOutline: "0px contrast"
+                        }
                     }
-                }]
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function GetSalaryAndRateWorkers() {
-    $.ajax({
-        url: "/CMK/GetSalaryAndRateWorkers/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var counter = Object.keys(result).length;
-            var workerArray = new Array();
-            var planArray = new Array();
-            var factArray = new Array();
-            for (var i = 0; i < counter; i++) {
-                workerArray.push(result[i].FullName);
-                planArray.push(result[i].Plan);
-                factArray.push(result[i].Fact);
-            }
-            Highcharts.setOptions({
-                credits: {
+                }],
+                tooltip:{
                     enabled: false
                 }
-            });
-            Highcharts.chart('salaryAndRateWorkers', {
-                chart: {
-                    type: 'bar',
-                    marginBottom: 60
-                },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                title: {
-                    margin: 0,
-                    text: 'Расчетный оклад и налоги (квартальный)',
-                    style: {
-                        "font-size": "13px"
-                    }
-                },
-                yAxis: {
-                    title: {
-                        enabled: false
-                    },
-                    stackLabels: {
-                        enabled: true
-                    }
-                },
-                xAxis: {
-                    categories: workerArray
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                fontSize: "0px",
-                                textOutline: "0px contrast"
-                            }
-                        },
-                        stacking: 'normal'
-                    }
-                },
-                series: [{
-                    name: 'Оклад',
-                    data: planArray
-                }, {
-                    name: 'Налоги',
-                    data: factArray
-                }]
             });
         },
         error: function (errormessage) {
@@ -7058,6 +7063,9 @@ function GetCoefWorker() {
                 }
             });
             Highcharts.chart('coefWorker', {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     type: 'bar',
                     marginBottom: 60
@@ -7071,15 +7079,21 @@ function GetCoefWorker() {
                     margin: 0,
                     text: 'Коэф. качества инженеров-конструкторов',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
                     title: {
                         enabled: false
                     },
+                    max: 1,
+                    min: 0,
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -7099,7 +7113,8 @@ function GetCoefWorker() {
                 },
                 series: [{
                     name: 'Коэф.',
-                    data: planArray
+                    data: planArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -7128,6 +7143,9 @@ function GetCoefWorkerG() {
                 }
             });
             Highcharts.chart('coefWorkerG', {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     type: 'bar',
                     marginBottom: 60
@@ -7141,15 +7159,21 @@ function GetCoefWorkerG() {
                     margin: 0,
                     text: 'Коэф. качества ГИПов',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     }
                 },
                 yAxis: {
                     title: {
                         enabled: false
                     },
+                    max: 1,
+                    min: 0,
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: colorStackLabels
+                        }
                     }
                 },
                 xAxis: {
@@ -7169,7 +7193,8 @@ function GetCoefWorkerG() {
                 },
                 series: [{
                     name: 'Коэф.',
-                    data: planArray
+                    data: planArray,
+                    color: colorFactData
                 }]
             });
         },
@@ -7192,26 +7217,7 @@ function getRemainingWorkAll() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
                 credits: {
                     enabled: false
                 }
@@ -7231,18 +7237,16 @@ function getRemainingWorkAll() {
                 title: {
                     text: 'Оставшиеся тр-ты с учетом НИОКРов (сотрудник)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
@@ -7280,26 +7284,7 @@ function getRemainingWork() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
                 credits: {
                     enabled: false
                 }
@@ -7319,18 +7304,16 @@ function getRemainingWork() {
                 title: {
                     text: 'Оставшиеся тр-ты по заказам (сотрудник)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
@@ -7368,26 +7351,7 @@ function getRemainingWorkDevisionAll() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
                 credits: {
                     enabled: false
                 }
@@ -7407,18 +7371,16 @@ function getRemainingWorkDevisionAll() {
                 title: {
                     text: 'Оставшиеся тр-ты с учетом НИОКРов (бюро)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
@@ -7456,26 +7418,7 @@ function getRemainingDevisionWork() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
                 credits: {
                     enabled: false
                 }
@@ -7495,18 +7438,16 @@ function getRemainingDevisionWork() {
                 title: {
                     text: 'Оставшиеся тр-ты по заказам (бюро)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
@@ -7544,26 +7485,7 @@ function getRemainingWorkAllE() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
-                lang: {
-                    loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-                    exportButtonTitle: "Экспорт",
-                    printButtonTitle: "Печать",
-                    rangeSelectorFrom: "С",
-                    rangeSelectorTo: "По",
-                    rangeSelectorZoom: "Период",
-                    downloadPNG: 'Скачать PNG',
-                    downloadJPEG: 'Скачать JPEG',
-                    downloadPDF: 'Скачать PDF',
-                    downloadSVG: 'Скачать SVG',
-                    printChart: 'Напечатать график',
-                    Week: 'Нед.',
-                    Start: 'Начало'
-                },
                 credits: {
                     enabled: false
                 }
@@ -7583,18 +7505,16 @@ function getRemainingWorkAllE() {
                 title: {
                     text: 'Оставшиеся тр-ты с учетом НИОКРов (сотрудник)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
@@ -7632,7 +7552,6 @@ function getRemainingWorkE() {
                 catigoriesArray[i] = result[i].userName;
                 dataArray[i] = result[i].count;
             }
-            var catigoriesJSON = JSON.stringify(catigoriesArray);
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -7653,18 +7572,16 @@ function getRemainingWorkE() {
                 title: {
                     text: 'Оставшиеся тр-ты по заказам (сотрудник)',
                     style: {
-                        "font-size": "13px"
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
                     },
                     margin: 0
                 },
                 xAxis: {
-                    categories: catigoriesArray,
-                    style: {
-                        width: '100px'
-                    }
+                    categories: catigoriesArray
                 },
                 series: [{
-                    color: '#4572A7',
+                    color: colorFactData,
                     name: 'НЧ',
                     data: dataArray
                 }],
