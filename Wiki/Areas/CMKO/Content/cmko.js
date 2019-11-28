@@ -7690,6 +7690,8 @@ function GetAccuredPlan() {
             var speed = new Array();
             var optimization = new Array();
             var teach = new Array();
+            var tax = new Array();
+            var rate = new Array();
             for(var i = 0; i < counter; i++) {
                 ciliricName.push(result[i].CiliricName);
                 bonusReversed.push(result[i].BonusReversed);
@@ -7700,6 +7702,8 @@ function GetAccuredPlan() {
                 speed.push(result[i].Speed);
                 optimization.push(result[i].Optimization);
                 teach.push(result[i].Teach);
+                tax.push(result[i].Tax);
+                rate.push(result[i].Rate);
             }
             Highcharts.setOptions({
                 credits: {
@@ -7773,6 +7777,12 @@ function GetAccuredPlan() {
                 },{
                     name: 'Руководительские начисления',
                     data: manager
+                },{
+                    name: 'Налоги',
+                    data: tax
+                },{
+                    name: 'Оклад',
+                    data: rate
                 }]
             });
         },
@@ -7798,7 +7808,11 @@ function GetAccuredFact() {
             var speed = new Array();
             var optimization = new Array();
             var teach = new Array();
-            for(var i = 0; i < counter; i++) {
+            var tax = new Array();
+            var rate = new Array();
+            for (var i = 0; i < counter; i++) {
+                tax.push(result[i].Tax);
+                rate.push(result[i].Rate);
                 ciliricName.push(result[i].CiliricName);
                 bonusReversed.push(result[i].BonusReversed);
                 accrued.push(result[i].Accrued);
@@ -7808,6 +7822,8 @@ function GetAccuredFact() {
                 speed.push(result[i].Speed);
                 optimization.push(result[i].Optimization);
                 teach.push(result[i].Teach);
+                tax.push(result[i].Tax);
+                rate.push(result[i].Rate);
             }
             Highcharts.setOptions({
                 credits: {
@@ -7881,6 +7897,12 @@ function GetAccuredFact() {
                 },{
                     name: 'Руководительские начисления',
                     data: manager
+                },{
+                    name: 'Налоги',
+                    data: tax
+                },{
+                    name: 'Оклад',
+                    data: rate
                 }]
             });
         },

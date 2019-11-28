@@ -11,6 +11,8 @@
         int accruedg;
         int manager;
         int bonusReversed;
+        int tax;
+        int rate;
 
         public int BonusReversed { get => bonusReversed; set => bonusReversed = value; }
         public int Manager { get => manager; set => manager = value; }
@@ -21,5 +23,7 @@
         public int Optimization { get => optimization; set => optimization = value; }
         public int Teach { get => teach; set => teach = value; }
         public string CiliricName { get => ciliricName; set => ciliricName = value; }
+        public int Tax { get => tax; set => tax = value; }
+        public int Rate { get => rate; set => rate = value; }
     }
 }

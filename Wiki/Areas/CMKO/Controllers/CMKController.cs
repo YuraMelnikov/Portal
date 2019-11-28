@@ -102,6 +102,8 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
                     data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
                     data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
+                    data[i].Tax = ((int)cMKO_ThisIndicatorsUsers.tax1 + (int)cMKO_ThisIndicatorsUsers.tax2 + (int)cMKO_ThisIndicatorsUsers.tax3) * -1;
+                    data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -133,6 +135,8 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
                     data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
                     data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
+                    data[i].Tax = ((int)cMKO_ThisIndicatorsUsers.tax1 + (int)cMKO_ThisIndicatorsUsers.tax2 + (int)cMKO_ThisIndicatorsUsers.tax3) * -1;
+                    data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
