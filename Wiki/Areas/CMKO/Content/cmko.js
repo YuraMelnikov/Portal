@@ -1,5 +1,5 @@
-﻿var colorPlanData = '#7cb5ec';
-var colorFactData = '#2b908f';
+﻿var colorPlanData = '#e3e3e3';
+var colorFactData = '#3fb0ac';
 
 $(document).ready(function () {
     LoadData(9);
@@ -1221,7 +1221,8 @@ function GetSummaryWageFundWorker() {
                     margin: 0,
                     text: 'ФОТ заказов',
                     style: {
-                        "font-size": "13px"
+                        "font-size": "13px",
+                        "color": "#717171"
                     }
                 },
                 yAxis: {
@@ -1229,7 +1230,10 @@ function GetSummaryWageFundWorker() {
                         enabled: false
                     },    
                     stackLabels: {
-                        enabled: true
+                        enabled: true,
+                        style: {
+                            color: "#717171"
+                        }
                     }
                 },
                 xAxis: {
@@ -1249,10 +1253,12 @@ function GetSummaryWageFundWorker() {
                 },
                 series: [{
                     name: 'План',
-                    data: planArray
+                    data: planArray,
+                    color: colorPlanData
                 }, {
                     name: 'Факт',
-                    data: factArray
+                    data: factArray,
+                    color: colorFactData
                 }]
             });
         },
