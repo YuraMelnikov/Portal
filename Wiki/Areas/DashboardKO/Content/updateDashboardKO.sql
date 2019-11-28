@@ -7,13 +7,13 @@ DECLARE @periodMP2 NVARCHAR(7);
 DECLARE @periodMP3 NVARCHAR(7);
 DECLARE @coefConvertCalendarNorm float;
 SET @coefConvertCalendarNorm = 0.9;
-SET @periodQua ='2019.3';
-SET @periodM1 ='2019.7';
-SET @periodM2 ='2019.8';
-SET @periodM3 ='2019.9';
-SET @periodMP1 ='2019.07';
-SET @periodMP2 ='2019.08';
-SET @periodMP3 ='2019.09';
+SET @periodQua ='2019.4';
+SET @periodM1 ='2019.10';
+SET @periodM2 ='2019.11';
+SET @periodM3 ='2019.12';
+SET @periodMP1 ='2019.10';
+SET @periodMP2 ='2019.11';
+SET @periodMP3 ='2019.12';
 --DashboardKOQuaHumen
 delete PortalKatek.dbo.DashboardKOQuaHumen
 insert into PortalKatek.dbo.DashboardKOQuaHumen
@@ -75,10 +75,11 @@ concat(year(MSP_EpmTask_UserView.TaskFinishDate),'.',month(MSP_EpmTask_UserView.
 ,MSP_EpmResource_UserView.[СДРес]
 --DashboardKOM2
 delete PortalKatek.dbo.DashboardKOM2
+
 insert into PortalKatek.dbo.DashboardKOM2
 select
 concat(year(MSP_EpmTask_UserView.TaskFinishDate),'.',month(MSP_EpmTask_UserView.TaskFinishDate)) as [month],
-sum(MSP_EpmTask_UserView.[НК]) as [Нормачасы],
+isnull(sum(MSP_EpmTask_UserView.[НК]), 0) as [Нормачасы],
 MSP_EpmResource_UserView.ResourceName as [Сотрудник]
 ,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
                 FROM
@@ -109,7 +110,7 @@ delete PortalKatek.dbo.DashboardKOM3
 insert into PortalKatek.dbo.DashboardKOM3
 select
 concat(year(MSP_EpmTask_UserView.TaskFinishDate),'.',month(MSP_EpmTask_UserView.TaskFinishDate)) as [month],
-sum(MSP_EpmTask_UserView.[НК]) as [Нормачасы],
+isnull(sum(MSP_EpmTask_UserView.[НК]), 0) as [Нормачасы],
 MSP_EpmResource_UserView.ResourceName as [Сотрудник]
 ,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
                 FROM
@@ -135,39 +136,7 @@ group by
 MSP_EpmResource_UserView.ResourceName,
 concat(year(MSP_EpmTask_UserView.TaskFinishDate),'.',month(MSP_EpmTask_UserView.TaskFinishDate))
 ,MSP_EpmResource_UserView.[СДРес]
---DashboardKORemainingWork
-delete PortalKatek.dbo.DashboardKORemainingWork
-insert into PortalKatek.dbo.DashboardKORemainingWork
-select
-sum(MSP_EpmAssignment_UserView.AssignmentRemainingWork) as [остТрты]
-,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
-,MSP_EpmResource_UserView.ResourceName as [Сотрудник]
-                FROM
-                ProjectWebApp.dbo.MSP_EpmProject_UserView
-                INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON
-                MSP_EpmProject_UserView.ProjectUID = MSP_EpmTask_UserView.ProjectUID
-                LEFT OUTER JOIN
-                ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON
-                MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignment_UserView.TaskUID
-                AND MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignment_UserView.ProjectUID
-                LEFT OUTER JOIN
-                ProjectWebApp.dbo.MSP_EpmResource_UserView ON
-                MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
-where
-(MSP_EpmResource_UserView.[СДРес] like '%КБ%')
-and
-(MSP_EpmTask_UserView.TaskPercentCompleted < 100)
-and
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%НИОКР%')
-and
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Задание%')
-and
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Прочие%')
-and
-(MSP_EpmTask_UserView.TaskIsMarked = 0)
-group by
-MSP_EpmResource_UserView.[СДРес],
-MSP_EpmResource_UserView.ResourceName
+
 --DashboardKOQuartal
 delete PortalKatek.dbo.DashboardKOQuartal
 insert into PortalKatek.dbo.DashboardKOQuartal
@@ -247,31 +216,7 @@ and
 and
 (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIsSummary = 0)
 group by concat(year(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate),'.',(month(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate)+2)/3)
---DashboardKORemainingWorkAll
-delete PortalKatek.dbo.DashboardKORemainingWorkAll
-insert into PortalKatek.dbo.DashboardKORemainingWorkAll
-select
-sum(MSP_EpmAssignment_UserView.AssignmentRemainingWork) as [остТрты]
-,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
-,MSP_EpmResource_UserView.ResourceName as [Сотрудник]
-                FROM
-                ProjectWebApp.dbo.MSP_EpmProject_UserView
-                INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON
-                MSP_EpmProject_UserView.ProjectUID = MSP_EpmTask_UserView.ProjectUID
-                LEFT OUTER JOIN
-                ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON
-                MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignment_UserView.TaskUID
-                AND MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignment_UserView.ProjectUID
-                LEFT OUTER JOIN
-                ProjectWebApp.dbo.MSP_EpmResource_UserView ON
-                MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
-where
-(MSP_EpmResource_UserView.[СДРес] like '%КБ%')
-and
-(MSP_EpmTask_UserView.TaskPercentCompleted < 100)
-group by
-MSP_EpmResource_UserView.[СДРес],
-MSP_EpmResource_UserView.ResourceName
+
 
 update [PortalKATEK].[dbo].[DashboardBP_State] set [PortalKATEK].[dbo].[DashboardBP_State].active = 0
 insert into [PortalKATEK].[dbo].[DashboardBP_State](datetime, numberWeek, active)
@@ -360,10 +305,10 @@ and
 (concat(year(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate),'.',(month(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskFinishDate)+2)/3) >= @periodQua)
 group by
 ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]) as HSS_KBM on HSS_KBM.[№ заказа] like [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
-left join (SELECT sum([data]) as payment ,[order] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБМ%' group by [order])
-	as Fact_KBM on Fact_KBM.[order] = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
-left join (SELECT sum([data]) as payment ,[order] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБЭ%' group by [order])
-	as Fact_KBE on Fact_KBE.[order] = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
+left join (SELECT sum([data]) as payment ,[id_PZ_PlanZakaz] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБМ%' group by [id_PZ_PlanZakaz])
+	as Fact_KBM on Fact_KBM.[id_PZ_PlanZakaz] = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
+left join (SELECT sum([data]) as payment ,[id_PZ_PlanZakaz] FROM [PortalKATEK].[dbo].[CMKO_ProjectFactBujet] where [devision] like '%КБЭ%' group by [id_PZ_PlanZakaz])
+	as Fact_KBE on Fact_KBE.id_PZ_PlanZakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
 left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
 WHERE
 concat(year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP), '.', datepart(q,[PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP)) >= @periodQua
@@ -383,8 +328,8 @@ SELECT
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
-,tableResPower.SumAssignmentActualWork
-,tableResPower.SumAssignmentWork
+,isnull(tableResPower.SumAssignmentActualWork, 0)
+,isnull(tableResPower.SumAssignmentWork, 0)
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
 [PortalKATEK].[dbo].[AspNetUsers] on [PortalKATEK].[dbo].[AspNetUsers].Id = [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[id_AspNetUsers] left join
 [PortalKATEK].[dbo].[Devision] on [PortalKATEK].[dbo].[Devision].id = [PortalKATEK].[dbo].[AspNetUsers].Devision left join
@@ -427,8 +372,8 @@ SELECT
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
-,tableResPower.SumAssignmentActualWork
-,tableResPower.SumAssignmentWork
+,isnull(tableResPower.SumAssignmentActualWork, 0)
+,isnull(tableResPower.SumAssignmentWork, 0)
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
 [PortalKATEK].[dbo].[AspNetUsers] on [PortalKATEK].[dbo].[AspNetUsers].Id = [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[id_AspNetUsers] left join
 [PortalKATEK].[dbo].[Devision] on [PortalKATEK].[dbo].[Devision].id = [PortalKATEK].[dbo].[AspNetUsers].Devision left join
@@ -471,8 +416,8 @@ SELECT
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
 	  ,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
-,tableResPower.SumAssignmentActualWork
-,tableResPower.SumAssignmentWork
+,isnull(tableResPower.SumAssignmentActualWork, 0)
+,isnull(tableResPower.SumAssignmentWork, 0)
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
 [PortalKATEK].[dbo].[AspNetUsers] on [PortalKATEK].[dbo].[AspNetUsers].Id = [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[id_AspNetUsers] left join
 [PortalKATEK].[dbo].[Devision] on [PortalKATEK].[dbo].[Devision].id = [PortalKATEK].[dbo].[AspNetUsers].Devision left join

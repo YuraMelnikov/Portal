@@ -348,8 +348,8 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,max(PortalKATEK.dbo.AspNetUsers.tax) as tax1
 ,max(PortalKATEK.dbo.AspNetUsers.tax) as tax2
 ,max(PortalKATEK.dbo.AspNetUsers.tax) as tax3
-,1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefError
-,1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) as coefErrorG
+,isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) as coefError
+,isnull(1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) as coefErrorG
 ,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, @sizeQualityBonus, 0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
@@ -457,10 +457,10 @@ left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.
 left join (select sum([nhPlan]) as [sumNhPlan], sum([nhFact]) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
 update PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund set 
-PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = TableResult.planMData
-,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEPlan = TableResult.planEData
-,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMFact = TableResult.factMData
-,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEFact = TableResult.factEData
+PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = isnull(TableResult.planMData, 0)
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEPlan = isnull(TableResult.planEData, 0)
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMFact = isnull(TableResult.factMData, 0)
+,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEFact = isnull(TableResult.factEData, 0)
 from
 (select sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planMData, sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factMData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planEData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factEData from PortalKATEK.dbo.CMKO_ThisAccrued left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers) as TableResult
 
@@ -540,3 +540,61 @@ group by
 PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
 order by
 PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask
+
+
+delete PortalKatek.dbo.DashboardKORemainingWorkAll
+insert into PortalKatek.dbo.DashboardKORemainingWorkAll
+select
+sum(MSP_EpmAssignment_UserView.AssignmentRemainingWork) as [остТрты]
+,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
+,MSP_EpmResource_UserView.ResourceName as [Сотрудник]
+                FROM
+                ProjectWebApp.dbo.MSP_EpmProject_UserView
+                INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON
+                MSP_EpmProject_UserView.ProjectUID = MSP_EpmTask_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON
+                MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignment_UserView.TaskUID
+                AND MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignment_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmResource_UserView ON
+                MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
+where
+(MSP_EpmResource_UserView.[СДРес] like '%КБ%')
+and (MSP_EpmResource_UserView.ResourceName not like '%КБМ%')
+and (MSP_EpmResource_UserView.ResourceName not like '%КБЭ%')
+and (MSP_EpmTask_UserView.TaskPercentCompleted < 100)
+group by
+MSP_EpmResource_UserView.[СДРес],
+MSP_EpmResource_UserView.ResourceName
+
+
+delete PortalKatek.dbo.DashboardKORemainingWork
+insert into PortalKatek.dbo.DashboardKORemainingWork
+select
+sum(MSP_EpmAssignment_UserView.AssignmentRemainingWork) as [остТрты]
+,substring(MSP_EpmResource_UserView.[СДРес],0,5) as [СДРес]
+,MSP_EpmResource_UserView.ResourceName as [Сотрудник]
+                FROM
+                ProjectWebApp.dbo.MSP_EpmProject_UserView
+                INNER JOIN ProjectWebApp.dbo.MSP_EpmTask_UserView ON
+                MSP_EpmProject_UserView.ProjectUID = MSP_EpmTask_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON
+                MSP_EpmTask_UserView.TaskUID = MSP_EpmAssignment_UserView.TaskUID
+                AND MSP_EpmTask_UserView.ProjectUID = MSP_EpmAssignment_UserView.ProjectUID
+                LEFT OUTER JOIN
+                ProjectWebApp.dbo.MSP_EpmResource_UserView ON
+                MSP_EpmAssignment_UserView.ResourceUID = MSP_EpmResource_UserView.ResourceUID
+where
+(MSP_EpmResource_UserView.[СДРес] like '%КБ%')
+and (MSP_EpmTask_UserView.TaskPercentCompleted < 100)
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%НИОКР%')
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Задание%')
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Прочие%')
+and (MSP_EpmTask_UserView.TaskIsMarked = 0)
+and (MSP_EpmResource_UserView.ResourceName not like '%КБМ%')
+and (MSP_EpmResource_UserView.ResourceName not like '%КБЭ%')
+group by
+MSP_EpmResource_UserView.[СДРес],
+MSP_EpmResource_UserView.ResourceName
