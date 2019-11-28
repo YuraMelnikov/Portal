@@ -2257,14 +2257,6 @@ namespace Wiki.Areas.CMKO.Controllers
         public ActionResult Index()
         {
             string login = HttpContext.User.Identity.Name;
-
-
-
-
-
-
-
-
             ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
                                                        .Where(d => d.close == false)
                                                        .OrderByDescending(d => d.period), "period", "period");

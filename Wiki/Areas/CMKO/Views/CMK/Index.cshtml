@@ -13,7 +13,7 @@
     <script src="~/Content/Highcharts/exporting.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v0.12"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v0.14"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -37,6 +37,345 @@
         }
     </style>
 </head>
+
+<div id="dashboardBody">
+    <div class="row" id="divPeriodReportTitle">
+        <div class="col-lg-12">
+            <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
+        </div>
+    </div>
+
+    <div class="row" id="summaryDivTitle">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; color: #910000; text-align: center">Суммарные показатели</h5>
+        </div>
+    </div>
+
+    <div class="row" id="summaryDivForManager">
+        <div class="col-lg-2">
+            <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-2">
+            <div id="summaryWageFundManager" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-2">
+            <div id="summaryWageFundG" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-2">
+            <div id="remainingBonus" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-2">
+            <div id="withheldToBonusFund" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-2">
+            <div id="overflowsBujet" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <div class="row" id="accuredDiv">
+        <div class="col-lg-6">
+            <div id="accruedG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <div class="row" id="hss">
+        <div class="col-lg-4">
+            <div id="hssKBM" style="margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-4">
+            <div id="hssKBE" style="margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-4">
+            <div id="hssPO" style="margin: 0 auto"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; color: #910000; text-align: center">Квартальные начисления сотрудников</h5>
+        </div>
+    </div>
+
+    <div class="row" id="divAccuredUsers">
+        <div class="col-lg-6">
+            <div id="usersAccuredPlan" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="usersAccuredFact" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <div id="speedWorkers1">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBMString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-1" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-2" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-3" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-4" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-5" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-6" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-7" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBEString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-8" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-9" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-10" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-11" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-12" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-13" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container1-14" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container1-15" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+    <div id="speedWorkers2">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBMString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-1" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-2" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-3" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-4" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-5" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-6" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-7" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBEString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-8" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-9" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-10" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-11" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-12" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-13" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container2-14" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container2-15" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+    <div id="speedWorkers3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBMString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-1" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-2" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-3" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-4" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-5" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-6" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-7" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="periodReportUsersKBEString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-8" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-9" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-10" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-11" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-12" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-13" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="container3-14" style="height: 70px; margin: 0 auto"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="container3-15" style="height: 70px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="timeSheetAndSalaryTax">
+        <div class="col-lg-6">
+            <h5 style="font-weight: bold; text-align: center; color: #910000">Отработанное время сотрудниками</h5>
+            <div id="timesheetContainer"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="salaryAndRateWorkers" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <div class="row" id="divCoef">
+        <div class="col-lg-6">
+            <div id="coefWorker" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="coefWorkerG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБМ</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="remainingWorkAll" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="remainingWork" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБЭ</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="remainingWorkAllE" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="remainingWorkE" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты бюро</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="remainingWorkDevisionAll" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="remainingWorkDevision" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
 
 <div id="optimizationDiv">
     <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#optimizationModal" onclick="ClearOptimization();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -68,341 +407,6 @@
     <table id="speedUsersTable" class="table table-hover table-striped" style="width:100%;"></table>
 </div>
 
-<div class="row" id="divPeriodReportTitle">
-    <div class="col-lg-12">
-        <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
-    </div>
-</div>
-
-<div class="row" id="summaryDivTitle">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; color: #910000; text-align: center">Суммарные показатели</h5>
-    </div>
-</div>
-
-<div class="row" id="summaryDivForManager">
-    <div class="col-lg-2">
-        <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="summaryWageFundManager" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="summaryWageFundG" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="remainingBonus" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="withheldToBonusFund" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-2">
-        <div id="overflowsBujet" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-    </div>
-</div>
-
-<div class="row" id="accuredDiv">
-    <div class="col-lg-6">
-        <div id="accruedG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-    </div>
-</div>
-
-<div class="row" id="hss">
-    <div class="col-lg-4">
-        <div id="hssKBM" style="margin: 0 auto"></div>
-    </div>
-    <div class="col-lg-4">
-        <div id="hssKBE" style="margin: 0 auto"></div>
-    </div>
-    <div class="col-lg-4">
-        <div id="hssPO" style="margin: 0 auto"></div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; color: #910000; text-align: center">Квартальные начисления сотрудников</h5>
-    </div>
-</div>
-
-<div class="row" id="divAccuredUsers">
-    <div class="col-lg-6">
-        <div id="usersAccuredPlan" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="usersAccuredFact" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
-    </div>
-</div>
-
-<div id="speedWorkers1">
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBMString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-1" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-2" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-3" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-4" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-5" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-6" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-7" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBEString1" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-8" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-9" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-10" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-11" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-12" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-13" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container1-14" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container1-15" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-</div>
-<div id="speedWorkers2">
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBMString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-1" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-2" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-3" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-4" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-5" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-6" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-7" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBEString2" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-8" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-9" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-10" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-11" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-12" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-13" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container2-14" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container2-15" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-</div>
-<div id="speedWorkers3">
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBMString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-1" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-2" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-3" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-4" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-5" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-6" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-7" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 id="periodReportUsersKBEString3" style="font-weight: bold; text-align:center; color: #910000"></h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-8" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-9" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-10" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-11" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-12" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-13" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div id="container3-14" style="height: 70px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="container3-15" style="height: 70px; margin: 0 auto"></div>
-        </div>
-    </div>
-</div>
-
-<div class="row" id="timeSheetAndSalaryTax">
-    <div class="col-lg-6">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Отработанное время сотрудниками</h5>
-        <div id="timesheetContainer"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="salaryAndRateWorkers" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-    </div>
-</div>
-
-<div class="row" id="divCoef">
-    <div class="col-lg-6">
-        <div id="coefWorker" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="coefWorkerG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБМ</h5>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <div id="remainingWorkAll" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="remainingWork" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБЭ</h5>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <div id="remainingWorkAllE" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="remainingWorkE" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты бюро</h5>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <div id="remainingWorkDevisionAll" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
-    </div>
-    <div class="col-lg-6">
-        <div id="remainingWorkDevision" style="max-height: 200px; height: 200px; margin: 0 auto"></div>
-    </div>
-</div>
 
 <div id="optimizationModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">

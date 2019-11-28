@@ -1,33 +1,8 @@
-﻿$(document).ready(function () {
-    getPeriodReport();
-    HideAllTables();
-    StartMenu();
-    GetSummaryWageFundWorker();
-    GetSummaryWageFundManager();
-    GetSummaryWageFundG();
-    GetRemainingBonus();
-    GetWithheldToBonusFund();
-    GetOverflowsBujet();
-    GetGAccrued();
-    GetHSSPO();
-    GetHSSKBM();
-    GetHSSKBE();
-    GetManpowerFirstPeriod();
-    GetManpowerSecondPeriod();
-    GetManpowerThreePeriod();
-    GetAccuredPlan();
-    GetAccuredFact();
-    GetNhUsersThisQua();
-    GetTimeSheet();
-    GetSalaryAndRateWorkers();
-    GetCoefWorker();
-    GetCoefWorkerG();
-    getRemainingWorkAll();
-    getRemainingWork();
-    getRemainingWorkDevisionAll();
-    getRemainingDevisionWork();
-    getRemainingWorkAllE();
-    getRemainingWorkE();
+﻿var colorPlanData = '#7cb5ec';
+var colorFactData = '#2b908f';
+
+$(document).ready(function () {
+    LoadData(9);
 });
 
 var objOptimization = [
@@ -89,7 +64,42 @@ function LoadData(id) {
     else if (id === 8) {
         LoadSpeedUsersTable();
     }
-
+    else if (id === 9) {
+        getPeriodReport();
+        HideAllTables();
+        StartMenu();
+        GetSummaryWageFundWorker();
+        GetSummaryWageFundManager();
+        GetSummaryWageFundG();
+        GetRemainingBonus();
+        GetWithheldToBonusFund();
+        GetOverflowsBujet();
+        GetGAccrued();
+        GetHSSPO();
+        GetHSSKBM();
+        GetHSSKBE();
+        GetManpowerFirstPeriod();
+        GetManpowerSecondPeriod();
+        GetManpowerThreePeriod();
+        GetAccuredPlan();
+        GetAccuredFact();
+        GetNhUsersThisQua();
+        GetTimeSheet();
+        GetSalaryAndRateWorkers();
+        GetCoefWorker();
+        GetCoefWorkerG();
+        getRemainingWorkAll();
+        getRemainingWork();
+        getRemainingWorkDevisionAll();
+        getRemainingDevisionWork();
+        getRemainingWorkAllE();
+        getRemainingWorkE();
+        $('#dashboardBody').show();
+    }
+    else if (id === 10){
+        HideAllTables();
+        $('#dashboardBody').show();
+    }
 }
 
 function HideAllTables() {
@@ -101,9 +111,7 @@ function HideAllTables() {
     $('#periodsDiv').hide();
     $('#calendDiv').hide();
     $('#curencyDiv').hide();
-    $('#speedWorkers1').hide();
-    $('#speedWorkers2').hide();
-    $('#speedWorkers3').hide();
+    $('#dashboardBody').hide();
 }
 
 function StartMenu() {
@@ -122,12 +130,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#teachTable").DataTable({
         "ajax": {
@@ -144,12 +147,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#usersTable").DataTable({
         "ajax": {
@@ -166,12 +164,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#categoryTable").DataTable({
         "ajax": {
@@ -188,12 +181,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#periodsTable").DataTable({
         "ajax": {
@@ -210,12 +198,7 @@ function StartMenu() {
         "scrollX": true,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#calendTable").DataTable({
         "ajax": {
@@ -232,12 +215,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#cyrencyTable").DataTable({
         "ajax": {
@@ -254,12 +232,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $("#speedUsersTable").DataTable({
         "ajax": {
@@ -276,12 +249,7 @@ function StartMenu() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
 }
 
@@ -311,12 +279,7 @@ function LoadSpeedUsersTable() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#speedUsersDiv').show();
 }
@@ -399,12 +362,7 @@ function LoadOptimizationTable() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#optimizationDiv').show();
 }
@@ -581,12 +539,7 @@ function LoadTeachTable() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#teachDiv').show();
 }
@@ -783,12 +736,7 @@ function LoadUsersTable() {
         "paging": false,
         "searching": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#usersDiv').show();
 }
@@ -889,12 +837,7 @@ function LoadCategoryTable() {
         "searching": false,
         "paging": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#categoryDiv').show();
 }
@@ -1030,12 +973,7 @@ function LoadPeriodTable() {
         "paging": false,
         "info": false,
         "searching": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#periodsDiv').show();
 }
@@ -1109,12 +1047,7 @@ function LoadCalendTable() {
         "paging": false,
         "searching": false,
         "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#calendDiv').show();
 }
@@ -1250,12 +1183,7 @@ function LoadCurencyTable() {
         "paging": false,
         "info": false,
         "searching": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи",
-            "search": "Поиск"
-        }
+        "scrollCollapse": true
     });
     $('#curencyDiv').show();
 }
