@@ -2117,12 +2117,14 @@ function ManpowerUsersInMonth1() {
             var dataArrayPlan = 0;
             var dataArray10 = 0;
             var dataArray20 = 0;
+            var dataArray30 = 0;
             for (var i = 0; i < 1; i++) {
                 normHoure = result[i].normHoure;
                 normHoureFact = result[i].normHoureFact;
                 dataArrayPlan = result[i].plan;
                 dataArray10 = result[i].plan10;
                 dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
             }
             Highcharts.chart('container1-1', {
                 chart: {
@@ -2144,7 +2146,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Васюхневич']
+                    categories: ['Васюхневич Илья']
                 },
                 yAxis: {
                     min: 0,
@@ -2176,6 +2178,15 @@ function ManpowerUsersInMonth1() {
                         from: dataArray10,
                         to: dataArray20,
                             color: '#2b908f',
+                            label: {
+                                align: 'right',
+                                x: 10,
+                                y: -10
+                            }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                            color: '#fff',
                             label: {
                                 align: 'right',
                                 x: 10,

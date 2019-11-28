@@ -849,6 +849,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -880,6 +881,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -911,6 +913,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -942,6 +945,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -973,6 +977,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1004,6 +1009,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1035,6 +1041,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1066,6 +1073,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1097,6 +1105,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1128,6 +1137,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1159,6 +1169,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1190,6 +1201,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1221,6 +1233,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1252,6 +1265,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1283,6 +1297,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1314,6 +1329,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1345,6 +1361,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1376,6 +1393,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1407,6 +1425,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1437,7 +1456,8 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].ciliricalName = query[i].ciliricalName;
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
-                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan20 = (int)query[i].plan20; 
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1469,6 +1489,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1500,6 +1521,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1531,6 +1553,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1562,6 +1585,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1593,6 +1617,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1623,7 +1648,8 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].ciliricalName = query[i].ciliricalName;
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
-                    data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan20 = (int)query[i].plan20; 
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1655,6 +1681,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1686,6 +1713,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1717,6 +1745,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1748,6 +1777,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1779,6 +1809,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1810,6 +1841,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1841,6 +1873,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1872,6 +1905,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1903,6 +1937,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1934,6 +1969,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1965,6 +2001,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -1996,6 +2033,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2027,6 +2065,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2058,6 +2097,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2089,6 +2129,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2120,6 +2161,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2151,6 +2193,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2182,6 +2225,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
@@ -2213,6 +2257,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
+                    data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
                 }
