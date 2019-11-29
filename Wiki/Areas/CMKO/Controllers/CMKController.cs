@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Wiki.Areas.CMKO.Types;
 using Wiki.Areas.DashboardKO.Models;
 
-namespace Wiki.Areas.CMKO.Controller
+namespace Wiki.Areas.CMKO
 {
     public class CMKController : Controller
     {
@@ -2591,6 +2591,26 @@ namespace Wiki.Areas.CMKO.Controller
                 ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
                 ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
             }
+
+            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            //if(login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
+            //    login == "myi@katek.by" || login == "fvs@katek.by" ||
+            //    login == "laa@katek.by" || login == "nrf@katek.by")
+            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
+                login == "fvs@katek.by" ||
+                login == "laa@katek.by" || login == "nrf@katek.by")
+            {
+                ViewBag.LeavelUser = 2;
+            }
+            else if (devision == 3 || devision == 15 || devision == 16)
+            {
+                ViewBag.LeavelUser = 1;
+            }
+            else
+            {
+                ViewBag.LeavelUser = 0;
+            }
+
             return View();
         }
 

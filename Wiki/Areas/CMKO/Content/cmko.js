@@ -73,35 +73,75 @@ function LoadData(id) {
         LoadSpeedUsersTable();
     }
     else if (id === 9) {
-        getPeriodReport();
-        HideAllTables();
-        StartMenu();
-        GetSummaryWageFundWorker();
-        GetSummaryWageFundManager();
-        GetSummaryWageFundG();
-        GetRemainingBonus();
-        GetWithheldToBonusFund();
-        GetOverflowsBujet();
-        GetGAccrued();
-        GetHSSPO();
-        GetHSSKBM();
-        GetHSSKBE();
-        GetManpowerFirstPeriod();
-        GetManpowerSecondPeriod();
-        GetManpowerThreePeriod();
-        GetAccuredPlan();
-        GetAccuredFact();
-        GetNhUsersThisQua();
-        GetTimeSheet();
-        GetCoefWorker();
-        GetCoefWorkerG();
-        getRemainingWorkAll();
-        getRemainingWork();
-        getRemainingWorkDevisionAll();
-        getRemainingDevisionWork();
-        getRemainingWorkAllE();
-        getRemainingWorkE();
-        $('#dashboardBody').show();
+
+        if (levelUser === 0) {
+            return 0;
+        }
+        else if (levelUser === 1) {
+            getPeriodReport();
+            HideAllTables();
+            StartMenu();
+            GetSummaryWageFundWorker();
+            GetSummaryWageFundManager();
+            GetSummaryWageFundG();
+            GetRemainingBonus();
+            GetWithheldToBonusFund();
+            GetOverflowsBujet();
+            GetGAccrued();
+            GetHSSPO();
+            GetHSSKBM();
+            GetHSSKBE();
+            GetManpowerFirstPeriod();
+            GetManpowerSecondPeriod();
+            GetManpowerThreePeriod();
+            GetAccuredPlan();
+            GetAccuredFact();
+            GetNhUsersThisQua();
+            GetTimeSheet();
+            GetCoefWorker();
+            GetCoefWorkerG();
+            getRemainingWorkAll();
+            getRemainingWork();
+            getRemainingWorkDevisionAll();
+            getRemainingDevisionWork();
+            getRemainingWorkAllE();
+            getRemainingWorkE();
+            $('#dashboardBody').show();
+        }
+        else if (levelUser === 2) {
+            getPeriodReport();
+            HideAllTables();
+            StartMenu();
+            GetSummaryWageFundWorker();
+            GetSummaryWageFundManager();
+            GetSummaryWageFundG();
+            GetRemainingBonus();
+            GetWithheldToBonusFund();
+            GetOverflowsBujet();
+            GetGAccrued();
+            GetHSSPO();
+            GetHSSKBM();
+            GetHSSKBE();
+            GetManpowerFirstPeriod();
+            GetManpowerSecondPeriod();
+            GetManpowerThreePeriod();
+            GetAccuredPlan();
+            GetAccuredFact();
+            GetNhUsersThisQua();
+            GetTimeSheet();
+            GetCoefWorker();
+            GetCoefWorkerG();
+            getRemainingWorkAll();
+            getRemainingWork();
+            getRemainingWorkDevisionAll();
+            getRemainingDevisionWork();
+            getRemainingWorkAllE();
+            getRemainingWorkE();
+            $('#dashboardBody').show();
+        }
+        else {
+            return 0;
+        }
     }
     else if (id === 10){
         HideAllTables();
