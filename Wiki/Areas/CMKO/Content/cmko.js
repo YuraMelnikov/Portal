@@ -83,15 +83,9 @@ function LoadData(id) {
             GetSummaryWageFundWorker();
             $('#summaryWageFundManager').hide();
             $('#summaryWageFundG').hide();
-            GetRemainingBonus();
-
-
-
+            $('#remainingBonus').hide();
+            $('#speedDevisionForManager').hide();
             GetWithheldToBonusFund();
-
-
-
-
             GetOverflowsBujet();
             GetGAccrued();
             GetHSSPO();
