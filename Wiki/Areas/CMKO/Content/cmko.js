@@ -73,19 +73,25 @@ function LoadData(id) {
         LoadSpeedUsersTable();
     }
     else if (id === 9) {
-
-        if (levelUser === 0) {
+        if (leavelUser === 0) {
             return 0;
         }
-        else if (levelUser === 1) {
+        else if (leavelUser === 1 || leavelUser === '1') {
             getPeriodReport();
             HideAllTables();
             StartMenu();
             GetSummaryWageFundWorker();
-            GetSummaryWageFundManager();
-            GetSummaryWageFundG();
+            $('#summaryWageFundManager').hide();
+            $('#summaryWageFundG').hide();
             GetRemainingBonus();
+
+
+
             GetWithheldToBonusFund();
+
+
+
+
             GetOverflowsBujet();
             GetGAccrued();
             GetHSSPO();
@@ -108,7 +114,7 @@ function LoadData(id) {
             getRemainingWorkE();
             $('#dashboardBody').show();
         }
-        else if (levelUser === 2) {
+        else if (leavelUser === 2 || leavelUser === '2') {
             getPeriodReport();
             HideAllTables();
             StartMenu();
