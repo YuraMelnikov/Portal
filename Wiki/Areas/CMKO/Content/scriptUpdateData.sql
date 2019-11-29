@@ -47,8 +47,10 @@ PortalKATEK.dbo.PZ_TEO left join
 PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz left join
 PortalKATEK.dbo.CurencyBYN on PortalKATEK.dbo.PZ_PlanZakaz.DateCreate = PortalKATEK.dbo.CurencyBYN.[date]
 
+
 DELETE [PortalKATEK].[dbo].[CMKO_ThisPeriod]
 insert into [PortalKATEK].[dbo].[CMKO_ThisPeriod] select @periodQua
+
 
 DELETE PortalKATEK.dbo.CMKO_BujetList
 insert into PortalKATEK.dbo.CMKO_BujetList
@@ -164,6 +166,7 @@ left join (select MAX(id) as id, sum(KBM) as [SumKBM], sum(KBE) as [SumKBE] from
 where
 [PortalKATEK].[dbo].[CMKO_BujetList].quartalFinishTask = @periodQua
 
+
 DELETE PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund
 INSERT INTO PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund
 SELECT
@@ -188,6 +191,7 @@ left join (select MAX(id) as id, sum(KBM) as [SumKBM], sum(KBE) as [SumKBE] from
 where
 [PortalKATEK].[dbo].[CMKO_BujetList].quartalFinishTask = @periodQua
 
+
 update PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund set 
 balanceBonusFundMPlan = PortalKATEK.dbo.CMKO_ThisWageFund.wageFundOverflowsManagerMPlan -
  PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund.deductionsMKOMPlan - 
@@ -208,6 +212,7 @@ balanceBonusFundMPlan = PortalKATEK.dbo.CMKO_ThisWageFund.wageFundOverflowsManag
 from
 PortalKATEK.dbo.CMKO_ThisWageFund join
 PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund on PortalKATEK.dbo.CMKO_ThisDeductionsBonusFund.id > 0
+
 
 delete [PortalKATEK].[dbo].[DashboardKOMP1]
 insert into [PortalKATEK].[dbo].[DashboardKOMP1]
@@ -253,6 +258,7 @@ and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP1)
 
+
 delete [PortalKATEK].[dbo].[DashboardKOMP2]
 insert into [PortalKATEK].[dbo].[DashboardKOMP2]
 SELECT
@@ -296,6 +302,7 @@ WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MS
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM2)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP2)
+
 
 delete [PortalKATEK].[dbo].[DashboardKOMP3]
 insert into [PortalKATEK].[dbo].[DashboardKOMP3]
@@ -341,6 +348,7 @@ and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3)
 
+
 delete [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
 insert into [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
 Select
@@ -373,16 +381,18 @@ left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as p
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
 left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
-			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 1, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countErrorG 
+			,0 as countErrorG 
 			from PortalKATEK.dbo.Reclamation 
 			left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
 			left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 			left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
 			left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+			left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
 			and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
 			and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
 			and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
+			and PortalKATEK.dbo.Reclamation.closeMKO = 1
 			group by 
 			PortalKATEK.dbo.Reclamation.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
@@ -393,6 +403,16 @@ group by
 PortalKATEK.dbo.AspNetUsers.Id
 ,ReclamationCounter.countError
 ,ReclamationCounter.countErrorG
+
+
+
+
+
+
+
+
+
+
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] set
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGPlan = TableNorm.normPlan
@@ -427,6 +447,7 @@ left join [PortalKATEK].[dbo].[CMKO_ThisWageFund] on [PortalKATEK].[dbo].[CMKO_T
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 left join (select sum([nhGPlan]) as [sumNhGPlan], sum([nhGFact]) as [sumNhGFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
+
 
 delete PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
 insert into PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund
@@ -464,6 +485,7 @@ left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = Portal
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 left join (select sum([nhPlan]) as [sumNhPlan], sum([nhFact]) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 
+
 update PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund set 
 PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = isnull(TableResult.planMData, 0)
 ,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEPlan = isnull(TableResult.planEData, 0)
@@ -471,6 +493,7 @@ PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationMPlan = isnull(TableResu
 ,PortalKATEK.dbo.CMKO_ThisWithheldToBonusFund.reclamationEFact = isnull(TableResult.factEData, 0)
 from
 (select sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planMData, sum(iif(devision = 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factMData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldPlan, 0)) as planEData, sum(iif(devision != 15, PortalKATEK.dbo.CMKO_ThisAccrued.withheldFact, 0)) factEData from PortalKATEK.dbo.CMKO_ThisAccrued left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers) as TableResult
+
 
 delete PortalKATEK.dbo.CMKO_ThisFinalBonus
 insert into PortalKATEK.dbo.CMKO_ThisFinalBonus
@@ -490,6 +513,7 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
 ,sum(iif(PortalKATEK.dbo.AspNetUsers.Devision != 15, [qualityBonus], 0)) as [qualityBonusE]
   FROM [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join 
   PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers) as TableUsers on TableUsers.optimizationE >= 0
+
 
   /*KPI*/
 --select 
@@ -514,6 +538,7 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
 --group by 
 --PortalKATEK.dbo.PZ_PlanZakaz.id
 
+
 update PortalKATEK.dbo.CMKO_ThisAccrued set 
 PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
 ,PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])
@@ -526,6 +551,7 @@ left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.
 left join (select sum([nhPlan] * coefError) as [sumNhPlan], sum([nhFact] * coefError) as [sumNhFact], SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) as devisionSubstringName from PortalKATEK.dbo.CMKO_ThisIndicatorsUsers left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision group by SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)) as TableNh on TableNh.devisionSubstringName = SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4)
 where PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
 
+
 delete PortalKatek.dbo.DashboardKOHssPO
 insert into PortalKatek.dbo.DashboardKOHssPO
 SELECT [Dashboard].[dbo].[1910_DB_прибыль].[quart]
@@ -534,6 +560,7 @@ FROM [Dashboard].[dbo].[1910_DB_прибыль]
 where
 [Dashboard].[dbo].[1910_DB_прибыль].[year] > year(getdate()) - 2
 group by [Dashboard].[dbo].[1910_DB_прибыль].[quart]
+
 
 delete PortalKATEK.dbo.CMKO_ThisHSS
 insert into PortalKATEK.dbo.CMKO_ThisHSS

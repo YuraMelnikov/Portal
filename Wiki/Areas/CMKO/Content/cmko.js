@@ -7811,8 +7811,6 @@ function GetAccuredFact() {
             var tax = new Array();
             var rate = new Array();
             for (var i = 0; i < counter; i++) {
-                tax.push(result[i].Tax);
-                rate.push(result[i].Rate);
                 ciliricName.push(result[i].CiliricName);
                 bonusReversed.push(result[i].BonusReversed);
                 accrued.push(result[i].Accrued);
@@ -7876,31 +7874,31 @@ function GetAccuredFact() {
                 series: [{
                     name: 'Начисления по заказам',
                     data: accrued
-                },{
+                }, {
                     name: 'Начисления ГИПов',
                     data: accruedg
-                },{
+                }, {
                     name: 'Бонус за отработку',
                     data: speed
-                },{
+                }, {
                     name: 'Остаток бонусного фонда',
                     data: bonusReversed
-                },{
+                }, {
                     name: 'Бонус за качество',
                     data: bonusQuality
-                },{
+                }, {
                     name: 'Бонус за оптимизацию',
                     data: optimization
-                },{
+                }, {
                     name: 'Начисление за обучение',
                     data: teach
-                },{
+                }, {
                     name: 'Руководительские начисления',
                     data: manager
-                },{
+                }, {
                     name: 'Налоги',
                     data: tax
-                },{
+                }, {
                     name: 'Оклад',
                     data: rate
                 }]
