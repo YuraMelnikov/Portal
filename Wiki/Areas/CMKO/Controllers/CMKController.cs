@@ -5,6 +5,7 @@ using System;
 using Newtonsoft.Json;
 using Wiki.Areas.CMKO.Types;
 using Wiki.Areas.DashboardKO.Models;
+using System.Collections.Generic;
 
 namespace Wiki.Areas.CMKO
 {
@@ -339,16 +340,31 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetGAccrued()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisAccruedG
-                    .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .Where(d => d.accruedTotalPlan > 0)
-                    .OrderByDescending(d => d.accruedTotalPlan)
-                    .ToList();
+                List<CMKO_ThisAccruedG> fundData;
+                if (GetStatusManagerUser() == true)
+                {
+                    fundData = db.CMKO_ThisAccruedG
+                                        .AsNoTracking()
+                                        .Include(d => d.AspNetUsers)
+                                        .Where(d => d.accruedTotalPlan > 0)
+                                        .OrderByDescending(d => d.accruedTotalPlan)
+                                        .ToList();
+                }
+                else
+                {
+                    fundData = db.CMKO_ThisAccruedG
+                                        .AsNoTracking()
+                                        .Include(d => d.AspNetUsers)
+                                        .Where(d => d.accruedTotalPlan > 0)
+                                        .Where(d => d.AspNetUsers.Email == login)
+                                        .OrderByDescending(d => d.accruedTotalPlan)
+                                        .ToList();
+                }
                 int coluntList = fundData.Count;
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
                 for (int i = 0; i < coluntList; i++)
@@ -2591,14 +2607,8 @@ namespace Wiki.Areas.CMKO
                 ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
                 ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
             }
-
             int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
-            //if(login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
-            //    login == "myi@katek.by" || login == "fvs@katek.by" ||
-            //    login == "laa@katek.by" || login == "nrf@katek.by")
-            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
-                login == "fvs@katek.by" ||
-                login == "laa@katek.by" || login == "nrf@katek.by")
+            if (GetStatusManagerUser() == true)
             {
                 ViewBag.LeavelUser = 2;
             }
@@ -2610,8 +2620,22 @@ namespace Wiki.Areas.CMKO
             {
                 ViewBag.LeavelUser = 0;
             }
-
             return View();
+        }
+
+        bool GetStatusManagerUser()
+        {
+            string login = HttpContext.User.Identity.Name;
+            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
+                login == "fvs@katek.by" ||
+                login == "laa@katek.by" || login == "nrf@katek.by")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public JsonResult RemoveOptimization(CMKO_Optimization optimization)
