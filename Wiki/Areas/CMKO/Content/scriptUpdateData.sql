@@ -354,9 +354,9 @@ insert into [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
 Select
 PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(OptimizationTable.countIdea), 0) as optimization
-,isnull(max(SpeedUser1.plan10) + max(SpeedUser1.plan20), 0) as speed1
-,isnull(max(SpeedUser2.plan10) + max(SpeedUser2.plan20), 0) as speed2
-,isnull(max(SpeedUser3.plan10) + max(SpeedUser3.plan20), 0) as speed3
+,isnull(max(SpeedUser1.plan10), 0) + isnull(max(SpeedUser1.plan20), 0) as speed1
+,isnull(max(SpeedUser2.plan10), 0) + isnull(max(SpeedUser2.plan20), 0) as speed2
+,isnull(max(SpeedUser3.plan10), 0) + isnull(max(SpeedUser3.plan20), 0) as speed3
 ,isnull(sum(TeachTable.cost), 0) as teach
 ,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate1
 ,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate2
@@ -375,9 +375,9 @@ from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
 left join (select COUNT(id) as countIdea, id_AspNetUsersIdea from PortalKATEK.dbo.CMKO_Optimization group by PortalKATEK.dbo.CMKO_Optimization.id_AspNetUsersIdea) as OptimizationTable on OptimizationTable.id_AspNetUsersIdea = PortalKATEK.dbo.AspNetUsers.Id
-left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
-left join (select iif(plan20 < normHoureFact, @sizeSpeed1 + @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP1) as SpeedUser1 on SpeedUser1.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
+left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
 left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError

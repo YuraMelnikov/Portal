@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Wiki.Areas.CMKO.Types;
 using Wiki.Areas.DashboardKO.Models;
 
-namespace Wiki.Areas.CMKO.Controllers
+namespace Wiki.Areas.CMKO.Controller
 {
     public class CMKController : Controller
     {
