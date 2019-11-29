@@ -2706,6 +2706,7 @@ namespace Wiki.Areas.CMKO.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var fundData = db.CMKO_ThisIndicatorsUsers
                     .AsNoTracking()
+                    .Where(d => d.nhGFact > 0)
                     .Include(d => d.AspNetUsers)
                     .OrderBy(d => d.AspNetUsers.CiliricalName)
                     .ToList();
