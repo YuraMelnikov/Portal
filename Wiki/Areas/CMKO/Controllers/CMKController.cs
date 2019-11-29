@@ -97,7 +97,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].BonusReversed = (int)accuredList[i].bonusFact;
                     data[i].Accrued = (int)accuredList[i].accruedFact;
                     data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedFact;
-                    data[i].Manager = 0;
+                    data[i].Manager = GetManagerAccuedFact(accuredList[i].id_AspNetUsers);
                     data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
                     data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
@@ -106,6 +106,59 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        int GetManagerAccuedFact(string id_AspNetUsers)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int accued = 0;
+                var bujet = db.CMKO_ThisDeductionsBonusFund.First();
+                if (id_AspNetUsers == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
+                {
+                    accued += (int)bujet.deductionsMKOMFact;
+                    accued += (int)bujet.deductionsMKOEFact;
+                    accued += (int)(GetParthNHKBEPlan("4ebb8e70-7637-40b4-8c6e-3cd30a451d76") * bujet.deductionsMEFact);
+                }
+                else if (id_AspNetUsers == "5ba3227f-ac84-4d65-ad87-632044217841")
+                {
+                    accued += (int)(GetParthNHKBEPlan("5ba3227f-ac84-4d65-ad87-632044217841") * bujet.deductionsMEFact);
+                }
+                else if (id_AspNetUsers == "8294e987-b175-4444-b300-8cb729448b38")
+                {
+                    accued += (int)bujet.deductionsMMFact;
+                }
+                return accued;
+            }
+        }
+
+        double GetParthNHKBEFact(string id_AspNetUsers)
+        {
+
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double parth = 1;
+                var listUsersData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .ToList();
+                double pt1 = listUsersData.Where(d => d.AspNetUsers.Devision == 16).Sum(d => d.nhFact);
+                double pt2 = listUsersData.Where(d => d.AspNetUsers.Devision == 3).Sum(d => d.nhFact);
+                double sum12 = pt1 + pt2;
+                if (id_AspNetUsers == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
+                {
+                    parth = pt1 / sum12;
+                }
+                else
+                {
+                    parth = pt2 / sum12;
+                }
+                return parth;
             }
         }
 
@@ -130,7 +183,7 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].BonusReversed = (int)accuredList[i].bonusPlan;
                     data[i].Accrued = (int)accuredList[i].accruedPlan;
                     data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedPlan;
-                    data[i].Manager = 0;
+                    data[i].Manager = GetManagerAccuedPlan(accuredList[i].id_AspNetUsers);
                     data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
                     data[i].Optimization = (int)cMKO_ThisIndicatorsUsers.optimization;
@@ -139,6 +192,59 @@ namespace Wiki.Areas.CMKO.Controllers
                     data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        int GetManagerAccuedPlan(string id_AspNetUsers)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int accued = 0;
+                var bujet = db.CMKO_ThisDeductionsBonusFund.First();
+                if (id_AspNetUsers == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
+                {
+                    accued += (int)bujet.deductionsMKOMPlan;
+                    accued += (int)bujet.deductionsMKOEPlan;
+                    accued += (int)(GetParthNHKBEPlan("4ebb8e70-7637-40b4-8c6e-3cd30a451d76") * bujet.deductionsMEPlan);
+                }
+                else if (id_AspNetUsers == "5ba3227f-ac84-4d65-ad87-632044217841")
+                {
+                    accued += (int)(GetParthNHKBEPlan("5ba3227f-ac84-4d65-ad87-632044217841") * bujet.deductionsMEPlan);
+                }
+                else if (id_AspNetUsers == "8294e987-b175-4444-b300-8cb729448b38")
+                {
+                    accued += (int)bujet.deductionsMMPlan;
+                }
+                return accued;
+            }
+        }
+
+        double GetParthNHKBEPlan(string id_AspNetUsers)
+        {
+
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double parth = 1;
+                var listUsersData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .ToList();
+                double pt1 = listUsersData.Where(d => d.AspNetUsers.Devision == 16).Sum(d => d.nhPlan);
+                double pt2 = listUsersData.Where(d => d.AspNetUsers.Devision == 3).Sum(d => d.nhPlan);
+                double sum12 = pt1 + pt2;
+                if (id_AspNetUsers == "4ebb8e70-7637-40b4-8c6e-3cd30a451d76")
+                {
+                    parth = pt1 / sum12;
+                }
+                else
+                {
+                    parth = pt2 / sum12;
+                }
+                return parth;
             }
         }
 
