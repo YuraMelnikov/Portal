@@ -14,6 +14,7 @@ namespace Wiki.Areas.CMKO
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings settingsDNY = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         PortalKATEKEntities db = new PortalKATEKEntities();
+
         public JsonResult AddCalend(ProductionCalendar data)
         {
             string login = HttpContext.User.Identity.Name;
@@ -79,17 +80,41 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetAccuredFact()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                bool statusManager = GetStatusManagerUser();
+                int counterUsers = 1;
+
+                if(statusManager == true)
+                {
+                    counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                }
                 Types.UserResult[] data = new Types.UserResult[counterUsers];
                 for (int i = 0; i < counterUsers; i++)
                 {
                     data[i] = new Types.UserResult();
                 }
-                var accuredList = db.CMKO_ThisAccrued.AsNoTracking().Include(d => d.AspNetUsers).OrderBy(d => d.AspNetUsers.CiliricalName).ToList();
+                List<CMKO_ThisAccrued> accuredList = new List<CMKO_ThisAccrued>();
+                if (statusManager == true)
+                {
+                    accuredList = db.CMKO_ThisAccrued
+                        .AsNoTracking()
+                        .Include(d => d.AspNetUsers)
+                        .OrderBy(d => d.AspNetUsers.CiliricalName)
+                        .ToList();
+                }
+                else
+                {
+                    accuredList = db.CMKO_ThisAccrued
+                        .AsNoTracking()
+                        .Include(d => d.AspNetUsers)
+                        .Where(d => d.AspNetUsers.Email == login)
+                        .OrderBy(d => d.AspNetUsers.CiliricalName)
+                        .ToList();
+                }
                 for (int i = 0; i < counterUsers; i++)
                 {
                     string tmp = accuredList[i].id_AspNetUsers;
@@ -112,6 +137,7 @@ namespace Wiki.Areas.CMKO
 
         int GetManagerAccuedFact(string id_AspNetUsers)
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -165,17 +191,39 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetAccuredPlan()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                bool statusManager = GetStatusManagerUser();
+                int counterUsers = 1;
+                if (statusManager == true)
+                {
+                    counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
+                }
                 Types.UserResult[] data = new Types.UserResult[counterUsers];
                 for (int i = 0; i < counterUsers; i++)
                 {
                     data[i] = new Types.UserResult();
                 }
-                var accuredList = db.CMKO_ThisAccrued.AsNoTracking().Include(d => d.AspNetUsers).OrderBy(d => d.AspNetUsers.CiliricalName).ToList();
+                List<CMKO_ThisAccrued> accuredList = new List<CMKO_ThisAccrued>();
+                if (statusManager == true)
+                {
+                    accuredList = db.CMKO_ThisAccrued
+                        .AsNoTracking()
+                        .Include(d => d.AspNetUsers)
+                        .OrderBy(d => d.AspNetUsers.CiliricalName)
+                        .ToList();
+                }
+                else
+                {
+                    accuredList = db.CMKO_ThisAccrued
+                        .AsNoTracking()
+                        .Include(d => d.AspNetUsers)
+                        .Where(d => d.AspNetUsers.Email == login)
+                        .ToList();
+                }
                 for (int i = 0; i < counterUsers; i++)
                 {
                     string tmp = accuredList[i].id_AspNetUsers;
