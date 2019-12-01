@@ -503,6 +503,7 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetManpowerFirstPeriod()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -512,7 +513,14 @@ namespace Wiki.Areas.CMKO
                     .Count();
                 if (query > 0)
                 {
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    if (GetStatusManagerUser() == true)
+                    {
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(login, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 else
@@ -524,6 +532,7 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetManpowerSecondPeriod()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -533,7 +542,14 @@ namespace Wiki.Areas.CMKO
                     .Count();
                 if (query > 0)
                 {
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    if(GetStatusManagerUser() == true)
+                    {
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(login, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 else
@@ -545,6 +561,7 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult GetManpowerThreePeriod()
         {
+            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -554,7 +571,14 @@ namespace Wiki.Areas.CMKO
                     .Count();
                 if (query > 0)
                 {
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    if (GetStatusManagerUser() == true)
+                    {
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(login, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 else
