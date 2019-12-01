@@ -13,7 +13,7 @@
     <script src="~/Content/Highcharts/exporting.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v0.16"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v0.17"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -58,14 +58,16 @@
         <div class="col-lg-2">
             <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
         </div>
-        <div class="col-lg-2">
-            <div id="summaryWageFundManager" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-        </div>
-        <div class="col-lg-2">
-            <div id="summaryWageFundG" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-        </div>
-        <div class="col-lg-2">
-            <div id="remainingBonus" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+        <div id="hideSummaryData">
+            <div class="col-lg-2">
+                <div id="summaryWageFundManager" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+            </div>
+            <div class="col-lg-2">
+                <div id="summaryWageFundG" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+            </div>
+            <div class="col-lg-2">
+                <div id="remainingBonus" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+            </div>
         </div>
         <div class="col-lg-2">
             <div id="withheldToBonusFund" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
@@ -77,10 +79,10 @@
     <hr class="standart">
     <div class="row" id="accuredDiv">
         <div class="col-lg-6">
-            <div id="accruedG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+            <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
         </div>
         <div class="col-lg-6">
-            <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+            <div id="timesheetContainer"></div>
         </div>
     </div>
     <hr class="standart">
@@ -98,10 +100,10 @@
     <hr class="standart">
     <div class="row" id="divAccuredUsers">
         <div class="col-lg-6">
-            <div id="usersAccuredPlan" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
+            <div id="usersAccuredPlan" style="max-width: 800px;  margin: 0 auto;"></div>
         </div>
         <div class="col-lg-6">
-            <div id="usersAccuredFact" style="max-width: 800px;  height: 500px; margin: 0 auto;"></div>
+            <div id="usersAccuredFact" style="max-width: 800px;  margin: 0 auto;"></div>
         </div>
     </div>
     <hr class="standart">
@@ -289,9 +291,11 @@
         </div>
     </div>
     <hr class="standart">
-    <div class="row" id="timeSheetAndSalaryTax">
-        <div class="col-lg-6">
-            <div id="timesheetContainer"></div>
+    <div class="row">
+        <div id="hideAccuredG">
+            <div class="col-lg-6">
+                <div id="accruedG" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
+            </div>
         </div>
     </div>
     <hr class="standart">

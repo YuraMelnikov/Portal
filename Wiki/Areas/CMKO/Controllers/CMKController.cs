@@ -2679,7 +2679,15 @@ namespace Wiki.Areas.CMKO
                 ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
                 ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
             }
-            int devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
             if (GetStatusManagerUser() == true)
             {
                 ViewBag.LeavelUser = 2;
@@ -2699,7 +2707,7 @@ namespace Wiki.Areas.CMKO
         {
             string login = HttpContext.User.Identity.Name;
             if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
-                login == "fvs@katek.by" ||
+                login == "fvs@katek.by" || login == "myi@katek.by" ||
                 login == "laa@katek.by" || login == "nrf@katek.by")
             {
                 return true;

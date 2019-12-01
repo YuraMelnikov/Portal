@@ -81,10 +81,7 @@ function LoadData(id) {
             HideAllTables();
             StartMenu();
             GetSummaryWageFundWorker();
-            $('#summaryWageFundManager').hide();
-            $('#summaryWageFundG').hide();
-            $('#remainingBonus').hide();
-            $('#speedDevisionForManager').hide();
+            $('#hideSummaryData').hide();
             GetWithheldToBonusFund();
             GetOverflowsBujet();
             GetGAccrued();
@@ -1724,65 +1721,71 @@ function GetGAccrued() {
                 planArray.push(result[i].Plan);
                 factArray.push(result[i].Fact);
             }
-            Highcharts.setOptions({
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('accruedG', {
-                chart: {
-                    type: 'bar',
-                    marginBottom: 60
-                },
-                navigation: {
-                    buttonOptions: {
+            if (counter === 0) {
+                $('#hideAccuredG').hide();
+            }
+            else {
+                Highcharts.setOptions({
+                    credits: {
                         enabled: false
                     }
-                },
-                title: {
-                    margin: 0,
-                    text: 'Итоговые начисления ГИПов',
-                    style: {
-                        "font-size": titleFontSize,
-                        "color": titleDiagrammColor
-                    }
-                },
-                yAxis: {
-                    title: {
-                        enabled: false
-                    },    
-                    stackLabels: {
-                        enabled: true,
-                        style: {
-                            color: colorStackLabels
+                });
+                Highcharts.chart('accruedG', {
+                    chart: {
+                        type: 'bar',
+                        marginBottom: 60
+                    },
+                    navigation: {
+                        buttonOptions: {
+                            enabled: false
                         }
-                    }
-                },
-                xAxis: {
-                    categories: workerArray
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
+                    },
+                    title: {
+                        margin: 0,
+                        text: 'Итоговые начисления ГИПов',
+                        style: {
+                            "font-size": titleFontSize,
+                            "color": titleDiagrammColor
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            enabled: false
+                        },
+                        stackLabels: {
                             enabled: true,
                             style: {
-                                fontSize: "0px",
-                                textOutline: "0px contrast"
+                                color: colorStackLabels
                             }
-                        },
-                        stacking: 'normal'
-                    }
-                },
-                series: [{
-                    name: 'План',
-                    data: planArray,
-                    color: colorPlanData
-                }, {
-                    name: 'Факт',
-                    data: factArray,
-                    color: colorFactData
-                }]
-            });
+                        }
+                    },
+                    xAxis: {
+                        categories: workerArray
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true,
+                                style: {
+                                    fontSize: "0px",
+                                    textOutline: "0px contrast"
+                                }
+                            },
+                            stacking: 'normal'
+                        }
+                    },
+                    series: [{
+                        name: 'План',
+                        data: planArray,
+                        color: colorPlanData
+                    }, {
+                        name: 'Факт',
+                        data: factArray,
+                        color: colorFactData
+                    }]
+                });
+            }
+
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -2097,6 +2100,22 @@ function GetManpowerFirstPeriod() {
                 ManpowerUsersInMonth1();
             }
             else if (result === 'dkv@katek.by') {
+                $('#speed1').hide();
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-8').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_8/",
@@ -2216,6 +2235,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'jmv@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-10').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_10/",
@@ -2335,6 +2369,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'rvi@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
                 $('#container1-16').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_16/",
@@ -2455,6 +2504,21 @@ function GetManpowerFirstPeriod() {
             }
             else if (result === 'mpa@katek.by') {
                 $('#container1-5').show();
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_5/",
                     contentType: "application/json;charset=UTF-8",
@@ -2573,6 +2637,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'faa@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-7').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_7/",
@@ -2692,6 +2771,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'Kuchynski@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-12').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_12/",
@@ -2811,6 +2905,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'fvs@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed16').hide();
                 $('#container1-15').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_15/",
@@ -2930,6 +3039,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'tmv@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-14').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_14/",
@@ -3050,6 +3174,21 @@ function GetManpowerFirstPeriod() {
             }
             else if (result === 'nrf@katek.by') {
                 $('#container1-6').show();
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_6/",
                     contentType: "application/json;charset=UTF-8",
@@ -3168,6 +3307,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'voaa@katek.by') {
+                $('#speed1').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-2').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_2/",
@@ -3287,6 +3441,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'kaav@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-4').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_4/",
@@ -3406,6 +3575,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'lks@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-11').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_11/",
@@ -3525,6 +3709,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'jdo@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-9').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_9/",
@@ -3644,6 +3843,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'goa@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-3').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_3/",
@@ -3763,6 +3977,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'vi@katek.by') {
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-1').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_1/",
@@ -3883,6 +4112,21 @@ function GetManpowerFirstPeriod() {
                 });
             }
             else if (result === 'tys@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
                 $('#container1-13').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_13/",
@@ -13469,6 +13713,10 @@ function GetAccuredPlan() {
                 tax.push(result[i].Tax);
                 rate.push(result[i].Rate);
             }
+            var heightChart = 500;
+            if (counter < 2) {
+                heightChart = 220;
+            }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -13476,7 +13724,8 @@ function GetAccuredPlan() {
             });
             Highcharts.chart('usersAccuredPlan', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: heightChart
                 },
                 navigation: {
                     buttonOptions: {
@@ -13587,6 +13836,10 @@ function GetAccuredFact() {
                 tax.push(result[i].Tax);
                 rate.push(result[i].Rate);
             }
+            var heightChart = 500;
+            if (counter < 2) {
+                heightChart = 220;
+            }
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -13594,7 +13847,8 @@ function GetAccuredFact() {
             });
             Highcharts.chart('usersAccuredFact', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: heightChart
                 },
                 navigation: {
                     buttonOptions: {
