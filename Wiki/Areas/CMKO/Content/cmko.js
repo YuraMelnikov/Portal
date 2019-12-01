@@ -4041,7 +4041,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-8', {
+                        Highcharts.chart('container2-8', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4160,7 +4160,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-10', {
+                        Highcharts.chart('container2-10', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4279,7 +4279,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-16', {
+                        Highcharts.chart('container2-16', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4398,7 +4398,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-5', {
+                        Highcharts.chart('container2-5', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4517,7 +4517,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-7', {
+                        Highcharts.chart('container2-7', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4636,7 +4636,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-12', {
+                        Highcharts.chart('container2-12', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4755,7 +4755,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-15', {
+                        Highcharts.chart('container2-15', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4874,7 +4874,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-14', {
+                        Highcharts.chart('container2-14', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -4993,7 +4993,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-6', {
+                        Highcharts.chart('container2-6', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5112,7 +5112,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-2', {
+                        Highcharts.chart('container2-2', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5231,7 +5231,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-4', {
+                        Highcharts.chart('container2-4', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5350,7 +5350,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-11', {
+                        Highcharts.chart('container2-11', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5469,7 +5469,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-9', {
+                        Highcharts.chart('container2-9', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5588,7 +5588,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-3', {
+                        Highcharts.chart('container2-3', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5708,7 +5708,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-1', {
+                        Highcharts.chart('container2-1', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5827,7 +5827,7 @@ function GetManpowerSecondPeriod() {
                             dataArray20 = result[i].plan20;
                             dataArray30 = result[i].plan30;
                         }
-                        Highcharts.chart('container1-13', {
+                        Highcharts.chart('container2-13', {
                             chart: {
                                 marginTop: 40,
                                 inverted: true,
@@ -5943,6 +5943,1914 @@ function GetManpowerThreePeriod() {
         success: function (result) {     
             if(result === 1){
                 ManpowerUsersInMonth3();
+            }
+            else if (result === 'dkv@katek.by') {
+                $('#container3-8').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_8/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-8', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Добыш Константин Викторович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'jmv@katek.by') {
+                $('#container3-10').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_10/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-10', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Жук Марина Владимировна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'rvi@katek.by') {
+                $('#container3-16').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_16/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-16', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Рачкевич Виталий Игоревич']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'mpa@katek.by') {
+                $('#container3-5').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_5/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-5', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Маляревич Павел Анатольевич']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'faa@katek.by') {
+                $('#container3-7').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_7/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-7', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Фейгина Анастасия Аркадьевна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'Kuchynski@katek.by') {
+                $('#container3-12').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_12/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-12', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Кучинский Андрей Юрьевич']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'fvs@katek.by') {
+                $('#container3-15').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_15/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-15', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Филончик Валентина Сергеевна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'tmv@katek.by') {
+                $('#container3-14').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_14/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-14', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Тиханский Максим Васильевич']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'nrf@katek.by') {
+                $('#container3-6').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_6/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-6', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Носик Роман Федорович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'voaa@katek.by') {
+                $('#container3-2').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_2/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-2', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Волкова Алена Александровна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'kaav@katek.by') {
+                $('#container3-4').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_4/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-4', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Кальчинский Александр Владимирович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'lks@katek.by') {
+                $('#container3-11').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_11/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-11', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Климович Ксения Сергеевна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'jdo@katek.by') {
+                $('#container3-9').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_9/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-9', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Жибуль Дмитрий Олегович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'goa@katek.by') {
+                $('#container3-3').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_3/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-3', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Глебик Оксана Анатольевна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'vi@katek.by') {
+                $('#container3-1').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_1/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-1', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Васюхневич Илья']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else if (result === 'tys@katek.by') {
+                $('#container3-13').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_13/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-13', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Тимашкова Юлия Сергеевна']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return 0;
             }
         },
         error: function (errormessage) {
