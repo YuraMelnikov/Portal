@@ -1390,6 +1390,7 @@
     <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
     <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
     <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Content\jquery.cookie.js" />
     <Content Include="Content\jquery.tablesorter.js" />
     <Content Include="Content\MelnikauCSS.css" />
     <Content Include="Content\ReportSmall.js" />

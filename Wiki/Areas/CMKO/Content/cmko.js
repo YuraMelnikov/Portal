@@ -1,7 +1,25 @@
-﻿var colorPlanData = '#e3e3e3';
-var colorFactData = '#3fb0ac';
-var titleDiagrammColor = '#717171';
-var colorStackLabels = '#717171';
+﻿var colorPlanData = '#e2c3f9';
+var colorFactData = '#cc3184';
+var titleDiagrammColor = '#000';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var colorStackLabels = titleDiagrammColor;
 var titleFontSize = "14px";
 var colorMinusData = '#fa292a';
 var colorBgBasicLine = '#fa292a';
@@ -77,6 +95,7 @@ function LoadData(id) {
             return 0;
         }
         else if (leavelUser === 1 || leavelUser === '1') {
+            GetTimeSheet();
             getPeriodReport();
             HideAllTables();
             StartMenu();
@@ -94,7 +113,6 @@ function LoadData(id) {
             GetAccuredPlan();
             GetAccuredFact();
             GetNhUsersThisQua();
-            GetTimeSheet();
             GetCoefWorker();
             GetCoefWorkerG();
             getRemainingWorkAll();
@@ -106,6 +124,7 @@ function LoadData(id) {
             $('#dashboardBody').show();
         }
         else if (leavelUser === 2 || leavelUser === '2') {
+            GetTimeSheet();
             getPeriodReport();
             HideAllTables();
             StartMenu();
@@ -125,7 +144,6 @@ function LoadData(id) {
             GetAccuredPlan();
             GetAccuredFact();
             GetNhUsersThisQua();
-            GetTimeSheet();
             GetCoefWorker();
             GetCoefWorkerG();
             getRemainingWorkAll();
