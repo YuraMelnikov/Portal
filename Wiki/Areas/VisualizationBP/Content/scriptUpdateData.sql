@@ -68,66 +68,66 @@ concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.',
 iiF(len(datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay))=1,
 concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay),'.0',datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)),
 concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay),'.',datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay))) as [week]
-FROM         ProjectWebApp.dbo.MSP_EpmProject_UserView INNER JOIN
-                      ProjectWebApp.dbo.MSP_EpmTask_UserView ON 
-                      ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID LEFT OUTER JOIN
-                      ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView ON 
-                      ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TaskUID AND 
-                      ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.ProjectUID LEFT OUTER JOIN
-                      ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON 
-                      ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID AND 
-                      ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ProjectUID LEFT OUTER JOIN
-                      ProjectWebApp.dbo.MSP_EpmResource_UserView ON 
-                      ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID LEFT OUTER JOIN
-                      PortalKatek.dbo.PZ_PlanZakaz ON CONVERT(varchar, PortalKatek.dbo.PZ_PlanZakaz.PlanZakaz) = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] LEFT OUTER JOIN
-                      PortalKatek.dbo.PZ_TEO ON PortalKatek.dbo.PZ_TEO.Id_PlanZakaz = PortalKatek.dbo.PZ_PlanZakaz.Id LEFT OUTER JOIN
-                      exportImport.dbo.planZakaz ON exportImport.dbo.planZakaz.Zakaz = PortalKatek.dbo.PZ_PlanZakaz.PlanZakaz LEFT OUTER JOIN
-                      ReportKATEK.dbo.ProjectWorkPO ON ReportKATEK.dbo.ProjectWorkPO.[№ заказа] = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] left join
-					  [PortalKATEK].[dbo].[DashboardBP_State] on [PortalKATEK].[dbo].[DashboardBP_State].id > 0
+FROM ProjectWebApp.dbo.MSP_EpmProject_UserView INNER JOIN
+ProjectWebApp.dbo.MSP_EpmTask_UserView ON 
+ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView ON 
+ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TaskUID AND 
+ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.ProjectUID LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignment_UserView ON 
+ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID AND 
+ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ProjectUID LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmResource_UserView ON 
+ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID LEFT OUTER JOIN
+PortalKatek.dbo.PZ_PlanZakaz ON CONVERT(varchar, PortalKatek.dbo.PZ_PlanZakaz.PlanZakaz) = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] LEFT OUTER JOIN
+PortalKatek.dbo.PZ_TEO ON PortalKatek.dbo.PZ_TEO.Id_PlanZakaz = PortalKatek.dbo.PZ_PlanZakaz.Id LEFT OUTER JOIN
+exportImport.dbo.planZakaz ON exportImport.dbo.planZakaz.Zakaz = PortalKatek.dbo.PZ_PlanZakaz.PlanZakaz LEFT OUTER JOIN
+ReportKATEK.dbo.ProjectWorkPO ON ReportKATEK.dbo.ProjectWorkPO.[№ заказа] = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] left join
+[PortalKATEK].[dbo].[DashboardBP_State] on [PortalKATEK].[dbo].[DashboardBP_State].id > 0
 WHERE     
 [PortalKATEK].[dbo].[DashboardBP_State].active = 1
 and
 (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%НИОКР%') AND 
-                      (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Задан%') AND 
-                      (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Проч%') AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] > 0) AND 
-                      (ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УС%' OR
-                      ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УИ%' OR
-                      ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%ЭУ%') AND (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
+(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Задан%') AND 
+(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Проч%') AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] > 0) AND 
+(ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УС%' OR
+ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УИ%' OR
+ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%ЭУ%') AND (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
 
 
 DELETE [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
 INSERT INTO [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]
 SELECT
-  PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0Duration,
-  PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0StartDate
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0FinishDate
-  ,PortalKATEK.dbo.PWA_TasksForBP.AssignmentBaseline0Work
-  ,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskDuration, 0)
-  ,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskRemainingDuration, 0)
-  ,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskActualDuration, 0)
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskStartDate
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskFinishDate
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskWork
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskRemainingWork
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskActualWork
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskPercentWorkCompleted
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskPercentCompleted
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskPhysicalPercentCompleted
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskDeadline
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskIsCritical
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskPriority
-  ,PortalKATEK.dbo.PWA_TasksForBP.НК
-  ,PortalKATEK.dbo.WBS.id as i1
-  ,PortalKATEK.dbo.DashboardBP_ProjectList.id
-  ,PortalKATEK.dbo.PWA_TasksForBP.TaskUID
-  ,PortalKATEK.dbo.AspNetUsers.Id
-  from PortalKATEK.dbo.DashboardBP_ProjectList left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.DashboardBP_ProjectList.id_PZ_PlanZakaz
-  left join PortalKATEK.dbo.PWA_TasksForBP on PortalKATEK.dbo.PWA_TasksForBP.ProjectUID = PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID
-  left join PortalKATEK.dbo.WBS on PortalKATEK.dbo.wbs.WBSName = PortalKATEK.dbo.PWA_TasksForBP.TaskWBS
-  left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.PWA_TasksForBP.ResourceUID
-  where
-  (PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
-  delete [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [PortalKATEK].[dbo].[DashboardBP_ProjectTasks].id_WBS is null
+PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0Duration,
+PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0StartDate
+,PortalKATEK.dbo.PWA_TasksForBP.TaskBaseline0FinishDate
+,PortalKATEK.dbo.PWA_TasksForBP.AssignmentBaseline0Work
+,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskDuration, 0)
+,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskRemainingDuration, 0)
+,isnull(PortalKATEK.dbo.PWA_TasksForBP.TaskActualDuration, 0)
+,PortalKATEK.dbo.PWA_TasksForBP.TaskStartDate
+,PortalKATEK.dbo.PWA_TasksForBP.TaskFinishDate
+,PortalKATEK.dbo.PWA_TasksForBP.TaskWork
+,PortalKATEK.dbo.PWA_TasksForBP.TaskRemainingWork
+,PortalKATEK.dbo.PWA_TasksForBP.TaskActualWork
+,PortalKATEK.dbo.PWA_TasksForBP.TaskPercentWorkCompleted
+,PortalKATEK.dbo.PWA_TasksForBP.TaskPercentCompleted
+,PortalKATEK.dbo.PWA_TasksForBP.TaskPhysicalPercentCompleted
+,PortalKATEK.dbo.PWA_TasksForBP.TaskDeadline
+,PortalKATEK.dbo.PWA_TasksForBP.TaskIsCritical
+,PortalKATEK.dbo.PWA_TasksForBP.TaskPriority
+,PortalKATEK.dbo.PWA_TasksForBP.НК
+,PortalKATEK.dbo.WBS.id as i1
+,PortalKATEK.dbo.DashboardBP_ProjectList.id
+,PortalKATEK.dbo.PWA_TasksForBP.TaskUID
+,PortalKATEK.dbo.AspNetUsers.Id
+from PortalKATEK.dbo.DashboardBP_ProjectList left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.DashboardBP_ProjectList.id_PZ_PlanZakaz
+left join PortalKATEK.dbo.PWA_TasksForBP on PortalKATEK.dbo.PWA_TasksForBP.ProjectUID = PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID
+left join PortalKATEK.dbo.WBS on PortalKATEK.dbo.wbs.WBSName = PortalKATEK.dbo.PWA_TasksForBP.TaskWBS
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.PWA_TasksForBP.ResourceUID
+where
+(PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
+delete [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [PortalKATEK].[dbo].[DashboardBP_ProjectTasks].id_WBS is null
 
 
 DELETE PortalKATEK.dbo.DashboardBP_HSSPOSmall
@@ -137,12 +137,11 @@ PortalKATEK.dbo.DashboardBP_State.id
 ,PortalKATEK.dbo.DashboardBP_HSSPO.year
 ,month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)
 ,convert(int,sum(PortalKATEK.dbo.DashboardBP_HSSPO.xSsm))
-  FROM [PortalKATEK].[dbo].[DashboardBP_State]
-  left join PortalKATEK.dbo.DashboardBP_HSSPO on PortalKATEK.dbo.DashboardBP_HSSPO.id_DashboardBP_State = PortalKATEK.dbo.DashboardBP_State.id
-  where
-  active = 1
-  group by
-  PortalKATEK.dbo.DashboardBP_State.id
+FROM [PortalKATEK].[dbo].[DashboardBP_State]
+left join PortalKATEK.dbo.DashboardBP_HSSPO on PortalKATEK.dbo.DashboardBP_HSSPO.id_DashboardBP_State = PortalKATEK.dbo.DashboardBP_State.id
+where active = 1
+group by
+PortalKATEK.dbo.DashboardBP_State.id
 ,PortalKATEK.dbo.DashboardBP_HSSPO.year
 ,month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)
 
@@ -191,13 +190,18 @@ OR ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%ЭУ%')
 and ([ReportKATEK].[dbo].RTF2Text(convert(varchar(max),convert(varbinary(max),[TASK_RTF_NOTES]))) is not null)
 and (PortalKATEK.dbo.DashboardBPComments.taskUID is null)
 
+
 delete PortalKATEK.dbo.DashboardBPComments
 from ProjectWebApp.dbo.MSP_EpmTask  join PortalKATEK.dbo.DashboardBPComments on PortalKATEK.dbo.DashboardBPComments.taskUID = ProjectWebApp.dbo.MSP_EpmTask.TaskUID
 where ProjectWebApp.dbo.MSP_EpmTask.TaskPercentCompleted = 100
+
 
 update PortalKATEK.dbo.DashboardBPComments set
 counterState1 = counterState2
 where counterState2 != 0
 
+
 update PortalKATEK.dbo.DashboardBPComments set
 counterState2 = LEN(PortalKATEK.dbo.DashboardBPComments.notes)
+
+
