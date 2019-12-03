@@ -327,6 +327,10 @@
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceTasks" Width="1.5" PointX="21.5" PointY="40.625" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPDevisionCoef" Width="1.5" PointX="2.75" PointY="21.875" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPManpowerManuf" Width="1.5" PointX="5" PointY="21.625" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

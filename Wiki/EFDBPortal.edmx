@@ -622,6 +622,28 @@
           <Property Name="notes" Type="varchar(max)" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBPDevisionCoef">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Devision" Type="int" Nullable="false" />
+          <Property Name="coefDefaultWork" Type="float" Nullable="false" />
+          <Property Name="coefRemarks" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardBPManpowerManuf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_DashboardBPDevisionCoef" Type="int" Nullable="false" />
+          <Property Name="manpowerPrj" Type="float" Nullable="false" />
+          <Property Name="planWork" Type="float" Nullable="false" />
+          <Property Name="workday" Type="int" Nullable="false" />
+          <Property Name="workMode" Type="float" Nullable="false" />
+          <Property Name="manpowerResult" Type="float" Nullable="false" />
+          <Property Name="workModeResult" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardBPManufacturingPower">
           <Key>
             <PropertyRef Name="id" />
@@ -2641,6 +2663,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBPDevisionCoef_Devision">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
+          <End Role="DashboardBPDevisionCoef" Type="Self.DashboardBPDevisionCoef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPDevisionCoef">
+              <PropertyRef Name="id_Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef">
+          <End Role="DashboardBPDevisionCoef" Type="Self.DashboardBPDevisionCoef" Multiplicity="1" />
+          <End Role="DashboardBPManpowerManuf" Type="Self.DashboardBPManpowerManuf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBPDevisionCoef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPManpowerManuf">
+              <PropertyRef Name="id_DashboardBPDevisionCoef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardBPManufacturingPower_Devision">
           <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
           <End Role="DashboardBPManufacturingPower" Type="Self.DashboardBPManufacturingPower" Multiplicity="*" />
@@ -4027,6 +4073,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardBP_ProjectTasks" EntityType="Self.DashboardBP_ProjectTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_State" EntityType="Self.DashboardBP_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBPComments" EntityType="Self.DashboardBPComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBPDevisionCoef" EntityType="Self.DashboardBPDevisionCoef" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBPManpowerManuf" EntityType="Self.DashboardBPManpowerManuf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBPManufacturingPower" EntityType="Self.DashboardBPManufacturingPower" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
@@ -4501,6 +4549,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_DashboardBP_ProjectTasks_WBS" Association="Self.FK_DashboardBP_ProjectTasks_WBS">
             <End Role="WBS" EntitySet="WBS" />
             <End Role="DashboardBP_ProjectTasks" EntitySet="DashboardBP_ProjectTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPDevisionCoef_Devision" Association="Self.FK_DashboardBPDevisionCoef_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="DashboardBPDevisionCoef" EntitySet="DashboardBPDevisionCoef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" Association="Self.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef">
+            <End Role="DashboardBPDevisionCoef" EntitySet="DashboardBPDevisionCoef" />
+            <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardBPManufacturingPower_Devision" Association="Self.FK_DashboardBPManufacturingPower_Devision">
             <End Role="Devision" EntitySet="Devision" />
@@ -5856,6 +5912,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice">
             <End Role="Reclamation_TechnicalAdvice" EntitySet="Reclamation_TechnicalAdvice" />
             <End Role="Reclamation_TechnicalAdviceTasks" EntitySet="Reclamation_TechnicalAdviceTasks" />
+          </AssociationSet>
+          <EntitySet Name="DashboardBPDevisionCoef" EntityType="PortalKATEKModel.DashboardBPDevisionCoef" />
+          <EntitySet Name="DashboardBPManpowerManuf" EntityType="PortalKATEKModel.DashboardBPManpowerManuf" />
+          <AssociationSet Name="FK_DashboardBPDevisionCoef_Devision" Association="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="DashboardBPDevisionCoef" EntitySet="DashboardBPDevisionCoef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef">
+            <End Role="DashboardBPDevisionCoef" EntitySet="DashboardBPDevisionCoef" />
+            <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
@@ -7228,6 +7294,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
           <NavigationProperty Name="DashboardBPManufacturingPower" Relationship="PortalKATEKModel.FK_DashboardBPManufacturingPower_Devision" FromRole="Devision" ToRole="DashboardBPManufacturingPower" />
+          <NavigationProperty Name="DashboardBPDevisionCoef" Relationship="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" FromRole="Devision" ToRole="DashboardBPDevisionCoef" />
         </EntityType>
         <EntityType Name="MailGraphic">
           <Key>
@@ -9988,6 +10055,55 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardBPDevisionCoef">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Devision" Type="Int32" Nullable="false" />
+          <Property Name="coefDefaultWork" Type="Double" Nullable="false" />
+          <Property Name="coefRemarks" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" FromRole="DashboardBPDevisionCoef" ToRole="Devision" />
+          <NavigationProperty Name="DashboardBPManpowerManuf" Relationship="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" FromRole="DashboardBPDevisionCoef" ToRole="DashboardBPManpowerManuf" />
+        </EntityType>
+        <EntityType Name="DashboardBPManpowerManuf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_DashboardBPDevisionCoef" Type="Int32" Nullable="false" />
+          <Property Name="manpowerPrj" Type="Double" Nullable="false" />
+          <Property Name="planWork" Type="Double" Nullable="false" />
+          <Property Name="workday" Type="Int32" Nullable="false" />
+          <Property Name="workMode" Type="Double" Nullable="false" />
+          <Property Name="manpowerResult" Type="Double" Nullable="false" />
+          <Property Name="workModeResult" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DashboardBPDevisionCoef" Relationship="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" FromRole="DashboardBPManpowerManuf" ToRole="DashboardBPDevisionCoef" />
+        </EntityType>
+        <Association Name="FK_DashboardBPDevisionCoef_Devision">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBPDevisionCoef" Role="DashboardBPDevisionCoef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPDevisionCoef">
+              <PropertyRef Name="id_Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef">
+          <End Type="PortalKATEKModel.DashboardBPDevisionCoef" Role="DashboardBPDevisionCoef" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBPManpowerManuf" Role="DashboardBPManpowerManuf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DashboardBPDevisionCoef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPManpowerManuf">
+              <PropertyRef Name="id_DashboardBPDevisionCoef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12194,6 +12310,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="textTask" ColumnName="textTask" />
                 <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
                 <ScalarProperty Name="id_Reclamation_TechnicalAdvice" ColumnName="id_Reclamation_TechnicalAdvice" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBPDevisionCoef">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPDevisionCoef">
+              <MappingFragment StoreEntitySet="DashboardBPDevisionCoef">
+                <ScalarProperty Name="coefRemarks" ColumnName="coefRemarks" />
+                <ScalarProperty Name="coefDefaultWork" ColumnName="coefDefaultWork" />
+                <ScalarProperty Name="id_Devision" ColumnName="id_Devision" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBPManpowerManuf">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPManpowerManuf">
+              <MappingFragment StoreEntitySet="DashboardBPManpowerManuf">
+                <ScalarProperty Name="workModeResult" ColumnName="workModeResult" />
+                <ScalarProperty Name="manpowerResult" ColumnName="manpowerResult" />
+                <ScalarProperty Name="workMode" ColumnName="workMode" />
+                <ScalarProperty Name="workday" ColumnName="workday" />
+                <ScalarProperty Name="planWork" ColumnName="planWork" />
+                <ScalarProperty Name="manpowerPrj" ColumnName="manpowerPrj" />
+                <ScalarProperty Name="id_DashboardBPDevisionCoef" ColumnName="id_DashboardBPDevisionCoef" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
