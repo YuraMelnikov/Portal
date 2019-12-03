@@ -31,17 +31,17 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="~/Content/globalScript.js?v1.1"></script>
-    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.08"></script>
+    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.09"></script>
 </head>
 
 <div class="row">
     <div class="col-lg-12">
         <div class="col-lg-3">
-            <h5 id="periodReportString" style="font-weight: bold; color: #910000"></h5>
-            <h5 id="commentsLink" style="font-weight: bold; color: #910000" onclick="GetCommentsList()"></h5>
+            <h5 id="periodReportString" style="font-weight: bold; color: #910000;"></h5>
+            <h5 id="commentsLink" style="font-weight: bold; color: #910000"; onclick="GetCommentsList();"></h5>
         </div>
-        <div class="col-lg-9" id="yearBlock" style="border-color: black; border-style:solid ;border-width: thin">
-            <h5 style="font-weight: bold; color: #910000">Суммарные показатели (текущий год)</h5>
+        <div class="col-lg-9" id="yearBlock" style="border-color: black; border-style: solid; border-width: thin;">
+            <h5 style="font-weight: bold; color: #910000;">Суммарные показатели (текущий год)</h5>
             <div class="col-lg-2">
                 <div id="hSSPlanToYear"></div>
             </div>
@@ -68,9 +68,9 @@
     <div class="col-lg-5">
         <div id="projectPortfolio"></div>
     </div>
-    <div class="col-lg-7" style="height: 460px; margin-top: 13px; ">
+    <div class="col-lg-7" style="height: 460px; margin-top: 13px;">
         <div class="col-lg-12">
-            <table id="tableTasksThisDay" class="display compact" style="width:100%; font-size: 11px; "></table>
+            <table id="tableTasksThisDay" class="display compact" style="width:100%; font-size: 11px;"></table>
         </div>
         <hr style="margin-top: 13px;" />
         <div class="col-lg-12" style="margin-top: 13px;">
@@ -81,12 +81,12 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h5 style="font-weight: bold; text-align: center; color: #910000">Оставшиеся тр-ты сотрудников КБ</h5>
+        <h5 style="font-weight: bold; text-align: center; color: #910000;">Оставшиеся тр-ты сотрудников КБ</h5>
         <div class="col-lg-6">
-            <div id="remainingWork" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+            <div id="remainingWork" style="max-height: 250px; height: 250px; margin: 0 auto;"></div>
         </div>
         <div class="col-lg-6">
-            <div id="remainingWorkE" style="max-height: 250px; height: 250px; margin: 0 auto"></div>
+            <div id="remainingWorkE" style="max-height: 250px; height: 250px; margin: 0 auto;"></div>
         </div>
     </div>
 </div>
