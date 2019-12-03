@@ -14,7 +14,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
     <script src="~/Content/jquery.cookie.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v0.20"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v0.21"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -45,8 +45,11 @@
 
 <div id="dashboardBody">
     <div class="row" id="divPeriodReportTitle">
-        <div class="col-lg-12">
+        <div class="col-lg-11">
             <h5 id="periodReportString" style="font-weight: bold; color: #717171"></h5>
+        </div>
+        <div class="col-lg-1">
+            <h5 id="bg_color" style="color: white"></h5>
         </div>
     </div>
     <hr class="standart">
@@ -299,7 +302,10 @@
             </div>
         </div>
     </div>
-    <hr class="standart">
+    <div id="hideAccuredStandart">
+        <hr class="standart">
+    </div>
+
     <div class="row" id="divCoef">
         <div class="col-lg-6">
             <div id="coefWorker" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
@@ -700,22 +706,4 @@
 </script>
 <script>
     var leavelUser = @ViewBag.LeavelUser;
-</script>
-
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        if (typeof $.cookie("bg_color") !== "undefined") {
-            var form_id = document.getElementById("bg_form");
-            var form_value = $.cookie("bg_color");
-            form_id.value = form_value;
-            $("body").css("background-color", $.cookie("bg_color"));
-        }
-
-        $("#bg_form").change(function () {
-            $("body").css("background-color", $("#bg_form :selected").val());
-            $.cookie("bg_color", $("#bg_form :selected").val(), { expires: 60 });
-        });
-    });
 </script>

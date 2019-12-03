@@ -2,23 +2,6 @@
 var colorFactData = '#cc3184';
 var titleDiagrammColor = '#000';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var colorStackLabels = titleDiagrammColor;
 var titleFontSize = "14px";
 var colorMinusData = '#fa292a';
@@ -27,7 +10,33 @@ var colorBg10Line = '#fae596';
 var colorBg20Line = '#3fb0ac';
 var colorBg30Line = '#717171';
 
+function UpdateThem() {
+    if ($.cookie("bg_color") === '0') {
+        $.cookie("bg_color", '1', { expires: 60 });
+        colorPlanData = '#e3e3e3';
+        colorFactData = '#3fb0ac';
+        titleDiagrammColor = '#717171';
+        colorStackLabels = '#717171';
+    }
+    else {
+        $.cookie("bg_color", '0', { expires: 60 });
+        colorPlanData = '#e2c3f9';
+        colorFactData = '#cc3184';
+        titleDiagrammColor = '#000';
+        colorStackLabels = '#000';
+    }
+    LoadData(9);
+}
+
 $(document).ready(function () {
+    if ($.cookie("bg_color") === '1') {
+        colorPlanData = '#e3e3e3';
+        colorFactData = '#3fb0ac';
+        titleDiagrammColor = '#717171';
+        colorStackLabels = '#717171';
+    }
+    HideAllTables();
+    StartMenu();
     LoadData(9);
 });
 
@@ -57,9 +66,6 @@ function getPeriodReport() {
         dataType: "json",
         success: function (result) {
             document.getElementById("periodReportString").textContent = result;
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -97,10 +103,10 @@ function LoadData(id) {
         else if (leavelUser === 1 || leavelUser === '1') {
             GetTimeSheet();
             getPeriodReport();
-            HideAllTables();
-            StartMenu();
             GetSummaryWageFundWorker();
             $('#hideSummaryData').hide();
+            $('#hideAccuredStandart').hide();
+            $('#speedDevisionForManager').hide();
             GetWithheldToBonusFund();
             GetOverflowsBujet();
             GetGAccrued();
@@ -126,8 +132,6 @@ function LoadData(id) {
         else if (leavelUser === 2 || leavelUser === '2') {
             GetTimeSheet();
             getPeriodReport();
-            HideAllTables();
-            StartMenu();
             GetSummaryWageFundWorker();
             GetSummaryWageFundManager();
             GetSummaryWageFundG();
@@ -372,9 +376,6 @@ function GetSpeedUser(id) {
             $('#periodSpeedUser').val(result.periodSpeedUser);
             $('#coefSpeedUser').val(result.coefSpeedUser);
             $('#speedUserModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -398,9 +399,6 @@ function UpdatSpeedUser() {
         success: function (result) {
             $('#speedUsersTable').DataTable().ajax.reload(null, false);
             $('#speedUserModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -450,9 +448,6 @@ function AddOptimization() {
         success: function (result) {
             $('#optimizationTable').DataTable().ajax.reload(null, false);
             $('#optimizationModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -473,9 +468,6 @@ function GetOptimization(id) {
             $('#period').val(result.period);
             $('#textData').val(result.textData);
             $('#optimizationModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -501,9 +493,6 @@ function UpdateOptimization() {
         success: function (result) {
             $('#optimizationTable').DataTable().ajax.reload(null, false);
             $('#optimizationModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -522,9 +511,6 @@ function RemoveOptimization() {
         success: function (result) {
             $('#optimizationTable').DataTable().ajax.reload(null, false);
             $('#optimizationModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -629,9 +615,6 @@ function AddTeach() {
         success: function (result) {
             $('#teachTable').DataTable().ajax.reload(null, false);
             $('#teachModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -652,9 +635,6 @@ function GetTeach(id) {
             $('#costTeach').val(result.costTeach);
             $('#descriptionTeach').val(result.descriptionTeach);
             $('#teachModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -682,9 +662,6 @@ function UpdateTeach() {
         success: function (result) {
             $('#teachTable').DataTable().ajax.reload(null, false);
             $('#teachModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -703,9 +680,6 @@ function RemoveTeach() {
         success: function (result) {
             $('#teachTable').DataTable().ajax.reload(null, false);
             $('#teachModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -820,9 +794,6 @@ function GetUser(id) {
             $('#dateToCMKO').val(result.dateToCMKO);
             $('#taxUser').val(result.taxUser);
             $('#userModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -848,9 +819,6 @@ function UpdateUser() {
         success: function (result) {
             $('#usersTable').DataTable().ajax.reload(null, false);
             $('#userModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -936,9 +904,6 @@ function AddCategory() {
         success: function (result) {
             $('#categoryTable').DataTable().ajax.reload(null, false);
             $('#categoryModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -978,9 +943,6 @@ function GetCategory(id) {
             $('#nameCategory').val(result.nameCategory);
             $('#selaryCategory').val(result.selaryCategory);
             $('#categoryModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1005,9 +967,6 @@ function UpdateCategory() {
         success: function (result) {
             $('#categoryTable').DataTable().ajax.reload(null, false);
             $('#categoryModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1065,9 +1024,6 @@ function AddPeriod() {
         success: function (result) {
             $('#periodsTable').DataTable().ajax.reload(null, false);
             $('#periodModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1145,9 +1101,6 @@ function AddCalend() {
         success: function (result) {
             $('#calendTable').DataTable().ajax.reload(null, false);
             $('#calendModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1187,9 +1140,6 @@ function GetCalend(id) {
             $('#periodCalend').val(result.periodCalend);
             $('#timeToOnePersonCalend').val(result.timeToOnePersonCalend);
             $('#calendModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1214,9 +1164,6 @@ function UpdateCalend() {
         success: function (result) {
             $('#calendTable').DataTable().ajax.reload(null, false);
             $('#calendModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1323,9 +1270,6 @@ function GetSummaryWageFundWorker() {
                     color: colorFactData
                 }]
             });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1403,9 +1347,6 @@ function GetSummaryWageFundManager() {
                     color: colorFactData
                 }]
             });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
@@ -1483,9 +1424,6 @@ function GetSummaryWageFundG() {
                     color: colorFactData
                 }]
             });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }
