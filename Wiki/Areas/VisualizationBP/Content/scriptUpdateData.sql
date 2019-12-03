@@ -205,3 +205,9 @@ update PortalKATEK.dbo.DashboardBPComments set
 counterState2 = LEN(PortalKATEK.dbo.DashboardBPComments.notes)
 
 
+--select * 
+--from PortalKATEK.dbo.DashboardBPDevisionCoef
+--left join (select * from ProjectWebApp.dbo.MSP_EpmResource_UserView where ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ like '%ÓÑ%' or ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ like '%ÓÈØ%' or ProjectWebApp.dbo.MSP_EpmResource_UserView.ÑÄÐåñ like '%ÝÓ%') as TableResource on TableResource.ResourceUID is not null
+--left join PortalKATEK.dbo.ProductionCalendar on PortalKATEK.dbo.ProductionCalendar.[period] like concat(YEAR(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate()))
+
+
