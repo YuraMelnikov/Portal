@@ -47,16 +47,16 @@ function startMenu() {
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#910000');
+                $('td', row).css('background-color', '#cd5c5c');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
-                $(row).find('td:eq(4)').css('color', '#910000');
+                $(row).find('td:eq(4)').css('color', '#fa292a');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#91e8e1');
+                $('td', row).css('background-color', '#3fb0ac');
             }
             else if (data.state === "Сдан ПО") {
-                $('td', row).css('background-color', '#a6c96a');
+                $('td', row).css('background-color', '#fae596');
             }
             if (data.fixedDateForKO !== "null") {
                 $(row).find('td:eq(7)').css('background-color', '#FFFF73');
@@ -118,16 +118,16 @@ function listActive() {
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#910000');
+                $('td', row).css('background-color', '#cd5c5c');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
-                $(row).find('td:eq(4)').css('color', '#910000');
+                $(row).find('td:eq(4)').css('color', '#fa292a');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#91e8e1');
+                $('td', row).css('background-color', '#3fb0ac');
             }
             else if (data.state === "Сдан ПО") {
-                $('td', row).css('background-color', '#a6c96a');
+                $('td', row).css('background-color', '#fae596');
             }
             if (data.fixedDateForKO !== "null") {
                 $(row).find('td:eq(7)').css('background-color', '#FFFF73');
@@ -163,16 +163,16 @@ function listClose() {
         "columns": objList,
         "rowCallback": function (row, data, index) {
             if (data.state === "Срок не зафиксирован") {
-                $('td', row).css('background-color', '#910000');
+                $('td', row).css('background-color', '#cd5c5c');
                 $('td', row).css('color', 'white');
                 $('a', row).css('color', 'white');
-                $(row).find('td:eq(4)').css('color', '#910000');
+                $(row).find('td:eq(4)').css('color', '#fa292a');
             }
             else if (data.state === "Срок зафиксирован") {
-                $('td', row).css('background-color', '#91e8e1');
+                $('td', row).css('background-color', '#3fb0ac');
             }
             else if (data.state === "Сдан ПО") {
-                $('td', row).css('background-color', '#a6c96a');
+                $('td', row).css('background-color', '#fae596');
             }
             if (data.fixedDateForKO !== "null") {
                 $(row).find('td:eq(7)').css('background-color', '#FFFF73');
