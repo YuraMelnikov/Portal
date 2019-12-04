@@ -849,8 +849,37 @@ var objCommentsForTable = [
     { "title": "Исполнитель", "data": "workerName", "autowidth": true, "bSortable": true }
 ];
 
-function GetCommentsList() {
+function GetCommentsListNow() {
+    var table = $('#commentsTable').DataTable();
+    table.destroy();
+    //$('#commentsTable').empty();
+    $("#commentsTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetCommentsList/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objCommentsForTable,
+        "cache": false,
+        "async": false,
+        "scrollY": heightTableComments,
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи"
+        }
+    });
     $('#commentsModal').modal('show');
+}
+
+function GetCommentsList() {
     $("#commentsTable").DataTable({
         "ajax": {
             "cache": false,
