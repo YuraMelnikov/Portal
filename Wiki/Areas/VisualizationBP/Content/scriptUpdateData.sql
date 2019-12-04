@@ -208,9 +208,9 @@ counterState2 = LEN(PortalKATEK.dbo.DashboardBPComments.notes)
 --select
 --PortalKATEK.dbo.DashboardBPDevisionCoef.id as id_DashboardBPDevisionCoef
 --,TablePlanPowerResource.manpower as manpowerPrj
---,0 as planWork
---,0 as workday
---,0 as workMode
+--,TableAssigments.SumAssignmentWork as planWork
+--,PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workday
+--,TableAssigments.SumAssignmentWork / PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workMode
 --,0 as manpowerResult
 --,0 as workModeResult
 --,PortalKATEK.dbo.ProductionCalendar.id as id_ProductionCalendar
