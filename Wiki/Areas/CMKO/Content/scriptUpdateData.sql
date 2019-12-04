@@ -460,21 +460,29 @@ set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(T
 from 
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
 (select
-		PortalKATEK.dbo.RKD_GIP.id_UserKBM
+		UsersTable.Id as id_UserKBM
 		,sum(PortalKATEK.dbo.Reclamation_CountError.[count]) as [count]
 		from PortalKATEK.dbo.Reclamation
 		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
-		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		left join (select
+					ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] as orderNumber
+					,PortalKATEK.dbo.AspNetUsers.Id
+					from
+					ProjectWebApp.dbo.MSP_EpmProject_UserView left join
+					ProjectWebApp.dbo.MSP_EpmTask on ProjectWebApp.dbo.MSP_EpmTask.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID left join
+					ProjectWebApp.dbo.MSP_EpmAssignment on ProjectWebApp.dbo.MSP_EpmAssignment.TaskUID = ProjectWebApp.dbo.MSP_EpmTask.TaskUID left join
+					PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = ProjectWebApp.dbo.MSP_EpmAssignment.ResourceUID
+					where ProjectWebApp.dbo.MSP_EpmTask.TaskName like '%Сформировать комплект РКД (КБМ)/Подсборка%' or ProjectWebApp.dbo.MSP_EpmTask.TaskName like '%Подсобрать 3D-модели. Сформировать комплект РКД (КБМ)%'
+					and (PortalKATEK.dbo.AspNetUsers.Id is not null)) as UsersTable on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] = UsersTable.orderNumber
 		where PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and PortalKATEK.dbo.RKD_GIP.id_UserKBM is not null
-		group by PortalKATEK.dbo.RKD_GIP.id_UserKBM) as TableGipCoef on TableGipCoef.id_UserKBM = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
+		and UsersTable.Id is not null
+		group by UsersTable.Id) as TableGipCoef on TableGipCoef.id_UserKBM = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 where PortalKATEK.dbo.Devision.id = 15
