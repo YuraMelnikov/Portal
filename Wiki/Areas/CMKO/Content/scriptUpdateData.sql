@@ -18,7 +18,10 @@ DECLARE @percentMKBM float;
 DECLARE @sizeQualityBonus float;
 DECLARE @sizeSpeed1 float;
 DECLARE @sizeSpeed2 float;
+DECLARE @coefErrorGip float;
 
+
+SET @coefErrorGip = 1000.0;
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2019.4';
 SET @periodM1 ='2019.10';
@@ -422,7 +425,7 @@ where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers = TableNorm.
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
-set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * 400) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
+set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * @coefErrorGip) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
 from 
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
 (select
@@ -456,7 +459,7 @@ and (PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16)
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
-set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * 400) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
+set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * @coefErrorGip) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
 from 
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
 (select
