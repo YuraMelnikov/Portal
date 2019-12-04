@@ -205,39 +205,42 @@ update PortalKATEK.dbo.DashboardBPComments set
 counterState2 = LEN(PortalKATEK.dbo.DashboardBPComments.notes)
 
 
---select
---PortalKATEK.dbo.DashboardBPDevisionCoef.id as id_DashboardBPDevisionCoef
---,TablePlanPowerResource.manpower as manpowerPrj
---,TableAssigments.SumAssignmentWork as planWork
---,PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workday
---,TableAssigments.SumAssignmentWork / PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workMode
---,0 as manpowerResult
---,0 as workModeResult
---,PortalKATEK.dbo.ProductionCalendar.id as id_ProductionCalendar
---from PortalKATEK.dbo.DashboardBPDevisionCoef 
---left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.DashboardBPDevisionCoef.id_Devision
---left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Devision = PortalKATEK.dbo.Devision.id
---left join ProjectWebApp.dbo.MSP_EpmResource on ProjectWebApp.dbo.MSP_EpmResource.ResourceUID = PortalKATEK.dbo.AspNetUsers.ResourceUID
---left join (SELECT ROW_NUMBER() OVER(PARTITION BY [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].ResourceUID ORDER BY [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay ASC) AS RowNumber,
---			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay,
---			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].ResourceUID,
---			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].[BaseCapacity] / 8 as manpower
---			FROM [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView]
---			where [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay > getdate()
---			and ([ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].BaseCapacity > 0)) as TablePlanPowerResource on TablePlanPowerResource.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource.ResourceUID and TablePlanPowerResource.RowNumber = 1
---left join PortalKATEK.dbo.ProductionCalendar on PortalKATEK.dbo.ProductionCalendar.id > 0
---left join (select sum(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentWork) as [SumAssignmentWork]
---,[ProjectWebApp].dbo.MSP_EpmAssignment_UserView.ResourceUID
---,concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay)) as [period]
---		from ProjectWebApp.dbo.MSP_EpmAssignmentByDay
---		left join [ProjectWebApp].dbo.MSP_EpmAssignment_UserView on [ProjectWebApp].dbo.MSP_EpmAssignment_UserView.AssignmentUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentUID
---		where concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay))
---		>= concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate()))
---		and (ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentWork > 0)
---		group by
---		[ProjectWebApp].dbo.MSP_EpmAssignment_UserView.ResourceUID
---		,concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay))) as TableAssigments on TableAssigments.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource.ResourceUID and TableAssigments.[period] = PortalKATEK.dbo.ProductionCalendar.[period]
---where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
---and (PortalKATEK.dbo.AspNetUsers.Email != 'dms@katek.by')
---and (concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate())) <= PortalKATEK.dbo.ProductionCalendar.[period])
+delete PortalKATEK.dbo.DashboardBPManpowerManuf
+insert into PortalKATEK.dbo.DashboardBPManpowerManuf
+select
+PortalKATEK.dbo.DashboardBPDevisionCoef.id as id_DashboardBPDevisionCoef
+,TablePlanPowerResource.manpower as manpowerPrj
+,TableAssigments.SumAssignmentWork as planWork
+,PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workday
+,TableAssigments.SumAssignmentWork / PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workMode
+,0 as manpowerResult
+,0 as workModeResult
+,PortalKATEK.dbo.ProductionCalendar.id as id_ProductionCalendar
+from PortalKATEK.dbo.DashboardBPDevisionCoef 
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.DashboardBPDevisionCoef.id_Devision
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Devision = PortalKATEK.dbo.Devision.id
+left join ProjectWebApp.dbo.MSP_EpmResource on ProjectWebApp.dbo.MSP_EpmResource.ResourceUID = PortalKATEK.dbo.AspNetUsers.ResourceUID
+left join (SELECT ROW_NUMBER() OVER(PARTITION BY [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].ResourceUID ORDER BY [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay ASC) AS RowNumber,
+			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay,
+			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].ResourceUID,
+			[ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].[BaseCapacity] / 8 as manpower
+			FROM [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView]
+			where [ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].TimeByDay > getdate()
+			and ([ProjectWebApp].[dbo].[MSP_EpmResourceByDay_UserView].BaseCapacity > 0)) as TablePlanPowerResource on TablePlanPowerResource.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource.ResourceUID and TablePlanPowerResource.RowNumber = 1
+left join PortalKATEK.dbo.ProductionCalendar on PortalKATEK.dbo.ProductionCalendar.id > 0
+left join (select sum(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentWork) as [SumAssignmentWork]
+,[ProjectWebApp].dbo.MSP_EpmAssignment_UserView.ResourceUID
+,concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay)) as [period]
+			from ProjectWebApp.dbo.MSP_EpmAssignmentByDay
+			left join [ProjectWebApp].dbo.MSP_EpmAssignment_UserView on [ProjectWebApp].dbo.MSP_EpmAssignment_UserView.AssignmentUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentUID
+			where concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay))
+			>= concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate()))
+			and (ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentWork > 0)
+			group by
+			[ProjectWebApp].dbo.MSP_EpmAssignment_UserView.ResourceUID
+			,concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay), '.', iif(month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay) < 10, '0', ''), month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.TimeByDay))) as TableAssigments on TableAssigments.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource.ResourceUID and TableAssigments.[period] = PortalKATEK.dbo.ProductionCalendar.[period]
+where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
+and (PortalKATEK.dbo.AspNetUsers.Email != 'dms@katek.by')
+and (concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate())) <= PortalKATEK.dbo.ProductionCalendar.[period])
+
 
