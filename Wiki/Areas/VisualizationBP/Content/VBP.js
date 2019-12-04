@@ -21,6 +21,7 @@ $(document).ready(function () {
     getRemainingWorkE();
     getRemainingWork();
     GetCountComments();
+    GetCommentsList();
 });
 
 var objTableTaskData = [
