@@ -56,6 +56,24 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
+        public JsonResult GetNoPlaningHSS()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+
+
+                var query = db.DashboardRemaining.AsNoTracking().ToList();
+
+
+
+                int[] data = new int[2];
+                data[0] = ((int)query[0].fact) / 1000;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public JsonResult GetTaskThisDayTable()
         {

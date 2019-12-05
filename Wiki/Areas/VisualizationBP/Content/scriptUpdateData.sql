@@ -51,8 +51,8 @@ PortalKatek.dbo.PZ_TEO.IzdKom / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * P
 PortalKatek.dbo.PZ_TEO.IzdPPKredit / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] AS ppkHoure, 
 PortalKatek.dbo.PZ_TEO.PI / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] AS piHoure, 
 PortalKatek.dbo.PZ_TEO.NOP / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] AS nopHoure, 
-PortalKatek.dbo.PZ_TEO.Rate / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xRate, 
-PortalKatek.dbo.PZ_TEO.SSM / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xSSM, 
+PortalKatek.dbo.PZ_TEO.Rate / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xRate
+,iif(convert(int, isnull(TableWorkKBM.[close], 1)) + convert(int, isnull(TableWorkKBE.[close], 1)) = 2, PortalKatek.dbo.PZ_TEO.SSM / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork, 0) AS xSSM, 
 iif(exportImport.dbo.planZakaz.SSfact is null, 0, exportImport.dbo.planZakaz.SSfact) / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xSSMFact, 
 PortalKatek.dbo.PZ_TEO.SSR / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xSSR, 
 PortalKatek.dbo.PZ_TEO.IzdKom / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork AS xIK, 
@@ -68,6 +68,7 @@ concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.',
 iiF(len(datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay))=1,
 concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay),'.0',datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)),
 concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay),'.',datepart(ISO_WEEK, ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay))) as [week]
+,iif(convert(int, isnull(TableWorkKBM.[close], 1)) + convert(int, isnull(TableWorkKBE.[close], 1)) != 2, PortalKatek.dbo.PZ_TEO.SSM / ReportKATEK.dbo.ProjectWorkPO.AssignmentWork * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork, 0) as [xHSSNoplaningwork]
 FROM ProjectWebApp.dbo.MSP_EpmProject_UserView INNER JOIN
 ProjectWebApp.dbo.MSP_EpmTask_UserView ON 
 ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID LEFT OUTER JOIN
@@ -84,15 +85,17 @@ PortalKatek.dbo.PZ_TEO ON PortalKatek.dbo.PZ_TEO.Id_PlanZakaz = PortalKatek.dbo.
 exportImport.dbo.planZakaz ON exportImport.dbo.planZakaz.Zakaz = PortalKatek.dbo.PZ_PlanZakaz.PlanZakaz LEFT OUTER JOIN
 ReportKATEK.dbo.ProjectWorkPO ON ReportKATEK.dbo.ProjectWorkPO.[№ заказа] = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] left join
 [PortalKATEK].[dbo].[DashboardBP_State] on [PortalKATEK].[dbo].[DashboardBP_State].id > 0
-WHERE     
-[PortalKATEK].[dbo].[DashboardBP_State].active = 1
-and
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%НИОКР%') AND 
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Задан%') AND 
-(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Проч%') AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] > 0) AND 
-(ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УС%' OR
-ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УИ%' OR
-ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%ЭУ%') AND (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 45) as TableWorkKBM on TableWorkKBM.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 46) as TableWorkKBE on TableWorkKBE.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+WHERE [PortalKATEK].[dbo].[DashboardBP_State].active = 1
+AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%НИОКР%') 
+AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Задан%') 
+AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] NOT LIKE '%Проч%') 
+AND (ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во ПО] > 0) 
+AND (ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УС%' 
+		OR ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%УИ%' 
+		OR ProjectWebApp.dbo.MSP_EpmResource_UserView.СДРес LIKE '%ЭУ%') 
+AND (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
 
 
 DELETE [PortalKATEK].[dbo].[DashboardBP_ProjectTasks]

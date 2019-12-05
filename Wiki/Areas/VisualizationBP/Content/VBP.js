@@ -23,6 +23,7 @@ $(document).ready(function () {
     GetCountComments();
     GetCommentsList();
     GetWorkpowerManufacturing();
+    GetNoPlaningHSS();
 });
 
 var objTableTaskData = [
@@ -593,6 +594,89 @@ function GetRemainingHSS() {
     });
 }
 
+function GetNoPlaningHSS() {
+    $.ajax({
+        url: "/VBP/GetNoPlaningHSS/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var myJSONRemainingPlan = new Array();
+            myJSONRemainingPlan[0] = result[0];
+            var colorLen = '#2b908f';
+            if (result[0] < redZoneReamainingHSS) {
+                colorLen = '#910000';
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('noPlaningHSS', {
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar',
+                    height: heightForStatusLine
+                },
+                title: {
+                    align: 'left',
+                    text: 'Неспланированный ХСС',
+                    style: {
+                        "font-size": sizeTextLabetGraphic
+                    },
+                    margin: marginForTitle
+                },
+                xAxis: {
+                    categories: [''],
+                    visible: false
+                },
+                yAxis: {
+                    min: 0,
+                    max: myJSONRemainingPlan[0],
+                    title: {
+                        enabled: false
+                    },
+                    tickInterval: 5,
+                    visible: false
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Неспланировано',
+                    data: myJSONRemainingPlan,
+                    color: colorLen,
+                    dataLabels: {
+                        enabled: true,
+                        align: 'left',
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        x: 3,
+                        verticalAlign: 'middle',
+                        overflow: true,
+                        crop: false
+                    }
+                }]
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
 function GetTaskThisDayTable() {
     var today = new Date();
     var dateString = ConvertDateToGlobalShortString(today);
@@ -906,7 +990,7 @@ function GetWorkpowerManufacturing() {
             "datatype": "json"
         },
         "columnDefs": [
-            { targets: 5, visible: true }
+            { "targets": 5 }
         ],
         "order": [[0, "asc"]],
         "processing": true,
