@@ -893,7 +893,8 @@ var objWorkpowerManufacturingTable = [
     { "title": "Кол-во (prj)", "data": "countPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Тр-ты (prj)", "data": "workPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Трудодни", "data": "workDay", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Режим работы", "data": "workMode", "autowidth": true, "bSortable": true, "className": 'text-center' }
+    { "title": "Режим работы", "data": "workMode", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true, "className": 'text-center' }
 ];
 
 function GetWorkpowerManufacturing() {
@@ -904,6 +905,9 @@ function GetWorkpowerManufacturing() {
             "type": "POST",
             "datatype": "json"
         },
+        "columnDefs": [
+            { targets: 5, visible: true }
+        ],
         "order": [[0, "asc"]],
         "processing": true,
         "columns": objWorkpowerManufacturingTable,
