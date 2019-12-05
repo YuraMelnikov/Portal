@@ -161,12 +161,17 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
                 var query = db.DashboardBPManpowerManuf
                     .AsNoTracking()
-                    .Include(d => d.DashboardBPDevisionCoef)
-                    //.Include(d => d.)
+                    .Include(d => d.DashboardBPDevisionCoef.Devision)
+                    .Include(d => d.ProductionCalendar)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
-                    
+                    devision = dataList.DashboardBPDevisionCoef.Devision.name,
+                    countPrj = dataList.manpowerPrj,
+                    workPrj = dataList.planWork,
+                    workDay = dataList.workday,
+                    workMode = dataList.workday,
+                    dataList.ProductionCalendar.period
                 });
 
                 return Json(new { data });
