@@ -22,6 +22,7 @@ $(document).ready(function () {
     getRemainingWork();
     GetCountComments();
     GetCommentsList();
+    GetWorkpowerManufacturing();
 });
 
 var objTableTaskData = [
@@ -884,33 +885,11 @@ function GetCommentsList() {
             "infoEmpty": "Отсутствуют записи"
         }
     });
-    $("#workpowerManufacturingTable").DataTable({
-        "ajax": {
-            "cache": false,
-            "url": "/VBP/GetWorkpowerManufacturing/",
-            "type": "POST",
-            "datatype": "json"
-        },
-        "order": [[0, "asc"]],
-        "processing": true,
-        "columns": objCommentsForTable,
-        "cache": false,
-        "async": false,
-        "scrollY": heightTableComments,
-        "scrollX": true,
-        "paging": false,
-        "searching": false,
-        "info": false,
-        "scrollCollapse": true,
-        "language": {
-            "zeroRecords": "Отсутствуют записи",
-            "infoEmpty": "Отсутствуют записи"
-        }
-    });
+
 }
 
 var objWorkpowerManufacturingTable = [
-    { "title": "Участок", "data": "devision", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Участок", "data": "devision", "autowidth": true, "bSortable": true },
     { "title": "Кол-во (prj)", "data": "countPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Тр-ты (prj)", "data": "workPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Трудодни", "data": "workDay", "autowidth": true, "bSortable": true, "className": 'text-center' },
@@ -918,9 +897,6 @@ var objWorkpowerManufacturingTable = [
 ];
 
 function GetWorkpowerManufacturing() {
-    var table = $('#workpowerManufacturingTable').DataTable();
-    table.destroy();
-    $('#workpowerManufacturingTable').empty();
     $("#workpowerManufacturingTable").DataTable({
         "ajax": {
             "cache": false,

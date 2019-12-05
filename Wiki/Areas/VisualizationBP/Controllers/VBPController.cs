@@ -158,7 +158,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-
                 var query = db.DashboardBPManpowerManuf
                     .AsNoTracking()
                     .Include(d => d.DashboardBPDevisionCoef.Devision)
@@ -168,9 +167,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     devision = dataList.DashboardBPDevisionCoef.Devision.name,
                     countPrj = dataList.manpowerPrj,
-                    workPrj = dataList.planWork,
+                    workPrj = Math.Round(dataList.planWork, 0),
                     workDay = dataList.workday,
-                    workMode = dataList.workday,
+                    workMode = Math.Round(dataList.workMode, 2),
                     dataList.ProductionCalendar.period
                 });
 
