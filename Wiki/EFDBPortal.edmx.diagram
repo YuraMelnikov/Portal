@@ -321,9 +321,6 @@
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardRatePlan" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardRemaining" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPManufacturingPower" Width="1.5" PointX="2.75" PointY="25.375" />
-        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManufacturingPower_Devision" />
-        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPComments" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.Reclamation_TechnicalAdviceTasks" Width="1.5" PointX="21.5" PointY="40.625" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_Reclamation_TechnicalAdvice" />
@@ -331,6 +328,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPManpowerManuf" Width="1.5" PointX="5" PointY="21.625" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPComments" Width="1.5" PointX="0.75" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

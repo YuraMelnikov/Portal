@@ -22,7 +22,6 @@ namespace Wiki
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
             this.RKD_TypeTask = new HashSet<RKD_TypeTask>();
-            this.DashboardBPManufacturingPower = new HashSet<DashboardBPManufacturingPower>();
             this.DashboardBPDevisionCoef = new HashSet<DashboardBPDevisionCoef>();
         }
     
@@ -40,8 +39,6 @@ namespace Wiki
         public virtual ICollection<Reclamation> Reclamation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_TypeTask> RKD_TypeTask { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBPManufacturingPower> DashboardBPManufacturingPower { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
     }

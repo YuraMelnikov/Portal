@@ -495,9 +495,6 @@
     <Compile Include="DashboardBPManpowerManuf.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="DashboardBPManufacturingPower.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="DashboardBP_HSSPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

@@ -22,6 +22,7 @@ namespace Wiki
         public double workMode { get; set; }
         public double manpowerResult { get; set; }
         public double workModeResult { get; set; }
+        public int id_ProductionCalendar { get; set; }
     
         public virtual DashboardBPDevisionCoef DashboardBPDevisionCoef { get; set; }
     }
