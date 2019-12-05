@@ -49,6 +49,7 @@ namespace Wiki
         public string year { get; set; }
         public string quartal { get; set; }
         public string week { get; set; }
+        public double xSsmNoplaning { get; set; }
     
         public virtual DashboardBP_State DashboardBP_State { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }

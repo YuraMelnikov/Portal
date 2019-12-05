@@ -547,6 +547,7 @@
           <Property Name="year" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="quartal" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="xSsmNoplaning" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardBP_HSSPOSmall">
           <Key>
@@ -7043,6 +7044,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DashboardBP_State" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_DashboardBP_State" FromRole="DashboardBP_HSSPO" ToRole="DashboardBP_State" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBP_HSSPO_PZ_PlanZakaz" FromRole="DashboardBP_HSSPO" ToRole="PZ_PlanZakaz" />
+          <Property Name="xSsmNoplaning" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
@@ -11238,6 +11240,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardBP_HSSPO">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPO">
               <MappingFragment StoreEntitySet="DashboardBP_HSSPO">
+                <ScalarProperty Name="xSsmNoplaning" ColumnName="xSsmNoplaning" />
                 <ScalarProperty Name="week" ColumnName="week" />
                 <ScalarProperty Name="quartal" ColumnName="quartal" />
                 <ScalarProperty Name="year" ColumnName="year" />

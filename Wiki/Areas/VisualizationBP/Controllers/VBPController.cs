@@ -62,14 +62,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-
-
-                var query = db.DashboardRemaining.AsNoTracking().ToList();
-
-
-
+                int query = (int)db.DashboardBP_HSSPO.AsNoTracking().Sum(d => d.xSsmNoplaning);
                 int[] data = new int[2];
-                data[0] = ((int)query[0].fact) / 1000;
+                data[0] = query / 1000;
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

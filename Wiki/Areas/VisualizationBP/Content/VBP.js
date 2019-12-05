@@ -603,7 +603,7 @@ function GetNoPlaningHSS() {
             var myJSONRemainingPlan = new Array();
             myJSONRemainingPlan[0] = result[0];
             var colorLen = '#2b908f';
-            if (result[0] < redZoneReamainingHSS) {
+            if (result[0] > 0) {
                 colorLen = '#910000';
             }
             Highcharts.setOptions({
@@ -629,7 +629,7 @@ function GetNoPlaningHSS() {
                 },
                 title: {
                     align: 'left',
-                    text: 'Неспланированный ХСС',
+                    text: 'Неспланированный ХСС (тыс.)',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
@@ -942,7 +942,7 @@ function GetCommentsListNow() {
             "infoEmpty": "Отсутствуют записи"
         }
     });
-    $('#commentsModal').modal('show');
+    $('#commentsModal').modal('show'); 
 }
 
 function GetCommentsList() {
