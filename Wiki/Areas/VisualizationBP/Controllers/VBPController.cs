@@ -183,7 +183,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     workPrj = Math.Round(dataList.planWork, 0),
                     workDay = dataList.workday,
                     workMode = Math.Round(dataList.workMode, 2),
-                    dataList.ProductionCalendar.period
+                    dataList.ProductionCalendar.period,
+                    coefDefaultWork = dataList.DashboardBPDevisionCoef.coefDefaultWork
                 });
 
                 return Json(new { data });

@@ -629,7 +629,7 @@ function GetNoPlaningHSS() {
                 },
                 title: {
                     align: 'left',
-                    text: 'Неспланированный ХСС (тыс.)',
+                    text: 'Неспланир. ХСС (тыс.)',
                     style: {
                         "font-size": sizeTextLabetGraphic
                     },
@@ -786,7 +786,7 @@ function getRemainingWorkE() {
                     type: 'bar'
                 },
                 title: {
-                    text: 'Оставшиеся тр-ты по заказам (сотрудник)',
+                    text: 'Оставшиеся тр-ты КБЭ',
                     style: {
                         "font-size": "13px"
                     },
@@ -856,7 +856,7 @@ function getRemainingWork() {
                     type: 'bar'
                 },
                 title: {
-                    text: 'Оставшиеся тр-ты по заказам (сотрудник)',
+                    text: 'Оставшиеся тр-ты КБМ',
                     style: {
                         "font-size": "13px"
                     },
@@ -977,6 +977,7 @@ var objWorkpowerManufacturingTable = [
     { "title": "Кол-во (prj)", "data": "countPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Тр-ты (prj)", "data": "workPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Трудодни", "data": "workDay", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Коэф. прочих", "data": "coefDefaultWork", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Режим работы", "data": "workMode", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Период", "data": "period", "autowidth": true, "bSortable": true, "className": 'text-center' }
 ];
