@@ -2673,6 +2673,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBPManpowerManuf_ProductionCalendar">
+          <End Role="ProductionCalendar" Type="Self.ProductionCalendar" Multiplicity="1" />
+          <End Role="DashboardBPManpowerManuf" Type="Self.DashboardBPManpowerManuf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionCalendar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPManpowerManuf">
+              <PropertyRef Name="id_ProductionCalendar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="DashboardKO_UsersMonthPlan" Type="Self.DashboardKO_UsersMonthPlan" Multiplicity="*" />
@@ -4531,6 +4543,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="DashboardBPDevisionCoef" EntitySet="DashboardBPDevisionCoef" />
             <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
           </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPManpowerManuf_ProductionCalendar" Association="Self.FK_DashboardBPManpowerManuf_ProductionCalendar">
+            <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
+            <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
+          </AssociationSet>
           <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="Self.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
@@ -5887,6 +5903,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
           </AssociationSet>
           <EntitySet Name="DashboardBPComments" EntityType="PortalKATEKModel.DashboardBPComments" />
+          <AssociationSet Name="FK_DashboardBPManpowerManuf_ProductionCalendar" Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_ProductionCalendar">
+            <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
+            <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -7329,6 +7349,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="period" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="timeToOnePerson" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_ProductionCalendar" FromRole="ProductionCalendar" ToRole="DashboardKO_UsersMonthPlan" />
+          <NavigationProperty Name="DashboardBPManpowerManuf" Relationship="PortalKATEKModel.FK_DashboardBPManpowerManuf_ProductionCalendar" FromRole="ProductionCalendar" ToRole="DashboardBPManpowerManuf" />
         </EntityType>
         <EntityType Name="ProjectTask">
           <Key>
@@ -10002,6 +10023,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="workModeResult" Type="Double" Nullable="false" />
           <NavigationProperty Name="DashboardBPDevisionCoef" Relationship="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" FromRole="DashboardBPManpowerManuf" ToRole="DashboardBPDevisionCoef" />
           <Property Name="id_ProductionCalendar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductionCalendar" Relationship="PortalKATEKModel.FK_DashboardBPManpowerManuf_ProductionCalendar" FromRole="DashboardBPManpowerManuf" ToRole="ProductionCalendar" />
         </EntityType>
         <Association Name="FK_DashboardBPDevisionCoef_Devision">
           <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
@@ -10040,6 +10062,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="notes" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <Association Name="FK_DashboardBPManpowerManuf_ProductionCalendar">
+          <End Type="PortalKATEKModel.ProductionCalendar" Role="ProductionCalendar" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBPManpowerManuf" Role="DashboardBPManpowerManuf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionCalendar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DashboardBPManpowerManuf">
+              <PropertyRef Name="id_ProductionCalendar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

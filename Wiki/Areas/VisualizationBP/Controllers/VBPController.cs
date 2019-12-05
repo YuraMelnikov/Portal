@@ -150,5 +150,27 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 return Json(new { data });
             }
         }
+
+        [HttpPost]
+        public JsonResult GetWorkpowerManufacturing()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+
+                var query = db.DashboardBPManpowerManuf
+                    .AsNoTracking()
+                    .Include(d => d.DashboardBPDevisionCoef)
+                    //.Include(d => d.)
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    
+                });
+
+                return Json(new { data });
+            }
+        }
     }
 }

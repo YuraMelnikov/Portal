@@ -25,5 +25,6 @@ namespace Wiki
         public int id_ProductionCalendar { get; set; }
     
         public virtual DashboardBPDevisionCoef DashboardBPDevisionCoef { get; set; }
+        public virtual ProductionCalendar ProductionCalendar { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Wiki
         public ProductionCalendar()
         {
             this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
+            this.DashboardBPManpowerManuf = new HashSet<DashboardBPManpowerManuf>();
         }
     
         public int id { get; set; }
@@ -26,5 +27,7 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBPManpowerManuf> DashboardBPManpowerManuf { get; set; }
     }
 }

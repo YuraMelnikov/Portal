@@ -329,6 +329,7 @@
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPComments" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_ProductionCalendar" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
