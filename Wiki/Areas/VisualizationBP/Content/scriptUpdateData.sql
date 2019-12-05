@@ -247,3 +247,49 @@ and (PortalKATEK.dbo.AspNetUsers.Email != 'dms@katek.by')
 and (concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate())) <= PortalKATEK.dbo.ProductionCalendar.[period])
 
 
+delete PortalKATEK.dbo.DashboardBPTaskInsert 
+insert into PortalKATEK.dbo.DashboardBPTaskInsert 
+select
+PortalKATEK.dbo.PZ_PlanZakaz.Id as [id_PZ_PlanZakaz]
+,exportImport.dbo.planZakaz.OboznacIzdelia as [productName]
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIsSummary
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskOutlineLevel
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskOutlineNumber
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS
+,Substring(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS, 0, 3) as [TaskWBS1]
+,iif(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskOutlineLevel > 1, Substring(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS, 4, 4), '') as [TaskWBS2]
+,iif(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskOutlineLevel > 2, Substring(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS, 9, 4), '') as [TaskWBS3]
+,iif(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskOutlineLevel > 3, Substring(ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS, 14, 4), '') as [TaskWBS4]
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskName
+,PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskStartDate
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskBaseline0StartDate
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskfinishDate
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskBaseline0FinishDate
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskClientUniqueId
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskPriority
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskPercentWorkCompleted
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskPercentCompleted
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWork
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskRemainingWork
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskBaseline0Work
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskDuration
+from ProjectWebApp.dbo.MSP_EpmProject_UserView
+left join ProjectWebApp.dbo.MSP_EpmTask_UserView on ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
+left join ProjectWebApp.dbo.MSP_EpmAssignment_UserView on ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID
+left join ProjectWebApp.dbo.MSP_EpmResource_UserView on ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID
+left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
+left join [exportImport].[dbo].[planZakaz] on exportImport.dbo.planZakaz.Zakaz = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
+left join PortalKATEK.dbo.PZ_Client on PortalKATEK.dbo.PZ_Client.id = PortalKATEK.dbo.PZ_PlanZakaz.Client
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+where ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectPercentCompleted < 100
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] is not null)
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Задани%')
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%НИОКР%')
+and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Прочи%')
+and (PortalKATEK.dbo.PZ_PlanZakaz.id is not null)
+and (PortalKATEK.dbo.PZ_Client.id != 39)
+and (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS not like '')
+
+
