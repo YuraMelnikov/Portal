@@ -196,14 +196,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         [HttpPost]
         public JsonResult GetProjectTasksStates(int id)
         {
-            //ProjectTasksState projectTasksState = new ProjectTasksState();
-
+            int countBlocks = 5;
+            ProjectTasksState projectTasksState = new ProjectTasksState(countBlocks);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == id).OrderBy(d => d.TaskIndex).ToList();
-                //projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
+                projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
                 //01 - startBlock
                 //02 - pBlock
                 //03 - finalBlock
@@ -221,19 +221,33 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-        //BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
-        //{
-        //    foreach (var task in inputList)
-        //    {
+        BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
+        {
+            List<DashboardBPTaskInsert> outputList = new List<DashboardBPTaskInsert>();
+
+            const string wbsPreDevM = "ПР";
+            const string wbsPreDevE = "ПЭ";
+            const string wbsRDevM = "РМ";
+            const string wbsRdevE = "РЭ";
+            const string wbsApprovdM = "СМ";
+            const string wbsApprovdE = "СЭ";
 
 
 
-        //    }
+            return inputList;
+        }
 
-
-
-
-        //    return inputList;
-        //}
+        DashboardBPTaskInsert GetDashboardBPTaskInsert(string wbsName, List<DashboardBPTaskInsert> inputList)
+        {
+            DashboardBPTaskInsert dashboardBPTaskInsert;
+            try
+            {
+                dashboardBPTaskInsert = inputList.First(d => d.TaskWBS == wbsName);
+            }
+            catch
+            {
+                return new DashboardBPTaskInsert();
+            }
+        }
     }
 }
