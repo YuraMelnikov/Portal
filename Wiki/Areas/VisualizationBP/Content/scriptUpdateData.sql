@@ -284,6 +284,8 @@ left join [exportImport].[dbo].[planZakaz] on exportImport.dbo.planZakaz.Zakaz =
 left join PortalKATEK.dbo.PZ_Client on PortalKATEK.dbo.PZ_Client.id = PortalKATEK.dbo.PZ_PlanZakaz.Client
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 45) as TableWorkKBM on TableWorkKBM.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 46) as TableWorkKBE on TableWorkKBE.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 where ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectPercentCompleted < 100
 and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] is not null)
 and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Задани%')
@@ -292,5 +294,5 @@ and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] not like '%Прочи%')
 and (PortalKATEK.dbo.PZ_PlanZakaz.id is not null)
 and (PortalKATEK.dbo.PZ_Client.id != 39)
 and (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS not like '')
-
-
+and (TableWorkKBE.[close] = 1)
+and (TableWorkKBM.[close] = 1)

@@ -4,6 +4,8 @@ using System;
 using System.Data.Entity;
 using Newtonsoft.Json;
 using Wiki.Models;
+using System.Collections.Generic;
+using Wiki.Areas.VisualizationBP.Types;
 
 namespace Wiki.Areas.VisualizationBP.Controllers
 {
@@ -194,27 +196,21 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         [HttpPost]
         public JsonResult GetProjectTasksStates(int id)
         {
+            ProjectTasksState projectTasksState = new ProjectTasksState();
+
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var tasksList = db.DashboardBPTaskInsert
-                    .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .Where(d => d.id_PZ_PlanZakaz == id)
-                    .ToList();
+                var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == id).OrderBy(d => d.TaskIndex).ToList();
+                projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList);
                 //01 - startBlock
                 //02 - pBlock
                 //03 - finalBlock
                 //04 - docBlock
                 //05 - shBlock
 
-                var query = db.DashboardBPManpowerManuf
-                    .AsNoTracking()
-                    .Include(d => d.DashboardBPDevisionCoef.Devision)
-                    .Include(d => d.ProductionCalendar)
-                    .ToList();
-
+                var query = db.DashboardBPManpowerManuf.AsNoTracking().Include(d => d.DashboardBPDevisionCoef.Devision).Include(d => d.ProductionCalendar).ToList();
 
                 var data = query.Select(dataList => new
                 {
@@ -223,6 +219,21 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
                 return Json(new { data });
             }
+        }
+
+        BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
+        {
+            foreach (var task in inputList)
+            {
+
+
+
+            }
+
+
+
+
+            return inputList;
         }
     }
 }
