@@ -198,25 +198,22 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                //var tasksList = db.dashboard
-
-
-
-
+                var tasksList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_PZ_PlanZakaz == id)
+                    .ToList();
+                //01 - startBlock
+                //02 - pBlock
+                //03 - finalBlock
+                //04 - docBlock
+                //05 - shBlock
 
                 var query = db.DashboardBPManpowerManuf
                     .AsNoTracking()
                     .Include(d => d.DashboardBPDevisionCoef.Devision)
                     .Include(d => d.ProductionCalendar)
                     .ToList();
-
-
-
-
-
-
-
-
 
 
                 var data = query.Select(dataList => new

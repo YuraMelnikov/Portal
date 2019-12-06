@@ -39,6 +39,7 @@ namespace Wiki
         public Nullable<double> TaskBaseline0Work { get; set; }
         public Nullable<double> TaskDuration { get; set; }
         public int id { get; set; }
+        public int TaskIndex { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }

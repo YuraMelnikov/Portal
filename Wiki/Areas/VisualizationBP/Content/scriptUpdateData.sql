@@ -274,6 +274,7 @@ PortalKATEK.dbo.PZ_PlanZakaz.Id as [id_PZ_PlanZakaz]
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskRemainingWork
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskBaseline0Work
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskDuration
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIndex
 from ProjectWebApp.dbo.MSP_EpmProject_UserView
 left join ProjectWebApp.dbo.MSP_EpmTask_UserView on ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 left join ProjectWebApp.dbo.MSP_EpmAssignment_UserView on ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID

@@ -674,6 +674,7 @@
           <Property Name="TaskRemainingWork" Type="float" />
           <Property Name="TaskBaseline0Work" Type="float" />
           <Property Name="TaskDuration" Type="float" />
+          <Property Name="TaskIndex" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
@@ -2716,30 +2717,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DashboardBPTaskInsert_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="DashboardBPTaskInsert" Type="Self.DashboardBPTaskInsert" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBPTaskInsert">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="DashboardBPTaskInsert" Type="Self.DashboardBPTaskInsert" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DashboardBPTaskInsert">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="DashboardKO_UsersMonthPlan" Type="Self.DashboardKO_UsersMonthPlan" Multiplicity="*" />
@@ -4602,14 +4579,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_DashboardBPManpowerManuf_ProductionCalendar" Association="Self.FK_DashboardBPManpowerManuf_ProductionCalendar">
             <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
             <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBPTaskInsert_AspNetUsers" Association="Self.FK_DashboardBPTaskInsert_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz" Association="Self.FK_DashboardBPTaskInsert_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="Self.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -10181,6 +10150,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="DashboardBPTaskInsert" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="DashboardBPTaskInsert" ToRole="PZ_PlanZakaz" />
+          <Property Name="TaskIndex" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_DashboardBPTaskInsert_AspNetUsers">
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
@@ -12429,6 +12399,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="DashboardBPTaskInsert">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPTaskInsert">
               <MappingFragment StoreEntitySet="DashboardBPTaskInsert">
+                <ScalarProperty Name="TaskIndex" ColumnName="TaskIndex" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
                 <ScalarProperty Name="TaskBaseline0Work" ColumnName="TaskBaseline0Work" />
