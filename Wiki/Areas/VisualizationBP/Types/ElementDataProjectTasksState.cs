@@ -17,5 +17,20 @@ namespace Wiki.Areas.VisualizationBP.Types
         public DateTime FinishDate { get => finishDate; set => finishDate = value; }
         public string Name { get => name; set => name = value; }
         public string Users { get => users; set => users = value; }
+
+        public ElementDataProjectTasksState()
+        {
+
+        }
+
+        public ElementDataProjectTasksState(DashboardBPTaskInsert dashboardBPTaskInsert)
+        {
+            this.work = dashboardBPTaskInsert.TaskWork.Value;
+            this.remainingWork = dashboardBPTaskInsert.TaskRemainingWork.Value;
+            this.startDate = dashboardBPTaskInsert.TaskStartDate;
+            this.finishDate = dashboardBPTaskInsert.TaskfinishDate;
+            this.name = dashboardBPTaskInsert.TaskName;
+            this.users = dashboardBPTaskInsert.AspNetUsers.CiliricalName;
+        }
     }
 }

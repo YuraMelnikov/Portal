@@ -2,10 +2,12 @@
 {
     public class BlockProjectTasksState
     {
+        string name;
         ElementProjectTasksState[] elementProjectTasksStates;
 
-        public BlockProjectTasksState(int countElements)
+        public BlockProjectTasksState(int countElements, string name)
         {
+            this.name = name;
             ElementProjectTasksStates = new ElementProjectTasksState[countElements];
             for (int i = 0; i < countElements; i++)
             {
@@ -14,5 +16,6 @@
         }
 
         public ElementProjectTasksState[] ElementProjectTasksStates { get => elementProjectTasksStates; set => elementProjectTasksStates = value; }
+        public string Name { get => name; set => name = value; }
     }
 }

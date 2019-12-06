@@ -223,31 +223,32 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
         {
-            List<DashboardBPTaskInsert> outputList = new List<DashboardBPTaskInsert>();
-
-            const string wbsPreDevM = "ПР";
-            const string wbsPreDevE = "ПЭ";
-            const string wbsRDevM = "РМ";
-            const string wbsRdevE = "РЭ";
-            const string wbsApprovdM = "СМ";
-            const string wbsApprovdE = "СЭ";
-
-
-
-            return inputList;
-        }
-
-        DashboardBPTaskInsert GetDashboardBPTaskInsert(string wbsName, List<DashboardBPTaskInsert> inputList)
-        {
-            DashboardBPTaskInsert dashboardBPTaskInsert;
-            try
+            int countElements = 1;
+            int countElementsTasks = 6;
+            string nameElement = "Начало разработки";
+            string[] wbsArray = new string[] { "ПР", "ПЭ", "РМ", "РЭ", "СМ", "СЭ" };
+            BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements, nameElement);
+            for (int i = 0; i < countElements; i++)
             {
-                dashboardBPTaskInsert = inputList.First(d => d.TaskWBS == wbsName);
+                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
+                    new ElementDataProjectTasksState[countElementsTasks];
             }
-            catch
+            for(int i = 0; i < countElementsTasks; i++)
             {
-                return new DashboardBPTaskInsert();
+                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState();
+                try
+                {
+
+                }
+                catch
+                {
+
+                }
             }
+
+
+
+            return blockProjectTasksState;
         }
     }
 }
