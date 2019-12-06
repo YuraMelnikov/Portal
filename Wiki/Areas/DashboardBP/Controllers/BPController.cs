@@ -72,17 +72,19 @@ namespace Wiki.Areas.DashboardBP.Controllers
             Project[] projectsArray = new Project[projectsCounter];
             for (int i = 0, j = 0; i < projectsCounter / 2; i++)
             {
-                Project project = new Project();
-                project.color = "#058DC7";
-                project.name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString();
-                project.id = listTasks[i].id.ToString();
-                project.completed = new Complited { amount = listTasks[i].planProjectPercentCompleted / 100.0 };
-                project.owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName;
-                project.start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].planDateStart).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                project.end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                project.contractDate = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", "")));
-                project.y = i;
-                project.milestone = false;
+                Project project = new Project
+                {
+                    color = "#058DC7",
+                    name = listTasks[i].PZ_PlanZakaz.PlanZakaz.ToString(),
+                    id = listTasks[i].id.ToString(),
+                    completed = new Complited { amount = listTasks[i].planProjectPercentCompleted / 100.0 },
+                    owner = listTasks[i].PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                    start = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].planDateStart).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))),
+                    end = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].PZ_PlanZakaz.dataOtgruzkiBP).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))),
+                    contractDate = Convert.ToUInt64(js.DeserializeObject(js.Serialize(listTasks[i].contractDate).Replace("\"\\/Date(", "").Replace(")\\/\"", ""))),
+                    y = i,
+                    milestone = false
+                };
                 projectsArray[j] = project;
                 j++;
                 project = new Project();
