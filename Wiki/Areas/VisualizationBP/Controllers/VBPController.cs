@@ -249,7 +249,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         BlockProjectTasksState GetTasksPfBlock(List<DashboardBPTaskInsert> inputList)
         {
             int countElements = 0;
-            foreach(var data in inputList)
+            int countElementsTasks = 4;
+
+            foreach (var data in inputList)
             {
                 if(data.TaskWBS1 != "ОС")
                     break;
@@ -260,28 +262,49 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 elementsArray[i] = inputList[i].TaskName;
             }
-
-
-            int countElementsTasks = 6;
-            string nameElement = "Начало разработки";
-            string[] wbsArray = new string[] { "ПР", "ПЭ", "РМ", "РЭ", "СМ", "СЭ" };
-            BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements, nameElement);
+            BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
             for (int i = 0; i < countElements; i++)
             {
                 blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
                     new ElementDataProjectTasksState[countElementsTasks];
             }
-            for (int i = 0; i < countElementsTasks; i++)
+            for (int i = 0; i < countElements; i++)
             {
-                try
+                blockProjectTasksState.ElementProjectTasksStates[i].Name = elementsArray[i];
+            }
+            for(int i = 0; i < countElements; i++)
+            {
+                for(int j = 0; j < countElementsTasks; j++)
                 {
-                    blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskName == wbsArray[i]));
-                }
-                catch
-                {
-
+                    switch (j)
+                    {
+                        case 0:
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Согласование";
+                            break;
+                        case 1:
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка";
+                            break;
+                        case 2:
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Комплектация";
+                            break;
+                        case 3:
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Производство";
+                            break;
+                        default:
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "";
+                            break;
+                    }
                 }
             }
+
+
+
+
+
+            //for (int i = 0; i < countElementsTasks; i++)
+            //{
+            //    blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskName == wbsArray[i]));
+            //}
             return blockProjectTasksState;
         }
     }

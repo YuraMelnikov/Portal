@@ -380,29 +380,27 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 
         public JsonResult ContractList()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            using PortalKATEKEntities db = new PortalKATEKEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_Setup
+                .AsNoTracking()
+                .Include(d => d.PZ_PlanZakaz.PZ_Client)
+                .Include(d => d.PZ_PlanZakaz.AspNetUsers)
+                .Where(d => d.PZ_PlanZakaz.DateCreate.Year > 2017)
+                .Where(d => d.PZ_PlanZakaz.Client != 39)
+                .ToList();
+            var data = query.Select(dataList => new
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.PZ_Setup
-                    .AsNoTracking()
-                    .Include(d => d.PZ_PlanZakaz.PZ_Client)
-                    .Include(d => d.PZ_PlanZakaz.AspNetUsers)
-                    .Where(d => d.PZ_PlanZakaz.DateCreate.Year > 2017)
-                    .Where(d => d.PZ_PlanZakaz.Client != 39)
-                    .ToList();
-                var data = query.Select(dataList => new
-                {
-                    editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSetup('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
-                    dataList.PZ_PlanZakaz.PlanZakaz,
-                    Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
-                    Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
-                    dataList.KolVoDneyNaPrijemku,
-                    dataList.PunktDogovoraOSrokahPriemki,
-                    dataList.UslovieOplatyText
-                });
-                return Json(new { data });
-            }
+                editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSetup('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                dataList.PZ_PlanZakaz.PlanZakaz,
+                Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
+                Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                dataList.KolVoDneyNaPrijemku,
+                dataList.PunktDogovoraOSrokahPriemki,
+                dataList.UslovieOplatyText
+            });
+            return Json(new { data });
         }
 
         public string RenderUserMenu()
