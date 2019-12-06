@@ -4,13 +4,13 @@
     {
         BlockProjectTasksState[] blockProjectTasksStates;
 
-        public ProjectTasksState()
+        public ProjectTasksState(int countElements)
         {
             int countBlocks = 5;
             BlockProjectTasksStates = new BlockProjectTasksState[countBlocks];
             for (int i = 0; i < countBlocks; i++)
             {
-                BlockProjectTasksStates[i] = new BlockProjectTasksState();
+                BlockProjectTasksStates[i] = new BlockProjectTasksState(countElements);
             }
         }
 

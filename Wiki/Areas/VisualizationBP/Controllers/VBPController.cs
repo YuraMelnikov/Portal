@@ -196,14 +196,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         [HttpPost]
         public JsonResult GetProjectTasksStates(int id)
         {
-            ProjectTasksState projectTasksState = new ProjectTasksState();
+            //ProjectTasksState projectTasksState = new ProjectTasksState();
 
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == id).OrderBy(d => d.TaskIndex).ToList();
-                projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList);
+                //projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
                 //01 - startBlock
                 //02 - pBlock
                 //03 - finalBlock
@@ -221,19 +221,19 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-        BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
-        {
-            foreach (var task in inputList)
-            {
+        //BlockProjectTasksState GetTasksStartBlock(List<DashboardBPTaskInsert> inputList)
+        //{
+        //    foreach (var task in inputList)
+        //    {
 
 
 
-            }
+        //    }
 
 
 
 
-            return inputList;
-        }
+        //    return inputList;
+        //}
     }
 }
