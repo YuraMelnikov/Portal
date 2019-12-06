@@ -646,6 +646,36 @@
           <Property Name="workModeResult" Type="float" Nullable="false" />
           <Property Name="id_ProductionCalendar" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardBPTaskInsert">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="productName" Type="varchar(max)" Nullable="false" />
+          <Property Name="TaskIsSummary" Type="bit" Nullable="false" />
+          <Property Name="TaskOutlineLevel" Type="smallint" Nullable="false" />
+          <Property Name="TaskOutlineNumber" Type="varchar(max)" Nullable="false" />
+          <Property Name="TaskWBS" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="TaskWBS1" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="TaskWBS2" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="TaskWBS3" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="TaskWBS4" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="TaskName" Type="varchar(max)" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" />
+          <Property Name="TaskStartDate" Type="datetime" Nullable="false" />
+          <Property Name="TaskBaseline0StartDate" Type="datetime" />
+          <Property Name="TaskfinishDate" Type="datetime" Nullable="false" />
+          <Property Name="TaskBaseline0FinishDate" Type="datetime" />
+          <Property Name="TaskClientUniqueId" Type="int" Nullable="false" />
+          <Property Name="TaskPriority" Type="smallint" Nullable="false" />
+          <Property Name="TaskPercentWorkCompleted" Type="smallint" Nullable="false" />
+          <Property Name="TaskPercentCompleted" Type="smallint" Nullable="false" />
+          <Property Name="TaskWork" Type="float" />
+          <Property Name="TaskRemainingWork" Type="float" />
+          <Property Name="TaskBaseline0Work" Type="float" />
+          <Property Name="TaskDuration" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardHSSPlan">
           <Key>
             <PropertyRef Name="id" />
@@ -2686,6 +2716,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DashboardBPTaskInsert_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="DashboardBPTaskInsert" Type="Self.DashboardBPTaskInsert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBPTaskInsert">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="DashboardBPTaskInsert" Type="Self.DashboardBPTaskInsert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBPTaskInsert">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="DashboardKO_UsersMonthPlan" Type="Self.DashboardKO_UsersMonthPlan" Multiplicity="*" />
@@ -4062,6 +4116,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="DashboardBPComments" EntityType="Self.DashboardBPComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBPDevisionCoef" EntityType="Self.DashboardBPDevisionCoef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBPManpowerManuf" EntityType="Self.DashboardBPManpowerManuf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardBPTaskInsert" EntityType="Self.DashboardBPTaskInsert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardHSSPlan" EntityType="Self.DashboardHSSPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_Quartal" EntityType="Self.DashboardKO_Quartal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardKO_UsersMonthPlan" EntityType="Self.DashboardKO_UsersMonthPlan" Schema="dbo" store:Type="Tables" />
@@ -4547,6 +4602,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_DashboardBPManpowerManuf_ProductionCalendar" Association="Self.FK_DashboardBPManpowerManuf_ProductionCalendar">
             <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
             <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPTaskInsert_AspNetUsers" Association="Self.FK_DashboardBPTaskInsert_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz" Association="Self.FK_DashboardBPTaskInsert_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="Self.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5908,6 +5971,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="ProductionCalendar" EntitySet="ProductionCalendar" />
             <End Role="DashboardBPManpowerManuf" EntitySet="DashboardBPManpowerManuf" />
           </AssociationSet>
+          <EntitySet Name="DashboardBPTaskInsert" EntityType="PortalKATEKModel.DashboardBPTaskInsert" />
+          <AssociationSet Name="FK_DashboardBPTaskInsert_AspNetUsers" Association="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz" Association="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -6619,6 +6691,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Reclamation_TechnicalAdviceTasks" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdviceTasks" />
+          <NavigationProperty Name="DashboardBPTaskInsert" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBPTaskInsert" />
         </EntityType>
         <EntityType Name="CMKO_BujetList">
           <Key>
@@ -7542,6 +7615,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="DashboardBPTaskInsert" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DashboardBPTaskInsert" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -10076,6 +10150,62 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DashboardBPTaskInsert">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="productName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskIsSummary" Type="Boolean" Nullable="false" />
+          <Property Name="TaskOutlineLevel" Type="Int16" Nullable="false" />
+          <Property Name="TaskOutlineNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS1" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS2" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS3" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS4" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TaskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_AspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TaskStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskfinishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskClientUniqueId" Type="Int32" Nullable="false" />
+          <Property Name="TaskPriority" Type="Int16" Nullable="false" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" Nullable="false" />
+          <Property Name="TaskPercentCompleted" Type="Int16" Nullable="false" />
+          <Property Name="TaskWork" Type="Double" />
+          <Property Name="TaskRemainingWork" Type="Double" />
+          <Property Name="TaskBaseline0Work" Type="Double" />
+          <Property Name="TaskDuration" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="DashboardBPTaskInsert" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="DashboardBPTaskInsert" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_DashboardBPTaskInsert_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.DashboardBPTaskInsert" Role="DashboardBPTaskInsert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBPTaskInsert">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DashboardBPTaskInsert_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.DashboardBPTaskInsert" Role="DashboardBPTaskInsert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DashboardBPTaskInsert">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12293,6 +12423,37 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="taskName" ColumnName="taskName" />
                 <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
                 <ScalarProperty Name="taskUID" ColumnName="taskUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardBPTaskInsert">
+            <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPTaskInsert">
+              <MappingFragment StoreEntitySet="DashboardBPTaskInsert">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
+                <ScalarProperty Name="TaskBaseline0Work" ColumnName="TaskBaseline0Work" />
+                <ScalarProperty Name="TaskRemainingWork" ColumnName="TaskRemainingWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskPercentCompleted" ColumnName="TaskPercentCompleted" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
+                <ScalarProperty Name="TaskClientUniqueId" ColumnName="TaskClientUniqueId" />
+                <ScalarProperty Name="TaskBaseline0FinishDate" ColumnName="TaskBaseline0FinishDate" />
+                <ScalarProperty Name="TaskfinishDate" ColumnName="TaskfinishDate" />
+                <ScalarProperty Name="TaskBaseline0StartDate" ColumnName="TaskBaseline0StartDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskWBS4" ColumnName="TaskWBS4" />
+                <ScalarProperty Name="TaskWBS3" ColumnName="TaskWBS3" />
+                <ScalarProperty Name="TaskWBS2" ColumnName="TaskWBS2" />
+                <ScalarProperty Name="TaskWBS1" ColumnName="TaskWBS1" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="TaskOutlineNumber" ColumnName="TaskOutlineNumber" />
+                <ScalarProperty Name="TaskOutlineLevel" ColumnName="TaskOutlineLevel" />
+                <ScalarProperty Name="TaskIsSummary" ColumnName="TaskIsSummary" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

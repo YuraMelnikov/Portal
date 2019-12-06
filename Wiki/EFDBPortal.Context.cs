@@ -191,5 +191,6 @@ namespace Wiki
         public virtual DbSet<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
         public virtual DbSet<DashboardBPManpowerManuf> DashboardBPManpowerManuf { get; set; }
         public virtual DbSet<DashboardBPComments> DashboardBPComments { get; set; }
+        public virtual DbSet<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
     }
 }

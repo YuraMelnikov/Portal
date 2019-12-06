@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="85.875" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Debit_EmailList" Width="1.5" PointX="93.5" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PortalKATEKModel.Folder" Width="1.5" PointX="85.5" PointY="8.125" IsExpanded="true" />
@@ -330,6 +330,9 @@
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_DashboardBPDevisionCoef" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPComments" Width="1.5" PointX="0.75" PointY="3.75" />
         <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPManpowerManuf_ProductionCalendar" />
+        <EntityTypeShape EntityType="PortalKATEKModel.DashboardBPTaskInsert" Width="1.5" PointX="31.25" PointY="34.875" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

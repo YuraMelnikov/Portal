@@ -190,5 +190,42 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 return Json(new { data });
             }
         }
+
+        [HttpPost]
+        public JsonResult GetProjectTasksStates(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                //var tasksList = db.dashboard
+
+
+
+
+
+                var query = db.DashboardBPManpowerManuf
+                    .AsNoTracking()
+                    .Include(d => d.DashboardBPDevisionCoef.Devision)
+                    .Include(d => d.ProductionCalendar)
+                    .ToList();
+
+
+
+
+
+
+
+
+
+
+                var data = query.Select(dataList => new
+                {
+                    devision = 0
+                });
+
+                return Json(new { data });
+            }
+        }
     }
 }
