@@ -204,8 +204,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == id).OrderBy(d => d.TaskIndex).ToList();
                 projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
-                //01 - startBlock
-                //02 - pBlock
+                projectTasksState.BlockProjectTasksStates[1] = GetTasksPfBlock(tasksList.Where(d => d.TaskOutlineLevel == 2 || d.TaskOutlineLevel == 3).Where(d => d.TaskIsSummary == true).ToList());
                 //03 - finalBlock
                 //04 - docBlock
                 //05 - shBlock
@@ -235,19 +234,54 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
             for(int i = 0; i < countElementsTasks; i++)
             {
-                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState();
                 try
                 {
-
+                    blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskName == wbsArray[i]));
                 }
                 catch
                 {
 
                 }
             }
+            return blockProjectTasksState;
+        }
+
+        BlockProjectTasksState GetTasksPfBlock(List<DashboardBPTaskInsert> inputList)
+        {
+            int countElements = 0;
+            foreach(var data in inputList)
+            {
+                if(data.TaskWBS1 != "ОС")
+                    break;
+                countElements++;
+            }
+            string[] elementsArray = new string[countElements];
+            for(int i = 0; i < countElements; i++)
+            {
+                elementsArray[i] = inputList[i].TaskName;
+            }
 
 
+            int countElementsTasks = 6;
+            string nameElement = "Начало разработки";
+            string[] wbsArray = new string[] { "ПР", "ПЭ", "РМ", "РЭ", "СМ", "СЭ" };
+            BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements, nameElement);
+            for (int i = 0; i < countElements; i++)
+            {
+                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
+                    new ElementDataProjectTasksState[countElementsTasks];
+            }
+            for (int i = 0; i < countElementsTasks; i++)
+            {
+                try
+                {
+                    blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskName == wbsArray[i]));
+                }
+                catch
+                {
 
+                }
+            }
             return blockProjectTasksState;
         }
     }
