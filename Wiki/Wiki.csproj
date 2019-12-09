@@ -1762,7 +1762,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
@@ -1841,6 +1840,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -2084,9 +2084,9 @@
     <Content Include="Views\Shared\_LayoutWord.cshtml" />
     <Content Include="Views\RKD\IndexComplited.cshtml" />
     <Content Include="Views\Shared\_LayoutReceivables.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Shared\_Layout3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\CMKO\Models\" />

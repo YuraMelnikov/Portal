@@ -98,7 +98,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     finishDate = JsonConvert.SerializeObject(dataList.finish, shortDateString).Replace(@"""", ""),
                     remainingWork = Math.Round(dataList.remainingWork, 1)
                 });
-
                 return Json(new { data });
             }
         }
@@ -129,7 +128,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     finishDate = JsonConvert.SerializeObject(dataList.finish, shortDateString).Replace(@"""", ""),
                     remainingWork = Math.Round(dataList.remainingWork, 1)
                 });
-
                 return Json(new { data });
             }
         }
@@ -141,7 +139,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 int cont = db.DashboardBPComments.Where(d => d.counterState1 != d.counterState2).Count();
-
                 return Json(cont, JsonRequestBehavior.AllowGet);
             }
         }
@@ -161,7 +158,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     datalist.notes,
                     datalist.workerName
                 });
-
                 return Json(new { data });
             }
         }
@@ -188,34 +184,31 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     dataList.ProductionCalendar.period,
                     coefDefaultWork = dataList.DashboardBPDevisionCoef.coefDefaultWork
                 });
-
                 return Json(new { data });
             }
         }
 
-        [HttpPost]
-        public JsonResult GetProjectTasksStates(int id)
+        public JsonResult GetProjectTasksStates(string id)
         {
+            int ids = Convert.ToInt32(id);
             int countBlocks = 5;
             ProjectTasksState projectTasksState = new ProjectTasksState(countBlocks);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == id).OrderBy(d => d.TaskIndex).ToList();
+                var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == ids).OrderBy(d => d.TaskIndex).ToList();
                 projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
                 projectTasksState.BlockProjectTasksStates[1] = GetTasksPfBlock(tasksList.Where(d => d.TaskOutlineLevel == 2 || d.TaskOutlineLevel == 3).Where(d => d.TaskIsSummary == true).ToList());
                 //03 - finalBlock
                 //04 - docBlock
                 //05 - shBlock
-
                 var query = db.DashboardBPManpowerManuf.AsNoTracking().Include(d => d.DashboardBPDevisionCoef.Devision).Include(d => d.ProductionCalendar).ToList();
 
                 var data = query.Select(dataList => new
                 {
                     devision = 0
                 });
-
                 return Json(new { data });
             }
         }
@@ -232,7 +225,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
                     new ElementDataProjectTasksState[countElementsTasks];
             }
-            for(int i = 0; i < countElementsTasks; i++)
+            for (int i = 0; i < countElementsTasks; i++)
             {
                 try
                 {
@@ -281,24 +274,32 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     for (int j = 0; j < countElementsTasks; j++)
                     {
-                        blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = j switch
+                        switch (j)
                         {
-                            0 => "Согласование",
-                            1 => "Разработка КБМ",
-                            2 => "Разработка КБЭ",
-                            3 => "Комплектация",
-                            4 => "Производство",
-                            _ => "",
-                        };
+                            case 0:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Согласование";
+                                break;
+                            case 1:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка КБМ";
+                                break;
+                            case 2:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка КБЭ";
+                                break;
+                            case 3:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Комплектация";
+                                break;
+                            case 4:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Производство";
+                                break;
+                            default:
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "";
+                                break;
+                        }
                     }
                 }
                 var listTaskOS = db.DashboardBPTaskInsert.AsNoTracking().Where(d => d.TaskWBS1 == "ОС").Include(d => d.AspNetUsers.Devision).ToList();
-
                 foreach (var taskPrj in listTaskOS)
                 {
-
-
-
 
                 }
                 return blockProjectTasksState;

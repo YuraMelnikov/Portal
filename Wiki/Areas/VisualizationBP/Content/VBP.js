@@ -24,6 +24,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
+    GetProjectTasksStates();
 });
 
 var objTableTaskData = [
@@ -36,6 +37,17 @@ var objTableTaskData = [
     { "title": "Исполнитель", "data": "executorName", "autowidth": true, "bSortable": true },
     { "title": "Тр (ч)", "data": "remainingWork", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
+
+function GetProjectTasksStates() {
+    $.ajax({
+        url: "/VBP/GetProjectTasksStates/" + '2780', 
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            
+        }
+    });
+}
 
 function getPeriodReport() {
     $.ajax({
