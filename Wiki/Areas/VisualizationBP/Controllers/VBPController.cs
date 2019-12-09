@@ -241,13 +241,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         BlockProjectTasksState GetTasksPfBlock(List<DashboardBPTaskInsert> inputList)
         {
+            int id = inputList[0].id_PZ_PlanZakaz;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
 
                 int countElements = 0;
-                int countElementsTasks = 5;
+                int countElementsTasks = 4;
 
                 foreach (var data in inputList)
                 {
@@ -255,10 +256,11 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                         break;
                     countElements++;
                 }
-                string[] elementsArray = new string[countElements];
+                Elementnames[] elementsArray = new Elementnames[countElements];
                 for (int i = 0; i < countElements; i++)
-                {
-                    elementsArray[i] = inputList[i].TaskName;
+                { 
+                    elementsArray[i].taskName = inputList[i].TaskName;
+                    elementsArray[i].wbsName = inputList[i].TaskWBS2;
                 }
                 BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
                 for (int i = 0; i < countElements; i++)
@@ -268,51 +270,77 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 for (int i = 0; i < countElements; i++)
                 {
-                    blockProjectTasksState.ElementProjectTasksStates[i].Name = elementsArray[i];
+                    blockProjectTasksState.ElementProjectTasksStates[i].Name = elementsArray[i].taskName;
+                    blockProjectTasksState.ElementProjectTasksStates[i].WBS = elementsArray[i].wbsName;
                 }
                 for (int i = 0; i < countElements; i++)
                 {
                     for (int j = 0; j < countElementsTasks; j++)
                     {
+                        blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = new ElementDataProjectTasksState();
                         switch (j)
                         {
                             case 0:
-                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Согласование";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateKBM(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                                 break;
                             case 1:
-                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка КБМ";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateKBM(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                                 break;
                             case 2:
-                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка КБЭ";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateKBM(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                                 break;
                             case 3:
-                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Комплектация";
-                                break;
-                            case 4:
-                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Производство";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateKBM(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                                 break;
                             default:
                                 blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].FinishDate = DateTime.Now;
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].RemainingWork = 0;
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].StartDate = DateTime.Now;
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Users = "";
+                                blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Work = 0;
                                 break;
                         }
                     }
                 }
-                var listTaskOS = db.DashboardBPTaskInsert.AsNoTracking().Where(d => d.TaskWBS1 == "ОС").Include(d => d.AspNetUsers.Devision).ToList();
+                var listTaskOS = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers.Devision1)
+                    .Where(d => d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id)
+                    .ToList();
                 foreach (var taskPrj in listTaskOS)
                 {
 
                 }
                 return blockProjectTasksState;
             }
+
+
+
         }
 
+        ElementDataProjectTasksState GetElementDataProjectTasksStateKBM(string wbs, int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var tasksList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Where(d => d.TaskWBS2 == wbs && d.id_PZ_PlanZakaz == id && d.AspNetUsers.Devision == 15)
+                    .Include(d => d.AspNetUsers)
+                    .ToList();
 
 
 
 
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "Разработка КБМ";
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].FinishDate = DateTime.Now;
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].RemainingWork = 0;
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].StartDate = DateTime.Now;
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Users = "";
+                //blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Work = 0;
 
-
-
-
+                return new ElementDataProjectTasksState();
+            }
+        }
     }
 }

@@ -353,6 +353,7 @@
     <Compile Include="Areas\VisualizationBP\Controllers\VBPController.cs" />
     <Compile Include="Areas\VisualizationBP\Types\BlockProjectTasksState.cs" />
     <Compile Include="Areas\VisualizationBP\Types\ElementDataProjectTasksState.cs" />
+    <Compile Include="Areas\VisualizationBP\Types\Elementnames.cs" />
     <Compile Include="Areas\VisualizationBP\Types\ElementProjectTasksState.cs" />
     <Compile Include="Areas\VisualizationBP\Types\ProjectTasksState.cs" />
     <Compile Include="Areas\VisualizationBP\VisualizationBPAreaRegistration.cs" />

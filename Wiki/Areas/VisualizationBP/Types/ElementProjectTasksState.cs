@@ -3,6 +3,7 @@
     public class ElementProjectTasksState
     {
         string name;
+        string wbs;
         ElementDataProjectTasksState[] elementDataProjectTasksStates;
 
         public ElementProjectTasksState()
@@ -18,9 +19,9 @@
             {
                 elementDataProjectTasksStates[i] = new ElementDataProjectTasksState();
             }
-
         }
 
+        public string WBS { get => wbs; set => wbs = value; }
         public string Name { get => name; set => name = value; }
         public ElementDataProjectTasksState[] ElementDataProjectTasksStates { get => elementDataProjectTasksStates; set => elementDataProjectTasksStates = value; }
     }
