@@ -41,10 +41,14 @@ var objTableTaskData = [
 function GetProjectTasksStates() {
     $.ajax({
         url: "/VBP/GetProjectTasksStates/" + '2780', 
+        type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            
+            var tmp = result; 
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

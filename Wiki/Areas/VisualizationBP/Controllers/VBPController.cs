@@ -208,7 +208,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     devision = 0
                 });
-                return Json(new { data });
+                return Json(new { projectTasksState });
             }
         }
 
