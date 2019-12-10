@@ -317,13 +317,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             DateTime defaulTime = DateTime.Now;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
                 ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Where(d => d.TaskWBS2 == wbs && d.id_PZ_PlanZakaz == id && d.AspNetUsers.Devision == 15)
                     .Include(d => d.AspNetUsers)
                     .ToList();
-
                 elementDataProjectTasksState.Name = "Разработка КБМ";
                 try
                 {
@@ -357,6 +358,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             DateTime defaulTime = DateTime.Now;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
                 ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
@@ -364,7 +367,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16)
                     .Include(d => d.AspNetUsers)
                     .ToList();
-
                 elementDataProjectTasksState.Name = "Разработка КБЭ";
                 try
                 {
@@ -398,6 +400,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             DateTime defaulTime = DateTime.Now;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
                 ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
@@ -405,7 +409,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9 || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 22 || d.AspNetUsers.Devision == 20)
                     .Include(d => d.AspNetUsers)
                     .ToList();
-
                 elementDataProjectTasksState.Name = "Производство";
                 try
                 {
