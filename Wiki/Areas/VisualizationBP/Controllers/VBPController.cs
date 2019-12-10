@@ -200,7 +200,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.id_PZ_PlanZakaz == ids).OrderBy(d => d.TaskIndex).ToList();
                 projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
                 projectTasksState.BlockProjectTasksStates[1] = GetTasksPfBlock(tasksList.Where(d => d.TaskOutlineLevel == 2 || d.TaskOutlineLevel == 3).Where(d => d.TaskIsSummary == true).ToList());
-                //03 - finalBlock
+                projectTasksState.BlockProjectTasksStates[2] = GetTasksFinalBlock(ids);
                 //04 - docBlock
                 //05 - shBlock
                 var query = db.DashboardBPManpowerManuf.AsNoTracking().Include(d => d.DashboardBPDevisionCoef.Devision).Include(d => d.ProductionCalendar).ToList();
@@ -434,6 +434,71 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     elementDataProjectTasksState.Users += ciliricalName.AspNetUsers.CiliricalName + "; ";
                 }
                 return elementDataProjectTasksState;
+            }
+        }
+
+        BlockProjectTasksState GetTasksFinalBlock(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var tasksLiat = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС")
+                    .ToList();
+                int countElements = 2;
+                int countManufacturingStep = 3;
+                int countDevStep = 5;
+                BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countManufacturingStep];
+                blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countDevStep];
+                blockProjectTasksState.ElementProjectTasksStates[0].Name = "Общая сборка - разработка";
+                blockProjectTasksState.ElementProjectTasksStates[1].Name = "Общая сборка - производство";
+
+                var ps = tasksLiat.First(d => d.TaskWBS2 == "ОСПВ");
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Work = (double)ps.TaskWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].StartDate = ps.TaskStartDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].FinishDate = ps.TaskfinishDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].RemainingWork = (double)ps.TaskRemainingWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Users = ps.AspNetUsers.CiliricalName;
+
+                var sm = tasksLiat.First(d => d.TaskWBS2 == "*1СМ");
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Work = (double)sm.TaskWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].StartDate = sm.TaskStartDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].FinishDate = sm.TaskfinishDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].RemainingWork = (double)sm.TaskRemainingWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Users = sm.AspNetUsers.CiliricalName;
+
+                var se = tasksLiat.First(d => d.TaskWBS2 == "*1СЭ");
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].Work = (double)se.TaskWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].StartDate = se.TaskStartDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].FinishDate = se.TaskfinishDate;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].RemainingWork = (double)se.TaskRemainingWork;
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].Users = se.AspNetUsers.CiliricalName;
+
+                var listM = tasksLiat.Where(d => d.AspNetUsers.Devision == 15 && d.TaskWBS2 != "*1СМ").ToList();
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Work = (double)listM.Sum(d => d.TaskWork);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].StartDate = listM.Min(d => d.TaskStartDate);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].FinishDate = listM.Max(d => d.TaskfinishDate);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].RemainingWork = (double)listM.Sum(d => d.TaskRemainingWork);
+                foreach(var user in listM)
+                {
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Users += user.AspNetUsers.CiliricalName + "; ";
+                }
+
+                var listE = tasksLiat.Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16).Where(d => d.TaskWBS2 != "*1СЭ" && d.TaskWBS2 != "ОСПВ").ToList();
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Work = (double)listM.Sum(d => d.TaskWork);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].StartDate = listM.Min(d => d.TaskStartDate);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].FinishDate = listM.Max(d => d.TaskfinishDate);
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].RemainingWork = (double)listM.Sum(d => d.TaskRemainingWork);
+                foreach (var user in listM)
+                {
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Users += user.AspNetUsers.CiliricalName + "; ";
+                }
+
+                return blockProjectTasksState;
             }
         }
     }
