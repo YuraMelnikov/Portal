@@ -446,7 +446,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var tasksLiat = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС")
+                    .Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id)
                     .ToList();
                 int countElements = 2;
                 int countManufacturingStep = 3;
