@@ -360,7 +360,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(SpeedUser1.plan10), 0) + isnull(max(SpeedUser1.plan20), 0) as speed1
 ,isnull(max(SpeedUser2.plan10), 0) + isnull(max(SpeedUser2.plan20), 0) as speed2
 ,isnull(max(SpeedUser3.plan10), 0) + isnull(max(SpeedUser3.plan20), 0) as speed3
-,isnull(sum(TeachTable.cost), 0) as teach
+,isnull(max(TeachTable.cost), 0) as teach
 ,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate1
 ,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate2
 ,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate3

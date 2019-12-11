@@ -37,6 +37,11 @@ var objTableTaskData = [
     { "title": "Тр (ч)", "data": "remainingWork", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
 
+function GetPrjCart(id) {
+
+}
+
+
 function GetProjectTasksStates(id) {
     $.ajax({
         url: "/VBP/GetProjectTasksStates/" + id, 
@@ -52,14 +57,18 @@ function GetProjectTasksStates(id) {
     });
 }
 
-function GetPrjContractName(id) {
+function GetPrjContractDate(id) {
     $.ajax({
-        url: "/VBP/GetPrjContractName/" + id,
+        url: "/VBP/GetPrjContractDate/" + id,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var tmp = result;
+            document.getElementById("prjContractName").textContent = result.prjContractName;
+            document.getElementById("prjName").textContent = result.prjName;
+            document.getElementById("prjContractDateSh").textContent = result.prjContractDateSh;
+            document.getElementById("prjDateSh").textContent = result.prjDateSh;
+            document.getElementById("prjShState").textContent = result.prjShState;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
