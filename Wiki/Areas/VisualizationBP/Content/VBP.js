@@ -24,7 +24,6 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
-    GetProjectTasksStates();
 });
 
 var objTableTaskData = [
@@ -38,14 +37,29 @@ var objTableTaskData = [
     { "title": "Тр (ч)", "data": "remainingWork", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
 
-function GetProjectTasksStates() {
+function GetProjectTasksStates(id) {
     $.ajax({
-        url: "/VBP/GetProjectTasksStates/" + '2780', 
+        url: "/VBP/GetProjectTasksStates/" + id, 
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
             var tmp = result; 
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetPrjContractName(id) {
+    $.ajax({
+        url: "/VBP/GetPrjContractName/" + id,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var tmp = result;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1026,3 +1040,4 @@ function GetWorkpowerManufacturing() {
         }
     });
 }
+
