@@ -10,7 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Zakaz" Type="varchar" MaxLength="50" />
+          <Property Name="Zakaz" Type="int" />
           <Property Name="Otgruzka" Type="date" />
           <Property Name="Otkr" Type="date" />
           <Property Name="SSmat" Type="int" />
@@ -62,12 +62,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="exportImportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="planZakaz" EntityType="exportImportModel.planZakaz" />
+        </EntityContainer>
         <EntityType Name="planZakaz">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Zakaz" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zakaz" Type="Int32" />
           <Property Name="Otgruzka" Type="DateTime" Precision="0" />
           <Property Name="Otkr" Type="DateTime" Precision="0" />
           <Property Name="SSmat" Type="Int32" />
@@ -112,9 +115,6 @@
           <Property Name="weight" Type="Double" />
           <Property Name="updateData" Type="Boolean" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="planZakaz" EntityType="Self.planZakaz" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -125,50 +125,50 @@
             <EntityTypeMapping TypeName="exportImportModel.planZakaz">
               <MappingFragment StoreEntitySet="planZakaz">
                 <ScalarProperty Name="updateData" ColumnName="updateData" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Zakaz" ColumnName="Zakaz" />
-                <ScalarProperty Name="Otgruzka" ColumnName="Otgruzka" />
-                <ScalarProperty Name="Otkr" ColumnName="Otkr" />
-                <ScalarProperty Name="SSmat" ColumnName="SSmat" />
-                <ScalarProperty Name="bujetIspoln" ColumnName="bujetIspoln" />
-                <ScalarProperty Name="bujetProizv" ColumnName="bujetProizv" />
-                <ScalarProperty Name="bujetRezerv" ColumnName="bujetRezerv" />
-                <ScalarProperty Name="obespechenost" ColumnName="obespechenost" />
-                <ScalarProperty Name="SSfact1" ColumnName="SSfact1" />
-                <ScalarProperty Name="bitVipusk" ColumnName="bitVipusk" />
-                <ScalarProperty Name="bitRKD" ColumnName="bitRKD" />
-                <ScalarProperty Name="startUSS" ColumnName="startUSS" />
-                <ScalarProperty Name="startEU" ColumnName="startEU" />
-                <ScalarProperty Name="OboznacIzdelia" ColumnName="OboznacIzdelia" />
-                <ScalarProperty Name="NaimenovanieIzdelia" ColumnName="NaimenovanieIzdelia" />
-                <ScalarProperty Name="mir" ColumnName="mir" />
-                <ScalarProperty Name="procentIzmeneniyStoimDeficita" ColumnName="procentIzmeneniyStoimDeficita" />
-                <ScalarProperty Name="dataRezresheniyaProizvodstva" ColumnName="dataRezresheniyaProizvodstva" />
-                <ScalarProperty Name="PVProvedena" ColumnName="PVProvedena" />
-                <ScalarProperty Name="OVProvedena" ColumnName="OVProvedena" />
-                <ScalarProperty Name="SSSDI" ColumnName="SSSDI" />
-                <ScalarProperty Name="SSfact" ColumnName="SSfact" />
-                <ScalarProperty Name="SposobDostavki" ColumnName="SposobDostavki" />
-                <ScalarProperty Name="Gruzopoluchatel" ColumnName="Gruzopoluchatel" />
-                <ScalarProperty Name="PostAdresGruzopoluchatel" ColumnName="PostAdresGruzopoluchatel" />
-                <ScalarProperty Name="INNGruzopoluchatel" ColumnName="INNGruzopoluchatel" />
-                <ScalarProperty Name="OKPOGruzopoluchatelya" ColumnName="OKPOGruzopoluchatelya" />
-                <ScalarProperty Name="KodGruzopoluchatela" ColumnName="KodGruzopoluchatela" />
-                <ScalarProperty Name="StantionGruzopoluchatel" ColumnName="StantionGruzopoluchatel" />
-                <ScalarProperty Name="KodStanciiGruzopoluchatelya" ColumnName="KodStanciiGruzopoluchatelya" />
-                <ScalarProperty Name="OsobieOtmetkiGruzopoluchatelya" ColumnName="OsobieOtmetkiGruzopoluchatelya" />
-                <ScalarProperty Name="DescriptionGruzopoluchatel" ColumnName="DescriptionGruzopoluchatel" />
-                <ScalarProperty Name="naimenovaniePoTU" ColumnName="naimenovaniePoTU" />
-                <ScalarProperty Name="dataDogovora" ColumnName="dataDogovora" />
-                <ScalarProperty Name="nomerDogovora" ColumnName="nomerDogovora" />
-                <ScalarProperty Name="dataPrilDogovora" ColumnName="dataPrilDogovora" />
-                <ScalarProperty Name="nomerPrilDogovora" ColumnName="nomerPrilDogovora" />
-                <ScalarProperty Name="naimenovaniePoDogovoru" ColumnName="naimenovaniePoDogovoru" />
-                <ScalarProperty Name="MTR" ColumnName="MTR" />
-                <ScalarProperty Name="oprostiList" ColumnName="oprostiList" />
-                <ScalarProperty Name="obekt" ColumnName="obekt" />
-                <ScalarProperty Name="kolvo" ColumnName="kolvo" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="kolvo" ColumnName="kolvo" />
+                <ScalarProperty Name="obekt" ColumnName="obekt" />
+                <ScalarProperty Name="oprostiList" ColumnName="oprostiList" />
+                <ScalarProperty Name="MTR" ColumnName="MTR" />
+                <ScalarProperty Name="naimenovaniePoDogovoru" ColumnName="naimenovaniePoDogovoru" />
+                <ScalarProperty Name="nomerPrilDogovora" ColumnName="nomerPrilDogovora" />
+                <ScalarProperty Name="dataPrilDogovora" ColumnName="dataPrilDogovora" />
+                <ScalarProperty Name="nomerDogovora" ColumnName="nomerDogovora" />
+                <ScalarProperty Name="dataDogovora" ColumnName="dataDogovora" />
+                <ScalarProperty Name="naimenovaniePoTU" ColumnName="naimenovaniePoTU" />
+                <ScalarProperty Name="DescriptionGruzopoluchatel" ColumnName="DescriptionGruzopoluchatel" />
+                <ScalarProperty Name="OsobieOtmetkiGruzopoluchatelya" ColumnName="OsobieOtmetkiGruzopoluchatelya" />
+                <ScalarProperty Name="KodStanciiGruzopoluchatelya" ColumnName="KodStanciiGruzopoluchatelya" />
+                <ScalarProperty Name="StantionGruzopoluchatel" ColumnName="StantionGruzopoluchatel" />
+                <ScalarProperty Name="KodGruzopoluchatela" ColumnName="KodGruzopoluchatela" />
+                <ScalarProperty Name="OKPOGruzopoluchatelya" ColumnName="OKPOGruzopoluchatelya" />
+                <ScalarProperty Name="INNGruzopoluchatel" ColumnName="INNGruzopoluchatel" />
+                <ScalarProperty Name="PostAdresGruzopoluchatel" ColumnName="PostAdresGruzopoluchatel" />
+                <ScalarProperty Name="Gruzopoluchatel" ColumnName="Gruzopoluchatel" />
+                <ScalarProperty Name="SposobDostavki" ColumnName="SposobDostavki" />
+                <ScalarProperty Name="SSfact" ColumnName="SSfact" />
+                <ScalarProperty Name="SSSDI" ColumnName="SSSDI" />
+                <ScalarProperty Name="OVProvedena" ColumnName="OVProvedena" />
+                <ScalarProperty Name="PVProvedena" ColumnName="PVProvedena" />
+                <ScalarProperty Name="dataRezresheniyaProizvodstva" ColumnName="dataRezresheniyaProizvodstva" />
+                <ScalarProperty Name="procentIzmeneniyStoimDeficita" ColumnName="procentIzmeneniyStoimDeficita" />
+                <ScalarProperty Name="mir" ColumnName="mir" />
+                <ScalarProperty Name="NaimenovanieIzdelia" ColumnName="NaimenovanieIzdelia" />
+                <ScalarProperty Name="OboznacIzdelia" ColumnName="OboznacIzdelia" />
+                <ScalarProperty Name="startEU" ColumnName="startEU" />
+                <ScalarProperty Name="startUSS" ColumnName="startUSS" />
+                <ScalarProperty Name="bitRKD" ColumnName="bitRKD" />
+                <ScalarProperty Name="bitVipusk" ColumnName="bitVipusk" />
+                <ScalarProperty Name="SSfact1" ColumnName="SSfact1" />
+                <ScalarProperty Name="obespechenost" ColumnName="obespechenost" />
+                <ScalarProperty Name="bujetRezerv" ColumnName="bujetRezerv" />
+                <ScalarProperty Name="bujetProizv" ColumnName="bujetProizv" />
+                <ScalarProperty Name="bujetIspoln" ColumnName="bujetIspoln" />
+                <ScalarProperty Name="SSmat" ColumnName="SSmat" />
+                <ScalarProperty Name="Otkr" ColumnName="Otkr" />
+                <ScalarProperty Name="Otgruzka" ColumnName="Otgruzka" />
+                <ScalarProperty Name="Zakaz" ColumnName="Zakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

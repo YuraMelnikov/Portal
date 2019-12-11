@@ -15,7 +15,7 @@ namespace Wiki
     public partial class planZakaz
     {
         public int id { get; set; }
-        public string Zakaz { get; set; }
+        public Nullable<int> Zakaz { get; set; }
         public Nullable<System.DateTime> Otgruzka { get; set; }
         public Nullable<System.DateTime> Otkr { get; set; }
         public Nullable<int> SSmat { get; set; }

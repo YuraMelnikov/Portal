@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="80f56e4166b74378b59f9cdc252b3954" Name="Diagram1" ZoomLevel="60">
-        <EntityTypeShape EntityType="exportImportModel.planZakaz" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="exportImportModel.planZakaz" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
