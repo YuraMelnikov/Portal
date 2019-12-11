@@ -38,23 +38,9 @@ var objTableTaskData = [
 ];
 
 function GetPrjCart(id) {
-
-}
-
-
-function GetProjectTasksStates(id) {
-    $.ajax({
-        url: "/VBP/GetProjectTasksStates/" + id, 
-        type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var tmp = result; 
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
+    GetProjectTasksStates(id);
+    GetPrjContractDate(id);
+    GetPercentDevisionComplited(id);
 }
 
 function GetPrjContractDate(id) {
@@ -75,6 +61,58 @@ function GetPrjContractDate(id) {
         }
     });
 }
+
+function GetPercentDevisionComplited(id){
+    $.ajax({
+        url: "/VBP/GetPercentDevisionComplited/" + id,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetProjectTasksStates(id) {
+    $.ajax({
+        url: "/VBP/GetProjectTasksStates/" + id, 
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetBurnDownChartM(){
+
+}
+
+function GetBurnDownChartE(){
+    
+}
+
+function GetBurnDownChartManufac(){
+    
+}
+
+
+
+
+
+
+
+
+
+
 
 function getPeriodReport() {
     $.ajax({
