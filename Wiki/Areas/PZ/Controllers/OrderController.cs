@@ -769,7 +769,7 @@ namespace Wiki.Areas.PZ.Controllers
                 {
                     using (ExportImportEntities dbc = new ExportImportEntities())
                     {
-                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz.ToString());
+                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz);
                         pzImport.weight = editPZ.massa;
                         dbc.Entry(pzImport).State = EntityState.Modified;
                         dbc.SaveChanges();
@@ -945,7 +945,7 @@ namespace Wiki.Areas.PZ.Controllers
                 {
                     using (ExportImportEntities dbc = new ExportImportEntities())
                     {
-                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz.ToString());
+                        var pzImport = dbc.planZakaz.First(d => d.Zakaz == editPZ.PlanZakaz);
                         pzImport.weight = editPZ.massa;
                         dbc.Entry(pzImport).State = EntityState.Modified;
                         dbc.SaveChanges();

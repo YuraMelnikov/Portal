@@ -257,7 +257,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 Elementnames[] elementsArray = new Elementnames[countElements];
                 for (int i = 0; i < countElements; i++)
-                { 
+                {
                     elementsArray[i].taskName = inputList[i].TaskName;
                     elementsArray[i].wbsName = inputList[i].TaskWBS2;
                 }
@@ -651,5 +651,34 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 return blockProjectTasksState;
             }
         }
+
+        [HttpPost]
+        public JsonResult GetPrjContractDate(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.PZ_PlanZakaz
+                    .AsNoTracking()
+                    .ToList();
+                var data = query.Select(dataList => new
+                {
+                    prjContractName = dataList.Name,
+                    prjName = dataList.nameTU,
+                    prjContractDateSh = dataList.DateShipping.ToString().Substring(0, 10),
+                    prjDateSh = dataList.dataOtgruzkiBP.ToString().Substring(0, 10),
+                    prjShState = GetTimeSpan(dataList.DateShipping, dataList.dataOtgruzkiBP).Days
+                }); 
+                return Json(new { data });
+            }
+        }
+
+        TimeSpan GetTimeSpan(DateTime dateSh, DateTime dateManuf)
+        {
+            TimeSpan timeSpan = dateSh - dateManuf;
+            return timeSpan;
+        }
     }
+    //GetPercentDevisionComplited
 }

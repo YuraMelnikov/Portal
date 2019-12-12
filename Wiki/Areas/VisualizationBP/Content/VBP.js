@@ -38,9 +38,9 @@ var objTableTaskData = [
 ];
 
 function GetPrjCart(id) {
-    GetProjectTasksStates(id);
     GetPrjContractDate(id);
     GetPercentDevisionComplited(id);
+    
 }
 
 function GetPrjContractDate(id) {
@@ -69,7 +69,7 @@ function GetPercentDevisionComplited(id){
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
+            //percentDevisionComplited
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -92,19 +92,25 @@ function GetProjectTasksStates(id) {
     });
 }
 
-function GetBurnDownChartM(){
+function GetBurnDownChartDevM(id) {
 
 }
 
-function GetBurnDownChartE(){
+function GetBurnDownChartDevE(id) {
     
 }
 
-function GetBurnDownChartManufac(){
+function GetBurnDownChartManufac(id) { 
     
 }
 
+function GetPrjComments(id) {
 
+}
+
+function GetPrjCriticalRoad(id) {
+
+}
 
 
 
