@@ -186,7 +186,8 @@ function getGanttProjects() {
                     duration: myJSON.Duration,
                     percentComplited: myJSON.PercentComplited,
                     contractDateComplited: myJSON.ContractDateComplited,
-                    name: myJSON.OrderNumber,
+                    name: "<a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSandwichPanel('" + myJSON.OrderNumber + "')" + '\u0022' + myJSON.OrderNumber +"</a>",
+                    //name:  myJSON.OrderNumber,
                     color: myJSON.Color,
                     data: data,
                     current: myJSON.Deals[myJSON.Current]
