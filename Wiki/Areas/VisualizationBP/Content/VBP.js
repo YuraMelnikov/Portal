@@ -51,11 +51,11 @@ function GetPrjContractDate(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            document.getElementById("prjContractName").textContent = result[0].prjContractName;
-            document.getElementById("prjName").textContent = result[0].prjName;
-            document.getElementById("prjContractDateSh").textContent = result[0].prjContractDateSh;
-            document.getElementById("prjDateSh").textContent = result[0].prjDateSh;
-            document.getElementById("prjShState").textContent = result[0].prjShState;
+            document.getElementById("prjContractName").textContent = "Контрактное (договорное) наименование: " + result.data[0].prjContractName;
+            document.getElementById("prjName").textContent = "Наименивание по ТУ: " + result.data[0].prjName;
+            document.getElementById("prjContractDateSh").textContent = "Контрактный срок отгрузки: " + result.data[0].prjContractDateSh;
+            document.getElementById("prjDateSh").textContent = "Плановый срок отгрузки: " + result.data[0].prjDateSh;
+            document.getElementById("prjShState").textContent = "Откл.: " + result.data[0].prjShState;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
