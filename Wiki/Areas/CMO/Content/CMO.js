@@ -1535,7 +1535,7 @@ function ValidPostPanelToComplited() {
     else {
         $('#numberOrder').css('border-color', 'lightgrey');
     }
-    return isValid;
+    return isValid; 
 }
 
 function getSandwichPanel(id) {
@@ -1579,8 +1579,10 @@ function getSandwichPanel(id) {
                 $('#btnPanelToCustomer').show();
             else if (result.onGetDateComplited === true)
                 $('#btnPanelToPlanComplited').show();
-            else if (result.onComplited === true)
+            else if (result.onComplited === true) {
+                $('#btnPanelToPlanComplited').show();
                 $('#btnPanelToComplited').show();
+            }
             $('#OSSPModalView').modal('show');
         },
         error: function (errormessage) {

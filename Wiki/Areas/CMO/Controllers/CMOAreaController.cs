@@ -34,7 +34,7 @@ namespace Wiki.Areas.CMO.Controllers
             }
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
-            if (devisionUser == 7)
+            if (devisionUser == 7 || login == "myi@katek.by")
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by")
                 ViewBag.userGroupId = 2;
@@ -634,7 +634,7 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PostPanelToWork(int spid) //remove
+        public JsonResult PostPanelToWork(int spid) 
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
