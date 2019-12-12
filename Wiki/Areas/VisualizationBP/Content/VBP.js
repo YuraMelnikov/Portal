@@ -24,6 +24,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
+    GetPrjCart(2822);
 });
 
 var objTableTaskData = [
@@ -40,7 +41,7 @@ var objTableTaskData = [
 function GetPrjCart(id) {
     GetPrjContractDate(id);
     GetPercentDevisionComplited(id);
-    
+    $('#orderModal').modal('show');
 }
 
 function GetPrjContractDate(id) {
@@ -50,11 +51,11 @@ function GetPrjContractDate(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            document.getElementById("prjContractName").textContent = result.prjContractName;
-            document.getElementById("prjName").textContent = result.prjName;
-            document.getElementById("prjContractDateSh").textContent = result.prjContractDateSh;
-            document.getElementById("prjDateSh").textContent = result.prjDateSh;
-            document.getElementById("prjShState").textContent = result.prjShState;
+            document.getElementById("prjContractName").textContent = result[0].prjContractName;
+            document.getElementById("prjName").textContent = result[0].prjName;
+            document.getElementById("prjContractDateSh").textContent = result[0].prjContractDateSh;
+            document.getElementById("prjDateSh").textContent = result[0].prjDateSh;
+            document.getElementById("prjShState").textContent = result[0].prjShState;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

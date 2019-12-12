@@ -661,6 +661,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.PZ_PlanZakaz
                     .AsNoTracking()
+                    .Where(d => d.Id == id)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
@@ -679,6 +680,88 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             TimeSpan timeSpan = dateSh - dateManuf;
             return timeSpan;
         }
+
+        [HttpPost]
+        public JsonResult GetPercentDevisionComplited(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                int countDevision = 3;
+                DiagrammPercentComplitedDevisionToWork[] devisionsArray = new DiagrammPercentComplitedDevisionToWork[countDevision];
+                devisionsArray[0] = GetDevisionMPercentComplited(id);
+                devisionsArray[1] = GetDevisionEPercentComplited(id);
+                devisionsArray[2] = GetDevisionManufPercentComplited(id);
+
+                return Json(new { devisionsArray });
+            }
+        }
+
+        DiagrammPercentComplitedDevisionToWork GetDevisionMPercentComplited(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+
+                var tasksList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС" && d.AspNetUsers.Devision == 15)
+                    .ToList();
+
+                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+
+                return diagrammPercentComplitedDevisionToWork;
+            }
+        }
+
+        DiagrammPercentComplitedDevisionToWork GetDevisionEPercentComplited(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+
+                var tasksList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС")
+                    .Where(d => d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 3)
+                    .ToList();
+
+                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+
+                return diagrammPercentComplitedDevisionToWork;
+            }
+        }
+
+        DiagrammPercentComplitedDevisionToWork GetDevisionManufPercentComplited(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+
+                var tasksList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС")
+                    .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9
+                     || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 20 || d.AspNetUsers.Devision == 22)
+                    .ToList();
+
+                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+
+                return diagrammPercentComplitedDevisionToWork;
+            }
+        }
     }
-    //GetPercentDevisionComplited
 }
