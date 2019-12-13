@@ -155,7 +155,12 @@ function GetProjectTasksStates(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var tmp = result;
+            var cardArray = new Array();
+            var tmp = 0;
+            for(var i = 0; i < 5; i++) {
+                tmp = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
+            }
+            
             tmp = null;
         },
         error: function (errormessage) {
