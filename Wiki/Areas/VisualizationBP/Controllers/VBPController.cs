@@ -656,6 +656,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .ToList();
                 var data = query.Select(dataList => new
                 {
+                    orderNumber = dataList.PlanZakaz,
                     prjContractName = dataList.Name,
                     prjName = dataList.nameTU,
                     prjContractDateSh = dataList.DateShipping.ToString().Substring(0, 10),

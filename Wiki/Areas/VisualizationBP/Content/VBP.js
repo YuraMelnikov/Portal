@@ -51,6 +51,7 @@ function GetPrjContractDate(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            document.getElementById("orderNumber").textContent = "Заводской номер изделия: " + result.data[0].orderNumber;
             document.getElementById("prjContractName").textContent = "Контрактное (договорное) наименование: " + result.data[0].prjContractName;
             document.getElementById("prjName").textContent = "Наименивание по ТУ: " + result.data[0].prjName;
             document.getElementById("prjContractDateSh").textContent = "Контрактный срок отгрузки: " + result.data[0].prjContractDateSh;
