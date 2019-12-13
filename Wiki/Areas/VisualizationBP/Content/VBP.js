@@ -41,6 +41,7 @@ var objTableTaskData = [
 function GetPrjCart(id) {
     GetPrjContractDate(id);
     GetPercentDevisionComplited(id);
+    CreateTaskCard();
     $('#orderModal').modal('show');
 }
 
@@ -159,6 +160,19 @@ function GetProjectTasksStates(id) {
         }
     });
 }
+
+function CreateTaskCard(){
+    var basicBlock = "";
+    for(var i = 0; i < 16; i++){
+        basicBlock += GetStandartCardTask();
+    }
+    document.getElementById("tasksCardPool").innerHTML = basicBlock;
+}
+
+function GetStandartCardTask(){
+    return "<div class=" + '\u0022' +  "col-lg-2"  + '\u0022' +  ">" + "testBlock" + "</div>";
+}
+
 
 function GetBurnDownChartDevM(id) {
 
