@@ -70,7 +70,73 @@ function GetPercentDevisionComplited(id){
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            //percentDevisionComplited
+            var complitedArray = new Array();
+            var remainingArray = new Array();
+            var countDevision = 3;
+            for(var i = 0; i < countDevision; i++){
+                complitedArray.push(result.devisionsArray[i].PercentComplited);
+                remainingArray.push(result.devisionsArray[i].PercentRemainingWork);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('percentDevisionComplited', {
+                legend: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'bar',
+                    height: 150
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    margin: 0,
+                    text: '% завершения',
+                    style: {
+                        "font-size": "12px",
+                        "color": '#717171'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    },    
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            color: '#717171'
+                        }
+                    },
+                    max: 100,
+                    min: 0
+                },
+                xAxis: {
+                    categories: ['КБМ', 'КБЭ', 'ПО']
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "0px",
+                                textOutline: "0px contrast"
+                            }
+                        },
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Завершено',
+                    data: complitedArray,
+                    color: '#3fb0ac'
+                }]
+            });
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
