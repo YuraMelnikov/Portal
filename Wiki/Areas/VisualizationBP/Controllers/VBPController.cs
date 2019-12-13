@@ -229,7 +229,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[i] = null;
                 }
             }
             return blockProjectTasksState;
@@ -282,20 +282,10 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                             blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateManufacturing(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                             break;
                         case 3:
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "";
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].FinishDate = DateTime.Now;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].RemainingWork = 0;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].StartDate = DateTime.Now;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Users = "";
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Work = 0;
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = null;
                             break;
                         default:
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Name = "";
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].FinishDate = DateTime.Now;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].RemainingWork = 0;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].StartDate = DateTime.Now;
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Users = "";
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j].Work = 0;
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = null;
                             break;
                     }
                 }
@@ -305,7 +295,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         ElementDataProjectTasksState GetElementDataProjectTasksStateKBM(string wbs, int id)
         {
-            DateTime defaulTime = DateTime.Now;
+            DateTime defaulTime = new DateTime(1900, 1, 1);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -323,7 +313,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.StartDate = defaulTime;
+                    return null;
                 }
                 try
                 {
@@ -331,14 +321,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.FinishDate = defaulTime;
+                    return null;
                 }
                 elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
                 elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
                 elementDataProjectTasksState.Users = "";
-                foreach (var ciliricalName in tasksList)
+                foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.AspNetUsers.CiliricalName + "; ";
+                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
                 }
                 return elementDataProjectTasksState;
             }
@@ -346,7 +336,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         ElementDataProjectTasksState GetElementDataProjectTasksStateKBE(string wbs, int id)
         {
-            DateTime defaulTime = DateTime.Now;
+            DateTime defaulTime = new DateTime(1900, 1, 1);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -365,7 +355,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.StartDate = defaulTime;
+                    return null;
                 }
                 try
                 {
@@ -373,14 +363,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.FinishDate = defaulTime;
+                    return null;
                 }
                 elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
                 elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
                 elementDataProjectTasksState.Users = "";
-                foreach (var ciliricalName in tasksList)
+                foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.AspNetUsers.CiliricalName + "; ";
+                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
                 }
                 return elementDataProjectTasksState;
             }
@@ -388,7 +378,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         ElementDataProjectTasksState GetElementDataProjectTasksStateManufacturing(string wbs, int id)
         {
-            DateTime defaulTime = DateTime.Now;
+            DateTime defaulTime = new DateTime(1900, 1, 1);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -407,7 +397,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.StartDate = defaulTime;
+                    return null;
                 }
                 try
                 {
@@ -415,14 +405,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 catch
                 {
-                    elementDataProjectTasksState.FinishDate = defaulTime;
+                    return null;
                 }
                 elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
                 elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
                 elementDataProjectTasksState.Users = "";
-                foreach (var ciliricalName in tasksList)
+                foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.AspNetUsers.CiliricalName + "; ";
+                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
                 }
                 return elementDataProjectTasksState;
             }
