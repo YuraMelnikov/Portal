@@ -191,7 +191,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         public JsonResult GetProjectTasksStates(string id)
         {
             int ids = Convert.ToInt32(id);
-
             int countBlocks = 5;
             ProjectTasksState projectTasksState = new ProjectTasksState(countBlocks);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -221,11 +220,12 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
                     new ElementDataProjectTasksState[countElementsTasks];
             }
+            blockProjectTasksState.ElementProjectTasksStates[0].Name = nameElement;
             for (int i = 0; i < countElementsTasks; i++)
             {
                 try
                 {
-                    blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskName == wbsArray[i]));
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[i] = new ElementDataProjectTasksState(inputList.First(d => d.TaskWBS1 == wbsArray[i]));
                 }
                 catch
                 {
@@ -254,6 +254,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 elementsArray[i].wbsName = inputList[i].TaskWBS2;
             }
             BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
+            blockProjectTasksState.Name = "Сборочные единицы";
             for (int i = 0; i < countElements; i++)
             {
                 blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates =
@@ -442,6 +443,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 int countManufacturingStep = 3;
                 int countDevStep = 5;
                 BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
+                blockProjectTasksState.Name = "Общая сборка";
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countDevStep];
                 blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countManufacturingStep];
                 blockProjectTasksState.ElementProjectTasksStates[0].Name = "Общая сборка - разработка";
@@ -573,6 +575,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 int countElements = 1;
                 int countDevStep = 2;
                 BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
+                blockProjectTasksState.Name = "ЭД и программирование";
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countDevStep];
                 blockProjectTasksState.ElementProjectTasksStates[0].Name = "ЭД и программирование";
                 try
@@ -627,6 +630,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 int countElements = 1;
                 int countDevStep = 1;
                 BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
+                blockProjectTasksState.Name = "Отгрузка";
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates = new ElementDataProjectTasksState[countDevStep];
                 blockProjectTasksState.ElementProjectTasksStates[0].Name = "Отгрузка";
                 var sm = tasksLiat.First();

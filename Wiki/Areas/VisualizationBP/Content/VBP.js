@@ -24,7 +24,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
-    GetPrjCart(2822);
+    GetPrjCart(1845);
 });
 
 var objTableTaskData = [
@@ -41,7 +41,9 @@ var objTableTaskData = [
 function GetPrjCart(id) {
     GetPrjContractDate(id);
     GetPercentDevisionComplited(id);
+    GetProjectTasksStates(id)
     CreateTaskCard();
+
     $('#orderModal').modal('show');
 }
 
@@ -153,7 +155,8 @@ function GetProjectTasksStates(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            
+            var tmp = result;
+            tmp = null;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
