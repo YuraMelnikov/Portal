@@ -10,6 +10,8 @@ var pointWidthForGantt = 14;
 var heightTableTasks = '190px';
 var heightTableComments = '600px';
 
+var cardArray = new Array();
+
 $(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
@@ -155,13 +157,15 @@ function GetProjectTasksStates(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var cardArray = new Array();
-            var tmp = 0;
+
+            var countedCard = 0;
             for(var i = 0; i < 5; i++) {
-                tmp = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
+                countedCard = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
+                for(var j = 0; j < countedCard; j++){
+                    cardArray.push(result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].Name);
+                }
             }
-            
-            tmp = null;
+            CreateTaskCard(cardArray.length);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -169,17 +173,23 @@ function GetProjectTasksStates(id) {
     });
 }
 
-function CreateTaskCard(){
+function CreateTaskCard(counterStep){
     var basicBlock = "";
-    for(var i = 0; i < 16; i++){
-        basicBlock += GetStandartCardTask();
+    for(var i = 0; i < counterStep; i++){
+        basicBlock += GetStandartCardTask(cardArray[i]);
     }
     document.getElementById("tasksCardPool").innerHTML = basicBlock;
 }
 
-function GetStandartCardTask(){
-    return "<div class=" + '\u0022' +  "col-lg-2"  + '\u0022' +  ">" + "testBlock" + "</div>";
-}
+function GetStandartCardTask(cardName){
+    var lastDivBlock = "</div>";
+    var firstDivBlock = "<div class=" + '\u0022' +  "col-lg-2"  + '\u0022' +  ">";
+    var cardBlock = "<div class=" + '\u0022' +  "card card-default"  + '\u0022' +  ">";
+    cardBlock += "<div class=" + '\u0022' +  "card-header"  + '\u0022' +  ">";
+    cardBlock += cardName + lastDivBlock;
+    cardBlock += "<div class=" + '\u0022' +  "card-body"  + '\u0022' +  ">";
+    return firstDivBlock + cardBlock + lastDivBlock + lastDivBlock + lastDivBlock;
+} 
 
 
 function GetBurnDownChartDevM(id) {
