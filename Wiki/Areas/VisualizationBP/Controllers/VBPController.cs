@@ -712,7 +712,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
 
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)((work - remainingWork) / work);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)((work - remainingWork) / work) * 100;
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
 
                 return diagrammPercentComplitedDevisionToWork;
@@ -734,9 +734,12 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Where(d => d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 3)
                     .ToList();
 
+                double work = tasksList.Sum(d => d.TaskWork).Value;
+                double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
+
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
-                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)((work - remainingWork) / work) * 100;
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
 
                 return diagrammPercentComplitedDevisionToWork;
             }
@@ -758,9 +761,12 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                      || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 20 || d.AspNetUsers.Devision == 22)
                     .ToList();
 
+                double work = tasksList.Sum(d => d.TaskWork).Value;
+                double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
+
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
-                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)((work - remainingWork) / work) * 100;
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
 
                 return diagrammPercentComplitedDevisionToWork;
             }
