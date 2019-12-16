@@ -43,7 +43,7 @@ var objTableTaskData = [
 function GetPrjCart(id) {
     GetPrjContractDate(id);
     GetPercentDevisionComplited(id);
-    GetProjectTasksStates(id)
+    GetProjectTasksStates(id);
     CreateTaskCard();
 
     $('#orderModal').modal('show');

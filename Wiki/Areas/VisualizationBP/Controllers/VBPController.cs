@@ -704,12 +704,16 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС" && d.AspNetUsers.Devision == 15)
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС" && d.AspNetUsers.Devision == 15)
                     .ToList();
 
+                double work = tasksList.Sum(d => d.TaskWork).Value;
+                double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
+
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
-                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - (int)tasksList.Sum(d => d.TaskRemainingWork / d.TaskWork);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)((work - remainingWork) / work);
+                diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
 
                 return diagrammPercentComplitedDevisionToWork;
             }
@@ -724,8 +728,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
+                    .Include(d => d.PZ_PlanZakaz)
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС")
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС")
                     .Where(d => d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 3)
                     .ToList();
 
@@ -747,7 +752,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.id_PZ_PlanZakaz == id && d.TaskWBS1 == "ОС")
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС")
                     .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9
                      || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 20 || d.AspNetUsers.Devision == 22)
                     .ToList();
