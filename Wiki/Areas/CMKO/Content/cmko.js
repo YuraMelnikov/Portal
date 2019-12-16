@@ -13688,7 +13688,7 @@ function GetAccuredPlan() {
             if (counter < 2) {
                 heightChart = 220;
                 userAccured = result[0].UserAccured;
-                document.getElementById("textUserAccuredPlan").textContent = "Итого: " + userAccured.toString();
+                document.getElementById("textUserAccuredPlan").textContent = "Расчетная премия: " + userAccured.toString();
             }
             Highcharts.setOptions({
                 credits: {
@@ -13814,7 +13814,7 @@ function GetAccuredFact() {
             if (counter < 2) {
                 heightChart = 220;
                 userAccured = result[0].UserAccured;
-                document.getElementById("textAccuredUserFact").textContent = "Итого: " + userAccured.toString();
+                document.getElementById("textAccuredUserFact").textContent = "Расчетная премия: " + userAccured.toString();
             }
             Highcharts.setOptions({
                 credits: {
