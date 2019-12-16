@@ -1023,6 +1023,449 @@ namespace Wiki.Areas.CMKO
             return Json(new { data });
         }
 
+
+        public JsonResult GetWithheldToBonusFund()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisWithheldToBonusFund.AsNoTracking().First();
+                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFund();
+                    if (i == 0)
+                    {
+                        summaryWageFund[i].DevisionId = 0;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan + fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
+                    }
+                    else if (i == 1)
+                    {
+                        summaryWageFund[i].DevisionId = 1;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan) - Convert.ToInt32(fundData.reclamationMFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact);
+                    }
+                    else
+                    {
+                        summaryWageFund[i].DevisionId = 2;
+                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationEFact);
+                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationEFact);
+                    }
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Index()
+        {
+            string login = HttpContext.User.Identity.Name;
+            ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
+                                                       .Where(d => d.close == false)
+                                                       .OrderByDescending(d => d.period), "period", "period");
+            ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.OrderBy(d => d.catigoriesName), "id", "catigoriesName");
+            ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.close == false).OrderByDescending(x => x.period), "period", "period");
+            if (login == "myi@katek.by")
+            {
+                 ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+
+            }
+            else if (login == "Kuchynski@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 16)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "nrf@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 15)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else if (login == "fvs@katek.by")
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO != null)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers
+                    .Where(d => d.LockoutEnabled == true)
+                    .Where(d => d.dateToCMKO == null)
+                    .Where(d => d.Devision == 3)
+                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+            }
+            else 
+            {
+                ViewBag.autor = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.teacherTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.studentTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
+                ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
+                ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
+                ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
+            }
+            int devision = 0;
+            try
+            {
+                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
+            }
+            catch
+            {
+
+            }
+            if (GetStatusManagerUser() == true)
+            {
+                ViewBag.LeavelUser = 2;
+            }
+            else if (devision == 3 || devision == 15 || devision == 16)
+            {
+                ViewBag.LeavelUser = 1;
+            }
+            else
+            {
+                ViewBag.LeavelUser = 0;
+            }
+            return View();
+        }
+
+        bool GetStatusManagerUser()
+        {
+            string login = HttpContext.User.Identity.Name;
+            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
+                login == "fvs@katek.by" || login == "myi@katek.by" ||
+                login == "laa@katek.by" || login == "nrf@katek.by")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public JsonResult RemoveOptimization(CMKO_Optimization optimization)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
+            db.Entry(updateOptimization).State = EntityState.Deleted;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveTeach(CMKO_Teach postData)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
+            db.Entry(updateData).State = EntityState.Deleted;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateCalend(ProductionCalendar postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ProductionCalendar updateData = db.ProductionCalendar.First(d => d.id == postData.id);
+            if (updateData.timeToOnePerson != postData.timeToOnePerson)
+                updateData.timeToOnePerson = postData.timeToOnePerson;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateCategory(CMKO_TaxCatigories postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_TaxCatigories updateData = db.CMKO_TaxCatigories.First(d => d.id == postData.id);
+            if (updateData.catigoriesName != postData.catigoriesName)
+                updateData.catigoriesName = postData.catigoriesName;
+            if (updateData.salary != postData.salary)
+                updateData.salary = postData.salary;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateOptimization(CMKO_Optimization optimization)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
+            updateOptimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            updateOptimization.dateTimeUpdate = DateTime.Now;
+            if (updateOptimization.description != optimization.description)
+                updateOptimization.description = optimization.description;
+            if (updateOptimization.id_AspNetUsersIdea != optimization.id_AspNetUsersIdea)
+                updateOptimization.id_AspNetUsersIdea = optimization.id_AspNetUsersIdea;
+            if (updateOptimization.id_CMKO_PeriodResult != optimization.id_CMKO_PeriodResult)
+                updateOptimization.id_CMKO_PeriodResult = optimization.id_CMKO_PeriodResult;
+            db.Entry(updateOptimization).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateSpeedUser(DashboardKO_UsersMonthPlan postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            DashboardKO_UsersMonthPlan updateData = db.DashboardKO_UsersMonthPlan.First(d => d.id == postData.id);
+            if (updateData.k != postData.k)
+                updateData.k = postData.k;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateTeach(CMKO_Teach postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
+            updateData.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
+            updateData.datetimeUpdate = DateTime.Now;
+            if (updateData.description != postData.description && postData.description != null)
+                updateData.description = postData.description;
+            if (updateData.id_AspNetUsersTeach != postData.id_AspNetUsersTeach)
+                updateData.id_AspNetUsersTeach = postData.id_AspNetUsersTeach;
+            if (updateData.id_AspNetUsersTeacher != postData.id_AspNetUsersTeacher)
+                updateData.id_AspNetUsersTeacher = postData.id_AspNetUsersTeacher;
+            if (updateData.cost != postData.cost)
+                updateData.cost = postData.cost;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateUser(AspNetUsers postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            AspNetUsers updateData = db.AspNetUsers.First(d => d.Id == postData.Id);
+            if (updateData.id_CMKO_TaxCatigories != postData.id_CMKO_TaxCatigories)
+                updateData.id_CMKO_TaxCatigories = postData.id_CMKO_TaxCatigories;
+            if (updateData.dateToCMKO != postData.dateToCMKO)
+                updateData.dateToCMKO = postData.dateToCMKO;
+            if (updateData.tax != postData.tax)
+                updateData.tax = postData.tax;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        string GetEditLinkCategory(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCategory('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        string GetEditLinkOptimization(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOptimization('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        string GetEditLinkProductionCalend(string login, int id)
+        {
+            if (login == "myi@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCalend('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        string GetEditLinkSpeedUser(string login, int id)
+        {
+            if (login == "myi@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetSpeedUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        string GetEditLinkTeach(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetTeach('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+        string GetEditLinkUser(string login, string id)
+        {
+            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        public JsonResult GetSalaryAndRateWorkers()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new SummaryWageFundUser();
+                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
+                    summaryWageFund[i].Plan = (int)(fundData[i].rate1 + fundData[i].rate2 + fundData[i].rate3);
+                    summaryWageFund[i].Fact = (int)(fundData[i].tax1 + fundData[i].tax2 + fundData[i].tax3);
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetCoefWorker()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefError, 3));
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        public JsonResult GetCoefWorkerG()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var fundData = db.CMKO_ThisIndicatorsUsers
+                    .AsNoTracking()
+                    .Where(d => d.nhGFact > 0)
+                    .Include(d => d.AspNetUsers)
+                    .OrderBy(d => d.AspNetUsers.CiliricalName)
+                    .ToList();
+                int coluntList = fundData.Count;
+                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
+                for (int i = 0; i < coluntList; i++)
+                {
+                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefErrorG, 3));
+                }
+                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTextNamePeriod()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string[] periodNames = new string[3];
+                try
+                {
+                    periodNames[0] = db.DashboardKOMP1.First().period;
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    periodNames[1] = db.DashboardKOMP2.First().period;
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    periodNames[2] = db.DashboardKOMP3.First().period;
+                }
+                catch
+                {
+
+                }
+
+                return Json(periodNames, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
+        }
+
         public JsonResult GetUsersMMP1_1()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -1750,7 +2193,7 @@ namespace Wiki.Areas.CMKO
                     data[i].ciliricalName = query[i].ciliricalName;
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
-                    data[i].plan20 = (int)query[i].plan20; 
+                    data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
@@ -1942,7 +2385,7 @@ namespace Wiki.Areas.CMKO
                     data[i].ciliricalName = query[i].ciliricalName;
                     data[i].plan = (int)query[i].plan;
                     data[i].plan10 = (int)query[i].plan10;
-                    data[i].plan20 = (int)query[i].plan20; 
+                    data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
                     data[i].normHoure = (int)query[i].normHoure;
                     data[i].normHoureFact = (int)query[i].normHoureFact;
@@ -2557,412 +3000,6 @@ namespace Wiki.Areas.CMKO
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public JsonResult GetWithheldToBonusFund()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisWithheldToBonusFund.AsNoTracking().First();
-                SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
-                for (int i = 0; i < 3; i++)
-                {
-                    summaryWageFund[i] = new SummaryWageFund();
-                    if (i == 0)
-                    {
-                        summaryWageFund[i].DevisionId = 0;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan + fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
-                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact + fundData.reclamationEFact);
-                    }
-                    else if (i == 1)
-                    {
-                        summaryWageFund[i].DevisionId = 1;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationMPlan) - Convert.ToInt32(fundData.reclamationMFact);
-                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationMFact);
-                    }
-                    else
-                    {
-                        summaryWageFund[i].DevisionId = 2;
-                        summaryWageFund[i].Plan = Convert.ToInt32(fundData.reclamationEPlan) - Convert.ToInt32(fundData.reclamationEFact);
-                        summaryWageFund[i].Fact = Convert.ToInt32(fundData.reclamationEFact);
-                    }
-                }
-                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public ActionResult Index()
-        {
-            string login = HttpContext.User.Identity.Name;
-            ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
-                                                       .Where(d => d.close == false)
-                                                       .OrderByDescending(d => d.period), "period", "period");
-            ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.OrderBy(d => d.catigoriesName), "id", "catigoriesName");
-            ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.close == false).OrderByDescending(x => x.period), "period", "period");
-            if (login == "myi@katek.by")
-            {
-                 ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO != null)
-                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO == null)
-                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-
-            }
-            else if (login == "Kuchynski@katek.by")
-            {
-                ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO != null)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO == null)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            }
-            else if (login == "nrf@katek.by")
-            {
-                ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 15)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO != null)
-                    .Where(d => d.Devision == 15)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO == null)
-                    .Where(d => d.Devision == 15)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            }
-            else if (login == "fvs@katek.by")
-            {
-                ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 3)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO != null)
-                    .Where(d => d.Devision == 3)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO == null)
-                    .Where(d => d.Devision == 3)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            }
-            else 
-            {
-                ViewBag.autor = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
-                ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
-                ViewBag.categoryUser = new SelectList(db.CMKO_TaxCatigories.Where(d => d.id == 0), "id", "catigoriesName");
-                ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.period == ""), "period", "period");
-            }
-            int devision = 0;
-            try
-            {
-                devision = db.AspNetUsers.First(d => d.Email == login).Devision.Value;
-            }
-            catch
-            {
-
-            }
-            if (GetStatusManagerUser() == true)
-            {
-                ViewBag.LeavelUser = 2;
-            }
-            else if (devision == 3 || devision == 15 || devision == 16)
-            {
-                ViewBag.LeavelUser = 1;
-            }
-            else
-            {
-                ViewBag.LeavelUser = 0;
-            }
-            return View();
-        }
-
-        bool GetStatusManagerUser()
-        {
-            string login = HttpContext.User.Identity.Name;
-            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
-                login == "fvs@katek.by" || login == "myi@katek.by" ||
-                login == "laa@katek.by" || login == "nrf@katek.by")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public JsonResult RemoveOptimization(CMKO_Optimization optimization)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
-            db.Entry(updateOptimization).State = EntityState.Deleted;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult RemoveTeach(CMKO_Teach postData)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
-            db.Entry(updateData).State = EntityState.Deleted;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateCalend(ProductionCalendar postData)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            ProductionCalendar updateData = db.ProductionCalendar.First(d => d.id == postData.id);
-            if (updateData.timeToOnePerson != postData.timeToOnePerson)
-                updateData.timeToOnePerson = postData.timeToOnePerson;
-            db.Entry(updateData).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateCategory(CMKO_TaxCatigories postData)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            CMKO_TaxCatigories updateData = db.CMKO_TaxCatigories.First(d => d.id == postData.id);
-            if (updateData.catigoriesName != postData.catigoriesName)
-                updateData.catigoriesName = postData.catigoriesName;
-            if (updateData.salary != postData.salary)
-                updateData.salary = postData.salary;
-            db.Entry(updateData).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateOptimization(CMKO_Optimization optimization)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Optimization updateOptimization = db.CMKO_Optimization.First(d => d.id == optimization.id);
-            updateOptimization.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
-            updateOptimization.dateTimeUpdate = DateTime.Now;
-            if (updateOptimization.description != optimization.description)
-                updateOptimization.description = optimization.description;
-            if (updateOptimization.id_AspNetUsersIdea != optimization.id_AspNetUsersIdea)
-                updateOptimization.id_AspNetUsersIdea = optimization.id_AspNetUsersIdea;
-            if (updateOptimization.id_CMKO_PeriodResult != optimization.id_CMKO_PeriodResult)
-                updateOptimization.id_CMKO_PeriodResult = optimization.id_CMKO_PeriodResult;
-            db.Entry(updateOptimization).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateSpeedUser(DashboardKO_UsersMonthPlan postData)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            DashboardKO_UsersMonthPlan updateData = db.DashboardKO_UsersMonthPlan.First(d => d.id == postData.id);
-            if (updateData.k != postData.k)
-                updateData.k = postData.k;
-            db.Entry(updateData).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateTeach(CMKO_Teach postData)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            CMKO_Teach updateData = db.CMKO_Teach.First(d => d.id == postData.id);
-            updateData.id_AspNetUsersUpdate = db.AspNetUsers.First(d => d.Email == login).Id;
-            updateData.datetimeUpdate = DateTime.Now;
-            if (updateData.description != postData.description && postData.description != null)
-                updateData.description = postData.description;
-            if (updateData.id_AspNetUsersTeach != postData.id_AspNetUsersTeach)
-                updateData.id_AspNetUsersTeach = postData.id_AspNetUsersTeach;
-            if (updateData.id_AspNetUsersTeacher != postData.id_AspNetUsersTeacher)
-                updateData.id_AspNetUsersTeacher = postData.id_AspNetUsersTeacher;
-            if (updateData.cost != postData.cost)
-                updateData.cost = postData.cost;
-            db.Entry(updateData).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateUser(AspNetUsers postData)
-        {
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            AspNetUsers updateData = db.AspNetUsers.First(d => d.Id == postData.Id);
-            if (updateData.id_CMKO_TaxCatigories != postData.id_CMKO_TaxCatigories)
-                updateData.id_CMKO_TaxCatigories = postData.id_CMKO_TaxCatigories;
-            if (updateData.dateToCMKO != postData.dateToCMKO)
-                updateData.dateToCMKO = postData.dateToCMKO;
-            if (updateData.tax != postData.tax)
-                updateData.tax = postData.tax;
-            db.Entry(updateData).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(1, JsonRequestBehavior.AllowGet);
-        }
-
-        string GetEditLinkCategory(string login, int id)
-        {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCategory('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-
-        string GetEditLinkOptimization(string login, int id)
-        {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOptimization('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-
-        string GetEditLinkProductionCalend(string login, int id)
-        {
-            if (login == "myi@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCalend('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-
-        string GetEditLinkSpeedUser(string login, int id)
-        {
-            if (login == "myi@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetSpeedUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-
-        string GetEditLinkTeach(string login, int id)
-        {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetTeach('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-        string GetEditLinkUser(string login, string id)
-        {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
-            else
-                return "<td></td>";
-        }
-
-        public JsonResult GetSalaryAndRateWorkers()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisIndicatorsUsers
-                    .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .OrderBy(d => d.AspNetUsers.CiliricalName)
-                    .ToList();
-                int coluntList = fundData.Count;
-                SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
-                for (int i = 0; i < coluntList; i++)
-                {
-                    summaryWageFund[i] = new SummaryWageFundUser();
-                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
-                    summaryWageFund[i].Plan = (int)(fundData[i].rate1 + fundData[i].rate2 + fundData[i].rate3);
-                    summaryWageFund[i].Fact = (int)(fundData[i].tax1 + fundData[i].tax2 + fundData[i].tax3);
-                }
-                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult GetCoefWorker()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisIndicatorsUsers
-                    .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .OrderBy(d => d.AspNetUsers.CiliricalName)
-                    .ToList();
-                int coluntList = fundData.Count;
-                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
-                for (int i = 0; i < coluntList; i++)
-                {
-                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefError, 3));
-                }
-                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
-            }
-        }
-        
-        public JsonResult GetCoefWorkerG()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var fundData = db.CMKO_ThisIndicatorsUsers
-                    .AsNoTracking()
-                    .Where(d => d.nhGFact > 0)
-                    .Include(d => d.AspNetUsers)
-                    .OrderBy(d => d.AspNetUsers.CiliricalName)
-                    .ToList();
-                int coluntList = fundData.Count;
-                CoefUserView[] summaryWageFund = new CoefUserView[coluntList];
-                for (int i = 0; i < coluntList; i++)
-                {
-                    summaryWageFund[i] = new CoefUserView(fundData[i].AspNetUsers.CiliricalName, Math.Round(fundData[i].coefErrorG, 3));
-                }
-                return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public string RenderUserMenu()
-        {
-            string login = "Войти";
-            try
-            {
-                if (HttpContext.User.Identity.Name != "")
-                    login = HttpContext.User.Identity.Name;
-            }
-            catch
-            {
-                login = "Войти";
-            }
-            return login;
         }
     }
 }

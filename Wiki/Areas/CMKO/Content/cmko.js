@@ -101,6 +101,7 @@ function LoadData(id) {
             return 0;
         }
         else if (leavelUser === 1 || leavelUser === '1') {
+            GetTextNamePeriod();
             GetTimeSheet();
             getPeriodReport();
             GetSummaryWageFundWorker();
@@ -130,6 +131,7 @@ function LoadData(id) {
             $('#dashboardBody').show();
         }
         else if (leavelUser === 2 || leavelUser === '2') {
+            GetTextNamePeriod();
             GetTimeSheet();
             getPeriodReport();
             GetSummaryWageFundWorker();
@@ -162,7 +164,7 @@ function LoadData(id) {
             return 0;
         }
     }
-    else if (id === 10){
+    else if (id === 10) {
         HideAllTables();
         $('#dashboardBody').show();
     }
@@ -178,6 +180,21 @@ function HideAllTables() {
     $('#calendDiv').hide();
     $('#curencyDiv').hide();
     $('#dashboardBody').hide();
+}
+
+function GetTextNamePeriod() {
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetTextNamePeriod/",
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById("textNamePeriod1").textContent = result[0];
+            document.getElementById("textNamePeriod2").textContent = result[1];
+            document.getElementById("textNamePeriod3").textContent = result[2];
+        }
+    });
 }
 
 function StartMenu() {
@@ -3954,7 +3971,7 @@ function GetManpowerFirstPeriod() {
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                     success: function (result) {
-                        document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
+
                         var normHoure = 0;
                         var normHoureFact = 0;
                         var dataArrayPlan = 0;
@@ -5893,7 +5910,6 @@ function GetManpowerSecondPeriod() {
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                     success: function (result) {
-                        document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
                         var normHoure = 0;
                         var normHoureFact = 0;
                         var dataArrayPlan = 0;
@@ -7817,7 +7833,6 @@ function GetManpowerThreePeriod() {
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                     success: function (result) {
-                        document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
                         var normHoure = 0;
                         var normHoureFact = 0;
                         var dataArrayPlan = 0;
@@ -8066,7 +8081,6 @@ function ManpowerUsersInMonth1() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            document.getElementById("periodReportUsersKBMString1").textContent = 'Выработка НЧ';
             var normHoure = 0;
             var normHoureFact = 0;
             var dataArrayPlan = 0;
