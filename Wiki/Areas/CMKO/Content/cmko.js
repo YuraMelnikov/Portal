@@ -197,7 +197,32 @@ function GetTextNamePeriod() {
     });
 }
 
+var objRemarksList = [
+    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true },
+    { "title": "ФИО", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Коэф.", "data": "coef", "autowidth": true, "bSortable": true }
+];
+
 function StartMenu() {
+    $("#ramarksUserTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetRamarksUser",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+
     $("#optimizationTable").DataTable({
         "ajax": {
             "cache": false,
