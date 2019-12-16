@@ -130,6 +130,15 @@ namespace Wiki.Areas.CMKO
                     data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
                     data[i].Tax = ((int)cMKO_ThisIndicatorsUsers.tax1 + (int)cMKO_ThisIndicatorsUsers.tax2 + (int)cMKO_ThisIndicatorsUsers.tax3) * -1;
                     data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
+                    if (statusManager == false)
+                    {
+                        data[i].UserAccured = data[i].BonusReversed + data[i].Accrued + data[i].Accruedg + data[i].Manager + data[i].BonusQuality +
+                            data[i].Speed + data[i].Optimization + data[i].Teach + data[i].Tax + data[i].Rate;
+                    }
+                    else
+                    {
+                        data[i].UserAccured = 0;
+                    }
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -226,12 +235,12 @@ namespace Wiki.Areas.CMKO
                 }
                 for (int i = 0; i < counterUsers; i++)
                 {
-                    string tmp = accuredList[i].id_AspNetUsers;
-                    CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.First(d => d.id_AspNetUsers == tmp);
+                    string id_AspNetUsers = accuredList[i].id_AspNetUsers;
+                    CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.First(d => d.id_AspNetUsers == id_AspNetUsers);
                     data[i].CiliricName = accuredList[i].AspNetUsers.CiliricalName;
                     data[i].BonusReversed = (int)accuredList[i].bonusPlan;
                     data[i].Accrued = (int)accuredList[i].accruedPlan;
-                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedPlan;
+                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == id_AspNetUsers).accruedPlan;
                     data[i].Manager = GetManagerAccuedPlan(accuredList[i].id_AspNetUsers);
                     data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
@@ -239,7 +248,18 @@ namespace Wiki.Areas.CMKO
                     data[i].Teach = (int)cMKO_ThisIndicatorsUsers.teach;
                     data[i].Tax = ((int)cMKO_ThisIndicatorsUsers.tax1 + (int)cMKO_ThisIndicatorsUsers.tax2 + (int)cMKO_ThisIndicatorsUsers.tax3) * -1;
                     data[i].Rate = ((int)cMKO_ThisIndicatorsUsers.rate1 + (int)cMKO_ThisIndicatorsUsers.rate2 + (int)cMKO_ThisIndicatorsUsers.rate3) * -1;
+                    if (statusManager == false)
+                    {
+                        data[i].UserAccured = data[i].BonusReversed + data[i].Accrued + data[i].Accruedg + data[i].Manager + data[i].BonusQuality +
+                            data[i].Speed + data[i].Optimization + data[i].Teach + data[i].Tax + data[i].Rate;
+                    }
+                    else
+                    {
+                        data[i].UserAccured = 0;
+                    }
                 }
+
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

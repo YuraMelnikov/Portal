@@ -13658,6 +13658,7 @@ function GetAccuredPlan() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var userAccured = 0;
             var counter = Object.keys(result).length;
             var ciliricName = new Array();
             var bonusReversed = new Array();
@@ -13686,6 +13687,8 @@ function GetAccuredPlan() {
             var heightChart = 500;
             if (counter < 2) {
                 heightChart = 220;
+                userAccured = result[0].UserAccured;
+                document.getElementById("textUserAccuredPlan").textContent = "Итого: " + userAccured.toString();
             }
             Highcharts.setOptions({
                 credits: {
@@ -13704,7 +13707,7 @@ function GetAccuredPlan() {
                 },
                 title: {
                     margin: 0,
-                    text: 'Плановые начисления сотрудников',
+                    text: 'Плановые начисления сотрудника/ов',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -13781,6 +13784,7 @@ function GetAccuredFact() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var userAccured = 0;
             var counter = Object.keys(result).length;
             var ciliricName = new Array();
             var bonusReversed = new Array();
@@ -13809,6 +13813,8 @@ function GetAccuredFact() {
             var heightChart = 500;
             if (counter < 2) {
                 heightChart = 220;
+                userAccured = result[0].UserAccured;
+                document.getElementById("textAccuredUserFact").textContent = "Итого: " + userAccured.toString();
             }
             Highcharts.setOptions({
                 credits: {
@@ -13827,7 +13833,7 @@ function GetAccuredFact() {
                 },
                 title: {
                     margin: 0,
-                    text: 'Фактические начисления сотрудников',
+                    text: 'Фактические начисления сотрудника/ов',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
