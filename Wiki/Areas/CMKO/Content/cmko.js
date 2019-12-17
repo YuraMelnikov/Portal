@@ -205,10 +205,10 @@ var objRemarksList = [
 ];
 
 function StartMenu() {
-    $("#ramarksUserTable").DataTable({
+    $("#ramarksUsersTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMK/GetRamarksUser",
+            "url": "/CMK/GetRamarksUsersList",
             "type": "POST",
             "datatype": "json"
         },

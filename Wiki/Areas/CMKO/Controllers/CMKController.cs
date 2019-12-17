@@ -1471,6 +1471,31 @@ namespace Wiki.Areas.CMKO
             }
         }
 
+        [HttpPost]
+        public JsonResult GetRamarksUsersList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.AspNetUsers
+                .AsNoTracking()
+                .Where(d => d.LockoutEnabled == true)
+                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                .Include(d => d.CMKO_TaxCatigories)
+                .Include(d => d.Devision1)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkUser(login, dataList.Id),
+                ciliricName = dataList.CiliricalName,
+                devisionName = dataList.Devision1.name,
+                category = dataList.CMKO_TaxCatigories.catigoriesName,
+                dateToCMKO = JsonConvert.SerializeObject(dataList.dateToCMKO, settings).Replace(@"""", ""),
+                dataList.tax
+            });
+            return Json(new { data });
+        }
+
         public string RenderUserMenu()
         {
             string login = "Войти";
