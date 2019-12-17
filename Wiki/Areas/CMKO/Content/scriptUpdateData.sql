@@ -704,3 +704,22 @@ and (MSP_EpmResource_UserView.ResourceName not like '%КБЭ%')
 group by
 MSP_EpmResource_UserView.[СДРес],
 MSP_EpmResource_UserView.ResourceName
+
+
+delete PortalKATEK.dbo.CMKO_RemarksList
+insert into PortalKATEK.dbo.CMKO_RemarksList
+select 
+PortalKATEK.dbo.Reclamation.id
+,PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+,PortalKATEK.dbo.Reclamation.id_AspNetUsersError
+from PortalKATEK.dbo.Reclamation 
+left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
+left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
+left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
+left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
+where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
+and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
+and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
+and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
+and PortalKATEK.dbo.Reclamation.closeMKO = 1
