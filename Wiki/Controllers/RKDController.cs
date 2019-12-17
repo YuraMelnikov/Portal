@@ -851,7 +851,7 @@ namespace Wiki.Controllers
         }
 
         // 3 step - отправить доработаное РКД в ТП на согласование
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult UploadVersionRDK(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;

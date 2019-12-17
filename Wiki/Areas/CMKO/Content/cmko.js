@@ -14093,10 +14093,7 @@ function GetCoefWorker() {
                                 textOutline: "0px contrast"
                             }
                         },
-                        stacking: 'normal',
-                        events: {
-                            legendItemClick: GetRamarksUsersList()
-                        }
+                        stacking: 'normal'
                     }
                 },
                 series: [{
