@@ -192,5 +192,6 @@ namespace Wiki
         public virtual DbSet<DashboardBPManpowerManuf> DashboardBPManpowerManuf { get; set; }
         public virtual DbSet<DashboardBPComments> DashboardBPComments { get; set; }
         public virtual DbSet<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
+        public virtual DbSet<CMKO_RemarksList> CMKO_RemarksList { get; set; }
     }
 }

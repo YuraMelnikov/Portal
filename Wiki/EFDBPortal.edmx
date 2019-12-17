@@ -154,6 +154,15 @@
           <Property Name="devision" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_RemarksList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Reclamation" Type="int" Nullable="false" />
+          <Property Name="id_Reclamation_CountError" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMKO_TaxCatigories">
           <Key>
             <PropertyRef Name="id" />
@@ -2237,6 +2246,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CMKO_RemarksList_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMKO_RemarksList" Type="Self.CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_RemarksList_Reclamation">
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="1" />
+          <End Role="CMKO_RemarksList" Type="Self.CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_RemarksList_Reclamation_CountError">
+          <End Role="Reclamation_CountError" Type="Self.Reclamation_CountError" Multiplicity="1" />
+          <End Role="CMKO_RemarksList" Type="Self.CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_Reclamation_CountError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CMKO_Teach_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="CMKO_Teach" Type="Self.CMKO_Teach" Multiplicity="*" />
@@ -4057,6 +4102,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMKO_Optimization" EntityType="Self.CMKO_Optimization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_PeriodResult" EntityType="Self.CMKO_PeriodResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ProjectFactBujet" EntityType="Self.CMKO_ProjectFactBujet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_RemarksList" EntityType="Self.CMKO_RemarksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_TaxCatigories" EntityType="Self.CMKO_TaxCatigories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_Teach" EntityType="Self.CMKO_Teach" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisAccrued" EntityType="Self.CMKO_ThisAccrued" Schema="dbo" store:Type="Tables" />
@@ -4419,6 +4465,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_CMKO_ProjectFactBujet_PZ_PlanZakaz" Association="Self.FK_CMKO_ProjectFactBujet_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMKO_ProjectFactBujet" EntitySet="CMKO_ProjectFactBujet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_RemarksList_AspNetUsers" Association="Self.FK_CMKO_RemarksList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_RemarksList_Reclamation" Association="Self.FK_CMKO_RemarksList_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_RemarksList_Reclamation_CountError" Association="Self.FK_CMKO_RemarksList_Reclamation_CountError">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
           </AssociationSet>
           <AssociationSet Name="FK_CMKO_Teach_AspNetUsers" Association="Self.FK_CMKO_Teach_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -5949,6 +6007,19 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DashboardBPTaskInsert" EntitySet="DashboardBPTaskInsert" />
           </AssociationSet>
+          <EntitySet Name="CMKO_RemarksList" EntityType="PortalKATEKModel.CMKO_RemarksList" />
+          <AssociationSet Name="FK_CMKO_RemarksList_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_RemarksList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_RemarksList_Reclamation" Association="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation">
+            <End Role="Reclamation" EntitySet="Reclamation" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_RemarksList_Reclamation_CountError" Association="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation_CountError">
+            <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
+            <End Role="CMKO_RemarksList" EntitySet="CMKO_RemarksList" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -6661,6 +6732,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Reclamation_TechnicalAdviceTasks" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdviceTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="Reclamation_TechnicalAdviceTasks" />
           <NavigationProperty Name="DashboardBPTaskInsert" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBPTaskInsert" />
+          <NavigationProperty Name="CMKO_RemarksList" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_RemarksList" />
         </EntityType>
         <EntityType Name="CMKO_BujetList">
           <Key>
@@ -7696,6 +7768,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="Reclamation" ToRole="ServiceRemarksReclamations" />
+          <NavigationProperty Name="CMKO_RemarksList" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation" FromRole="Reclamation" ToRole="CMKO_RemarksList" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -7733,6 +7806,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="count" Type="Double" Nullable="false" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError" FromRole="Reclamation_CountError" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_CountError1" FromRole="Reclamation_CountError" ToRole="Reclamation" />
+          <NavigationProperty Name="CMKO_RemarksList" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation_CountError" FromRole="Reclamation_CountError" ToRole="CMKO_RemarksList" />
         </EntityType>
         <EntityType Name="Reclamation_PZ">
           <Key>
@@ -10176,6 +10250,54 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CMKO_RemarksList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Reclamation" Type="Int32" Nullable="false" />
+          <Property Name="id_Reclamation_CountError" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_AspNetUsers" FromRole="CMKO_RemarksList" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation" FromRole="CMKO_RemarksList" ToRole="Reclamation" />
+          <NavigationProperty Name="Reclamation_CountError" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation_CountError" FromRole="CMKO_RemarksList" ToRole="Reclamation_CountError" />
+        </EntityType>
+        <Association Name="FK_CMKO_RemarksList_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_RemarksList" Role="CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_RemarksList_Reclamation">
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_RemarksList" Role="CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_Reclamation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_RemarksList_Reclamation_CountError">
+          <End Type="PortalKATEKModel.Reclamation_CountError" Role="Reclamation_CountError" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_RemarksList" Role="CMKO_RemarksList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reclamation_CountError">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMKO_RemarksList">
+              <PropertyRef Name="id_Reclamation_CountError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12425,6 +12547,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
                 <ScalarProperty Name="TaskIsSummary" ColumnName="TaskIsSummary" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_RemarksList">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_RemarksList">
+              <MappingFragment StoreEntitySet="CMKO_RemarksList">
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id_Reclamation_CountError" ColumnName="id_Reclamation_CountError" />
+                <ScalarProperty Name="id_Reclamation" ColumnName="id_Reclamation" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

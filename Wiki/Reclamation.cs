@@ -21,6 +21,7 @@ namespace Wiki
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.Reclamation_TechnicalAdvice = new HashSet<Reclamation_TechnicalAdvice>();
             this.ServiceRemarksReclamations = new HashSet<ServiceRemarksReclamations>();
+            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
         }
     
         public int id { get; set; }
@@ -63,5 +64,7 @@ namespace Wiki
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
     }
 }
