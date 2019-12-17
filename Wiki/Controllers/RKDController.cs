@@ -463,7 +463,7 @@ namespace Wiki.Controllers
                     try
                     {
                         devision = (int)db.AspNetUsers.Where(d => d.Email == login).First().Devision;
-                        if (devision == 15 || devision == 16)
+                        if (devision == 15 || devision == 16 || devision == 18)
                             devision = 3;
                     }
                     catch

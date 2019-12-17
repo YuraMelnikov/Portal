@@ -49,7 +49,7 @@
                     <td class="col-md-1">@Html.ActionLink("См.", "Details", "RKD", new { id = item.id }, null) </td>
                     @try
                     {
-                        if (@ViewBag.devision == @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.devision || @ViewBag.devision == 13 || @ViewBag.devision == 18)
+                        if (@ViewBag.devision == @item.PZ_PlanZakaz.RKD_Order.First().RKD_Version.Where(d => d.activeVersion).First().RKD_VersionWork.devision || @ViewBag.devision == 13)
                         {
                             <td class="col-md-1 warning" text-align="center">@Html.ActionLink("►", "OpenOrder", "RKD", new { idOrder = item.id }, null) </td>
                         }
