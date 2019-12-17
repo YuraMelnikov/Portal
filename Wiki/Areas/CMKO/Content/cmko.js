@@ -199,13 +199,14 @@ function GetTextNamePeriod() {
 
 var objRemarksList = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
-    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true },
-    { "title": "ФИО", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "Коэф.", "data": "coef", "autowidth": true, "bSortable": true }
+    { "title": "Ид.", "data": "idRemark", "autowidth": true, "bSortable": false },
+    { "title": "Оценка", "data": "count", "autowidth": true, "bSortable": true },
+    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
 
 function StartMenu() {
-    $("#ramarksUsersTable").DataTable({
+    $("#ramarksUserTable").DataTable({
         "ajax": {
             "cache": false,
             "url": "/CMK/GetRamarksUsersList",
@@ -216,13 +217,12 @@ function StartMenu() {
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
-        "scrollX": true,
         "searching": false,
+        "scrollX": true,
         "paging": false,
         "info": false,
         "scrollCollapse": true
     });
-
     $("#optimizationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -359,6 +359,30 @@ function StartMenu() {
         "info": false,
         "scrollCollapse": true
     });
+}
+
+function GetRamarksUsersList() {
+    var table = $('#ramarksUserTable').DataTable();
+    table.destroy();
+    $('#ramarksUserTable').empty();
+    $("#ramarksUserTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetRamarksUsersList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $('#ramarksUserModal').modal('show');
 }
 
 var objSpeedUsers = [
@@ -14069,7 +14093,10 @@ function GetCoefWorker() {
                                 textOutline: "0px contrast"
                             }
                         },
-                        stacking: 'normal'
+                        stacking: 'normal',
+                        events: {
+                            legendItemClick: GetRamarksUsersList()
+                        }
                     }
                 },
                 series: [{
@@ -14565,4 +14592,76 @@ function getRemainingWorkE() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function GetReclamationView(id) {
+    $.ajax({
+        cache: false,
+        url: "/Remarks/GetReclamation/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#id').val(result.id);
+            $('#numberReclamation').val('Замечание №: ' + result.id);
+            $('#id_Reclamation_Type').val(result.id_Reclamation_Type);
+            $('#id_DevisionReclamation').val(result.id_DevisionReclamation);
+            $('#id_Reclamation_CountErrorFirst').val(result.id_Reclamation_CountErrorFirst);
+            $('#id_Reclamation_CountErrorFinal').val(result.id_Reclamation_CountErrorFinal);
+            $('#vid_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
+            $('#id_DevisionCreate').val(result.id_DevisionCreate);
+            $('#vdateTimeCreate').val(result.dateTimeCreate);
+            $('#text').val(result.text);
+            $('#description').val(result.description);
+            $('#timeToSearch').val(result.timeToSearch);
+            $('#timeToEliminate').val(result.timeToEliminate);
+            $('#close').prop('checked', result.close);
+            $('#gip').prop('checked', result.gip);
+            $('#closeDevision').prop('checked', result.closeDevision);
+            $('#PCAM').val(result.PCAM);
+            $('#answerHistiryText').val(result.answerHistiryText);
+            $('#editManufacturing').prop('checked', result.editManufacturing);
+            $('#editManufacturingIdDevision').val(result.editManufacturingIdDevision);
+            $('#id_PF').val(result.id_PF);
+            $('#technicalAdvice').prop('checked', result.technicalAdvice);
+            $('#id_AspNetUsersError').val(result.id_AspNetUsersError);
+            $('#reloadDevision').val("");
+            $('#reload').prop('checked', false);
+            $('#id').prop('disabled', true);
+            $('#id_Reclamation_Type').prop('disabled', true);
+            $('#id_DevisionReclamation').prop('disabled', true);
+            $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
+            $('#id_Reclamation_CountErrorFinal').prop('disabled', true);
+            $('#id_AspNetUsersCreate').prop('disabled', true);
+            $('#id_DevisionCreate').prop('disabled', true);
+            $('#dateTimeCreate').prop('disabled', true);
+            $('#text').prop('disabled', true);
+            $('#description').prop('disabled', true);
+            $('#timeToSearch').prop('disabled', true);
+            $('#timeToEliminate').prop('disabled', true);
+            $('#close').prop('disabled', true);
+            $('#gip').prop('disabled', true);
+            $('#closeDevision').prop('disabled', true);
+            $('#PCAM').prop('disabled', true);
+            $('#editManufacturing').prop('disabled', true);
+            $('#editManufacturingIdDevision').prop('disabled', true);
+            $('#id_PF').prop('disabled', true);
+            $('#technicalAdvice').prop('disabled', true);
+            $('#id_AspNetUsersError').prop('disabled', true);
+            $('#reloadDevision').prop('disabled', true);
+            $('#reload').prop('disabled', true);
+            $('#answerHistiryText').prop('disabled', true);
+            $('#answerText').prop('disabled', true);
+            $('#trash').prop('disabled', true);
+            $('#pZ_PlanZakaz').prop('disabled', true);
+            $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
+            $('#viewReclamation').modal('show');
+            $('#btnUpdate').hide();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }

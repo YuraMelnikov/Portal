@@ -223,7 +223,7 @@ namespace Wiki.Controllers
             return View(viewOSCMO);
         }
 
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         public ActionResult CreateQuestion()
         {
             string login = HttpContext.User.Identity.Name;
@@ -239,7 +239,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         [HttpPost]
         public ActionResult CreateQuestion(RKD_Question rKD_Question)
         {
@@ -264,7 +264,7 @@ namespace Wiki.Controllers
             }
         }
         
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         public ActionResult CreateQuestionOnOrder(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -283,7 +283,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, GR")]
         [HttpPost]
         public ActionResult CreateQuestionOnOrder(RKD_Question rKD_Question)
         {
@@ -308,7 +308,7 @@ namespace Wiki.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, OPTP, OP, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, OPTP, OP, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         public ActionResult UpdateQuestion(int? id)
         {
             string login = HttpContext.User.Identity.Name;
@@ -328,7 +328,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, OPTP, OP, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, OPTP, OP, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         [HttpPost]
         public ActionResult UpdateQuestion(RKD_Question rKD_Question)
         {
@@ -355,7 +355,7 @@ namespace Wiki.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         public ActionResult CloseQuestion(int? id)
         {
             string login = HttpContext.User.Identity.Name;
@@ -418,7 +418,7 @@ namespace Wiki.Controllers
             }
         }
         
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         public ActionResult CreateInstitute()
         {
             string login = HttpContext.User.Identity.Name;
@@ -432,7 +432,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         [HttpPost]
         public ActionResult CreateInstitute(RKD_Institute rKD_Institute)
         {
@@ -701,7 +701,7 @@ namespace Wiki.Controllers
         }
 
         // 1 step - загрузка новой версии РКД для отправки на согласование в ТП
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult UploadNewVersionRDK(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -742,7 +742,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         [HttpPost]
         public ActionResult UploadNewVersionRDK(RKD_Order rKD_Order, string basicCount, string folderRKD)
         {
@@ -767,7 +767,7 @@ namespace Wiki.Controllers
         }
 
         // 2 step - Черновой вариант РКД на рссмотрении у ГР
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult SeachTP(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -798,7 +798,7 @@ namespace Wiki.Controllers
         }
 
         // 2 step - отправить РКД на доработку 
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult ErrorNewVersionRDK(int id_RKD_Order)
         {
             string login = HttpContext.User.Identity.Name;
@@ -893,7 +893,7 @@ namespace Wiki.Controllers
                 return RedirectToAction("Error", "RKD");
             }
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, GR")]
         [HttpPost]
         public ActionResult UploadVersionRDK(RKD_Order rKD_Order, string folderRKD)
         {
@@ -938,7 +938,7 @@ namespace Wiki.Controllers
         }
 
         // for step 6-7-8 - Выбираем возможный вариант ответа от Заказчика/ПИ
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult GetInfClient(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -979,7 +979,7 @@ namespace Wiki.Controllers
         }
 
         // 6 step - Добавить дней до получения ответа от Заказчика/ПИ
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult PlusClientDay(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1016,7 +1016,7 @@ namespace Wiki.Controllers
         }
 
         // 7 step - загрузить замечания от Заказчика/ПИ в систему
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult GetErrorList(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1065,7 +1065,7 @@ namespace Wiki.Controllers
         }
 
         // 8 step - получено согласование РКД
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult GetGoodList(int? idOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1146,7 +1146,7 @@ namespace Wiki.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         public ActionResult CreateNewDespatching(int idOrder)
         {
             RKD_Despatching rKD_Despatching = new RKD_Despatching();
@@ -1160,7 +1160,7 @@ namespace Wiki.Controllers
             ViewBag.id_AspNetUsers = new SelectList(db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16 || d.Email == "bav@katek.by" || d.Email == "maj@katek.by").Where(d => d.LockoutEnabled == true || d.Email == "yury.melnikau@gmail.com").OrderBy(d => d.CiliricalName), "id", "CiliricalName");
             return PartialView("CreateNewDespatching", rKD_Despatching);
         }
-        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP")]
+        [Authorize(Roles = "Admin, KBMUser, KBEUser, KBE, KBM, Technologist, OPTP, OP, GR")]
         [HttpPost]
         public ActionResult CreateNewDespatching(RKD_Despatching rKD_Despatching, int[] PZ)
         {
@@ -1202,7 +1202,7 @@ namespace Wiki.Controllers
             }
         }
         
-        [Authorize(Roles = "Admin, OPTP, OP, KBM, KBE, Technologist")]
+        [Authorize(Roles = "Admin, OPTP, OP, KBM, KBE, Technologist, GR")]
         public ActionResult Edit(int? id)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1237,7 +1237,7 @@ namespace Wiki.Controllers
             }
         }
         
-        [Authorize(Roles = "Admin, OPTP, OP, KBM, KBE, Technologist")]
+        [Authorize(Roles = "Admin, OPTP, OP, KBM, KBE, Technologist, GR")]
         public ActionResult EditTP(int? id)
         {
             string login = HttpContext.User.Identity.Name;

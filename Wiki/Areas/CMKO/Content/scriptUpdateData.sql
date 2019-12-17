@@ -382,22 +382,27 @@ left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(pla
 left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
-left join (select PortalKATEK.dbo.Reclamation.id_AspNetUsersError
-			,sum(iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0)) as countError
-			,0 as countErrorG 
-			from PortalKATEK.dbo.Reclamation 
-			left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
-			left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
-			left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
-			left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
-			left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
-			where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
-			and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
-			and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
-			and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
-			and PortalKATEK.dbo.Reclamation.closeMKO = 1
-			group by 
-			PortalKATEK.dbo.Reclamation.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
+left join (select TableRes.id_AspNetUsersError as id_AspNetUsersError
+                ,SUM(TableRes.countError) as countError
+                ,0 as countErrorG
+                from (select 
+                PortalKATEK.dbo.Reclamation.id_AspNetUsersError
+                ,iif(PortalKATEK.dbo.Reclamation.gip = 0, PortalKATEK.dbo.Reclamation_CountError.[count], 0) as countError
+                ,0 as countErrorG 
+                ,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
+                from PortalKATEK.dbo.Reclamation 
+                left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
+                left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.Id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
+                left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
+                left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+                left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
+                where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
+                and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
+                and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
+                and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
+                and PortalKATEK.dbo.Reclamation.closeMKO = 1) as TableRes
+                where TableRes.rowNum = 1
+                group by TableRes.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
@@ -709,7 +714,11 @@ MSP_EpmResource_UserView.ResourceName
 delete PortalKATEK.dbo.CMKO_RemarksList
 insert into PortalKATEK.dbo.CMKO_RemarksList
 select 
-PortalKATEK.dbo.Reclamation.id
+TableRes.id
+,TableRes.id_Reclamation_CountErrorFirst
+,TableRes.id_AspNetUsersError
+from(select PortalKATEK.dbo.Reclamation.id
+,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 ,PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 ,PortalKATEK.dbo.Reclamation.id_AspNetUsersError
 from PortalKATEK.dbo.Reclamation 
@@ -722,4 +731,5 @@ where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo
 and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
 and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
 and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
-and PortalKATEK.dbo.Reclamation.closeMKO = 1
+and PortalKATEK.dbo.Reclamation.closeMKO = 1) as TableRes
+where TableRes.rowNum = 1 and TableRes.id_Reclamation_CountErrorFirst != 4

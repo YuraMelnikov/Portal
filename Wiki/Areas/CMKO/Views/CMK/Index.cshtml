@@ -1,47 +1,50 @@
-﻿@{
+﻿@model Wiki.Reclamation
+@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/CMKO/Views/Shared/_LayoutCMKO.cshtml";
 }
-<head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="~/Content/Highcharts/highcharts.js"></script>
-    <script src="~/Content/Highcharts/highcharts-more.js"></script>
-    <script src="~/Content/Highcharts/exporting.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/bullet.js"></script>
-    <script src="~/Content/jquery.cookie.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v1.1"></script>
-    <style>
-        th.dt-invisible-column {
-            border: 0 !important;
-            padding: 0 !important;
-        }
+    <head>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="~/Content/Highcharts/highcharts.js"></script>
+        <script src="~/Content/Highcharts/highcharts-more.js"></script>
+        <script src="~/Content/Highcharts/exporting.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/bullet.js"></script>
+        <script src="~/Content/jquery.cookie.js"></script>
+        <script src="~/Areas/CMKO/Content/cmko.js?v1.1"></script>
+        <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+        <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+        <style>
+            th.dt-invisible-column {
+                border: 0 !important;
+                padding: 0 !important;
+            }
 
-        .modal.modal-wide .modal-dialog {
-            width: 90%;
-        }
+            .modal.modal-wide .modal-dialog {
+                width: 90%;
+            }
 
-        .modal-wide .modal-body {
-            overflow-y: auto;
-        }
+            .modal-wide .modal-body {
+                overflow-y: auto;
+            }
 
-        .colu-200 {
-            min-width: 200px;
-        }
+            .colu-200 {
+                min-width: 200px;
+            }
 
-        .colu-300 {
-            min-width: 300px;
-        }
+            .colu-300 {
+                min-width: 300px;
+            }
 
-        hr.standart {
-            border: 1px solid #717171;
-        }
-    </style>
-</head>
+            hr.standart {
+                border: 1px solid #717171;
+            }
+        </style>
+    </head>
 
 <div id="dashboardBody">
     <div class="row" id="divPeriodReportTitle">
@@ -311,13 +314,14 @@
     <div id="hideAccuredStandart">
         <hr class="standart">
     </div>
-
     <div class="row" id="divCoef">
         <div class="col-lg-6">
             <div id="coefWorker" style="max-width: 800px;  height: 450px; margin: 0 auto;"></div>
+            <button class="btn-xs btn-default" onclick="GetRamarksUsersList()">Открыть список замечаний</button>
         </div>
         <div class="col-lg-6">
             <div id="coefWorkerG" style="max-width: 800px;  height: 450px; margin: 0 auto;"></div>
+
         </div>
     </div>
     <hr class="standart">
@@ -693,8 +697,6 @@
     </div>
 </div>
 
-
-
 <div id="ramarksUserModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -704,15 +706,144 @@
                         <table id="ramarksUserTable" class="table table-hover table-striped" style="width:100%;"></table>
                     </div>
                 </div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
+                <div class="row"><div class="col-lg-4"></div></div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-
+<div id="viewReclamation" class="modal modal-wide fade" data-keyboard="false" data-toggle="popover">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="numberReclamation" disabled="disabled" />
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label>План-Заказ/ы №№:</label>
+                        @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Тип замечания:</label>
+                        @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Автор замечания:</label>
+                        <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Создана:</label>
+                        <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label> ОТК закрыл :      .  </label>
+                        <input type="checkbox" id="close" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Ответственное СП: </label>
+                        @Html.DropDownList("id_DevisionReclamation", ViewBag.id_DevisionReclamation as MultiSelectList, new { @class = "form-control", @id = "id_DevisionReclamation" })
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Ответственный сотрудник: </label>
+                        @Html.DropDownList("id_AspNetUsersError", ViewBag.id_AspNetUsersError as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Критерий ошибки:</label>
+                        @Html.DropDownList("id_Reclamation_CountErrorFirst", ViewBag.id_Reclamation_CountErrorFirst as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Текст замечания:</label>
+                        @Html.TextAreaFor(model => model.text, htmlAttributes: new { @class = "form-control", @rows = 8 })
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Прим.:</label>
+                        @Html.TextAreaFor(model => model.description, htmlAttributes: new { @class = "form-control", @rows = 5 })
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <label>Полуфабрикат:</label>
+                                @Html.DropDownList("id_PF", ViewBag.id_PF as MultiSelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-5">
+                                <label>РСАМ: </label>
+                                <input type="text" class="form-control" id="PCAM" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Рекл. закрыта: </label>
+                                <input type="checkbox" id="closeDevision" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Ответ:</label>
+                        <textarea name="answerText" id="answerText" class="form-control" rows=7></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>История переписки:</label>
+                        <textarea name="answerHistiryText" id="answerHistiryText" class="form-control" rows=7></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>На техсовет: </label>
+                        <input type="checkbox" id="technicalAdvice" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>ГИП: </label>
+                        <input type="checkbox" id="gip" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Шум: </label>
+                        <input type="checkbox" id="trash" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Добавить</button>
+                        <button type="button" class="btn btn-danger" id="btnRemove" onclick="return remove();">Удалить</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(function () {
@@ -726,7 +857,7 @@
 </script>
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
-        var height = $(window).height() - 200;
+        var height = $(window).height() - 50;
         $(this).find(".modal-body").css("max-height", height);
     });
 </script>

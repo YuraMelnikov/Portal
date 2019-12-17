@@ -1080,7 +1080,10 @@ namespace Wiki.Areas.CMKO
 
         public ActionResult Index()
         {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
             string login = HttpContext.User.Identity.Name;
+            DateTime dateForFiltPZ = DateTime.Now.AddDays(-90);
             ViewBag.periodTeach = new SelectList(db.CMKO_PeriodResult
                                                        .Where(d => d.close == false)
                                                        .OrderByDescending(d => d.period), "period", "period");
@@ -1185,6 +1188,16 @@ namespace Wiki.Areas.CMKO
             {
                 ViewBag.LeavelUser = 0;
             }
+            ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > dateForFiltPZ).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_DevisionReclamation = new SelectList(db.Devision.OrderBy(d => d.name), "id", "name");
+            ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 3 || d.Devision == 16 || d.Devision == 15)
+                    .Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+
             return View();
         }
 
@@ -1360,6 +1373,7 @@ namespace Wiki.Areas.CMKO
             else
                 return "<td></td>";
         }
+        
         string GetEditLinkUser(string login, string id)
         {
             if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by")
@@ -1471,27 +1485,37 @@ namespace Wiki.Areas.CMKO
             }
         }
 
-        [HttpPost]
         public JsonResult GetRamarksUsersList()
         {
+            bool filt = GetStatusManagerUser();
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            var query = db.AspNetUsers
-                .AsNoTracking()
-                .Where(d => d.LockoutEnabled == true)
-                .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                .Include(d => d.CMKO_TaxCatigories)
-                .Include(d => d.Devision1)
-                .ToList();
+            List<CMKO_RemarksList> query;
+            if(filt == true)
+            {
+                query = db.CMKO_RemarksList
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .ToList();
+            }
+            else
+            {
+                query = db.CMKO_RemarksList
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .Where(d => d.AspNetUsers.Email == login)
+                            .ToList();
+            }
             var data = query.Select(dataList => new
             {
-                editLink = GetEditLinkUser(login, dataList.Id),
-                ciliricName = dataList.CiliricalName,
-                devisionName = dataList.Devision1.name,
-                category = dataList.CMKO_TaxCatigories.catigoriesName,
-                dateToCMKO = JsonConvert.SerializeObject(dataList.dateToCMKO, settings).Replace(@"""", ""),
-                dataList.tax
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                idRemark = dataList.id_Reclamation,
+                textData = dataList.Reclamation.text,
+                count = dataList.Reclamation_CountError.count,
+                user = dataList.AspNetUsers.CiliricalName
             });
             return Json(new { data });
         }
