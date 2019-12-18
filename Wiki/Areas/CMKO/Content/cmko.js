@@ -1794,6 +1794,10 @@ function GetGAccrued() {
                 planArray.push(result[i].Plan);
                 factArray.push(result[i].Fact);
             }
+            var heightChart = 450;
+            if (counter < 2) {
+                heightChart = 110;
+            }
             if (counter === 0) {
                 $('#hideAccuredG').hide();
             }
@@ -1806,7 +1810,8 @@ function GetGAccrued() {
                 Highcharts.chart('accruedG', {
                     chart: {
                         type: 'bar',
-                        marginBottom: 60
+                        marginBottom: 60,
+                        height: heightChart
                     },
                     navigation: {
                         buttonOptions: {
