@@ -223,6 +223,23 @@ function StartMenu() {
         "info": false,
         "scrollCollapse": true
     });
+    $("#ramarksGUserTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetRamarksGUsersList/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[3, "asc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
     $("#optimizationTable").DataTable({
         "ajax": {
             "cache": false,
@@ -359,6 +376,35 @@ function StartMenu() {
         "info": false,
         "scrollCollapse": true
     });
+}
+
+function GetRamarksGUsersList() {
+    var table = $('#ramarksGUserTable').DataTable();
+    table.destroy();
+    $('#ramarksGUserTable').empty();
+    $("#ramarksGUserTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetRamarksGUsersList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[3, "asc"]],
+        "processing": true,
+        "columns": objRemarksList,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#ramarksGUserModal').modal('show');
 }
 
 function GetRamarksUsersList() {

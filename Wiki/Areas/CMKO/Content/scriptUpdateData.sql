@@ -433,9 +433,11 @@ update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
 set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * @coefErrorGip) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
 from 
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
-(select
-		PortalKATEK.dbo.RKD_GIP.id_UserKBE
-		,sum(PortalKATEK.dbo.Reclamation_CountError.[count]) as [count]
+(select TableResult.id_UserKBE,
+sum(TableResult.[count]) as [count]
+from (select PortalKATEK.dbo.RKD_GIP.id_UserKBE
+		,PortalKATEK.dbo.Reclamation_CountError.[count]
+		,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 		from PortalKATEK.dbo.Reclamation
 		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
@@ -447,8 +449,9 @@ from
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and PortalKATEK.dbo.RKD_GIP.id_UserKBE is not null
-		group by PortalKATEK.dbo.RKD_GIP.id_UserKBE) as TableGipCoef on TableGipCoef.id_UserKBE = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
+		and PortalKATEK.dbo.RKD_GIP.id_UserKBE is not null) as TableResult 
+		where TableResult.rowNum = 1
+		group by TableResult.id_UserKBE) as TableGipCoef on TableGipCoef.id_UserKBE = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 where (PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16)
@@ -467,9 +470,13 @@ update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
 set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 1 - iif(isnull(TableGipCoef.[count], 0) = 0, 0, ((TableGipCoef.[count] * @coefErrorGip) / (100 * [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact)))    
 from 
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
-(select
-		UsersTable.Id as id_UserKBM
-		,sum(PortalKATEK.dbo.Reclamation_CountError.[count]) as [count]
+(select 
+TableResut.id_UserKBM
+,sum(TableResut.count) as [count]
+ from
+(select UsersTable.Id as id_UserKBM
+		,PortalKATEK.dbo.Reclamation_CountError.[count] as [count]
+		,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 		from PortalKATEK.dbo.Reclamation
 		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
@@ -489,8 +496,9 @@ from
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and UsersTable.Id is not null
-		group by UsersTable.Id) as TableGipCoef on TableGipCoef.id_UserKBM = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
+		and UsersTable.Id is not null) as TableResut
+		where TableResut.rowNum = 1
+		group by TableResut.id_UserKBM) as TableGipCoef on TableGipCoef.id_UserKBM = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 where PortalKATEK.dbo.Devision.id = 15
@@ -735,3 +743,50 @@ and PortalKATEK.dbo.Reclamation.closeMKO = 1) as TableRes
 where TableRes.rowNum = 1 and TableRes.id_Reclamation_CountErrorFirst != 4
 
 
+delete PortalKATEK.dbo.CMKO_RemarksListG
+insert into PortalKATEK.dbo.CMKO_RemarksListG
+select TableResult.id
+,TableResult.counId
+,TableResult.id_UserKBE
+from (select 
+		PortalKATEK.dbo.Reclamation.id
+		,PortalKATEK.dbo.Reclamation_CountError.id as [counId]
+		,PortalKATEK.dbo.RKD_GIP.id_UserKBE
+		,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
+		from PortalKATEK.dbo.Reclamation
+		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
+		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
+		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
+		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
+		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
+		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
+		and PortalKATEK.dbo.Reclamation.gip = 1
+		and PortalKATEK.dbo.RKD_GIP.id_UserKBE is not null) as TableResult 
+		where TableResult.rowNum = 1
+
+
+insert into PortalKATEK.dbo.CMKO_RemarksListG
+select TableResult.id
+,TableResult.counId
+,TableResult.id_UserKBM
+from (select 
+		PortalKATEK.dbo.Reclamation.id
+		,PortalKATEK.dbo.Reclamation_CountError.id as [counId]
+		,PortalKATEK.dbo.RKD_GIP.id_UserKBM
+		,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
+		from PortalKATEK.dbo.Reclamation
+		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
+		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
+		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
+		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
+		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15)
+		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
+		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
+		and PortalKATEK.dbo.Reclamation.gip = 1
+		and PortalKATEK.dbo.RKD_GIP.id_UserKBM is not null) as TableResult 
+		where TableResult.rowNum = 1
