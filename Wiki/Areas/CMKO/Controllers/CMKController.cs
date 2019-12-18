@@ -1520,30 +1520,6 @@ namespace Wiki.Areas.CMKO
             return Json(new { data });
         }
 
-        public JsonResult GetNhUsersTable()
-        {
-            bool filt = GetStatusManagerUser();
-            string login = HttpContext.User.Identity.Name;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            login = db.AspNetUsers.First(d => d.Email == login).CiliricalName;
-
-
-            List<CMKO_BujetList> query = db.CMKO_BujetList.AsNoTracking()
-                            .Where(d => d.AspNetUsers.CiliricalName == login)
-                            .ToList();
-
-            var data = query.Select(dataList => new
-            {
-                orderNumber = dataList.orderNumber,
-                taskName = dataList.TaskName,
-                user = dataList.ResourceName,
-                notmH = dataList.normH,
-                work = dataList.TaskWork
-            });
-            return Json(new { data });
-        }
-
         public string RenderUserMenu()
         {
             string login = "Войти";
