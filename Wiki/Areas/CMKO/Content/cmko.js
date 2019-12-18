@@ -204,14 +204,6 @@ var objRemarksList = [
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
-
-var objNH = [
-    { "title": "№ заказа", "data": "orderNumber", "autowidth": true, "bSortable": false },
-    { "title": "Наименование задачи", "data": "taskName", "autowidth": true, "bSortable": false },
-    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "НЧ", "data": "normH", "autowidth": true, "bSortable": true },
-    { "title": "Тр-ты", "data": "work", "autowidth": true, "bSortable": false }
-];
  
 function StartMenu() {   
     $("#ramarksUserTable").DataTable({

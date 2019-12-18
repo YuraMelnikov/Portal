@@ -337,6 +337,10 @@
         <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksList_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation_CountError" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMKO_RemarksListG" Width="1.5" PointX="25.25" PointY="44.375" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksListG_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksListG_Reclamation" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMKO_RemarksListG_Reclamation_CountError" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

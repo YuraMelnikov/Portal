@@ -58,6 +58,7 @@ namespace Wiki
             this.Reclamation_TechnicalAdviceTasks = new HashSet<Reclamation_TechnicalAdviceTasks>();
             this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
             this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
+            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
         }
     
         public string Id { get; set; }
@@ -163,5 +164,7 @@ namespace Wiki
         public virtual ICollection<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
     }
 }

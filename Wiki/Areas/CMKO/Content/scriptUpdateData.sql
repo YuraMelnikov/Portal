@@ -733,3 +733,5 @@ and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
 and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
 and PortalKATEK.dbo.Reclamation.closeMKO = 1) as TableRes
 where TableRes.rowNum = 1 and TableRes.id_Reclamation_CountErrorFirst != 4
+
+

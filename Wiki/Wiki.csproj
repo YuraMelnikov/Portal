@@ -398,6 +398,9 @@
     <Compile Include="CMKO_RemarksList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMKO_RemarksListG.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_TaxCatigories.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
