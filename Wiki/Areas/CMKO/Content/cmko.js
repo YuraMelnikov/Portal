@@ -213,7 +213,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -372,12 +372,12 @@ function GetRamarksUsersList() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [[3, "asc"]], 
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
-        "searching": false,
+        //"searching": false, 
         "paging": false,
         "info": false,
         "scrollCollapse": true
