@@ -138,7 +138,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22)
+            else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22 || id_Devision == 5)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16).ToList();
                 foreach (var data in devisions)

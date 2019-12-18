@@ -1759,6 +1759,7 @@
     <Content Include="Areas\CMKO\Views\Shared\_LayoutCMKO.cshtml" />
     <Content Include="Areas\CMKO\Views\CMK\Index.cshtml" />
     <Content Include="Areas\DashboardTV\Views\DashboardTVC\IndexForDesc.cshtml" />
+    <Content Include="Areas\CMKO\Content\ФОТ %28выгрузка%29.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

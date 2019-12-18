@@ -3,49 +3,46 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/CMKO/Views/Shared/_LayoutCMKO.cshtml";
 }
-    <head>
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="~/Content/Highcharts/highcharts.js"></script>
+    <script src="~/Content/Highcharts/highcharts-more.js"></script>
+    <script src="~/Content/Highcharts/exporting.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/bullet.js"></script>
+    <script src="~/Content/jquery.cookie.js"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v1.3"></script>
+    <style>
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="~/Content/Highcharts/highcharts.js"></script>
-        <script src="~/Content/Highcharts/highcharts-more.js"></script>
-        <script src="~/Content/Highcharts/exporting.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/bullet.js"></script>
-        <script src="~/Content/jquery.cookie.js"></script>
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
 
-        <script src="~/Areas/CMKO/Content/cmko.js?v1.2"></script>
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
 
-        <style>
-            th.dt-invisible-column {
-                border: 0 !important;
-                padding: 0 !important;
-            }
+        .colu-200 {
+            min-width: 200px;
+        }
 
-            .modal.modal-wide .modal-dialog {
-                width: 90%;
-            }
+        .colu-300 {
+            min-width: 300px;
+        }
 
-            .modal-wide .modal-body {
-                overflow-y: auto;
-            }
-
-            .colu-200 {
-                min-width: 200px;
-            }
-
-            .colu-300 {
-                min-width: 300px;
-            }
-
-            hr.standart {
-                border: 1px solid #717171;
-            }
-        </style>
-    </head>
+        hr.standart {
+            border: 1px solid #717171;
+        }
+    </style>
+</head>
 
 <div id="dashboardBody">
     <div class="row" id="divPeriodReportTitle">
@@ -66,6 +63,7 @@
         </div>
         <div class="col-lg-2">
             <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
+            <a href="~/Areas/CMKO/Content/ФОТ (выгрузка).xlsx">Получить данные (click)</a>
         </div>
         <div id="hideSummaryData">
             <div class="col-lg-2">

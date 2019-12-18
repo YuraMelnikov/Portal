@@ -204,16 +204,16 @@ var objRemarksList = [
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
-
-function StartMenu() {
+ 
+function StartMenu() {   
     $("#ramarksUserTable").DataTable({
         "ajax": {
-            "cache": false,
-            "url": "/CMK/GetRamarksUsersList",
+            "cache": false, 
+            "url": "/CMK/GetRamarksUsersList/",
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[3, "desc"]],
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
@@ -377,10 +377,15 @@ function GetRamarksUsersList() {
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
-        //"searching": false, 
+        "searching": false, 
         "paging": false,
         "info": false,
-        "scrollCollapse": true
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
     });
     $('#ramarksUserModal').modal('show');
 }
@@ -1294,7 +1299,7 @@ function GetSummaryWageFundWorker() {
                 },
                 title: {
                     margin: 0,
-                    text: 'ФОТ заказов',
+                    text: 'ФОТ заказов и НИОКРов',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
