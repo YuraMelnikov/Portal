@@ -204,11 +204,11 @@ var objRemarksList = [
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
- 
-function StartMenu() {   
+
+function StartMenu() {
     $("#ramarksUserTable").DataTable({
         "ajax": {
-            "cache": false, 
+            "cache": false,
             "url": "/CMK/GetRamarksUsersList/",
             "type": "POST",
             "datatype": "json"
@@ -418,12 +418,12 @@ function GetRamarksUsersList() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[3, "asc"]], 
+        "order": [[3, "asc"]],
         "processing": true,
         "columns": objRemarksList,
         "scrollY": '75vh',
         "scrollX": true,
-        "searching": false, 
+        "searching": false,
         "paging": false,
         "info": false,
         "scrollCollapse": true,
@@ -546,7 +546,7 @@ function LoadOptimizationTable() {
 
 function AddOptimization() {
     var res = ValidOptimization();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     $('#btnAddOptimization').attr('disabled', true);
@@ -591,7 +591,7 @@ function GetOptimization(id) {
 
 function UpdateOptimization() {
     var res = ValidOptimization();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     var updateObjOptm = {
@@ -664,7 +664,7 @@ function ClearOptimization() {
     $('#userCreate').val("");
     $('#dateCreate').val("");
     $('#autor').val("");
-    $('#period').val("");    
+    $('#period').val("");
     $('#period').val("");
     $('#textData').val("");
     $('#autor').css('border-color', 'lightgrey');
@@ -711,7 +711,7 @@ function LoadTeachTable() {
 
 function AddTeach() {
     var res = ValidTeach();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     $('#btnAddTeach').attr('disabled', true);
@@ -758,7 +758,7 @@ function GetTeach(id) {
 
 function UpdateTeach() {
     var res = ValidTeach();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     var updateObjTeach = {
@@ -840,7 +840,7 @@ function ClearTeach() {
     $('#teacherTeach').val("");
     $('#studentTeach').val("");
     $('#periodTeach').val("");
-    $('#costTeach').val("");    
+    $('#costTeach').val("");
     $('#descriptionTeach').val("");
     $('#teacherTeach').css('border-color', 'lightgrey');
     $('#studentTeach').css('border-color', 'lightgrey');
@@ -867,7 +867,7 @@ var objUsers = [
     { "title": "Бюро", "data": "devisionName", "autowidth": true, "bSortable": true },
     { "title": "Категория", "data": "category", "autowidth": true, "bSortable": true },
     { "title": "Испытательный срок пройден", "data": "dateToCMKO", "autowidth": true, "bSortable": true },
-    { "title": "Налог", "data": "tax", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '')  }
+    { "title": "Налог", "data": "tax", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 2, '') }
 ];
 
 function LoadUsersTable() {
@@ -917,7 +917,7 @@ function GetUser(id) {
 
 function UpdateUser() {
     var res = ValidUser();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     var updateObjUser = {
@@ -1003,7 +1003,7 @@ function ClearCategory() {
 
 function AddCategory() {
     var res = ValidCategory();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     $('#btnAddCategory').attr('disabled', true);
@@ -1066,7 +1066,7 @@ function GetCategory(id) {
 
 function UpdateCategory() {
     var res = ValidCategory();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     var updateObjCategory = {
@@ -1125,7 +1125,7 @@ function ClearPeriod() {
 
 function AddPeriod() {
     var res = ValidPeriod();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     $('#btnAddPeriod').attr('disabled', true);
@@ -1201,7 +1201,7 @@ function ClearCalend() {
 
 function AddCalend() {
     var res = ValidCalend();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     $('#btnAddCalend').attr('disabled', true);
@@ -1263,7 +1263,7 @@ function GetCalend(id) {
 
 function UpdateCalend() {
     var res = ValidCalend();
-    if (res === false){
+    if (res === false) {
         return false;
     }
     var updateObjCalend = {
@@ -1354,7 +1354,7 @@ function GetSummaryWageFundWorker() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1431,7 +1431,7 @@ function GetSummaryWageFundManager() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1508,7 +1508,7 @@ function GetSummaryWageFundG() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1585,7 +1585,7 @@ function GetRemainingBonus() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1665,7 +1665,7 @@ function GetWithheldToBonusFund() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1743,7 +1743,7 @@ function GetOverflowsBujet() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -1907,7 +1907,7 @@ function GetNhUsersThisQua() {
                 yAxis: {
                     title: {
                         enabled: false
-                    },    
+                    },
                     stackLabels: {
                         enabled: true,
                         style: {
@@ -2005,7 +2005,7 @@ function GetHSSPO() {
                     series: {
                         dataLabels: {
                             enabled: true,
-                            style:{
+                            style: {
                                 color: colorStackLabels
                             }
                         }
@@ -2077,7 +2077,7 @@ function GetHSSKBM() {
                     series: {
                         dataLabels: {
                             enabled: true,
-                            style:{
+                            style: {
                                 color: colorStackLabels
                             }
                         }
@@ -2149,7 +2149,7 @@ function GetHSSKBE() {
                     series: {
                         dataLabels: {
                             enabled: true,
-                            style:{
+                            style: {
                                 color: colorStackLabels
                             }
                         }
@@ -2168,7 +2168,7 @@ function GetManpowerFirstPeriod() {
         url: "/CMK/GetManpowerFirstPeriod/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        success: function (result) {     
+        success: function (result) {
             if (result === 1 || result === '1') {
                 ManpowerUsersInMonth1();
             }
@@ -2283,6 +2283,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -2417,6 +2422,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -2551,6 +2561,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -2685,6 +2700,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -2819,6 +2839,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -2953,6 +2978,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3087,6 +3117,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3221,6 +3256,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3355,6 +3395,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3489,6 +3534,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3623,6 +3673,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3757,6 +3812,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -3891,6 +3951,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4025,6 +4090,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4160,6 +4230,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4294,6 +4369,11 @@ function GetManpowerFirstPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4333,7 +4413,7 @@ function GetManpowerSecondPeriod() {
         url: "/CMK/GetManpowerSecondPeriod/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        success: function (result) {     
+        success: function (result) {
             if (result === 1 || result === '1') {
                 ManpowerUsersInMonth2();
             }
@@ -4432,6 +4512,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4551,6 +4636,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4670,6 +4760,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -4798,6 +4893,11 @@ function GetManpowerSecondPeriod() {
                             },
                             plotOptions: {
                                 series: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     pointPadding: 0.25,
                                     borderWidth: 0,
                                     color: '#000',
@@ -4908,6 +5008,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5027,6 +5132,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5146,6 +5256,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5265,6 +5380,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5384,6 +5504,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5503,6 +5628,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5622,6 +5752,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5741,6 +5876,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5860,6 +6000,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -5979,6 +6124,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6098,6 +6248,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6217,6 +6372,11 @@ function GetManpowerSecondPeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6256,8 +6416,8 @@ function GetManpowerThreePeriod() {
         url: "/CMK/GetManpowerThreePeriod/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        success: function (result) {     
-            if(result === 1){
+        success: function (result) {
+            if (result === 1) {
                 ManpowerUsersInMonth3();
             }
             else if (result === 'dkv@katek.by') {
@@ -6355,6 +6515,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6474,6 +6639,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6593,6 +6763,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6712,6 +6887,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6831,6 +7011,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -6950,6 +7135,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7069,6 +7259,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7188,6 +7383,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7307,6 +7507,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7426,6 +7631,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7545,6 +7755,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7664,6 +7879,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7783,6 +8003,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -7902,6 +8127,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -8021,6 +8251,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -8140,6 +8375,11 @@ function GetManpowerThreePeriod() {
                             },
                             series: [{
                                 data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
                                     y: normHoureFact,
                                     target: normHoure
                                 }]
@@ -8220,7 +8460,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8236,39 +8476,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            text: dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8336,7 +8581,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8352,39 +8597,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8452,7 +8702,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8468,39 +8718,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8568,7 +8823,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8584,39 +8839,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8684,7 +8944,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8700,39 +8960,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8800,7 +9065,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8816,39 +9081,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -8916,7 +9186,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -8932,39 +9202,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9032,7 +9307,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9048,39 +9323,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9148,7 +9428,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9164,39 +9444,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9264,7 +9549,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9280,39 +9565,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9380,7 +9670,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9396,39 +9686,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9496,7 +9791,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9512,39 +9807,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9612,7 +9912,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9628,39 +9928,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9728,7 +10033,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9744,39 +10049,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9844,7 +10154,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9860,39 +10170,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -9960,7 +10275,7 @@ function ManpowerUsersInMonth1() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -9976,39 +10291,44 @@ function ManpowerUsersInMonth1() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10032,7 +10352,7 @@ function ManpowerUsersInMonth1() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function ManpowerUsersInMonth2() {
     $.ajax({
@@ -10079,7 +10399,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10095,39 +10415,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10195,7 +10520,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10211,39 +10536,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10311,7 +10641,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10327,39 +10657,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10427,7 +10762,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10443,39 +10778,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10543,7 +10883,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10559,39 +10899,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10659,7 +11004,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10675,39 +11020,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10775,7 +11125,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10791,39 +11141,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -10891,7 +11246,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -10907,39 +11262,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11007,7 +11367,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11023,39 +11383,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11123,7 +11488,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11139,39 +11504,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11239,7 +11609,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11255,39 +11625,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11355,7 +11730,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11371,39 +11746,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11471,7 +11851,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11487,39 +11867,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11587,7 +11972,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11603,39 +11988,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11703,7 +12093,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11719,39 +12109,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11819,7 +12214,7 @@ function ManpowerUsersInMonth2() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11835,39 +12230,44 @@ function ManpowerUsersInMonth2() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -11891,7 +12291,7 @@ function ManpowerUsersInMonth2() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function ManpowerUsersInMonth3() {
     $.ajax({
@@ -11938,7 +12338,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -11954,39 +12354,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12054,7 +12459,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12070,39 +12475,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12170,7 +12580,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12186,39 +12596,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12286,7 +12701,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12302,39 +12717,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12402,7 +12822,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12418,39 +12838,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12518,7 +12943,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12534,39 +12959,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12634,7 +13064,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12650,39 +13080,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12750,7 +13185,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12766,39 +13201,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12866,7 +13306,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12882,39 +13322,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -12982,7 +13427,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -12998,39 +13443,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13098,7 +13548,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13114,39 +13564,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13214,7 +13669,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13230,39 +13685,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13330,7 +13790,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13346,39 +13806,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13446,7 +13911,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13462,39 +13927,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13562,7 +14032,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13578,39 +14048,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13678,7 +14153,7 @@ function ManpowerUsersInMonth3() {
                 yAxis: {
                     min: 0,
                     max: dataArray30,
-                    labels:{
+                    labels: {
                         enabled: false
                     },
                     plotBands: [{
@@ -13694,39 +14169,44 @@ function ManpowerUsersInMonth3() {
                     }, {
                         from: dataArrayPlan,
                         to: dataArray10,
-                            color: colorBg10Line,
-                            label: {
-                                "text": dataArray10,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray10,
                         to: dataArray20,
-                            color: colorBg20Line,
-                            label: {
-                                "text": dataArray20,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }, {
                         from: dataArray20,
                         to: dataArray30,
-                            color: colorBg30Line,
-                            label: {
-                                "text": dataArray30,
-                                align: 'right',
-                                x: 10,
-                                y: -10
-                            }
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
                     }],
                     title: null,
                     gridLineWidth: 0
                 },
                 series: [{
                     data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
                         y: normHoureFact,
                         target: normHoure
                     }]
@@ -13750,7 +14230,7 @@ function ManpowerUsersInMonth3() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function GetAccuredPlan() {
     $.ajax({
@@ -13771,7 +14251,7 @@ function GetAccuredPlan() {
             var teach = new Array();
             var tax = new Array();
             var rate = new Array();
-            for(var i = 0; i < counter; i++) {
+            for (var i = 0; i < counter; i++) {
                 ciliricName.push(result[i].CiliricName);
                 bonusReversed.push(result[i].BonusReversed);
                 accrued.push(result[i].Accrued);
@@ -13842,31 +14322,31 @@ function GetAccuredPlan() {
                 series: [{
                     name: 'Начисления по заказам',
                     data: accrued
-                },{
+                }, {
                     name: 'Начисления ГИПов',
                     data: accruedg
-                },{
+                }, {
                     name: 'Бонус за отработку',
                     data: speed
-                },{
+                }, {
                     name: 'Остаток бонусного фонда',
                     data: bonusReversed
-                },{
+                }, {
                     name: 'Бонус за качество',
                     data: bonusQuality
-                },{
+                }, {
                     name: 'Бонус за оптимизацию',
                     data: optimization
-                },{
+                }, {
                     name: 'Начисление за обучение',
                     data: teach
-                },{
+                }, {
                     name: 'Руководительские начисления',
                     data: manager
-                },{
+                }, {
                     name: 'Налоги',
                     data: tax
-                },{
+                }, {
                     name: 'Оклад',
                     data: rate
                 }]
@@ -14069,7 +14549,7 @@ function GetTimeSheet() {
                         }
                     }
                 }],
-                tooltip:{
+                tooltip: {
                     enabled: false
                 }
             });
