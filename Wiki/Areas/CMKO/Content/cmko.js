@@ -204,8 +204,33 @@ var objRemarksList = [
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
+
+var objNH = [
+    { "title": "№ заказа", "data": "orderNumber", "autowidth": true, "bSortable": false },
+    { "title": "Наименование задачи", "data": "taskName", "autowidth": true, "bSortable": false },
+    { "title": "Исполнитель", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "НЧ", "data": "normH", "autowidth": true, "bSortable": true },
+    { "title": "Тр-ты", "data": "work", "autowidth": true, "bSortable": false }
+];
  
 function StartMenu() {   
+    $("#nhUsersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetNhUsersTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[3, "asc"]],
+        "processing": true,
+        "columns": objNH,
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
     $("#ramarksUserTable").DataTable({
         "ajax": {
             "cache": false, 
@@ -359,6 +384,35 @@ function StartMenu() {
         "info": false,
         "scrollCollapse": true
     });
+}
+
+function GetNhUsersTable() {
+    var table = $('#nhUsersTable').DataTable();
+    table.destroy();
+    $('#nhUsersTable').empty();
+    $("#nhUsersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetNhUsersTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[3, "asc"]],
+        "processing": true,
+        "columns": objNH,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#nhUsersModal').modal('show');
 }
 
 function GetRamarksUsersList() {
