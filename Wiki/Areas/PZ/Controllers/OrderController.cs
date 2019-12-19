@@ -746,6 +746,8 @@ namespace Wiki.Areas.PZ.Controllers
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
             {
+                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
+                emailRename.SendEmail();
                 editPZ.nameTU = pZ_PlanZakaz.nameTU;
                 editPZ.ProductType = pZ_PlanZakaz.ProductType;
             }
