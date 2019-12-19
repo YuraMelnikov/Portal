@@ -38,6 +38,7 @@ $(document).ready(function () {
     HideAllTables();
     StartMenu();
     LoadData(9);
+    //LoadThem();
 });
 
 var objOptimization = [
@@ -1313,8 +1314,6 @@ function LoadCurencyTable() {
     });
     $('#curencyDiv').show();
 }
-
-Highcharts.setOptions(Highcharts.theme);
 
 function GetSummaryWageFundWorker() {
     $.ajax({
@@ -15206,6 +15205,50 @@ function GetReclamationView(id) {
     return false;
 }
 
+function GetThemStandartPunk() {
+    Highcharts.theme = {
+        colors: ['#e2c3f9', '#cc3184', '#e2c3f9', '#cc3184'],
+        colorAxis: {
+            maxColor: '#cc3184',
+            minColor: '#e2c3f9'
+        },
+        plotOptions: {
+            map: {
+                nullColor: '#FCFEFE'
+            }
+        },
+        navigator: {
+            maskFill: 'rgba(170, 205, 170, 0.5)',
+            series: {
+                color: '#95C471',
+                lineColor: '#35729E'
+            }
+        }
+    };
+}
+
+function GetThemStandartGreen() {
+    Highcharts.theme = {
+        colors: ['#3fb0ac', '#e3e3e3', '#3fb0ac', '#e3e3e3'],
+        colorAxis: {
+            maxColor: '#3fb0ac',
+            minColor: '#e3e3e3'
+        },
+        plotOptions: {
+            map: {
+                nullColor: '#FCFEFE'
+            }
+        },
+        navigator: {
+            maskFill: 'rgba(170, 205, 170, 0.5)',
+            series: {
+                color: '#95C471',
+                lineColor: '#35729E'
+            }
+        }
+    };
+}
+
 function GetThemAvocado() {
     Highcharts.theme = {
         colors: ['#F3E796', '#95C471', '#35729E', '#251735'],
@@ -16735,4 +16778,62 @@ function GetThemDarkBlue() {
             trackBorderColor: '#666'
         }
     };
+}
+
+function AppThem(id) {
+    $.cookie("bg_color", id, { expires: 60 });
+}
+
+function LoadThem() {
+    if ($.cookie("bg_color") === '0') {
+        $.cookie("bg_color", '1', { expires: 60 });
+        LoadThem();
+    }
+    else if ($.cookie("bg_color") === '1') {
+        GetThemStandartPunk();
+    }
+    else if ($.cookie("bg_color") === '2') {
+        GetThemStandartGreen();
+    }
+    else if ($.cookie("bg_color") === '3') {
+        GetThemAvocado();
+    }
+    else if ($.cookie("bg_color") === '4') {
+        GetThemHighContrastDark();
+    }
+    else if ($.cookie("bg_color") === '5') {
+        GetThemHighContrastLight();
+    }
+    else if ($.cookie("bg_color") === '6') {
+        GetThemDarkBlue();
+    }
+    else if ($.cookie("bg_color") === '7') {
+        GetThemDarkGreen();
+    }
+    else if ($.cookie("bg_color") === '8') {
+        GetThemDarkUnica();
+    }
+    else if ($.cookie("bg_color") === '9') {
+        GetThemGrey();
+    }
+    else if ($.cookie("bg_color") === '10') {
+        GetThemGrid();
+    }
+    else if ($.cookie("bg_color") === '11') {
+        GetThemGridLight();
+    }
+    else if ($.cookie("bg_color") === '12') {
+        GetThemSendSignika();
+    }
+    else if ($.cookie("bg_color") === '13') {
+        GetThemSkies();
+    }
+    else if ($.cookie("bg_color") === '14') {
+        GetThemSunSet();
+    }
+    else {
+        $.cookie("bg_color", '1', { expires: 60 });
+        LoadThem();
+    }
+    Highcharts.setOptions(Highcharts.theme);
 }
