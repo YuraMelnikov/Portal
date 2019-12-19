@@ -14511,6 +14511,11 @@ function GetTimeSheet() {
                 dataForArray = [result[i].stepDate, result[i].stepUser, result[i].data];
                 dataArray.push(dataForArray);
             }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
             Highcharts.chart('timesheetContainer', {
                 legend: {
                     enabled: false
