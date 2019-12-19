@@ -790,3 +790,13 @@ from (select
 		and PortalKATEK.dbo.Reclamation.gip = 1
 		and PortalKATEK.dbo.RKD_GIP.id_UserKBM is not null) as TableResult 
 		where TableResult.rowNum = 1
+
+
+insert into PortalKATEK.dbo.CMKO_ThisCoefManager
+select PortalKATEK.dbo.CMKO_PeriodResult.[period]
+,PortalKATEK.dbo.AspNetUsers.Id
+,1
+from PortalKATEK.dbo.CMKO_PeriodResult 
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
+left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = PortalKATEK.dbo.CMKO_PeriodResult.[period] and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
+where PortalKATEK.dbo.CMKO_ThisCoefManager.id is null
