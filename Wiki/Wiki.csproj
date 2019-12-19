@@ -413,6 +413,9 @@
     <Compile Include="CMKO_ThisAccruedG.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMKO_ThisCoefManager.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_ThisDeductionsBonusFund.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

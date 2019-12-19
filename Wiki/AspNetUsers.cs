@@ -59,6 +59,7 @@ namespace Wiki
             this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
             this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
             this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
+            this.CMKO_ThisCoefManager = new HashSet<CMKO_ThisCoefManager>();
         }
     
         public string Id { get; set; }
@@ -166,5 +167,7 @@ namespace Wiki
         public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.CMKO_Optimization = new HashSet<CMKO_Optimization>();
             this.CMKO_Teach = new HashSet<CMKO_Teach>();
+            this.CMKO_ThisCoefManager = new HashSet<CMKO_ThisCoefManager>();
         }
     
         public string period { get; set; }
@@ -28,5 +29,7 @@ namespace Wiki
         public virtual ICollection<CMKO_Optimization> CMKO_Optimization { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Teach> CMKO_Teach { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
     }
 }
