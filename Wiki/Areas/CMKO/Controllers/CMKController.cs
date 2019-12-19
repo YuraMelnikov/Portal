@@ -779,6 +779,26 @@ namespace Wiki.Areas.CMKO
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCoefManager(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_ThisCoefManager
+                .AsNoTracking()
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.CMKO_PeriodResult)
+                .Where(d => d.id == id)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                idCMKO_ThisCoefManager = dataList.id,
+                userCMKO_ThisCoefManager = dataList.AspNetUsers.CiliricalName,
+                periodCMKO_ThisCoefManager = dataList.CMKO_PeriodResult.period,
+                coefCMKO_ThisCoefManager = dataList.coef
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetSpeedUserList()
         {
@@ -809,14 +829,14 @@ namespace Wiki.Areas.CMKO
             var query = db.CMKO_ThisCoefManager
                 .AsNoTracking()
                 .Include(d => d.AspNetUsers)
-                .Include(d => d.ProductionCalendar)
+                .Include(d => d.CMKO_PeriodResult)
                 .ToList();
             var data = query.Select(dataList => new
             {
-                editLink = GetEditLinkSpeedUser(login, dataList.id),
-                dataList.ProductionCalendar.period,
+                editLink = GetEditLinkCoefManager(login, dataList.id),
+                dataList.CMKO_PeriodResult.period,
                 user = dataList.AspNetUsers.CiliricalName,
-                coef = dataList.k
+                coef = dataList.coef
             });
             return Json(new { data });
         }
@@ -1316,6 +1336,19 @@ namespace Wiki.Areas.CMKO
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult UpdatCoefManager(CMKO_ThisCoefManager postData)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            CMKO_ThisCoefManager updateData = db.CMKO_ThisCoefManager.First(d => d.id == postData.id);
+            if (updateData.coef != postData.coef)
+                updateData.coef = postData.coef;
+            db.Entry(updateData).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult UpdateTeach(CMKO_Teach postData)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1382,6 +1415,14 @@ namespace Wiki.Areas.CMKO
         {
             if (login == "myi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetSpeedUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "<td></td>";
+        }
+
+        string GetEditLinkCoefManager(string login, int id)
+        {
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCoefManager('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";
         }

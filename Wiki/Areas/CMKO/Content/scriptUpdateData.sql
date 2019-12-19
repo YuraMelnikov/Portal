@@ -43,6 +43,7 @@ SET @sizeQualityBonus = 200;
 SET @sizeSpeed1 = 100;
 SET @sizeSpeed2 = 200;
 
+
 update PortalKATEK.dbo.PZ_TEO
 set PortalKATEK.dbo.PZ_TEO.SSMToBYN = PortalKATEK.dbo.CurencyBYN.USD * PortalKATEK.dbo.PZ_TEO.SSM
 from
@@ -374,6 +375,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
 ,0 as nhGPlan
 ,0 as nhGFact
+,PortalKATEK.dbo.CMKO_ThisCoefManager.coef
 from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID
@@ -404,6 +406,7 @@ left join (select TableRes.id_AspNetUsersError as id_AspNetUsersError
                 where TableRes.rowNum = 1
                 group by TableRes.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
+left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = @periodQua and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 and PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua
@@ -411,6 +414,7 @@ group by
 PortalKATEK.dbo.AspNetUsers.Id
 ,ReclamationCounter.countError
 ,ReclamationCounter.countErrorG
+,PortalKATEK.dbo.CMKO_ThisCoefManager.coef
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] set
@@ -554,12 +558,12 @@ select
 PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
 ,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan]) as [accruedPlan]
 ,(PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact]) as [accruedFact]
-,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError) as [withheldPlan]
-,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError) as [withheldFact]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) * (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager)) as [withheldPlan]
+,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) * (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager)) as [withheldFact]
 ,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan]))
-  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError)) as [accruedTotalPlan]
+  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan / TableNh.sumNhPlan) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMPlan], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEPlan])) * (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager))) as [accruedTotalPlan]
 ,((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact]))
-  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError)) as [accruedTotalFact]
+  - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) - (((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact / TableNh.sumNhFact) *  iif(SUBSTRING(PortalKATEK.dbo.Devision.[name], 0, 4) like '%КБМ%', [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsMFact], [PortalKATEK].[dbo].[CMKO_ThisWageFund].[wageFundOverflowsEFact])) * (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager))) as [accruedTotalFact]
 ,0 as [bonusPlan]
 ,0 as [bonusFact]
 from
@@ -624,8 +628,8 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
 
 
 update PortalKATEK.dbo.CMKO_ThisAccrued set 
-PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
-,PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], (PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])
+PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
+,PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])
 from
 PortalKATEK.dbo.CMKO_ThisIndicatorsUsers
 join PortalKATEK.dbo.CMKO_ThisAccrued on PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers

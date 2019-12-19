@@ -169,6 +169,9 @@ function LoadData(id) {
         HideAllTables();
         $('#dashboardBody').show();
     }
+    else if (id === 11) {
+       LoadManagUsersCoefTableTable();
+    }
 }
 
 function HideAllTables() {
@@ -523,7 +526,7 @@ function UpdatCoefManager() {
     }
     var updateObjSpeedUser = {
         id: $('#idCMKO_ThisCoefManager').val(),
-        k: $('#coefCMKO_ThisCoefManager').val().replace('.', ',')
+        coef: $('#coefCMKO_ThisCoefManager').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
