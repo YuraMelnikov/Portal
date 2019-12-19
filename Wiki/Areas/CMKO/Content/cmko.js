@@ -172,6 +172,7 @@ function LoadData(id) {
 }
 
 function HideAllTables() {
+    $('#managUsersCoefDiv').hide();
     $('#speedUsersDiv').hide();
     $('#optimizationDiv').hide();
     $('#teachDiv').hide();
@@ -207,6 +208,23 @@ var objRemarksList = [
 ];
 
 function StartMenu() {
+    $("#managUsersCoefTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetManagUsersCoefList/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[3, "asc"]],
+        "processing": true,
+        "columns": objSpeedUsers,
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
     $("#ramarksUserTable").DataTable({
         "ajax": {
             "cache": false,
@@ -443,6 +461,83 @@ var objSpeedUsers = [
     { "title": "ФИО", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Коэф.", "data": "coef", "autowidth": true, "bSortable": true }
 ];
+
+function LoadManagUsersCoefTableTable() {
+    var table = $('#managUsersCoefTable').DataTable();
+    table.destroy();
+    $('#managUsersCoefTable').empty();
+    $("#managUsersCoefTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetManagUsersCoefList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objSpeedUsers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $('#managUsersCoefDiv').show();
+}
+
+function ValidCoefManager() {
+    isValid = true;
+    if ($('#coefCMKO_ThisCoefManager').val() === "") {
+        $('#coefCMKO_ThisCoefManager').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#coefCMKO_ThisCoefManager').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function GetCoefManager(id) {
+    $('#coefCMKO_ThisCoefManager').css('border-color', 'lightgrey');
+    $.ajax({
+        cache: false,
+        url: "/CMK/GetCoefManager/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idCMKO_ThisCoefManager').val(result.idCMKO_ThisCoefManager);
+            $('#userCMKO_ThisCoefManager').val(result.userCMKO_ThisCoefManager);
+            $('#periodCMKO_ThisCoefManager').val(result.periodCMKO_ThisCoefManager);
+            $('#coefCMKO_ThisCoefManager').val(result.coefCMKO_ThisCoefManager);
+            $('#managUsersCoefModal').modal('show');
+        }
+    });
+}
+
+function UpdatCoefManager() {
+    var res = ValidCoefManager();
+    if (res === false) {
+        return false;
+    }
+    var updateObjSpeedUser = {
+        id: $('#idCMKO_ThisCoefManager').val(),
+        k: $('#coefCMKO_ThisCoefManager').val().replace('.', ',')
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdatCoefManager",
+        data: JSON.stringify(updateObjSpeedUser),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#managUsersCoefTable').DataTable().ajax.reload(null, false);
+            $('#managUsersCoefModal').modal('hide');
+        }
+    });
+}
 
 function LoadSpeedUsersTable() {
     var table = $('#speedUsersTable').DataTable();

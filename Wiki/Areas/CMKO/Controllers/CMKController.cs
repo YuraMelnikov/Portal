@@ -800,6 +800,27 @@ namespace Wiki.Areas.CMKO
             return Json(new { data });
         }
 
+        [HttpPost]
+        public JsonResult GetManagUsersCoefList()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.CMKO_ThisCoefManager
+                .AsNoTracking()
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.ProductionCalendar)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                editLink = GetEditLinkSpeedUser(login, dataList.id),
+                dataList.ProductionCalendar.period,
+                user = dataList.AspNetUsers.CiliricalName,
+                coef = dataList.k
+            });
+            return Json(new { data });
+        }
+
         public JsonResult GetSummaryWageFundG()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -1042,7 +1063,6 @@ namespace Wiki.Areas.CMKO
             });
             return Json(new { data });
         }
-
 
         public JsonResult GetWithheldToBonusFund()
         {
