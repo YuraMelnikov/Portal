@@ -2180,6 +2180,7 @@
     <Content Include="Content\Highcharts\.htaccess" />
     <Content Include="Content\Highcharts\modules\README.md" />
     <Content Include="Content\Highcharts\parts\.eslintrc" />
+    <Content Include="Areas\CMKO\Content\ФОТ %28расширенная выгрузка%29.xlsx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
