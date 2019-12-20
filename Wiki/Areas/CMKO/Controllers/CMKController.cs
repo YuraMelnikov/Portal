@@ -138,7 +138,8 @@ namespace Wiki.Areas.CMKO
                     }
                     else
                     {
-                        data[i].UserAccured = 0;
+                        data[i].UserAccured = data[i].BonusReversed + data[i].Accrued + data[i].Accruedg + data[i].Manager + data[i].BonusQuality +
+                            data[i].Speed + data[i].Optimization + data[i].Teach + data[i].Tax + data[i].Rate;
                     }
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -256,7 +257,8 @@ namespace Wiki.Areas.CMKO
                     }
                     else
                     {
-                        data[i].UserAccured = 0;
+                        data[i].UserAccured = data[i].BonusReversed + data[i].Accrued + data[i].Accruedg + data[i].Manager + data[i].BonusQuality +
+                            data[i].Speed + data[i].Optimization + data[i].Teach + data[i].Tax + data[i].Rate;
                     }
                 }
 
@@ -897,6 +899,24 @@ namespace Wiki.Areas.CMKO
             }
         }
 
+        public JsonResult GetUserName()
+        {
+            string login = HttpContext.User.Identity.Name;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    return Json(db.AspNetUsers.First(d => d.Email == login).CiliricalName, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
         public JsonResult GetSummaryWageFundManager()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -964,6 +984,40 @@ namespace Wiki.Areas.CMKO
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //public JsonResult GetSummaryAccuredNotOrder()
+        //{
+        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
+        //    {
+        //        db.Configuration.ProxyCreationEnabled = false;
+        //        db.Configuration.LazyLoadingEnabled = false;
+        //        var fundData = db.CMKO_BujetList.AsNoTracking().ToList();
+        //        SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
+        //        for (int i = 0; i < 3; i++)
+        //        {
+        //            summaryWageFund[i] = new SummaryWageFund();
+        //            if (i == 0)
+        //            {
+        //                summaryWageFund[i].DevisionId = 0;
+        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.Sum(d => d.)  fundData.wageFundOverflowsWorkerMPlan + fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
+        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
+        //            }
+        //            else if (i == 1)
+        //            {
+        //                summaryWageFund[i].DevisionId = 1;
+        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
+        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
+        //            }
+        //            else
+        //            {
+        //                summaryWageFund[i].DevisionId = 2;
+        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
+        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
+        //            }
+        //        }
+        //        return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         public JsonResult GetTeach(int id)
         {

@@ -29,6 +29,7 @@ function UpdateThem() {
 }
 
 $(document).ready(function () {
+    $('#userNameDiv').hide();
     if ($.cookie("bg_color") === '1') {
         colorPlanData = '#e3e3e3';
         colorFactData = '#3fb0ac';
@@ -38,6 +39,7 @@ $(document).ready(function () {
     HideAllTables();
     StartMenu();
     LoadData(9);
+    GetUserName();
     //LoadThem();
 });
 
@@ -107,6 +109,7 @@ function LoadData(id) {
             getPeriodReport();
             GetSummaryWageFundWorker();
             $('#btnUpdateDateReport').hide();
+            $('#summaryAccuredNotOrder').hide();
             $('#hideSummaryData').hide();
             $('#hideAccuredStandart').hide();
             $('#speedDevisionForManager').hide();
@@ -1724,6 +1727,86 @@ function GetRemainingBonus() {
         }
     });
 }
+
+//function GetSummaryAccuredNotOrder() {
+//    $.ajax({
+//        url: "/CMK/GetSummaryAccuredNotOrder/",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+//            var planArray = new Array();
+//            var factArray = new Array();
+//            planArray.push(result[0].Plan);
+//            planArray.push(result[1].Plan);
+//            planArray.push(result[2].Plan);
+//            factArray.push(result[0].Fact);
+//            factArray.push(result[1].Fact);
+//            factArray.push(result[2].Fact);
+//            Highcharts.setOptions({
+//                credits: {
+//                    enabled: false
+//                }
+//            });
+//            Highcharts.chart('summaryAccuredNotOrder', {
+//                chart: {
+//                    type: 'bar',
+//                    marginBottom: 60
+//                },
+//                navigation: {
+//                    buttonOptions: {
+//                        enabled: false
+//                    }
+//                },
+//                title: {
+//                    margin: 0,
+//                    text: 'Суммарные начисления за НИОКРы',
+//                    style: {
+//                        "font-size": titleFontSize,
+//                        "color": titleDiagrammColor
+//                    }
+//                },
+//                yAxis: {
+//                    title: {
+//                        enabled: false
+//                    },
+//                    stackLabels: {
+//                        enabled: true,
+//                        style: {
+//                            color: colorStackLabels
+//                        }
+//                    }
+//                },
+//                xAxis: {
+//                    categories: ['Всего', 'КБМ', 'КБЭ']
+//                },
+//                plotOptions: {
+//                    bar: {
+//                        dataLabels: {
+//                            enabled: true,
+//                            style: {
+//                                fontSize: "0px",
+//                                textOutline: "0px contrast"
+//                            }
+//                        },
+//                        stacking: 'normal'
+//                    }
+//                },
+//                series: [{
+//                    name: 'План',
+//                    data: planArray,
+//                    color: colorPlanData
+//                }, {
+//                    name: 'Факт',
+//                    data: factArray,
+//                    color: colorFactData
+//                }]
+//            });
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
 
 function GetWithheldToBonusFund() {
     $.ajax({
@@ -14337,12 +14420,27 @@ function ManpowerUsersInMonth3() {
     });
 }
 
+function GetUserName() {
+    $.ajax({
+        url: "/CMK/GetUserName/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById("pUserName").textContent = result;
+        },
+        error: function (errormessage) {
+            document.getElementById("pUserName").textContent = "";
+        }
+    });
+}
+
 function GetAccuredPlan() {
     $.ajax({
         url: "/CMK/GetAccuredPlan/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var ciliricalName = document.getElementById("pUserName").textContent;
             var userAccured = 0;
             var counter = Object.keys(result).length;
             var ciliricName = new Array();
@@ -14374,6 +14472,14 @@ function GetAccuredPlan() {
                 heightChart = 220;
                 userAccured = result[0].UserAccured;
                 document.getElementById("textUserAccuredPlan").textContent = "Расчетная премия: " + userAccured.toString();
+            }
+            else {
+                for (var j = 0; j < counter; j++) {
+                    if (result[j].CiliricName === ciliricalName) {
+                        document.getElementById("textUserAccuredPlan").textContent = "Расчетная премия: " + result[j].UserAccured;
+                        $('#textUserAccuredPlan').show();
+                    }
+                }
             }
             Highcharts.setOptions({
                 credits: {
@@ -14469,6 +14575,7 @@ function GetAccuredFact() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            var ciliricalName = document.getElementById("pUserName").textContent;
             var userAccured = 0;
             var counter = Object.keys(result).length;
             var ciliricName = new Array();
@@ -14500,6 +14607,14 @@ function GetAccuredFact() {
                 heightChart = 220;
                 userAccured = result[0].UserAccured;
                 document.getElementById("textAccuredUserFact").textContent = "Расчетная премия: " + userAccured.toString();
+            }
+            else {
+                for (var j = 0; j < counter; j++) {
+                    if (result[j].CiliricName === ciliricalName) {
+                        document.getElementById("textAccuredUserFact").textContent = "Расчетная премия: " + result[j].UserAccured;
+                        $('#textAccuredUserFact').show();
+                    }
+                }
             }
             Highcharts.setOptions({
                 credits: {
