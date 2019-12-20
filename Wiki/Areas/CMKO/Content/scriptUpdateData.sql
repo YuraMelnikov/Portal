@@ -603,30 +603,6 @@ sum(iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, [optimization], 0)) as [optim
   PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers) as TableUsers on TableUsers.optimizationE >= 0
 
 
-  /*KPI*/
---select 
---PortalKATEK.dbo.PZ_PlanZakaz.id as id_PZ_PlanZakaz
---,sum(iif(PortalKATEK.dbo.Reclamation.id_DevisionReclamation = TableGM.Devision, PortalKATEK.dbo.Reclamation_CountError.count, 0)) AS countM
---,sum(iif(PortalKATEK.dbo.Reclamation.id_DevisionReclamation = TableGE.Devision, PortalKATEK.dbo.Reclamation_CountError.count, 0)) AS countE
---from PortalKATEK.dbo.Reclamation
---left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
---left join PortalKATEK.dbo.[CMKO_ThisOverflowsBujet] on PortalKATEK.dbo.CMKO_ThisOverflowsBujet.id_PZ_planZakaz = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
---left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
---left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
---left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
---left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
---left join (select PortalKATEK.dbo.AspNetUsers.Devision, PortalKATEK.dbo.RKD_GIP.id_RKD_Order from PortalKATEK.dbo.RKD_GIP left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.RKD_GIP.id_UserKBM) as TableGM on TableGM.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
---left join (select PortalKATEK.dbo.AspNetUsers.Devision, PortalKATEK.dbo.RKD_GIP.id_RKD_Order from PortalKATEK.dbo.RKD_GIP left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.id = PortalKATEK.dbo.RKD_GIP.id_UserKBE) as TableGE on TableGE.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
---left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
---where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
---and (PortalKATEK.dbo.[CMKO_ThisOverflowsBujet].id is not null)
---and (PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null)
---and (ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] = 1)
---and (TableGM.Devision is not null)
---group by 
---PortalKATEK.dbo.PZ_PlanZakaz.id
-
-
 update PortalKATEK.dbo.CMKO_ThisAccrued set 
 PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mPlan], ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhPlan) / TableNh.sumNhPlan * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[ePlan])
 ,PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = iif(PortalKATEK.dbo.AspNetUsers.Devision = 15, ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[mFact], ((PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefError * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.coefManager) * PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.nhFact) / TableNh.sumNhFact * [PortalKATEK].[dbo].[CMKO_ThisFinalBonus].[eFact])

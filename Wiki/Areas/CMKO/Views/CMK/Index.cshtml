@@ -51,6 +51,7 @@
             <h5 style="font-weight: bold; color: #717171">* для PWA рекомендован браузер Chrome (IE лучше не использовать)</h5>
         </div>
         <div class="col-lg-1">
+            <button type="button" id="btnUpdateDateReport" class="btn-xs btn-primary" data-toggle="modal" data-target="" onclick="UpdateDateReport();"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
             <h5 id="bg_color" style="color: white"></h5>
         </div>
     </div>
@@ -902,6 +903,28 @@
                         <button type="button" class="btn btn-primary" id="btnUpdateCoefManager" onclick="UpdatCoefManager();">Обновить</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingNewDataModal" class="modal modal-wide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="progress">
+                    <div id="progressBarUpdateData" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 45%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="notLoadingNewDataModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 style="font-weight: bold; color: #717171">Процесс обновления данных уже запущен. Ожидайте завершения операции.</h5>
             </div>
         </div>
     </div>

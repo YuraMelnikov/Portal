@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Wiki.Areas.CMKO.Types;
 using Wiki.Areas.DashboardKO.Models;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Wiki.Areas.CMKO
 {
@@ -777,6 +778,27 @@ namespace Wiki.Areas.CMKO
                 coefSpeedUser = dataList.k
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateDateReport()
+        {
+            string connString = @"Data Source=TSQLSERVER; initial catalog=PortalKATEK; Integrated Security=False;  Connection Timeout=3000; User Id=sas; Password=123qweASD; MultipleActiveResultSets=True; App=EntityFramework;";
+            string queryString = "EXEC msdb.dbo.sp_start_job N'UpdateDashboard'";
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                try
+                {
+                    command.ExecuteScalar();
+                }
+                catch
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
+                connection.Close();
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCoefManager(int id)

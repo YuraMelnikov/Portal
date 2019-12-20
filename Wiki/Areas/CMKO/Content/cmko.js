@@ -106,6 +106,7 @@ function LoadData(id) {
             GetTimeSheet();
             getPeriodReport();
             GetSummaryWageFundWorker();
+            $('#btnUpdateDateReport').hide();
             $('#hideSummaryData').hide();
             $('#hideAccuredStandart').hide();
             $('#speedDevisionForManager').hide();
@@ -16934,4 +16935,31 @@ function LoadThem() {
         LoadThem();
     }
     Highcharts.setOptions(Highcharts.theme);
+}
+
+function UpdateDateReport() {
+    $.ajax({
+        cache: false,
+        url: "/CMK/UpdateDateReport",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var i = 0;
+            if (result === 1 || result === '1') {
+                $('#loadingNewDataModal').modal('show');
+                setTimeout(function () { $('#loadingNewDataModal').modal('hide'); }, 110000);
+                f = function () {
+                    i = i + 1;
+                    $('.progress-bar').css('width', i + '%').attr('aria-valuenow', i);
+                    if (i < 100) setTimeout(f, "1100");
+                };
+                f();
+                LoadData(9);
+            }
+            else {
+                $('#notLoadingNewDataModal').modal('show');
+            }
+        }
+    });
 }
