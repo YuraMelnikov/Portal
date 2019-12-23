@@ -161,6 +161,7 @@ var objTEO = [
     { "title": "Выручка без НДС", "data": "Rate", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "С/С материалов", "data": "SSM", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "С/С зп рабочих", "data": "SSR", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "С/С товар", "data": "SSMProduct", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Коммерчиские издержки", "data": "IzdKom", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "% по кредиту", "data": "IzdPPKredit", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Постоянные издержки", "data": "PI", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
@@ -484,6 +485,7 @@ function getTEO(id) {
             $('#OtpuskChena').val("");
             $('#KursValuti').val("");
             $('#NDS').val("");
+            $('#SSMProduct').val("");
             $('#idTEO').val(result.idTEO);
             $('#Id_PlanZakaz').val(result.Id_PlanZakaz);
             $('#teoPlanZakaz').val(result.teoPlanZakaz);
@@ -494,6 +496,7 @@ function getTEO(id) {
             $('#IzdKom').val(result.IzdKom);
             $('#IzdPPKredit').val(result.IzdPPKredit);
             $('#PI').val(result.PI);
+            $('#SSMProduct').val(result.SSMProduct);
             $('#NOP').val(result.NOP);
             $('#KI_S').val(result.KI_S);
             $('#KI_prochee').val(result.KI_prochee);
@@ -528,6 +531,7 @@ function updateTEO() {
         , KursValuti: kur
         , Id_PlanZakaz: $('#Id_PlanZakaz').val()
         , NDS: $('#NDS').val()
+        , SSMProduct: $('#SSMProduct').val()
     };
     $.ajax({
         cache: false,

@@ -161,7 +161,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         dataList.KI_prochee,
                         dataList.OtpuskChena,
                         Currency = dataList.PZ_Currency.Name,
-                        dataList.NDS
+                        dataList.NDS,
+                        dataList.SSMProduct
                     });
                     try
                     {
@@ -196,7 +197,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         dataList.KI_prochee,
                         dataList.OtpuskChena,
                         Currency = dataList.PZ_Currency.Name,
-                        dataList.NDS
+                        dataList.NDS,
+                        dataList.SSMProduct
                     });
                     try
                     {
