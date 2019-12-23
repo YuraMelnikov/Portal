@@ -32,9 +32,9 @@ namespace Wiki.Areas.VerifPlan.Models
                 SendEmail();
                 logger.Debug("EmailVerifPlan: " + order.id);
             }
-            catch (Exception ex)
+            catch
             {
-                logger.Error("EmailVerifPlan: " + order.id + " | " + ex);
+                
             }
         }
 

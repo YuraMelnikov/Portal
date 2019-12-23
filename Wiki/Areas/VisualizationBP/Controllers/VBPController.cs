@@ -656,7 +656,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.PZ_PlanZakaz
                     .AsNoTracking()
-                    .Where(d => d.Id == id)
+                    .Where(d => d.PlanZakaz == id)
                     .ToList();
                 var data = query.Select(dataList => new
                 {

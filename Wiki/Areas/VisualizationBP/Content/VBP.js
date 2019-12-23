@@ -26,7 +26,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
-    GetPrjCart(1845);
+    GetPrjCart(1907);
 });
 
 var objTableTaskData = [
@@ -157,7 +157,6 @@ function GetProjectTasksStates(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             var countedCard = 0;
             for(var i = 0; i < 5; i++) {
                 countedCard = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
