@@ -298,6 +298,7 @@
           <Property Name="nhFact" Type="float" Nullable="false" />
           <Property Name="nhGPlan" Type="float" Nullable="false" />
           <Property Name="nhGFact" Type="float" Nullable="false" />
+          <Property Name="coefManager" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_ThisOverflowsBujet">
           <Key>
@@ -1403,6 +1404,7 @@
           <Property Name="percentPI" Type="float" />
           <Property Name="durationBeforePay" Type="float" />
           <Property Name="SSMToBYN" Type="float" />
+          <Property Name="SSMProduct" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_TypeShip">
           <Key>
@@ -2444,18 +2446,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="CMKO_ThisIndicatorsUsers" Type="Self.CMKO_ThisIndicatorsUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CMKO_ThisIndicatorsUsers">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
           <End Role="CMKO_ThisOverflowsBujet" Type="Self.CMKO_ThisOverflowsBujet" Multiplicity="*" />
@@ -3385,30 +3375,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="PZ_Setup">
               <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PZ_TEO_PZ_Currency">
-          <End Role="PZ_Currency" Type="Self.PZ_Currency" Multiplicity="1" />
-          <End Role="PZ_TEO" Type="Self.PZ_TEO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_Currency">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PZ_TEO">
-              <PropertyRef Name="Currency" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PZ_TEO_PZ_PlanZakaz">
-          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
-          <End Role="PZ_TEO" Type="Self.PZ_TEO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PZ_TEO">
-              <PropertyRef Name="Id_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4606,10 +4572,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
             <End Role="CMKO_ThisCoefManager" EntitySet="CMKO_ThisCoefManager" />
           </AssociationSet>
-          <AssociationSet Name="FK_CMKO_ThisIndicatorsUsers_AspNetUsers" Association="Self.FK_CMKO_ThisIndicatorsUsers_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="CMKO_ThisIndicatorsUsers" EntitySet="CMKO_ThisIndicatorsUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz" Association="Self.FK_CMKO_ThisOverflowsBujet_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMKO_ThisOverflowsBujet" EntitySet="CMKO_ThisOverflowsBujet" />
@@ -4917,14 +4879,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_PZ_Setup_PZ_PlanZakaz" Association="Self.FK_PZ_Setup_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="PZ_Setup" EntitySet="PZ_Setup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PZ_TEO_PZ_Currency" Association="Self.FK_PZ_TEO_PZ_Currency">
-            <End Role="PZ_Currency" EntitySet="PZ_Currency" />
-            <End Role="PZ_TEO" EntitySet="PZ_TEO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PZ_TEO_PZ_PlanZakaz" Association="Self.FK_PZ_TEO_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="PZ_TEO" EntitySet="PZ_TEO" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Answer_AspNetUsers1" Association="Self.FK_Reclamation_Answer_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -7027,6 +6981,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="nhGPlan" Type="Double" Nullable="false" />
           <Property Name="nhGFact" Type="Double" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_ThisIndicatorsUsers_AspNetUsers" FromRole="CMKO_ThisIndicatorsUsers" ToRole="AspNetUsers" />
+          <Property Name="coefManager" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_ThisOverflowsBujet">
           <Key>
@@ -7845,6 +7800,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="SSMToBYN" Type="Double" />
           <NavigationProperty Name="PZ_Currency" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_Currency" FromRole="PZ_TEO" ToRole="PZ_Currency" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_TEO_PZ_PlanZakaz" FromRole="PZ_TEO" ToRole="PZ_PlanZakaz" />
+          <Property Name="SSMProduct" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_TypeShip">
           <Key>
@@ -11455,6 +11411,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="CMKO_ThisIndicatorsUsers">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisIndicatorsUsers">
               <MappingFragment StoreEntitySet="CMKO_ThisIndicatorsUsers">
+                <ScalarProperty Name="coefManager" ColumnName="coefManager" />
                 <ScalarProperty Name="nhGFact" ColumnName="nhGFact" />
                 <ScalarProperty Name="nhGPlan" ColumnName="nhGPlan" />
                 <ScalarProperty Name="nhFact" ColumnName="nhFact" />
@@ -12180,6 +12137,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySetMapping Name="PZ_TEO">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_TEO">
               <MappingFragment StoreEntitySet="PZ_TEO">
+                <ScalarProperty Name="SSMProduct" ColumnName="SSMProduct" />
                 <ScalarProperty Name="SSMToBYN" ColumnName="SSMToBYN" />
                 <ScalarProperty Name="durationBeforePay" ColumnName="durationBeforePay" />
                 <ScalarProperty Name="percentPI" ColumnName="percentPI" />

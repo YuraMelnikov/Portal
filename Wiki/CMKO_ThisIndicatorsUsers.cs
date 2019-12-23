@@ -34,6 +34,7 @@ namespace Wiki
         public double nhFact { get; set; }
         public double nhGPlan { get; set; }
         public double nhGFact { get; set; }
+        public double coefManager { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
     }
