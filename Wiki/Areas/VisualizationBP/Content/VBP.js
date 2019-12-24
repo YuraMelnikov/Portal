@@ -45,7 +45,6 @@ function GetPrjCart(id) {
     GetPercentDevisionComplited(id);
     GetProjectTasksStates(id);
     CreateTaskCard();
-
     $('#orderModal').modal('show');
 }
 
@@ -150,6 +149,62 @@ function GetPercentDevisionComplited(id){
     });
 }
 
+class Task {
+    remainingWork;
+    work;
+    startDate;
+    finishDate;
+    users;
+    percentComplited;
+    taskName;
+
+    constructor(remainingWork, work, startDate, finishDate, users, percentComplited, taskName) {
+        this.remainingWork = remainingWork;
+        this.work = work;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.users = users;
+        this.percentComplited = percentComplited;
+        this.taskName = taskName;
+    }
+
+    get remainingWork() {
+        return this.remainingWork;
+    }
+    get work() {
+        return this.work;
+    }
+    get startDate() {
+        return this.startDate;
+    }
+    get finishDate() {
+        return this.finishDate;
+    }
+    get users() {
+        return this.users;
+    }
+    get percentComplited() {
+        return this.percentComplited;
+    }
+    get taskName() {
+        return this.taskName;
+    }
+}
+
+class TaskCard {
+    cardName;
+    taskArray;
+
+    constructor(cardName) {
+        this.cardName = cardName;
+        this.taskArray = new Array();
+    }
+
+    get cardName() {
+        return this.cardName;
+    }
+}
+
 function GetProjectTasksStates(id) {
     $.ajax({
         url: "/VBP/GetProjectTasksStates/" + id, 
@@ -157,11 +212,25 @@ function GetProjectTasksStates(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var countedCard = 0;
+            var counterCard = 0;
+            var counerTask = 0;
             for(var i = 0; i < 5; i++) {
-                countedCard = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
-                for(var j = 0; j < countedCard; j++){
-                    cardArray.push(result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].Name);
+                counterCard = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
+                for (var j = 0; j < counterCard; j++) {
+                    cardArray.push(new TaskCard(result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].Name));
+                    counerTask = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates.length;
+                    var p = cardArray.length - 1;
+                    for (var k = 0; k < counerTask; k++) {
+                        cardArray[p].taskArray.push( new Task(
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork,
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work,
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].StartDate,
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].FinishDate,
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Users,
+                            (result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work - result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork) / result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work * 100,
+                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Name
+                        ));
+                    }
                 }
             }
             CreateTaskCard(cardArray.length);
@@ -175,7 +244,7 @@ function GetProjectTasksStates(id) {
 function CreateTaskCard(counterStep){
     var basicBlock = "";
     for(var i = 0; i < counterStep; i++){
-        basicBlock += GetStandartCardTask(cardArray[i]);
+        basicBlock += GetStandartCardTask(cardArray[i].cardName);
     }
     document.getElementById("tasksCardPool").innerHTML = basicBlock;
 }
@@ -210,14 +279,6 @@ function GetPrjComments(id) {
 function GetPrjCriticalRoad(id) {
 
 }
-
-
-
-
-
-
-
-
 
 function getPeriodReport() {
     $.ajax({
@@ -1193,4 +1254,3 @@ function GetWorkpowerManufacturing() {
         }
     });
 }
-
