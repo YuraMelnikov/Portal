@@ -257,7 +257,6 @@ function GetProjectTasksStates(id) {
                     counerTask = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates.length;
                     var p = cardArray.length - 1;
                     for (var k = 0; k < counerTask; k++) {
-
                         try {
                             cardArray[p].taskArray.push(new Task(
                                 result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork,
