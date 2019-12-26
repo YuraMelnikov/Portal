@@ -158,14 +158,50 @@ class Task {
     percentComplited;
     taskName;
 
-    constructor(remainingWork, work, startDate, finishDate, users, percentComplited, taskName) {
-        this.remainingWork = remainingWork;
-        this.work = work;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.users = users;
-        this.percentComplited = percentComplited;
-        this.taskName = taskName;
+    constructor(remainingWork, work, startDate, finishDate, users, taskName) {
+        var tmp = '';
+        try {
+            this.remainingWork = remainingWork;
+        }
+        catch {
+            this.remainingWork = null;
+        }
+        try {
+            this.work = work;
+        }
+        catch {
+            this.work = null;
+        }
+        try {
+            this.startDate = startDate;
+        }
+        catch {
+            this.startDate = null;
+        }
+        try {
+            this.finishDate = finishDate;
+        }
+        catch {
+            this.finishDate = null;
+        }
+        try {
+            this.users = users;
+        }
+        catch {
+            this.users = null;
+        }
+        try {
+            this.percentComplited = (work - remainingWork) / work * 100;
+        }
+        catch {
+            this.percentComplited = null;
+        }
+        try {
+            this.taskName = taskName;
+        }
+        catch {
+            this.taskName = null;
+        }
     }
 
     get remainingWork() {
@@ -221,15 +257,20 @@ function GetProjectTasksStates(id) {
                     counerTask = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates.length;
                     var p = cardArray.length - 1;
                     for (var k = 0; k < counerTask; k++) {
-                        cardArray[p].taskArray.push( new Task(
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork,
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work,
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].StartDate,
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].FinishDate,
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Users,
-                            (result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work - result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork) / result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work * 100,
-                            result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Name
-                        ));
+
+                        try {
+                            cardArray[p].taskArray.push(new Task(
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].RemainingWork,
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Work,
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].StartDate,
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].FinishDate,
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Users,
+                                result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].ElementDataProjectTasksStates[k].Name
+                            ));
+                        }
+                        catch {
+                            cardArray[p].taskArray.push(new Task(null, null, null, null, null, null));
+                        }
                     }
                 }
             }
