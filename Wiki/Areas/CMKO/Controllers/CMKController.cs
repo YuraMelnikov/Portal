@@ -1296,7 +1296,7 @@ namespace Wiki.Areas.CMKO
             {
                 ViewBag.LeavelUser = 2;
             }
-            else if (devision == 3 || devision == 15 || devision == 16)
+            else if (devision == 3 || devision == 15 || devision == 16 || login == "Rusak@katek.by")
             {
                 ViewBag.LeavelUser = 1;
             }
@@ -1322,7 +1322,7 @@ namespace Wiki.Areas.CMKO
             string login = HttpContext.User.Identity.Name;
             if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
                 login == "fvs@katek.by" || login == "myi@katek.by" ||
-                login == "laa@katek.by" || login == "nrf@katek.by")
+                login == "laa@katek.by" || login == "nrf@katek.by" || login == "Rusak@katek.by")
             {
                 return true;
             }
