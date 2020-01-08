@@ -84,7 +84,15 @@ namespace Wiki.Areas.PZ.Models
                 NOP = 0,
                 KI_S = 0,
                 KI_prochee = 0,
-                Id_PlanZakaz = newPZ_PlanZakaz.Id
+                Id_PlanZakaz = newPZ_PlanZakaz.Id,
+                OtpuskChena = 0,
+                KursValuti = 0,
+                SSRFact = 0,
+                percentYear = 0,
+                percentPI = 0,
+                durationBeforePay = 0,
+                SSMToBYN = 0,
+                SSMProduct = 0
             };
             db.PZ_TEO.Add(pZ_TEO);
             db.SaveChanges();
