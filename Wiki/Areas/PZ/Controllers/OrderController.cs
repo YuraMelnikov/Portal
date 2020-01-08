@@ -194,7 +194,7 @@ namespace Wiki.Areas.PZ.Controllers
         [HttpPost]
         public JsonResult OrdersList()
         {
-            int countLastOrdersView = 300;
+            int countLastOrdersView = 250;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.PZ_PlanZakaz
