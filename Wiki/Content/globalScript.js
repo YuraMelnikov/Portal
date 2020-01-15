@@ -13,17 +13,24 @@ function convertRuDateToDateISO(st) {
 }
 
 function ConvertDateToGlobalShortString(dateTime) {
-    var yearString = dateTime.getFullYear() + '.';
-    var monthString = dateTime.getMonth() + 1 + '.';
-    var dayString = dateTime.getDate();
-    if (monthString.length < 3) {
-        monthString = '0' + monthString;
+    try {
+        var yearString = dateTime.getFullYear() + '.';
+        var monthString = dateTime.getMonth() + 1 + '.';
+        var dayString = dateTime.getDate();
+        if (monthString.length < 3) {
+            monthString = '0' + monthString;
+        }
+        if (dayString < 10) {
+            dayString = '0' + dayString;
+        }
+        var dateString = yearString + monthString + dayString;
+        return dateString;
     }
-    if (dayString.length < 3) {
-        dayString = '0' + dayString;
+    catch {
+        return "НД";
     }
+}
 
-    var dateString = yearString + monthString + dayString;
-
-    return dateString;
+function ParseJsonDate(jsonDateString) {
+    return new Date(parseInt(jsonDateString.replace('/Date(', '')));
 }

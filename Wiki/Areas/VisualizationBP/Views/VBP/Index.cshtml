@@ -48,7 +48,7 @@
         .card-default > .card-footer{ color: #333; background-color: #ddd; }
         .card-default > .card-header{ border-bottom: 1px solid #ddd; padding: 8px; }
         .card-default > .card-footer{ border-top: 1px solid #ddd; padding: 8px; }
-        .card-default > .card-body{  }
+        .card-default > .card-body{ background-color: #f8f8f8; }
         .card-default > .card-img:first-child img{ border-radius: 6px 6px 0 0; }
         .card-default > .card-left{ padding-right: 4px; }
         .card-default > .card-right{ padding-left: 4px; }
@@ -77,7 +77,7 @@
         .card-price .details li{ text-align: center; margin-bottom: 8px; }
         .card-price .buy-now{ text-transform: uppercase; }
         .card-price table .price{ font-size: 1.2em; font-weight: 700; text-align: left; }
-        .card-price table .note{ color: #666; font-size: 0.8em; }
+        .card-price table .note{ color: #999; font-size: 0.8em; }
     </style>
     <script src="~/Scripts/moment.min.js"></script>
     <link href="~/Areas/PZ/Contant/DataTable/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
@@ -94,8 +94,8 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="~/Content/globalScript.js?v1.1"></script>
-    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.17"></script>
+    <script src="~/Content/globalScript.js?v1.3"></script>
+    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.19"></script>
 </head>
 <div class="row">
     <div class="col-lg-12">
@@ -176,10 +176,7 @@
                 </div>
                 <hr/>
                 <div class="row" id="tasksBlock">
-                    <div class="col-lg-12" id="tasksCardPool">
-
-
-                    </div>
+                    <div class="col-lg-12" id="tasksCardPool"></div>
                 </div>
                 <hr/>
                 <div class="row" id="criticalRoadBlock">

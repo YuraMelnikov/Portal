@@ -26,7 +26,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
-    GetPrjCart(1907);
+    GetPrjCart(1881);
 });
 
 var objTableTaskData = [
@@ -281,24 +281,56 @@ function GetProjectTasksStates(id) {
     });
 }
 
-function CreateTaskCard(counterStep){
-    var basicBlock = "";
-    for(var i = 0; i < counterStep; i++){
-        basicBlock += GetStandartCardTask(cardArray[i].cardName);
+function CreateTaskCard(counterStep) {
+    var counterTasks = 0;
+    var bodyBlock = "";
+    var basicBlock = "<div class=" + '\u0022' + "row" + '\u0022' + ">";
+    for (var i = 0; i < counterStep; i++) {
+        counterTasks = cardArray[i].taskArray.length;
+        for (var j = 0; j < counterTasks; j++) {
+            if (cardArray[i].taskArray[j].taskName !== null) {
+                var dateFinishTask = ParseJsonDate(cardArray[i].taskArray[j].finishDate);
+
+                if (cardArray[i].taskArray[j].percentComplited === 100) {
+                    bodyBlock += "<p class=" + '"' + "bg-info" + '"' + ">";
+                    bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask);
+                }
+                else if (cardArray[i].taskArray[j].percentComplited === 0) {
+                    bodyBlock += "<p class=" + '"' + "bg-danger" + '"' + ">";
+                    bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask)
+                        + " | " + Math.round(cardArray[i].taskArray[j].remainingWork);
+                }
+                else {
+                    bodyBlock += "<p class=" + '"' + "bg-warning" + '"' + ">";
+                    bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask)
+                        + " | " + Math.round(cardArray[i].taskArray[j].remainingWork);
+                }
+                bodyBlock += "</p>";
+            }
+        }
+        basicBlock += GetStandartCardTask(cardArray[i].cardName, bodyBlock);
+        var tmp = i % 6;
+        if (i % 5 === 0 && i !== 0 && i < 6) {
+            basicBlock += "</div>" + "<div class=" + '\u0022' + "row" + '\u0022' + ">";
+        }
+        else if (i % 6 === 0 && i !== 0 && i !== 6) {
+            basicBlock += "</div>" + "<div class=" + '\u0022' + "row" + '\u0022' + ">";
+        }
+        bodyBlock = "";
     }
     document.getElementById("tasksCardPool").innerHTML = basicBlock;
 }
 
-function GetStandartCardTask(cardName){
+function GetStandartCardTask(cardName, bodyBlock) {
     var lastDivBlock = "</div>";
     var firstDivBlock = "<div class=" + '\u0022' +  "col-lg-2"  + '\u0022' +  ">";
     var cardBlock = "<div class=" + '\u0022' +  "card card-default"  + '\u0022' +  ">";
     cardBlock += "<div class=" + '\u0022' +  "card-header"  + '\u0022' +  ">";
     cardBlock += cardName + lastDivBlock;
-    cardBlock += "<div class=" + '\u0022' +  "card-body"  + '\u0022' +  ">";
+    cardBlock += "<div class=" + '\u0022' + "card-body" + '\u0022' + ">";
+    cardBlock += bodyBlock;
     return firstDivBlock + cardBlock + lastDivBlock + lastDivBlock + lastDivBlock;
 } 
-
 
 function GetBurnDownChartDevM(id) {
 

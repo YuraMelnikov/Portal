@@ -328,7 +328,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 elementDataProjectTasksState.Users = "";
                 foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
+                    elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
                 }
                 return elementDataProjectTasksState;
             }
@@ -370,7 +370,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 elementDataProjectTasksState.Users = "";
                 foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
+                    elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
                 }
                 return elementDataProjectTasksState;
             }
@@ -381,6 +381,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             DateTime defaulTime = new DateTime(1900, 1, 1);
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
+                string userName = "";
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
@@ -412,7 +413,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 elementDataProjectTasksState.Users = "";
                 foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
                 {
-                    elementDataProjectTasksState.Users += ciliricalName.Key + "; ";
+                    userName = ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
+                    if(userName != "Деменков; " & userName != "Ашанин; ")
+                        elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
                 }
                 return elementDataProjectTasksState;
             }

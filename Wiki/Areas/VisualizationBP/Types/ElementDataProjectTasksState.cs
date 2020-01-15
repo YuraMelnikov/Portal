@@ -29,8 +29,40 @@ namespace Wiki.Areas.VisualizationBP.Types
             this.remainingWork = dashboardBPTaskInsert.TaskRemainingWork.Value;
             this.startDate = dashboardBPTaskInsert.TaskStartDate;
             this.finishDate = dashboardBPTaskInsert.TaskfinishDate;
-            this.name = dashboardBPTaskInsert.TaskName;
-            this.users = dashboardBPTaskInsert.AspNetUsers.CiliricalName;
+            this.name = GetShortTaskName(dashboardBPTaskInsert.TaskWBS1);
+            this.users = dashboardBPTaskInsert.AspNetUsers.CiliricalName.Substring(0, dashboardBPTaskInsert.AspNetUsers.CiliricalName.IndexOf(' '));
+        }
+
+        string GetShortTaskName(string wbsName)
+        {
+            if (wbsName == "ПР")
+            {
+                return "Предразраб. КБМ";
+            }
+            else if (wbsName == "ПЭ")
+            {
+                return "Предразраб. КБЭ";
+            }
+            else if (wbsName == "РМ")
+            {
+                return "Компл. РКД КБМ";
+            }
+            else if (wbsName == "РЭ")
+            {
+                return "Компл. РКД КБЭ";
+            }
+            else if (wbsName == "СМ")
+            {
+                return "Согл. РКД КБМ";
+            }
+            else if (wbsName == "СЭ")
+            {
+                return "Согл. РКД КБЭ";
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }
