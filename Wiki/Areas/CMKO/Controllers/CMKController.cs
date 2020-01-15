@@ -122,8 +122,8 @@ namespace Wiki.Areas.CMKO
                     CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.AsNoTracking().First(d => d.id_AspNetUsers == tmp);
                     data[i].CiliricName = accuredList[i].AspNetUsers.CiliricalName;
                     data[i].BonusReversed = (int)accuredList[i].bonusFact;
-                    data[i].Accrued = (int)accuredList[i].accruedFact;
-                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedFact;
+                    data[i].Accrued = (int)accuredList[i].accruedTotalFact;
+                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == tmp).accruedTotalFact;
                     data[i].Manager = GetManagerAccuedFact(accuredList[i].id_AspNetUsers);
                     data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
@@ -241,8 +241,8 @@ namespace Wiki.Areas.CMKO
                     CMKO_ThisIndicatorsUsers cMKO_ThisIndicatorsUsers = db.CMKO_ThisIndicatorsUsers.First(d => d.id_AspNetUsers == id_AspNetUsers);
                     data[i].CiliricName = accuredList[i].AspNetUsers.CiliricalName;
                     data[i].BonusReversed = (int)accuredList[i].bonusPlan;
-                    data[i].Accrued = (int)accuredList[i].accruedPlan;
-                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == id_AspNetUsers).accruedPlan;
+                    data[i].Accrued = (int)accuredList[i].accruedTotalPlan;
+                    data[i].Accruedg = (int)db.CMKO_ThisAccruedG.AsNoTracking().First(d => d.id_AspNetUsers == id_AspNetUsers).accruedTotalPlan;
                     data[i].Manager = GetManagerAccuedPlan(accuredList[i].id_AspNetUsers);
                     data[i].BonusQuality = (int)cMKO_ThisIndicatorsUsers.qualityBonus;
                     data[i].Speed = (int)cMKO_ThisIndicatorsUsers.speed1 + (int)cMKO_ThisIndicatorsUsers.speed2 + (int)cMKO_ThisIndicatorsUsers.speed3;
