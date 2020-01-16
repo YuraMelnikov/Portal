@@ -60,6 +60,7 @@ namespace Wiki
             this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
             this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
             this.CMKO_ThisCoefManager = new HashSet<CMKO_ThisCoefManager>();
+            this.CMKO_SummaryResultToMonth = new HashSet<CMKO_SummaryResultToMonth>();
         }
     
         public string Id { get; set; }
@@ -169,5 +170,7 @@ namespace Wiki
         public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_SummaryResultToMonth> CMKO_SummaryResultToMonth { get; set; }
     }
 }

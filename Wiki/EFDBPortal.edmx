@@ -172,6 +172,31 @@
           <Property Name="id_Reclamation_CountError" Type="int" Nullable="false" />
           <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_SummaryResultToMonth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_CMKO_PeriodResult" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="coefManager" Type="float" Nullable="false" />
+          <Property Name="coefError" Type="float" Nullable="false" />
+          <Property Name="coefErrorG" Type="float" Nullable="false" />
+          <Property Name="nh" Type="float" Nullable="false" />
+          <Property Name="nhG" Type="float" Nullable="false" />
+          <Property Name="ordersAccrue" Type="float" Nullable="false" />
+          <Property Name="remainingBonusAccrue" Type="float" Nullable="false" />
+          <Property Name="gAccrue" Type="float" Nullable="false" />
+          <Property Name="managerAccrue" Type="float" Nullable="false" />
+          <Property Name="teachAccrue" Type="float" Nullable="false" />
+          <Property Name="optimizationAccrue" Type="float" Nullable="false" />
+          <Property Name="timeUpAccrue" Type="float" Nullable="false" />
+          <Property Name="qualityAccrue" Type="float" Nullable="false" />
+          <Property Name="rate" Type="float" Nullable="false" />
+          <Property Name="tax" Type="float" Nullable="false" />
+          <Property Name="result" Type="float" Nullable="false" />
+          <Property Name="resultToMonth" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMKO_TaxCatigories">
           <Key>
             <PropertyRef Name="id" />
@@ -683,7 +708,7 @@
           <Property Name="TaskIsSummary" Type="bit" Nullable="false" />
           <Property Name="TaskOutlineLevel" Type="smallint" Nullable="false" />
           <Property Name="TaskOutlineNumber" Type="varchar(max)" Nullable="false" />
-          <Property Name="TaskWBS" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="TaskWBS" Type="varchar(max)" Nullable="false" />
           <Property Name="TaskWBS1" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="TaskWBS2" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="TaskWBS3" Type="varchar" MaxLength="4" Nullable="false" />
@@ -2335,6 +2360,30 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             </Principal>
             <Dependent Role="CMKO_RemarksListG">
               <PropertyRef Name="id_Reclamation_CountError" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_SummaryResultToMonth_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMKO_SummaryResultToMonth" Type="Self.CMKO_SummaryResultToMonth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_SummaryResultToMonth">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult">
+          <End Role="CMKO_PeriodResult" Type="Self.CMKO_PeriodResult" Multiplicity="1" />
+          <End Role="CMKO_SummaryResultToMonth" Type="Self.CMKO_SummaryResultToMonth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMKO_PeriodResult">
+              <PropertyRef Name="period" />
+            </Principal>
+            <Dependent Role="CMKO_SummaryResultToMonth">
+              <PropertyRef Name="id_CMKO_PeriodResult" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4148,6 +4197,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <EntitySet Name="CMKO_ProjectFactBujet" EntityType="Self.CMKO_ProjectFactBujet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_RemarksList" EntityType="Self.CMKO_RemarksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_RemarksListG" EntityType="Self.CMKO_RemarksListG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_SummaryResultToMonth" EntityType="Self.CMKO_SummaryResultToMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_TaxCatigories" EntityType="Self.CMKO_TaxCatigories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_Teach" EntityType="Self.CMKO_Teach" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ThisAccrued" EntityType="Self.CMKO_ThisAccrued" Schema="dbo" store:Type="Tables" />
@@ -4535,6 +4585,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <AssociationSet Name="FK_CMKO_RemarksListG_Reclamation_CountError" Association="Self.FK_CMKO_RemarksListG_Reclamation_CountError">
             <End Role="Reclamation_CountError" EntitySet="Reclamation_CountError" />
             <End Role="CMKO_RemarksListG" EntitySet="CMKO_RemarksListG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_SummaryResultToMonth_AspNetUsers" Association="Self.FK_CMKO_SummaryResultToMonth_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_SummaryResultToMonth" EntitySet="CMKO_SummaryResultToMonth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult" Association="Self.FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult">
+            <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
+            <End Role="CMKO_SummaryResultToMonth" EntitySet="CMKO_SummaryResultToMonth" />
           </AssociationSet>
           <AssociationSet Name="FK_CMKO_Teach_AspNetUsers" Association="Self.FK_CMKO_Teach_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6096,6 +6154,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
             <End Role="CMKO_ThisCoefManager" EntitySet="CMKO_ThisCoefManager" />
           </AssociationSet>
+          <EntitySet Name="CMKO_SummaryResultToMonth" EntityType="PortalKATEKModel.CMKO_SummaryResultToMonth" />
+          <AssociationSet Name="FK_CMKO_SummaryResultToMonth_AspNetUsers" Association="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMKO_SummaryResultToMonth" EntitySet="CMKO_SummaryResultToMonth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult" Association="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult">
+            <End Role="CMKO_PeriodResult" EntitySet="CMKO_PeriodResult" />
+            <End Role="CMKO_SummaryResultToMonth" EntitySet="CMKO_SummaryResultToMonth" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMO_Report">
           <Key>
@@ -6811,6 +6878,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="CMKO_RemarksList" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_RemarksList" />
           <NavigationProperty Name="CMKO_RemarksListG" Relationship="PortalKATEKModel.FK_CMKO_RemarksListG_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_RemarksListG" />
           <NavigationProperty Name="CMKO_ThisCoefManager" Relationship="PortalKATEKModel.FK_CMKO_ThisCoefManager_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_ThisCoefManager" />
+          <NavigationProperty Name="CMKO_SummaryResultToMonth" Relationship="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_AspNetUsers" FromRole="AspNetUsers" ToRole="CMKO_SummaryResultToMonth" />
         </EntityType>
         <EntityType Name="CMKO_BujetList">
           <Key>
@@ -6884,6 +6952,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <NavigationProperty Name="CMKO_Optimization" Relationship="PortalKATEKModel.FK_CMKO_Optimization_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_Optimization" />
           <NavigationProperty Name="CMKO_Teach" Relationship="PortalKATEKModel.FK_CMKO_Teach_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_Teach" />
           <NavigationProperty Name="CMKO_ThisCoefManager" Relationship="PortalKATEKModel.FK_CMKO_ThisCoefManager_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_ThisCoefManager" />
+          <NavigationProperty Name="CMKO_SummaryResultToMonth" Relationship="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult" FromRole="CMKO_PeriodResult" ToRole="CMKO_SummaryResultToMonth" />
         </EntityType>
         <EntityType Name="CMKO_ProjectFactBujet">
           <Key>
@@ -10285,7 +10354,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
           <Property Name="TaskIsSummary" Type="Boolean" Nullable="false" />
           <Property Name="TaskOutlineLevel" Type="Int16" Nullable="false" />
           <Property Name="TaskOutlineNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TaskWBS" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWBS" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaskWBS1" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="TaskWBS2" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="TaskWBS3" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
@@ -10460,6 +10529,57 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
               <PropertyRef Name="period" />
             </Principal>
             <Dependent Role="CMKO_ThisCoefManager">
+              <PropertyRef Name="id_CMKO_PeriodResult" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CMKO_SummaryResultToMonth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_CMKO_PeriodResult" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="coefManager" Type="Double" Nullable="false" />
+          <Property Name="coefError" Type="Double" Nullable="false" />
+          <Property Name="coefErrorG" Type="Double" Nullable="false" />
+          <Property Name="nh" Type="Double" Nullable="false" />
+          <Property Name="nhG" Type="Double" Nullable="false" />
+          <Property Name="ordersAccrue" Type="Double" Nullable="false" />
+          <Property Name="remainingBonusAccrue" Type="Double" Nullable="false" />
+          <Property Name="gAccrue" Type="Double" Nullable="false" />
+          <Property Name="managerAccrue" Type="Double" Nullable="false" />
+          <Property Name="teachAccrue" Type="Double" Nullable="false" />
+          <Property Name="optimizationAccrue" Type="Double" Nullable="false" />
+          <Property Name="timeUpAccrue" Type="Double" Nullable="false" />
+          <Property Name="qualityAccrue" Type="Double" Nullable="false" />
+          <Property Name="rate" Type="Double" Nullable="false" />
+          <Property Name="tax" Type="Double" Nullable="false" />
+          <Property Name="result" Type="Double" Nullable="false" />
+          <Property Name="resultToMonth" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_AspNetUsers" FromRole="CMKO_SummaryResultToMonth" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CMKO_PeriodResult" Relationship="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult" FromRole="CMKO_SummaryResultToMonth" ToRole="CMKO_PeriodResult" />
+        </EntityType>
+        <Association Name="FK_CMKO_SummaryResultToMonth_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_SummaryResultToMonth" Role="CMKO_SummaryResultToMonth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMKO_SummaryResultToMonth">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult">
+          <End Type="PortalKATEKModel.CMKO_PeriodResult" Role="CMKO_PeriodResult" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMKO_SummaryResultToMonth" Role="CMKO_SummaryResultToMonth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMKO_PeriodResult">
+              <PropertyRef Name="period" />
+            </Principal>
+            <Dependent Role="CMKO_SummaryResultToMonth">
               <PropertyRef Name="id_CMKO_PeriodResult" />
             </Dependent>
           </ReferentialConstraint>
@@ -12742,6 +12862,32 @@ warning 6002: The table/view 'PortalKATEK.dbo.VV_infPost' does not have a primar
             <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_ThisCoefManager">
               <MappingFragment StoreEntitySet="CMKO_ThisCoefManager">
                 <ScalarProperty Name="coef" ColumnName="coef" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id_CMKO_PeriodResult" ColumnName="id_CMKO_PeriodResult" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_SummaryResultToMonth">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_SummaryResultToMonth">
+              <MappingFragment StoreEntitySet="CMKO_SummaryResultToMonth">
+                <ScalarProperty Name="resultToMonth" ColumnName="resultToMonth" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="qualityAccrue" ColumnName="qualityAccrue" />
+                <ScalarProperty Name="timeUpAccrue" ColumnName="timeUpAccrue" />
+                <ScalarProperty Name="optimizationAccrue" ColumnName="optimizationAccrue" />
+                <ScalarProperty Name="teachAccrue" ColumnName="teachAccrue" />
+                <ScalarProperty Name="managerAccrue" ColumnName="managerAccrue" />
+                <ScalarProperty Name="gAccrue" ColumnName="gAccrue" />
+                <ScalarProperty Name="remainingBonusAccrue" ColumnName="remainingBonusAccrue" />
+                <ScalarProperty Name="ordersAccrue" ColumnName="ordersAccrue" />
+                <ScalarProperty Name="nhG" ColumnName="nhG" />
+                <ScalarProperty Name="nh" ColumnName="nh" />
+                <ScalarProperty Name="coefErrorG" ColumnName="coefErrorG" />
+                <ScalarProperty Name="coefError" ColumnName="coefError" />
+                <ScalarProperty Name="coefManager" ColumnName="coefManager" />
                 <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
                 <ScalarProperty Name="id_CMKO_PeriodResult" ColumnName="id_CMKO_PeriodResult" />
                 <ScalarProperty Name="id" ColumnName="id" />

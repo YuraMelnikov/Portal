@@ -344,6 +344,9 @@
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_ThisCoefManager" Width="1.5" PointX="17" PointY="37.75" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMKO_ThisCoefManager_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMKO_ThisCoefManager_CMKO_PeriodResult" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMKO_SummaryResultToMonth" Width="1.5" PointX="17" PointY="40.625" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMKO_SummaryResultToMonth_CMKO_PeriodResult" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

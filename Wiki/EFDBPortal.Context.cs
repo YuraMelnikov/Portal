@@ -195,5 +195,6 @@ namespace Wiki
         public virtual DbSet<CMKO_RemarksList> CMKO_RemarksList { get; set; }
         public virtual DbSet<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
         public virtual DbSet<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
+        public virtual DbSet<CMKO_SummaryResultToMonth> CMKO_SummaryResultToMonth { get; set; }
     }
 }
