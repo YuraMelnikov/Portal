@@ -985,40 +985,6 @@ namespace Wiki.Areas.CMKO
             }
         }
 
-        //public JsonResult GetSummaryAccuredNotOrder()
-        //{
-        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        var fundData = db.CMKO_BujetList.AsNoTracking().ToList();
-        //        SummaryWageFund[] summaryWageFund = new SummaryWageFund[3];
-        //        for (int i = 0; i < 3; i++)
-        //        {
-        //            summaryWageFund[i] = new SummaryWageFund();
-        //            if (i == 0)
-        //            {
-        //                summaryWageFund[i].DevisionId = 0;
-        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.Sum(d => d.)  fundData.wageFundOverflowsWorkerMPlan + fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
-        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact + fundData.wageFundOverflowsWorkerEFact);
-        //            }
-        //            else if (i == 1)
-        //            {
-        //                summaryWageFund[i].DevisionId = 1;
-        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerMPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
-        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerMFact);
-        //            }
-        //            else
-        //            {
-        //                summaryWageFund[i].DevisionId = 2;
-        //                summaryWageFund[i].Plan = Convert.ToInt32(fundData.wageFundOverflowsWorkerEPlan) - Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
-        //                summaryWageFund[i].Fact = Convert.ToInt32(fundData.wageFundOverflowsWorkerEFact);
-        //            }
-        //        }
-        //        return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
-
         public JsonResult GetTeach(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -3241,6 +3207,76 @@ namespace Wiki.Areas.CMKO
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetUsersQuartResultTable()
+        {
+            bool filt = GetStatusManagerUser();
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            List<CMKO_RemarksListG> query;
+            if (filt == true)
+            {
+                query = db.CMKO_RemarksListG
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .ToList();
+            }
+            else
+            {
+                query = db.CMKO_RemarksListG
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .Where(d => d.AspNetUsers.Email == login)
+                            .ToList();
+            }
+            var data = query.Select(dataList => new
+            {
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                idRemark = dataList.id_Reclamation,
+                textData = dataList.Reclamation.text,
+                count = dataList.Reclamation_CountError.count,
+                user = dataList.AspNetUsers.CiliricalName
+            });
+            return Json(new { data });
+        }
+
+        public JsonResult GetUserQuartResultTable()
+        {
+            bool filt = GetStatusManagerUser();
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            List<CMKO_RemarksListG> query;
+            if (filt == true)
+            {
+                query = db.CMKO_RemarksListG
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .ToList();
+            }
+            else
+            {
+                query = db.CMKO_RemarksListG
+                            .Include(d => d.AspNetUsers)
+                            .Include(d => d.Reclamation)
+                            .Include(d => d.Reclamation_CountError)
+                            .Where(d => d.AspNetUsers.Email == login)
+                            .ToList();
+            }
+            var data = query.Select(dataList => new
+            {
+                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
+                idRemark = dataList.id_Reclamation,
+                textData = dataList.Reclamation.text,
+                count = dataList.Reclamation_CountError.count,
+                user = dataList.AspNetUsers.CiliricalName
+            });
+            return Json(new { data });
         }
     }
 }

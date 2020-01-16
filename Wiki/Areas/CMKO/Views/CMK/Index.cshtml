@@ -15,7 +15,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
     <script src="~/Content/jquery.cookie.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v1.10"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v1.12"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -907,6 +907,19 @@
                         <button type="button" class="btn btn-primary" id="btnUpdateCoefManager" onclick="UpdatCoefManager();">Обновить</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tableQuartResultForUsersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="periodQuartName">
+                    <h5 id="hPeriodQuartName" style="font-weight: bold; color: #717171"></h5>
+                </div>
+                <table id="usersQuartResultTable" class="table-hover table-striped" style="width: 100%;"></table> 
+                <table id="userQuartResultTable" class="table-hover table-striped" style="width: 100%;"></table>
             </div>
         </div>
     </div>

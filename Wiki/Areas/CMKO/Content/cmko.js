@@ -214,7 +214,57 @@ var objRemarksList = [
     { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
 ];
 
+var objUsersQuartResultTable = [
+    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "Ид.", "data": "idRemark", "autowidth": true, "bSortable": false },
+    { "title": "Оценка", "data": "count", "autowidth": true, "bSortable": true },
+    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
+];
+
+var objUserQuartResultTable = [
+    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "Ид.", "data": "idRemark", "autowidth": true, "bSortable": false },
+    { "title": "Оценка", "data": "count", "autowidth": true, "bSortable": true },
+    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
+];
+
 function StartMenu() {
+    $("#usersQuartResultTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUsersQuartResultTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objUsersQuartResultTable,
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $("#userQuartResultTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUserQuartResultTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objUserQuartResultTable,
+        "scrollY": '75vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
     $("#managUsersCoefTable").DataTable({
         "ajax": {
             "cache": false,
@@ -402,6 +452,54 @@ function StartMenu() {
         "info": false,
         "scrollCollapse": true
     });
+}
+
+function LoadUsersQuartResultTable() {
+    var table = $('#usersQuartResultTable').DataTable();
+    table.destroy();
+    $('#usersQuartResultTable').empty();
+    $("#usersQuartResultTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUsersQuartResultTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objUsersQuartResultTable,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $('#usersDiv').show();
+}
+
+function LoadUserQuartResultTable() {
+    var table = $('#userQuartResultTable').DataTable();
+    table.destroy();
+    $('#userQuartResultTable').empty();
+    $("#userQuartResultTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMK/GetUserQuartResultTable",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objUserQuartResultTable,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $('#usersDiv').show();
 }
 
 function GetRamarksGUsersList() {
