@@ -3209,72 +3209,76 @@ namespace Wiki.Areas.CMKO
             }
         }
 
-        public JsonResult GetUsersQuartResultTable()
+        [HttpPost]
+        public JsonResult GetUsersQuartResultTable(int id)
         {
-            bool filt = GetStatusManagerUser();
+            string period = "2019.4";
+            if (id < 2)
+                period = "2019.4";
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            List<CMKO_RemarksListG> query;
-            if (filt == true)
-            {
-                query = db.CMKO_RemarksListG
-                            .Include(d => d.AspNetUsers)
-                            .Include(d => d.Reclamation)
-                            .Include(d => d.Reclamation_CountError)
-                            .ToList();
-            }
-            else
-            {
-                query = db.CMKO_RemarksListG
-                            .Include(d => d.AspNetUsers)
-                            .Include(d => d.Reclamation)
-                            .Include(d => d.Reclamation_CountError)
-                            .Where(d => d.AspNetUsers.Email == login)
-                            .ToList();
-            }
+            List<CMKO_SummaryResultToMonth> query;
+            query = db.CMKO_SummaryResultToMonth
+                        .Include(d => d.AspNetUsers)
+                        .Where(d => d.id_CMKO_PeriodResult == period)
+                        .ToList();
             var data = query.Select(dataList => new
             {
-                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
-                idRemark = dataList.id_Reclamation,
-                textData = dataList.Reclamation.text,
-                count = dataList.Reclamation_CountError.count,
-                user = dataList.AspNetUsers.CiliricalName
+                dataList.AspNetUsers.CiliricalName,
+                dataList.coefManager,
+                dataList.coefError,
+                dataList.coefErrorG,
+                dataList.nh,
+                dataList.nhG
             });
             return Json(new { data });
         }
 
-        public JsonResult GetUserQuartResultTable()
+        public JsonResult GetUserQuartResultTable(int id)
         {
+            string period = "2019.4";
+            if (id < 2)
+                period = "2019.4";
             bool filt = GetStatusManagerUser();
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            List<CMKO_RemarksListG> query;
+            List<CMKO_SummaryResultToMonth> query;
             if (filt == true)
             {
-                query = db.CMKO_RemarksListG
+                query = db.CMKO_SummaryResultToMonth
                             .Include(d => d.AspNetUsers)
-                            .Include(d => d.Reclamation)
-                            .Include(d => d.Reclamation_CountError)
+                            .Where(d => d.id_CMKO_PeriodResult == period)
                             .ToList();
             }
             else
             {
-                query = db.CMKO_RemarksListG
+                query = db.CMKO_SummaryResultToMonth
                             .Include(d => d.AspNetUsers)
-                            .Include(d => d.Reclamation)
-                            .Include(d => d.Reclamation_CountError)
+                            .Where(d => d.id_CMKO_PeriodResult == period)
                             .Where(d => d.AspNetUsers.Email == login)
                             .ToList();
             }
             var data = query.Select(dataList => new
             {
-                viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
-                idRemark = dataList.id_Reclamation,
-                textData = dataList.Reclamation.text,
-                count = dataList.Reclamation_CountError.count,
-                user = dataList.AspNetUsers.CiliricalName
+                dataList.AspNetUsers.CiliricalName,
+                dataList.coefManager,
+                dataList.coefError,
+                dataList.coefErrorG,
+                dataList.nh,
+                dataList.nhG,
+                dataList.ordersAccrue,
+                dataList.remainingBonusAccrue,
+                dataList.gAccrue,
+                dataList.managerAccrue,
+                dataList.teachAccrue,
+                dataList.optimizationAccrue,
+                dataList.timeUpAccrue,
+                dataList.qualityAccrue,
+                dataList.rate,
+                dataList.tax,
+                dataList.result
             });
             return Json(new { data });
         }

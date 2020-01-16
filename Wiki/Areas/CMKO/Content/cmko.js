@@ -215,26 +215,39 @@ var objRemarksList = [
 ];
 
 var objUsersQuartResultTable = [
-    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
-    { "title": "Ид.", "data": "idRemark", "autowidth": true, "bSortable": false },
-    { "title": "Оценка", "data": "count", "autowidth": true, "bSortable": true },
-    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
+    { "title": "Сотрудник", "data": "CiliricalName", "autowidth": true, "bSortable": false }
+    , { "title": "Коэф. рук-ля", "data": "coefManager", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "Коэф. качества", "data": "coefError", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "Коэф. качества (ГИП)", "data": "coefErrorG", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "НЧ", "data": "nh", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "НЧ ГИПа", "data": "nhG", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
 ];
 
 var objUserQuartResultTable = [
-    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
-    { "title": "Ид.", "data": "idRemark", "autowidth": true, "bSortable": false },
-    { "title": "Оценка", "data": "count", "autowidth": true, "bSortable": true },
-    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
-    { "title": "Описание", "data": "textData", "autowidth": true, "bSortable": false }
+    { "title": "Сотрудник", "data": "CiliricalName", "autowidth": true, "bSortable": false }
+    , { "title": "Коэф. рук-ля", "data": "coefManager", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "Коэф. качества", "data": "coefError", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "Коэф. качества (ГИП)", "data": "coefErrorG", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 3, '') }
+    , { "title": "НЧ", "data": "nh", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "НЧ ГИПа", "data": "nhG", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. по заказам", "data": "ordersAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Остаток бонусного фонда", "data": "remainingBonusAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. ГИПа", "data": "gAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Руководительские", "data": "managerAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. за обучение", "data": "teachAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. за оптимизацию", "data": "optimizationAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. за выработку", "data": "timeUpAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Нач. за качество", "data": "qualityAccrue", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Оклад", "data": "rate", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Налоги", "data": "tax", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
+    , { "title": "Итого", "data": "result", "autowidth": true, "bSortable": false, render: $.fn.dataTable.render.number(',', '.', 0, '') }
 ];
 
 function StartMenu() {
     $("#usersQuartResultTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMK/GetUsersQuartResultTable/",
+            "url": "/CMK/GetUsersQuartResultTable/" + 0,
             "type": "POST",
             "datatype": "json"
         },
@@ -251,7 +264,7 @@ function StartMenu() {
     $("#userQuartResultTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMK/GetUserQuartResultTable/",
+            "url": "/CMK/GetUserQuartResultTable/" + 0,
             "type": "POST",
             "datatype": "json"
         },
@@ -454,14 +467,20 @@ function StartMenu() {
     });
 }
 
-function LoadUsersQuartResultTable() {
+function LoadSummaryResultModal(id) {
+    LoadUsersQuartResultTable(id);
+    LoadUserQuartResultTable(id);
+    $("#tableQuartResultForUsersModal").modal('show');
+}
+
+function LoadUsersQuartResultTable(id) {
     var table = $('#usersQuartResultTable').DataTable();
     table.destroy();
     $('#usersQuartResultTable').empty();
     $("#usersQuartResultTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMK/GetUsersQuartResultTable",
+            "url": "/CMK/GetUsersQuartResultTable/" + id,
             "type": "POST",
             "datatype": "json"
         },
@@ -478,14 +497,14 @@ function LoadUsersQuartResultTable() {
     $('#usersDiv').show();
 }
 
-function LoadUserQuartResultTable() {
+function LoadUserQuartResultTable(id) {
     var table = $('#userQuartResultTable').DataTable();
     table.destroy();
     $('#userQuartResultTable').empty();
     $("#userQuartResultTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMK/GetUserQuartResultTable",
+            "url": "/CMK/GetUserQuartResultTable/" + id,
             "type": "POST",
             "datatype": "json"
         },
