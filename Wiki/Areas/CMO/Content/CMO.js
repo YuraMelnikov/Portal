@@ -300,6 +300,7 @@ var objSandwichPanel = [
     { "title": "Ред.", "data": "edit", "autowidth": true, "bSortable": false },
     { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "№ заказа/ов", "data": "pz", "autowidth": true, "bSortable": true },
+    { "title": "№ счета", "data": "numberOrder", "autowidth": true, "bSortable": true },
     { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": false },
     { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
     { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
@@ -313,6 +314,7 @@ var objSandwichPanel = [
 var objSandwichPanelReport = [
     { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "№ заказа/ов", "data": "pz", "autowidth": true, "bSortable": true },
+    { "title": "№ счета", "data": "numberOrder", "autowidth": true, "bSortable": true },
     { "title": "Дата размещения", "data": "dateCreate", "autowidth": true, "bSortable": false },
     { "title": "Дата согласования", "data": "dateApprove", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },
     { "title": "Дата отправки подрядчику", "data": "dateToCustomer", "autowidth": true, "bSortable": false, "defaultContent": "", "render": processNull },

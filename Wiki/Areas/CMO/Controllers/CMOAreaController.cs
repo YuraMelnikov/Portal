@@ -403,7 +403,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder =  @"<a href =" + dataList.folder + "> Папка </a>"
+                folder =  @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
@@ -450,7 +451,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
@@ -477,7 +479,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
@@ -504,7 +507,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
@@ -531,7 +535,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
@@ -558,7 +563,8 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder = @"<a href =" + dataList.folder + "> Папка </a>"
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                dataList.numberOrder
             });
             return Json(new { data });
         }
