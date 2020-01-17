@@ -17,6 +17,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RKD_VersionWork()
         {
+            this.ApproveCDActions = new HashSet<ApproveCDActions>();
+            this.ApproveCDVersions = new HashSet<ApproveCDVersions>();
             this.RKD_Version = new HashSet<RKD_Version>();
         }
     
@@ -26,6 +28,10 @@ namespace Wiki
         public int predecessor { get; set; }
         public Nullable<int> devision { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDActions> ApproveCDActions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDVersions> ApproveCDVersions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Version> RKD_Version { get; set; }
     }

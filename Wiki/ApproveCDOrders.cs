@@ -12,29 +12,29 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Reclamation_CountError
+    public partial class ApproveCDOrders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Reclamation_CountError()
+        public ApproveCDOrders()
         {
-            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
-            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
-            this.Reclamation = new HashSet<Reclamation>();
-            this.Reclamation1 = new HashSet<Reclamation>();
+            this.ApproveCDQuestions = new HashSet<ApproveCDQuestions>();
+            this.ApproveCDTasks = new HashSet<ApproveCDTasks>();
+            this.ApproveCDVersions = new HashSet<ApproveCDVersions>();
         }
     
         public int id { get; set; }
-        public string name { get; set; }
-        public bool active { get; set; }
-        public double count { get; set; }
+        public int id_PZ_PlanZakaz { get; set; }
+        public string id_AspNetUsersM { get; set; }
+        public string id_AspNetUsersE { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
+        public virtual ICollection<ApproveCDQuestions> ApproveCDQuestions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
+        public virtual ICollection<ApproveCDTasks> ApproveCDTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation> Reclamation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation> Reclamation1 { get; set; }
+        public virtual ICollection<ApproveCDVersions> ApproveCDVersions { get; set; }
     }
 }

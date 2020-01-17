@@ -17,6 +17,11 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUsers()
         {
+            this.ApproveCDActions = new HashSet<ApproveCDActions>();
+            this.ApproveCDOrders = new HashSet<ApproveCDOrders>();
+            this.ApproveCDOrders1 = new HashSet<ApproveCDOrders>();
+            this.ApproveCDQuestionCorr = new HashSet<ApproveCDQuestionCorr>();
+            this.ApproveCDQuestions = new HashSet<ApproveCDQuestions>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.CMKO_BujetList = new HashSet<CMKO_BujetList>();
@@ -24,13 +29,16 @@ namespace Wiki
             this.CMKO_Optimization = new HashSet<CMKO_Optimization>();
             this.CMKO_Optimization1 = new HashSet<CMKO_Optimization>();
             this.CMKO_Optimization2 = new HashSet<CMKO_Optimization>();
+            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
+            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
+            this.CMKO_SummaryResultToMonth = new HashSet<CMKO_SummaryResultToMonth>();
             this.CMKO_Teach = new HashSet<CMKO_Teach>();
             this.CMKO_Teach1 = new HashSet<CMKO_Teach>();
             this.CMKO_Teach2 = new HashSet<CMKO_Teach>();
             this.CMKO_Teach3 = new HashSet<CMKO_Teach>();
             this.CMKO_ThisAccrued = new HashSet<CMKO_ThisAccrued>();
             this.CMKO_ThisAccruedG = new HashSet<CMKO_ThisAccruedG>();
-            this.CMKO_ThisIndicatorsUsers = new HashSet<CMKO_ThisIndicatorsUsers>();
+            this.CMKO_ThisCoefManager = new HashSet<CMKO_ThisCoefManager>();
             this.CMO2_Order = new HashSet<CMO2_Order>();
             this.DashboardBP_ProjectTasks = new HashSet<DashboardBP_ProjectTasks>();
             this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
@@ -44,6 +52,7 @@ namespace Wiki
             this.Reclamation_CloseOrder = new HashSet<Reclamation_CloseOrder>();
             this.Reclamation_TechnicalAdvice = new HashSet<Reclamation_TechnicalAdvice>();
             this.Reclamation_TechnicalAdvice1 = new HashSet<Reclamation_TechnicalAdvice>();
+            this.Reclamation_TechnicalAdviceTasks = new HashSet<Reclamation_TechnicalAdviceTasks>();
             this.RKD_Despatching = new HashSet<RKD_Despatching>();
             this.RKD_GIP = new HashSet<RKD_GIP>();
             this.RKD_GIP1 = new HashSet<RKD_GIP>();
@@ -55,12 +64,8 @@ namespace Wiki
             this.ServiceRemarksActions = new HashSet<ServiceRemarksActions>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.Reclamation_TechnicalAdviceTasks = new HashSet<Reclamation_TechnicalAdviceTasks>();
+            this.CMKO_ThisIndicatorsUsers = new HashSet<CMKO_ThisIndicatorsUsers>();
             this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
-            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
-            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
-            this.CMKO_ThisCoefManager = new HashSet<CMKO_ThisCoefManager>();
-            this.CMKO_SummaryResultToMonth = new HashSet<CMKO_SummaryResultToMonth>();
         }
     
         public string Id { get; set; }
@@ -83,6 +88,16 @@ namespace Wiki
         public Nullable<double> tax { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDActions> ApproveCDActions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDOrders> ApproveCDOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDOrders> ApproveCDOrders1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDQuestionCorr> ApproveCDQuestionCorr { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDQuestions> ApproveCDQuestions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -99,6 +114,12 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Optimization> CMKO_Optimization2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_SummaryResultToMonth> CMKO_SummaryResultToMonth { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Teach> CMKO_Teach { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_Teach> CMKO_Teach1 { get; set; }
@@ -111,7 +132,7 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_ThisAccruedG> CMKO_ThisAccruedG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_ThisIndicatorsUsers> CMKO_ThisIndicatorsUsers { get; set; }
+        public virtual ICollection<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO2_Order> CMO2_Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -139,6 +160,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reclamation_TechnicalAdviceTasks> Reclamation_TechnicalAdviceTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_Despatching> RKD_Despatching { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_GIP> RKD_GIP { get; set; }
@@ -161,16 +184,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reclamation_TechnicalAdviceTasks> Reclamation_TechnicalAdviceTasks { get; set; }
+        public virtual ICollection<CMKO_ThisIndicatorsUsers> CMKO_ThisIndicatorsUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_SummaryResultToMonth> CMKO_SummaryResultToMonth { get; set; }
     }
 }

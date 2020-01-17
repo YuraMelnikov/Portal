@@ -12,18 +12,15 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class DashboardKOMP2
+    public partial class ApproveCDQuestionCorr
     {
-        public string period { get; set; }
-        public string ciliricalName { get; set; }
-        public string devisionName { get; set; }
-        public double k { get; set; }
-        public double plan { get; set; }
-        public double plan10 { get; set; }
-        public double plan20 { get; set; }
-        public double plan30 { get; set; }
-        public double normHoure { get; set; }
-        public double normHoureFact { get; set; }
         public int id { get; set; }
+        public int id_ApproveCDQuestions { get; set; }
+        public System.DateTime datetimeCreate { get; set; }
+        public string id_AspNetUsersCreate { get; set; }
+        public string textData { get; set; }
+    
+        public virtual ApproveCDQuestions ApproveCDQuestions { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

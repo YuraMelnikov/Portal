@@ -258,6 +258,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApproveCDActions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveCDOrders.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveCDQuestionCorr.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveCDQuestions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveCDTasks.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveCDVersions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -268,6 +286,9 @@
     <Compile Include="Areas\AccountsReceivable\Controllers\AccountsReceivablesController.cs" />
     <Compile Include="Areas\AccountsReceivable\Models\EmailAccountsReceivable.cs" />
     <Compile Include="Areas\AccountsReceivable\Models\MailToExpeditor.cs" />
+    <Compile Include="Areas\ApproveCD\ApproveCDAreaRegistration.cs" />
+    <Compile Include="Areas\ApproveCD\Controllers\ApproveController.cs" />
+    <Compile Include="Areas\ApproveCD\Models\TaskApproveCD.cs" />
     <Compile Include="Areas\Cells\CellsAreaRegistration.cs" />
     <Compile Include="Areas\Cells\Controllers\SCellsController.cs" />
     <Compile Include="Areas\CMKO\CMKOAreaRegistration.cs" />
@@ -784,9 +805,6 @@
     <Compile Include="ProductionCalendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProjectMSP_EpmProject_UserView.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProjectServer_CreateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1004,9 +1022,6 @@
     <Compile Include="UserPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="VV_infPost.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="WBS.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1026,6 +1041,7 @@
   <ItemGroup>
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\AccountsReceivable\Content\updateEP.sql" />
+    <Content Include="Areas\ApproveCD\Content\ApproveCD.js" />
     <Content Include="Areas\Cells\Content\ScellsJS.js" />
     <Content Include="Areas\Cells\Content\updateSelectsCrossZeroPoint.sql" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
@@ -2185,6 +2201,9 @@
     <Content Include="Content\Highcharts\modules\README.md" />
     <Content Include="Content\Highcharts\parts\.eslintrc" />
     <Content Include="Areas\CMKO\Content\ФОТ %28расширенная выгрузка%29.xlsx" />
+    <Content Include="Areas\ApproveCD\Views\web.config" />
+    <Content Include="Areas\ApproveCD\Views\Shared\ApproveCD.cshtml" />
+    <Content Include="Areas\ApproveCD\Views\Approve\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

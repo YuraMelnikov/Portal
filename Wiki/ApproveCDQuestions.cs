@@ -12,22 +12,24 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductionCalendar
+    public partial class ApproveCDQuestions
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductionCalendar()
+        public ApproveCDQuestions()
         {
-            this.DashboardBPManpowerManuf = new HashSet<DashboardBPManpowerManuf>();
-            this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
+            this.ApproveCDQuestionCorr = new HashSet<ApproveCDQuestionCorr>();
         }
     
         public int id { get; set; }
-        public string period { get; set; }
-        public int timeToOnePerson { get; set; }
+        public int id_ApproveCDOrders { get; set; }
+        public System.DateTime dateTimeCreate { get; set; }
+        public string id_AspNetUsersCreate { get; set; }
+        public string textQuestion { get; set; }
+        public bool active { get; set; }
     
+        public virtual ApproveCDOrders ApproveCDOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBPManpowerManuf> DashboardBPManpowerManuf { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        public virtual ICollection<ApproveCDQuestionCorr> ApproveCDQuestionCorr { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

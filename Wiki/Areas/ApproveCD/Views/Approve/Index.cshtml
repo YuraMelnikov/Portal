@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CMKO/Views/Shared/_LayoutCMKO.cshtml";
+}
+<head>
+    <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.0"></script>
+    <style>
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
+
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
+
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
+
+        .colu-200 {
+            min-width: 200px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
+        }
+
+        hr.standart {
+            border: 1px solid #717171;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-md-12">
+        <label>Заказы:</label>
+        <table id="ordersTable" class="table table-hover table-striped" style="width:100%;"></table>
+        <hr />
+        <label>Активные вопросы:</label>
+        <table id="questionsTable" class="table table-hover table-striped" style="width:100%;"></table>
+        <hr />
+        <label>События:</label>
+        <table id="tasksTable" class="table table-hover table-striped" style="width:100%;"></table>
+        <hr />
+    </div>
+</div>
+
+<script>
+    var leavelUser = @ViewBag.LeavelUser;
+</script>

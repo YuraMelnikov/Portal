@@ -17,12 +17,12 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Reclamation()
         {
+            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
+            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
             this.Reclamation_Answer = new HashSet<Reclamation_Answer>();
             this.Reclamation_PZ = new HashSet<Reclamation_PZ>();
             this.Reclamation_TechnicalAdvice = new HashSet<Reclamation_TechnicalAdvice>();
             this.ServiceRemarksReclamations = new HashSet<ServiceRemarksReclamations>();
-            this.CMKO_RemarksList = new HashSet<CMKO_RemarksList>();
-            this.CMKO_RemarksListG = new HashSet<CMKO_RemarksListG>();
         }
     
         public int id { get; set; }
@@ -51,6 +51,10 @@ namespace Wiki
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
         public virtual Devision Devision { get; set; }
         public virtual Devision Devision1 { get; set; }
         public virtual PF PF { get; set; }
@@ -65,9 +69,5 @@ namespace Wiki
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksList> CMKO_RemarksList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
     }
 }

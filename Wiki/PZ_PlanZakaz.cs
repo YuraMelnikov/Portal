@@ -17,6 +17,7 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PZ_PlanZakaz()
         {
+            this.ApproveCDOrders = new HashSet<ApproveCDOrders>();
             this.CMKO_BujetList = new HashSet<CMKO_BujetList>();
             this.CMKO_ProjectFactBujet = new HashSet<CMKO_ProjectFactBujet>();
             this.CMKO_ThisOverflowsBujet = new HashSet<CMKO_ThisOverflowsBujet>();
@@ -91,6 +92,8 @@ namespace Wiki
         public string counterText { get; set; }
         public double massa { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDOrders> ApproveCDOrders { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMKO_BujetList> CMKO_BujetList { get; set; }

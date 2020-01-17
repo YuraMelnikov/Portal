@@ -18,6 +18,7 @@ namespace Wiki
         public int id_Reclamation { get; set; }
         public int id_Reclamation_CountError { get; set; }
         public string id_AspNetUsers { get; set; }
+        public int rowNum { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Reclamation Reclamation { get; set; }

@@ -440,10 +440,12 @@ namespace Wiki.Areas.CMKO
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
                 for (int i = 0; i < coluntList; i++)
                 {
-                    summaryWageFund[i] = new SummaryWageFundUser();
-                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
-                    summaryWageFund[i].Plan = (int)fundData[i].accruedTotalPlan - (int)fundData[i].accruedTotalFact;
-                    summaryWageFund[i].Fact = (int)fundData[i].accruedTotalFact;
+                    summaryWageFund[i] = new SummaryWageFundUser
+                    {
+                        FullName = fundData[i].AspNetUsers.CiliricalName,
+                        Plan = (int)fundData[i].accruedTotalPlan - (int)fundData[i].accruedTotalFact,
+                        Fact = (int)fundData[i].accruedTotalFact
+                    };
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
@@ -626,10 +628,12 @@ namespace Wiki.Areas.CMKO
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
                 for (int i = 0; i < coluntList; i++)
                 {
-                    summaryWageFund[i] = new SummaryWageFundUser();
-                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
-                    summaryWageFund[i].Plan = (int)fundData[i].nhPlan - (int)fundData[i].nhFact;
-                    summaryWageFund[i].Fact = (int)fundData[i].nhFact;
+                    summaryWageFund[i] = new SummaryWageFundUser
+                    {
+                        FullName = fundData[i].AspNetUsers.CiliricalName,
+                        Plan = (int)fundData[i].nhPlan - (int)fundData[i].nhFact,
+                        Fact = (int)fundData[i].nhFact
+                    };
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
@@ -860,7 +864,7 @@ namespace Wiki.Areas.CMKO
                 editLink = GetEditLinkCoefManager(login, dataList.id),
                 dataList.CMKO_PeriodResult.period,
                 user = dataList.AspNetUsers.CiliricalName,
-                coef = dataList.coef
+                dataList.coef
             });
             return Json(new { data });
         }
@@ -1500,10 +1504,12 @@ namespace Wiki.Areas.CMKO
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
                 for (int i = 0; i < coluntList; i++)
                 {
-                    summaryWageFund[i] = new SummaryWageFundUser();
-                    summaryWageFund[i].FullName = fundData[i].AspNetUsers.CiliricalName;
-                    summaryWageFund[i].Plan = (int)(fundData[i].rate1 + fundData[i].rate2 + fundData[i].rate3);
-                    summaryWageFund[i].Fact = (int)(fundData[i].tax1 + fundData[i].tax2 + fundData[i].tax3);
+                    summaryWageFund[i] = new SummaryWageFundUser
+                    {
+                        FullName = fundData[i].AspNetUsers.CiliricalName,
+                        Plan = (int)(fundData[i].rate1 + fundData[i].rate2 + fundData[i].rate3),
+                        Fact = (int)(fundData[i].tax1 + fundData[i].tax2 + fundData[i].tax3)
+                    };
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
@@ -1617,7 +1623,7 @@ namespace Wiki.Areas.CMKO
                 viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 idRemark = dataList.id_Reclamation,
                 textData = dataList.Reclamation.text,
-                count = dataList.Reclamation_CountError.count,
+                dataList.Reclamation_CountError.count,
                 user = dataList.AspNetUsers.CiliricalName
             });
             return Json(new { data });
@@ -1652,7 +1658,7 @@ namespace Wiki.Areas.CMKO
                 viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + dataList.id_Reclamation + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>",
                 idRemark = dataList.id_Reclamation,
                 textData = dataList.Reclamation.text,
-                count = dataList.Reclamation_CountError.count,
+                dataList.Reclamation_CountError.count,
                 user = dataList.AspNetUsers.CiliricalName
             });
             return Json(new { data });

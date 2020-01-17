@@ -18,11 +18,11 @@ namespace Wiki
         public Devision()
         {
             this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.DashboardBPDevisionCoef = new HashSet<DashboardBPDevisionCoef>();
             this.ProjectTask = new HashSet<ProjectTask>();
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
             this.RKD_TypeTask = new HashSet<RKD_TypeTask>();
-            this.DashboardBPDevisionCoef = new HashSet<DashboardBPDevisionCoef>();
         }
     
         public int id { get; set; }
@@ -32,6 +32,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTask> ProjectTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation> Reclamation { get; set; }
@@ -39,7 +41,5 @@ namespace Wiki
         public virtual ICollection<Reclamation> Reclamation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_TypeTask> RKD_TypeTask { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
     }
 }
