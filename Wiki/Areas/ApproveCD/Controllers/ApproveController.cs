@@ -64,7 +64,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
-                        ver = "v." + dataList.numberVersion1 + "." + dataList.RKD_VersionWork
+                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2
                     });
                     return Json(new { data });
                 }
@@ -105,7 +105,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
-                        ver = "v." + dataList.numberVersion1 + "." + dataList.RKD_VersionWork
+                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2
                     });
                     return Json(new { data });
                 }
@@ -178,7 +178,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     var query = db.ApproveCDQuestions
                         .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
                         .Include(a => a.AspNetUsers)
-                        .Where(a => a.active == true)
+                        .Where(a => a.active == false)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -214,7 +214,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     var query = db.ApproveCDQuestions
                         .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
                         .Include(a => a.AspNetUsers)
-                        .Where(a => a.active == false)
+                        .Where(a => a.active == true)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -269,7 +269,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         .ToList();
                     foreach (var data in dataList)
                     {
-                        textData += data.datetimeCreate.ToString().Substring(0, 10) + " | " + data.AspNetUsers.CiliricalName + " | " + data.textData + "\n";
+                        textData += data.datetimeCreate.ToString().Substring(0, 10) + " | " + data.AspNetUsers.CiliricalName + " | " + data.textData + "</br>";
                     }
                     return textData;
                 }
@@ -284,10 +284,11 @@ namespace Wiki.Areas.ApproveCD.Controllers
         {
             try
             {
+                int minDays = -60;
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
                     List<TaskApproveCD> tasksList = new List<TaskApproveCD>();
-                    DateTime dateFilt = DateTime.Now.AddDays(-32);
+                    DateTime dateFilt = DateTime.Now.AddDays(minDays);
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
                     var tasks = db.ApproveCDTasks
@@ -298,7 +299,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     {
                         TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateEvent, dataInList.text,
                             GetUserName(dataInList.id_AspNetUsers), dataInList.deadline, 
-                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString());
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 1);
                         tasksList.Add(taskApproveCD);
                     }
                     var questions = db.ApproveCDQuestions
@@ -310,16 +311,17 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     {
                         TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateTimeCreate, GetQuestionText(dataInList.id) + GetQuestionData(dataInList.id),
                             null, null,
-                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString());
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 2);
                         tasksList.Add(taskApproveCD);
                     }
                     var data = tasksList.Select(dataList => new
                     {
-                        dateAction = dataList.dateTime,
+                        dateAction = JsonConvert.SerializeObject(dataList.dateTime, shortSetting).Replace(@"""", ""),
                         dataList.order,
                         dataList.action,
                         dataList.user,
-                        dataList.deadline
+                        deadline = JsonConvert.SerializeObject(dataList.deadline, shortSetting).Replace(@"""", ""),
+                        dataList.typeTask
                     });
                     return Json(new { data });
                 }
@@ -344,7 +346,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
             {
                 return "";
             }
-        }
+        } 
 
         private string GetQuestionText(int id)
         {
@@ -358,7 +360,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     var data = db.ApproveCDQuestions
                         .Include(a => a.AspNetUsers)
                         .First(a => a.id == id);
-                    return textData += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.AspNetUsers.CiliricalName + " | " + data.textQuestion + "\n";
+                    return textData += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.AspNetUsers.CiliricalName + " | " + data.textQuestion + "</br>";
                 }
             }
             catch

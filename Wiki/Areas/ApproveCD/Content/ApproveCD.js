@@ -2,24 +2,26 @@
 //2 - TP
 //3 - All
 
+var vhScrollY = '50vh';
+
 $(document).ready(function () {
     StartMenu();
     LoadData(1);
 });
 
-function LoadData(idAction) {
-    if (idAction === 1 || idAction === "1") {
+function LoadData(id) {
+    if (id === 1 || id === "1") {
         GetNoApproveTable();
         GetTasksTable();
         GetNotCloseQuestionsTable();
     }
-    if (idAction === 2 || idAction === "2") {
+    if (id === 2 || id === "2") {
         GetApproveTable();
     }
-    if (idAction === 3 || idAction === "3") {
+    if (id === 3 || id === "3") {
         GetNotCloseQuestionsTable();
     }
-    if (idAction === 4 || idAction === "4") {
+    if (id === 4 || id === "4") {
         GetCloseQuestionsTable();
     }
 }
@@ -53,7 +55,7 @@ var objTasks = [
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false },
     { "title": "Описание", "data": "action", "autowidth": true, "bSortable": false },
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": false },
-    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": false }
+    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
 ];
 
 function StartMenu() {
@@ -66,10 +68,10 @@ function StartMenu() {
         },
         "order": [[2, "asc"]],
         "processing": true,
-        "columns": objOrder,
+        "columns": objOrders,
         "cache": false,
         "async": false,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -92,7 +94,7 @@ function StartMenu() {
         "columns": objQuestions,
         "cache": false,
         "async": false,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -110,12 +112,17 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [[0, "asc"]],
         "processing": true,
         "columns": objTasks,
+        "rowCallback": function (row, data, index) {
+            if (data.distance === 2 || data.typeTask === "2") {
+                $('td', row).css('background-color', '#FF4500');
+            }
+        },
         "cache": false,
         "async": false,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -142,8 +149,8 @@ function GetNoApproveTable() {
         "bDestroy": true,
         "order": [[2, "asc"]],
         "processing": true,
-        "columns": objOrder,
-        "scrollY": '75vh',
+        "columns": objOrders,
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -170,8 +177,8 @@ function GetApproveTable() {
         "bDestroy": true,
         "order": [[2, "asc"]],
         "processing": true,
-        "columns": objOrder,
-        "scrollY": '75vh',
+        "columns": objOrders,
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -199,7 +206,7 @@ function GetNotCloseQuestionsTable() {
         "order": [[2, "asc"]],
         "processing": true,
         "columns": objQuestions,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -227,7 +234,7 @@ function GetCloseQuestionsTable() {
         "order": [[2, "asc"]],
         "processing": true,
         "columns": objQuestions,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -252,10 +259,10 @@ function GetTasksTable() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[0, "desc"]],
+        "order": [[0, "asc"]],
         "processing": true,
         "columns": objTasks,
-        "scrollY": '75vh',
+        "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
         "info": false,
