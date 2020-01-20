@@ -255,14 +255,14 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
-        private string GetEditQueLink(string login, int idOrder)
+        private string GetEditQueLink(string login, int idQue)
         {
             try
             {
                 int devision = GetDevisionId(login);
-                if (devision == 3 || devision == 15 || devision == 16 || devision == 4)
+                if (devision == 3 || devision == 15 || devision == 16 || devision == 4 || login == "myi@katek.by")
                 {
-                    return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForEdit('" + idOrder + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                    return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForEdit('" + idQue + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
                 }
                 return "";
             }
@@ -516,6 +516,67 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
         }
 
-        //GetOrderById
+        public JsonResult GetQuestionById(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.ApproveCDQuestions
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                        .Include(a => a.ApproveCDQuestionCorr.Select(b => b.AspNetUsers))
+                        .Include(a => a.AspNetUsers)
+                        .Where(a => a.id == id)
+                        .ToList();
+
+                    var data = query.Select(dataList => new
+                    {
+                        idQue = dataList.id,
+                        orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                        dateCreateQue = dataList.dateTimeCreate.ToString().Substring(0, 10),
+                        autorQue = dataList.AspNetUsers.CiliricalName,
+                        histQue = GetQuestionData(dataList.id).Replace("</br>","\n")
+                    });
+                    return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetQuestionById: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateQuestion(int idQue, string commitQue)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    ApproveCDQuestionCorr approveCDQuestionCorr = new ApproveCDQuestionCorr
+                    {
+                        datetimeCreate = DateTime.Now,
+                        id_ApproveCDQuestions = idQue,
+                        id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                        textData = commitQue
+                    };
+                    db.ApproveCDQuestionCorr.Add(approveCDQuestionCorr);
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateQuestion: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //GetOrderByIdForView
+        //GetOrderByIdForEdit
+        //UpdateOrder
     }
 }

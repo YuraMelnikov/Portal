@@ -423,3 +423,108 @@ function ValidAddTask() {
     }
     return isValid;
 }
+
+function ClearUpdateQue() {
+    $('#idQue').val("");
+    $('#orderQue').val("");
+    $('#dateCreateQue').val("");
+    $('#autorQue').val("");
+    $('#histQue').val("");
+    $('#commitQue').val("");
+}
+
+function GetQuestionByIdForView(id) {
+    ClearUpdateQue();
+    $('#btnUpdateQue').hide();
+    $.ajax({
+        cache: false,
+        url: "/Approve/GetQuestionById/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idQue').val(result.idQue);
+            $('#orderQue').val(result.orderQue);
+            $('#dateCreateQue').val(result.dateCreateQue);
+            $('#autorQue').val(result.autorQue);
+            $('#histQue').val(result.histQue);
+            $('#UQuestionModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetQuestionByIdForEdit(id) {
+    ClearUpdateQue();
+    $('#btnUpdateQue').show();
+    $.ajax({
+        cache: false,
+        url: "/Approve/GetQuestionById/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idQue').val(result.idQue);
+            $('#orderQue').val(result.orderQue);
+            $('#dateCreateQue').val(result.dateCreateQue);
+            $('#autorQue').val(result.autorQue);
+            $('#histQue').val(result.histQue);
+            $('#commitQue').val(result.commitQue);
+            $('#UQuestionModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function UpdateQuestion() {
+    var res = ValidUpdateQuestion();
+    if (res === false) {
+        return false;
+    }
+    var objQuestion = {
+        idQue: $('#idQue').val(),
+        commitQue: $('#commitQue').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateQuestion",
+        data: JSON.stringify(objQuestion),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UQuestionModal").modal('hide');
+            $('#questionsTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function ValidUpdateQuestion() {
+    var isValid = true;
+    if ($('#commitQue').val() === '') {
+        $('#commitQue').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#commitQue').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function GetOrderByIdForView(){
+
+}
+
+function GetOrderByIdForEdit() {
+
+}
+
+function UpdateOrder() {
+
+}

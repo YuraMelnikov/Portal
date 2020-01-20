@@ -178,6 +178,77 @@
     </div>
 </div>
 
+<div id="UQuestionModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Ид. вопроса:</label>
+                        <input type="text" class="form-control" id="idQue" disabled ="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>№ заказа:</label>
+                        <input type="text" class="form-control" id="orderQue" disabled ="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Создан:</label>
+                        <input type="text" class="form-control" id="dateCreateQue" disabled ="disabled" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Автор:</label>
+                        <input type="text" class="form-control" id="autorQue" disabled ="disabled" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Ход обсуждения:</label>
+                        <textarea rows="10" id="histQue" class="form-control" disabled ="disabled"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Комментарий:</label>
+                        <textarea rows="10" id="commitQue" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary" id="btnUpdateQue" onclick="UpdateQuestion();">Добавить комментарий</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="UOrderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary" id="btnAddNewOrders" onclick="UpdateOrder();">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var leavelUser = @ViewBag.LeavelUser;
 </script>
