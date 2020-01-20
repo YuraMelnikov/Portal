@@ -26,6 +26,7 @@ namespace Wiki
             this.CMO2_Position = new HashSet<CMO2_Position>();
             this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
             this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
+            this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
             this.DashboardTV_FinishWorkInStartWeek = new HashSet<DashboardTV_FinishWorkInStartWeek>();
             this.Debit_CostUpdate = new HashSet<Debit_CostUpdate>();
             this.Debit_Platform = new HashSet<Debit_Platform>();
@@ -41,7 +42,6 @@ namespace Wiki
             this.RKD_Order = new HashSet<RKD_Order>();
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
-            this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
         }
     
         public int Id { get; set; }
@@ -112,6 +112,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Debit_CostUpdate> Debit_CostUpdate { get; set; }
@@ -147,7 +149,5 @@ namespace Wiki
         public virtual ICollection<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
     }
 }

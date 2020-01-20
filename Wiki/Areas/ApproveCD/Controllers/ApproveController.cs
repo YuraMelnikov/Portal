@@ -20,14 +20,33 @@ namespace Wiki.Areas.ApproveCD.Controllers
 
         public ActionResult Index()
         {
+            PortalKATEKEntities db = new PortalKATEKEntities();
             string login = HttpContext.User.Identity.Name;
             @ViewBag.LeavelUser = GetUserLeavel(login);
+            @ViewBag.NewOrders = new SelectList(db.PZ_PlanZakaz
+                .Include(d => d.ApproveCDOrders)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.ApproveCDOrders.Count == 0)
+                .OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.OrdersForQuestion = new SelectList(db.PZ_PlanZakaz
+                .Include(d => d.ApproveCDOrders)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.ApproveCDOrders.Count != 0)
+                .OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.OrdersForTask = new SelectList(db.PZ_PlanZakaz
+                .Include(d => d.ApproveCDOrders)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.ApproveCDOrders.Count != 0)
+                .OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.ASPUsers = new SelectList(db.AspNetUsers
+                .Where(a => a.LockoutEnabled == true)
+                .Where(a => a.Devision == 3 || a.Devision == 15 || a.Devision == 16 || a.Email == "bav@katek.by" || a.Email == "maj@katek.by")
+                .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             return View();
         }
 
         private int GetUserLeavel(string login)
         {
             int devision = GetDevisionId(login);
+            if (login == "myi@katek.by" || login == "bav@katek.by")
+                return 4;
             if (devision == 3 || devision == 15 || devision == 16)
                 return 1;
             if (devision == 4)
@@ -284,7 +303,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
         {
             try
             {
-                int minDays = -60;
+                int minDays = -32;
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
                     List<TaskApproveCD> tasksList = new List<TaskApproveCD>();
@@ -312,6 +331,19 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateTimeCreate, GetQuestionText(dataInList.id) + GetQuestionData(dataInList.id),
                             null, null,
                             dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 2);
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var actionsList = db.ApproveCDActions
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.ApproveCDVersions.ApproveCDOrders.PZ_PlanZakaz)
+                        .Include(a => a.TypeRKD_Mail_Version)
+                        .Where(a => a.datetime > dateFilt)
+                        .ToList();
+                    foreach (var dataInList in actionsList)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.datetime, dataInList.TypeRKD_Mail_Version.name,
+                            null, null,
+                            dataInList.ApproveCDVersions.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 3);
                         tasksList.Add(taskApproveCD);
                     }
                     var data = tasksList.Select(dataList => new
@@ -382,6 +414,106 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+        public JsonResult AddOrders(int[] newOrders)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    if(newOrders.Length > 0)
+                    {
+                        foreach (var data in newOrders)
+                        {
+                            ApproveCDOrders approveCDOrders = new ApproveCDOrders
+                            {
+                                id_PZ_PlanZakaz = data,
+                                id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
+                                id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8"
+                            };
+                            db.ApproveCDOrders.Add(approveCDOrders);
+                            db.SaveChanges();
+                            ApproveCDVersions approveCDVersions = new ApproveCDVersions
+                            {
+                                id_ApproveCDOrders = approveCDOrders.id,
+                                id_RKD_VersionWork = 12,
+                                numberVersion1 = 0,
+                                numberVersion2 = 0,
+                                activeVersion = true
+                            };
+                            db.ApproveCDVersions.Add(approveCDVersions);
+                            db.SaveChanges();
+                        }
+                    }
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.AddOrders: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AddQuestion(string question, int orderIdForQuestion)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    ApproveCDQuestions approveCDQuestions = new ApproveCDQuestions
+                    {
+                        id_ApproveCDOrders = db.ApproveCDOrders.First(d => d.id_PZ_PlanZakaz == orderIdForQuestion).id,
+                        dateTimeCreate = DateTime.Now,
+                        id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                        textQuestion = question,
+                        active = false
+                    };
+                    db.ApproveCDQuestions.Add(approveCDQuestions);
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.AddQuestion: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AddTask(int ordersForTask, string aSPUsers,
+            DateTime? deadline, string taskData)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    ApproveCDTasks approveCDTasks = new ApproveCDTasks
+                    {
+                        id_ApproveCDOrders = db.ApproveCDOrders.First(a => a.id_PZ_PlanZakaz == ordersForTask).id,
+                        id_AspNetUsers = aSPUsers,
+                        text = taskData,
+                        deadline = deadline,
+                        dateEvent = DateTime.Now
+                    };
+                    db.ApproveCDTasks.Add(approveCDTasks);
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.AddTask: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
 
         //GetOrderById

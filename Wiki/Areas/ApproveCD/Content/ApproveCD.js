@@ -1,27 +1,37 @@
 ﻿//1 - KO
 //2 - TP
 //3 - All
+//4 - Admin
 
 var vhScrollY = '50vh';
 
 $(document).ready(function () {
+    $('#BtnAddOrders').hide();
+    $('#BtnAddQuestion').hide();
+    $('#BtnAddTask').hide();
     StartMenu();
     LoadData(1);
 });
 
 function LoadData(id) {
     if (id === 1 || id === "1") {
+        document.getElementById("labelOrdersTable").textContent = "Несогласованные заказы";
+        document.getElementById("labelQuestionsTable").textContent = "Активные вопросы";
+        document.getElementById("labelActionsTable").textContent = "Лента событий";
         GetNoApproveTable();
         GetTasksTable();
         GetNotCloseQuestionsTable();
     }
     if (id === 2 || id === "2") {
+        document.getElementById("labelOrdersTable").textContent = "Согласованные заказы";
         GetApproveTable();
     }
     if (id === 3 || id === "3") {
+        document.getElementById("labelQuestionsTable").textContent = "Активные вопросы";
         GetNotCloseQuestionsTable();
     }
     if (id === 4 || id === "4") {
+        document.getElementById("labelQuestionsTable").textContent = "Закрытые вопросы";
         GetCloseQuestionsTable();
     }
 }
@@ -29,10 +39,10 @@ function LoadData(id) {
 var objOrders = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false },
-    { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": false },
-    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": false },
-    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Открыт", "data": "dateOpen", "autowidth": true, "bSortable": true },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true },
@@ -42,7 +52,7 @@ var objOrders = [
 var objQuestions = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Ид. вопр.", "data": "idQue", "autowidth": true, "bSortable": false },
     { "title": "Вопрос", "data": "que", "autowidth": true, "bSortable": false },
     { "title": "Ход обсуждения", "data": "queData", "autowidth": true, "bSortable": false },
@@ -51,14 +61,22 @@ var objQuestions = [
 ];
 
 var objTasks = [
-    { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false },
+    { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": true },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Описание", "data": "action", "autowidth": true, "bSortable": false },
-    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": false },
-    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": false, "className": 'text-center', "defaultContent": "", "render": processNull }
+    { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
 ];
 
 function StartMenu() {
+    if (leavelUser === 4 || leavelUser === '4') {
+        $('#BtnAddOrders').show();
+        $('#BtnAddQuestion').show();
+        $('#BtnAddTask').show();
+    }
+    if (leavelUser === 1 || leavelUser === '1') {
+        $('#BtnAddQuestion').show();
+    }
     $("#ordersTable").DataTable({
         "ajax": {
             "cache": false,
@@ -112,12 +130,15 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "asc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objTasks,
         "rowCallback": function (row, data, index) {
             if (data.distance === 2 || data.typeTask === "2") {
-                $('td', row).css('background-color', '#FF4500');
+                $('td', row).css('background-color', '#ffff99');
+            }
+            if (data.distance === 3 || data.typeTask === "3") {
+                $('td', row).css('background-color', '#d9d9d9');
             }
         },
         "cache": false,
@@ -259,7 +280,7 @@ function GetTasksTable() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[0, "asc"]],
+        "order": [[0, "desc"]],
         "processing": true,
         "columns": objTasks,
         "scrollY": vhScrollY,
@@ -275,42 +296,130 @@ function GetTasksTable() {
     });
 }
 
-function GetTasksTableByOrder() {
-
+function ClearNewOrdersFields() {
+    $('#NewOrders').val("");
+    $('#NewOrders').chosen();
+    $('#NewOrders').trigger('chosen:updated');
 }
 
-function GetOrderByIdForView(id) {
-
+function AddOrders() {
+    var objNewOrders = {
+        newOrders: $('#NewOrders').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/AddOrders",
+        data: JSON.stringify(objNewOrders),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#NewOrdersModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
 }
 
-function GetOrderByIdForEdit(id) {
-
-}
-
-function UpdateOrder() {
-
+function ClearNewQuestionField() {
+    $('#OrdersForQuestion').val("");
+    $('#question').val("");
 }
 
 function AddQuestion() {
-
-}
-
-function GetQuestionByIdForView() {
-
-}
-
-function GetQuestionByIdForEdit() {
-
-}
-
-function UpdateQuestion() {
-
+    var res = ValidAddQuestion();
+    if (res === false) {
+        return false;
+    }
+    var objNewQuestion = {
+        orderIdForQuestion: $('#OrdersForQuestion').val(),
+        question: $('#question').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/AddQuestion",
+        data: JSON.stringify(objNewQuestion),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#QuestionModal").modal('hide');
+            $('#questionsTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
 }
 
 function ValidAddQuestion() {
-
+    var isValid = true;
+    if ($('#OrdersForQuestion').val() === null) {
+        $('#OrdersForQuestion').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#OrdersForQuestion').css('border-color', 'lightgrey');
+    }
+    if ($('#question').val() === '') {
+        $('#question').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#question').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
-function ValidUpdateQuestion() {
+function AddTask() {
+    var res = ValidAddTask();
+    if (res === false) {
+        return false;
+    }
+    var objNewTask = {
+        ordersForTask: $('#OrdersForTask').val(),
+        aSPUsers: $('#ASPUsers').val(),
+        deadline: $('#deadline').val(),
+        taskData: $('#taskData').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/AddTask",
+        data: JSON.stringify(objNewTask),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#TaskModal").modal('hide');
+            $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
 
+function ClearNewTaskField() {
+    $('#OrdersForTask').val("");
+    $('#ASPUsers').val("");
+    $('#deadline').val("");
+    $('#taskData').val("");
+}
+
+function ValidAddTask() {
+    var isValid = true;
+    if ($('#OrdersForTask').val() === null) {
+        $('#OrdersForTask').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#OrdersForTask').css('border-color', 'lightgrey');
+    }
+    if ($('#taskData').val() === '') {
+        $('#taskData').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#taskData').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }

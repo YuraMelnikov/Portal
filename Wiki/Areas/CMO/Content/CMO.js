@@ -1248,7 +1248,6 @@ function validateUpdate() {
         else {
             $('#workCost').css('border-color', 'lightgrey');
         }
-
         var tmp = $('#id_CMO_Company').val();
         if ($('#id_CMO_Company').val() === null) {
             $('#id_CMO_Company').css('border-color', 'Red');

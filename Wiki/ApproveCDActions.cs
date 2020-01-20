@@ -22,7 +22,6 @@ namespace Wiki
     
         public virtual ApproveCDVersions ApproveCDVersions { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual RKD_VersionWork RKD_VersionWork { get; set; }
         public virtual TypeRKD_Mail_Version TypeRKD_Mail_Version { get; set; }
     }
 }

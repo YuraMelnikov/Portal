@@ -3,51 +3,203 @@
     Layout = "~/Areas/ApproveCD/Views/Shared/_LayoutApproveCD.cshtml";
 }
 
-<head>
-    <script src="~/Content/globalScript.js?v0.0"></script>
-    <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.0"></script>
-    <style>
-        th.dt-invisible-column {
-            border: 0 !important;
-            padding: 0 !important;
-        }
+    <head>
+        <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+        <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+        <script src="~/Content/globalScript.js?v0.1"></script>
+        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.1"></script>
+        <style>
+            th.dt-invisible-column {
+                border: 0 !important;
+                padding: 0 !important;
+            }
 
-        .modal.modal-wide .modal-dialog {
-            width: 90%;
-        }
+            .modal.modal-wide .modal-dialog {
+                width: 90%;
+            }
 
-        .modal-wide .modal-body {
-            overflow-y: auto;
-        }
+            .modal-wide .modal-body {
+                overflow-y: auto;
+            }
 
-        .colu-200 {
-            min-width: 200px;
-        }
+            .colu-200 {
+                min-width: 200px;
+            }
 
-        .colu-300 {
-            min-width: 300px;
-        }
-
-        hr.standart {
-            border: 1px solid #717171;
-        }
-    </style>
-</head>
+            .colu-300 {
+                min-width: 300px;
+            }
+        </style>
+    </head>
 
 <div class="row">
     <div class="col-md-12">
-        <label>Заказы:</label>
+        <button type="button" class="btn-xs btn-primary" id="BtnAddOrders" data-toggle="modal" data-target="#NewOrdersModal" onclick="ClearNewOrdersFields();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <label id="labelOrdersTable"></label>
         <table id="ordersTable" class="table table-hover table-striped" style="width:100%;"></table>
         <hr />
-        <label>Активные вопросы:</label>
+        <button type="button" class="btn-xs btn-primary" id="BtnAddQuestion" data-toggle="modal" data-target="#QuestionModal" onclick="ClearNewQuestionField();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <label id="labelQuestionsTable"></label>
         <table id="questionsTable" class="table table-hover table-striped" style="width:100%;"></table>
         <hr />
-        <label>События:</label>
+        <button type="button" class="btn-xs btn-primary" id="BtnAddTask" data-toggle="modal" data-target="#TaskModal" onclick="ClearNewTaskField();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <label id="labelActionsTable"></label>
         <table id="tasksTable" class="table table-hover table-striped" style="width:100%;"></table>
         <hr />
     </div>
 </div>
 
+<div id="NewOrdersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>План-Заказ/ы №№:</label>
+                        @Html.ListBox("NewOrders", ViewBag.NewOrders as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary" id="btnAddNewOrders" onclick="AddOrders();">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="QuestionModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>№ заказа:</label>
+                        @Html.DropDownList("OrdersForQuestion", ViewBag.OrdersForQuestion as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Вопрос:</label>
+                        <textarea rows="10" id="question" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary" id="btnAddNewOrders" onclick="AddQuestion();">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="TaskModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>№ заказа:</label>
+                        @Html.DropDownList("OrdersForTask", ViewBag.OrdersForTask as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Ответственный исполнитель:</label>
+                        @Html.DropDownList("ASPUsers", ViewBag.ASPUsers as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Крайний срок:</label>
+                        <input type="text" class="form-control" id="deadline" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Описание:</label>
+                        <textarea rows="10" id="taskData" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        </div>
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary" id="btnAddNewOrders" onclick="AddTask();">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var leavelUser = @ViewBag.LeavelUser;
+</script>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#deadline').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
 </script>
