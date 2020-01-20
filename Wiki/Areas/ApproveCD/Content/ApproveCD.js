@@ -50,6 +50,7 @@ var objQuestions = [
 
 var objTasks = [
     { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": false },
     { "title": "Описание", "data": "action", "autowidth": true, "bSortable": false },
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": false },
     { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": false }
@@ -82,7 +83,7 @@ function StartMenu() {
     $("#questionsTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/Approve/GetNoApproveTable/",
+            "url": "/Approve/GetNotCloseQuestionsTable/",
             "type": "POST",
             "datatype": "json"
         },
@@ -105,7 +106,7 @@ function StartMenu() {
     $("#tasksTable").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/Approve/GetNoApproveTable/",
+            "url": "/Approve/GetTasksTable/",
             "type": "POST",
             "datatype": "json"
         },

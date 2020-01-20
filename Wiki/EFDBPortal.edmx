@@ -54,7 +54,7 @@
           <Property Name="dateEvent" Type="date" Nullable="false" />
           <Property Name="text" Type="varchar(max)" Nullable="false" />
           <Property Name="deadline" Type="date" />
-          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="ApproveCDVersions">
           <Key>
@@ -2208,11 +2208,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ApproveCDActions_RKD_VersionWork">
-          <End Role="RKD_VersionWork" Type="Self.RKD_VersionWork" Multiplicity="1" />
+        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
+          <End Role="TypeRKD_Mail_Version" Type="Self.TypeRKD_Mail_Version" Multiplicity="1" />
           <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RKD_VersionWork">
+            <Principal Role="TypeRKD_Mail_Version">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="ApproveCDActions">
@@ -4726,8 +4726,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
           </AssociationSet>
-          <AssociationSet Name="FK_ApproveCDActions_RKD_VersionWork" Association="Self.FK_ApproveCDActions_RKD_VersionWork">
-            <End Role="RKD_VersionWork" EntitySet="RKD_VersionWork" />
+          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="Self.FK_ApproveCDActions_TypeRKD_Mail_Version">
+            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
             <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
           </AssociationSet>
           <AssociationSet Name="FK_ApproveCDOrders_AspNetUsers" Association="Self.FK_ApproveCDOrders_AspNetUsers">
@@ -6375,6 +6375,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="PWA_TasksForBP" EntityType="PortalKATEKModel.PWA_TasksForBP" />
           <EntitySet Name="PWA_EmpTaskAll" EntityType="PortalKATEKModel.PWA_EmpTaskAll" />
           <EntitySet Name="RKD_TaskUIDProjectUD" EntityType="PortalKATEKModel.RKD_TaskUIDProjectUD" />
+          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version">
+            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
+            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ApproveCDActions">
           <Key>
@@ -6388,6 +6392,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ApproveCDVersions" Relationship="PortalKATEKModel.FK_ApproveCDActions_ApproveCDVersions" FromRole="ApproveCDActions" ToRole="ApproveCDVersions" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ApproveCDActions_AspNetUsers" FromRole="ApproveCDActions" ToRole="AspNetUsers" />
           <NavigationProperty Name="RKD_VersionWork" Relationship="PortalKATEKModel.FK_ApproveCDActions_RKD_VersionWork" FromRole="ApproveCDActions" ToRole="RKD_VersionWork" />
+          <NavigationProperty Name="TypeRKD_Mail_Version" Relationship="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" FromRole="ApproveCDActions" ToRole="TypeRKD_Mail_Version" />
         </EntityType>
         <EntityType Name="ApproveCDOrders">
           <Key>
@@ -6439,7 +6444,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="dateEvent" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="deadline" Type="DateTime" Precision="0" />
-          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_AspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ApproveCDOrders" Relationship="PortalKATEKModel.FK_ApproveCDTasks_ApproveCDOrders" FromRole="ApproveCDTasks" ToRole="ApproveCDOrders" />
         </EntityType>
         <EntityType Name="ApproveCDVersions">
@@ -8675,6 +8680,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="RKD_Mail_Version" Relationship="PortalKATEKModel.FK_RKD_Mail_Version_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="RKD_Mail_Version" />
           <NavigationProperty Name="RKD_PostList" Relationship="PortalKATEKModel.FK_RKD_PostList_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="RKD_PostList" />
+          <NavigationProperty Name="ApproveCDActions" Relationship="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="ApproveCDActions" />
         </EntityType>
         <EntityType Name="TypeTaskForPZ">
           <Key>
@@ -11107,6 +11113,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="ProjectUID" Type="Guid" Nullable="false" />
           <Property Name="RKD" Type="Decimal" Precision="25" Scale="6" />
         </EntityType>
+        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
+          <End Type="PortalKATEKModel.TypeRKD_Mail_Version" Role="TypeRKD_Mail_Version" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ApproveCDActions" Role="ApproveCDActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeRKD_Mail_Version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ApproveCDActions">
+              <PropertyRef Name="id_RKD_VersionWork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

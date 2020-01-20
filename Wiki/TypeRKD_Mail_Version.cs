@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.RKD_Mail_Version = new HashSet<RKD_Mail_Version>();
             this.RKD_PostList = new HashSet<RKD_PostList>();
+            this.ApproveCDActions = new HashSet<ApproveCDActions>();
         }
     
         public int id { get; set; }
@@ -28,5 +29,7 @@ namespace Wiki
         public virtual ICollection<RKD_Mail_Version> RKD_Mail_Version { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RKD_PostList> RKD_PostList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApproveCDActions> ApproveCDActions { get; set; }
     }
 }

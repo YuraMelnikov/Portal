@@ -456,7 +456,7 @@ left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(pla
 left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP2) as SpeedUser2 on SpeedUser2.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join (select iif(plan20 < normHoureFact, @sizeSpeed2, 0) as plan20, iif(plan10 < normHoureFact, @sizeSpeed1, 0) as plan10, ciliricalName from PortalKATEK.dbo.DashboardKOMP3) as SpeedUser3 on SpeedUser3.ciliricalName = PortalKATEK.dbo.AspNetUsers.CiliricalName
 left join PortalKATEK.dbo.CMKO_TaxCatigories on PortalKATEK.dbo.CMKO_TaxCatigories.id = PortalKATEK.dbo.AspNetUsers.id_CMKO_TaxCatigories
-left join (select TableRes.id_AspNetUsersError as id_AspNetUsersError
+left join (select TableRes.id_AspNetUsers as id_AspNetUsersError
                 ,SUM(TableRes.countError) as countError
                 ,0 as countErrorG
                 from (select PortalKATEK.dbo.CMKO_RemarksList.id_AspNetUsers
@@ -466,7 +466,7 @@ left join (select TableRes.id_AspNetUsersError as id_AspNetUsersError
 						from PortalKATEK.dbo.CMKO_RemarksList left join
 						PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.CMKO_RemarksList.id_Reclamation_CountError) as TableRes
                 where TableRes.rowNum = 1
-                group by TableRes.id_AspNetUsersError) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
+                group by TableRes.id_AspNetUsers) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
 left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = @periodQua and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1

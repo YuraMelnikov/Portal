@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Newtonsoft.Json;
 using NLog;
+using Wiki.Areas.ApproveCD.Models;
 
 namespace Wiki.Areas.ApproveCD.Controllers
 {
@@ -232,7 +232,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
             catch (Exception ex)
             {
-                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNotCloseQuestionsTable: " + ex.Message);
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetCloseQuestionsTable: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
@@ -280,36 +280,108 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
         }
 
-        //public JsonResult GetTasksTable()
-        //{
-        //    try
-        //    {
-        //        using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //        {
-        //            db.Configuration.ProxyCreationEnabled = false;
-        //            db.Configuration.LazyLoadingEnabled = false;
-        //            var query = db.ApproveCDQuestions
-        //                .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
-        //                .Include(a => a.AspNetUsers)
-        //                .Where(a => a.active == false)
-        //                .ToList();
-        //            var data = query.Select(dataList => new
-        //            {
-        //                dateAction = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
-        //                action = GetEditQueLink(login, dataList.id),
-        //                user = GetEditQueLink(login, dataList.id),
-        //                deadline = GetEditQueLink(login, dataList.id)
-        //            });
-        //            return Json(new { data });
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNotCloseQuestionsTable: " + ex.Message);
-        //        return Json(0, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        public JsonResult GetTasksTable()
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    List<TaskApproveCD> tasksList = new List<TaskApproveCD>();
+                    DateTime dateFilt = DateTime.Now.AddDays(-32);
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var tasks = db.ApproveCDTasks
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                        .Where(a => a.dateEvent > dateFilt)
+                        .ToList();
+                    foreach (var dataInList in tasks)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateEvent, dataInList.text,
+                            GetUserName(dataInList.id_AspNetUsers), dataInList.deadline, 
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString());
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var questions = db.ApproveCDQuestions
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                        .Where(a => a.dateTimeCreate > dateFilt)
+                        .ToList();
+                    foreach (var dataInList in questions)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateTimeCreate, GetQuestionText(dataInList.id) + GetQuestionData(dataInList.id),
+                            null, null,
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString());
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var data = tasksList.Select(dataList => new
+                    {
+                        dateAction = dataList.dateTime,
+                        dataList.order,
+                        dataList.action,
+                        dataList.user,
+                        dataList.deadline
+                    });
+                    return Json(new { data });
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetTasksTable: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string GetUserName(string id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    return db.AspNetUsers.First(a => a.Id == id).CiliricalName;
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private string GetQuestionText(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    string textData = "";
+                    var data = db.ApproveCDQuestions
+                        .Include(a => a.AspNetUsers)
+                        .First(a => a.id == id);
+                    return textData += data.dateTimeCreate.ToString().Substring(0, 10) + " | " + data.AspNetUsers.CiliricalName + " | " + data.textQuestion + "\n";
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public string RenderUserMenu()
+        {
+            string login = "Войти";
+            try
+            {
+                if (HttpContext.User.Identity.Name != "")
+                    login = HttpContext.User.Identity.Name;
+            }
+            catch
+            {
+                login = "Войти";
+            }
+            return login;
+        }
+
+        //GetOrderById
     }
 }
-
-//GetOrderById

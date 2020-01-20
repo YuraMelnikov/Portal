@@ -1042,6 +1042,7 @@
     <Content Include="Areas\AccountsReceivable\Content\AccountsReceivables.js" />
     <Content Include="Areas\AccountsReceivable\Content\updateEP.sql" />
     <Content Include="Areas\ApproveCD\Content\ApproveCD.js" />
+    <Content Include="Areas\ApproveCD\Content\migrateScript.sql" />
     <Content Include="Areas\Cells\Content\ScellsJS.js" />
     <Content Include="Areas\Cells\Content\updateSelectsCrossZeroPoint.sql" />
     <Content Include="Areas\Cells\Content\uploadPoints.sql" />
@@ -2202,7 +2203,7 @@
     <Content Include="Content\Highcharts\parts\.eslintrc" />
     <Content Include="Areas\CMKO\Content\ФОТ %28расширенная выгрузка%29.xlsx" />
     <Content Include="Areas\ApproveCD\Views\web.config" />
-    <Content Include="Areas\ApproveCD\Views\Shared\ApproveCD.cshtml" />
+    <Content Include="Areas\ApproveCD\Views\Shared\_LayoutApproveCD.cshtml" />
     <Content Include="Areas\ApproveCD\Views\Approve\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>

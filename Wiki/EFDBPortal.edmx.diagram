@@ -364,6 +364,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_TasksForBP" Width="1.5" PointX="7.375" PointY="19.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTaskAll" Width="1.5" PointX="19.375" PointY="15.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_TaskUIDProjectUD" Width="1.5" PointX="17.375" PointY="19.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
