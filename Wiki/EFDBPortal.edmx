@@ -1867,6 +1867,7 @@
           <Property Name="datePutToService" Type="date" Nullable="false" />
           <Property Name="dateClose" Type="date" />
           <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="classicId" Type="int" />
         </EntityType>
         <EntityType Name="ServiceRemarksActions">
           <Key>
@@ -1893,6 +1894,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_ServiceRemarksCause" Type="int" Nullable="false" />
           <Property Name="id_ServiceRemarks" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" />
         </EntityType>
         <EntityType Name="ServiceRemarksPlanZakazs">
           <Key>
@@ -1939,6 +1941,14 @@
           <Property Name="time" Type="int" Nullable="false" />
           <Property Name="id_TypeTaskForPZ" Type="int" Nullable="false" />
           <Property Name="Predecessors" Type="int" />
+        </EntityType>
+        <EntityType Name="tmpUpDate1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="ИдПапки" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ИдРекламации" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="TypeRKD_Mail_Version">
           <Key>
@@ -2013,14 +2023,6 @@
           <Property Name="pi" Type="float" Nullable="false" />
           <Property Name="valut" Type="varchar(max)" Nullable="false" />
           <Property Name="dateOpen" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Соотношение ИД">
-          <Key>
-            <PropertyRef Name="idFolder" />
-          </Key>
-          <Property Name="idFolder" Type="int" Nullable="false" />
-          <Property Name="idRem" Type="int" Nullable="false" />
-          <Property Name="idNewRem" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -4575,6 +4577,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ServiceRemarksTypes" EntityType="Self.ServiceRemarksTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tmpUpDate1" EntityType="Self.tmpUpDate1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeTaskForPZ" EntityType="Self.TypeTaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
@@ -4582,7 +4585,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="WBS_BP" EntityType="Self.WBS_BP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="Self.WBS_ClassicStruct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XTEO" EntityType="Self.XTEO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Соотношение ИД" EntityType="Self.Соотношение ИД" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO_Report" EntityType="Self.CMO_Report" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CMO_Report].[Id_Order] AS [Id_Order], 
@@ -5511,7 +5513,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="WBS_BP" EntityType="PortalKATEKModel.WBS_BP" />
           <EntitySet Name="WBS_ClassicStruct" EntityType="PortalKATEKModel.WBS_ClassicStruct" />
           <EntitySet Name="XTEO" EntityType="PortalKATEKModel.XTEO" />
-          <EntitySet Name="Соотношение_ИД" EntityType="PortalKATEKModel.Соотношение_ИД" />
           <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
             <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
             <End Role="PostMatching" EntitySet="PostMatching" />
@@ -6375,6 +6376,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="tmpUpDate1" EntityType="PortalKATEKModel.tmpUpDate1" />
         </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -6915,14 +6917,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="pi" Type="Double" Nullable="false" />
           <Property Name="valut" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="dateOpen" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="Соотношение_ИД">
-          <Key>
-            <PropertyRef Name="idFolder" />
-          </Key>
-          <Property Name="idFolder" Type="Int32" Nullable="false" />
-          <Property Name="idRem" Type="Int32" Nullable="false" />
-          <Property Name="idNewRem" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_PostMatching_Debit_MatchingType">
           <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
@@ -8811,6 +8805,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksReclamations" />
           <NavigationProperty Name="ServiceRemarksTypes" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarks" ToRole="ServiceRemarksTypes" />
+          <Property Name="classicId" Type="Int32" />
         </EntityType>
         <EntityType Name="ServiceRemarksActions">
           <Key>
@@ -8842,6 +8837,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="id_ServiceRemarks" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarks" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarks" />
           <NavigationProperty Name="ServiceRemarksCause" Relationship="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" FromRole="ServiceRemarksCauses" ToRole="ServiceRemarksCause" />
+          <Property Name="row" Type="Int32" />
         </EntityType>
         <EntityType Name="ServiceRemarksPlanZakazs">
           <Key>
@@ -11107,6 +11103,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="tmpUpDate1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="ИдПапки" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ИдРекламации" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11695,15 +11699,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
                 <ScalarProperty Name="dateShip" ColumnName="dateShip" />
                 <ScalarProperty Name="planZakaz" ColumnName="planZakaz" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Соотношение_ИД">
-            <EntityTypeMapping TypeName="PortalKATEKModel.Соотношение_ИД">
-              <MappingFragment StoreEntitySet="Соотношение ИД">
-                <ScalarProperty Name="idNewRem" ColumnName="idNewRem" />
-                <ScalarProperty Name="idRem" ColumnName="idRem" />
-                <ScalarProperty Name="idFolder" ColumnName="idFolder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13331,6 +13326,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="ServiceRemarks">
             <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarks">
               <MappingFragment StoreEntitySet="ServiceRemarks">
+                <ScalarProperty Name="classicId" ColumnName="classicId" />
                 <ScalarProperty Name="folder" ColumnName="folder" />
                 <ScalarProperty Name="dateClose" ColumnName="dateClose" />
                 <ScalarProperty Name="datePutToService" ColumnName="datePutToService" />
@@ -13365,6 +13361,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="ServiceRemarksCauses">
             <EntityTypeMapping TypeName="PortalKATEKModel.ServiceRemarksCauses">
               <MappingFragment StoreEntitySet="ServiceRemarksCauses">
+                <ScalarProperty Name="row" ColumnName="row" />
                 <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
                 <ScalarProperty Name="id_ServiceRemarksCause" ColumnName="id_ServiceRemarksCause" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -13444,6 +13441,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tmpUpDate1">
+            <EntityTypeMapping TypeName="PortalKATEKModel.tmpUpDate1">
+              <MappingFragment StoreEntitySet="tmpUpDate1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ИдРекламации" ColumnName="ИдРекламации" />
+                <ScalarProperty Name="ИдПапки" ColumnName="ИдПапки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -17,6 +17,7 @@ namespace Wiki
         public int id { get; set; }
         public int id_ServiceRemarksCause { get; set; }
         public int id_ServiceRemarks { get; set; }
+        public Nullable<int> row { get; set; }
     
         public virtual ServiceRemarks ServiceRemarks { get; set; }
         public virtual ServiceRemarksCause ServiceRemarksCause { get; set; }

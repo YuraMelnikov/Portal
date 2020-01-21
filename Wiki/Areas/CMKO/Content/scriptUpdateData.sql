@@ -23,13 +23,13 @@ DECLARE @coefErrorGip float;
 
 SET @coefErrorGip = 1000.0;
 SET @coefConvertCalendarNorm = 0.9;
-SET @periodQua ='2019.4';
-SET @periodM1 ='2019.10';
-SET @periodM2 ='2019.11';
-SET @periodM3 ='2019.12';
-SET @periodMP1 ='2019.10';
-SET @periodMP2 ='2019.11';
-SET @periodMP3 ='2019.12';
+SET @periodQua ='2020.1';
+SET @periodM1 ='2020.1';
+SET @periodM2 ='2020.2';
+SET @periodM3 ='2020.3';
+SET @periodMP1 ='2020.01';
+SET @periodMP2 ='2020.02';
+SET @periodMP3 ='2020.03';
 SET @coefBujetWorker = 0.0105;
 SET @coefBujetManager = 0.0020;
 SET @coenBujetNManager = 0.16;
@@ -434,13 +434,13 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(SpeedUser2.plan10), 0) + isnull(max(SpeedUser2.plan20), 0) as speed2
 ,isnull(max(SpeedUser3.plan10), 0) + isnull(max(SpeedUser3.plan20), 0) as speed3
 ,isnull(max(TeachTable.cost), 0) as teach
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate1
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate2
-,max(PortalKATEK.dbo.CMKO_TaxCatigories.salary) as rate3
-,max(PortalKATEK.dbo.AspNetUsers.tax) as tax1
-,max(PortalKATEK.dbo.AspNetUsers.tax) as tax2
-,max(PortalKATEK.dbo.AspNetUsers.tax) as tax3
-,isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) as coefError
+,isnull(max(PortalKATEK.dbo.CMKO_TaxCatigories.salary), 0) as rate1
+,isnull(max(PortalKATEK.dbo.CMKO_TaxCatigories.salary), 0) as rate2
+,isnull(max(PortalKATEK.dbo.CMKO_TaxCatigories.salary), 0) as rate3
+,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax1
+,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax2
+,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax3
+,iif(isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) < 1, 0, isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1)) as coefError
 ,isnull(1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) as coefErrorG
 ,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, @sizeQualityBonus, 0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
@@ -577,6 +577,12 @@ from
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact = 0
 and PortalKATEK.dbo.Devision.id = 15
+
+
+update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
+set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG = 0
+from [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
+where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefErrorG < 0
 
 
 delete PortalKATEK.dbo.CMKO_ThisAccruedG

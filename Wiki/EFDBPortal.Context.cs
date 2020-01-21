@@ -72,7 +72,6 @@ namespace Wiki
         public virtual DbSet<WBS_BP> WBS_BP { get; set; }
         public virtual DbSet<WBS_ClassicStruct> WBS_ClassicStruct { get; set; }
         public virtual DbSet<XTEO> XTEO { get; set; }
-        public virtual DbSet<Соотношение_ИД> Соотношение_ИД { get; set; }
         public virtual DbSet<CMO_Report> CMO_Report { get; set; }
         public virtual DbSet<PWA_EmpProject> PWA_EmpProject { get; set; }
         public virtual DbSet<PWA_EmpTask> PWA_EmpTask { get; set; }
@@ -200,5 +199,6 @@ namespace Wiki
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
+        public virtual DbSet<tmpUpDate1> tmpUpDate1 { get; set; }
     }
 }

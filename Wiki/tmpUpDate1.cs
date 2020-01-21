@@ -12,10 +12,10 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Соотношение_ИД
+    public partial class tmpUpDate1
     {
-        public int idFolder { get; set; }
-        public int idRem { get; set; }
-        public int idNewRem { get; set; }
+        public decimal ИдПапки { get; set; }
+        public decimal ИдРекламации { get; set; }
+        public int id { get; set; }
     }
 }

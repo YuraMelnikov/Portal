@@ -1013,6 +1013,9 @@
     <Compile Include="TEOInWorkPO.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="tmpUpDate1.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="TypeRKD_Mail_Version.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1032,9 +1035,6 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="XTEO.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Соотношение_ИД.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
   </ItemGroup>

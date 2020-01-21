@@ -55,88 +55,39 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                foreach(var data in db.ServiceRemarks.ToList())
+                foreach(var data in db.ServiceRemarks.Where(a => a.classicId != null).ToList())
                 {
                     string pzString1 = "";
                     foreach (var data1 in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == data.id).ToList())
                     {
                         pzString1 += db.PZ_PlanZakaz.Find(data1.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
                     }
-                    data.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString1 + data.id.ToString();
+                    data.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString1 + data.id.ToString() + "_";
                     db.Entry(data).State = EntityState.Modified;
                     db.SaveChanges();
+                    Directory.CreateDirectory(data.folder);
                 }
 
+                //copyDocuments
+                var listFolder = db.tmpUpDate1.ToList();
+                foreach (var data in listFolder)
+                {
+                    string path = @"\\192.168.1.30\m$\Пользователи\myi\Рекламации архив\Документация\" + data.ИдПапки.ToString() + @"\";
+                    try
+                    {
+                        var fileList = Directory.GetFiles(path).ToList();
+                        foreach (var fileData in fileList)
+                        {
+                            FileInfo fi = new FileInfo(fileData);
+                            string pathTo = db.ServiceRemarks.First(a => a.classicId == data.ИдРекламации).folder + @"\" + fi.Name;
+                            fi.CopyTo(pathTo, false);
+                        }
+                    }
+                    catch
+                    {
 
-                ////createFolder
-                //for (int i = 230; i < 275; i++)
-                //{
-                //    string pzString1 = "";
-                //    foreach (var data in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == i).ToList())
-                //    {
-                //        pzString1 += db.PZ_PlanZakaz.Find(data.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
-                //    }
-                //    string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString1 + i.ToString();
-                //    Directory.CreateDirectory(directory);
-                //    string pathRem = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\";
-                //    string path = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + i.ToString() + @"\";
-                //    try
-                //    {
-                //        var fileList = Directory.GetFiles(path).ToList();
-                //        foreach (var fileData in fileList)
-                //        {
-                //            FileInfo fi = new FileInfo(fileData);
-                //            string pzString = "";
-                //            foreach (var data1 in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == i).ToList())
-                //            {
-                //                pzString += db.PZ_PlanZakaz.Find(data1.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
-                //            }
-                //            string pathTo = pathRem + pzString + i.ToString() + @"\" + fi.Name;
-                //            fi.CopyTo(pathTo, false); // existing file will be overwritten
-                //        }
-                //    }
-                //    catch
-                //    {
-
-                //    }
-                //}
-                ////createFolder
-                //for (int i = 1; i < 227; i++)
-                //{
-                //    string pzString = "";
-                //    foreach (var data in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == i).ToList())
-                //    {
-                //        pzString += db.PZ_PlanZakaz.Find(data.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
-                //    }
-                //    string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString + i.ToString();
-                //    Directory.CreateDirectory(directory);
-                //}
-                ////copyDocuments
-                //var listFolder = db.Соотношение_ИД.ToList();
-                //string pathRem = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\";
-                //foreach (var data in listFolder)
-                //{
-                //    string path = @"\\192.168.1.30\m$\Пользователи\myi\Рекламации архив\Документация\" + data.idFolder.ToString() + @"\";
-                //    try
-                //    {
-                //        var fileList = Directory.GetFiles(path).ToList();
-                //        foreach (var fileData in fileList)
-                //        {
-                //            FileInfo fi = new FileInfo(fileData);
-                //            string pzString = "";
-                //            foreach (var data1 in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == data.idNewRem).ToList())
-                //            {
-                //                pzString += db.PZ_PlanZakaz.Find(data1.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
-                //            }
-                //            string pathTo = pathRem + pzString + data.idNewRem.ToString() + @"\" + fi.Name;
-                //            fi.CopyTo(pathTo, false); // existing file will be overwritten
-                //        }
-                //    }
-                //    catch
-                //    {
-
-                //    }
-                //}
+                    }
+                }
             }
             return View();
         }

@@ -593,8 +593,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     var data = query.Select(dataList => new
                     {
                         idQue = dataList.id,
-                        orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
-                        dateCreateQue = dataList.dateTimeCreate.ToString().Substring(0, 10),
+                        //orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                        //dateCreateQue = dataList..ToString().Substring(0, 10),
                         autorQue = dataList.AspNetUsers.CiliricalName,
                         histQue = GetQuestionData(dataList.id).Replace("</br>", "\n")
                     });

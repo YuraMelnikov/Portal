@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="10">
+      <Diagram DiagramId="59da0ec44312425891da702c8d5c16e5" Name="Diagram1" ZoomLevel="29">
         <EntityTypeShape EntityType="PortalKATEKModel.Calendar" Width="1.5" PointX="2.375" PointY="8.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_CounterError" Width="1.5" PointX="4.375" PointY="8.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMKO_ThisDeductionsBonusFund" Width="1.5" PointX="18.625" PointY="7.75" />
@@ -52,7 +52,6 @@
         <EntityTypeShape EntityType="PortalKATEKModel.WBS_BP" Width="1.5" PointX="39.5" PointY="0.5" />
         <EntityTypeShape EntityType="PortalKATEKModel.WBS_ClassicStruct" Width="1.5" PointX="39.5" PointY="4.5" />
         <EntityTypeShape EntityType="PortalKATEKModel.XTEO" Width="1.5" PointX="39.5" PointY="7.5" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Соотношение_ИД" Width="1.5" PointX="39.5" PointY="12.5" />
         <AssociationConnector Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMO_Report" Width="1.5" PointX="22.875" PointY="4.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpProject" Width="1.5" PointX="25.5" PointY="4.625" />
@@ -364,6 +363,7 @@
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" />
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.tmpUpDate1" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
