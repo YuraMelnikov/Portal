@@ -575,8 +575,46 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
         }
 
-        //GetOrderByIdForView
+        public JsonResult GetOrderByIdForView(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.ApproveCDOrders
+                        .Include(a => a.PZ_PlanZakaz.PZ_Client)
+                        .Include(a => a.ApproveCDVersions.First(b => b.activeVersion == true).RKD_VersionWork)
+                        .Include(a => a.AspNetUsers)
+                        .Where(a => a.id == id)
+                        .ToList();
+
+                    var data = query.Select(dataList => new
+                    {
+                        idQue = dataList.id,
+                        orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                        dateCreateQue = dataList.dateTimeCreate.ToString().Substring(0, 10),
+                        autorQue = dataList.AspNetUsers.CiliricalName,
+                        histQue = GetQuestionData(dataList.id).Replace("</br>", "\n")
+                    });
+                    return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetQuestionById: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
         //GetOrderByIdForEdit
         //UpdateOrder
+
+
+        //UpdateOrderGetCustomerUpdate
+        //UpdateOrderGetCustomerComplited
+        //UpdateOrderGetTSToKOUpdate
+        //UpdateOrderGetTSToKOComplited
+        //UpdateOrderLoadVer
     }
 }
