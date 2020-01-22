@@ -3,34 +3,34 @@
     Layout = "~/Areas/ApproveCD/Views/Shared/_LayoutApproveCD.cshtml";
 }
 
-    <head>
-        <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
-        <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
-        <script src="~/Content/globalScript.js?v0.1"></script>
-        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.1"></script>
-        <style>
-            th.dt-invisible-column {
-                border: 0 !important;
-                padding: 0 !important;
-            }
+<head>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <script src="~/Content/globalScript.js?v0.1"></script>
+    <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.3"></script>
+    <style>
+        th.dt-invisible-column {
+            border: 0 !important;
+            padding: 0 !important;
+        }
 
-            .modal.modal-wide .modal-dialog {
-                width: 90%;
-            }
+        .modal.modal-wide .modal-dialog {
+            width: 90%;
+        }
 
-            .modal-wide .modal-body {
-                overflow-y: auto;
-            }
+        .modal-wide .modal-body {
+            overflow-y: auto;
+        }
 
-            .colu-200 {
-                min-width: 200px;
-            }
+        .colu-200 {
+            min-width: 200px;
+        }
 
-            .colu-300 {
-                min-width: 300px;
-            }
-        </style>
-    </head>
+        .colu-300 {
+            min-width: 300px;
+        }
+    </style>
+</head>
 
 <div class="row">
     <div class="col-md-12">
@@ -185,25 +185,25 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label>Ид. вопроса:</label>
-                        <input type="text" class="form-control" id="idQue" disabled ="disabled" />
+                        <input type="text" class="form-control" id="idQue" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>№ заказа:</label>
-                        <input type="text" class="form-control" id="orderQue" disabled ="disabled" />
+                        <input type="text" class="form-control" id="orderQue" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
                         <label>Создан:</label>
-                        <input type="text" class="form-control" id="dateCreateQue" disabled ="disabled" />
+                        <input type="text" class="form-control" id="dateCreateQue" disabled="disabled" />
                     </div>
                     <div class="col-lg-4">
                         <label>Автор:</label>
-                        <input type="text" class="form-control" id="autorQue" disabled ="disabled" />
+                        <input type="text" class="form-control" id="autorQue" disabled="disabled" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <label>Ход обсуждения:</label>
-                        <textarea rows="10" id="histQue" class="form-control" disabled ="disabled"></textarea>
+                        <textarea rows="10" id="histQue" class="form-control" disabled="disabled"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -232,20 +232,31 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
+                <div class="row" id="hideIdOrder">
                     <div class="col-lg-12">
-                        <textarea rows="6" id="descriptionOrder" class="form-control"></textarea>
+                        <input type="text" class="form-control" id="loadVer" />
                     </div>
                 </div>
-                <div class="row" id="loadVer">
-                    <label>отправить РКД на согласование в ТП: </label>
-                    <div class="col-lg-2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <textarea rows="6" id="descriptionOrder" class="form-control" disabled="disabled"></textarea>
+                    </div>
+                </div>
+                <hr />
+                <div class="row" id="loadVerDiv">
+                    <div class="col-lg-12">
+                        <label>Отправить РКД на согласование в ТП: </label>
+                    </div>
+                    <div class="col-lg-1">
                         <label>Версия РКД: </label>
                         <input type="text" class="form-control" id="numVerCD" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-11">
                         <label>Ссылка:</label>
                         <input type="text" class="form-control" id="linkKD" />
+                    </div>
+                    <div class="col-lg-12">
+                        <hr />
                     </div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-primary" onclick="UpdateOrderLoadVer();">Отправить в ТП</button>
@@ -254,17 +265,27 @@
                 <div class="row" id="ectionTS">
                     <div class="col-lg-12">
                         <label>Получены данные от КО:</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <textarea rows="10" id="commitTSToKO" class="form-control"></textarea>
+                    </div>
+                    <div class="col-lg-12">
+                        <hr />
                         <button type="button" class="btn btn-danger" onclick="UpdateOrderGetTSToKOUpdate();">Отправить на доработку в КО</button>
                         <button type="button" class="btn btn-success" onclick="UpdateOrderGetTSToKOComplited();">РКД отправлено Заказчику</button>
-                        <textarea rows="10" id="commitTSToKO" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="row" id="getCustomer">
                     <div class="col-lg-12">
                         <label>Получен ответ от Заказчика:</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <textarea rows="10" id="commitTS" class="form-control"></textarea>
+                    </div>
+                    <div class="col-lg-12">
+                        <hr />
                         <button type="button" class="btn btn-danger" onclick="UpdateOrderGetCustomerUpdate();">Получены замечания</button>
                         <button type="button" class="btn btn-success" onclick="UpdateOrderGetCustomerComplited();">РКД согласовано</button>
-                        <textarea rows="10" id="commitTS" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="row">

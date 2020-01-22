@@ -141,6 +141,10 @@ namespace Wiki.Areas.ApproveCD.Controllers
             try
             {
                 int devision = GetDevisionId(login);
+                if(login == "myi@katek.by")
+                {
+                    return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForEdit('" + idOrder + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                }
                 if(devision == 3 || devision == 15 || devision == 16)
                 {
                     if (stateId == 4 || stateId == 8 || stateId == 12)
@@ -348,7 +352,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     }
                     var data = tasksList.Select(dataList => new
                     {
-                        dateAction = JsonConvert.SerializeObject(dataList.dateTime, shortSetting).Replace(@"""", ""),
+                        dateAction = JsonConvert.SerializeObject(dataList.dateTime, longUsSetting).Replace(@"""", ""),
                         dataList.order,
                         dataList.action,
                         dataList.user,
@@ -477,6 +481,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     };
                     db.ApproveCDQuestions.Add(approveCDQuestions);
                     db.SaveChanges();
+                    EmailApproveCDQue emailApproveCDQue = new EmailApproveCDQue(approveCDQuestions.id, login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -565,6 +570,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     };
                     db.ApproveCDQuestionCorr.Add(approveCDQuestionCorr);
                     db.SaveChanges();
+                    EmailApproveCDQue emailApproveCDQue = new EmailApproveCDQue(idQue, login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -575,8 +581,10 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
         }
 
-        public JsonResult GetOrderByIdForView(int id)
+        [HttpGet]
+        public JsonResult GetOrderById(int id)
         {
+            string login = HttpContext.User.Identity.Name;
             try
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -585,36 +593,306 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     db.Configuration.LazyLoadingEnabled = false;
                     var query = db.ApproveCDOrders
                         .Include(a => a.PZ_PlanZakaz.PZ_Client)
-                        .Include(a => a.ApproveCDVersions.First(b => b.activeVersion == true).RKD_VersionWork)
                         .Include(a => a.AspNetUsers)
                         .Where(a => a.id == id)
                         .ToList();
 
                     var data = query.Select(dataList => new
                     {
-                        idQue = dataList.id,
-                        //orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
-                        //dateCreateQue = dataList..ToString().Substring(0, 10),
-                        autorQue = dataList.AspNetUsers.CiliricalName,
-                        histQue = GetQuestionData(dataList.id).Replace("</br>", "\n")
-                    });
+                        hideIdOrder = dataList.id,
+                        descriptionOrder = GetDescriptionOrder(dataList),
+                        numVerCD = GetNumVer(dataList.id),
+                        showAction = GetShowAction(dataList.id, login)
+                    }); 
                     return Json(data.First(), JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetQuestionById: " + ex.Message);
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetOrderById: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
-        //GetOrderByIdForEdit
-        //UpdateOrder
 
+        private string GetNumVer(int idOrder)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var ver = db.ApproveCDVersions.First(a => a.activeVersion == true && a.id_ApproveCDOrders == idOrder);
+                if (ver.id_RKD_VersionWork == 4)
+                {
+                    return ver.numberVersion1 + "." + ver.numberVersion2;
+                }
+                else
+                {
+                    short num1 = 0;
+                    if (ver.numberVersion1 == 0)
+                        num1 = 1;
+                    else
+                        num1 = ver.numberVersion1;
+                    int num2 = 0;
+                    if (ver.numberVersion1 == 0)
+                        num2 = 0;
+                    else
+                        num2 = ver.numberVersion2 + 1;
+                    return num1 + "." + num2;
+                }
+            }
+        }
 
-        //UpdateOrderGetCustomerUpdate
-        //UpdateOrderGetCustomerComplited
-        //UpdateOrderGetTSToKOUpdate
-        //UpdateOrderGetTSToKOComplited
-        //UpdateOrderLoadVer
+        private string GetDescriptionOrder(ApproveCDOrders approveCDOrders)
+        {
+            string description = "№ заказа: " + approveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString() + "\n";
+            description += "Заказчик: " + approveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort + "\n";
+            description += "Контрактное наименование: " + approveCDOrders.PZ_PlanZakaz.Name + "\n";
+            description += "Наименование по ТУ: " + approveCDOrders.PZ_PlanZakaz.nameTU + "\n";
+            description += "Статус согласования: " + GetStateName(approveCDOrders.id);
+            return description;
+        }
+
+        private string GetStateName(int idOrder)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                return db.ApproveCDVersions.First(a => a.activeVersion == true && a.id_ApproveCDOrders == idOrder).RKD_VersionWork.name;
+            }
+        }
+
+        private string GetShowAction(int idOrder, string login)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                int idState = db.ApproveCDVersions.First(a => a.activeVersion == true && a.id_ApproveCDOrders == idOrder).id_RKD_VersionWork;
+                int devision = GetDevisionId(login);
+                if (login == "myi@katek.by")
+                {
+                    if (idState == 4 || idState == 8 || idState == 12)
+                    {
+                        return "3";
+                    }
+                    if (idState == 5)
+                    {
+                        return "5";
+                    }
+                    if (idState == 2)
+                    {
+                        return "4";
+                    }
+                }
+                if (devision == 3 || devision == 15 || devision == 16)
+                {
+                    if (idState == 4 || idState == 8 || idState == 12)
+                    {
+                        return "3";
+                    }
+                }
+                if (devision == 4)
+                {
+                    if (idState == 5)
+                    {
+                        return "5";
+                    }
+                    if (idState == 2)
+                    {
+                        return "4";
+                    }
+                }
+                return "";
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderLoadVer(string hideIdOrder, string numVerCD, string linkKD)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                int numhideIdOrder = Convert.ToInt32(hideIdOrder);
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    short num1 = (short)Convert.ToInt32(numVerCD.Substring(0, numVerCD.IndexOf('.')));
+                    short num2 = (short)Convert.ToInt32(numVerCD.Substring(numVerCD.IndexOf('.') + 1, numVerCD.Length - numVerCD.IndexOf('.') - 1));
+                    ApproveCDVersions approveCDVersions = db.ApproveCDVersions
+                        .First(a => a.activeVersion == true && a.id_ApproveCDOrders == numhideIdOrder);
+                    if(approveCDVersions.numberVersion1 != num1 || approveCDVersions.numberVersion2 != num2)
+                    {
+                        ApproveCDVersions newApproveCDVersions = new ApproveCDVersions
+                        {
+                            id_ApproveCDOrders = numhideIdOrder,
+                            id_RKD_VersionWork = 2,
+                            numberVersion1 = num1,
+                            numberVersion2 = num2,
+                            activeVersion = true
+                        };
+                        db.ApproveCDVersions.Add(newApproveCDVersions);
+                        approveCDVersions.activeVersion = false;
+                        db.Entry(approveCDVersions).State = EntityState.Modified;
+                        db.SaveChanges();
+                        ApproveCDActions approveCDActions = new ApproveCDActions
+                        {
+                            id_ApproveCDVersions = newApproveCDVersions.id,
+                            datetime = DateTime.Now,
+                            id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                            id_RKD_VersionWork = 1
+                        };
+                        db.ApproveCDActions.Add(approveCDActions);
+                        db.SaveChanges();
+                        EmailApproveCD emailApproveCD = new EmailApproveCD(numhideIdOrder, login, 1, linkKD);
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        approveCDVersions.id_RKD_VersionWork = 2;
+                        db.Entry(approveCDVersions).State = EntityState.Modified;
+                        ApproveCDActions approveCDActions = new ApproveCDActions
+                        {
+                            id_ApproveCDVersions = approveCDVersions.id,
+                            datetime = DateTime.Now,
+                            id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                            id_RKD_VersionWork = 3
+                        };
+                        db.ApproveCDActions.Add(approveCDActions);
+                        db.SaveChanges();
+                        EmailApproveCD emailApproveCD = new EmailApproveCD(numhideIdOrder, login, 1, linkKD);
+                        return Json(1, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateOrderLoadVer: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderGetTSToKOUpdate(int hideIdOrder, string commitTSToKO)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    ApproveCDVersions approveCDVersions = db.ApproveCDVersions
+                        .First(a => a.activeVersion == true && a.id_ApproveCDOrders == hideIdOrder);
+                    approveCDVersions.id_RKD_VersionWork = 4;
+                    db.Entry(approveCDVersions).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ApproveCDActions approveCDActions = new ApproveCDActions
+                    {
+                        id_ApproveCDVersions = approveCDVersions.id,
+                        datetime = DateTime.Now,
+                        id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                        id_RKD_VersionWork = 2
+                    };
+                    db.ApproveCDActions.Add(approveCDActions);
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateOrderGetTSToKOUpdate: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderGetTSToKOComplited(int hideIdOrder)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    ApproveCDVersions approveCDVersions = db.ApproveCDVersions
+                        .First(a => a.activeVersion == true && a.id_ApproveCDOrders == hideIdOrder);
+                    approveCDVersions.id_RKD_VersionWork = 5;
+                    db.Entry(approveCDVersions).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ApproveCDActions approveCDActions = new ApproveCDActions
+                    {
+                        id_ApproveCDVersions = approveCDVersions.id,
+                        datetime = DateTime.Now,
+                        id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                        id_RKD_VersionWork = 4
+                    };
+                    db.ApproveCDActions.Add(approveCDActions);
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateOrderGetTSToKOComplited: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderGetCustomerUpdate(int hideIdOrder, string commitTS)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    ApproveCDVersions approveCDVersions = db.ApproveCDVersions
+                        .First(a => a.activeVersion == true && a.id_ApproveCDOrders == hideIdOrder);
+                    approveCDVersions.id_RKD_VersionWork = 8;
+                    db.Entry(approveCDVersions).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ApproveCDActions approveCDActions = new ApproveCDActions
+                    {
+                        id_ApproveCDVersions = approveCDVersions.id,
+                        datetime = DateTime.Now,
+                        id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                        id_RKD_VersionWork = 7
+                    };
+                    db.ApproveCDActions.Add(approveCDActions);
+                    db.SaveChanges();
+                    EmailApproveCD emailApproveCD = new EmailApproveCD(hideIdOrder, login, 2, commitTS);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateOrderGetCustomerUpdate: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrderGetCustomerComplited(int hideIdOrder, string commitTS)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    ApproveCDVersions approveCDVersions = db.ApproveCDVersions
+                        .First(a => a.activeVersion == true && a.id_ApproveCDOrders == hideIdOrder);
+                    approveCDVersions.id_RKD_VersionWork = 10;
+                    db.Entry(approveCDVersions).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ApproveCDActions approveCDActions = new ApproveCDActions
+                    {
+                        id_ApproveCDVersions = approveCDVersions.id,
+                        datetime = DateTime.Now,
+                        id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
+                        id_RKD_VersionWork = 8
+                    };
+                    db.ApproveCDActions.Add(approveCDActions);
+                    db.SaveChanges();
+                    EmailApproveCD emailApproveCD = new EmailApproveCD(hideIdOrder, login, 3, commitTS);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateOrderGetCustomerComplited: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -288,6 +288,9 @@
     <Compile Include="Areas\AccountsReceivable\Models\MailToExpeditor.cs" />
     <Compile Include="Areas\ApproveCD\ApproveCDAreaRegistration.cs" />
     <Compile Include="Areas\ApproveCD\Controllers\ApproveController.cs" />
+    <Compile Include="Areas\ApproveCD\Models\EmailApproveCD.cs" />
+    <Compile Include="Areas\ApproveCD\Models\EmailApproveCDQue.cs" />
+    <Compile Include="Areas\ApproveCD\Models\MailList.cs" />
     <Compile Include="Areas\ApproveCD\Models\TaskApproveCD.cs" />
     <Compile Include="Areas\Cells\CellsAreaRegistration.cs" />
     <Compile Include="Areas\Cells\Controllers\SCellsController.cs" />

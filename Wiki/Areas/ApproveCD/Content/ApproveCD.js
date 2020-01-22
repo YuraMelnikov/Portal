@@ -9,6 +9,7 @@ $(document).ready(function () {
     $('#BtnAddOrders').hide();
     $('#BtnAddQuestion').hide();
     $('#BtnAddTask').hide();
+    $('#hideIdOrder').hide();
     StartMenu();
     LoadData(1);
 });
@@ -517,14 +518,197 @@ function ValidUpdateQuestion() {
     return isValid;
 }
 
-function GetOrderByIdForView(){
-
+function ClearUOrderModalField() {
+    $('#descriptionOrder').val("");
+    $('#numVerCD').val("");
+    $('#linkKD').val("");
+    $('#commitTSToKO').val("");
+    $('#commitTS').val("");
+    $('#hideIdOrder').val("");
 }
 
-function GetOrderByIdForEdit() {
-
+function GetOrderByIdForView(id){
+    ClearUOrderModalField();
+    $('#loadVerDiv').hide();
+    $('#ectionTS').hide();
+    $('#getCustomer').hide();
+    $.ajax({
+        cache: false,
+        url: "/Approve/GetOrderById/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#hideIdOrder').val(result.hideIdOrder);
+            $('#descriptionOrder').val(result.descriptionOrder);
+            $('#UOrderModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }
 
-function UpdateOrder() {
+function GetOrderByIdForEdit(id) {
+    ClearUOrderModalField();
+    $('#loadVerDiv').hide();
+    $('#ectionTS').hide();
+    $('#getCustomer').hide();
+    $.ajax({
+        cache: false,
+        url: "/Approve/GetOrderById/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#hideIdOrder').val(result.hideIdOrder);
+            $('#descriptionOrder').val(result.descriptionOrder);
+            $('#numVerCD').val(result.numVerCD);
+            if (result.showAction === '3') {
+                $('#loadVerDiv').show();
+            }
+            if (result.showAction === '4') {
+                $('#ectionTS').show();
+            }
+            if (result.showAction === '5') {
+                $('#getCustomer').show();
+            }
+            $('#UOrderModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
+function UpdateOrderLoadVer() {
+    var res = ValidLoadVer();
+    if (res === false) {
+        return false;
+    }
+    var objVer = {
+        hideIdOrder: $('#hideIdOrder').val(),
+        numVerCD: $('#numVerCD').val(),
+        linkKD: $('#linkKD').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateOrderLoadVer/",
+        data: JSON.stringify(objVer),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UOrderModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function ValidLoadVer() {
+    var isValid = true;
+    if ($('#numVerCD').val() === '') {
+        isValid = false;
+        $('#numVerCD').css('border-color', 'Red');
+    }
+    else {
+        $('#numVerCD').css('border-color', 'lightgrey');
+    }
+    if ($('#linkKD').val() === '') {
+        isValid = false;
+        $('#linkKD').css('border-color', 'Red');
+    }
+    else {
+        $('#linkKD').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function UpdateOrderGetTSToKOUpdate() {
+    var objVer = {
+        hideIdOrder: $('#hideIdOrder').val(),
+        commitTSToKO: $('#commitTSToKO').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateOrderGetTSToKOUpdate/",
+        data: JSON.stringify(objVer),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UOrderModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+            $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function UpdateOrderGetTSToKOComplited() {
+    var objVer = {
+        hideIdOrder: $('#hideIdOrder').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateOrderGetTSToKOComplited/",
+        data: JSON.stringify(objVer),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UOrderModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+            $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function UpdateOrderGetCustomerUpdate() {
+    var objVer = {
+        hideIdOrder: $('#hideIdOrder').val(),
+        commitTS: $('#commitTS').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateOrderGetCustomerUpdate/",
+        data: JSON.stringify(objVer),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UOrderModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+            $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function UpdateOrderGetCustomerComplited() {
+    var objVer = {
+        hideIdOrder: $('#hideIdOrder').val(),
+        commitTS: $('#commitTS').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateOrderGetCustomerComplited/",
+        data: JSON.stringify(objVer),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UOrderModal").modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+            $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
 }
