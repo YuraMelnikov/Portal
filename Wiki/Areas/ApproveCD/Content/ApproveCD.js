@@ -42,6 +42,7 @@ var objOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
     { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
     { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
@@ -715,7 +716,23 @@ function ValidLoadVer() {
     return isValid;
 }
 
+function ValidReloadKO() {
+    var isValid = true;
+    if ($('#commitTSToKO').val() === '') {
+        $('#commitTSToKO').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#commitTSToKO').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
 function UpdateOrderGetTSToKOUpdate() {
+    var res = ValidReloadKO();
+    if (res === false) {
+        return null;
+    }
     var objVer = {
         hideIdOrder: $('#hideIdOrder').val(),
         commitTSToKO: $('#commitTSToKO').val()
@@ -758,7 +775,23 @@ function UpdateOrderGetTSToKOComplited() {
     });
 }
 
+function ValidCustomerData() {
+    var isValid = true;
+    if ($('#commitTS').val() === '') {
+        $('#commitTS').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#commitTS').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
 function UpdateOrderGetCustomerUpdate() {
+    var res = ValidCustomerData();
+    if (res === false) {
+        return null;
+    }
     var objVer = {
         hideIdOrder: $('#hideIdOrder').val(),
         commitTS: $('#commitTS').val()

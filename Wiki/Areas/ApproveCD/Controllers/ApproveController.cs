@@ -83,7 +83,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
-                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2
+                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", "")
                     });
                     return Json(new { data });
                 }
@@ -92,6 +93,25 @@ namespace Wiki.Areas.ApproveCD.Controllers
             {
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNoApproveTable: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private DateTime? GetDateLastUpload(int idOrder)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var list = db.ApproveCDActions
+                    .Where(a => a.ApproveCDVersions.id_ApproveCDOrders == idOrder && a.id_RKD_VersionWork == 4)
+                    .OrderByDescending(a => a.datetime)
+                    .ToList();
+                try
+                {
+                    return list[0].datetime;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -124,7 +144,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
-                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2
+                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", "")
                     });
                     return Json(new { data });
                 }
