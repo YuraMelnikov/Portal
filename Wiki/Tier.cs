@@ -12,28 +12,26 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Section
+    public partial class Tier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Section()
+        public Tier()
         {
             this.Cells = new HashSet<Cells>();
-            this.SectionMap = new HashSet<SectionMap>();
-            this.SectionMap1 = new HashSet<SectionMap>();
-            this.Tier = new HashSet<Tier>();
+            this.TierMap = new HashSet<TierMap>();
+            this.TierMap1 = new HashSet<TierMap>();
         }
     
+        public int id { get; set; }
         public string name { get; set; }
         public int idS { get; set; }
-        public Nullable<bool> updateTier { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cells> Cells { get; set; }
+        public virtual Section Section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SectionMap> SectionMap { get; set; }
+        public virtual ICollection<TierMap> TierMap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SectionMap> SectionMap1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tier> Tier { get; set; }
+        public virtual ICollection<TierMap> TierMap1 { get; set; }
     }
 }

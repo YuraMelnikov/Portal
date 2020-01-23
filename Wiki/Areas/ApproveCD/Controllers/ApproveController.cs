@@ -563,7 +563,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         orderQue = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
                         dateCreateQue = dataList.dateTimeCreate.ToString().Substring(0, 10),
                         autorQue = dataList.AspNetUsers.CiliricalName,
-                        histQue = GetQuestionData(dataList.id).Replace("</br>","\n")
+                        histQue = GetQuestionData(dataList.id).Replace("</br>","\n"),
+                        questionTextU = dataList.textQuestion
                     });
                     return Json(data.First(), JsonRequestBehavior.AllowGet);
                 }

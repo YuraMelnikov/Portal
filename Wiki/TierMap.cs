@@ -12,14 +12,14 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Cells
+    public partial class TierMap
     {
-        public string name { get; set; }
-        public int idS { get; set; }
-        public int idC { get; set; }
-        public Nullable<int> idT { get; set; }
+        public int id { get; set; }
+        public int tierIdStart { get; set; }
+        public int tierIdFinish { get; set; }
+        public double distance { get; set; }
     
-        public virtual Section Section { get; set; }
         public virtual Tier Tier { get; set; }
+        public virtual Tier Tier1 { get; set; }
     }
 }

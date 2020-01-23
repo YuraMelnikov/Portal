@@ -11,6 +11,12 @@
         <AssociationConnector Association="SCellsModel.FK_Cells_Section" />
         <AssociationConnector Association="SCellsModel.FK_SectionMap_Section" />
         <AssociationConnector Association="SCellsModel.FK_SectionMap_Section1" />
+        <EntityTypeShape EntityType="SCellsModel.Tier" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="SCellsModel.TierMap" Width="1.5" PointX="5.25" PointY="7.375" />
+        <AssociationConnector Association="SCellsModel.FK_Cells_Tier" />
+        <AssociationConnector Association="SCellsModel.FK_Tier_Section" />
+        <AssociationConnector Association="SCellsModel.FK_TierMap_Tier" />
+        <AssociationConnector Association="SCellsModel.FK_TierMap_Tier1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

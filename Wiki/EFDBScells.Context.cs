@@ -28,5 +28,7 @@ namespace Wiki
         public virtual DbSet<Cells> Cells { get; set; }
         public virtual DbSet<Section> Section { get; set; }
         public virtual DbSet<SectionMap> SectionMap { get; set; }
+        public virtual DbSet<Tier> Tier { get; set; }
+        public virtual DbSet<TierMap> TierMap { get; set; }
     }
 }

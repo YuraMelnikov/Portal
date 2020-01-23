@@ -537,6 +537,7 @@ function GetQuestionByIdForView(id) {
             $('#dateCreateQue').val(result.dateCreateQue);
             $('#autorQue').val(result.autorQue);
             $('#histQue').val(result.histQue);
+            $('#questionTextU').val(result.questionTextU);
             $('#UQuestionModal').modal('show');
         },
         error: function (errormessage) {
@@ -561,6 +562,7 @@ function GetQuestionByIdForEdit(id) {
             $('#autorQue').val(result.autorQue);
             $('#histQue').val(result.histQue);
             $('#commitQue').val(result.commitQue);
+            $('#questionTextU').val(result.questionTextU);
             $('#UQuestionModal').modal('show');
         },
         error: function (errormessage) {

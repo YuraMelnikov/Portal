@@ -1016,6 +1016,12 @@
     <Compile Include="TEOInWorkPO.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tier.cs">
+      <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TierMap.cs">
+      <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
     <Compile Include="tmpUpDate1.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

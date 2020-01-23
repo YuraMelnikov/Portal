@@ -12,7 +12,7 @@
         <script src="~/Content/DataTables/pdfmake.min.js"></script>
         <script src="~/Content/DataTables/buttons.html5.min.js"></script>
         <script src="~/Content/globalScript.js?v1.0"></script>
-        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v1.2"></script>
+        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v1.3"></script>
         <style>
             th.dt-invisible-column {
                 border: 0 !important;
@@ -209,14 +209,20 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
+                        <label>Вопрос:</label>
+                        <textarea rows="7" id="questionTextU" class="form-control" disabled="disabled"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
                         <label>Ход обсуждения:</label>
-                        <textarea rows="10" id="histQue" class="form-control" disabled="disabled"></textarea>
+                        <textarea rows="7" id="histQue" class="form-control" disabled="disabled"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <label>Комментарий:</label>
-                        <textarea rows="10" id="commitQue" class="form-control"></textarea>
+                        <textarea rows="7" id="commitQue" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

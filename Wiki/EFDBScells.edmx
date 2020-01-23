@@ -12,6 +12,7 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="idS" Type="int" Nullable="false" />
           <Property Name="idC" Type="int" Nullable="false" />
+          <Property Name="idT" Type="int" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -19,6 +20,7 @@
           </Key>
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="idS" Type="int" Nullable="false" />
+          <Property Name="updateTier" Type="bit" />
         </EntityType>
         <EntityType Name="SectionMap">
           <Key>
@@ -27,6 +29,23 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sectionIdStart" Type="int" Nullable="false" />
           <Property Name="sectionIdFinish" Type="int" Nullable="false" />
+          <Property Name="distance" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="idS" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TierMap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tierIdStart" Type="int" Nullable="false" />
+          <Property Name="tierIdFinish" Type="int" Nullable="false" />
           <Property Name="distance" Type="float" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cells_Section">
@@ -38,6 +57,18 @@
             </Principal>
             <Dependent Role="Cells">
               <PropertyRef Name="idS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cells_Tier">
+          <End Role="Tier" Type="Self.Tier" Multiplicity="0..1" />
+          <End Role="Cells" Type="Self.Cells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cells">
+              <PropertyRef Name="idT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -65,12 +96,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tier_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="Tier" Type="Self.Tier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="idS" />
+            </Principal>
+            <Dependent Role="Tier">
+              <PropertyRef Name="idS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TierMap_Tier">
+          <End Role="Tier" Type="Self.Tier" Multiplicity="1" />
+          <End Role="TierMap" Type="Self.TierMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TierMap">
+              <PropertyRef Name="tierIdStart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TierMap_Tier1">
+          <End Role="Tier" Type="Self.Tier" Multiplicity="1" />
+          <End Role="TierMap" Type="Self.TierMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TierMap">
+              <PropertyRef Name="tierIdFinish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SCellsModelStoreContainer">
           <EntitySet Name="Cells" EntityType="Self.Cells" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SectionMap" EntityType="Self.SectionMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tier" EntityType="Self.Tier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TierMap" EntityType="Self.TierMap" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cells_Section" Association="Self.FK_Cells_Section">
             <End Role="Section" EntitySet="Section" />
+            <End Role="Cells" EntitySet="Cells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cells_Tier" Association="Self.FK_Cells_Tier">
+            <End Role="Tier" EntitySet="Tier" />
             <End Role="Cells" EntitySet="Cells" />
           </AssociationSet>
           <AssociationSet Name="FK_SectionMap_Section" Association="Self.FK_SectionMap_Section">
@@ -80,6 +153,18 @@
           <AssociationSet Name="FK_SectionMap_Section1" Association="Self.FK_SectionMap_Section1">
             <End Role="Section" EntitySet="Section" />
             <End Role="SectionMap" EntitySet="SectionMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tier_Section" Association="Self.FK_Tier_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Tier" EntitySet="Tier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TierMap_Tier" Association="Self.FK_TierMap_Tier">
+            <End Role="Tier" EntitySet="Tier" />
+            <End Role="TierMap" EntitySet="TierMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TierMap_Tier1" Association="Self.FK_TierMap_Tier1">
+            <End Role="Tier" EntitySet="Tier" />
+            <End Role="TierMap" EntitySet="TierMap" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -102,6 +187,24 @@
             <End Role="Section" EntitySet="Section" />
             <End Role="SectionMap" EntitySet="SectionMap" />
           </AssociationSet>
+          <EntitySet Name="Tier" EntityType="SCellsModel.Tier" />
+          <EntitySet Name="TierMap" EntityType="SCellsModel.TierMap" />
+          <AssociationSet Name="FK_Cells_Tier" Association="SCellsModel.FK_Cells_Tier">
+            <End Role="Tier" EntitySet="Tier" />
+            <End Role="Cells" EntitySet="Cells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tier_Section" Association="SCellsModel.FK_Tier_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Tier" EntitySet="Tier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TierMap_Tier" Association="SCellsModel.FK_TierMap_Tier">
+            <End Role="Tier" EntitySet="Tier" />
+            <End Role="TierMap" EntitySet="TierMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TierMap_Tier1" Association="SCellsModel.FK_TierMap_Tier1">
+            <End Role="Tier" EntitySet="Tier" />
+            <End Role="TierMap" EntitySet="TierMap" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cells">
           <Key>
@@ -111,6 +214,8 @@
           <Property Name="idS" Type="Int32" Nullable="false" />
           <Property Name="idC" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Section" Relationship="SCellsModel.FK_Cells_Section" FromRole="Cells" ToRole="Section" />
+          <Property Name="idT" Type="Int32" />
+          <NavigationProperty Name="Tier" Relationship="SCellsModel.FK_Cells_Tier" FromRole="Cells" ToRole="Tier" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -121,6 +226,8 @@
           <NavigationProperty Name="Cells" Relationship="SCellsModel.FK_Cells_Section" FromRole="Section" ToRole="Cells" />
           <NavigationProperty Name="SectionMap" Relationship="SCellsModel.FK_SectionMap_Section" FromRole="Section" ToRole="SectionMap" />
           <NavigationProperty Name="SectionMap1" Relationship="SCellsModel.FK_SectionMap_Section1" FromRole="Section" ToRole="SectionMap" />
+          <Property Name="updateTier" Type="Boolean" />
+          <NavigationProperty Name="Tier" Relationship="SCellsModel.FK_Tier_Section" FromRole="Section" ToRole="Tier" />
         </EntityType>
         <EntityType Name="SectionMap">
           <Key>
@@ -169,6 +276,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cells" Relationship="SCellsModel.FK_Cells_Tier" FromRole="Tier" ToRole="Cells" />
+          <NavigationProperty Name="Section" Relationship="SCellsModel.FK_Tier_Section" FromRole="Tier" ToRole="Section" />
+          <NavigationProperty Name="TierMap" Relationship="SCellsModel.FK_TierMap_Tier" FromRole="Tier" ToRole="TierMap" />
+          <NavigationProperty Name="TierMap1" Relationship="SCellsModel.FK_TierMap_Tier1" FromRole="Tier" ToRole="TierMap" />
+        </EntityType>
+        <EntityType Name="TierMap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tierIdStart" Type="Int32" Nullable="false" />
+          <Property Name="tierIdFinish" Type="Int32" Nullable="false" />
+          <Property Name="distance" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Tier" Relationship="SCellsModel.FK_TierMap_Tier" FromRole="TierMap" ToRole="Tier" />
+          <NavigationProperty Name="Tier1" Relationship="SCellsModel.FK_TierMap_Tier1" FromRole="TierMap" ToRole="Tier" />
+        </EntityType>
+        <Association Name="FK_Cells_Tier">
+          <End Type="SCellsModel.Tier" Role="Tier" Multiplicity="0..1" />
+          <End Type="SCellsModel.Cells" Role="Cells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cells">
+              <PropertyRef Name="idT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tier_Section">
+          <End Type="SCellsModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="SCellsModel.Tier" Role="Tier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="idS" />
+            </Principal>
+            <Dependent Role="Tier">
+              <PropertyRef Name="idS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TierMap_Tier">
+          <End Type="SCellsModel.Tier" Role="Tier" Multiplicity="1" />
+          <End Type="SCellsModel.TierMap" Role="TierMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TierMap">
+              <PropertyRef Name="tierIdStart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TierMap_Tier1">
+          <End Type="SCellsModel.Tier" Role="Tier" Multiplicity="1" />
+          <End Type="SCellsModel.TierMap" Role="TierMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TierMap">
+              <PropertyRef Name="tierIdFinish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -178,6 +356,7 @@
           <EntitySetMapping Name="Cells">
             <EntityTypeMapping TypeName="SCellsModel.Cells">
               <MappingFragment StoreEntitySet="Cells">
+                <ScalarProperty Name="idT" ColumnName="idT" />
                 <ScalarProperty Name="idC" ColumnName="idC" />
                 <ScalarProperty Name="idS" ColumnName="idS" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -187,6 +366,7 @@
           <EntitySetMapping Name="Section">
             <EntityTypeMapping TypeName="SCellsModel.Section">
               <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="updateTier" ColumnName="updateTier" />
                 <ScalarProperty Name="idS" ColumnName="idS" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
@@ -198,6 +378,25 @@
                 <ScalarProperty Name="distance" ColumnName="distance" />
                 <ScalarProperty Name="sectionIdFinish" ColumnName="sectionIdFinish" />
                 <ScalarProperty Name="sectionIdStart" ColumnName="sectionIdStart" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tier">
+            <EntityTypeMapping TypeName="SCellsModel.Tier">
+              <MappingFragment StoreEntitySet="Tier">
+                <ScalarProperty Name="idS" ColumnName="idS" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TierMap">
+            <EntityTypeMapping TypeName="SCellsModel.TierMap">
+              <MappingFragment StoreEntitySet="TierMap">
+                <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="tierIdFinish" ColumnName="tierIdFinish" />
+                <ScalarProperty Name="tierIdStart" ColumnName="tierIdStart" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
