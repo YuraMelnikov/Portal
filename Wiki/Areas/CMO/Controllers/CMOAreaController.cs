@@ -710,7 +710,7 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited)
+        public JsonResult PostPanelToPlanComplited(int spid, int id_SandwichPanelCustomer, DateTime datetimePlanComplited, string numberOrder)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
@@ -720,6 +720,7 @@ namespace Wiki.Areas.CMO.Controllers
             sandwichPanel.onComplited = true;
             sandwichPanel.datetimePlanComplited = datetimePlanComplited;
             sandwichPanel.id_SandwichPanelCustomer = id_SandwichPanelCustomer;
+            sandwichPanel.numberOrder = numberOrder;
             db.Entry(sandwichPanel).State = EntityState.Modified;
             db.SaveChanges();
             try

@@ -92,7 +92,7 @@ namespace Wiki.Areas.ApproveCD.Models
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 mailToList = new List<MailList>();
-                mailToList.Add(new MailList { mail = "myi@katek.by"});
+                mailToList.Add(new MailList { mail = "myi@katek.by" });
                 mailToList.Add(new MailList { mail = "bav@katek.by" });
                 mailToList.Add(new MailList { mail = "vi@katek.by" });
                 mailToList.Add(new MailList { mail = "goa@katek.by" });
@@ -105,12 +105,14 @@ namespace Wiki.Areas.ApproveCD.Models
                 ApproveCDOrders approveCDOrders = db.ApproveCDOrders.Find(approveCDOrdersId);
                 try
                 {
-                    if (approveCDOrders.id_AspNetUsersM != "4f91324a-1918-4e62-b664-d8cd89a19d95")
+                    if (approveCDOrders.id_AspNetUsersM != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
                     {
                         mailToG = db.AspNetUsers.Find(approveCDOrders.id_AspNetUsersM).Email;
-                        if (mailToList.Where(a => a.mail == mailToG).ToList() == null)
+                        if (mailToList.Where(a => a.mail == mailToG).ToList().Count == 0)
                         {
-                            mailToList.Add(new MailList { mail = mailToG });
+                            MailList mailList = new MailList();
+                            mailList.mail = mailToG;
+                            mailToList.Add(mailList);
                         }
                     }
                 }
@@ -123,9 +125,11 @@ namespace Wiki.Areas.ApproveCD.Models
                     if (approveCDOrders.id_AspNetUsersE != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
                     {
                         mailToG = db.AspNetUsers.Find(approveCDOrders.id_AspNetUsersE).Email;
-                        if (mailToList.Where(a => a.mail == mailToG).ToList() == null)
+                        if (mailToList.Where(a => a.mail == mailToG).ToList().Count == 0)
                         {
-                            mailToList.Add(new MailList { mail = mailToG });
+                            MailList mailList = new MailList();
+                            mailList.mail = mailToG;
+                            mailToList.Add(mailList);
                         }
                     }
                 }
@@ -135,7 +139,9 @@ namespace Wiki.Areas.ApproveCD.Models
                 }
                 try
                 {
-                    mailToList.Add(new MailList { mail = db.ApproveCDOrders.Find(approveCDOrdersId).PZ_PlanZakaz.AspNetUsers.Email });
+                    MailList mailList = new MailList();
+                    mailList.mail = db.ApproveCDOrders.Find(approveCDOrdersId).PZ_PlanZakaz.AspNetUsers.Email;
+                    mailToList.Add(mailList);
                 }
                 catch
                 {

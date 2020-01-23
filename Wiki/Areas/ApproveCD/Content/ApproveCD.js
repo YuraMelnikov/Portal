@@ -41,14 +41,14 @@ var objOrders = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
-    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
-    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true },
     { "title": "Открыт", "data": "dateOpen", "autowidth": true, "bSortable": true },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true },
-    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true }
+    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true }
 ];
 
 var objQuestions = [
