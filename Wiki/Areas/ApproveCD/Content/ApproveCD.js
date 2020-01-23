@@ -79,6 +79,12 @@ function StartMenu() {
         $('#BtnAddQuestion').show();
     }
     $("#ordersTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Approve/GetNoApproveTable/",
@@ -102,6 +108,12 @@ function StartMenu() {
         }
     });
     $("#questionsTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Approve/GetNotCloseQuestionsTable/",
@@ -125,6 +137,12 @@ function StartMenu() {
         }
     });
     $("#tasksTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Approve/GetTasksTable/",
@@ -155,6 +173,29 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+    $("#concretTaskTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Approve/GetConcretTaskTable/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objTasks,
+        "cache": false,
+        "async": false,
+        "scrollY": vhScrollY,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 function GetNoApproveTable() {
@@ -162,6 +203,12 @@ function GetNoApproveTable() {
     table.destroy();
     $('#ordersTable').empty();
     $("#ordersTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Approve/GetNoApproveTable/",
@@ -190,6 +237,12 @@ function GetApproveTable() {
     table.destroy();
     $('#ordersTable').empty();
     $("#ordersTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
         "ajax": {
             "cache": false,
             "url": "/Approve/GetApproveTable/",
@@ -285,6 +338,40 @@ function GetTasksTable() {
         "processing": true,
         "columns": objTasks,
         "scrollY": vhScrollY,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function GetConcretTaskTable(idOrder) {
+    var table = $('#concretTaskTable').DataTable();
+    table.destroy();
+    $('#concretTaskTable').empty();
+    $("#concretTaskTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        "ajax": {
+            "cache": false,
+            "url": "/Approve/GetConcretTaskTable/" + idOrder,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objTasks,
+        "scrollY": '25vh',
         "scrollX": true,
         "paging": false,
         "info": false,
@@ -529,6 +616,7 @@ function ClearUOrderModalField() {
 
 function GetOrderByIdForView(id){
     ClearUOrderModalField();
+    GetConcretTaskTable(id);
     $('#loadVerDiv').hide();
     $('#ectionTS').hide();
     $('#getCustomer').hide();
@@ -551,6 +639,7 @@ function GetOrderByIdForView(id){
 
 function GetOrderByIdForEdit(id) {
     ClearUOrderModalField();
+    GetConcretTaskTable(id);
     $('#loadVerDiv').hide();
     $('#ectionTS').hide();
     $('#getCustomer').hide();

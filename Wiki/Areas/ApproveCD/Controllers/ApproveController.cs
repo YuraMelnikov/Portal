@@ -894,5 +894,70 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult GetConcretTaskTable(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    List<TaskApproveCD> tasksList = new List<TaskApproveCD>();
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var tasks = db.ApproveCDTasks
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                        .Where(a => a.id_ApproveCDOrders == id)
+                        .ToList();
+                    foreach (var dataInList in tasks)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateEvent, dataInList.text,
+                            GetUserName(dataInList.id_AspNetUsers), dataInList.deadline,
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 1);
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var questions = db.ApproveCDQuestions
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                        .Where(a => a.id_ApproveCDOrders == id)
+                        .ToList();
+                    foreach (var dataInList in questions)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.dateTimeCreate, GetQuestionText(dataInList.id) + GetQuestionData(dataInList.id),
+                            null, null,
+                            dataInList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 2);
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var actionsList = db.ApproveCDActions
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.ApproveCDVersions.ApproveCDOrders.PZ_PlanZakaz)
+                        .Include(a => a.TypeRKD_Mail_Version)
+                        .Where(a => a.ApproveCDVersions.id_ApproveCDOrders == id)
+                        .ToList();
+                    foreach (var dataInList in actionsList)
+                    {
+                        TaskApproveCD taskApproveCD = new TaskApproveCD(dataInList.datetime, dataInList.TypeRKD_Mail_Version.name,
+                            null, null,
+                            dataInList.ApproveCDVersions.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz.ToString(), 3);
+                        tasksList.Add(taskApproveCD);
+                    }
+                    var data = tasksList.Select(dataList => new
+                    {
+                        dateAction = JsonConvert.SerializeObject(dataList.dateTime, longUsSetting).Replace(@"""", ""),
+                        dataList.order,
+                        dataList.action,
+                        dataList.user,
+                        deadline = JsonConvert.SerializeObject(dataList.deadline, shortSetting).Replace(@"""", ""),
+                        dataList.typeTask
+                    });
+                    return Json(new { data });
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetConcretTaskTable: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

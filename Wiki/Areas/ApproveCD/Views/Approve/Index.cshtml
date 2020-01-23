@@ -3,39 +3,46 @@
     Layout = "~/Areas/ApproveCD/Views/Shared/_LayoutApproveCD.cshtml";
 }
 
-<head>
-    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
-    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
-    <script src="~/Content/globalScript.js?v0.1"></script>
-    <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v0.3"></script>
-    <style>
-        th.dt-invisible-column {
-            border: 0 !important;
-            padding: 0 !important;
-        }
+    <head>
+        <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+        <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+        <link href="~/Content/DataTables/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="~/Content/DataTables/dataTables.buttons.min.js"></script>
+        <script src="~/Content/DataTables/jszip.min.js"></script>
+        <script src="~/Content/DataTables/pdfmake.min.js"></script>
+        <script src="~/Content/DataTables/buttons.html5.min.js"></script>
+        <script src="~/Content/globalScript.js?v1.0"></script>
+        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v1.0"></script>
+        <style>
+            th.dt-invisible-column {
+                border: 0 !important;
+                padding: 0 !important;
+            }
 
-        .modal.modal-wide .modal-dialog {
-            width: 90%;
-        }
+            .modal.modal-wide .modal-dialog {
+                width: 90%;
+            }
 
-        .modal-wide .modal-body {
-            overflow-y: auto;
-        }
+            .modal-wide .modal-body {
+                overflow-y: auto;
+            }
 
-        .colu-200 {
-            min-width: 200px;
-        }
+            .colu-200 {
+                min-width: 200px;
+            }
 
-        .colu-300 {
-            min-width: 300px;
-        }
-    </style>
-</head>
+            .colu-300 {
+                min-width: 300px;
+            }
+        </style>
+    </head>
 
 <div class="row">
     <div class="col-md-12">
         <button type="button" class="btn-xs btn-primary" id="BtnAddOrders" data-toggle="modal" data-target="#NewOrdersModal" onclick="ClearNewOrdersFields();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
         <label id="labelOrdersTable"></label>
+        <br />
+        <br />
         <table id="ordersTable" class="table table-hover table-striped" style="width:100%;"></table>
         <hr />
         <button type="button" class="btn-xs btn-primary" id="BtnAddQuestion" data-toggle="modal" data-target="#QuestionModal" onclick="ClearNewQuestionField();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -267,7 +274,7 @@
                         <label>Получены данные от КО:</label>
                     </div>
                     <div class="col-lg-12">
-                        <textarea rows="10" id="commitTSToKO" class="form-control"></textarea>
+                        <textarea rows="7" id="commitTSToKO" class="form-control"></textarea>
                     </div>
                     <div class="col-lg-12">
                         <hr />
@@ -280,7 +287,7 @@
                         <label>Получен ответ от Заказчика:</label>
                     </div>
                     <div class="col-lg-12">
-                        <textarea rows="10" id="commitTS" class="form-control"></textarea>
+                        <textarea rows="7" id="commitTS" class="form-control"></textarea>
                     </div>
                     <div class="col-lg-12">
                         <hr />
@@ -294,6 +301,13 @@
                         <table id="questionsTableById" class="table table-hover table-striped" style="width:100%;"></table>
                         <label></label>
                         <table id="tasksTableById" class="table table-hover table-striped" style="width:100%;"></table>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>События: </label>
+                        <table id="concretTaskTable" class="table table-hover table-striped" style="width:100%;"></table>
                     </div>
                 </div>
             </div>
