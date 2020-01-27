@@ -30,10 +30,10 @@
         <label for="Client">Укажите необходимый диапазон ячеек:</label>
         @Html.DropDownList("listSelections", ViewBag.list as MultiSelectList, new { @class = "form-control", onchange = "list(this)" })
     </div>
-    <div class="col-md-2">
+    @*<div class="col-md-2">
         <br />
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="cleanCells();">Затать расстояние в пределах ряда</button>
-    </div>
+    </div>*@
     <div class="col-md-2">
         <h3 id="remainingZeroPoints"></h3>
     </div>

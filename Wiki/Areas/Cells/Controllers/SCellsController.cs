@@ -31,18 +31,17 @@ namespace Wiki.Areas.Cells.Controllers
 
         public JsonResult List(string id)
         {
-            int idT = Convert.ToInt32(id);
             string login = HttpContext.User.Identity.Name;
             using (SCellsEntities db = new SCellsEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                int idS = db.Section.First(d => d.name == id).idS;
+                int idT = db.Tier.First(a => a.name == id).id;
                 var query = db.TierMap
                     .AsNoTracking()
                     .Include(d => d.Tier)
                     .Include(d => d.Tier1)
-                    .Where(d => d.id == idT)
+                    .Where(d => d.tierIdStart == idT)
                     .ToList();
                 var data = query.Select(dataList => new
                 {
@@ -171,15 +170,42 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                SectionMap sCells = db.SectionMap.Find(id);
+                TierMap sCells = db.TierMap.Find(id);
                 sCells.distance = distance;
                 db.Entry(sCells).State = EntityState.Modified;
                 db.SaveChanges();
-                SectionMap sCells1 = db.SectionMap.First(d => d.sectionIdFinish == sCells.sectionIdStart && d.sectionIdStart == sCells.sectionIdFinish);
-                sCells1.distance = distance;
-                db.Entry(sCells1).State = EntityState.Modified;
-                db.SaveChanges();
+                int ids1 = db.Tier.Find(sCells.tierIdStart).idS;
+                int ids2 = db.Tier.Find(sCells.tierIdFinish).idS;
+                bool update = db.Section.Find(ids1).updateTier.Value;
+                if(update == false)
+                {
+                    var listUpdate = db.TierMap.Where(a => a.Tier.Section.idS == ids1 && a.Tier1.idS == ids2).ToList();
+                    foreach (var data in listUpdate)
+                    {
+                        data.distance = distance;
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    listUpdate = db.TierMap.Where(a => a.Tier.Section.idS == ids2 && a.Tier1.idS == ids1).ToList();
+                    foreach (var data in listUpdate)
+                    {
+                        data.distance = distance;
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
                 logger.Debug("SCells UpdateDistance: " + id.ToString());
+                //db.Configuration.ProxyCreationEnabled = false;
+                //db.Configuration.LazyLoadingEnabled = false;
+                //SectionMap sCells = db.SectionMap.Find(id);
+                //sCells.distance = distance;
+                //db.Entry(sCells).State = EntityState.Modified;
+                //db.SaveChanges();
+                //SectionMap sCells1 = db.SectionMap.First(d => d.sectionIdFinish == sCells.sectionIdStart && d.sectionIdStart == sCells.sectionIdFinish);
+                //sCells1.distance = distance;
+                //db.Entry(sCells1).State = EntityState.Modified;
+                //db.SaveChanges();
+                //logger.Debug("SCells UpdateDistance: " + id.ToString());
             }
             return true;
         }
@@ -190,7 +216,7 @@ namespace Wiki.Areas.Cells.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                return Json(db.SectionMap.Count(d => d.distance == 0) / 2, JsonRequestBehavior.AllowGet);
+                return Json(db.TierMap.Count(d => d.distance == 0) / 2, JsonRequestBehavior.AllowGet);
             }
         }
 

@@ -15,10 +15,10 @@ function loadData(listId) {
 
 var objList = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "ИД. начальной секции", "data": "sectionIdStart", "autowidth": true, "bSortable": true },
-    { "title": "Наименование начальной секции", "data": "name1", "autowidth": true, "bSortable": true },
-    { "title": "ИД. конечной секции", "data": "sectionIdFinish", "autowidth": true, "bSortable": true },
-    { "title": "Наименование конечной секции", "data": "name2", "autowidth": true, "bSortable": true },
+    { "title": "ИД. начальной ячейки", "data": "sectionIdStart", "autowidth": true, "bSortable": true },
+    { "title": "Наименование начальной ячейки", "data": "name1", "autowidth": true, "bSortable": true },
+    { "title": "ИД. конечной ячейки", "data": "sectionIdFinish", "autowidth": true, "bSortable": true },
+    { "title": "Наименование конечной ячейки", "data": "name2", "autowidth": true, "bSortable": true },
     { "title": "Расстояние (м)", "data": "distance", "autowidth": true, "bSortable": true }
 ];
 
