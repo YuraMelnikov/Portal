@@ -346,7 +346,11 @@ function getTAEdit(id) {
         dataType: "json",
         success: function (result) {
             disabledFalse();
+            $('#id_AspNetUserTask').val("");
+            $('#textTask').val("");
+            $('#deadlineTask').val("");
             $('#id').val(result.id);
+            $('#idR').val(result.id);
             $('#userUploadReclamation').val(result.userUploadReclamation);
             $('#text').val(result.text);
             $('#description').val(result.description);
@@ -457,7 +461,7 @@ function AddTask() {
     var objRemark = {
         id_AspNetUserTask: $('#id_AspNetUserTask').val(),
         textTask: $('#textTask').val(),
-        id: $('#id').val(),
+        idR: $('#idR').val(),
         deadlineTask: $('#deadlineTask').val()
     };
     $.ajax({

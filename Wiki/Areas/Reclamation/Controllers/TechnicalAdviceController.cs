@@ -188,11 +188,11 @@ namespace Wiki.Areas.Reclamation.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddTask(string id_AspNetUserTask, DateTime deadlineTask, string textTask, int id)
+        public JsonResult AddTask(string id_AspNetUserTask, DateTime deadlineTask, string textTask, int idR)
         {
             Reclamation_TechnicalAdviceTasks reclamation_TechnicalAdviceTasks = new Reclamation_TechnicalAdviceTasks();
             reclamation_TechnicalAdviceTasks.id_AspNetUsers = id_AspNetUserTask;
-            reclamation_TechnicalAdviceTasks.id_Reclamation_TechnicalAdvice = id;
+            reclamation_TechnicalAdviceTasks.id_Reclamation_TechnicalAdvice = idR;
             reclamation_TechnicalAdviceTasks.datetimeCreate = DateTime.Now;
             reclamation_TechnicalAdviceTasks.deadline = deadlineTask;
             reclamation_TechnicalAdviceTasks.textAnswer = "";

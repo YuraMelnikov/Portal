@@ -684,6 +684,12 @@ left join (select sum([nhPlan] * coefError) as [sumNhPlan], sum([nhFact] * coefE
 where PortalKATEK.dbo.CMKO_ThisAccrued.id_AspNetUsers = PortalKATEK.dbo.CMKO_ThisIndicatorsUsers.id_AspNetUsers
 
 
+update PortalKATEK.dbo.CMKO_ThisAccrued set  PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] = 0 where PortalKATEK.dbo.CMKO_ThisAccrued.[bonusPlan] < 0
+
+
+update PortalKATEK.dbo.CMKO_ThisAccrued set  PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] = 0 where PortalKATEK.dbo.CMKO_ThisAccrued.[bonusFact] < 0
+
+
 delete PortalKatek.dbo.DashboardKOHssPO
 insert into PortalKatek.dbo.DashboardKOHssPO
 SELECT [Dashboard].[dbo].[1910_DB_прибыль].[quart]
