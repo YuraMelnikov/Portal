@@ -66,6 +66,11 @@ namespace Wiki.Areas.ApproveCD.Models
                 {
                     body += dataInQueList.datetimeCreate + " | " + dataInQueList.textData + " | " + dataInQueList.AspNetUsers.CiliricalName + @"<br/>";
                 }
+                if(db.ApproveCDQuestions.Find(queId).active == true)
+                {
+                    body += @"<br/>" + @"<br/>" + "Вопрос закрыт";
+                }
+
                 return true;
             }
         }

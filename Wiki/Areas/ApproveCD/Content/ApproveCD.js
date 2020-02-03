@@ -6,7 +6,6 @@
 var vhScrollY = '50vh';
 
 $(document).ready(function () {
-    $('#BtnAddOrders').hide();
     $('#BtnAddQuestion').hide();
     $('#BtnAddTask').hide();
     $('#hideIdOrder').hide();
@@ -71,6 +70,7 @@ var objTasks = [
 ];
 
 function StartMenu() {
+    $('#btnCloseQue').hide();
     if (leavelUser === 4 || leavelUser === '4') {
         $('#BtnAddOrders').show();
         $('#BtnAddQuestion').show();
@@ -78,6 +78,7 @@ function StartMenu() {
     }
     if (leavelUser === 1 || leavelUser === '1') {
         $('#BtnAddQuestion').show();
+        $('#btnCloseQue').show();
     }
     $("#ordersTable").DataTable({
         "dom": 'Bfrtip',
@@ -831,6 +832,27 @@ function UpdateOrderGetCustomerComplited() {
             $("#UOrderModal").modal('hide');
             $('#ordersTable').DataTable().ajax.reload(null, false);
             $('#tasksTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+function CloseQuestion() {
+    var objQuestion = {
+        idQue: $('#idQue').val(),
+        commitQue: $('#commitQue').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/CloseQuestion",
+        data: JSON.stringify(objQuestion),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#UQuestionModal").modal('hide');
+            $('#questionsTable').DataTable().ajax.reload(null, false);
         },
         error: function () {
         }

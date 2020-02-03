@@ -981,5 +981,42 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult CloseQuestion(int idQue, string commitQue)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    if(commitQue != null)
+                    {
+                        if(commitQue != "")
+                        {
+                            ApproveCDQuestionCorr approveCDQuestionCorr = new ApproveCDQuestionCorr
+                            {
+                                datetimeCreate = DateTime.Now,
+                                id_ApproveCDQuestions = idQue,
+                                id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                                textData = commitQue
+                            };
+                            db.ApproveCDQuestionCorr.Add(approveCDQuestionCorr);
+                            db.SaveChanges();
+                        }
+                    }
+                    var que = db.ApproveCDQuestions.Find(idQue);
+                    que.active = true;
+                    db.Entry(que).State = EntityState.Modified;
+                    db.SaveChanges();
+                    EmailApproveCDQue emailApproveCDQue = new EmailApproveCDQue(idQue, login);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateQuestion: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

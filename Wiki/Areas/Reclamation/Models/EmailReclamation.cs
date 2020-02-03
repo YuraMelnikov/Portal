@@ -15,6 +15,7 @@ namespace Wiki.Areas.Reclamation.Models
         //Reload - 2
         //Answer - 3
         //Remove - 4
+        //CounterError - 5
 
         int stepNumber;
         string subject;
@@ -80,6 +81,8 @@ namespace Wiki.Areas.Reclamation.Models
                 name = "направлен ответ";
             else if (stepNumber == 4)
                 name = "УДАЛЕНА";
+            else if (stepNumber == 5)
+                name = "Установлена степень ошибки";
             return name;
         }
 
@@ -103,6 +106,10 @@ namespace Wiki.Areas.Reclamation.Models
                 body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> Сотрудник: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + db.AspNetUsers.First(d => d.Email == login).CiliricalName;
                 body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> История переписки: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + reclamationViwers.Answers;
             }
+            if(stepNumber == 5)
+            {
+                body += @"</span><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span></tr><tr style='mso-yfti-irow:2'><td nowrap valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal align=right style='text-align:right'><span style='mso-bookmark:_MailOriginal'><b><span style='font-family:Arial,sans-serif'> Степень ошибки: </span></b><o:p></o:p></span></p></td><span style='mso-bookmark:_MailOriginal'></span><td valign=top style='padding:2.25pt 2.25pt 2.25pt 2.25pt'><p class=MsoNormal><span style='mso-bookmark:_MailOriginal'><span style='font-family:Arial,sans-serif'>" + reclamation.Reclamation_CountError.name;
+            }
             body += @"</table>";
             return true;
         }
@@ -111,38 +118,44 @@ namespace Wiki.Areas.Reclamation.Models
         {
             mailToList = new List<string>();
             mailToList.Add("myi@katek.by");
-            mailToList.Add("bav@katek.by");
-            mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).Email);
-            if(reclamation.id_DevisionReclamation == 13)
+            if(stepNumber == 5)
             {
-                mailToList.Add("laa@katek.by");
+                mailToList.Add(reclamation.AspNetUsers1.Email);
             }
             else
             {
-
-                foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
+                mailToList.Add("bav@katek.by");
+                mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersCreate).Email);
+                if (reclamation.id_DevisionReclamation == 13)
                 {
-                    mailToList.Add(data.Email);
-                }
-                if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
-                {
-                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
-                    {
-                        mailToList.Add(data.Email);
-                    }
+                    mailToList.Add("laa@katek.by");
                 }
                 else
                 {
-                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
+                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionCreate).Where(d => d.LockoutEnabled == true))
                     {
                         mailToList.Add(data.Email);
                     }
-                }
-                if (reclamation.editManufacturing == true)
-                {
-                    foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
+                    if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
                     {
-                        mailToList.Add(data.Email);
+                        foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
+                        {
+                            mailToList.Add(data.Email);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.id_DevisionReclamation).Where(d => d.LockoutEnabled == true))
+                        {
+                            mailToList.Add(data.Email);
+                        }
+                    }
+                    if (reclamation.editManufacturing == true)
+                    {
+                        foreach (var data in db.AspNetUsers.Where(d => d.Devision == reclamation.editManufacturingIdDevision).Where(d => d.LockoutEnabled == true))
+                        {
+                            mailToList.Add(data.Email);
+                        }
                     }
                 }
             }

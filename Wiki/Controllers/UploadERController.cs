@@ -87,7 +87,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.IzKom = Convert.ToDouble(((Excel.Range)range.Cells[row, 16]).Text);
+                        hteo.IzKom = Convert.ToDouble(((Excel.Range)range.Cells[row, 18]).Text);
                     }
                     catch
                     {
@@ -95,7 +95,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.PercKredit = Convert.ToDouble(((Excel.Range)range.Cells[row, 17]).Text);
+                        hteo.PercKredit = Convert.ToDouble(((Excel.Range)range.Cells[row, 18]).Text);
                     }
                     catch
                     {
@@ -103,7 +103,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.SSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 26]).Text);
+                        hteo.SSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 32]).Text);
                     }
                     catch
                     {
@@ -111,7 +111,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.FSSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 32]).Text);
+                        hteo.FSSM = Convert.ToDouble(((Excel.Range)range.Cells[row, 37]).Text);
                     }
                     catch
                     {
@@ -119,7 +119,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.SSPO = Convert.ToDouble(((Excel.Range)range.Cells[row, 29]).Text);
+                        hteo.SSPO = Convert.ToDouble(((Excel.Range)range.Cells[row, 34]).Text);
                     }
                     catch
                     {
@@ -127,7 +127,7 @@ namespace Wiki.Controllers
                     }
                     try
                     {
-                        hteo.FSSPO = Convert.ToDouble(((Excel.Range)range.Cells[row, 34]).Text);
+                        hteo.FSSPO = Convert.ToDouble(((Excel.Range)range.Cells[row, 39]).Text);
                     }
                     catch
                     {
@@ -136,7 +136,7 @@ namespace Wiki.Controllers
                     hteo.Curency = 0;
                     try
                     {
-                        hteo.PI = Convert.ToDouble(((Excel.Range)range.Cells[row, 16]).Text);
+                        hteo.PI = Convert.ToDouble(((Excel.Range)range.Cells[row, 17]).Text);
                     }
                     catch
                     {
