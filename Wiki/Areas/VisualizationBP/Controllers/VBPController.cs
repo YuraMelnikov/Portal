@@ -250,7 +250,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             Elementnames[] elementsArray = new Elementnames[countElements];
             for (int i = 0; i < countElements; i++)
             {
-                elementsArray[i].taskName = inputList[i].TaskName;
+                try
+                {
+                    elementsArray[i].taskName = inputList[i].TaskName.Substring(0, 28);
+                }
+                catch
+                {
+                    elementsArray[i].taskName = inputList[i].TaskName;
+                }
                 elementsArray[i].wbsName = inputList[i].TaskWBS2;
             }
             BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
@@ -391,7 +398,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9 || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 22 || d.AspNetUsers.Devision == 20)
                     .Include(d => d.AspNetUsers)
                     .ToList();
-                elementDataProjectTasksState.Name = "Производство";
+                elementDataProjectTasksState.Name = "Производство&nbsp;&nbsp;&nbsp;&nbsp;";
                 try
                 {
                     elementDataProjectTasksState.StartDate = tasksList.Min(d => d.TaskStartDate);
@@ -443,7 +450,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 blockProjectTasksState.ElementProjectTasksStates[1].Name = "Общая сборка - производство";
                 var ps = tasksLiat.First(d => d.TaskWBS2 == "ОСПВ");
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0] = new ElementDataProjectTasksState();
-                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Name = "Предварительная ведомость 1с";
+                blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Name = "Предв. ведомость&nbsp;";
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Work = (double)ps.TaskWork;
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].StartDate = ps.TaskStartDate;
                 blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].FinishDate = ps.TaskfinishDate;
@@ -519,7 +526,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     var sn = tasksLiat.First(d => d.TaskWBS2 == "*МСН");
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Name = "Собственные нужды";
+                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Name = "Монтаж СН&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Work = (double)sn.TaskWork;
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].StartDate = sn.TaskStartDate;
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].FinishDate = sn.TaskfinishDate;

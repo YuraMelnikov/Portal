@@ -45,19 +45,19 @@ namespace Wiki.Areas.VisualizationBP.Types
             }
             else if (wbsName == "РМ")
             {
-                return "Компл. РКД КБМ";
+                return "Компл. РКД КБМ&nbsp;";
             }
             else if (wbsName == "РЭ")
             {
-                return "Компл. РКД КБЭ";
+                return "Компл. РКД КБЭ&nbsp;";
             }
             else if (wbsName == "СМ")
             {
-                return "Согл. РКД КБМ";
+                return "Согл. РКД КБМ&nbsp;&nbsp;&nbsp;";
             }
             else if (wbsName == "СЭ")
             {
-                return "Согл. РКД КБЭ";
+                return "Согл. РКД КБЭ&nbsp;&nbsp;&nbsp;";
             }
             else
             {

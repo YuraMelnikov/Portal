@@ -235,7 +235,6 @@ class TaskCard {
         this.cardName = cardName;
         this.taskArray = new Array();
     }
-
     get cardName() {
         return this.cardName;
     }
@@ -250,7 +249,7 @@ function GetProjectTasksStates(id) {
         success: function (result) {
             var counterCard = 0;
             var counerTask = 0;
-            for(var i = 0; i < 5; i++) {
+            for(var i = 1; i < 5; i++) {
                 counterCard = result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates.length;
                 for (var j = 0; j < counterCard; j++) {
                     cardArray.push(new TaskCard(result.projectTasksState.BlockProjectTasksStates[i].ElementProjectTasksStates[j].Name));
@@ -290,7 +289,6 @@ function CreateTaskCard(counterStep) {
         for (var j = 0; j < counterTasks; j++) {
             if (cardArray[i].taskArray[j].taskName !== null) {
                 var dateFinishTask = ParseJsonDate(cardArray[i].taskArray[j].finishDate);
-
                 if (cardArray[i].taskArray[j].percentComplited === 100) {
                     bodyBlock += "<p class=" + '"' + "bg-info" + '"' + ">";
                     bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask);
