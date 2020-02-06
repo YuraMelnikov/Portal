@@ -482,17 +482,24 @@ namespace Wiki.Areas.Reclamation.Controllers
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetOneReclamation(reclamation.id);
 
-             
-            if(login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by")
+            try
             {
-                if(reclamation.AspNetUsers1.Email != "Kuchynski@katek.by" && reclamation.AspNetUsers1.Email == "fvs@katek.by" && reclamation.AspNetUsers1.Email == "nrf@katek.by")
+                if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by")
                 {
-                    if(reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
+                    if (reclamation.AspNetUsers1.Email != "Kuchynski@katek.by" && reclamation.AspNetUsers1.Email == "fvs@katek.by" && reclamation.AspNetUsers1.Email == "nrf@katek.by")
                     {
-                        EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 5);
+                        if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
+                        {
+                            EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 5);
+                        }
                     }
                 }
             }
+            catch
+            {
+
+            }
+
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 

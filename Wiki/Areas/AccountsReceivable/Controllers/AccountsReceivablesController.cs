@@ -713,7 +713,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     dataList.OtpuskChena,
                     dataList.KursValuti,
                     dataList.Id_PlanZakaz,
-                    dataList.NDS
+                    dataList.NDS,
+                    dataList.SSMProduct
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
             }
