@@ -172,6 +172,7 @@
           <Property Name="accruedManagerForNTaskKBE" Type="float" Nullable="false" />
           <Property Name="id_RKD_GIP_KBM" Type="nvarchar" MaxLength="128" />
           <Property Name="id_RKD_GIP_KBE" Type="nvarchar" MaxLength="128" />
+          <Property Name="nHourRecorded" Type="bit" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_CounterError">
@@ -792,6 +793,7 @@
           <Property Name="TaskBaseline0Work" Type="float" />
           <Property Name="TaskDuration" Type="float" />
           <Property Name="TaskIndex" Type="int" Nullable="false" />
+          <Property Name="TaskIsCritical" Type="bit" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
@@ -1941,14 +1943,6 @@
           <Property Name="time" Type="int" Nullable="false" />
           <Property Name="id_TypeTaskForPZ" Type="int" Nullable="false" />
           <Property Name="Predecessors" Type="int" />
-        </EntityType>
-        <EntityType Name="tmpUpDate1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="ИдПапки" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ИдРекламации" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="TypeRKD_Mail_Version">
           <Key>
@@ -4577,7 +4571,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ServiceRemarksTypes" EntityType="Self.ServiceRemarksTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tmpUpDate1" EntityType="Self.tmpUpDate1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeTaskForPZ" EntityType="Self.TypeTaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPO" EntityType="Self.UserPO" Schema="dbo" store:Type="Tables" />
@@ -6376,7 +6369,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="tmpUpDate1" EntityType="PortalKATEKModel.tmpUpDate1" />
         </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -7308,6 +7300,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers" FromRole="CMKO_BujetList" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_CMKO_BujetList_AspNetUsers1" FromRole="CMKO_BujetList" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMKO_BujetList_PZ_PlanZakaz" FromRole="CMKO_BujetList" ToRole="PZ_PlanZakaz" />
+          <Property Name="nHourRecorded" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CMKO_Optimization">
           <Key>
@@ -7875,6 +7868,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="DashboardBPTaskInsert" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="DashboardBPTaskInsert" ToRole="PZ_PlanZakaz" />
+          <Property Name="TaskIsCritical" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKO_UsersMonthPlan">
           <Key>
@@ -11103,14 +11097,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="tmpUpDate1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="ИдПапки" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="ИдРекламации" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11972,6 +11958,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMKO_BujetList">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_BujetList">
               <MappingFragment StoreEntitySet="CMKO_BujetList">
+                <ScalarProperty Name="nHourRecorded" ColumnName="nHourRecorded" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_RKD_GIP_KBE" ColumnName="id_RKD_GIP_KBE" />
                 <ScalarProperty Name="id_RKD_GIP_KBM" ColumnName="id_RKD_GIP_KBM" />
@@ -12502,6 +12489,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="DashboardBPTaskInsert">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPTaskInsert">
               <MappingFragment StoreEntitySet="DashboardBPTaskInsert">
+                <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TaskIndex" ColumnName="TaskIndex" />
                 <ScalarProperty Name="TaskDuration" ColumnName="TaskDuration" />
@@ -13441,15 +13429,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tmpUpDate1">
-            <EntityTypeMapping TypeName="PortalKATEKModel.tmpUpDate1">
-              <MappingFragment StoreEntitySet="tmpUpDate1">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ИдРекламации" ColumnName="ИдРекламации" />
-                <ScalarProperty Name="ИдПапки" ColumnName="ИдПапки" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

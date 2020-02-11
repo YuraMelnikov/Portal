@@ -5,7 +5,7 @@ var sizeTextLabetGraphic = '11px';
 var marginForTitle = -10;
 var heightForStatusLine = '69px';
 var minusPxTextForGantt = 5;
-var redZoneReamainingHSS = 2000;
+var redZoneReamainingHSS = 2250;
 var pointWidthForGantt = 14;
 var heightTableTasks = '190px';
 var heightTableComments = '600px';
@@ -17,7 +17,6 @@ $(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
     GetHSSPlanToYear();
-    GetRatePlanToYear();
     GetRemainingHSS();
     GetTaskThisDayTable();
     GetVarianceTasksTable();
@@ -41,7 +40,10 @@ var objTableTaskData = [
 ];
 
 function GetPrjCart(id) {
+    var tmp = document.getElementById('tasksCardPool').innerHTML;
+    document.getElementById('tasksCardPool').innerHTML = '';
     GetPrjContractDate(id);
+    tmp = document.getElementById('tasksCardPool').innerHTML;
     GetPercentDevisionComplited(id);
     GetProjectTasksStates(id);
     CreateTaskCard();
@@ -242,6 +244,7 @@ class TaskCard {
 }
 
 function GetProjectTasksStates(id) {
+    cardArray = new Array();
     $.ajax({
         url: "/VBP/GetProjectTasksStates/" + id, 
         type: "POST",
@@ -284,7 +287,8 @@ function GetProjectTasksStates(id) {
 function CreateTaskCard(counterStep) {
     var counterTasks = 0;
     var bodyBlock = "";
-    var basicBlock = "<div class=" + '\u0022' + "row" + '\u0022' + ">";
+    var basicBlock = "";
+    basicBlock = "<div class=" + '\u0022' + "row" + '\u0022' + ">";
     for (var i = 0; i < counterStep; i++) {
         counterTasks = cardArray[i].taskArray.length;
         for (var j = 0; j < counterTasks; j++) {
@@ -694,102 +698,6 @@ function GetHSSPlanToYear() {
                     name: 'Факт',
                     data: myJSONFact,
                     color: colorDiagramm,
-                    dataLabels: {
-                        enabled: true,
-                        align: 'left',
-                        style: {
-                            fontWeight: 'bold'
-                        },
-                        x: 3,
-                        verticalAlign: 'middle',
-                        overflow: true,
-                        crop: false
-                    }
-                }]
-            });
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function GetRatePlanToYear() {
-    $.ajax({
-        url: "/VBP/GetRatePlanToYear/",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var myJSONRemainingPlan = new Array();
-            var myJSONFact = new Array();
-            myJSONRemainingPlan[0] = result[0];
-            myJSONFact[0] = result[1];
-            Highcharts.setOptions({
-                credits: {
-                    enabled: false
-                }
-            });
-            Highcharts.chart('ratePlanToYear', {
-                credits: {
-                    enabled: false
-                },
-                legend: {
-                    enabled: false
-                },
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
-                chart: {
-                    type: 'bar',
-                    height: heightForStatusLine
-                },
-                title: {
-                    align: 'left',
-                    text: 'Прибыль (тыс.)',
-                    style: {
-                        "font-size": sizeTextLabetGraphic
-                    },
-                    margin: marginForTitle
-                },
-                xAxis: {
-                    categories: [''],
-                    visible: false
-                },
-                yAxis: {
-                    min: 0,
-                    max: myJSONRemainingPlan[0] + myJSONFact[0],
-                    title: {
-                        enabled: false
-                    },
-                    tickInterval: 5,
-                    visible: false
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'normal'
-                    }
-                },
-                series: [{
-                    name: 'Остаток',
-                    data: myJSONRemainingPlan,
-                    color: '#910000',
-                    dataLabels: {
-                        enabled: true,
-                        align: 'left',
-                        style: {
-                            fontWeight: 'bold'
-                        },
-                        x: 3,
-                        verticalAlign: 'middle',
-                        overflow: true,
-                        crop: false
-                    }
-                }, {
-                    name: 'Факт',
-                    data: myJSONFact,
-                        color: colorDiagramm,
                     dataLabels: {
                         enabled: true,
                         align: 'left',
@@ -1318,6 +1226,10 @@ function GetCriticalRoadGanttToOrder(id) {
         success: function (result) {
             var myJSON = JSON.parse(JSON.stringify(result));
             var lenghtElements = Object.keys(myJSON).length;
+            var heightDiagramm = lenghtElements * pointWidthForGantt * 2.5;
+            heightDiagramm += 'px';
+            var minDate = converDateJSON(myJSON[0].DataOtgruzkiBP);
+            var maxDate;
             for (var i = 0; i < lenghtElements; i++) {
                 var lenghtElementsDeals = Object.keys(myJSON[i].Deals).length;
                 for (var j = 0; j < lenghtElementsDeals; j++) {
@@ -1329,6 +1241,13 @@ function GetCriticalRoadGanttToOrder(id) {
                 myJSON[i].RemainingDuration = myJSON[i].RemainingDuration;
                 myJSON[i].PercentComplited = myJSON[i].PercentComplited;
                 myJSON[i].Duration = myJSON[i].Duration;
+                myJSON[i].TaskName = myJSON[i].TaskName;
+                if (myJSON[i].DataOtgruzkiBP < minDate) {
+                    minDate = myJSON[i].DataOtgruzkiBP;
+                }
+                if (myJSON[i].ContractDateComplited > maxDate) {
+                    maxDate = myJSON[i].ContractDateComplited;
+                }
             }
             var today = new Date(),
                 map = Highcharts.map,
@@ -1343,22 +1262,23 @@ function GetCriticalRoadGanttToOrder(id) {
                 var data = myJSON.Deals.map(function (deal) {
                     return {
                         id: 'deal-' + i,
-                        rentedTo: deal.TCPM,
+                        rentedTo: deal.User,
                         start: deal.From,
                         end: deal.To,
-                        color: colorDiagramm,
+                        color: "#910000",
                         dependency: 'prototype',
-                        name: renderToNullString(deal.TCPM, deal.Milestone),
+                        name: renderToNullString(deal.User, deal.Milestone),
                         pointWidth: pointWidthForGantt,
                         milestone: deal.Milestone,
+                        taskName: myJSON.TaskName,
+                        percentComplited: myJSON.PercentComplited,
                         y: i
                     };
                 });
                 return {
                     dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
-                    failure: myJSON.Failure,
                     remainingDuration: myJSON.RemainingDuration,
-                    duration: myJSON.Duration,
+                    taskName: myJSON.TaskName,
                     percentComplited: myJSON.PercentComplited,
                     contractDateComplited: myJSON.ContractDateComplited,
                     name: myJSON.OrderNumber,
@@ -1370,27 +1290,27 @@ function GetCriticalRoadGanttToOrder(id) {
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
-                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                    weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                    shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+                    months: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                    weekdays: ['Вc', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                    shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
                     rangeSelectorFrom: "С",
                     rangeSelectorTo: "По",
                     rangeSelectorZoom: "Период",
-                    Week: 'Нед.',
+                    week: 'Нед',
                     Start: 'Начало'
                 },
                 credits: {
                     enabled: false
                 }
             });
-            Highcharts.ganttChart('projectPortfolio', {
+            Highcharts.ganttChart('criticalRoad', {
                 series: series,
                 plotOptions: {
                     series: {
                         animation: false,
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name}',
+                            format: '{point.percentComplited}',
                             style: {
                                 color: "contrast",
                                 fontSize: pointWidthForGantt - minusPxTextForGantt,
@@ -1400,9 +1320,9 @@ function GetCriticalRoadGanttToOrder(id) {
                         },
                         allowPointSelect: true,
                         events: {
-                            click: function (event) {
-                                click: GetPrjCart(this.name);
-                            }
+                            //click: function (event) {
+                            //    click: GetPrjCart(this.name);
+                            //}
                         }
                     }
                 },
@@ -1418,22 +1338,23 @@ function GetCriticalRoadGanttToOrder(id) {
                     }
                 },
                 tooltip: {
-                    pointFormat: '<span>ХСС: {point.rentedTo}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
+                    pointFormat: '<span>Задача: {point.taskName}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
                 },
                 xAxis: [{
-                    min: getMinDate(),
-                    max: getMaxDate(),
+                    min: minDate,
+                    max: maxDate,
                     labels: {
                         style: {
                             "color": "#0d233a",
                             "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
                     },
-                    type: 'category',
-                    gridLineWidth: 1
-                }, {
-                    visible: false,
-                    opposite: false
+                    
+                        dateTimeLabelFormats: {
+                            week: 'Woche %W'
+                        }
+                    ,
+                    tickPixelInterval: 120
                 }],
                 yAxis: {
                     labels: {
@@ -1444,97 +1365,83 @@ function GetCriticalRoadGanttToOrder(id) {
                     },
                     type: 'category',
                     grid: {
-                        columns: [{
-                            title: {
-                                text: 'Отгрузка',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
+                        columns: [
+                            {
+                                title: {
+                                    text: '%',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.percentComplited;
+                                })
                             },
-                            categories: map(series, function (s) {
-                                return dateFormat('%e. %b', s.dataOtgruzkiBP);
-                            })
-                        }, {
-                            title: {
-                                text: 'Откл.',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
+                            {
+                                title: {
+                                    text: 'Ост. тр-ты',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.remainingDuration;
+                                })
                             },
-                            categories: map(series, function (s) {
-                                return s.failure;
-                            })
-                        }, {
-                            title: {
-                                text: '%',
-
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
+                            {
+                                title: {
+                                    text: 'Начало',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return dateFormat('%e. %b', s.dataOtgruzkiBP);
+                                })
                             },
-                            categories: map(series, function (s) {
-                                return s.percentComplited;
-                            })
-                        },
-                        {
-                            title: {
-                                text: 'Ост. длит.',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
+                            {
+                                title: {
+                                    text: 'Окончание',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return dateFormat('%e. %b', s.contractDateComplited);
+                                })
                             },
-                            categories: map(series, function (s) {
-                                return s.remainingDuration;
-                            })
-                        },
-                        {
-                            title: {
-                                text: 'Длит.',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
+                            {
+                                title: {
+                                    text: 'Исполнитель',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.name;
+                                })
                             },
-                            categories: map(series, function (s) {
-                                return s.duration;
-                            })
-                        },
-                        {
-                            title: {
-                                text: 'КС',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
-                            },
-                            categories: map(series, function (s) {
-                                return dateFormat('%e. %b', s.contractDateComplited);
-                            })
-                        }, {
-                            title: {
-                                text: 'Заказ',
-                                style: {
-                                    "color": "#0d233a",
-                                    "fontSize": pointWidthForGantt - minusPxTextForGantt
-                                }
-                            },
-                            categories: map(series, function (s) {
-                                return s.name;
-                            }),
-                            scrollbar: {
-                                enabled: true,
-                                showFull: false
-                            }
-                        }]
-                    },
-                    max: 20
+                            {
+                                title: {
+                                    text: 'Задача',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.taskName;
+                                })
+                            }]
+                    }
                 },
                 chart: {
-                    height: '515px'
+                    height: heightDiagramm
                 }
             });
         }

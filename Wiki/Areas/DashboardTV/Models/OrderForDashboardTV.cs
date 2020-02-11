@@ -15,6 +15,7 @@ namespace Wiki.Areas.DashboardTV.Models
         double duration;
         double remainingDuration;
         int percentComplited;
+        string taskName;
 
         public string OrderNumber { get => orderNumber; set => orderNumber = value; }
         public int Current { get => current; set => current = value; }
@@ -27,5 +28,6 @@ namespace Wiki.Areas.DashboardTV.Models
         public double Duration { get => Math.Round(duration, 1); set => duration = value; }
         public double RemainingDuration { get => Math.Round(remainingDuration, 1); set => remainingDuration = value; }
         public int PercentComplited { get => percentComplited; set => percentComplited = value; }
+        public string TaskName { get => taskName; set => taskName = value; }
     }
 }

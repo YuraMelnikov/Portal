@@ -798,94 +798,54 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-        //public JsonResult GetCriticalRoadGanttToOrder(int id)
-        //{
-        //    using (PortalKATEKEntities db = new PortalKATEKEntities())
-        //    {
-        //        db.Configuration.ProxyCreationEnabled = false;
-        //        db.Configuration.LazyLoadingEnabled = false;
-        //        var projectList = db.DashboardBPTaskInsert
-        //            .AsNoTracking()
-        //            .Include(d => d.PZ_PlanZakaz)
-        //            .Where(d => d.PZ_PlanZakaz.PlanZakaz == id)
-        //            .OrderBy(d => d.Key)
-        //            .ToList();
-        //        DateTime minDate = GetMinDate();
-        //        DateTime maxDate = GetMaxDate();
-        //        int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
+        public JsonResult GetCriticalRoadGanttToOrder(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var projectList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers.Devision1)
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id)
+                    .Where(d => d.TaskIsCritical == true && d.id_AspNetUsers != null)
+                    .OrderBy(d => d.TaskfinishDate)
+                    .ToList();
+                DateTime minDate = projectList.Min(a => a.TaskStartDate);
+                DateTime maxDate = projectList.Max(a => a.TaskfinishDate);
+                int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
+                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    dataList[i] = new OrderForDashboardTV();
+                    dataList[i].PercentComplited = projectList[i].TaskPercentWorkCompleted;
+                    dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
+                    dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate;
+                    dataList[i].ContractDateComplited = projectList[i].TaskfinishDate;
+                    dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
+                    dataList[i].TaskName = projectList[i].TaskName;
+                    dataList[i].Current = 0;
+                    dataList[i].Color = "#910000";
+                    dataList[i].Milestone = false;
+                    dataList[i].Deals = new DealsForDashboardTV[1];
+                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV
+                    {
+                        User = projectList[i].AspNetUsers.CiliricalName,
+                        From = projectList[i].TaskStartDate,
+                        To = projectList[i].TaskfinishDate,
+                        Milestone = false,
+                        Color = "#910000"
+                    };
+                    dataList[i].Deals[0] = dealsForDashboardTV;
+                }
+                return Json(dataList.OrderBy(d => d.ContractDateComplited), JsonRequestBehavior.AllowGet);
+            }
+        }
 
-
-
-
-        //        OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count + 1];
-        //        dataList[0] = new OrderForDashboardTV();
-        //        dataList[0].Current = 0;
-        //        dataList[0].Color = "#910000";
-        //        dataList[0].OrderNumber = "!Итого";
-        //        dataList[0].DataOtgruzkiBP = DateTime.Now;
-        //        dataList[0].ContractDateComplited = DateTime.Now;
-        //        dataList[0].Failure = 0;
-        //        dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
-        //        dataList[0].Milestone = false;
-
-        //        int countForDeals = 0;
-        //        for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
-        //        {
-        //            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-        //            dealsForDashboardTV.TCPM = GetHSSToMonth(i);
-        //            dealsForDashboardTV.From = new DateTime(i.Year, i.Month, 1);
-        //            dealsForDashboardTV.To = GetCorrectFinishDate(i);
-        //            dealsForDashboardTV.Milestone = false;
-        //            dealsForDashboardTV.Color = "#910000";
-        //            dataList[0].Deals[countForDeals] = dealsForDashboardTV;
-        //            countForDeals++;
-        //        }
-        //        for (int i = 1; i < projectList.Count + 1; i++)
-        //        {
-        //            dataList[i] = new OrderForDashboardTV();
-        //            dataList[i].Current = 0;
-        //            dataList[i].OrderNumber = projectList[i - 1].Key;
-        //            string indexOrder = projectList[i - 1].Key;
-        //            int integerIndexOrder = Convert.ToInt32(indexOrder);
-        //            DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
-        //            dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;
-        //            dataList[i].Color = "#2b908f";
-        //            dataList[i].DataOtgruzkiBP = dashboardTV_DataForProjectPortfolio.dataOtgruzkiBP;
-        //            dataList[i].Duration = dashboardTV_DataForProjectPortfolio.duration / 8.0;
-        //            dataList[i].RemainingDuration = dashboardTV_DataForProjectPortfolio.remainingDuration / 8.0;
-        //            dataList[i].PercentComplited = dashboardTV_DataForProjectPortfolio.percentComplited;
-        //            dataList[i].Failure = (int)(dataList[i].ContractDateComplited - dataList[i].DataOtgruzkiBP).TotalDays;
-        //            int countDeals = db.DashboardTV_DataForProjectPortfolio.Where(d => d.orderNumber == indexOrder).Count();
-        //            dataList[i].Deals = new DealsForDashboardTV[countDeals];
-        //            dataList[i].Milestone = false;
-        //        }
-        //        var verificationList = db.PlanVerificationItems
-        //            .AsNoTracking()
-        //            .Include(d => d.PZ_PlanZakaz)
-        //            .ToList();
-        //        var portfolioList = db.DashboardTV_DataForProjectPortfolio
-        //            .AsNoTracking()
-        //            .ToList();
-        //        int j = 0;
-        //        string orderNumberList = "";
-        //        foreach (var dataInList in portfolioList.OrderBy(d => d.orderNumber))
-        //        {
-        //            if (orderNumberList != dataInList.orderNumber)
-        //            {
-        //                j = 0;
-        //                orderNumberList = dataInList.orderNumber;
-        //            }
-        //            DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-        //            dealsForDashboardTV.TCPM = dataInList.tcpm;
-        //            dealsForDashboardTV.From = dataInList.from;
-        //            dealsForDashboardTV.To = dataInList.to;
-        //            dealsForDashboardTV.Milestone = false;
-        //            dealsForDashboardTV.Color = "#2b908f";
-        //            dataList.First(d => d.OrderNumber == dataInList.orderNumber).Deals[j] = dealsForDashboardTV;
-        //            j++;
-        //        }
-        //        return Json(dataList.OrderBy(d => d.DataOtgruzkiBP), JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        private int GetMinthDifferent(DateTime lValue, DateTime rValue)
+        {
+            return (lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year);
+        }
     }
 }

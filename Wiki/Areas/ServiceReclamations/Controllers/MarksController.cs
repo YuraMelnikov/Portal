@@ -53,42 +53,42 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
 
         public ActionResult DeBug()
         {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                foreach(var data in db.ServiceRemarks.Where(a => a.classicId != null).ToList())
-                {
-                    string pzString1 = "";
-                    foreach (var data1 in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == data.id).ToList())
-                    {
-                        pzString1 += db.PZ_PlanZakaz.Find(data1.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
-                    }
-                    data.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString1 + data.id.ToString() + "_";
-                    db.Entry(data).State = EntityState.Modified;
-                    db.SaveChanges();
-                    Directory.CreateDirectory(data.folder);
-                }
+            //using (PortalKATEKEntities db = new PortalKATEKEntities())
+            //{
+            //    foreach(var data in db.ServiceRemarks.Where(a => a.classicId != null).ToList())
+            //    {
+            //        string pzString1 = "";
+            //        foreach (var data1 in db.ServiceRemarksPlanZakazs.Where(d => d.id_ServiceRemarks == data.id).ToList())
+            //        {
+            //            pzString1 += db.PZ_PlanZakaz.Find(data1.id_PZ_PlanZakaz).PlanZakaz.ToString() + "_";
+            //        }
+            //        data.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString1 + data.id.ToString() + "_";
+            //        db.Entry(data).State = EntityState.Modified;
+            //        db.SaveChanges();
+            //        Directory.CreateDirectory(data.folder);
+            //    }
 
-                //copyDocuments
-                var listFolder = db.tmpUpDate1.ToList();
-                foreach (var data in listFolder)
-                {
-                    string path = @"\\192.168.1.30\m$\Пользователи\myi\Рекламации архив\Документация\" + data.ИдПапки.ToString() + @"\";
-                    try
-                    {
-                        var fileList = Directory.GetFiles(path).ToList();
-                        foreach (var fileData in fileList)
-                        {
-                            FileInfo fi = new FileInfo(fileData);
-                            string pathTo = db.ServiceRemarks.First(a => a.classicId == data.ИдРекламации).folder + @"\" + fi.Name;
-                            fi.CopyTo(pathTo, false);
-                        }
-                    }
-                    catch
-                    {
+            //    //copyDocuments
+            //    var listFolder = db.tmpUpDate1.ToList();
+            //    foreach (var data in listFolder)
+            //    {
+            //        string path = @"\\192.168.1.30\m$\Пользователи\myi\Рекламации архив\Документация\" + data.ИдПапки.ToString() + @"\";
+            //        try
+            //        {
+            //            var fileList = Directory.GetFiles(path).ToList();
+            //            foreach (var fileData in fileList)
+            //            {
+            //                FileInfo fi = new FileInfo(fileData);
+            //                string pathTo = db.ServiceRemarks.First(a => a.classicId == data.ИдРекламации).folder + @"\" + fi.Name;
+            //                fi.CopyTo(pathTo, false);
+            //            }
+            //        }
+            //        catch
+            //        {
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
             return View();
         }
 
