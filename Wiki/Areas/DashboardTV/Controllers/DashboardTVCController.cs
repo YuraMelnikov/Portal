@@ -92,7 +92,7 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     dataList[i] = new OrderForDashboardTV();
                     dataList[i].Current = 0;
                     dataList[i].OrderNumber = projectList[i - 1].Key;
-                    string indexOrder = dataList[i].OrderNumber;
+                    string indexOrder = projectList[i - 1].Key;
                     int integerIndexOrder = Convert.ToInt32(indexOrder);
                     DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
                     dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;

@@ -245,6 +245,7 @@ left join (select sum(ProjectWebApp.dbo.MSP_EpmAssignmentByDay.AssignmentWork) a
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
 and (PortalKATEK.dbo.AspNetUsers.Email != 'dms@katek.by')
 and (concat(year(getdate()), '.', iif(month(getdate()) < 10, '0', ''), month(getdate())) <= PortalKATEK.dbo.ProductionCalendar.[period])
+and (TableAssigments.SumAssignmentWork is not null)
 
 
 delete PortalKATEK.dbo.DashboardBPTaskInsert 
@@ -275,6 +276,7 @@ PortalKATEK.dbo.PZ_PlanZakaz.Id as [id_PZ_PlanZakaz]
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskBaseline0Work
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskDuration
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIndex
+,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIsCritical
 from ProjectWebApp.dbo.MSP_EpmProject_UserView
 left join ProjectWebApp.dbo.MSP_EpmTask_UserView on ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 left join ProjectWebApp.dbo.MSP_EpmAssignment_UserView on ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID
@@ -296,3 +298,5 @@ and (PortalKATEK.dbo.PZ_Client.id != 39)
 and (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS not like '')
 --and (TableWorkKBE.[close] = 1)
 --and (TableWorkKBM.[close] = 1)
+
+update [PortalKATEK].[dbo].[DashboardBPTaskInsert] set TaskWBS2 = '*ням' where [TaskWBS3] like '**хн'
