@@ -395,6 +395,15 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="BurnDownBP.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BurnDownI.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BurnDownP.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Calendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

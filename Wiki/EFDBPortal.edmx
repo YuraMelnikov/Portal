@@ -125,6 +125,33 @@
           <Property Name="dateToCMKO" Type="date" />
           <Property Name="tax" Type="float" />
         </EntityType>
+        <EntityType Name="BurnDownBP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="value" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BurnDownI">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="value" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BurnDownP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="week" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="value" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="id" />
@@ -2362,6 +2389,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BurnDownBP_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="BurnDownBP" Type="Self.BurnDownBP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownBP">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BurnDownI_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="BurnDownI" Type="Self.BurnDownI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownI">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BurnDownP_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="BurnDownP" Type="Self.BurnDownP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownP">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CMKO_BujetList_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="CMKO_BujetList" Type="Self.CMKO_BujetList" Multiplicity="*" />
@@ -4422,6 +4485,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BurnDownBP" EntityType="Self.BurnDownBP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BurnDownI" EntityType="Self.BurnDownI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BurnDownP" EntityType="Self.BurnDownP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_BujetList" EntityType="Self.CMKO_BujetList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_CounterError" EntityType="Self.CMKO_CounterError" Schema="dbo" store:Type="Tables" />
@@ -4774,6 +4840,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_AspNetUsers_Devision" Association="Self.FK_AspNetUsers_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BurnDownBP_PZ_PlanZakaz" Association="Self.FK_BurnDownBP_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownBP" EntitySet="BurnDownBP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BurnDownI_PZ_PlanZakaz" Association="Self.FK_BurnDownI_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownI" EntitySet="BurnDownI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BurnDownP_PZ_PlanZakaz" Association="Self.FK_BurnDownP_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownP" EntitySet="BurnDownP" />
           </AssociationSet>
           <AssociationSet Name="FK_CMKO_BujetList_AspNetUsers" Association="Self.FK_CMKO_BujetList_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6370,6 +6448,21 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="BurnDownBP" EntityType="PortalKATEKModel.BurnDownBP" />
+          <EntitySet Name="BurnDownI" EntityType="PortalKATEKModel.BurnDownI" />
+          <EntitySet Name="BurnDownP" EntityType="PortalKATEKModel.BurnDownP" />
+          <AssociationSet Name="FK_BurnDownBP_PZ_PlanZakaz" Association="PortalKATEKModel.FK_BurnDownBP_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownBP" EntitySet="BurnDownBP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BurnDownI_PZ_PlanZakaz" Association="PortalKATEKModel.FK_BurnDownI_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownI" EntitySet="BurnDownI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BurnDownP_PZ_PlanZakaz" Association="PortalKATEKModel.FK_BurnDownP_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="BurnDownP" EntitySet="BurnDownP" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Calendar">
@@ -8313,6 +8406,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="BurnDownBP" Relationship="PortalKATEKModel.FK_BurnDownBP_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="BurnDownBP" />
+          <NavigationProperty Name="BurnDownI" Relationship="PortalKATEKModel.FK_BurnDownI_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="BurnDownI" />
+          <NavigationProperty Name="BurnDownP" Relationship="PortalKATEKModel.FK_BurnDownP_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="BurnDownP" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -11101,6 +11197,72 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="BurnDownBP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_BurnDownBP_PZ_PlanZakaz" FromRole="BurnDownBP" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="BurnDownI">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_BurnDownI_PZ_PlanZakaz" FromRole="BurnDownI" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <EntityType Name="BurnDownP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="week" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_BurnDownP_PZ_PlanZakaz" FromRole="BurnDownP" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_BurnDownBP_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.BurnDownBP" Role="BurnDownBP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownBP">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BurnDownI_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.BurnDownI" Role="BurnDownI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownI">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BurnDownP_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.BurnDownP" Role="BurnDownP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BurnDownP">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13435,6 +13597,36 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BurnDownBP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.BurnDownBP">
+              <MappingFragment StoreEntitySet="BurnDownBP">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BurnDownI">
+            <EntityTypeMapping TypeName="PortalKATEKModel.BurnDownI">
+              <MappingFragment StoreEntitySet="BurnDownI">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BurnDownP">
+            <EntityTypeMapping TypeName="PortalKATEKModel.BurnDownP">
+              <MappingFragment StoreEntitySet="BurnDownP">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

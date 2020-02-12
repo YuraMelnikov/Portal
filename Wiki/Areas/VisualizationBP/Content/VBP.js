@@ -1552,9 +1552,9 @@ function GetHSSPO() {
 var cmoTableData = [
     { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
-    { "title": "Размещен", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Ожидается", "data": "criticalDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Поступил", "data": "dateComplited", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Размещен", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Ожидается", "data": "criticalDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Поступил", "data": "dateComplited", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "№ заявки", "data": "orderNumber", "autowidth": true, "bSortable": true, "className": 'text-center' }
 ];
 

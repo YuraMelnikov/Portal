@@ -42,6 +42,9 @@ namespace Wiki
             this.RKD_Order = new HashSet<RKD_Order>();
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
+            this.BurnDownBP = new HashSet<BurnDownBP>();
+            this.BurnDownI = new HashSet<BurnDownI>();
+            this.BurnDownP = new HashSet<BurnDownP>();
         }
     
         public int Id { get; set; }
@@ -149,5 +152,11 @@ namespace Wiki
         public virtual ICollection<SandwichPanel_PZ> SandwichPanel_PZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BurnDownBP> BurnDownBP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BurnDownI> BurnDownI { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BurnDownP> BurnDownP { get; set; }
     }
 }
