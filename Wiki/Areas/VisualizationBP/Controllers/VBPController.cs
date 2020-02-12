@@ -7,6 +7,7 @@ using Wiki.Models;
 using System.Collections.Generic;
 using Wiki.Areas.VisualizationBP.Types;
 using Wiki.Areas.DashboardTV.Models;
+using Wiki.Areas.DashboardKO.Models;
 
 namespace Wiki.Areas.VisualizationBP.Controllers
 {
@@ -192,21 +193,28 @@ namespace Wiki.Areas.VisualizationBP.Controllers
 
         public JsonResult GetProjectTasksStates(string id)
         {
-            int ids = Convert.ToInt32(id);
-            int countBlocks = 5;
-            ProjectTasksState projectTasksState = new ProjectTasksState(countBlocks);
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            try
             {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                int id_PZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == ids).Id;
-                var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Include(d => d.PZ_PlanZakaz).Where(d => d.PZ_PlanZakaz.PlanZakaz == ids).OrderBy(d => d.TaskIndex).ToList();
-                projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
-                projectTasksState.BlockProjectTasksStates[2] = GetTasksPfBlock(tasksList.Where(d => d.TaskOutlineLevel == 2 || d.TaskOutlineLevel == 3).Where(d => d.TaskIsSummary == true).ToList());
-                projectTasksState.BlockProjectTasksStates[1] = GetTasksFinalBlock(id_PZ);
-                projectTasksState.BlockProjectTasksStates[3] = GetTasksDocBlock(id_PZ);
-                projectTasksState.BlockProjectTasksStates[4] = GetTasksShBlock(id_PZ);
-                return Json(new { projectTasksState });
+                int ids = Convert.ToInt32(id);
+                int countBlocks = 5;
+                ProjectTasksState projectTasksState = new ProjectTasksState(countBlocks);
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    int id_PZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == ids).Id;
+                    var tasksList = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Include(d => d.PZ_PlanZakaz).Where(d => d.PZ_PlanZakaz.PlanZakaz == ids).OrderBy(d => d.TaskIndex).ToList();
+                    projectTasksState.BlockProjectTasksStates[0] = GetTasksStartBlock(tasksList.Where(d => d.TaskOutlineLevel == 1).ToList());
+                    projectTasksState.BlockProjectTasksStates[2] = GetTasksPfBlock(tasksList.Where(d => d.TaskOutlineLevel == 2 || d.TaskOutlineLevel == 3).Where(d => d.TaskIsSummary == true).ToList());
+                    projectTasksState.BlockProjectTasksStates[1] = GetTasksFinalBlock(id_PZ);
+                    projectTasksState.BlockProjectTasksStates[3] = GetTasksDocBlock(id_PZ);
+                    projectTasksState.BlockProjectTasksStates[4] = GetTasksShBlock(id_PZ);
+                    return Json(new { projectTasksState });
+                }
+            }
+            catch
+            {
+                return Json(0);
             }
         }
 
@@ -846,6 +854,31 @@ namespace Wiki.Areas.VisualizationBP.Controllers
         private int GetMinthDifferent(DateTime lValue, DateTime rValue)
         {
             return (lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year);
+        }
+        
+        public JsonResult GetHSSPO()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardKOHssPO
+                    .AsNoTracking()
+                    .OrderBy(d => d.quart)
+                    .ToList();
+                int maxCounterValue = query.Count();
+                UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new UserResultWithDevision();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].userName = query[i].quart;
+                    data[i].count = (int)query[i].hss;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

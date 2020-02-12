@@ -1,7 +1,4 @@
-﻿var speedometerRed1To = 700;
-var speedometerYellowTo = 1000;
-var speedometerGreenTo = 1250;
-var sizeTextLabetGraphic = '11px';
+﻿var sizeTextLabetGraphic = '11px';
 var marginForTitle = -10;
 var heightForStatusLine = '69px';
 var minusPxTextForGantt = 5;
@@ -9,7 +6,7 @@ var redZoneReamainingHSS = 2250;
 var pointWidthForGantt = 14;
 var heightTableTasks = '190px';
 var heightTableComments = '600px';
-var colorDiagramm = '#3fb0ac';
+var colorDiagramm = '#3fb0ac'; 
 
 var cardArray = new Array();
 
@@ -26,6 +23,7 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
+    GetHSSPO();
 });
 
 var objTableTaskData = [
@@ -40,15 +38,15 @@ var objTableTaskData = [
 ];
 
 function GetPrjCart(id) {
-    var tmp = document.getElementById('tasksCardPool').innerHTML;
-    document.getElementById('tasksCardPool').innerHTML = '';
-    GetPrjContractDate(id);
-    tmp = document.getElementById('tasksCardPool').innerHTML;
-    GetPercentDevisionComplited(id);
-    GetProjectTasksStates(id);
-    CreateTaskCard();
-    GetCriticalRoadGanttToOrder(id);
-    $('#orderModal').modal('show');
+    if (id !== "!Итого") {
+        document.getElementById('tasksCardPool').innerHTML = '';
+        GetPrjContractDate(id);
+        GetPercentDevisionComplited(id);
+        GetProjectTasksStates(id);
+        CreateTaskCard();
+        GetCriticalRoadGanttToOrder(id);
+        $('#orderModal').modal('show');
+    }
 }
 
 function GetPrjContractDate(id) {
@@ -277,10 +275,7 @@ function GetProjectTasksStates(id) {
                 }
             }
             CreateTaskCard(cardArray.length);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
+        } 
     });
 }
 
@@ -301,13 +296,13 @@ function CreateTaskCard(counterStep) {
                 }
                 else if (cardArray[i].taskArray[j].percentComplited === 0) {
                     bodyBlock += "<p class=" + '"' + "bg-danger" + '"' + ">";
-                    bodyBlock += "<span class=" + '"' + "glyphicon glyphicon-flash" + '"' + "></span>" + " | ";
-                    bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask)
+                    bodyBlock += "<span class=" + '"' + "glyphicon glyphicon-ban-circle" + '"' + "></span>" + " | ";
+                    bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask) 
                         + " | " + Math.round(cardArray[i].taskArray[j].remainingWork);
                 }
                 else {
                     bodyBlock += "<p class=" + '"' + "bg-warning" + '"' + ">";
-                    bodyBlock += "<span class=" + '"' + "glyphicon glyphicon-ban-circle" + '"' + "></span>" + " | ";
+                    bodyBlock += "<span class=" + '"' + "glyphicon glyphicon-flash" + '"' + "></span>" + " | ";
                     bodyBlock += cardArray[i].taskArray[j].taskName + " | " + ConvertDateToGlobalShortString(dateFinishTask)
                         + " | " + Math.round(cardArray[i].taskArray[j].remainingWork);
                 }
@@ -362,6 +357,18 @@ function getGanttProjects() {
                 for (var j = 0; j < lenghtElementsDeals; j++) {
                     myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
                     myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
+                    if (myJSON[i].Failure < 0) {
+                        myJSON[i].Deals[j].Color = "#910000";
+                    } 
+                    else {
+                        myJSON[i].Deals[j].Color = colorDiagramm;
+                    }
+                }
+                if (myJSON[i].Failure < 0) {
+                    myJSON[i].Color = "#910000";
+                }
+                else {
+                    myJSON[i].Color = colorDiagramm;
                 }
                 myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
                 myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
@@ -385,7 +392,7 @@ function getGanttProjects() {
                         rentedTo: deal.TCPM,
                         start: deal.From,
                         end: deal.To,
-                        color: colorDiagramm,
+                        color: deal.Color,
                         dependency: 'prototype',
                         name: renderToNullString(deal.TCPM, deal.Milestone),
                         pointWidth: pointWidthForGantt,
@@ -1180,13 +1187,13 @@ function GetCommentsList() {
 }
 
 var objWorkpowerManufacturingTable = [
+    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Участок", "data": "devision", "autowidth": true, "bSortable": true },
-    { "title": "Кол-во (prj)", "data": "countPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Тр-ты (prj)", "data": "workPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Потребность (чел)", "data": "workMode", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Численность (prj)", "data": "countPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Тр-ты (ч.)", "data": "workPrj", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Трудодни", "data": "workDay", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Коэф. прочих", "data": "coefDefaultWork", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Режим работы", "data": "workMode", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Период", "data": "period", "autowidth": true, "bSortable": true, "className": 'text-center' }
+    { "title": "Коэф. прочих", "data": "coefDefaultWork", "autowidth": true, "bSortable": true, "className": 'text-center' }
 ];
 
 function GetWorkpowerManufacturing() {
@@ -1444,6 +1451,73 @@ function GetCriticalRoadGanttToOrder(id) {
                     height: heightDiagramm
                 }
             });
+        }
+    });
+}
+
+function GetHSSPO() {
+    $.ajax({
+        url: "/CMK/GetHSSPO/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArray = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].userName;
+                dataArray[i] = result[i].count;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('hssPO', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'ХСС',
+                    data: dataArray,
+                    color: colorDiagramm
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: "#0d233a" 
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

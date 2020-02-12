@@ -140,6 +140,9 @@ PortalKATEK.dbo.DashboardBP_State.id
 ,PortalKATEK.dbo.DashboardBP_HSSPO.year
 ,month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)
 ,convert(int,sum(PortalKATEK.dbo.DashboardBP_HSSPO.xSsm))
+,iif(len(month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)) = 1, concat(year(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay), '.0', 
+month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)), concat(year(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay), '.', 
+month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay))) as [yearMonth]
 FROM [PortalKATEK].[dbo].[DashboardBP_State]
 left join PortalKATEK.dbo.DashboardBP_HSSPO on PortalKATEK.dbo.DashboardBP_HSSPO.id_DashboardBP_State = PortalKATEK.dbo.DashboardBP_State.id
 where active = 1
@@ -147,6 +150,9 @@ group by
 PortalKATEK.dbo.DashboardBP_State.id
 ,PortalKATEK.dbo.DashboardBP_HSSPO.year
 ,month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)
+,iif(len(month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)) = 1, concat(year(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay), '.0', 
+month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)), concat(year(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay), '.', 
+month(PortalKATEK.dbo.DashboardBP_HSSPO.timeByDay)))
 
 
 DELETE PortalKATEK.dbo.DashboardHSSPlan
@@ -215,7 +221,7 @@ PortalKATEK.dbo.DashboardBPDevisionCoef.id as id_DashboardBPDevisionCoef
 ,TablePlanPowerResource.manpower as manpowerPrj
 ,TableAssigments.SumAssignmentWork as planWork
 ,PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workday
-,TableAssigments.SumAssignmentWork * PortalKATEK.dbo.DashboardBPDevisionCoef.coefDefaultWork / PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8 as workMode
+,TableAssigments.SumAssignmentWork * PortalKATEK.dbo.DashboardBPDevisionCoef.coefDefaultWork / 8 / (PortalKATEK.dbo.ProductionCalendar.timeToOnePerson / 8) as workMode
 ,0 as manpowerResult
 ,0 as workModeResult
 ,PortalKATEK.dbo.ProductionCalendar.id as id_ProductionCalendar
