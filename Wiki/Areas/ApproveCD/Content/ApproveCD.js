@@ -39,13 +39,13 @@ function LoadData(id) {
 var objOrders = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
-    { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true },
-    { "title": "Открыт", "data": "dateOpen", "autowidth": true, "bSortable": true },
-    { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true },
+    { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
+    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Открыт", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
     { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true }
 ];
@@ -53,17 +53,17 @@ var objOrders = [
 var objQuestions = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
-    { "title": "Ид. вопр.", "data": "idQue", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Ид. вопр.", "data": "idQue", "autowidth": true, "bSortable": false, "className": 'text-center' },
     { "title": "Вопрос", "data": "que", "autowidth": true, "bSortable": false },
     { "title": "Ход обсуждения", "data": "queData", "autowidth": true, "bSortable": false },
-    { "title": "Создан", "data": "createDate", "autowidth": true, "bSortable": true },
+    { "title": "Создан", "data": "createDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Кем создан", "data": "createUser", "autowidth": true, "bSortable": true }
 ];
 
 var objTasks = [
-    { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": true },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Дата", "data": "dateAction", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Описание", "data": "action", "autowidth": true, "bSortable": false },
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
@@ -201,6 +201,8 @@ function StartMenu() {
 }
 
 function GetNoApproveTable() {
+    var days = new Date();
+    days.setDate(days.getDate() - 9);
     var table = $('#ordersTable').DataTable();
     table.destroy();
     $('#ordersTable').empty();
@@ -221,6 +223,13 @@ function GetNoApproveTable() {
         "order": [[2, "asc"]],
         "processing": true,
         "columns": objOrders,
+        "rowCallback": function (row, data, index) {
+            $('td', row).eq(5).addClass('highlightColor');
+            var dateJSON = new Date(data.dateLastLoad)
+            if (dateJSON < days) {
+                $('td', row).eq(5).addClass('xhighlightColor');
+            }
+        },
         "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
@@ -255,6 +264,9 @@ function GetApproveTable() {
         "order": [[2, "asc"]],
         "processing": true,
         "columns": objOrders,
+        "rowCallback": function (row, data, index) {
+            $('td', row).eq(5).addClass('highlightColor');
+        },
         "scrollY": vhScrollY,
         "scrollX": true,
         "paging": false,
