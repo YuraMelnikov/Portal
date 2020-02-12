@@ -116,9 +116,9 @@ namespace Wiki.Areas.ApproveCD.Models
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    logger.Error("EmailApproveCD: GetMailList: " + approveCDOrdersId + " | Exeption text: " + ex);
                 }
                 try
                 {
@@ -133,9 +133,9 @@ namespace Wiki.Areas.ApproveCD.Models
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    logger.Error("EmailApproveCD: GetMailList: " + approveCDOrdersId + " | Exeption text: " + ex);
                 }
                 try
                 {
@@ -143,9 +143,9 @@ namespace Wiki.Areas.ApproveCD.Models
                     mailList.mail = db.ApproveCDOrders.Find(approveCDOrdersId).PZ_PlanZakaz.AspNetUsers.Email;
                     mailToList.Add(mailList);
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    logger.Error("EmailApproveCD: GetMailList: " + approveCDOrdersId + " | Exeption text: " + ex);
                 }
                 foreach (var dataList in mailToList)
                 {

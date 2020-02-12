@@ -95,7 +95,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="~/Content/globalScript.js?v1.4"></script>
-    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.20"></script>
+    <script src="~/Areas/VisualizationBP/Content/VBP.js?0.22"></script>
 </head>
 <div class="row">
     <div class="col-lg-12">
@@ -136,12 +136,14 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="col-lg-6" style="margin-top: 6px;">
+        <div class="col-lg-5" style="margin-top: 6px;">
             <h5 style="font-weight: bold; text-align: center; color: #910000;">Загрузка производства</h5>
             <table id="workpowerManufacturingTable" class="display compact" style="width:100%; font-size: 11px;"></table>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-7">
+            <br />
             <h5 style="font-weight: bold; text-align: center; color: #910000;">ХССПО (тыс.)</h5>
+            <br />
             <div id="hssPO" style="margin: 0 auto"></div>
         </div>
     </div>
@@ -192,11 +194,10 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row" id="prjStatesBlock">
-                    <div class="col-lg-12"></div>
-                </div>
-                <div class="row" id="biResultBlock">
-                    <div class="col-lg-12"></div>
+                <div class="row" id="cmoOrders">
+                    <div class="col-lg-12">
+                        <table id="tableCMOOrder" class="display compact" style="width:100%; font-size: 11px;"></table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -375,6 +375,7 @@
     <Compile Include="Areas\VerifPlan\Models\EmailVerifPlan.cs" />
     <Compile Include="Areas\VerifPlan\VerifPlanAreaRegistration.cs" />
     <Compile Include="Areas\VisualizationBP\Controllers\VBPController.cs" />
+    <Compile Include="Areas\VisualizationBP\Models\CMOOrder.cs" />
     <Compile Include="Areas\VisualizationBP\Types\BlockProjectTasksState.cs" />
     <Compile Include="Areas\VisualizationBP\Types\DiagrammPercentComplitedDevisionToWork.cs" />
     <Compile Include="Areas\VisualizationBP\Types\ElementDataProjectTasksState.cs" />
@@ -2763,7 +2764,6 @@
     <Folder Include="Areas\CMKO\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
-    <Folder Include="Areas\VisualizationBP\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

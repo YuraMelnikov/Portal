@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Wiki.Areas.VisualizationBP.Types;
 using Wiki.Areas.DashboardTV.Models;
 using Wiki.Areas.DashboardKO.Models;
+using Wiki.Areas.VisualizationBP.Models;
 
 namespace Wiki.Areas.VisualizationBP.Controllers
 {
@@ -739,16 +740,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.PZ_PlanZakaz)
-                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС" && d.AspNetUsers.Devision == 15)
+                    .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС")
+                    .Where(d => d.AspNetUsers.Devision == 18 || d.AspNetUsers.Devision == 15)
                     .ToList();
-
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
-
-                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ");
+                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ/ГРМ");
                 diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
-
                 return diagrammPercentComplitedDevisionToWork;
             }
         }
@@ -759,22 +758,18 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Include(d => d.PZ_PlanZakaz)
                     .Include(d => d.AspNetUsers)
                     .Where(d => d.PZ_PlanZakaz.PlanZakaz == id && d.TaskWBS1 == "ОС")
-                    .Where(d => d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 3)
+                    .Where(d => d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 12)
                     .ToList();
-
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
-
-                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБЭ");
+                DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБЭ/ГРЭ");
                 diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
-
                 return diagrammPercentComplitedDevisionToWork;
             }
         }
@@ -785,7 +780,6 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-
                 var tasksList = db.DashboardBPTaskInsert
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
@@ -794,14 +788,11 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9
                      || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 20 || d.AspNetUsers.Devision == 22)
                     .ToList();
-
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
-
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("ПО");
                 diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
-
                 return diagrammPercentComplitedDevisionToWork;
             }
         }
@@ -817,10 +808,18 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Include(d => d.AspNetUsers.Devision1)
                     .Include(d => d.PZ_PlanZakaz)
                     .Where(d => d.PZ_PlanZakaz.PlanZakaz == id)
-                    .Where(d => d.TaskIsCritical == true && d.id_AspNetUsers != null)
+                    .Where(d => d.TaskIsCritical == true && d.TaskWBS1 == "ОС" && d.TaskIsMilestone == false && d.TaskIsSummary == false)
                     .OrderBy(d => d.TaskfinishDate)
                     .ToList();
-                DateTime minDate = projectList.Min(a => a.TaskStartDate);
+                DateTime minDate;
+                try
+                {
+                    minDate = projectList.Min(a => a.TaskStartDate);
+                }
+                catch
+                {
+                    minDate = DateTime.Now;
+                }
                 DateTime maxDate = projectList.Max(a => a.TaskfinishDate);
                 int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
                 OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
@@ -831,20 +830,32 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
                     dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate;
                     dataList[i].ContractDateComplited = projectList[i].TaskfinishDate;
-                    dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
+                    try
+                    {
+                        dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
+                    }
+                    catch
+                    {
+                        dataList[i].OrderNumber = "";
+                    }
                     dataList[i].TaskName = projectList[i].TaskName;
                     dataList[i].Current = 0;
                     dataList[i].Color = "#910000";
                     dataList[i].Milestone = false;
                     dataList[i].Deals = new DealsForDashboardTV[1];
-                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV
+                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                    try
                     {
-                        User = projectList[i].AspNetUsers.CiliricalName,
-                        From = projectList[i].TaskStartDate,
-                        To = projectList[i].TaskfinishDate,
-                        Milestone = false,
-                        Color = "#910000"
-                    };
+                        dealsForDashboardTV.User = projectList[i].AspNetUsers.CiliricalName;
+                    }
+                    catch
+                    {
+                        dealsForDashboardTV.User = "";
+                    }
+                    dealsForDashboardTV.From = projectList[i].TaskStartDate;
+                    dealsForDashboardTV.To = projectList[i].TaskfinishDate;
+                    dealsForDashboardTV.Milestone = false;
+                    dealsForDashboardTV.Color = "#910000";
                     dataList[i].Deals[0] = dealsForDashboardTV;
                 }
                 return Json(dataList.OrderBy(d => d.ContractDateComplited), JsonRequestBehavior.AllowGet);
@@ -862,9 +873,11 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var query = db.DashboardKOHssPO
+                int yearFilt = DateTime.Now.Year - 2;
+                var query = db.DashboardBP_HSSPOSmall
                     .AsNoTracking()
-                    .OrderBy(d => d.quart)
+                    .Where(d => d.year > yearFilt)
+                    .OrderBy(d => d.yearMonth)
                     .ToList();
                 int maxCounterValue = query.Count();
                 UserResultWithDevision[] data = new UserResultWithDevision[maxCounterValue];
@@ -874,10 +887,64 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].userName = query[i].quart;
-                    data[i].count = (int)query[i].hss;
+                    data[i].userName = query[i].yearMonth;
+                    data[i].count = query[i].data;
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetOrderCMOTable(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    List<CMOOrder> ordersList = new List<CMOOrder>();
+                    int idpz = db.PZ_PlanZakaz.First(a => a.PlanZakaz == id).Id;
+                    var queryCMO = db.CMO2_Position
+                        .AsNoTracking()
+                        .Include(d => d.PZ_PlanZakaz)
+                        .Include(d => d.CMO_TypeProduct)
+                        .Include(d => d.CMO2_Order.CMO_Company)
+                        .Where(d => d.id_PZ_PlanZakaz == idpz)
+                        .ToList();
+                    foreach (var dataInList in queryCMO)
+                    {
+                        ordersList.Add(new CMOOrder(dataInList.CMO_TypeProduct.name, dataInList.CMO2_Order.CMO_Company.name,
+                            dataInList.CMO2_Order.dateTimeCreate, dataInList.CMO2_Order.manufDate, dataInList.CMO2_Order.finDate,
+                            dataInList.id_CMO2.ToString(), ""));
+                    }
+                    var querySP = db.SandwichPanel_PZ
+                        .AsNoTracking()
+                        .Include(d => d.PZ_PlanZakaz)
+                        .Include(d => d.SandwichPanel.SandwichPanelCustomer)
+                        .Where(d => d.id_PZ_PlanZakaz == idpz)
+                        .ToList();
+                    foreach (var dataInList in querySP)
+                    {
+                        ordersList.Add(new CMOOrder("Сэндвич", dataInList.SandwichPanel.SandwichPanelCustomer.name,
+                            dataInList.SandwichPanel.datetimeCreate, dataInList.SandwichPanel.datetimePlanComplited, dataInList.SandwichPanel.datetimeComplited,
+                            dataInList.id_SandwichPanel.ToString(), ""));
+                    }
+                    var data = ordersList.Select(dataList => new
+                    {
+                        position = dataList.Position,
+                        customer = dataList.Customer,
+                        dateOpen = JsonConvert.SerializeObject(dataList.DateOpen, shortDateString).Replace(@"""", ""),
+                        criticalDate = JsonConvert.SerializeObject(dataList.CriticalDate, shortDateString).Replace(@"""", ""),
+                        dateComplited = JsonConvert.SerializeObject(dataList.DateComplited, shortDateString).Replace(@"""", ""),
+                        orderNumber = dataList.OrderNumber
+                    });
+                    return Json(new { data });
+                }
+            }
+            catch
+            {
+                return Json(0);
             }
         }
     }

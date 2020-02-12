@@ -676,6 +676,7 @@
           <Property Name="year" Type="int" Nullable="false" />
           <Property Name="numberMonth" Type="int" Nullable="false" />
           <Property Name="data" Type="int" Nullable="false" />
+          <Property Name="yearMonth" Type="varchar" MaxLength="7" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardBP_ProjectList">
           <Key>
@@ -794,6 +795,7 @@
           <Property Name="TaskDuration" Type="float" />
           <Property Name="TaskIndex" Type="int" Nullable="false" />
           <Property Name="TaskIsCritical" Type="bit" Nullable="false" />
+          <Property Name="TaskIsMilestone" Type="bit" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
@@ -6499,6 +6501,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="year" Type="Int32" Nullable="false" />
           <Property Name="numberMonth" Type="Int32" Nullable="false" />
           <Property Name="data" Type="Int32" Nullable="false" />
+          <Property Name="yearMonth" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DashboardBPComments">
           <Key>
@@ -7869,6 +7872,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="DashboardBPTaskInsert" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="DashboardBPTaskInsert" ToRole="PZ_PlanZakaz" />
           <Property Name="TaskIsCritical" Type="Boolean" Nullable="false" />
+          <Property Name="TaskIsMilestone" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardKO_UsersMonthPlan">
           <Key>
@@ -11235,6 +11239,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="DashboardBP_HSSPOSmall">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBP_HSSPOSmall">
               <MappingFragment StoreEntitySet="DashboardBP_HSSPOSmall">
+                <ScalarProperty Name="yearMonth" ColumnName="yearMonth" />
                 <ScalarProperty Name="data" ColumnName="data" />
                 <ScalarProperty Name="numberMonth" ColumnName="numberMonth" />
                 <ScalarProperty Name="year" ColumnName="year" />
@@ -12489,6 +12494,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="DashboardBPTaskInsert">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPTaskInsert">
               <MappingFragment StoreEntitySet="DashboardBPTaskInsert">
+                <ScalarProperty Name="TaskIsMilestone" ColumnName="TaskIsMilestone" />
                 <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TaskIndex" ColumnName="TaskIndex" />

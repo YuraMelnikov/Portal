@@ -24,6 +24,22 @@ $(document).ready(function () {
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
     GetHSSPO();
+
+    $("#tableCMOOrder").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetOrderCMOTable/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": cmoTableData,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
 });
 
 var objTableTaskData = [
@@ -45,6 +61,7 @@ function GetPrjCart(id) {
         GetProjectTasksStates(id);
         CreateTaskCard();
         GetCriticalRoadGanttToOrder(id);
+        GetOrderCMOTable(id);
         $('#orderModal').modal('show');
     }
 }
@@ -123,7 +140,7 @@ function GetPercentDevisionComplited(id){
                     min: 0
                 },
                 xAxis: {
-                    categories: ['КБМ', 'КБЭ', 'ПО']
+                    categories: ['КБМ/ГРМ', 'КБЭ/ГРЭ', 'ПО']
                 },
                 plotOptions: {
                     bar: {
@@ -1233,10 +1250,10 @@ function GetCriticalRoadGanttToOrder(id) {
         success: function (result) {
             var myJSON = JSON.parse(JSON.stringify(result));
             var lenghtElements = Object.keys(myJSON).length;
-            var heightDiagramm = lenghtElements * pointWidthForGantt * 2.5;
+            var heightDiagramm = lenghtElements * 14 + 80;
             heightDiagramm += 'px';
             var minDate = converDateJSON(myJSON[0].DataOtgruzkiBP);
-            var maxDate;
+            var maxDate = converDateJSON(myJSON[0].DataOtgruzkiBP);
             for (var i = 0; i < lenghtElements; i++) {
                 var lenghtElementsDeals = Object.keys(myJSON[i].Deals).length;
                 for (var j = 0; j < lenghtElementsDeals; j++) {
@@ -1255,6 +1272,11 @@ function GetCriticalRoadGanttToOrder(id) {
                 if (myJSON[i].ContractDateComplited > maxDate) {
                     maxDate = myJSON[i].ContractDateComplited;
                 }
+            }
+            var minCorrectDate = new Date();
+            minCorrectDate = minCorrectDate.getTime();
+            if (minDate < minCorrectDate) {
+                minDate = minCorrectDate;
             }
             var today = new Date(),
                 map = Highcharts.map,
@@ -1297,9 +1319,9 @@ function GetCriticalRoadGanttToOrder(id) {
             Highcharts.setOptions({
                 lang: {
                     loading: 'Загрузка...',
-                    months: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                    months: ['01', '02', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
                     weekdays: ['Вc', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                    shortMonths: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                    shortMonths: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
                     rangeSelectorFrom: "С",
                     rangeSelectorTo: "По",
                     rangeSelectorZoom: "Период",
@@ -1356,12 +1378,17 @@ function GetCriticalRoadGanttToOrder(id) {
                             "fontSize": pointWidthForGantt - minusPxTextForGantt
                         }
                     },
-                    
-                        dateTimeLabelFormats: {
-                            week: 'Woche %W'
-                        }
-                    ,
-                    tickPixelInterval: 120
+                    endOnTick: true,
+                    dateTimeLabelFormats: {
+                        day: '%e.%b',
+                        hour: '%e.%b',
+                        millisecond: '%e.%b',
+                        minute: '%e.%b',
+                        month: 'Нед. %W',
+                        second: '%e.%b',
+                        week: 'Нед. %W',
+                        year: 'Нед. %W'
+                    }
                 }],
                 yAxis: {
                     labels: {
@@ -1387,7 +1414,7 @@ function GetCriticalRoadGanttToOrder(id) {
                             },
                             {
                                 title: {
-                                    text: 'Ост. тр-ты',
+                                    text: 'Ост.тр',
                                     style: {
                                         "color": "#0d233a",
                                         "fontSize": pointWidthForGantt - minusPxTextForGantt
@@ -1457,7 +1484,7 @@ function GetCriticalRoadGanttToOrder(id) {
 
 function GetHSSPO() {
     $.ajax({
-        url: "/CMK/GetHSSPO/",
+        url: "/VBP/GetHSSPO/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
@@ -1486,7 +1513,7 @@ function GetHSSPO() {
                     type: 'line'
                 },
                 title: {
-                    enabled: false
+                    text: null
                 },
                 xAxis: {
                     categories: catigoriesArray,
@@ -1518,6 +1545,46 @@ function GetHSSPO() {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+var cmoTableData = [
+    { "title": "Позиция", "data": "position", "autowidth": true, "bSortable": true },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Размещен", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Ожидается", "data": "criticalDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Поступил", "data": "dateComplited", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "№ заявки", "data": "orderNumber", "autowidth": true, "bSortable": true, "className": 'text-center' }
+];
+
+function GetOrderCMOTable(id) {
+    var table = $('#tableCMOOrder').DataTable();
+    table.destroy();
+    $('#tableCMOOrder').empty();
+    $("#tableCMOOrder").DataTable({
+        "dom": '<"toolbar1">frtip',
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetOrderCMOTable/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": cmoTableData,
+        "cache": false,
+        "async": false,
+        "scrollY": heightTableTasks,
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
         }
     });
 }

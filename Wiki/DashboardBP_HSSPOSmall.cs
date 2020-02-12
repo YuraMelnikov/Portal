@@ -19,5 +19,6 @@ namespace Wiki
         public int year { get; set; }
         public int numberMonth { get; set; }
         public int data { get; set; }
+        public string yearMonth { get; set; }
     }
 }
