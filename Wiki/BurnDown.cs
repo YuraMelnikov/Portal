@@ -12,12 +12,15 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class BurnDownP
+    public partial class BurnDown
     {
         public int id { get; set; }
         public int id_PZ_PlanZakaz { get; set; }
         public string week { get; set; }
-        public double value { get; set; }
+        public string devision { get; set; }
+        public double valueP { get; set; }
+        public double valueI { get; set; }
+        public double valueBP { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
     }

@@ -306,5 +306,8 @@ and (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS not like '')
 --and (TableWorkKBE.[close] = 1)
 --and (TableWorkKBM.[close] = 1)
 
+
 update [PortalKATEK].[dbo].[DashboardBPTaskInsert] set TaskWBS2 = '*ням' where [TaskWBS3] like '**хн'
 delete PortalKATEK.dbo.DashboardBPTaskInsert  where PortalKATEK.dbo.DashboardBPTaskInsert.id_AspNetUsers = '853a8d87-6cbc-4ca9-bd90-e70e11178ce1'
+
+

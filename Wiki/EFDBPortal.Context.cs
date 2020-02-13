@@ -88,6 +88,7 @@ namespace Wiki
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<BurnDown> BurnDown { get; set; }
         public virtual DbSet<CMKO_BujetList> CMKO_BujetList { get; set; }
         public virtual DbSet<CMKO_Optimization> CMKO_Optimization { get; set; }
         public virtual DbSet<CMKO_PeriodResult> CMKO_PeriodResult { get; set; }
@@ -199,8 +200,5 @@ namespace Wiki
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
-        public virtual DbSet<BurnDownBP> BurnDownBP { get; set; }
-        public virtual DbSet<BurnDownI> BurnDownI { get; set; }
-        public virtual DbSet<BurnDownP> BurnDownP { get; set; }
     }
 }

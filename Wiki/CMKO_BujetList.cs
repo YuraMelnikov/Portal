@@ -50,8 +50,8 @@ namespace Wiki
         public double accruedManagerForNTaskKBE { get; set; }
         public string id_RKD_GIP_KBM { get; set; }
         public string id_RKD_GIP_KBE { get; set; }
-        public int id { get; set; }
         public bool nHourRecorded { get; set; }
+        public int id { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
