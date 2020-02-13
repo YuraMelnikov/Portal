@@ -284,6 +284,7 @@ PortalKATEK.dbo.PZ_PlanZakaz.Id as [id_PZ_PlanZakaz]
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIndex
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIsCritical
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskIsMilestone
+,isnull(ProjectWebApp.dbo.MSP_EpmTask_UserView.Õ , 0)
 from ProjectWebApp.dbo.MSP_EpmProject_UserView
 left join ProjectWebApp.dbo.MSP_EpmTask_UserView on ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 left join ProjectWebApp.dbo.MSP_EpmAssignment_UserView on ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID
@@ -309,5 +310,82 @@ and (ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWBS not like '')
 
 update [PortalKATEK].[dbo].[DashboardBPTaskInsert] set TaskWBS2 = '*Œ—Õ' where [TaskWBS3] like '**»Œ'
 delete PortalKATEK.dbo.DashboardBPTaskInsert  where PortalKATEK.dbo.DashboardBPTaskInsert.id_AspNetUsers = '853a8d87-6cbc-4ca9-bd90-e70e11178ce1'
+
+
+delete PortalKATEK.dbo.BurnDown where PortalKATEK.dbo.BurnDown.valueBP = 0
+insert into PortalKATEK.dbo.BurnDown
+SELECT PortalKATEK.dbo.PZ_PlanZakaz.Id as [id_PZ_PlanZakaz]
+,iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))) as [week]
+,iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) as [devision]
+,sum(iif(iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != 'œŒ', PortalKATEK.dbo.DashboardBPTaskInsert.NH, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskWork])) as [valueP]
+,0 as [valueI]
+,sum(iif(iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != 'œŒ', PortalKATEK.dbo.DashboardBPTaskInsert.NH, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskWork])) as [valueBP]
+from PortalKATEK.dbo.PZ_PlanZakaz 
+left join PortalKATEK.dbo.BurnDown on PortalKATEK.dbo.BurnDown.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.DashboardBPTaskInsert on PortalKATEK.dbo.DashboardBPTaskInsert.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.DashboardBPTaskInsert.id_AspNetUsers
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join ReportKATEK.dbo.NoPlaningPZ on ReportKATEK.dbo.NoPlaningPZ.Id = PortalKATEK.dbo.PZ_PlanZakaz.Id
+where PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP > getdate()
+and iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != ''
+and ReportKATEK.dbo.NoPlaningPZ.Id is null
+and PortalKATEK.dbo.BurnDown.id is null
+group by PortalKATEK.dbo.PZ_PlanZakaz.Id
+,iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))) 
+,iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', '')))
+,PortalKATEK.dbo.BurnDown.id
+
+
+update PortalKATEK.dbo.BurnDown set PortalKATEK.dbo.BurnDown.valueI = 0, PortalKATEK.dbo.BurnDown.valueP = 0
+
+
+update PortalKATEK.dbo.BurnDown set PortalKATEK.dbo.BurnDown.valueP = TableBurn.[data]
+from PortalKATEK.dbo.BurnDown join (select PortalKATEK.dbo.BurnDown.id,
+sum(iif(iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != 'œŒ', PortalKATEK.dbo.DashboardBPTaskInsert.NH, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskWork])) as [data]
+from PortalKATEK.dbo.PZ_PlanZakaz 
+left join PortalKATEK.dbo.DashboardBPTaskInsert on PortalKATEK.dbo.DashboardBPTaskInsert.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.DashboardBPTaskInsert.id_AspNetUsers
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join ReportKATEK.dbo.NoPlaningPZ on ReportKATEK.dbo.NoPlaningPZ.Id = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.BurnDown on PortalKATEK.dbo.BurnDown.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+									  and PortalKATEK.dbo.BurnDown.[week] = iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])))
+									  and PortalKATEK.dbo.BurnDown.devision = iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', '')))
+where PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP > getdate()
+and iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != ''
+and ReportKATEK.dbo.NoPlaningPZ.Id is null
+and PortalKATEK.dbo.BurnDown.id is not null
+group by PortalKATEK.dbo.PZ_PlanZakaz.Id
+,iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))) 
+,iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', '')))
+,PortalKATEK.dbo.BurnDown.id) as TableBurn on PortalKATEK.dbo.BurnDown.id = TableBurn.id
+
+
+insert into PortalKATEK.dbo.BurnDown
+select TableBurn.id
+,TableBurn.[week]
+,TableBurn.devision
+,TableBurn.[data]
+,0
+,0
+from PortalKATEK.dbo.BurnDown join (select PortalKATEK.dbo.PZ_PlanZakaz.Id
+,iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) as [devision]
+,sum(iif(iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != 'œŒ', PortalKATEK.dbo.DashboardBPTaskInsert.NH, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskWork])) as [data]
+,iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))) as [week]
+from PortalKATEK.dbo.PZ_PlanZakaz 
+left join PortalKATEK.dbo.DashboardBPTaskInsert on PortalKATEK.dbo.DashboardBPTaskInsert.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.DashboardBPTaskInsert.id_AspNetUsers
+left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
+left join ReportKATEK.dbo.NoPlaningPZ on ReportKATEK.dbo.NoPlaningPZ.Id = PortalKATEK.dbo.PZ_PlanZakaz.Id
+left join PortalKATEK.dbo.BurnDown on PortalKATEK.dbo.BurnDown.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
+									  and PortalKATEK.dbo.BurnDown.[week] = iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])))
+									  and PortalKATEK.dbo.BurnDown.devision = iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', '')))
+where PortalKATEK.dbo.PZ_PlanZakaz.dataOtgruzkiBP > getdate()
+and iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', ''))) != ''
+and ReportKATEK.dbo.NoPlaningPZ.Id is null
+and PortalKATEK.dbo.BurnDown.id is null
+group by PortalKATEK.dbo.PZ_PlanZakaz.Id
+,iiF(len(datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))=1, concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.0', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate])), concat(year(PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]),'.', datepart(ISO_WEEK, PortalKATEK.dbo.DashboardBPTaskInsert.[TaskfinishDate]))) 
+,iif(PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16 or PortalKATEK.dbo.Devision.id = 12, ' ¡›', iif(PortalKATEK.dbo.Devision.id = 15 or PortalKATEK.dbo.Devision.id = 18, ' ¡Ã', iif(PortalKATEK.dbo.Devision.id = 8 or PortalKATEK.dbo.Devision.id = 9 or PortalKATEK.dbo.Devision.id = 10 or PortalKATEK.dbo.Devision.id = 20 or PortalKATEK.dbo.Devision.id = 22, 'œŒ', '')))
+,PortalKATEK.dbo.BurnDown.id) as TableBurn on PortalKATEK.dbo.BurnDown.id = TableBurn.id
 
 

@@ -41,6 +41,7 @@ namespace Wiki
         public int TaskIndex { get; set; }
         public bool TaskIsCritical { get; set; }
         public bool TaskIsMilestone { get; set; }
+        public double NH { get; set; }
         public int id { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }

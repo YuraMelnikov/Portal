@@ -375,6 +375,7 @@
     <Compile Include="Areas\VerifPlan\Models\EmailVerifPlan.cs" />
     <Compile Include="Areas\VerifPlan\VerifPlanAreaRegistration.cs" />
     <Compile Include="Areas\VisualizationBP\Controllers\VBPController.cs" />
+    <Compile Include="Areas\VisualizationBP\Models\BurndownDiagrammData.cs" />
     <Compile Include="Areas\VisualizationBP\Models\CMOOrder.cs" />
     <Compile Include="Areas\VisualizationBP\Types\BlockProjectTasksState.cs" />
     <Compile Include="Areas\VisualizationBP\Types\DiagrammPercentComplitedDevisionToWork.cs" />

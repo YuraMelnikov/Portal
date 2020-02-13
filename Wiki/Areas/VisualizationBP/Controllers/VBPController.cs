@@ -947,5 +947,134 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 return Json(0);
             }
         }
+
+        public JsonResult GetBurndownDiagramM(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    int idOrder = db.PZ_PlanZakaz.First(a => a.PlanZakaz == id).Id;
+                    var query = db.BurnDown
+                        .AsNoTracking()
+                        .Where(a => a.id_PZ_PlanZakaz == idOrder && a.devision == "КБМ")
+                        .OrderBy(a => a.week)
+                        .ToList();
+                    int maxCounterValue = query.Count();
+                    double summary = query.Sum(a => a.valueP);
+                    double stepValue = summary / maxCounterValue;
+
+                    BurndownDiagrammData[] data = new BurndownDiagrammData[maxCounterValue];
+                    for (int i = 0; i < maxCounterValue; i++)
+                    {
+                        data[i] = new BurndownDiagrammData();
+                    }
+                    data[0].Week = query[0].week;
+                    data[0].ValueBP = (int)query.Sum(a => a.valueBP);
+                    data[0].ValueI = (int)summary;
+                    data[0].ValueP = (int)query.Sum(a => a.valueP);
+                    for (int i = 1; i < maxCounterValue; i++)
+                    {
+                        data[i].Week = query[i].week;
+                        data[i].ValueBP = data[i - 1].ValueBP - (int)query[i].valueBP;
+                        data[i].ValueI = (int)(data[i - 1].ValueI - stepValue);
+                        data[i].ValueP = data[i - 1].ValueP - (int)query[i].valueP;
+                    }
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    return Json(0);
+                }
+            }
+        }
+
+        public JsonResult GetBurndownDiagramE(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    int idOrder = db.PZ_PlanZakaz.First(a => a.PlanZakaz == id).Id;
+                    var query = db.BurnDown
+                        .AsNoTracking()
+                        .Where(a => a.id_PZ_PlanZakaz == idOrder && a.devision == "КБЭ")
+                        .OrderBy(a => a.week)
+                        .ToList();
+                    int maxCounterValue = query.Count();
+                    double summary = query.Sum(a => a.valueP);
+                    double stepValue = summary / maxCounterValue;
+
+                    BurndownDiagrammData[] data = new BurndownDiagrammData[maxCounterValue];
+                    for (int i = 0; i < maxCounterValue; i++)
+                    {
+                        data[i] = new BurndownDiagrammData();
+                    }
+                    data[0].Week = query[0].week;
+                    data[0].ValueBP = (int)query.Sum(a => a.valueBP);
+                    data[0].ValueI = (int)summary;
+                    data[0].ValueP = (int)query.Sum(a => a.valueP);
+                    for (int i = 1; i < maxCounterValue; i++)
+                    {
+                        data[i].Week = query[i].week;
+                        data[i].ValueBP = data[i - 1].ValueBP - (int)query[i].valueBP;
+                        data[i].ValueI = (int)(data[i - 1].ValueI - stepValue);
+                        data[i].ValueP = data[i - 1].ValueP - (int)query[i].valueP;
+                    }
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    return Json(0);
+                }
+            }
+        }
+
+        public JsonResult GetBurndownDiagramP(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    int idOrder = db.PZ_PlanZakaz.First(a => a.PlanZakaz == id).Id;
+                    var query = db.BurnDown
+                        .AsNoTracking()
+                        .Where(a => a.id_PZ_PlanZakaz == idOrder && a.devision == "ПО")
+                        .OrderBy(a => a.week)
+                        .ToList();
+                    int maxCounterValue = query.Count();
+                    double summary = query.Sum(a => a.valueP);
+                    double stepValue = summary / maxCounterValue;
+
+                    BurndownDiagrammData[] data = new BurndownDiagrammData[maxCounterValue];
+                    for (int i = 0; i < maxCounterValue; i++)
+                    {
+                        data[i] = new BurndownDiagrammData();
+                    }
+                    data[0].Week = query[0].week;
+                    data[0].ValueBP = (int)query.Sum(a => a.valueBP);
+                    data[0].ValueI = (int)summary;
+                    data[0].ValueP = (int)query.Sum(a => a.valueP);
+                    for (int i = 1; i < maxCounterValue; i++)
+                    {
+                        data[i].Week = query[i].week;
+                        data[i].ValueBP = data[i - 1].ValueBP - (int)query[i].valueBP;
+                        data[i].ValueI = (int)(data[i - 1].ValueI - stepValue);
+                        data[i].ValueP = data[i - 1].ValueP - (int)query[i].valueP;
+                    }
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    return Json(0);
+                }
+            }
+        }
     }
 }

@@ -808,6 +808,7 @@
           <Property Name="TaskIndex" Type="int" Nullable="false" />
           <Property Name="TaskIsCritical" Type="bit" Nullable="false" />
           <Property Name="TaskIsMilestone" Type="bit" Nullable="false" />
+          <Property Name="NH" Type="float" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardHSSPlan">
@@ -7917,6 +7918,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="TaskIndex" Type="Int32" Nullable="false" />
           <Property Name="TaskIsCritical" Type="Boolean" Nullable="false" />
           <Property Name="TaskIsMilestone" Type="Boolean" Nullable="false" />
+          <Property Name="NH" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="DashboardBPTaskInsert" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_PZ_PlanZakaz" FromRole="DashboardBPTaskInsert" ToRole="PZ_PlanZakaz" />
@@ -12568,6 +12570,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardBPTaskInsert">
               <MappingFragment StoreEntitySet="DashboardBPTaskInsert">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="NH" ColumnName="NH" />
                 <ScalarProperty Name="TaskIsMilestone" ColumnName="TaskIsMilestone" />
                 <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
                 <ScalarProperty Name="TaskIndex" ColumnName="TaskIndex" />

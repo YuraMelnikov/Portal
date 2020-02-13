@@ -62,6 +62,9 @@ function GetPrjCart(id) {
         CreateTaskCard();
         GetCriticalRoadGanttToOrder(id);
         GetOrderCMOTable(id);
+        GetBurndownDiagramM(id);
+        GetBurndownDiagramE(id);
+        GetBurndownDiagramP(id);
         $('#orderModal').modal('show');
     }
 }
@@ -1585,6 +1588,249 @@ function GetOrderCMOTable(id) {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        }
+    });
+}
+
+function GetBurndownDiagramM(id) {
+    $.ajax({
+        url: "/VBP/GetBurndownDiagramM/" + id,
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArrayBP = new Array();
+            var dataArrayP = new Array();
+            var dataArrayI = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].Week;
+                dataArrayBP[i] = result[i].ValueBP;
+                dataArrayP[i] = result[i].ValueP;
+                dataArrayI[i] = result[i].ValueI;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('burndownDiagramM', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'БПлан',
+                    data: dataArrayBP,
+                    color: colorDiagramm
+                },
+                {
+                    name: 'План',
+                    data: dataArrayP,
+                    color: "#008000"
+                },
+                {
+                    name: 'Оптимум',
+                    data: dataArrayI,
+                    color: "#191970"
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: "#0d233a"
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetBurndownDiagramE(id) {
+    $.ajax({
+        url: "/VBP/GetBurndownDiagramE/" + id,
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArrayBP = new Array();
+            var dataArrayP = new Array();
+            var dataArrayI = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].Week;
+                dataArrayBP[i] = result[i].ValueBP;
+                dataArrayP[i] = result[i].ValueP;
+                dataArrayI[i] = result[i].ValueI;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('burndownDiagramE', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'БПлан',
+                    data: dataArrayBP,
+                    color: colorDiagramm
+                },
+                {
+                    name: 'План',
+                    data: dataArrayP,
+                    color: "#008000"
+                },
+                {
+                    name: 'Оптимум',
+                    data: dataArrayI,
+                    color: "#191970"
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: "#0d233a"
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetBurndownDiagramP(id) {
+    $.ajax({
+        url: "/VBP/GetBurndownDiagramP/" + id,
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArrayResult = Object.keys(result).length;
+            var catigoriesArray = new Array();
+            var dataArrayBP = new Array();
+            var dataArrayP = new Array();
+            var dataArrayI = new Array();
+            for (var i = 0; i < lenghtArrayResult; i++) {
+                catigoriesArray[i] = result[i].Week;
+                dataArrayBP[i] = result[i].ValueBP;
+                dataArrayP[i] = result[i].ValueP;
+                dataArrayI[i] = result[i].ValueI;
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('burndownDiagramP', {
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: catigoriesArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [{
+                    name: 'БПлан',
+                    data: dataArrayBP,
+                    color: colorDiagramm
+                },
+                {
+                    name: 'План',
+                    data: dataArrayP,
+                    color: "#008000"
+                },
+                {
+                    name: 'Оптимум',
+                    data: dataArrayI,
+                    color: "#191970"
+                }],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: "#0d233a"
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }
