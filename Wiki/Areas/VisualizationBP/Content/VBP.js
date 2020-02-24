@@ -1356,6 +1356,7 @@ function GetCriticalRoadGanttToOrder(id) {
                         pointWidth: pointWidthForGantt,
                         milestone: deal.Milestone,
                         taskName: myJSON.TaskName,
+                        nameN: myJSON.UserName,
                         percentComplited: myJSON.PercentComplited,
                         y: i
                     };
@@ -1367,6 +1368,7 @@ function GetCriticalRoadGanttToOrder(id) {
                     percentComplited: myJSON.PercentComplited,
                     contractDateComplited: myJSON.ContractDateComplited,
                     name: myJSON.OrderNumber,
+                    nameN: myJSON.UserName,
                     color: myJSON.Color,
                     data: data,
                     current: myJSON.Deals[myJSON.Current]
@@ -1405,9 +1407,9 @@ function GetCriticalRoadGanttToOrder(id) {
                         },
                         allowPointSelect: true,
                         events: {
-                            //click: function (event) {
-                            //    click: GetPrjCart(this.name);
-                            //}
+                            click: function (event) {
+                                click: GetUserGantt(this.userOptions.nameN);
+                            }
                         }
                     }
                 },
@@ -2006,4 +2008,240 @@ function GetPerfomance() {
             alert(errormessage.responseText);
         }
     });
+}
+
+function GetUserGantt(id) {
+    $.ajax({
+        url: "/VBP/GetUserGantt/" + id,
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var myJSON = JSON.parse(JSON.stringify(result));
+            var lenghtElements = Object.keys(myJSON).length;
+            var heightDiagramm = lenghtElements * 14 + 80;
+            heightDiagramm += 'px';
+            var minDate = converDateJSON(myJSON[0].DataOtgruzkiBP);
+            var maxDate = converDateJSON(myJSON[0].DataOtgruzkiBP);
+            for (var i = 0; i < lenghtElements; i++) {
+                var lenghtElementsDeals = Object.keys(myJSON[i].Deals).length;
+                for (var j = 0; j < lenghtElementsDeals; j++) {
+                    myJSON[i].Deals[j].From = converDateJSON(myJSON[i].Deals[j].From);
+                    myJSON[i].Deals[j].To = converDateJSON(myJSON[i].Deals[j].To);
+                }
+                myJSON[i].DataOtgruzkiBP = converDateJSON(myJSON[i].DataOtgruzkiBP);
+                myJSON[i].ContractDateComplited = converDateJSON(myJSON[i].ContractDateComplited);
+                myJSON[i].RemainingDuration = myJSON[i].RemainingDuration;
+                myJSON[i].PercentComplited = myJSON[i].PercentComplited;
+                myJSON[i].Duration = myJSON[i].Duration;
+                myJSON[i].TaskName = myJSON[i].TaskName;
+                if (myJSON[i].DataOtgruzkiBP < minDate) {
+                    minDate = myJSON[i].DataOtgruzkiBP;
+                }
+                if (myJSON[i].ContractDateComplited > maxDate) {
+                    maxDate = myJSON[i].ContractDateComplited;
+                }
+            }
+            var minCorrectDate = new Date();
+            minCorrectDate = minCorrectDate.getTime();
+            if (minDate < minCorrectDate) {
+                minDate = minCorrectDate;
+            }
+            var today = new Date(),
+                map = Highcharts.map,
+                dateFormat = Highcharts.dateFormat,
+                series;
+            today.setUTCHours(0);
+            today.setUTCMinutes(0);
+            today.setUTCSeconds(0);
+            today.setUTCMilliseconds(0);
+            today = today.getTime();
+            series = myJSON.map(function (myJSON, i) {
+                var data = myJSON.Deals.map(function (deal) {
+                    return {
+                        id: 'deal-' + i,
+                        rentedTo: deal.User,
+                        start: deal.From,
+                        end: deal.To,
+                        color: "#910000",
+                        dependency: 'prototype',
+                        name: renderToNullString(deal.User, deal.Milestone),
+                        pointWidth: pointWidthForGantt,
+                        milestone: deal.Milestone,
+                        taskName: myJSON.TaskName,
+                        percentComplited: myJSON.PercentComplited,
+                        y: i
+                    };
+                });
+                return {
+                    dataOtgruzkiBP: myJSON.DataOtgruzkiBP,
+                    remainingDuration: myJSON.RemainingDuration,
+                    taskName: myJSON.TaskName,
+                    percentComplited: myJSON.PercentComplited,
+                    contractDateComplited: myJSON.ContractDateComplited,
+                    name: myJSON.OrderNumber,
+                    color: myJSON.Color,
+                    data: data,
+                    current: myJSON.Deals[myJSON.Current]
+                };
+            });
+            Highcharts.setOptions({
+                lang: {
+                    loading: 'Загрузка...',
+                    months: ['01', '02', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                    weekdays: ['Вc', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                    shortMonths: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+                    rangeSelectorFrom: "С",
+                    rangeSelectorTo: "По",
+                    rangeSelectorZoom: "Период",
+                    week: 'Нед',
+                    Start: 'Начало'
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.ganttChart('ganttUser', {
+                series: series,
+                plotOptions: {
+                    series: {
+                        animation: false,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.percentComplited}',
+                            style: {
+                                color: "contrast",
+                                fontSize: pointWidthForGantt - minusPxTextForGantt,
+                                fontWeight: "bold",
+                                textOutline: "1px contrast"
+                            }
+                        },
+                        allowPointSelect: true
+                    }
+                },
+                title: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    pointFormat: '<span>Задача: {point.taskName}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
+                },
+                xAxis: [{
+                    min: minDate,
+                    max: maxDate,
+                    labels: {
+                        style: {
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt - minusPxTextForGantt
+                        }
+                    },
+                    endOnTick: true,
+                    dateTimeLabelFormats: {
+                        day: '%e.%b',
+                        hour: '%e.%b',
+                        millisecond: '%e.%b',
+                        minute: '%e.%b',
+                        month: 'Нед. %W',
+                        second: '%e.%b',
+                        week: 'Нед. %W',
+                        year: 'Нед. %W'
+                    }
+                }],
+                yAxis: {
+                    labels: {
+                        style: {
+                            "color": "#0d233a",
+                            "fontSize": pointWidthForGantt - minusPxTextForGantt
+                        }
+                    },
+                    type: 'category',
+                    grid: {
+                        columns: [
+                            {
+                                title: {
+                                    text: '%',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.percentComplited;
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Ост.тр',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.remainingDuration;
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Начало',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return dateFormat('%e. %b', s.dataOtgruzkiBP);
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Окончание',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return dateFormat('%e. %b', s.contractDateComplited);
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Исполнитель',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.name;
+                                })
+                            },
+                            {
+                                title: {
+                                    text: 'Задача',
+                                    style: {
+                                        "color": "#0d233a",
+                                        "fontSize": pointWidthForGantt - minusPxTextForGantt
+                                    }
+                                },
+                                categories: map(series, function (s) {
+                                    return s.taskName;
+                                })
+                            }]
+                    }
+                },
+                chart: {
+                    height: heightDiagramm
+                }
+            });
+        }
+    });
+    $('#ganttUserModal').modal('show');
 }

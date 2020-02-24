@@ -838,6 +838,14 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     {
                         dataList[i].OrderNumber = "";
                     }
+                    try
+                    {
+                        dataList[i].UserName = projectList[i].AspNetUsers.CiliricalName;
+                    }
+                    catch
+                    {
+                        dataList[i].UserName = "";
+                    }
                     dataList[i].TaskName = projectList[i].TaskName;
                     dataList[i].Current = 0;
                     dataList[i].Color = "#910000";
@@ -852,6 +860,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     {
                         dealsForDashboardTV.User = "";
                     }
+
                     dealsForDashboardTV.From = projectList[i].TaskStartDate;
                     dealsForDashboardTV.To = projectList[i].TaskfinishDate;
                     dealsForDashboardTV.Milestone = false;
@@ -1148,6 +1157,70 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 double[] data = new double[1];
                 data[0] = Math.Round((query[0].inThisDay / (query[0].workDay * 10.0 * 8.0 + query[0].factWork)), 2);
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetUserGantt(string id)
+        { 
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var projectList = db.DashboardBPTaskInsert
+                    .AsNoTracking()
+                    .Include(d => d.AspNetUsers)
+                    .Where(d => d.AspNetUsers.CiliricalName == id)
+                    .Where(d => d.TaskRemainingWork > 0)
+                    .OrderBy(d => d.TaskfinishDate)
+                    .ToList();
+                DateTime minDate;
+                try
+                {
+                    minDate = projectList.Min(a => a.TaskStartDate);
+                }
+                catch
+                {
+                    minDate = DateTime.Now;
+                }
+                DateTime maxDate = projectList.Max(a => a.TaskfinishDate);
+                int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
+                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    dataList[i] = new OrderForDashboardTV();
+                    dataList[i].PercentComplited = projectList[i].TaskPercentWorkCompleted;
+                    dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
+                    dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate;
+                    dataList[i].ContractDateComplited = projectList[i].TaskfinishDate;
+                    try
+                    {
+                        dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
+                    }
+                    catch
+                    {
+                        dataList[i].OrderNumber = "";
+                    }
+                    dataList[i].TaskName = projectList[i].TaskName;
+                    dataList[i].Current = 0;
+                    dataList[i].Color = "#910000";
+                    dataList[i].Milestone = false;
+                    dataList[i].Deals = new DealsForDashboardTV[1];
+                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                    try
+                    {
+                        dealsForDashboardTV.User = projectList[i].AspNetUsers.CiliricalName;
+                    }
+                    catch
+                    {
+                        dealsForDashboardTV.User = "";
+                    }
+                    dealsForDashboardTV.From = projectList[i].TaskStartDate;
+                    dealsForDashboardTV.To = projectList[i].TaskfinishDate;
+                    dealsForDashboardTV.Milestone = false;
+                    dealsForDashboardTV.Color = "#910000";
+                    dataList[i].Deals[0] = dealsForDashboardTV;
+                }
+                return Json(dataList.OrderBy(d => d.ContractDateComplited), JsonRequestBehavior.AllowGet);
             }
         }
     }
