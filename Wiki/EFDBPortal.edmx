@@ -1004,6 +1004,8 @@
           <Property Name="inThisDayPercent" Type="int" Nullable="false" />
           <Property Name="inThisMonth" Type="int" Nullable="false" />
           <Property Name="inThisMonthPercent" Type="int" Nullable="false" />
+          <Property Name="factWork" Type="float" Nullable="false" />
+          <Property Name="workDay" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_DataForProjectPortfolio">
           <Key>
@@ -6735,6 +6737,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="inThisDayPercent" Type="Int32" Nullable="false" />
           <Property Name="inThisMonth" Type="Int32" Nullable="false" />
           <Property Name="inThisMonthPercent" Type="Int32" Nullable="false" />
+          <Property Name="factWork" Type="Double" Nullable="false" />
+          <Property Name="workDay" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardTV_DataForProjectPortfolio">
           <Key>
@@ -11520,6 +11524,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="DashboardTV_BasicPlanData">
             <EntityTypeMapping TypeName="PortalKATEKModel.DashboardTV_BasicPlanData">
               <MappingFragment StoreEntitySet="DashboardTV_BasicPlanData">
+                <ScalarProperty Name="workDay" ColumnName="workDay" />
+                <ScalarProperty Name="factWork" ColumnName="factWork" />
                 <ScalarProperty Name="inThisMonthPercent" ColumnName="inThisMonthPercent" />
                 <ScalarProperty Name="inThisMonth" ColumnName="inThisMonth" />
                 <ScalarProperty Name="inThisDayPercent" ColumnName="inThisDayPercent" />

@@ -10,6 +10,20 @@ var colorDiagramm = '#3fb0ac';
 
 var cardArray = new Array();
 
+var objOrders = [
+    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
+    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true }
+];
+
 $(document).ready(function () {
     getPeriodReport();
     getGanttProjects();
@@ -23,8 +37,46 @@ $(document).ready(function () {
     GetCommentsList();
     GetWorkpowerManufacturing();
     GetNoPlaningHSS();
+    GetPerfomance();
     GetHSSPO();
-
+    $("#tableApproveCD").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Approve/GetNoApproveTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[2, "asc"]],
+        "processing": true,
+        "columns": objOrders,
+        "cache": false,
+        "async": false,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $("#ordersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/Approve/GetNoApproveTable/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[2, "asc"]],
+        "processing": true,
+        "columns": objOrders,
+        "cache": false,
+        "async": false,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true
+    });
     $("#tableCMOOrder").DataTable({
         "ajax": {
             "cache": false,
@@ -65,6 +117,7 @@ function GetPrjCart(id) {
         GetBurndownDiagramM(id);
         GetBurndownDiagramE(id);
         GetBurndownDiagramP(id);
+        GetTableApproveCD(id);
         $('#orderModal').modal('show');
     }
 }
@@ -1827,6 +1880,126 @@ function GetBurndownDiagramP(id) {
                         }
                     }
                 }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function GetTableApproveCD(id) {
+    var table = $('#tableApproveCD').DataTable();
+    table.destroy();
+    $('#tableApproveCD').empty();
+    $("#tableApproveCD").DataTable({
+        "dom": '<"toolbar1">frtip',
+        "ajax": {
+            "cache": false,
+            "url": "/VBP/GetNoApproveTable/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "asc"]],
+        "processing": true,
+        "columns": objOrders,
+        "cache": false,
+        "async": false,
+        "scrollY": heightTableTasks,
+        "scrollX": true,
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function GetPerfomance() {
+    $.ajax({
+        url: "/VBP/GetPerfomance/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var myJSONRemainingPlan = new Array();
+            myJSONRemainingPlan[0] = result[0];
+            var colorLen = '#2b908f';
+            if (result[0] > 60) {
+                colorLen = '#2b908f';
+            }
+            else if (result[0] > 56) {
+                colorLen = '#faffb3';
+            }
+            else {
+                colorLen = '#910000';
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('perfomancePO', {
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'bar',
+                    height: heightForStatusLine
+                },
+                title: {
+                    align: 'left',
+                    text: 'Производительность',
+                    style: {
+                        "font-size": sizeTextLabetGraphic
+                    },
+                    margin: marginForTitle
+                },
+                xAxis: {
+                    categories: [''],
+                    visible: false
+                },
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        enabled: false
+                    },
+                    tickInterval: 5,
+                    visible: false
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'Производительность',
+                    data: myJSONRemainingPlan,
+                    color: colorLen,
+                    dataLabels: {
+                        enabled: true,
+                        align: 'left',
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        x: 3,
+                        verticalAlign: 'middle',
+                        overflow: true,
+                        crop: false
+                    }
+                }]
             });
         },
         error: function (errormessage) {

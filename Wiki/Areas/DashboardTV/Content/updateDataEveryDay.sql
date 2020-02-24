@@ -5,6 +5,8 @@ sum(iif(MSP_EpmAssignmentByDay_UserView.TimeByDay < getdate(), [PortalKATEK].[db
 ,sum(iif(MSP_EpmAssignmentByDay_UserView.TimeByDay < getdate(), [PortalKATEK].[dbo].[PZ_TEO].SSM / [ReportKATEK].[dbo].[ProjectWorkPO].[AssignmentWork] * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Êîë-âî ÏÎ] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork, 0)) / [PortalKATEK].[dbo].[DashboardTV_MonthPlan].[data] * 100 
 ,sum([PortalKATEK].[dbo].[PZ_TEO].SSM / [ReportKATEK].[dbo].[ProjectWorkPO].[AssignmentWork] * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Êîë-âî ÏÎ] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork) 
 ,sum([PortalKATEK].[dbo].[PZ_TEO].SSM / [ReportKATEK].[dbo].[ProjectWorkPO].[AssignmentWork] * ProjectWebApp.dbo.MSP_EpmProject_UserView.[Êîë-âî ÏÎ] * ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork) / [PortalKATEK].[dbo].[DashboardTV_MonthPlan].[data] * 100 
+,sum(iif(MSP_EpmAssignmentByDay_UserView.TimeByDay < getdate(), ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork, 0)) 
+,T2.[count]
 FROM
 ProjectWebApp.dbo.MSP_EpmProject_UserView
 INNER JOIN
@@ -32,6 +34,44 @@ left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZa
 left join [exportImport].[dbo].[planZakaz] on [exportImport].[dbo].[planZakaz].Zakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
 left join [ReportKATEK].[dbo].[ProjectWorkPO] on [ReportKATEK].[dbo].[ProjectWorkPO].[¹ çàêàçà] = MSP_EpmProject_UserView.[¹ çàêàçà]
 left join [PortalKATEK].[dbo].[DashboardTV_MonthPlan] on [PortalKATEK].[dbo].[DashboardTV_MonthPlan].[data] > 0
+left join (select count(*) as [count]
+From (select convert(date, MSP_EpmAssignmentByDay_UserView.TimeByDay) as [count]
+FROM
+ProjectWebApp.dbo.MSP_EpmProject_UserView
+INNER JOIN
+ProjectWebApp.dbo.MSP_EpmTask_UserView
+ON
+ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView
+ON
+ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TaskUID
+AND
+ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmAssignment_UserView
+ON
+ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.TaskUID
+AND
+ProjectWebApp.dbo.MSP_EpmTask_UserView.ProjectUID = ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ProjectUID
+LEFT OUTER JOIN
+ProjectWebApp.dbo.MSP_EpmResource_UserView
+ON
+ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID = ProjectWebApp.dbo.MSP_EpmResource_UserView.ResourceUID
+WHERE
+(iif(len(month(MSP_EpmAssignmentByDay_UserView.TimeByDay)) = 1, concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.0', 
+month(MSP_EpmAssignmentByDay_UserView.TimeByDay)), concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', 
+month(MSP_EpmAssignmentByDay_UserView.TimeByDay))) = 
+iif(len(month(getdate())) = 1, concat(year(getdate()), '.0', 
+month(getdate())), concat(year(getdate()), '.', 
+month(getdate()))))
+and
+(MSP_EpmResource_UserView.[ÑÄÐåñ] like '%ÓÑ%' or MSP_EpmResource_UserView.[ÑÄÐåñ] like '%ÓÈ%' or MSP_EpmResource_UserView.[ÑÄÐåñ] like '%ÝÓ%')
+and
+(MSP_EpmAssignmentByDay_UserView.TimeByDay < getdate())
+and
+(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
+group by convert(date, MSP_EpmAssignmentByDay_UserView.TimeByDay)) as T1) as T2 on t2.[count] > 0
 WHERE
 (iif(len(month(MSP_EpmAssignmentByDay_UserView.TimeByDay)) = 1, concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.0', 
 month(MSP_EpmAssignmentByDay_UserView.TimeByDay)), concat(year(MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', 
@@ -45,6 +85,7 @@ and
 (ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.AssignmentWork > 0)
 group by
 [PortalKATEK].[dbo].[DashboardTV_MonthPlan].[data]
+,T2.[count]
 
 
 delete [PortalKATEK].[dbo].[DashboardTV_DataForProjectPortfolio]

@@ -18,5 +18,7 @@ namespace Wiki
         public int inThisDayPercent { get; set; }
         public int inThisMonth { get; set; }
         public int inThisMonthPercent { get; set; }
+        public double factWork { get; set; }
+        public int workDay { get; set; }
     }
 }

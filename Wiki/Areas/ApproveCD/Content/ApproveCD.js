@@ -44,7 +44,7 @@ var objOrders = [
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
     { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Открыт", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
     { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true }
@@ -225,7 +225,7 @@ function GetNoApproveTable() {
         "columns": objOrders,
         "rowCallback": function (row, data, index) {
             $('td', row).eq(5).addClass('highlightColor');
-            var dateJSON = new Date(data.dateLastLoad)
+            var dateJSON = new Date(data.dateLastLoad);
             if (dateJSON < days) {
                 $('td', row).eq(5).addClass('xhighlightColor');
             }

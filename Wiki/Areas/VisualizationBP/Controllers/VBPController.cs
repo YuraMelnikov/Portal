@@ -698,9 +698,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     orderNumber = dataList.PlanZakaz,
                     prjContractName = dataList.Name,
                     prjName = dataList.nameTU,
-                    prjContractDateSh = dataList.DateShipping.ToString().Substring(0, 10),
+                    prjContractDateSh = dataList.DateSupply.ToString().Substring(0, 10),
                     prjDateSh = dataList.dataOtgruzkiBP.ToString().Substring(0, 10),
-                    prjShState = GetTimeSpan(dataList.DateShipping, dataList.dataOtgruzkiBP).Days
+                    prjShState = GetTimeSpan(dataList.DateSupply, dataList.dataOtgruzkiBP).Days
                 }); 
                 return Json(new { data });
             }
@@ -1074,6 +1074,80 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     return Json(0);
                 }
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetNoApproveTable(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.ApproveCDVersions
+                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
+                        .Include(a => a.ApproveCDOrders.AspNetUsers)
+                        .Include(a => a.ApproveCDOrders.AspNetUsers1)
+                        .Include(a => a.RKD_VersionWork)
+                        .Include(a => a.RKD_VersionWork)
+                        .Where(a => a.activeVersion == true)
+                        .Where(a => a.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz == id)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForView('" + dataList.ApproveCDOrders.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                        editLink = "",
+                        order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                        state = dataList.RKD_VersionWork.name,
+                        gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
+                        ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
+                        customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
+                        dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortDateString).Replace(@"""", ""),
+                        contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortDateString).Replace(@"""", ""),
+                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortDateString).Replace(@"""", "")
+                    });
+                    return Json(new { data });
+                }
+            }
+            catch
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private DateTime? GetDateLastUpload(int idOrder)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var list = db.ApproveCDActions
+                    .Where(a => a.ApproveCDVersions.id_ApproveCDOrders == idOrder && a.id_RKD_VersionWork == 4)
+                    .OrderByDescending(a => a.datetime)
+                    .ToList();
+                try
+                {
+                    return list[0].datetime;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public JsonResult GetPerfomance()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardTV_BasicPlanData.AsNoTracking().Where(a => a.inThisDay > 0).ToList();
+                double[] data = new double[1];
+                data[0] = Math.Round((query[0].inThisDay / (query[0].workDay * 10.0 * 8.0 + query[0].factWork)), 2);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
     }
