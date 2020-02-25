@@ -57,10 +57,10 @@ namespace Wiki.Areas.Reclamation.Controllers
                 orders = dataList.Reclamation.PlanZakaz,
                 userCreateReclamation = dataList.Reclamation.UserCreate,
                 devisionReclamation = dataList.Reclamation.Devision,
-                reclamationText = dataList.Reclamation.Text,
+                reclamationText = dataList.Reclamation.Text + "\n\n" + "Прим.: " + dataList.Reclamation.Description,
                 answerHistiryText = dataList.Reclamation.Answers,
-                close = dataList.Reclamation_TechnicalAdvice.close,
-                id_AspNetUserResponsible = dataList.Reclamation_TechnicalAdvice.id_AspNetUserResponsible,
+                dataList.Reclamation_TechnicalAdvice.close,
+                dataList.Reclamation_TechnicalAdvice.id_AspNetUserResponsible,
                 deadline = JsonConvert.SerializeObject(dataList.Reclamation_TechnicalAdvice.deadline, dateFormatForView).Replace(@"""", "")
             });
             return Json(data.First(), JsonRequestBehavior.AllowGet);

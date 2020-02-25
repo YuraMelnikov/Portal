@@ -486,12 +486,9 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
                 if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by")
                 {
-                    if (reclamation.AspNetUsers1.Email != "Kuchynski@katek.by" && reclamation.AspNetUsers1.Email == "fvs@katek.by" && reclamation.AspNetUsers1.Email == "nrf@katek.by")
+                    if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
                     {
-                        if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16)
-                        {
-                            EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 5);
-                        }
+                        EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 5);
                     }
                 }
             }
