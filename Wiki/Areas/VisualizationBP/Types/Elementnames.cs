@@ -4,5 +4,7 @@
     {
         public string taskName;
         public string wbsName;
+        public string wbs3Name;
+        public int leavel;
     }
 }

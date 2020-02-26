@@ -26,6 +26,9 @@ WHERE
 and [PortalKATEK].dbo.DashboardBP_State.active = 1
 
 
+delete FROM [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [id_AspNetUsers] = '853a8d87-6cbc-4ca9-bd90-e70e11178ce1'
+
+
 DELETE [PortalKATEK].[dbo].[DashboardBP_HSSPO]
 INSERT INTO [PortalKATEK].[dbo].[DashboardBP_HSSPO]
 SELECT     
@@ -130,6 +133,11 @@ left join PortalKATEK.dbo.WBS on PortalKATEK.dbo.wbs.WBSName = PortalKATEK.dbo.P
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.PWA_TasksForBP.ResourceUID
 where
 (PortalKATEK.dbo.PWA_TasksForBP.TaskDuration is not null)
+
+
+delete FROM [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [id_AspNetUsers] = '853a8d87-6cbc-4ca9-bd90-e70e11178ce1'
+
+
 delete [PortalKATEK].[dbo].[DashboardBP_ProjectTasks] where [PortalKATEK].[dbo].[DashboardBP_ProjectTasks].id_WBS is null
 
 

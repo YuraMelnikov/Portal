@@ -117,7 +117,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     .Include(d => d.DashboardBP_ProjectList.PZ_PlanZakaz)
                     .Include(d => d.WBS)
                     .Include(d => d.AspNetUsers)
-                    .Where(d => d.percentComplited != 100)
+                    .Where(d => d.percentComplited != 100 && d.work > 0 && d.id_AspNetUsers != "853a8d87-6cbc-4ca9-bd90-e70e11178ce1")
                     .Where(d => d.basicStart == thisDay || d.basicFinish == thisDay)
                     .ToList();
                 var data = query.Select(dataList => new
@@ -270,6 +270,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     elementsArray[i].taskName = inputList[i].TaskName;
                 }
                 elementsArray[i].wbsName = inputList[i].TaskWBS2;
+                elementsArray[i].wbs3Name = inputList[i].TaskWBS3;
+                elementsArray[i].leavel = inputList[i].TaskOutlineLevel;
             }
             BlockProjectTasksState blockProjectTasksState = new BlockProjectTasksState(countElements);
             blockProjectTasksState.Name = "Сборочные единицы";
@@ -282,6 +284,8 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 blockProjectTasksState.ElementProjectTasksStates[i].Name = elementsArray[i].taskName;
                 blockProjectTasksState.ElementProjectTasksStates[i].WBS = elementsArray[i].wbsName;
+                blockProjectTasksState.ElementProjectTasksStates[i].Wbs3 = elementsArray[i].wbs3Name;
+                blockProjectTasksState.ElementProjectTasksStates[i].Leavel = elementsArray[i].leavel;
             }
             for (int i = 0; i < countElements; i++)
             {
@@ -297,7 +301,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                             blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateKBE(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
                             break;
                         case 2:
-                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateManufacturing(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id);
+                            blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = GetElementDataProjectTasksStateManufacturing(blockProjectTasksState.ElementProjectTasksStates[i].WBS, id, blockProjectTasksState.ElementProjectTasksStates[i].Wbs3, blockProjectTasksState.ElementProjectTasksStates[i].Leavel);
                             break;
                         case 3:
                             blockProjectTasksState.ElementProjectTasksStates[i].ElementDataProjectTasksStates[j] = null;
@@ -394,48 +398,94 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             }
         }
 
-        ElementDataProjectTasksState GetElementDataProjectTasksStateManufacturing(string wbs, int id)
+        ElementDataProjectTasksState GetElementDataProjectTasksStateManufacturing(string wbs, int id, string wbs3, int leavel)
         {
             DateTime defaulTime = new DateTime(1900, 1, 1);
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            if(leavel == 2)
             {
-                string userName = "";
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
-                var tasksList = db.DashboardBPTaskInsert
-                    .AsNoTracking()
-                    .Where(d => d.TaskWBS2 == wbs && d.id_PZ_PlanZakaz == id)
-                    .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9 || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 22 || d.AspNetUsers.Devision == 20)
-                    .Include(d => d.AspNetUsers)
-                    .ToList();
-                elementDataProjectTasksState.Name = "Производство&nbsp;&nbsp;&nbsp;&nbsp;";
-                try
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-                    elementDataProjectTasksState.StartDate = tasksList.Min(d => d.TaskStartDate);
+                    string userName = "";
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
+                    var tasksList = db.DashboardBPTaskInsert
+                        .AsNoTracking()
+                        .Where(d => d.TaskWBS2 == wbs && d.id_PZ_PlanZakaz == id)
+                        .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9 || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 22 || d.AspNetUsers.Devision == 20)
+                        .Include(d => d.AspNetUsers)
+                        .ToList();
+                    elementDataProjectTasksState.Name = "Производство&nbsp;&nbsp;&nbsp;&nbsp;";
+                    try
+                    {
+                        elementDataProjectTasksState.StartDate = tasksList.Min(d => d.TaskStartDate);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    try
+                    {
+                        elementDataProjectTasksState.FinishDate = tasksList.Max(d => d.TaskfinishDate);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
+                    elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
+                    elementDataProjectTasksState.Users = "";
+                    foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
+                    {
+                        userName = ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
+                        if (userName != "Деменков; " & userName != "Ашанин; ")
+                            elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
+                    }
+                    return elementDataProjectTasksState;
                 }
-                catch
+            }
+            else
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-                    return null;
+                    string userName = "";
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    ElementDataProjectTasksState elementDataProjectTasksState = new ElementDataProjectTasksState();
+                    var tasksList = db.DashboardBPTaskInsert
+                        .AsNoTracking()
+                        .Where(d => d.TaskWBS2 == wbs && d.id_PZ_PlanZakaz == id && d.TaskWBS3 == wbs3)
+                        .Where(d => d.AspNetUsers.Devision == 8 || d.AspNetUsers.Devision == 9 || d.AspNetUsers.Devision == 10 || d.AspNetUsers.Devision == 22 || d.AspNetUsers.Devision == 20)
+                        .Include(d => d.AspNetUsers)
+                        .ToList();
+                    elementDataProjectTasksState.Name = "Производство&nbsp;&nbsp;&nbsp;&nbsp;";
+                    try
+                    {
+                        elementDataProjectTasksState.StartDate = tasksList.Min(d => d.TaskStartDate);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    try
+                    {
+                        elementDataProjectTasksState.FinishDate = tasksList.Max(d => d.TaskfinishDate);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
+                    elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
+                    elementDataProjectTasksState.Users = "";
+                    foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
+                    {
+                        userName = ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
+                        if (userName != "Деменков; " & userName != "Ашанин; ")
+                            elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
+                    }
+                    return elementDataProjectTasksState;
                 }
-                try
-                {
-                    elementDataProjectTasksState.FinishDate = tasksList.Max(d => d.TaskfinishDate);
-                }
-                catch
-                {
-                    return null;
-                }
-                elementDataProjectTasksState.Work = tasksList.Sum(d => d.TaskWork.Value);
-                elementDataProjectTasksState.RemainingWork = tasksList.Sum(d => d.TaskRemainingWork.Value);
-                elementDataProjectTasksState.Users = "";
-                foreach (var ciliricalName in tasksList.GroupBy(d => d.AspNetUsers.CiliricalName))
-                {
-                    userName = ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
-                    if(userName != "Деменков; " & userName != "Ашанин; ")
-                        elementDataProjectTasksState.Users += ciliricalName.Key.Substring(0, ciliricalName.Key.IndexOf(' ')) + "; ";
-                }
-                return elementDataProjectTasksState;
             }
         }
 
@@ -445,10 +495,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                var tasksLiat = db.DashboardBPTaskInsert
-                    .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id)
+                var tasksLiat = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id)
                     .ToList();
                 int countElements = 2;
                 int countManufacturingStep = 3;
@@ -463,7 +510,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     var ps = tasksLiat.First(d => d.TaskWBS2 == "ОСПВ");
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Name = "Предв. ведомость&nbsp;";
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Name = "Предв. ведомость&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Work = (double)ps.TaskWork;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].StartDate = ps.TaskStartDate;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].FinishDate = ps.TaskfinishDate;
@@ -478,7 +525,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 try
                 {
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Name = "Ведомость 1с КБМ";
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Name = "Ведомость 1с КБМ&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Work = (double)sm.TaskWork;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].StartDate = sm.TaskStartDate;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].FinishDate = sm.TaskfinishDate;
@@ -493,7 +540,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     var se = tasksLiat.First(d => d.TaskWBS2 == "*1СЭ");
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].Name = "Ведомость 1с КБЭ";
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].Name = "Ведомость 1с КБЭ&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].Work = (double)se.TaskWork;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].StartDate = se.TaskStartDate;
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[2].FinishDate = se.TaskfinishDate;
@@ -506,9 +553,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 try
                 {
-                    var listM = tasksLiat.Where(d => d.AspNetUsers.Devision == 15 && d.TaskWBS2 != "*1СМ").ToList();
+                    var listM = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id).Where(d => d.AspNetUsers.Devision == 15 && d.TaskWBS2 != "*1СМ").ToList();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Name = "Общая сборка КБМ";
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Name = "КД КБМ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].Work = (double)listM.Sum(d => d.TaskWork);
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].StartDate = listM.Min(d => d.TaskStartDate);
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[3].FinishDate = listM.Max(d => d.TaskfinishDate);
@@ -524,9 +571,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 try
                 {
-                    var listE = tasksLiat.Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16).Where(d => d.TaskWBS2 != "*1СЭ" && d.TaskWBS2 != "ОСПВ").ToList();
+                    var listE = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id).Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16).Where(d => d.TaskWBS2 != "*1СЭ" && d.TaskWBS2 != "ОСПВ").ToList();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4].Name = "Общая сборка КБЭ";
+                    blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4].Name = "КД КБЭ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4].Work = (double)listE.Sum(d => d.TaskWork);
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4].StartDate = listE.Min(d => d.TaskStartDate);
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[4].FinishDate = listE.Max(d => d.TaskfinishDate);
@@ -544,7 +591,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     var sn = tasksLiat.First(d => d.TaskWBS2 == "*МСН");
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Name = "Монтаж СН&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Name = "Монтаж СН&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].Work = (double)sn.TaskWork;
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].StartDate = sn.TaskStartDate;
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[0].FinishDate = sn.TaskfinishDate;
@@ -557,9 +604,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 try
                 {
-                    var listu = tasksLiat.Where(d => d.AspNetUsers.Devision == 9).ToList();
+                   var listu = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id).Where(d => d.AspNetUsers.Devision == 9).ToList();
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1].Name = "Общая сборка - УСШ";
+                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1].Name = "УСШ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1].Work = (double)listu.Sum(d => d.TaskWork);
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1].StartDate = listu.Min(d => d.TaskStartDate);
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[1].FinishDate = listu.Max(d => d.TaskfinishDate);
@@ -571,9 +618,9 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 }
                 try
                 {
-                    var liste = tasksLiat.Where(d => d.AspNetUsers.Devision == 10 && d.TaskWBS2 != "*МСН").ToList();
+                    var liste = db.DashboardBPTaskInsert.AsNoTracking().Include(d => d.AspNetUsers).Where(d => d.TaskIsSummary == false && d.TaskOutlineLevel == 2 && d.TaskWBS1 == "ОС" && d.id_PZ_PlanZakaz == id).Where(d => d.AspNetUsers.Devision == 10 && d.TaskWBS2 != "*МСН").ToList();
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2] = new ElementDataProjectTasksState();
-                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2].Name = "Монтаж ВЦ";
+                    blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2].Name = "Монтаж ВЦ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2].Work = (double)liste.Sum(d => d.TaskWork);
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2].StartDate = liste.Min(d => d.TaskStartDate);
                     blockProjectTasksState.ElementProjectTasksStates[1].ElementDataProjectTasksStates[2].FinishDate = liste.Max(d => d.TaskfinishDate);
@@ -605,7 +652,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                         .AsNoTracking()
                         .Include(d => d.AspNetUsers)
                         .Where(d => d.TaskIsSummary == false && d.TaskWBS1 == "ЭД" && d.id_PZ_PlanZakaz == id)
-                        .Where(d => d.AspNetUsers.Devision == 15)
+                        .Where(d => d.AspNetUsers.Devision == 15 || d.AspNetUsers.Devision == 18)
                         .ToList();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0] = new ElementDataProjectTasksState();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[0].Name = "РЭ и паклист&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;";
@@ -628,7 +675,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                         .AsNoTracking()
                         .Include(d => d.AspNetUsers)
                         .Where(d => d.TaskIsSummary == false && d.TaskWBS1 == "ЭД" && d.id_PZ_PlanZakaz == id)
-                        .Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16)
+                        .Where(d => d.AspNetUsers.Devision == 3 || d.AspNetUsers.Devision == 16 || d.AspNetUsers.Devision == 12)
                         .ToList();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1] = new ElementDataProjectTasksState();
                     blockProjectTasksState.ElementProjectTasksStates[0].ElementDataProjectTasksStates[1].Name = "ЭД и программир.";
@@ -746,10 +793,18 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБМ/ГРМ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = GetPercComplited(work, remainingWork);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
                 return diagrammPercentComplitedDevisionToWork;
             }
+        }
+
+        private int GetPercComplited(double work, double remainingWork)
+        {
+            if (work == 0)
+                return 100;
+            else
+                return (int)(((work - remainingWork) / work) * 100.0);
         }
 
         DiagrammPercentComplitedDevisionToWork GetDevisionEPercentComplited(int id)
@@ -768,7 +823,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("КБЭ/ГРЭ");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = GetPercComplited(work, remainingWork);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
                 return diagrammPercentComplitedDevisionToWork;
             }
@@ -791,7 +846,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 double work = tasksList.Sum(d => d.TaskWork).Value;
                 double remainingWork = tasksList.Sum(d => d.TaskRemainingWork).Value;
                 DiagrammPercentComplitedDevisionToWork diagrammPercentComplitedDevisionToWork = new DiagrammPercentComplitedDevisionToWork("ПО");
-                diagrammPercentComplitedDevisionToWork.PercentComplited = (int)(((work - remainingWork) / work) * 100.0);
+                diagrammPercentComplitedDevisionToWork.PercentComplited = GetPercComplited(work, remainingWork);
                 diagrammPercentComplitedDevisionToWork.PercentRemainingWork = 100 - diagrammPercentComplitedDevisionToWork.PercentComplited;
                 return diagrammPercentComplitedDevisionToWork;
             }
@@ -820,54 +875,61 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 {
                     minDate = DateTime.Now;
                 }
-                DateTime maxDate = projectList.Max(a => a.TaskfinishDate);
-                int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
-                OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
-                for (int i = 0; i < projectList.Count; i++)
+                try
                 {
-                    dataList[i] = new OrderForDashboardTV();
-                    dataList[i].PercentComplited = projectList[i].TaskPercentWorkCompleted;
-                    dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
-                    dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate;
-                    dataList[i].ContractDateComplited = projectList[i].TaskfinishDate;
-                    try
+                    DateTime maxDate = projectList.Max(a => a.TaskfinishDate).AddDays(1);
+                    int countMonthDifferent = GetMinthDifferent(maxDate, minDate);
+                    OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
+                    for (int i = 0; i < projectList.Count; i++)
                     {
-                        dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
-                    }
-                    catch
-                    {
-                        dataList[i].OrderNumber = "";
-                    }
-                    try
-                    {
-                        dataList[i].UserName = projectList[i].AspNetUsers.CiliricalName;
-                    }
-                    catch
-                    {
-                        dataList[i].UserName = "";
-                    }
-                    dataList[i].TaskName = projectList[i].TaskName;
-                    dataList[i].Current = 0;
-                    dataList[i].Color = "#910000";
-                    dataList[i].Milestone = false;
-                    dataList[i].Deals = new DealsForDashboardTV[1];
-                    DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
-                    try
-                    {
-                        dealsForDashboardTV.User = projectList[i].AspNetUsers.CiliricalName;
-                    }
-                    catch
-                    {
-                        dealsForDashboardTV.User = "";
-                    }
+                        dataList[i] = new OrderForDashboardTV();
+                        dataList[i].PercentComplited = projectList[i].TaskPercentWorkCompleted;
+                        dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
+                        dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate.AddDays(1);
+                        dataList[i].ContractDateComplited = projectList[i].TaskfinishDate.AddDays(1);
+                        try
+                        {
+                            dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;
+                        }
+                        catch
+                        {
+                            dataList[i].OrderNumber = "";
+                        }
+                        try
+                        {
+                            dataList[i].UserName = projectList[i].AspNetUsers.CiliricalName;
+                        }
+                        catch
+                        {
+                            dataList[i].UserName = "";
+                        }
+                        dataList[i].TaskName = projectList[i].TaskName;
+                        dataList[i].Current = 0;
+                        dataList[i].Color = "#910000";
+                        dataList[i].Milestone = false;
+                        dataList[i].Deals = new DealsForDashboardTV[1];
+                        DealsForDashboardTV dealsForDashboardTV = new DealsForDashboardTV();
+                        try
+                        {
+                            dealsForDashboardTV.User = projectList[i].AspNetUsers.CiliricalName;
+                        }
+                        catch
+                        {
+                            dealsForDashboardTV.User = "";
+                        }
 
-                    dealsForDashboardTV.From = projectList[i].TaskStartDate;
-                    dealsForDashboardTV.To = projectList[i].TaskfinishDate;
-                    dealsForDashboardTV.Milestone = false;
-                    dealsForDashboardTV.Color = "#910000";
-                    dataList[i].Deals[0] = dealsForDashboardTV;
+                        dealsForDashboardTV.From = projectList[i].TaskStartDate.AddDays(1);
+                        dealsForDashboardTV.To = projectList[i].TaskfinishDate.AddDays(1);
+                        dealsForDashboardTV.Milestone = false;
+                        dealsForDashboardTV.Color = "#910000";
+                        dataList[i].Deals[0] = dealsForDashboardTV;
+                    }
+                    return Json(dataList.OrderBy(d => d.ContractDateComplited), JsonRequestBehavior.AllowGet);
                 }
-                return Json(dataList.OrderBy(d => d.ContractDateComplited), JsonRequestBehavior.AllowGet);
+                catch
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 

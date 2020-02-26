@@ -793,10 +793,10 @@
           <Property Name="TaskWBS4" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="TaskName" Type="varchar(max)" Nullable="false" />
           <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" />
-          <Property Name="TaskStartDate" Type="datetime" Nullable="false" />
-          <Property Name="TaskBaseline0StartDate" Type="datetime" />
-          <Property Name="TaskfinishDate" Type="datetime" Nullable="false" />
-          <Property Name="TaskBaseline0FinishDate" Type="datetime" />
+          <Property Name="TaskStartDate" Type="date" Nullable="false" />
+          <Property Name="TaskBaseline0StartDate" Type="date" />
+          <Property Name="TaskfinishDate" Type="date" Nullable="false" />
+          <Property Name="TaskBaseline0FinishDate" Type="date" />
           <Property Name="TaskClientUniqueId" Type="int" Nullable="false" />
           <Property Name="TaskPriority" Type="smallint" Nullable="false" />
           <Property Name="TaskPercentWorkCompleted" Type="smallint" Nullable="false" />
@@ -7907,10 +7907,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="TaskWBS4" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="TaskName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="id_AspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="TaskStartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskfinishDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TaskBaseline0StartDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskfinishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TaskBaseline0FinishDate" Type="DateTime" Precision="0" />
           <Property Name="TaskClientUniqueId" Type="Int32" Nullable="false" />
           <Property Name="TaskPriority" Type="Int16" Nullable="false" />
           <Property Name="TaskPercentWorkCompleted" Type="Int16" Nullable="false" />

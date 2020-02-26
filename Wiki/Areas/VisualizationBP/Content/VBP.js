@@ -265,7 +265,12 @@ class Task {
             this.users = null;
         }
         try {
-            this.percentComplited = (work - remainingWork) / work * 100;
+            if (work === 0) {
+                this.percentComplited = 100;
+            }
+            else {
+                this.percentComplited = (work - remainingWork) / work * 100;
+            }
         }
         catch {
             this.percentComplited = null;
@@ -537,7 +542,7 @@ function getGanttProjects() {
                     }
                 },
                 tooltip: {
-                    pointFormat: '<span>ХСС: {point.rentedTo}</span><br/><span>Начало: {point.start:%e. %b}</span><br/><span>Окончание: {point.end:%e. %b}</span>'
+                    enabled: false
                 },
                 xAxis: [{
                     min: getMinDate(),
@@ -663,7 +668,7 @@ function getGanttProjects() {
 function getMinDate() {
     var today = new Date();
     var tmp = new Date(today);
-    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 2, 0, 0, 0, 0);
+    var minDate = new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0, 0, 0, 0);
     return minDate.getTime();
 }
 
@@ -671,7 +676,7 @@ function getMaxDate() {
     var today = new Date();
     today = today.setDate(90);
     var tmp = new Date(today);
-    var maxDate = new Date(tmp.getFullYear(), tmp.getMonth(), 31, 0, 0, 0, 0);
+    var maxDate = new Date(tmp.getFullYear(), tmp.getMonth(), 30, 0, 0, 0, 0);
     return maxDate.getTime();
 }
 

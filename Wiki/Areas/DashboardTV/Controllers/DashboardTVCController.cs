@@ -74,7 +74,6 @@ namespace Wiki.Areas.DashboardTV.Controllers
                 dataList[0].Failure = 0;
                 dataList[0].Deals = new DealsForDashboardTV[countMonthDifferent];
                 dataList[0].Milestone = false;
-
                 int countForDeals = 0;
                 for (DateTime i = minDate; i < maxDate; i = i.AddMonths(1))
                 {
@@ -95,9 +94,9 @@ namespace Wiki.Areas.DashboardTV.Controllers
                     string indexOrder = projectList[i - 1].Key;
                     int integerIndexOrder = Convert.ToInt32(indexOrder);
                     DashboardTV_DataForProjectPortfolio dashboardTV_DataForProjectPortfolio = db.DashboardTV_DataForProjectPortfolio.First(d => d.orderNumber == indexOrder);
-                    dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply;
+                    dataList[i].ContractDateComplited = db.PZ_PlanZakaz.First(d => d.PlanZakaz == integerIndexOrder).DateSupply.AddDays(1);
                     dataList[i].Color = "#2b908f";
-                    dataList[i].DataOtgruzkiBP = dashboardTV_DataForProjectPortfolio.dataOtgruzkiBP;
+                    dataList[i].DataOtgruzkiBP = dashboardTV_DataForProjectPortfolio.dataOtgruzkiBP.AddDays(1);
                     dataList[i].Duration = dashboardTV_DataForProjectPortfolio.duration / 8.0;
                     dataList[i].RemainingDuration = dashboardTV_DataForProjectPortfolio.remainingDuration / 8.0;
                     dataList[i].PercentComplited = dashboardTV_DataForProjectPortfolio.percentComplited;
