@@ -1295,3 +1295,15 @@ function validRem() {
     }
     return isValid;
 }
+
+function GetReferenceList() {
+    $.ajax({
+        cache: false,
+        url: "/Order/GetReferenceList",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+        }
+    });
+}

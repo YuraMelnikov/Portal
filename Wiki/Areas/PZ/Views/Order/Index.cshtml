@@ -12,7 +12,7 @@
     <script src="~/Content/DataTables/jszip.min.js"></script>
     <script src="~/Content/DataTables/pdfmake.min.js"></script>
     <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.5"></script>
+    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.6"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -36,6 +36,11 @@
         }
     </style>
 </head>
+
+
+
+
+
 <div class="row">
     <div class="col-md-12">
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#orderModal" onclick="clearTextBox();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -49,6 +54,15 @@
         <button type="button" class="btn-xs btn-primary" id="btnOrdersListALL" onclick="return OrdersListALL();">Полный</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#ordersModal" onclick="clearTextBoxUpdateOrders();">Массовое обновление данных</button>
         <button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#tablesModal" onclick="clearTextBoxTableOrders();">Сформировать таблички</button>
+        <br />
+        <br />
+        @{Html.BeginForm("GetReferenceList", "Order", FormMethod.Get);
+            {
+                    <input type="submit" value="Референс" style="width:150px;height:27px" />
+            }
+            Html.EndForm();
+        }
+
         <br />
         <br />
         <table id="myTable" class="table table-hover table-striped" style="width:100%;">
