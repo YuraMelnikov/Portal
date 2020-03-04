@@ -2203,7 +2203,7 @@ function GetNhUsersThisQua() {
                 },
                 title: {
                     margin: 0,
-                    text: 'Нормачасы сотрудников',
+                    text: 'Нормо-часы сотрудников',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -2479,7 +2479,6 @@ function GetManpowerFirstPeriod() {
             }
             else if (result === 'dkv@katek.by') {
                 $('#speed1').hide();
-                $('#speed1').hide();
                 $('#speed2').hide();
                 $('#speed3').hide();
                 $('#speed4').hide();
@@ -2494,6 +2493,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-8').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_8/",
@@ -2633,6 +2633,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-10').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_10/",
@@ -2772,6 +2773,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed13').hide();
                 $('#speed14').hide();
                 $('#speed15').hide();
+                $('#speed17').hide();
                 $('#container1-16').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_16/",
@@ -2912,6 +2914,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_5/",
                     contentType: "application/json;charset=UTF-8",
@@ -3050,6 +3053,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-7').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_7/",
@@ -3189,6 +3193,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-12').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_12/",
@@ -3328,6 +3333,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed13').hide();
                 $('#speed14').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-15').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_15/",
@@ -3467,6 +3473,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed13').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-14').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_14/",
@@ -3607,6 +3614,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_6/",
                     contentType: "application/json;charset=UTF-8",
@@ -3745,6 +3753,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-2').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_2/",
@@ -3884,6 +3893,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-4').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_4/",
@@ -4023,6 +4033,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-11').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_11/",
@@ -4162,6 +4173,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-9').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_9/",
@@ -4301,6 +4313,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-3').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_3/",
@@ -4440,6 +4453,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-1').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_1/",
@@ -4580,6 +4594,7 @@ function GetManpowerFirstPeriod() {
                 $('#speed14').hide();
                 $('#speed15').hide();
                 $('#speed16').hide();
+                $('#speed17').hide();
                 $('#container1-13').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP1_13/",
@@ -4703,6 +4718,146 @@ function GetManpowerFirstPeriod() {
                     }
                 });
             }
+            else if (result === 'sea@katek.by') {
+                $('#speed1').hide();
+                $('#speed2').hide();
+                $('#speed3').hide();
+                $('#speed4').hide();
+                $('#speed5').hide();
+                $('#speed6').hide();
+                $('#speed7').hide();
+                $('#speed8').hide();
+                $('#speed9').hide();
+                $('#speed10').hide();
+                $('#speed11').hide();
+                $('#speed12').hide();
+                $('#speed13').hide();
+                $('#speed14').hide();
+                $('#speed15').hide();
+                $('#speed16').hide();
+                $('#container1-17').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP1_17/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container1-17', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Стрельченок Евгений Александрович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
             else {
                 return 0;
             }
@@ -4721,6 +4876,130 @@ function GetManpowerSecondPeriod() {
         success: function (result) {
             if (result === 1 || result === '1') {
                 ManpowerUsersInMonth2();
+            }
+            else if (result === 'sea@katek.by') {
+                $('#container2-17').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP2_17/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container2-17', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Стрельченок Евгений Александрович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
             }
             else if (result === 'dkv@katek.by') {
                 $('#container2-8').show();
@@ -6849,6 +7128,130 @@ function GetManpowerThreePeriod() {
                     }
                 });
             }
+            else if (result === 'sea@katek.by') {
+                $('#container3-17').show();
+                $.ajax({
+                    url: "/CMK/GetUsersMMP3_17/",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        var normHoure = 0;
+                        var normHoureFact = 0;
+                        var dataArrayPlan = 0;
+                        var dataArray10 = 0;
+                        var dataArray20 = 0;
+                        var dataArray30 = 0;
+                        for (var i = 0; i < 1; i++) {
+                            normHoure = result[i].normHoure;
+                            normHoureFact = result[i].normHoureFact;
+                            dataArrayPlan = result[i].plan;
+                            dataArray10 = result[i].plan10;
+                            dataArray20 = result[i].plan20;
+                            dataArray30 = result[i].plan30;
+                        }
+                        Highcharts.chart('container3-17', {
+                            chart: {
+                                marginTop: 40,
+                                inverted: true,
+                                marginLeft: 135,
+                                type: 'bullet'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: ['Стрельченок Евгений Александрович']
+                            },
+                            yAxis: {
+                                min: 0,
+                                max: dataArray30,
+                                labels: {
+                                    enabled: false
+                                },
+                                plotBands: [{
+                                    from: 0,
+                                    to: dataArrayPlan,
+                                    color: colorBgBasicLine,
+                                    label: {
+                                        "text": dataArrayPlan,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArrayPlan,
+                                    to: dataArray10,
+                                    color: colorBg10Line,
+                                    label: {
+                                        "text": dataArray10,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray10,
+                                    to: dataArray20,
+                                    color: colorBg20Line,
+                                    label: {
+                                        "text": dataArray20,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }, {
+                                    from: dataArray20,
+                                    to: dataArray30,
+                                    color: colorBg30Line,
+                                    label: {
+                                        "text": dataArray30,
+                                        align: 'right',
+                                        x: 10,
+                                        y: -10
+                                    }
+                                }],
+                                title: null,
+                                gridLineWidth: 0
+                            },
+                            series: [{
+                                data: [{
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: normHoure.toString(),
+                                        align: 'left'
+                                    },
+                                    y: normHoureFact,
+                                    target: normHoure
+                                }]
+                            }],
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                            },
+                            plotOptions: {
+                                series: {
+                                    pointPadding: 0.25,
+                                    borderWidth: 0,
+                                    color: '#000',
+                                    targetOptions: {
+                                        width: '200%'
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
             else if (result === 'jmv@katek.by') {
                 $('#container3-10').show();
                 $.ajax({
@@ -8843,6 +9246,127 @@ function ManpowerUsersInMonth1() {
         }
     });
     $.ajax({
+        url: "/CMK/GetUsersMMP1_17/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container1-17', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Стрельченок Евгений Александрович']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    labels: {
+                        enabled: false
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: colorBgBasicLine,
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: colorBg30Line,
+                        label: {
+                            text: dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $.ajax({
         url: "/CMK/GetUsersMMP1_2/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -10680,6 +11204,127 @@ function ManpowerUsersInMonth2() {
                 dataArray30 = result[i].plan30;
             }
             Highcharts.chart('container2-1', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    labels: {
+                        enabled: false
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: colorBgBasicLine,
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $.ajax({
+        url: "/CMK/GetUsersMMP2_17/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container2-17', {
                 chart: {
                     marginTop: 40,
                     inverted: true,
@@ -12721,6 +13366,127 @@ function ManpowerUsersInMonth3() {
         }
     });
     $.ajax({
+        url: "/CMK/GetUsersMMP3_17/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var normHoure = 0;
+            var normHoureFact = 0;
+            var dataArrayPlan = 0;
+            var dataArray10 = 0;
+            var dataArray20 = 0;
+            var dataArray30 = 0;
+            for (var i = 0; i < 1; i++) {
+                normHoure = result[i].normHoure;
+                normHoureFact = result[i].normHoureFact;
+                dataArrayPlan = result[i].plan;
+                dataArray10 = result[i].plan10;
+                dataArray20 = result[i].plan20;
+                dataArray30 = result[i].plan30;
+            }
+            Highcharts.chart('container3-17', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    marginLeft: 135,
+                    type: 'bullet'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    max: dataArray30,
+                    labels: {
+                        enabled: false
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: dataArrayPlan,
+                        color: colorBgBasicLine,
+                        label: {
+                            "text": dataArrayPlan,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArrayPlan,
+                        to: dataArray10,
+                        color: colorBg10Line,
+                        label: {
+                            "text": dataArray10,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray10,
+                        to: dataArray20,
+                        color: colorBg20Line,
+                        label: {
+                            "text": dataArray20,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }, {
+                        from: dataArray20,
+                        to: dataArray30,
+                        color: colorBg30Line,
+                        label: {
+                            "text": dataArray30,
+                            align: 'right',
+                            x: 10,
+                            y: -10
+                        }
+                    }],
+                    title: null,
+                    gridLineWidth: 0
+                },
+                series: [{
+                    data: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: normHoure.toString(),
+                            align: 'left'
+                        },
+                        y: normHoureFact,
+                        target: normHoure
+                    }]
+                }],
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b> (Фактические НЧ: {point.target})'
+                },
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                        color: '#000',
+                        targetOptions: {
+                            width: '200%'
+                        }
+                    }
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $.ajax({
         url: "/CMK/GetUsersMMP3_2/",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -14648,7 +15414,7 @@ function GetAccuredPlan() {
                     }
                 },
                 series: [{
-                    name: 'Начисления по заказам',
+                    name: 'Начисления по заказам, НИОКРам и Заданиям',
                     data: accrued
                 }, {
                     name: 'Начисления ГИПов',
@@ -14783,7 +15549,7 @@ function GetAccuredFact() {
                     }
                 },
                 series: [{
-                    name: 'Начисления по заказам',
+                    name: 'Начисления по заказам, НИОКРам и Заданиям',
                     data: accrued
                 }, {
                     name: 'Начисления ГИПов',

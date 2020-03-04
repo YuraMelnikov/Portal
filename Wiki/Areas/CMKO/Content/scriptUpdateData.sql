@@ -85,39 +85,37 @@ insert into [PortalKATEK].[dbo].[CMKO_RemarksListG]
 select 
 PortalKATEK.dbo.Reclamation.id,
 PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst,
-PortalKATEK.dbo.RKD_GIP.id_UserKBE,
+[PortalKATEK].[dbo].[ApproveCDOrders].id_AspNetUsersE as id_UserKBE,
 ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 		from PortalKATEK.dbo.Reclamation
 		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
-		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and PortalKATEK.dbo.RKD_GIP.id_UserKBE is not null
+		and [PortalKATEK].[dbo].[ApproveCDOrders].id_AspNetUsersE is not null
 
 
 insert into PortalKATEK.dbo.CMKO_RemarksListG
 select PortalKATEK.dbo.Reclamation.id,
 PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst,
-PortalKATEK.dbo.RKD_GIP.id_UserKBM,
+PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersM as id_UserKBM,
 ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 		from PortalKATEK.dbo.Reclamation
 		left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
-		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15)
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and PortalKATEK.dbo.RKD_GIP.id_UserKBM is not null
+		and PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersM is not null
 
 
 DELETE [PortalKATEK].[dbo].[CMKO_RemarksListG] where [PortalKATEK].[dbo].[CMKO_RemarksListG].rowNum != 1
@@ -165,8 +163,8 @@ ProjectWebApp.dbo.MSP_EpmProject_UserView.ProjectUID
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБМ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coenBujetNManager, 0), 0), 0) as [accruedManagerForNTaskKBM]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coefBujetNWorker, 0), 0), 0) as [accruedWorkerForNTaskKBE]
 ,isnull(iif(substring(ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес], 0, 4) like '%КБЭ%', iif(ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%Задание%' or ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like '%НИОКР%', ProjectWebApp.dbo.MSP_EpmTask_UserView.нк * @cost1N * @coenBujetNManager, 0), 0), 0) as [accruedManagerForNTaskKBE]
-,PortalKATEK.dbo.RKD_GIP.id_UserKBM
-,PortalKATEK.dbo.RKD_GIP.id_UserKBE
+,PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersM as id_UserKBM
+,PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersE as id_UserKBE
 ,ProjectWebApp.dbo.MSP_EpmTask_UserView.НЧА
 FROM
 ProjectWebApp.dbo.MSP_EpmProject_UserView
@@ -176,8 +174,7 @@ LEFT JOIN ProjectWebApp.dbo.MSP_EpmResource_UserView ON ProjectWebApp.dbo.MSP_Ep
 LEFT JOIN ReportKATEK.dbo.CMKO_TimeWorkOnOrder on ReportKATEK.dbo.CMKO_TimeWorkOnOrder.numberOrder = ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 left join PortalKATEK.dbo.PZ_TEO on PortalKATEK.dbo.PZ_TEO.Id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 45) as TableWorkKBM on TableWorkKBM.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 left join (select * from PortalKATEK.dbo.Debit_WorkBit where PortalKATEK.dbo.Debit_WorkBit.id_TaskForPZ = 46) as TableWorkKBE on TableWorkKBE.id_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 where
@@ -502,7 +499,7 @@ from
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join
 (select TableResult.id_UserKBE,
 sum(TableResult.[count]) as [count]
-from (select PortalKATEK.dbo.RKD_GIP.id_UserKBE
+from (select PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersE as id_UserKBE
 		,PortalKATEK.dbo.Reclamation_CountError.[count]
 		,ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKATEK.dbo.Reclamation.id ASC) as rowNum
 		from PortalKATEK.dbo.Reclamation
@@ -510,13 +507,12 @@ from (select PortalKATEK.dbo.RKD_GIP.id_UserKBE
 		left join PortalKATEK.dbo.Reclamation_PZ on PortalKATEK.dbo.Reclamation_PZ.id_Reclamation = PortalKATEK.dbo.Reclamation.id
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
-		left join PortalKATEK.dbo.RKD_Order on PortalKATEK.dbo.RKD_Order.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		left join PortalKATEK.dbo.RKD_GIP on PortalKATEK.dbo.RKD_GIP.id_RKD_Order = PortalKATEK.dbo.RKD_Order.id
+		left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
 		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
 		and PortalKATEK.dbo.Reclamation.gip = 1
-		and PortalKATEK.dbo.RKD_GIP.id_UserKBE is not null) as TableResult 
+		and PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersE is not null) as TableResult 
 		where TableResult.rowNum = 1
 		group by TableResult.id_UserKBE) as TableGipCoef on TableGipCoef.id_UserKBE = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
