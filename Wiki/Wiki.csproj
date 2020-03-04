@@ -353,6 +353,7 @@
     <Compile Include="Areas\PZ\Models\ContractData.cs" />
     <Compile Include="Areas\PZ\Models\CorrectClient.cs" />
     <Compile Include="Areas\PZ\Models\CorrectKurator.cs" />
+    <Compile Include="Areas\PZ\Models\CorrectOrderList.cs" />
     <Compile Include="Areas\PZ\Models\CorrectPlanZakaz.cs" />
     <Compile Include="Areas\PZ\Models\EmailRename.cs" />
     <Compile Include="Areas\PZ\Models\GeneratedTablesOreder.cs" />

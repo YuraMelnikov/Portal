@@ -10,6 +10,7 @@ namespace Wiki.Areas.PZ.Models
         private DateTime date;
         private DateTime? dateCh;
         private Order[] orders;
+        private DateTime orderBy;
 
         public ContractData(string client, string number, string numberCh, DateTime date, DateTime? dateCh)
         {
@@ -18,6 +19,14 @@ namespace Wiki.Areas.PZ.Models
             NumberCh = numberCh;
             Date = date;
             DateCh = dateCh;
+            if (dateCh != null)
+            {
+                OrderBy = dateCh.Value;
+            }
+            else
+            {
+                OrderBy = date;
+            }
         }
 
         public string Client { get => client; set => client = value; }
@@ -26,5 +35,6 @@ namespace Wiki.Areas.PZ.Models
         public DateTime Date { get => date; set => date = value; }
         public DateTime? DateCh { get => dateCh; set => dateCh = value; }
         public Order[] Orders { get => orders; set => orders = value; }
+        public DateTime OrderBy { get => orderBy; set => orderBy = value; }
     }
 }
