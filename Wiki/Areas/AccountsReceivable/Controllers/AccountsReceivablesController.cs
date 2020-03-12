@@ -15,7 +15,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
 {
     public class AccountsReceivablesController : Controller
     {
-        CultureInfo ci = new CultureInfo("en-us");
+        readonly CultureInfo ci = new CultureInfo("en-us");
         private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings shortSettingRu = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };

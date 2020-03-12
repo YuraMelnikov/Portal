@@ -14,11 +14,10 @@ namespace Wiki.Areas.CMKO
     {
         readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         readonly JsonSerializerSettings settingsDNY = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
-        PortalKATEKEntities db = new PortalKATEKEntities();
+        readonly PortalKATEKEntities db = new PortalKATEKEntities();
 
         public JsonResult AddCalend(ProductionCalendar data)
         {
-            string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             db.ProductionCalendar.Add(data);
@@ -28,7 +27,6 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult AddCategory(CMKO_TaxCatigories data)
         {
-            string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             db.CMKO_TaxCatigories.Add(data);
@@ -53,7 +51,6 @@ namespace Wiki.Areas.CMKO
 
         public JsonResult AddPeriod(CMKO_PeriodResult data)
         {
-            string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             data.close = false;
@@ -148,7 +145,6 @@ namespace Wiki.Areas.CMKO
 
         int GetManagerAccuedFact(string id_AspNetUsers)
         {
-            string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;

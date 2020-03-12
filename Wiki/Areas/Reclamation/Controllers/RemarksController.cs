@@ -194,7 +194,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             DateTime dateTimeSh = DateTime.Now.AddDays(-30);
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PF = new SelectList(db.PF.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
-            if (login == "pev@katek.by" || login == "myi@katek.by")
+            if (login == "pev@katek.by" || login == "myi@katek.by" || login == "omo@katek.by")
             {
                 ViewBag.ClosePZReclamation = 1;
             }
@@ -664,7 +664,8 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult GetRemarksOTK()
         {
-            if (HttpContext.User.Identity.Name == "pev@katek.by" || HttpContext.User.Identity.Name == "myi@katek.by")
+            string login = HttpContext.User.Identity.Name;
+            if (login == "pev@katek.by" || login == "omo@katek.by")
             {
                 var data = new TARemarksListView().GetRemarksOTK();
                 return Json(new { data });
@@ -692,7 +693,8 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public JsonResult ExpertComplitedAll()
         {
-            if (HttpContext.User.Identity.Name == "pev@katek.by")
+            string login = HttpContext.User.Identity.Name;
+            if (login == "pev@katek.by" || login == "omo@katek.by")
             {
                 foreach (Wiki.Reclamation data in db.Reclamation.Where(d => d.fixedExpert == false && d.id_DevisionCreate == 6))
                 {
