@@ -48,6 +48,7 @@ namespace Wiki
         public string id_AspNetUsersError { get; set; }
         public bool closeMKO { get; set; }
         public bool fixedExpert { get; set; }
+        public int id_ReclamationTypeKB { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
@@ -69,5 +70,6 @@ namespace Wiki
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
+        public virtual ReclamationTypeKB ReclamationTypeKB { get; set; }
     }
 }

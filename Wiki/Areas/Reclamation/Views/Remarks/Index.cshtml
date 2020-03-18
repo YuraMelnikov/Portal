@@ -8,7 +8,7 @@
     <script src="~/Content/DataTables/jszip.min.js"></script>
     <script src="~/Content/DataTables/pdfmake.min.js"></script>
     <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-    <script src="~/Areas/Reclamation/Content/ReclamationList.js?v1.2"></script>
+    <script src="~/Areas/Reclamation/Content/ReclamationList.js?v1.3"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -104,7 +104,7 @@
                 @Html.HiddenFor(model => model.closeMKO)
                 @Html.HiddenFor(model => model.fixedExpert)
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <label>План-Заказ/ы №№:</label>
                         @Html.ListBox("pZ_PlanZakaz", ViewBag.PZ_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
@@ -112,11 +112,17 @@
                         <label>Тип замечания:</label>
                         @Html.DropDownList("id_Reclamation_Type", ViewBag.id_Reclamation_Type as MultiSelectList, new { @class = "form-control", onchange = "UpdateDevisionListOTK(this)" })
                     </div>
+
+                    <div class="col-lg-2">
+                        <label>Тип замечания КБ: </label>
+                        @Html.DropDownList("id_ReclamationTypeKB", ViewBag.id_ReclamationTypeKB as MultiSelectList, new { @class = "form-control" })
+                    </div>
+
                     <div class="col-lg-2">
                         <label>Автор замечания:</label>
                         <input type="text" class="form-control" id="vid_AspNetUsersCreate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>Создана:</label>
                         <input type="text" class="form-control" id="vdateTimeCreate" disabled="disabled" />
                     </div>
@@ -208,18 +214,19 @@
                     <div class="col-lg-1">
                         <input type="checkbox" id="editManufacturing" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>На техсовет: </label>
                         <input type="checkbox" id="technicalAdvice" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>ГИП: </label>
                         <input type="checkbox" id="gip" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <label>Шум: </label>
                         <input type="checkbox" id="trash" />
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">

@@ -42,6 +42,8 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool GetCorrectFieldReclamation()
         {
+            if (reclamation.id_ReclamationTypeKB == 0)
+                reclamation.id_ReclamationTypeKB = 20;
             if (reclamation.editManufacturing == false)
             {
                 reclamation.editManufacturingIdDevision = null;
@@ -83,6 +85,8 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool CorrectAddCloseReclamation()
         {
+            if (reclamation.id_ReclamationTypeKB == 0)
+                reclamation.id_ReclamationTypeKB = 20;
             if (reclamation.id_DevisionCreate != 6)
             {
                 reclamation.closeDevision = false;

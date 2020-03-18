@@ -1548,6 +1548,7 @@
           <Property Name="id_AspNetUsersError" Type="nvarchar" MaxLength="128" />
           <Property Name="closeMKO" Type="bit" Nullable="false" />
           <Property Name="fixedExpert" Type="bit" Nullable="false" />
+          <Property Name="id_ReclamationTypeKB" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -1641,6 +1642,13 @@
           <Property Name="activeOTK" Type="bit" Nullable="false" />
           <Property Name="activePO" Type="bit" Nullable="false" />
           <Property Name="activeService" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReclamationTypeKB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="RenameTasksKBM">
           <Key>
@@ -2036,7 +2044,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -2063,7 +2071,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primar
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -2073,7 +2081,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a pr
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2094,7 +2102,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a prima
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2115,7 +2123,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a pr
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -2187,7 +2195,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a pr
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -3849,6 +3857,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reclamation_ReclamationTypeKB">
+          <End Role="ReclamationTypeKB" Type="Self.ReclamationTypeKB" Multiplicity="1" />
+          <End Role="Reclamation" Type="Self.Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReclamationTypeKB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_ReclamationTypeKB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reclamation_TechnicalAdvice_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Reclamation_TechnicalAdvice" Type="Self.Reclamation_TechnicalAdvice" Multiplicity="*" />
@@ -4570,6 +4590,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="Reclamation_TechnicalAdviceProtocolPosition" EntityType="Self.Reclamation_TechnicalAdviceProtocolPosition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_TechnicalAdviceTasks" EntityType="Self.Reclamation_TechnicalAdviceTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reclamation_Type" EntityType="Self.Reclamation_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReclamationTypeKB" EntityType="Self.ReclamationTypeKB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenameTasksKBM" EntityType="Self.RenameTasksKBM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_Despatching" EntityType="Self.RKD_Despatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RKD_FailBPlan" EntityType="Self.RKD_FailBPlan" Schema="dbo" store:Type="Tables" />
@@ -5289,6 +5310,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Reclamation_Type" Association="Self.FK_Reclamation_Reclamation_Type">
             <End Role="Reclamation_Type" EntitySet="Reclamation_Type" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reclamation_ReclamationTypeKB" Association="Self.FK_Reclamation_ReclamationTypeKB">
+            <End Role="ReclamationTypeKB" EntitySet="ReclamationTypeKB" />
             <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           <AssociationSet Name="FK_Reclamation_TechnicalAdvice_AspNetUsers" Association="Self.FK_Reclamation_TechnicalAdvice_AspNetUsers">
@@ -6407,6 +6432,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="ReclamationTypeKB" EntityType="PortalKATEKModel.ReclamationTypeKB" />
+          <AssociationSet Name="FK_Reclamation_ReclamationTypeKB" Association="PortalKATEKModel.FK_Reclamation_ReclamationTypeKB">
+            <End Role="ReclamationTypeKB" EntitySet="ReclamationTypeKB" />
+            <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
@@ -8481,6 +8511,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_Reclamation_Reclamation_Type" FromRole="Reclamation" ToRole="Reclamation_Type" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="Reclamation" ToRole="ServiceRemarksReclamations" />
+          <Property Name="id_ReclamationTypeKB" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReclamationTypeKB" Relationship="PortalKATEKModel.FK_Reclamation_ReclamationTypeKB" FromRole="Reclamation" ToRole="ReclamationTypeKB" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -11167,6 +11199,26 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="ReclamationTypeKB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_ReclamationTypeKB" FromRole="ReclamationTypeKB" ToRole="Reclamation" />
+        </EntityType>
+        <Association Name="FK_Reclamation_ReclamationTypeKB">
+          <End Type="PortalKATEKModel.ReclamationTypeKB" Role="ReclamationTypeKB" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReclamationTypeKB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reclamation">
+              <PropertyRef Name="id_ReclamationTypeKB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13057,6 +13109,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="id_ReclamationTypeKB" ColumnName="id_ReclamationTypeKB" />
                 <ScalarProperty Name="fixedExpert" ColumnName="fixedExpert" />
                 <ScalarProperty Name="closeMKO" ColumnName="closeMKO" />
                 <ScalarProperty Name="id_AspNetUsersError" ColumnName="id_AspNetUsersError" />
@@ -13517,6 +13570,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ReclamationTypeKB">
+            <EntityTypeMapping TypeName="PortalKATEKModel.ReclamationTypeKB">
+              <MappingFragment StoreEntitySet="ReclamationTypeKB">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

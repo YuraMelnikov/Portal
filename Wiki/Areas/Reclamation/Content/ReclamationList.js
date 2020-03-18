@@ -356,6 +356,7 @@ function Add() {
     $("#btnAdd").attr('disabled', true);
     var objRemark = {
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
+        id_ReclamationTypeKB: $('#id_ReclamationTypeKB').val(),
         id_Reclamation_Type: $('#id_Reclamation_Type').val(),
         close: $('#close').is(":checked"),
         id_DevisionReclamation: $('#id_DevisionReclamation').val(),
@@ -455,6 +456,7 @@ function clearTextBox() {
     clearColor();
     AllNoDisabled();
     $("#btnAdd").attr('disabled', false);
+    $('#id_ReclamationTypeKB').val("");
     $('#vid_AspNetUsersCreate').val("");
     $('#vdateTimeCreate').val("");
     $('#id').val("");
@@ -543,6 +545,7 @@ function GetReclamation(id) {
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
+            $('#id_ReclamationTypeKB').val(result.id_ReclamationTypeKB);
             $('#closeMKO').val(result.closeMKO);
             $('#answerText').val("");
             $('#dateTimeCreate').val(result.dateTimeCreate);
@@ -571,6 +574,7 @@ function GetReclamation(id) {
                 if (result.answerHistiryText.length === 0) {
                     $('#btnRemove').show();
                 }
+                $('#id_ReclamationTypeKB').prop('disabled', true);
                 $('#id_AspNetUsersError').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
                 $('#gip').prop('disabled', true);
@@ -589,6 +593,7 @@ function GetReclamation(id) {
                 $('#btnRemove').hide();
             }
             else if (counterDevision === 3) {
+                $('#id_ReclamationTypeKB').prop('disabled', true);
                 $('#text').prop('disabled', true);
                 $('#description').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
@@ -601,6 +606,7 @@ function GetReclamation(id) {
                 $('#btnRemove').hide();
             }
             else {
+                $('#id_ReclamationTypeKB').prop('disabled', true);
                 $('#text').prop('disabled', true);
                 $('#description').prop('disabled', true);
                 $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
@@ -690,6 +696,7 @@ function GetReclamationView(id) {
             $('#answerText').prop('disabled', true);
             $('#trash').prop('disabled', true);
             $('#pZ_PlanZakaz').prop('disabled', true);
+            $('#id_ReclamationTypeKB').prop('disabled', true);
             $("#pZ_PlanZakaz").val(result.pZ_PlanZakaz).trigger("chosen:updated");
             $('#viewReclamation').modal('show');
             $('#btnUpdate').hide();
@@ -763,6 +770,7 @@ function Update() {
     var pz = document.getElementById('zakazId').innerHTML;
     var objRemark = {
         id: $('#id').val(),
+        id_ReclamationTypeKB: $('#id_ReclamationTypeKB').val(),
         fixedExpert: $('#fixedExpert').val(),
         closeMKO: $('#closeMKO').val(),
         dateTimeCreate: $('#dateTimeCreate').val(),
@@ -810,6 +818,7 @@ function Update() {
 
 function AllNoDisabled() {
     $('#id').prop('disabled', false);
+    $('#id_ReclamationTypeKB').prop('disabled', false);
     $('#id_Reclamation_Type').prop('disabled', false);
     $('#id_DevisionReclamation').prop('disabled', false);
     $('#id_Reclamation_CountErrorFirst').prop('disabled', false);

@@ -895,6 +895,9 @@
     <Compile Include="Reclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ReclamationTypeKB.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reclamation_Answer.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

@@ -29,6 +29,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.id_ReclamationTypeKB = new SelectList(db.ReclamationTypeKB.OrderBy(d => d.name), "id", "name");
             @ViewBag.idPZ = 0;
             string login = HttpContext.User.Identity.Name;
             ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 0).OrderBy(d => d.name), "id", "name");
@@ -59,23 +60,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            //else if (login == "myi@katek.by")
-            //{
-            //    List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-            //    foreach (var data in devisions)
-            //    {
-            //        if (data.id == 16)
-            //            data.name = "КБЭ";
-            //    }
-            //    ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
-            //    ViewBag.ButtonAddActivation = 1;
-            //    ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-            //        .Where(d => d.Devision == 3 || d.Devision == 16)
-            //        .Where(d => d.LockoutEnabled == true)
-            //        .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
-            //    ViewBag.CRUDCounter = '2';
-            //}
-            else if (login == "nrf@katek.by")
+            else if (login == "nrf@katek.by" || login == "myi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 foreach (var data in devisions)
@@ -481,7 +466,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
             reclamationListViewer.GetOneReclamation(reclamation.id);
-
             try
             {
                 if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by")
@@ -496,7 +480,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
 
             }
-
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 
@@ -505,6 +488,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             var query = db.Reclamation.Where(d => d.id == id).ToList();
             var data = query.Select(dataList => new
             {
+                dataList.id_ReclamationTypeKB,
                 dataList.id,
                 dataList.fixedExpert,
                 dataList.id_Reclamation_Type,
