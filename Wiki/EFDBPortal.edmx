@@ -229,6 +229,14 @@
           <Property Name="devision" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMKO_RemainingWork">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="percent" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="CMKO_RemarksList">
           <Key>
             <PropertyRef Name="id" />
@@ -2044,7 +2052,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -2071,7 +2079,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -2081,7 +2089,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2102,7 +2110,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2123,7 +2131,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -2195,7 +2203,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -4476,6 +4484,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <EntitySet Name="CMKO_Optimization" EntityType="Self.CMKO_Optimization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_PeriodResult" EntityType="Self.CMKO_PeriodResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_ProjectFactBujet" EntityType="Self.CMKO_ProjectFactBujet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMKO_RemainingWork" EntityType="Self.CMKO_RemainingWork" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_RemarksList" EntityType="Self.CMKO_RemarksList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_RemarksListG" EntityType="Self.CMKO_RemarksListG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMKO_SummaryResultToMonth" EntityType="Self.CMKO_SummaryResultToMonth" Schema="dbo" store:Type="Tables" />
@@ -6438,6 +6447,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             <End Role="ReclamationTypeKB" EntitySet="ReclamationTypeKB" />
             <End Role="Reclamation" EntitySet="Reclamation" />
           </AssociationSet>
+          <EntitySet Name="CMKO_RemainingWork" EntityType="PortalKATEKModel.CMKO_RemainingWork" />
           </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -11219,6 +11229,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CMKO_RemainingWork">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="percent" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13574,6 +13592,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             <EntityTypeMapping TypeName="PortalKATEKModel.ReclamationTypeKB">
               <MappingFragment StoreEntitySet="ReclamationTypeKB">
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMKO_RemainingWork">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMKO_RemainingWork">
+              <MappingFragment StoreEntitySet="CMKO_RemainingWork">
+                <ScalarProperty Name="percent" ColumnName="percent" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -201,5 +201,6 @@ namespace Wiki
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
         public virtual DbSet<ReclamationTypeKB> ReclamationTypeKB { get; set; }
+        public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
     }
 }

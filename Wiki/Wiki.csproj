@@ -433,6 +433,9 @@
     <Compile Include="CMKO_ProjectFactBujet.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMKO_RemainingWork.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMKO_RemarksList.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

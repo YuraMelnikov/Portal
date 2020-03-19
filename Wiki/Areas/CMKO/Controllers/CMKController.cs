@@ -614,7 +614,7 @@ namespace Wiki.Areas.CMKO
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
 
-
+                
 
 
 
@@ -631,12 +631,27 @@ namespace Wiki.Areas.CMKO
                 {
                     summaryWageFund[i] = new SummaryWageFundUser
                     {
-                        FullName = fundData[i].AspNetUsers.CiliricalName,
+                        FullName = fundData[i].AspNetUsers.CiliricalName + GetRemainingPercent(fundData[i].AspNetUsers.Id),
                         Plan = (int)fundData[i].nhPlan - (int)fundData[i].nhFact,
                         Fact = (int)fundData[i].nhFact
                     };
                 }
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        string GetRemainingPercent(string id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    return " (" + Math.Round(db.CMKO_RemainingWork.First(a => a.id_AspNetUsers == id).percent, 0).ToString() + ") ";
+                }
+                catch
+                {
+                    return "";
+                }
             }
         }
 
