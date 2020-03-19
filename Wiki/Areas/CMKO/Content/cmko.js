@@ -15301,7 +15301,7 @@ function ManpowerUsersInMonth3() {
             alert(errormessage.responseText);
         }
     });
-}
+} 
 
 function GetUserName() {
     $.ajax({
@@ -15315,7 +15315,7 @@ function GetUserName() {
             document.getElementById("pUserName").textContent = "";
         }
     });
-}
+} 
 
 function GetAccuredPlan() {
     $.ajax({
@@ -15450,7 +15450,7 @@ function GetAccuredPlan() {
             alert(errormessage.responseText);
         }
     });
-}
+} 
 
 function GetAccuredFact() {
     $.ajax({
@@ -15585,7 +15585,7 @@ function GetAccuredFact() {
             alert(errormessage.responseText);
         }
     });
-}
+} 
 
 function GetTimeSheet() {
     $.ajax({
@@ -16569,7 +16569,7 @@ function GetThemSendSignika() {
 
 function GetThemHighContrastLight() {
     Highcharts.theme = {
-        colors: [
+        colors: [ 
             '#5f98cf',
             '#434348',
             '#49a65e',

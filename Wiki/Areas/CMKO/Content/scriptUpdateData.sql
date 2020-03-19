@@ -778,3 +778,25 @@ from PortalKATEK.dbo.CMKO_PeriodResult
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = PortalKATEK.dbo.CMKO_PeriodResult.[period] and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
 where PortalKATEK.dbo.CMKO_ThisCoefManager.id is null
+
+
+delete [PortalKATEK].[dbo].[CMKO_RemainingWork]
+insert into [PortalKATEK].[dbo].[CMKO_RemainingWork]
+select TableResult.ResourceUID
+,100 * Convert(float, sum(TableResult.[Workday])) / Convert(float, sum(TableResult.[Day]))
+from (SELECT PortalKATEK.dbo.AspNetUsers.Id as ResourceUID
+,[ProjectWebApp].[dbo].[MSP_TimeByDay].TimeByDay
+,IIF([ProjectWebApp].[dbo].[MSP_TimeByDay].TimeByDay < GETDATE(), 1, IIF(SUM([ProjectWebApp].[dbo].[MSP_EpmAssignmentByDay].AssignmentWork) > 0, 1, 0)) AS [Workday]
+,1 as [Day]
+FROM [ProjectWebApp].[dbo].[MSP_TimeByDay] left join [ProjectWebApp].[dbo].[MSP_EpmAssignmentByDay] on [ProjectWebApp].[dbo].[MSP_EpmAssignmentByDay].TimeByDay = [ProjectWebApp].[dbo].[MSP_TimeByDay].TimeByDay
+left join [ProjectWebApp].[dbo].[MSP_EpmAssignment] on [ProjectWebApp].[dbo].[MSP_EpmAssignment].AssignmentUID = [ProjectWebApp].[dbo].[MSP_EpmAssignmentByDay].AssignmentUID
+left join [ProjectWebApp].[dbo].[MSP_EpmResource_UserView] on [ProjectWebApp].[dbo].[MSP_EpmResource_UserView].ResourceUID = [ProjectWebApp].[dbo].[MSP_EpmAssignment].ResourceUID
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = [ProjectWebApp].[dbo].[MSP_EpmResource_UserView].ResourceUID
+where @periodQua = concat([ProjectWebApp].[dbo].[MSP_TimeByDay].TimeYear,'.',[ProjectWebApp].[dbo].[MSP_TimeByDay].TimeQuarter)
+and [ProjectWebApp].[dbo].[MSP_TimeByDay].TimeDayOfTheWeek != 6
+and [ProjectWebApp].[dbo].[MSP_TimeByDay].TimeDayOfTheWeek != 7
+and [ProjectWebApp].[dbo].[MSP_EpmResource_UserView].СДРес like '%КБ%'
+group by PortalKATEK.dbo.AspNetUsers.Id
+,[ProjectWebApp].[dbo].[MSP_TimeByDay].TimeByDay) as TableResult
+where TableResult.ResourceUID is not null
+group by TableResult.ResourceUID
