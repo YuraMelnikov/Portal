@@ -25,6 +25,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             PortalKATEKEntities db = new PortalKATEKEntities();
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.RemarkInWork = "Активных замечаний: " + db.ServiceRemarks.Where(a => a.dateClose == null).Count().ToString();
             ViewBag.PZ_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 7000).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeService == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_ServiceRemarksCause = new SelectList(db.ServiceRemarksCause.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
@@ -109,6 +110,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     reclamation.description = "";
                 if (reclamation.folder == null)
                     reclamation.folder = "";
+                if (reclamation.contacts == null)
+                    reclamation.contacts = "";
                 db.ServiceRemarks.Add(reclamation);
                 db.SaveChanges();
 
@@ -127,10 +130,15 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 }
                 string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString + reclamation.id.ToString();
                 Directory.CreateDirectory(directory);
+                string inDirectory = directory + @"Входящие\";
+                Directory.CreateDirectory(inDirectory);
+                string outDirectory = directory + @"Исходящие\";
+                Directory.CreateDirectory(outDirectory);
+                string allDirectory = directory + @"Сопутствующие\";
+                Directory.CreateDirectory(allDirectory);
                 reclamation.folder = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString + reclamation.id.ToString() + @"\";
                 db.Entry(reclamation).State = EntityState.Modified;
                 db.SaveChanges();
-
                 foreach (var data in id_Reclamation_Type)
                 {
                     ServiceRemarksTypes remarkOrder = new ServiceRemarksTypes();
@@ -165,6 +173,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     .Where(d => d.id == id).ToList();
                 var data = query.Select(dataList => new
                 {
+                    contacts = dataList.contacts,
                     numberReclamation = "Рекламация №: " + dataList.id,
                     dataList.id,
                     pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),
@@ -250,12 +259,15 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 }
                 if (reclamation.description == null)
                     reclamation.description = "";
+                if (reclamation.contacts == null)
+                    reclamation.contacts = "";
                 if (reclamation.folder == null)
                     reclamation.folder = "";
                 beforeUpdateRemark.datePutToService = reclamation.datePutToService;
                 beforeUpdateRemark.description = reclamation.description;
                 beforeUpdateRemark.folder = reclamation.folder;
                 beforeUpdateRemark.text = reclamation.text;
+                beforeUpdateRemark.contacts = reclamation.contacts;
                 db.Entry(beforeUpdateRemark).State = EntityState.Modified;
                 db.SaveChanges();
                 if (answerText != "")
@@ -719,7 +731,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 {
                     dateAnswer = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                     userAnswer = dataList.AspNetUsers.CiliricalName,
-                    textAnswer = dataList.text
+                    textAnswer = dataList.text,
+                    editLinkAnsw = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getAnsw('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>"
                 });
                 return Json(new { data });
             }
@@ -731,11 +744,103 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    var list = db.ServiceRemarksCauses.Where(a => a.id_ServiceRemarks == id).ToList();
+                    foreach (var data in list)
+                    {
+                        ServiceRemarksCauses serviceRemarksCauses = db.ServiceRemarksCauses.Find(data.id);
+                        db.ServiceRemarksCauses.Remove(serviceRemarksCauses);
+                        db.SaveChanges();
+                    }
+                }
+                catch { }
+                try
+                {
+                    var listP = db.ServiceRemarksPlanZakazs.Where(a => a.id_ServiceRemarks == id).ToList();
+                    foreach (var data in listP)
+                    {
+                        ServiceRemarksPlanZakazs rd = db.ServiceRemarksPlanZakazs.Find(data.id);
+                        db.ServiceRemarksPlanZakazs.Remove(rd);
+                        db.SaveChanges();
+                    }
+                }
+                catch { }
+                try
+                {
+                    var listA = db.ServiceRemarksActions.Where(a => a.id_ServiceRemarks == id).ToList();
+                    foreach (var data in listA)
+                    {
+                        ServiceRemarksActions act = db.ServiceRemarksActions.Find(data.id);
+                        db.ServiceRemarksActions.Remove(act);
+                        db.SaveChanges();
+                    }
+                }
+                catch { }
+                try
+                {
+                    var listT = db.ServiceRemarksTypes.Where(a => a.id_ServiceRemarks == id).ToList();
+                    foreach (var data in listT)
+                    {
+                        ServiceRemarksTypes type = db.ServiceRemarksTypes.Find(data.id);
+                        db.ServiceRemarksTypes.Remove(type);
+                        db.SaveChanges();
+                    }
+                }
+                catch { }
                 ServiceRemarks serviceRemarks = db.ServiceRemarks.Find(id);
                 db.ServiceRemarks.Remove(serviceRemarks);
                 db.SaveChanges();
             }
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAnsw(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.ServiceRemarksActions.Where(d => d.id == id).ToList();
+                var data = query.Select(dataList => new
+                {
+                    idAnsw = dataList.id,
+                    textAnws = dataList.text
+                });
+                return Json(data.First(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RemoveAnsw(int idAnsw)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ServiceRemarksActions serviceRemarksActions = db.ServiceRemarksActions.Find(idAnsw);
+                db.ServiceRemarksActions.Remove(serviceRemarksActions);
+                db.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateAnsw(int idAnsw, string textAnws)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ServiceRemarksActions serviceRemarksActions = db.ServiceRemarksActions.Find(idAnsw);
+                if(textAnws != null && textAnws != "")
+                {
+                    serviceRemarksActions.text = textAnws;
+                    db.Entry(serviceRemarksActions).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

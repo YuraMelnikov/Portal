@@ -46,7 +46,8 @@ var objTableRem = [
 var objTableAnswer = [
     { "title": "Дата", "data": "dateAnswer", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Сотрудник", "data": "userAnswer", "autowidth": true, "bSortable": false },
-    { "title": "Текст", "data": "textAnswer", "autowidth": true, "bSortable": false }
+    { "title": "Текст", "data": "textAnswer", "autowidth": true, "bSortable": false },
+    { "title": "Ред", "data": "editLinkAnsw", "autowidth": true, "bSortable": false, "className": 'text-center' }
 ];
 
 function startPage() {
@@ -239,6 +240,7 @@ function clearTextBox() {
     $("#btnUpdate").hide();
     clearColor();
     clearTextBoxRem();
+    $('#contacts').val("");
     $('#numberReclamation').val("");
     $('#dateTimeCreate').val("");
     $('#userCreate').val("");
@@ -279,6 +281,7 @@ function Add() {
         datePutToService: $('#datePutToService').val(),
         dateClose: $('#dateClose').val(),
         folder: $('#folder').val(),
+        contacts: $('#contacts').val(),
         text: $('#text').val(),
         description: $('#description').val()
     };
@@ -290,9 +293,8 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $("#partRem").show();
+            $('#reclamationModal').modal('hide');
             $('#reclamationTable').DataTable().ajax.reload(null, false);
-            get(result);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -363,6 +365,7 @@ function get(id) {
             $("#id_ServiceRemarksCause").val(result.id_ServiceRemarksCause).trigger("chosen:updated");
             $('#numberReclamation').val(result.numberReclamation);
             $('#dateTimeCreate').val(result.dateTimeCreate);
+            $('#contacts').val(result.contacts);
             $('#userCreate').val(result.userCreate);
             $('#datePutToService').val(result.datePutToService);
             if (result.dateClose !== 'null')
@@ -376,14 +379,6 @@ function get(id) {
             $('#answerText').val(result.answerText);
             $('#answerHistiryText').val(result.answerHistiryText);
             $('#reclamationModal').modal('show');
-            //if (userGroupId === 1 || userGroupId === '1') {
-            //    $('#btnUpdate').show();
-            //    $('#btnAddOtkRem').show();
-            //}
-            //else {
-            //    $('#btnUpdate').hide();
-            //    $('#btnAddOtkRem').hide();
-            //}
             $('#btnAdd').hide();
         },
         error: function (errormessage) {
@@ -445,6 +440,7 @@ function update() {
         datePutToService: $('#datePutToService').val(),
         dateClose: $('#dateClose').val(),
         folder: $('#folder').val(),
+        contacts: $('#contacts').val(),
         text: $('#text').val(),
         description: $('#description').val(),
         answerText: $('#answerText').val()
@@ -542,6 +538,7 @@ function validatePZList() {
 
 function clearTextBoxRem() {
     clearColorRem();
+    $('#answerText').val("");
     $('#typeRem').val("");
     $('#devRem').val("");
     $('#textRem').val("");
@@ -669,4 +666,71 @@ function remove() {
                 alert(errormessage.responseText);
             }
         });
+}
+
+function getAnsw(id) {
+    $('#idAnsw').val("");
+    $('#textAnws').val("");
+    $.ajax({
+        cache: false,
+        url: "/Marks/GetAnsw/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idAnsw').val(result.idAnsw);
+            $('#textAnws').val(result.textAnws);
+            $('#answerModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function removeAnsw() {
+    var objRemove = {
+        idAnsw: $('#idAnsw').val()
+    };
+    $.ajax(
+        {
+            cache: false,
+            url: "/Marks/RemoveAnsw/",
+            data: JSON.stringify(objRemove),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#tableAnswers').DataTable().ajax.reload(null, false);
+                $('#answerModal').modal('hide');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+}
+
+function updateAnsw() {
+    var objRemark = {
+        idAnsw: $('#idAnsw').val(),
+        textAnws: $('#textAnws').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Marks/UpdateAnsw/",
+        data: JSON.stringify(objRemark),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#answerModal').modal('hide');
+            $('#idAnsw').val("");
+            $('#textAnws').val("");
+            $('#tableAnswers').DataTable().ajax.reload(null, false);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

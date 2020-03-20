@@ -33,6 +33,7 @@ namespace Wiki
         public Nullable<System.DateTime> dateClose { get; set; }
         public string folder { get; set; }
         public Nullable<int> classicId { get; set; }
+        public string contacts { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
