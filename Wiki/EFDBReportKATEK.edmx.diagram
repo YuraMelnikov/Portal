@@ -6,6 +6,39 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8708581bcaa443cba40190eafa7deecc" Name="Diagram1">
         <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPO" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportKATEKModel.BasicPlan" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardCountPZInDevision" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardDH" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardDHCustomer" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardDPercent" Width="1.5" PointX="3.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardProjectLiast" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardRateToDateShipNextYear" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardRateToDateShipThisYear" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardRemainingWorkDevision" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardYearsSpidimetrs" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DateActualReport" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.FactCostsER" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.FilterYearReport" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.FinCostsClient" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.FinPercentSredniyVzveshenniyNOP" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ManpowerPO" Width="1.5" PointX="11.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.Month" Width="1.5" PointX="11.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.PercentSredniyVzveshenniyNOP" Width="1.5" PointX="11.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.PlanFactCosts" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.PlanFactCostsLastYear" Width="1.5" PointX="9.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.PlanFactCostsThisYear" Width="1.5" PointX="11.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ProjectList" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ReeportStatusPlanZakaz" Width="1.5" PointX="13.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ReportStatusPlanZakazAndWBS" Width="1.5" PointX="6.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ResultReeportStatusPlanZakaz" Width="1.5" PointX="13.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.Sklad" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkKBE" Width="1.5" PointX="13.75" PointY="14.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkKBM" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPOHist" Width="1.5" PointX="15.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TVManuf_DateReport" Width="1.5" PointX="6.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.WBS" Width="1.5" PointX="15.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.Week" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" Width="1.5" PointX="17.75" PointY="2.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

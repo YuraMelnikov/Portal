@@ -12,13 +12,14 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class DashboardRateToDateShipThisYear
     {
+        public int C__заказа__Реестр_заказов_ { get; set; }
+        public string quart { get; set; }
+        public string Месяц { get; set; }
+        public Nullable<double> RUR { get; set; }
+        public Nullable<double> USD { get; set; }
+        public string Валюта { get; set; }
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
     }
 }

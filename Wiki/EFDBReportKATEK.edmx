@@ -4,7 +4,525 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReportKATEKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReportKATEKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BasicPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TaskPercentWorkCompleted" Type="smallint" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+          <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskActualOvertimeWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskWorkVariance" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskResourcePlanWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="TaskRemainingWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingRegularWork" Type="decimal" Precision="27" Scale="6" />
+          <Property Name="TaskRemainingOvertimeWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="TaskIsCritical" Type="bit" />
+          <Property Name="TaskIsExternal" Type="bit" />
+          <Property Name="ЭтапПроизводства(Прочие)" Type="nvarchar" MaxLength="4000" />
+          <Property Name="TaskWBS" Type="ntext" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRegularWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingOvertimeWork" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardCountPZInDevision">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="№нед" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="СП" Type="nvarchar" MaxLength="4000" />
+          <Property Name="k" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="SSM" Type="int" Nullable="false" />
+          <Property Name="SSW" Type="int" Nullable="false" />
+          <Property Name="IK" Type="int" Nullable="false" />
+          <Property Name="PK" Type="int" Nullable="false" />
+          <Property Name="PI" Type="int" Nullable="false" />
+          <Property Name="Profit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDHCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Customer" Type="varchar(max)" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="SSM" Type="int" Nullable="false" />
+          <Property Name="SSR" Type="int" Nullable="false" />
+          <Property Name="IK" Type="int" Nullable="false" />
+          <Property Name="PK" Type="int" Nullable="false" />
+          <Property Name="PI" Type="int" Nullable="false" />
+          <Property Name="Profit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDPercent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer" Type="varchar(max)" Nullable="false" />
+          <Property Name="Data" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardProjectLiast">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказ" Type="int" Nullable="false" />
+          <Property Name="Изделие" Type="varchar" MaxLength="50" />
+          <Property Name="Тр-р" Type="varchar(max)" />
+          <Property Name="Модуль" Type="varchar(max)" />
+          <Property Name="Заказчик" Type="varchar" MaxLength="250" />
+          <Property Name="Договор" Type="date" Nullable="false" />
+          <Property Name="Отгрузка" Type="date" />
+          <Property Name="Откл." Type="int" />
+          <Property Name="С/С 1ед." Type="float" />
+          <Property Name="Договорная цена" Type="float" />
+          <Property Name="% КБМ" Type="float" />
+          <Property Name="% КБЭ" Type="float" />
+          <Property Name="% ПО" Type="float" />
+          <Property Name="% ОС" Type="float" />
+          <Property Name="Buj" Type="float" />
+          <Property Name="% Бюджета" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardRateToDateShipNextYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="№ заказа (Реестр заказов)" Type="int" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="RUR" Type="float" />
+          <Property Name="USD" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardRateToDateShipThisYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="№ заказа (Реестр заказов)" Type="int" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="RUR" Type="float" />
+          <Property Name="USD" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardRemainingWorkDevision">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="Дата" Type="datetime" />
+          <Property Name="СП" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Тр-ты" Type="decimal" Precision="26" Scale="6" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardYearsSpidimetrs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DateActualReport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateTimeActualReport" Type="datetime" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FactCostsER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Период" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Коммерческие издержки" Type="int" />
+          <Property Name="Издержки (ЗП ПО)" Type="int" />
+          <Property Name="Издержки % по кредиту" Type="int" />
+          <Property Name="Постоянные издержки" Type="int" />
+          <Property Name="Фактическая С/С материалов" Type="int" />
+          <Property Name="Трудозатраты ПО (по заказам)" Type="int" />
+          <Property Name="Коммерческие издержки Ш" Type="int" />
+          <Property Name="Коммерческие издержки прочие" Type="int" />
+          <Property Name="Условно ПИ" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FilterYearReport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinCostsClient">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа (Реестр заказов)" Type="int" Nullable="false" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Фактический С/С" Type="float" />
+          <Property Name="Заказчик (группа)" Type="varchar" MaxLength="250" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinPercentSredniyVzveshenniyNOP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказчик (группа)" Type="varchar" MaxLength="250" />
+          <Property Name="Средний взвешеный НОП" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManpowerPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateTimeReport" Type="datetime" Nullable="false" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="СДРес" Type="varchar(max)" />
+          <Property Name="AssignmentWork" Type="int" />
+          <Property Name="WorkDay" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numMonth" Type="int" Nullable="false" />
+          <Property Name="numMonthWhisZero" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PercentSredniyVzveshenniyNOP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="quart" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="Месяц" Type="nchar" MaxLength="7" Nullable="false" />
+          <Property Name="Средний взвешеный НОП" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanFactCosts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="nvarchar" MaxLength="5" />
+          <Property Name="Период" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Коммерческие издержки" Type="int" />
+          <Property Name="Издержки (ЗП ПО)" Type="int" />
+          <Property Name="Издержки % по кредиту" Type="int" />
+          <Property Name="Постоянные издержки" Type="int" />
+          <Property Name="Коммерческие издержки Ш" Type="int" />
+          <Property Name="Коммерческие издержки прочие" Type="int" />
+          <Property Name="Условно ПИ" Type="int" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="Тр-ты ПО" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ОтклЗППО" Type="float" />
+          <Property Name="ОтклППК" Type="float" />
+          <Property Name="ОтклПИ" Type="float" />
+          <Property Name="ОтклКИ" Type="float" />
+          <Property Name="ОтклСС" Type="float" />
+          <Property Name="Плановые издержки" Type="float" />
+          <Property Name="Фактические издержки" Type="float" />
+          <Property Name="Откл издержек" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanFactCostsLastYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateReport" Type="datetime" Nullable="false" />
+          <Property Name="year" Type="nvarchar" MaxLength="5" />
+          <Property Name="Период" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ФКИ" Type="int" />
+          <Property Name="ФЗП" Type="int" />
+          <Property Name="ФППК" Type="int" />
+          <Property Name="ФПИ" Type="int" />
+          <Property Name="ФКИШ" Type="int" />
+          <Property Name="ФКИП" Type="int" />
+          <Property Name="ФУП" Type="int" />
+          <Property Name="ФХСС" Type="float" />
+          <Property Name="ПКИ" Type="float" />
+          <Property Name="ПХСС" Type="float" />
+          <Property Name="ПЗП" Type="float" />
+          <Property Name="ПППК" Type="float" />
+          <Property Name="ППИ" Type="float" />
+          <Property Name="ФИ" Type="float" />
+          <Property Name="ПИ" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanFactCostsThisYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateReport" Type="datetime" Nullable="false" />
+          <Property Name="year" Type="nvarchar" MaxLength="5" />
+          <Property Name="Период" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ФКИ" Type="int" />
+          <Property Name="ФЗП" Type="int" />
+          <Property Name="ФППК" Type="int" />
+          <Property Name="ФПИ" Type="int" />
+          <Property Name="ФКИШ" Type="int" />
+          <Property Name="ФКИП" Type="int" />
+          <Property Name="ФУП" Type="int" />
+          <Property Name="ФХСС" Type="float" />
+          <Property Name="ПКИ" Type="float" />
+          <Property Name="ПХСС" Type="float" />
+          <Property Name="ПЗП" Type="float" />
+          <Property Name="ПППК" Type="float" />
+          <Property Name="ППИ" Type="float" />
+          <Property Name="ФИ" Type="float" />
+          <Property Name="ПИ" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказ" Type="int" Nullable="false" />
+          <Property Name="Изделие" Type="varchar" MaxLength="50" />
+          <Property Name="Тр-р" Type="varchar(max)" />
+          <Property Name="Модуль" Type="varchar(max)" />
+          <Property Name="Заказчик" Type="varchar" MaxLength="250" />
+          <Property Name="Договор" Type="date" Nullable="false" />
+          <Property Name="Отгрузка" Type="date" />
+          <Property Name="Откл." Type="int" />
+          <Property Name="С/С 1ед." Type="float" />
+          <Property Name="Договорная цена" Type="float" />
+          <Property Name="Buj" Type="float" />
+          <Property Name="% Бюджета" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReeportStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reportColumnName" Type="varchar(max)" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="activePO" Type="bit" Nullable="false" />
+          <Property Name="activeGraphic" Type="bit" />
+          <Property Name="graphicColumnName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ReportStatusPlanZakazAndWBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ReportStatusPlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_WBS" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ResultGraphicStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="Заказ" />
+            <PropertyRef Name="Договор" />
+          </Key>
+          <Property Name="id_PZ_PlanZakaz" Type="int" />
+          <Property Name="Заказ" Type="int" Nullable="false" />
+          <Property Name="Изделие" Type="varchar" MaxLength="50" />
+          <Property Name="Тр-р" Type="varchar(max)" />
+          <Property Name="Модуль" Type="varchar(max)" />
+          <Property Name="Заказчик" Type="varchar" MaxLength="250" />
+          <Property Name="Договор" Type="date" Nullable="false" />
+          <Property Name="Откл." Type="int" />
+          <Property Name="Отгрузка" Type="date" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="date" />
+          <Property Name="Дата состояния РКД" Type="date" />
+          <Property Name="Текущая версия РКД" Type="varchar" MaxLength="15" />
+          <Property Name="Текущая стадия состояния РКД" Type="varchar(max)" />
+          <Property Name="С/С 1ед." Type="float" />
+          <Property Name="Договорная цена" Type="float" />
+          <Property Name="% КБМ" Type="float" />
+          <Property Name="% КБЭ" Type="float" />
+          <Property Name="% ПО" Type="float" />
+          <Property Name="% ОС" Type="float" />
+          <Property Name="Buj" Type="float" />
+          <Property Name="% Бюджета" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" />
+          <Property Name="graphicColumnName" Type="varchar(max)" />
+          <Property Name="TaskWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TaskActualWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="PercentComplited" Type="float" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ResultReeportStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="Заказ" Type="int" Nullable="false" />
+          <Property Name="Изделие" Type="varchar" MaxLength="50" />
+          <Property Name="Тр-р" Type="varchar(max)" />
+          <Property Name="Модуль" Type="varchar(max)" />
+          <Property Name="Заказчик" Type="varchar" MaxLength="250" />
+          <Property Name="Договор" Type="date" Nullable="false" />
+          <Property Name="Откл." Type="int" />
+          <Property Name="Отгрузка" Type="date" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="date" />
+          <Property Name="Дата состояния РКД" Type="date" />
+          <Property Name="Текущая версия РКД" Type="varchar" MaxLength="15" />
+          <Property Name="Текущая стадия состояния РКД" Type="varchar(max)" />
+          <Property Name="С/С 1ед." Type="float" />
+          <Property Name="Договорная цена" Type="float" />
+          <Property Name="% КБМ" Type="float" />
+          <Property Name="% КБЭ" Type="float" />
+          <Property Name="% ПО" Type="float" />
+          <Property Name="% ОС" Type="float" />
+          <Property Name="Buj" Type="float" />
+          <Property Name="% Бюджета" Type="float" />
+          <Property Name="Валюта" Type="varchar" MaxLength="250" />
+          <Property Name="ProjectUID" Type="uniqueidentifier" />
+          <Property Name="reportColumnName" Type="varchar(max)" />
+          <Property Name="TaskWork" Type="float" />
+          <Property Name="TaskActualWork" Type="float" />
+          <Property Name="PercentComplited" Type="float" />
+          <Property Name="TaskStartDate" Type="date" />
+          <Property Name="TaskFinishDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="%" Type="smallint" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="Окончание" Type="datetime" />
+          <Property Name="Дата отгрузки" Type="datetime" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="int" Nullable="false" />
+          <Property Name="П_Ведомость в 1с (КБМ)" Type="datetime" />
+          <Property Name="П_Ведомость в 1с (КБЭ)" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TEOInWorkKBE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С материалов - факт1с" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Выручка без НДС 1ч ПО" Type="float" />
+          <Property Name="С/С материалов 1ч ПО" Type="float" />
+          <Property Name="С/С материалов - факт1с 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих 1ч ПО" Type="float" />
+          <Property Name="Издержки коммерческие 1ч ПО" Type="float" />
+          <Property Name="% по кредиту 1ч ПО" Type="float" />
+          <Property Name="Постоянные издержки 1ч ПО" Type="float" />
+          <Property Name="НОП 1ч ПО" Type="float" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TEOInWorkKBM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С материалов - факт1с" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Выручка без НДС 1ч ПО" Type="float" />
+          <Property Name="С/С материалов 1ч ПО" Type="float" />
+          <Property Name="С/С материалов - факт1с 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих 1ч ПО" Type="float" />
+          <Property Name="Издержки коммерческие 1ч ПО" Type="float" />
+          <Property Name="% по кредиту 1ч ПО" Type="float" />
+          <Property Name="Постоянные издержки 1ч ПО" Type="float" />
+          <Property Name="НОП 1ч ПО" Type="float" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="TEOInWorkPO">
           <Key>
             <PropertyRef Name="id" />
@@ -48,11 +566,139 @@
           <Property Name="ХССЗПФакт" Type="float" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="TEOInWorkPOHist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="DateReport" Type="datetime" Nullable="false" />
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С материалов - факт1с" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Выручка без НДС 1ч ПО" Type="float" />
+          <Property Name="С/С материалов 1ч ПО" Type="float" />
+          <Property Name="С/С материалов - факт1с 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих 1ч ПО" Type="float" />
+          <Property Name="Издержки коммерческие 1ч ПО" Type="float" />
+          <Property Name="% по кредиту 1ч ПО" Type="float" />
+          <Property Name="Постоянные издержки 1ч ПО" Type="float" />
+          <Property Name="НОП 1ч ПО" Type="float" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TVManuf_DateReport">
+          <Key>
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="sName" Type="varchar(max)" Nullable="false" />
+          <Property Name="level" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Week">
+          <Key>
+            <PropertyRef Name="Week" />
+          </Key>
+          <Property Name="Week" Type="varchar" MaxLength="26" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="ReportKATEKModelStoreContainer">
+          <EntitySet Name="BasicPlan" EntityType="Self.BasicPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardCountPZInDevision" EntityType="Self.DashboardCountPZInDevision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardDH" EntityType="Self.DashboardDH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardDHCustomer" EntityType="Self.DashboardDHCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardDPercent" EntityType="Self.DashboardDPercent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardProjectLiast" EntityType="Self.DashboardProjectLiast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardRateToDateShipNextYear" EntityType="Self.DashboardRateToDateShipNextYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardRateToDateShipThisYear" EntityType="Self.DashboardRateToDateShipThisYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardRemainingWorkDevision" EntityType="Self.DashboardRemainingWorkDevision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardYearsSpidimetrs" EntityType="Self.DashboardYearsSpidimetrs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DateActualReport" EntityType="Self.DateActualReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactCostsER" EntityType="Self.FactCostsER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilterYearReport" EntityType="Self.FilterYearReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinCostsClient" EntityType="Self.FinCostsClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinPercentSredniyVzveshenniyNOP" EntityType="Self.FinPercentSredniyVzveshenniyNOP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManpowerPO" EntityType="Self.ManpowerPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PercentSredniyVzveshenniyNOP" EntityType="Self.PercentSredniyVzveshenniyNOP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanFactCosts" EntityType="Self.PlanFactCosts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanFactCostsLastYear" EntityType="Self.PlanFactCostsLastYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanFactCostsThisYear" EntityType="Self.PlanFactCostsThisYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectList" EntityType="Self.ProjectList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReeportStatusPlanZakaz" EntityType="Self.ReeportStatusPlanZakaz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportStatusPlanZakazAndWBS" EntityType="Self.ReportStatusPlanZakazAndWBS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultReeportStatusPlanZakaz" EntityType="Self.ResultReeportStatusPlanZakaz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklad" EntityType="Self.Sklad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEOInWorkKBE" EntityType="Self.TEOInWorkKBE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEOInWorkKBM" EntityType="Self.TEOInWorkKBM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEOInWorkPOHist" EntityType="Self.TEOInWorkPOHist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TVManuf_DateReport" EntityType="Self.TVManuf_DateReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WBS" EntityType="Self.WBS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Week" EntityType="Self.Week" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultGraphicStatusPlanZakaz" EntityType="Self.ResultGraphicStatusPlanZakaz" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ResultGraphicStatusPlanZakaz].[id_PZ_PlanZakaz] AS [id_PZ_PlanZakaz], 
+    [ResultGraphicStatusPlanZakaz].[Заказ] AS [Заказ], 
+    [ResultGraphicStatusPlanZakaz].[Изделие] AS [Изделие], 
+    [ResultGraphicStatusPlanZakaz].[Тр-р] AS [Тр-р], 
+    [ResultGraphicStatusPlanZakaz].[Модуль] AS [Модуль], 
+    [ResultGraphicStatusPlanZakaz].[Заказчик] AS [Заказчик], 
+    [ResultGraphicStatusPlanZakaz].[Договор] AS [Договор], 
+    [ResultGraphicStatusPlanZakaz].[Откл.] AS [Откл.], 
+    [ResultGraphicStatusPlanZakaz].[Отгрузка] AS [Отгрузка], 
+    [ResultGraphicStatusPlanZakaz].[dataRezresheniyaProizvodstva] AS [dataRezresheniyaProizvodstva], 
+    [ResultGraphicStatusPlanZakaz].[Дата состояния РКД] AS [Дата состояния РКД], 
+    [ResultGraphicStatusPlanZakaz].[Текущая версия РКД] AS [Текущая версия РКД], 
+    [ResultGraphicStatusPlanZakaz].[Текущая стадия состояния РКД] AS [Текущая стадия состояния РКД], 
+    [ResultGraphicStatusPlanZakaz].[С/С 1ед.] AS [С/С 1ед.], 
+    [ResultGraphicStatusPlanZakaz].[Договорная цена] AS [Договорная цена], 
+    [ResultGraphicStatusPlanZakaz].[% КБМ] AS [% КБМ], 
+    [ResultGraphicStatusPlanZakaz].[% КБЭ] AS [% КБЭ], 
+    [ResultGraphicStatusPlanZakaz].[% ПО] AS [% ПО], 
+    [ResultGraphicStatusPlanZakaz].[% ОС] AS [% ОС], 
+    [ResultGraphicStatusPlanZakaz].[Buj] AS [Buj], 
+    [ResultGraphicStatusPlanZakaz].[% Бюджета] AS [% Бюджета], 
+    [ResultGraphicStatusPlanZakaz].[Валюта] AS [Валюта], 
+    [ResultGraphicStatusPlanZakaz].[ProjectUID] AS [ProjectUID], 
+    [ResultGraphicStatusPlanZakaz].[graphicColumnName] AS [graphicColumnName], 
+    [ResultGraphicStatusPlanZakaz].[TaskWork] AS [TaskWork], 
+    [ResultGraphicStatusPlanZakaz].[TaskActualWork] AS [TaskActualWork], 
+    [ResultGraphicStatusPlanZakaz].[PercentComplited] AS [PercentComplited], 
+    [ResultGraphicStatusPlanZakaz].[TaskStartDate] AS [TaskStartDate], 
+    [ResultGraphicStatusPlanZakaz].[TaskFinishDate] AS [TaskFinishDate]
+    FROM [dbo].[ResultGraphicStatusPlanZakaz] AS [ResultGraphicStatusPlanZakaz]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReportKATEKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -101,7 +747,620 @@
         </EntityType>
         <EntityContainer Name="ReportKATEKEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" />
+          <EntitySet Name="BasicPlan" EntityType="ReportKATEKModel.BasicPlan" />
+          <EntitySet Name="DashboardCountPZInDevision" EntityType="ReportKATEKModel.DashboardCountPZInDevision" />
+          <EntitySet Name="DashboardDH" EntityType="ReportKATEKModel.DashboardDH" />
+          <EntitySet Name="DashboardDHCustomer" EntityType="ReportKATEKModel.DashboardDHCustomer" />
+          <EntitySet Name="DashboardDPercent" EntityType="ReportKATEKModel.DashboardDPercent" />
+          <EntitySet Name="DashboardProjectLiast" EntityType="ReportKATEKModel.DashboardProjectLiast" />
+          <EntitySet Name="DashboardRateToDateShipNextYear" EntityType="ReportKATEKModel.DashboardRateToDateShipNextYear" />
+          <EntitySet Name="DashboardRateToDateShipThisYear" EntityType="ReportKATEKModel.DashboardRateToDateShipThisYear" />
+          <EntitySet Name="DashboardRemainingWorkDevision" EntityType="ReportKATEKModel.DashboardRemainingWorkDevision" />
+          <EntitySet Name="DashboardYearsSpidimetrs" EntityType="ReportKATEKModel.DashboardYearsSpidimetrs" />
+          <EntitySet Name="DateActualReport" EntityType="ReportKATEKModel.DateActualReport" />
+          <EntitySet Name="FactCostsER" EntityType="ReportKATEKModel.FactCostsER" />
+          <EntitySet Name="FilterYearReport" EntityType="ReportKATEKModel.FilterYearReport" />
+          <EntitySet Name="FinCostsClient" EntityType="ReportKATEKModel.FinCostsClient" />
+          <EntitySet Name="FinPercentSredniyVzveshenniyNOP" EntityType="ReportKATEKModel.FinPercentSredniyVzveshenniyNOP" />
+          <EntitySet Name="ManpowerPO" EntityType="ReportKATEKModel.ManpowerPO" />
+          <EntitySet Name="Month" EntityType="ReportKATEKModel.Month" />
+          <EntitySet Name="PercentSredniyVzveshenniyNOP" EntityType="ReportKATEKModel.PercentSredniyVzveshenniyNOP" />
+          <EntitySet Name="PlanFactCosts" EntityType="ReportKATEKModel.PlanFactCosts" />
+          <EntitySet Name="PlanFactCostsLastYear" EntityType="ReportKATEKModel.PlanFactCostsLastYear" />
+          <EntitySet Name="PlanFactCostsThisYear" EntityType="ReportKATEKModel.PlanFactCostsThisYear" />
+          <EntitySet Name="ProjectList" EntityType="ReportKATEKModel.ProjectList" />
+          <EntitySet Name="ReeportStatusPlanZakaz" EntityType="ReportKATEKModel.ReeportStatusPlanZakaz" />
+          <EntitySet Name="ReportStatusPlanZakazAndWBS" EntityType="ReportKATEKModel.ReportStatusPlanZakazAndWBS" />
+          <EntitySet Name="ResultReeportStatusPlanZakaz" EntityType="ReportKATEKModel.ResultReeportStatusPlanZakaz" />
+          <EntitySet Name="Sklad" EntityType="ReportKATEKModel.Sklad" />
+          <EntitySet Name="TEOInWorkKBE" EntityType="ReportKATEKModel.TEOInWorkKBE" />
+          <EntitySet Name="TEOInWorkKBM" EntityType="ReportKATEKModel.TEOInWorkKBM" />
+          <EntitySet Name="TEOInWorkPOHist" EntityType="ReportKATEKModel.TEOInWorkPOHist" />
+          <EntitySet Name="TVManuf_DateReport" EntityType="ReportKATEKModel.TVManuf_DateReport" />
+          <EntitySet Name="WBS" EntityType="ReportKATEKModel.WBS" />
+          <EntitySet Name="Week" EntityType="ReportKATEKModel.Week" />
+          <EntitySet Name="ResultGraphicStatusPlanZakaz" EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" />
         </EntityContainer>
+        <EntityType Name="BasicPlan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectUID" Type="Guid" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaskPercentWorkCompleted" Type="Int16" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="RKD" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskActualRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskActualOvertimeWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskWorkVariance" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskResourcePlanWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="TaskRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRemainingRegularWork" Type="Decimal" Precision="27" Scale="6" />
+          <Property Name="TaskRemainingOvertimeWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="TaskIsCritical" Type="Boolean" />
+          <Property Name="TaskIsExternal" Type="Boolean" />
+          <Property Name="ЭтапПроизводства_Прочие_" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TaskWBS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AssignmentRemainingWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRegularWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="AssignmentRemainingOvertimeWork" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardCountPZInDevision">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C_нед" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="СП" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="k" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardDH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="SSM" Type="Int32" Nullable="false" />
+          <Property Name="SSW" Type="Int32" Nullable="false" />
+          <Property Name="IK" Type="Int32" Nullable="false" />
+          <Property Name="PK" Type="Int32" Nullable="false" />
+          <Property Name="PI" Type="Int32" Nullable="false" />
+          <Property Name="Profit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDHCustomer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Customer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="SSM" Type="Int32" Nullable="false" />
+          <Property Name="SSR" Type="Int32" Nullable="false" />
+          <Property Name="IK" Type="Int32" Nullable="false" />
+          <Property Name="PK" Type="Int32" Nullable="false" />
+          <Property Name="PI" Type="Int32" Nullable="false" />
+          <Property Name="Profit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDPercent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardProjectLiast">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказ" Type="Int32" Nullable="false" />
+          <Property Name="Изделие" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Тр_р" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Модуль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Заказчик" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Договор" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Отгрузка" Type="DateTime" Precision="0" />
+          <Property Name="Откл_" Type="Int32" />
+          <Property Name="С_С_1ед_" Type="Double" />
+          <Property Name="Договорная_цена" Type="Double" />
+          <Property Name="C__КБМ" Type="Double" />
+          <Property Name="C__КБЭ" Type="Double" />
+          <Property Name="C__ПО" Type="Double" />
+          <Property Name="C__ОС" Type="Double" />
+          <Property Name="Buj" Type="Double" />
+          <Property Name="C__Бюджета" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardRateToDateShipNextYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C__заказа__Реестр_заказов_" Type="Int32" Nullable="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="RUR" Type="Double" />
+          <Property Name="USD" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardRateToDateShipThisYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C__заказа__Реестр_заказов_" Type="Int32" Nullable="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="RUR" Type="Double" />
+          <Property Name="USD" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardRemainingWorkDevision">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="Дата" Type="DateTime" Precision="3" />
+          <Property Name="СП" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Тр_ты" Type="Decimal" Precision="26" Scale="6" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardYearsSpidimetrs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DateActualReport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateTimeActualReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FactCostsER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Коммерческие_издержки" Type="Int32" />
+          <Property Name="Издержки__ЗП_ПО_" Type="Int32" />
+          <Property Name="Издержки___по_кредиту" Type="Int32" />
+          <Property Name="Постоянные_издержки" Type="Int32" />
+          <Property Name="Фактическая_С_С_материалов" Type="Int32" />
+          <Property Name="Трудозатраты_ПО__по_заказам_" Type="Int32" />
+          <Property Name="Коммерческие_издержки_Ш" Type="Int32" />
+          <Property Name="Коммерческие_издержки_прочие" Type="Int32" />
+          <Property Name="Условно_ПИ" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="FilterYearReport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinCostsClient">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа__Реестр_заказов_" Type="Int32" Nullable="false" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Фактический_С_С" Type="Double" />
+          <Property Name="Заказчик__группа_" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="FinPercentSredniyVzveshenniyNOP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказчик__группа_" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Средний_взвешеный_НОП" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="ManpowerPO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateTimeReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="СДРес" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssignmentWork" Type="Int32" />
+          <Property Name="WorkDay" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numMonth" Type="Int32" Nullable="false" />
+          <Property Name="numMonthWhisZero" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PercentSredniyVzveshenniyNOP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="Средний_взвешеный_НОП" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="PlanFactCosts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Коммерческие_издержки" Type="Int32" />
+          <Property Name="Издержки__ЗП_ПО_" Type="Int32" />
+          <Property Name="Издержки___по_кредиту" Type="Int32" />
+          <Property Name="Постоянные_издержки" Type="Int32" />
+          <Property Name="Коммерческие_издержки_Ш" Type="Int32" />
+          <Property Name="Коммерческие_издержки_прочие" Type="Int32" />
+          <Property Name="Условно_ПИ" Type="Int32" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="Тр_ты_ПО" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ОтклЗППО" Type="Double" />
+          <Property Name="ОтклППК" Type="Double" />
+          <Property Name="ОтклПИ" Type="Double" />
+          <Property Name="ОтклКИ" Type="Double" />
+          <Property Name="ОтклСС" Type="Double" />
+          <Property Name="Плановые_издержки" Type="Double" />
+          <Property Name="Фактические_издержки" Type="Double" />
+          <Property Name="Откл_издержек" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="PlanFactCostsLastYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ФКИ" Type="Int32" />
+          <Property Name="ФЗП" Type="Int32" />
+          <Property Name="ФППК" Type="Int32" />
+          <Property Name="ФПИ" Type="Int32" />
+          <Property Name="ФКИШ" Type="Int32" />
+          <Property Name="ФКИП" Type="Int32" />
+          <Property Name="ФУП" Type="Int32" />
+          <Property Name="ФХСС" Type="Double" />
+          <Property Name="ПКИ" Type="Double" />
+          <Property Name="ПХСС" Type="Double" />
+          <Property Name="ПЗП" Type="Double" />
+          <Property Name="ПППК" Type="Double" />
+          <Property Name="ППИ" Type="Double" />
+          <Property Name="ФИ" Type="Double" />
+          <Property Name="ПИ" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="PlanFactCostsThisYear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ФКИ" Type="Int32" />
+          <Property Name="ФЗП" Type="Int32" />
+          <Property Name="ФППК" Type="Int32" />
+          <Property Name="ФПИ" Type="Int32" />
+          <Property Name="ФКИШ" Type="Int32" />
+          <Property Name="ФКИП" Type="Int32" />
+          <Property Name="ФУП" Type="Int32" />
+          <Property Name="ФХСС" Type="Double" />
+          <Property Name="ПКИ" Type="Double" />
+          <Property Name="ПХСС" Type="Double" />
+          <Property Name="ПЗП" Type="Double" />
+          <Property Name="ПППК" Type="Double" />
+          <Property Name="ППИ" Type="Double" />
+          <Property Name="ФИ" Type="Double" />
+          <Property Name="ПИ" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="ProjectList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Заказ" Type="Int32" Nullable="false" />
+          <Property Name="Изделие" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Тр_р" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Модуль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Заказчик" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Договор" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Отгрузка" Type="DateTime" Precision="0" />
+          <Property Name="Откл_" Type="Int32" />
+          <Property Name="С_С_1ед_" Type="Double" />
+          <Property Name="Договорная_цена" Type="Double" />
+          <Property Name="Buj" Type="Double" />
+          <Property Name="C__Бюджета" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="ReeportStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="activePO" Type="Boolean" Nullable="false" />
+          <Property Name="activeGraphic" Type="Boolean" />
+          <Property Name="graphicColumnName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ReportStatusPlanZakazAndWBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ReportStatusPlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_WBS" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResultReeportStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="Заказ" Type="Int32" Nullable="false" />
+          <Property Name="Изделие" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Тр_р" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Модуль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Заказчик" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Договор" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Откл_" Type="Int32" />
+          <Property Name="Отгрузка" Type="DateTime" Precision="0" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="DateTime" Precision="0" />
+          <Property Name="Дата_состояния_РКД" Type="DateTime" Precision="0" />
+          <Property Name="Текущая_версия_РКД" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Текущая_стадия_состояния_РКД" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="С_С_1ед_" Type="Double" />
+          <Property Name="Договорная_цена" Type="Double" />
+          <Property Name="C__КБМ" Type="Double" />
+          <Property Name="C__КБЭ" Type="Double" />
+          <Property Name="C__ПО" Type="Double" />
+          <Property Name="C__ОС" Type="Double" />
+          <Property Name="Buj" Type="Double" />
+          <Property Name="C__Бюджета" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectUID" Type="Guid" />
+          <Property Name="reportColumnName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWork" Type="Double" />
+          <Property Name="TaskActualWork" Type="Double" />
+          <Property Name="PercentComplited" Type="Double" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C_" Type="Int16" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Окончание" Type="DateTime" Precision="3" />
+          <Property Name="Дата_отгрузки" Type="DateTime" Precision="3" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="Int32" Nullable="false" />
+          <Property Name="П_Ведомость_в_1с__КБМ_" Type="DateTime" Precision="3" />
+          <Property Name="П_Ведомость_в_1с__КБЭ_" Type="DateTime" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TEOInWorkKBE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TEOInWorkKBM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TEOInWorkPOHist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="DateReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TVManuf_DateReport">
+          <Key>
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="WBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Week">
+          <Key>
+            <PropertyRef Name="Week1" />
+          </Key>
+          <Property Name="Week1" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ResultGraphicStatusPlanZakaz">
+          <Key>
+            <PropertyRef Name="Заказ" />
+            <PropertyRef Name="Договор" />
+          </Key>
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" />
+          <Property Name="Заказ" Type="Int32" Nullable="false" />
+          <Property Name="Изделие" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Тр_р" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Модуль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Заказчик" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Договор" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Откл_" Type="Int32" />
+          <Property Name="Отгрузка" Type="DateTime" Precision="0" />
+          <Property Name="dataRezresheniyaProizvodstva" Type="DateTime" Precision="0" />
+          <Property Name="Дата_состояния_РКД" Type="DateTime" Precision="0" />
+          <Property Name="Текущая_версия_РКД" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Текущая_стадия_состояния_РКД" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="С_С_1ед_" Type="Double" />
+          <Property Name="Договорная_цена" Type="Double" />
+          <Property Name="C__КБМ" Type="Double" />
+          <Property Name="C__КБЭ" Type="Double" />
+          <Property Name="C__ПО" Type="Double" />
+          <Property Name="C__ОС" Type="Double" />
+          <Property Name="Buj" Type="Double" />
+          <Property Name="C__Бюджета" Type="Double" />
+          <Property Name="Валюта" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectUID" Type="Guid" />
+          <Property Name="graphicColumnName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskWork" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="TaskActualWork" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="PercentComplited" Type="Double" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -149,6 +1408,618 @@
                 <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
                 <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasicPlan">
+            <EntityTypeMapping TypeName="ReportKATEKModel.BasicPlan">
+              <MappingFragment StoreEntitySet="BasicPlan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="AssignmentRemainingOvertimeWork" ColumnName="AssignmentRemainingOvertimeWork" />
+                <ScalarProperty Name="AssignmentRegularWork" ColumnName="AssignmentRegularWork" />
+                <ScalarProperty Name="AssignmentRemainingWork" ColumnName="AssignmentRemainingWork" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="TaskWBS" ColumnName="TaskWBS" />
+                <ScalarProperty Name="ЭтапПроизводства_Прочие_" ColumnName="ЭтапПроизводства(Прочие)" />
+                <ScalarProperty Name="TaskIsExternal" ColumnName="TaskIsExternal" />
+                <ScalarProperty Name="TaskIsCritical" ColumnName="TaskIsCritical" />
+                <ScalarProperty Name="TaskRegularWork" ColumnName="TaskRegularWork" />
+                <ScalarProperty Name="TaskRemainingOvertimeWork" ColumnName="TaskRemainingOvertimeWork" />
+                <ScalarProperty Name="TaskRemainingRegularWork" ColumnName="TaskRemainingRegularWork" />
+                <ScalarProperty Name="TaskRemainingWork" ColumnName="TaskRemainingWork" />
+                <ScalarProperty Name="TaskResourcePlanWork" ColumnName="TaskResourcePlanWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="TaskWorkVariance" ColumnName="TaskWorkVariance" />
+                <ScalarProperty Name="TaskActualOvertimeWork" ColumnName="TaskActualOvertimeWork" />
+                <ScalarProperty Name="TaskActualRegularWork" ColumnName="TaskActualRegularWork" />
+                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
+                <ScalarProperty Name="RKD" ColumnName="RKD" />
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskPercentWorkCompleted" ColumnName="TaskPercentWorkCompleted" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardCountPZInDevision">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardCountPZInDevision">
+              <MappingFragment StoreEntitySet="DashboardCountPZInDevision">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="СП" ColumnName="СП" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="C_нед" ColumnName="№нед" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardDH">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDH">
+              <MappingFragment StoreEntitySet="DashboardDH">
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="PI" ColumnName="PI" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+                <ScalarProperty Name="IK" ColumnName="IK" />
+                <ScalarProperty Name="SSW" ColumnName="SSW" />
+                <ScalarProperty Name="SSM" ColumnName="SSM" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardDHCustomer">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDHCustomer">
+              <MappingFragment StoreEntitySet="DashboardDHCustomer">
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="PI" ColumnName="PI" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+                <ScalarProperty Name="IK" ColumnName="IK" />
+                <ScalarProperty Name="SSR" ColumnName="SSR" />
+                <ScalarProperty Name="SSM" ColumnName="SSM" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardDPercent">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDPercent">
+              <MappingFragment StoreEntitySet="DashboardDPercent">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardProjectLiast">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardProjectLiast">
+              <MappingFragment StoreEntitySet="DashboardProjectLiast">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="C__Бюджета" ColumnName="% Бюджета" />
+                <ScalarProperty Name="Buj" ColumnName="Buj" />
+                <ScalarProperty Name="C__ОС" ColumnName="% ОС" />
+                <ScalarProperty Name="C__ПО" ColumnName="% ПО" />
+                <ScalarProperty Name="C__КБЭ" ColumnName="% КБЭ" />
+                <ScalarProperty Name="C__КБМ" ColumnName="% КБМ" />
+                <ScalarProperty Name="Договорная_цена" ColumnName="Договорная цена" />
+                <ScalarProperty Name="С_С_1ед_" ColumnName="С/С 1ед." />
+                <ScalarProperty Name="Откл_" ColumnName="Откл." />
+                <ScalarProperty Name="Отгрузка" ColumnName="Отгрузка" />
+                <ScalarProperty Name="Договор" ColumnName="Договор" />
+                <ScalarProperty Name="Заказчик" ColumnName="Заказчик" />
+                <ScalarProperty Name="Модуль" ColumnName="Модуль" />
+                <ScalarProperty Name="Тр_р" ColumnName="Тр-р" />
+                <ScalarProperty Name="Изделие" ColumnName="Изделие" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRateToDateShipNextYear">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardRateToDateShipNextYear">
+              <MappingFragment StoreEntitySet="DashboardRateToDateShipNextYear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="USD" ColumnName="USD" />
+                <ScalarProperty Name="RUR" ColumnName="RUR" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="C__заказа__Реестр_заказов_" ColumnName="№ заказа (Реестр заказов)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRateToDateShipThisYear">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardRateToDateShipThisYear">
+              <MappingFragment StoreEntitySet="DashboardRateToDateShipThisYear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="USD" ColumnName="USD" />
+                <ScalarProperty Name="RUR" ColumnName="RUR" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="C__заказа__Реестр_заказов_" ColumnName="№ заказа (Реестр заказов)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardRemainingWorkDevision">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardRemainingWorkDevision">
+              <MappingFragment StoreEntitySet="DashboardRemainingWorkDevision">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Тр_ты" ColumnName="Тр-ты" />
+                <ScalarProperty Name="СП" ColumnName="СП" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardYearsSpidimetrs">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardYearsSpidimetrs">
+              <MappingFragment StoreEntitySet="DashboardYearsSpidimetrs">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DateActualReport">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DateActualReport">
+              <MappingFragment StoreEntitySet="DateActualReport">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateTimeActualReport" ColumnName="dateTimeActualReport" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FactCostsER">
+            <EntityTypeMapping TypeName="ReportKATEKModel.FactCostsER">
+              <MappingFragment StoreEntitySet="FactCostsER">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Условно_ПИ" ColumnName="Условно ПИ" />
+                <ScalarProperty Name="Коммерческие_издержки_прочие" ColumnName="Коммерческие издержки прочие" />
+                <ScalarProperty Name="Коммерческие_издержки_Ш" ColumnName="Коммерческие издержки Ш" />
+                <ScalarProperty Name="Трудозатраты_ПО__по_заказам_" ColumnName="Трудозатраты ПО (по заказам)" />
+                <ScalarProperty Name="Фактическая_С_С_материалов" ColumnName="Фактическая С/С материалов" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="Издержки___по_кредиту" ColumnName="Издержки % по кредиту" />
+                <ScalarProperty Name="Издержки__ЗП_ПО_" ColumnName="Издержки (ЗП ПО)" />
+                <ScalarProperty Name="Коммерческие_издержки" ColumnName="Коммерческие издержки" />
+                <ScalarProperty Name="Период" ColumnName="Период" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilterYearReport">
+            <EntityTypeMapping TypeName="ReportKATEKModel.FilterYearReport">
+              <MappingFragment StoreEntitySet="FilterYearReport">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinCostsClient">
+            <EntityTypeMapping TypeName="ReportKATEKModel.FinCostsClient">
+              <MappingFragment StoreEntitySet="FinCostsClient">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Заказчик__группа_" ColumnName="Заказчик (группа)" />
+                <ScalarProperty Name="Фактический_С_С" ColumnName="Фактический С/С" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="C__заказа__Реестр_заказов_" ColumnName="№ заказа (Реестр заказов)" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinPercentSredniyVzveshenniyNOP">
+            <EntityTypeMapping TypeName="ReportKATEKModel.FinPercentSredniyVzveshenniyNOP">
+              <MappingFragment StoreEntitySet="FinPercentSredniyVzveshenniyNOP">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Средний_взвешеный_НОП" ColumnName="Средний взвешеный НОП" />
+                <ScalarProperty Name="Заказчик__группа_" ColumnName="Заказчик (группа)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManpowerPO">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ManpowerPO">
+              <MappingFragment StoreEntitySet="ManpowerPO">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="WorkDay" ColumnName="WorkDay" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="dateTimeReport" ColumnName="dateTimeReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Month">
+            <EntityTypeMapping TypeName="ReportKATEKModel.Month">
+              <MappingFragment StoreEntitySet="Month">
+                <ScalarProperty Name="numMonthWhisZero" ColumnName="numMonthWhisZero" />
+                <ScalarProperty Name="numMonth" ColumnName="numMonth" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PercentSredniyVzveshenniyNOP">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PercentSredniyVzveshenniyNOP">
+              <MappingFragment StoreEntitySet="PercentSredniyVzveshenniyNOP">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Средний_взвешеный_НОП" ColumnName="Средний взвешеный НОП" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanFactCosts">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCosts">
+              <MappingFragment StoreEntitySet="PlanFactCosts">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Откл_издержек" ColumnName="Откл издержек" />
+                <ScalarProperty Name="Фактические_издержки" ColumnName="Фактические издержки" />
+                <ScalarProperty Name="Плановые_издержки" ColumnName="Плановые издержки" />
+                <ScalarProperty Name="ОтклСС" ColumnName="ОтклСС" />
+                <ScalarProperty Name="ОтклКИ" ColumnName="ОтклКИ" />
+                <ScalarProperty Name="ОтклПИ" ColumnName="ОтклПИ" />
+                <ScalarProperty Name="ОтклППК" ColumnName="ОтклППК" />
+                <ScalarProperty Name="ОтклЗППО" ColumnName="ОтклЗППО" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="Тр_ты_ПО" ColumnName="Тр-ты ПО" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="Условно_ПИ" ColumnName="Условно ПИ" />
+                <ScalarProperty Name="Коммерческие_издержки_прочие" ColumnName="Коммерческие издержки прочие" />
+                <ScalarProperty Name="Коммерческие_издержки_Ш" ColumnName="Коммерческие издержки Ш" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="Издержки___по_кредиту" ColumnName="Издержки % по кредиту" />
+                <ScalarProperty Name="Издержки__ЗП_ПО_" ColumnName="Издержки (ЗП ПО)" />
+                <ScalarProperty Name="Коммерческие_издержки" ColumnName="Коммерческие издержки" />
+                <ScalarProperty Name="Период" ColumnName="Период" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanFactCostsLastYear">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCostsLastYear">
+              <MappingFragment StoreEntitySet="PlanFactCostsLastYear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ПИ" ColumnName="ПИ" />
+                <ScalarProperty Name="ФИ" ColumnName="ФИ" />
+                <ScalarProperty Name="ППИ" ColumnName="ППИ" />
+                <ScalarProperty Name="ПППК" ColumnName="ПППК" />
+                <ScalarProperty Name="ПЗП" ColumnName="ПЗП" />
+                <ScalarProperty Name="ПХСС" ColumnName="ПХСС" />
+                <ScalarProperty Name="ПКИ" ColumnName="ПКИ" />
+                <ScalarProperty Name="ФХСС" ColumnName="ФХСС" />
+                <ScalarProperty Name="ФУП" ColumnName="ФУП" />
+                <ScalarProperty Name="ФКИП" ColumnName="ФКИП" />
+                <ScalarProperty Name="ФКИШ" ColumnName="ФКИШ" />
+                <ScalarProperty Name="ФПИ" ColumnName="ФПИ" />
+                <ScalarProperty Name="ФППК" ColumnName="ФППК" />
+                <ScalarProperty Name="ФЗП" ColumnName="ФЗП" />
+                <ScalarProperty Name="ФКИ" ColumnName="ФКИ" />
+                <ScalarProperty Name="Период" ColumnName="Период" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="dateReport" ColumnName="dateReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanFactCostsThisYear">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCostsThisYear">
+              <MappingFragment StoreEntitySet="PlanFactCostsThisYear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ПИ" ColumnName="ПИ" />
+                <ScalarProperty Name="ФИ" ColumnName="ФИ" />
+                <ScalarProperty Name="ППИ" ColumnName="ППИ" />
+                <ScalarProperty Name="ПППК" ColumnName="ПППК" />
+                <ScalarProperty Name="ПЗП" ColumnName="ПЗП" />
+                <ScalarProperty Name="ПХСС" ColumnName="ПХСС" />
+                <ScalarProperty Name="ПКИ" ColumnName="ПКИ" />
+                <ScalarProperty Name="ФХСС" ColumnName="ФХСС" />
+                <ScalarProperty Name="ФУП" ColumnName="ФУП" />
+                <ScalarProperty Name="ФКИП" ColumnName="ФКИП" />
+                <ScalarProperty Name="ФКИШ" ColumnName="ФКИШ" />
+                <ScalarProperty Name="ФПИ" ColumnName="ФПИ" />
+                <ScalarProperty Name="ФППК" ColumnName="ФППК" />
+                <ScalarProperty Name="ФЗП" ColumnName="ФЗП" />
+                <ScalarProperty Name="ФКИ" ColumnName="ФКИ" />
+                <ScalarProperty Name="Период" ColumnName="Период" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="dateReport" ColumnName="dateReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectList">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ProjectList">
+              <MappingFragment StoreEntitySet="ProjectList">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="C__Бюджета" ColumnName="% Бюджета" />
+                <ScalarProperty Name="Buj" ColumnName="Buj" />
+                <ScalarProperty Name="Договорная_цена" ColumnName="Договорная цена" />
+                <ScalarProperty Name="С_С_1ед_" ColumnName="С/С 1ед." />
+                <ScalarProperty Name="Откл_" ColumnName="Откл." />
+                <ScalarProperty Name="Отгрузка" ColumnName="Отгрузка" />
+                <ScalarProperty Name="Договор" ColumnName="Договор" />
+                <ScalarProperty Name="Заказчик" ColumnName="Заказчик" />
+                <ScalarProperty Name="Модуль" ColumnName="Модуль" />
+                <ScalarProperty Name="Тр_р" ColumnName="Тр-р" />
+                <ScalarProperty Name="Изделие" ColumnName="Изделие" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReeportStatusPlanZakaz">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ReeportStatusPlanZakaz">
+              <MappingFragment StoreEntitySet="ReeportStatusPlanZakaz">
+                <ScalarProperty Name="graphicColumnName" ColumnName="graphicColumnName" />
+                <ScalarProperty Name="activeGraphic" ColumnName="activeGraphic" />
+                <ScalarProperty Name="activePO" ColumnName="activePO" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="reportColumnName" ColumnName="reportColumnName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportStatusPlanZakazAndWBS">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ReportStatusPlanZakazAndWBS">
+              <MappingFragment StoreEntitySet="ReportStatusPlanZakazAndWBS">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="id_WBS" ColumnName="id_WBS" />
+                <ScalarProperty Name="id_ReportStatusPlanZakaz" ColumnName="id_ReportStatusPlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultReeportStatusPlanZakaz">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ResultReeportStatusPlanZakaz">
+              <MappingFragment StoreEntitySet="ResultReeportStatusPlanZakaz">
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="PercentComplited" ColumnName="PercentComplited" />
+                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="reportColumnName" ColumnName="reportColumnName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="C__Бюджета" ColumnName="% Бюджета" />
+                <ScalarProperty Name="Buj" ColumnName="Buj" />
+                <ScalarProperty Name="C__ОС" ColumnName="% ОС" />
+                <ScalarProperty Name="C__ПО" ColumnName="% ПО" />
+                <ScalarProperty Name="C__КБЭ" ColumnName="% КБЭ" />
+                <ScalarProperty Name="C__КБМ" ColumnName="% КБМ" />
+                <ScalarProperty Name="Договорная_цена" ColumnName="Договорная цена" />
+                <ScalarProperty Name="С_С_1ед_" ColumnName="С/С 1ед." />
+                <ScalarProperty Name="Текущая_стадия_состояния_РКД" ColumnName="Текущая стадия состояния РКД" />
+                <ScalarProperty Name="Текущая_версия_РКД" ColumnName="Текущая версия РКД" />
+                <ScalarProperty Name="Дата_состояния_РКД" ColumnName="Дата состояния РКД" />
+                <ScalarProperty Name="dataRezresheniyaProizvodstva" ColumnName="dataRezresheniyaProizvodstva" />
+                <ScalarProperty Name="Отгрузка" ColumnName="Отгрузка" />
+                <ScalarProperty Name="Откл_" ColumnName="Откл." />
+                <ScalarProperty Name="Договор" ColumnName="Договор" />
+                <ScalarProperty Name="Заказчик" ColumnName="Заказчик" />
+                <ScalarProperty Name="Модуль" ColumnName="Модуль" />
+                <ScalarProperty Name="Тр_р" ColumnName="Тр-р" />
+                <ScalarProperty Name="Изделие" ColumnName="Изделие" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sklad">
+            <EntityTypeMapping TypeName="ReportKATEKModel.Sklad">
+              <MappingFragment StoreEntitySet="Sklad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="П_Ведомость_в_1с__КБЭ_" ColumnName="П_Ведомость в 1с (КБЭ)" />
+                <ScalarProperty Name="П_Ведомость_в_1с__КБМ_" ColumnName="П_Ведомость в 1с (КБМ)" />
+                <ScalarProperty Name="dataRezresheniyaProizvodstva" ColumnName="dataRezresheniyaProizvodstva" />
+                <ScalarProperty Name="Дата_отгрузки" ColumnName="Дата отгрузки" />
+                <ScalarProperty Name="Окончание" ColumnName="Окончание" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="C_" ColumnName="%" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEOInWorkKBE">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkKBE">
+              <MappingFragment StoreEntitySet="TEOInWorkKBE">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEOInWorkKBM">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkKBM">
+              <MappingFragment StoreEntitySet="TEOInWorkKBM">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEOInWorkPOHist">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPOHist">
+              <MappingFragment StoreEntitySet="TEOInWorkPOHist">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="DateReport" ColumnName="DateReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TVManuf_DateReport">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TVManuf_DateReport">
+              <MappingFragment StoreEntitySet="TVManuf_DateReport">
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WBS">
+            <EntityTypeMapping TypeName="ReportKATEKModel.WBS">
+              <MappingFragment StoreEntitySet="WBS">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Week">
+            <EntityTypeMapping TypeName="ReportKATEKModel.Week">
+              <MappingFragment StoreEntitySet="Week">
+                <ScalarProperty Name="Week1" ColumnName="Week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultGraphicStatusPlanZakaz">
+            <EntityTypeMapping TypeName="ReportKATEKModel.ResultGraphicStatusPlanZakaz">
+              <MappingFragment StoreEntitySet="ResultGraphicStatusPlanZakaz">
+                <ScalarProperty Name="TaskFinishDate" ColumnName="TaskFinishDate" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="PercentComplited" ColumnName="PercentComplited" />
+                <ScalarProperty Name="TaskActualWork" ColumnName="TaskActualWork" />
+                <ScalarProperty Name="TaskWork" ColumnName="TaskWork" />
+                <ScalarProperty Name="graphicColumnName" ColumnName="graphicColumnName" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="Валюта" ColumnName="Валюта" />
+                <ScalarProperty Name="C__Бюджета" ColumnName="% Бюджета" />
+                <ScalarProperty Name="Buj" ColumnName="Buj" />
+                <ScalarProperty Name="C__ОС" ColumnName="% ОС" />
+                <ScalarProperty Name="C__ПО" ColumnName="% ПО" />
+                <ScalarProperty Name="C__КБЭ" ColumnName="% КБЭ" />
+                <ScalarProperty Name="C__КБМ" ColumnName="% КБМ" />
+                <ScalarProperty Name="Договорная_цена" ColumnName="Договорная цена" />
+                <ScalarProperty Name="С_С_1ед_" ColumnName="С/С 1ед." />
+                <ScalarProperty Name="Текущая_стадия_состояния_РКД" ColumnName="Текущая стадия состояния РКД" />
+                <ScalarProperty Name="Текущая_версия_РКД" ColumnName="Текущая версия РКД" />
+                <ScalarProperty Name="Дата_состояния_РКД" ColumnName="Дата состояния РКД" />
+                <ScalarProperty Name="dataRezresheniyaProizvodstva" ColumnName="dataRezresheniyaProizvodstva" />
+                <ScalarProperty Name="Отгрузка" ColumnName="Отгрузка" />
+                <ScalarProperty Name="Откл_" ColumnName="Откл." />
+                <ScalarProperty Name="Договор" ColumnName="Договор" />
+                <ScalarProperty Name="Заказчик" ColumnName="Заказчик" />
+                <ScalarProperty Name="Модуль" ColumnName="Модуль" />
+                <ScalarProperty Name="Тр_р" ColumnName="Тр-р" />
+                <ScalarProperty Name="Изделие" ColumnName="Изделие" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

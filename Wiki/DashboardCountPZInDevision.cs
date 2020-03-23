@@ -12,13 +12,12 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class DashboardCountPZInDevision
     {
+        public string C_нед { get; set; }
+        public string C__заказа { get; set; }
+        public string СП { get; set; }
+        public int k { get; set; }
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
     }
 }

@@ -12,13 +12,12 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class DashboardRemainingWorkDevision
     {
+        public string Неделя { get; set; }
+        public Nullable<System.DateTime> Дата { get; set; }
+        public string СП { get; set; }
+        public Nullable<decimal> Тр_ты { get; set; }
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
     }
 }

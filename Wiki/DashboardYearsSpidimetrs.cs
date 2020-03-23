@@ -12,13 +12,9 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class DashboardYearsSpidimetrs
     {
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
+        public int year { get; set; }
     }
 }

@@ -12,13 +12,14 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class ManpowerPO
     {
+        public System.DateTime dateTimeReport { get; set; }
+        public Nullable<System.DateTime> TimeByDay { get; set; }
+        public string Неделя { get; set; }
+        public string СДРес { get; set; }
+        public Nullable<int> AssignmentWork { get; set; }
+        public Nullable<int> WorkDay { get; set; }
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
     }
 }

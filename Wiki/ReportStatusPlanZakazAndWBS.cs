@@ -12,13 +12,11 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class ReportStatusPlanZakazAndWBS
     {
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
+        public int id_ReportStatusPlanZakaz { get; set; }
+        public int id_WBS { get; set; }
         public bool active { get; set; }
-        public string description { get; set; }
     }
 }

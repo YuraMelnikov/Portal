@@ -12,13 +12,10 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class DashboardDPercent
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
+        public int Id { get; set; }
+        public string Customer { get; set; }
+        public double Data { get; set; }
     }
 }

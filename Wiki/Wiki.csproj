@@ -411,6 +411,9 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="BasicPlan.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="BurnDown.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -572,6 +575,18 @@
     <Compile Include="DashboardBP_State.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardCountPZInDevision.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardDH.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardDHCustomer.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardDPercent.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardHSSPlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -620,11 +635,23 @@
     <Compile Include="DashboardKO_UsersMonthPlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardProjectLiast.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardRatePlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="DashboardRateToDateShipNextYear.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardRateToDateShipThisYear.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="DashboardRemaining.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardRemainingWorkDevision.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="DashboardTV_BasicPlanData.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -637,6 +664,12 @@
     </Compile>
     <Compile Include="DashboardTV_MonthPlan.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardYearsSpidimetrs.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DateActualReport.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="DebitReclamation.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -740,6 +773,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExportImportKATEK.edmx</DependentUpon>
     </Compile>
+    <Compile Include="FactCostsER.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FilterYearReport.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinCostsClient.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinPercentSredniyVzveshenniyNOP.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="Folder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -751,6 +796,9 @@
     </Compile>
     <Compile Include="MailGraphic.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManpowerPO.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelIdentity\AppRole.cs" />
@@ -805,8 +853,23 @@
     <Compile Include="Models\WordDocumentAttribute.cs" />
     <Compile Include="Models\WorkDeskKO.cs" />
     <Compile Include="Models\WorkingDays.cs" />
+    <Compile Include="Month.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PercentSredniyVzveshenniyNOP.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="PF.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanFactCosts.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanFactCostsLastYear.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanFactCostsThisYear.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="PlanVerificationItems.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -825,6 +888,9 @@
     </Compile>
     <Compile Include="ProductionCalendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectList.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectServer_CreateTasks.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -931,8 +997,20 @@
     <Compile Include="Reclamation_Type.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ReeportStatusPlanZakaz.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="RenameTasksKBM.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatusPlanZakazAndWBS.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResultGraphicStatusPlanZakaz.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResultReeportStatusPlanZakaz.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="RKD_Despatching.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1027,6 +1105,9 @@
     <Compile Include="ServiceRemarksTypes.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sklad.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1034,7 +1115,16 @@
     <Compile Include="TaskForPZ.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="TEOInWorkKBE.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEOInWorkKBM.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="TEOInWorkPO.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEOInWorkPOHist.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="Tier.cs">
@@ -1042,6 +1132,9 @@
     </Compile>
     <Compile Include="TierMap.cs">
       <DependentUpon>EFDBScells.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TVManuf_DateReport.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="TypeRKD_Mail_Version.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1053,13 +1146,16 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS_BP.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS_ClassicStruct.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Week.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="XTEO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>

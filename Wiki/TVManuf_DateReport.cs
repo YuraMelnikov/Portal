@@ -12,13 +12,8 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class WBS
+    public partial class TVManuf_DateReport
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
+        public System.DateTime date { get; set; }
     }
 }
