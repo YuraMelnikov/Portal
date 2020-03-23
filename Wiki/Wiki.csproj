@@ -325,6 +325,8 @@
     <Compile Include="Areas\DashboardBP\Models\State.cs" />
     <Compile Include="Areas\DashboardBP\Models\Task.cs" />
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
+    <Compile Include="Areas\DashboardD\Controllers\DashboardDDController.cs" />
+    <Compile Include="Areas\DashboardD\DashboardDAreaRegistration.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
     <Compile Include="Areas\DashboardKO\Models\TimesheetElamaent.cs" />
@@ -1075,6 +1077,8 @@
     <Content Include="Areas\CMKO\Content\scriptUpdateData.sql" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
+    <Content Include="Areas\DashboardD\Content\Dd.js" />
+    <Content Include="Areas\DashboardD\Content\DDScript.sql" />
     <Content Include="Areas\DashboardKO\Content\CRUDDashboardKO_UsersMonthPlan.js" />
     <Content Include="Areas\DashboardKO\Content\DashboardKOJS.js" />
     <Content Include="Areas\DashboardKO\Content\updateDashboardKO.sql" />
@@ -2229,6 +2233,9 @@
     <Content Include="Areas\ApproveCD\Views\web.config" />
     <Content Include="Areas\ApproveCD\Views\Shared\_LayoutApproveCD.cshtml" />
     <Content Include="Areas\ApproveCD\Views\Approve\Index.cshtml" />
+    <Content Include="Areas\DashboardD\Views\web.config" />
+    <Content Include="Areas\DashboardD\Views\Shared\_LayoutDashboardD.cshtml" />
+    <Content Include="Areas\DashboardD\Views\DashboardDD\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2700,6 +2707,10 @@
     <Content Include="Scripts\select2-3.5.4\select2_locale_zh-TW.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\TUI\editor.js" />
+    <Content Include="Scripts\TUI\toastui-editor-contents.css" />
+    <Content Include="Scripts\TUI\toastui-editor.css" />
+    <Content Include="Scripts\TUI\viewer.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL Scripts\RTFToText.sql" />
     <Content Include="SQL Scripts\StartFinishWorkForSDI.sql" />
@@ -2780,6 +2791,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\DashboardD\Data\" />
+    <Folder Include="Areas\DashboardD\Models\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
   </ItemGroup>
