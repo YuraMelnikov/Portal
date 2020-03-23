@@ -613,11 +613,6 @@ namespace Wiki.Areas.CMKO
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-
-                
-
-
-
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var fundData = db.CMKO_ThisIndicatorsUsers
