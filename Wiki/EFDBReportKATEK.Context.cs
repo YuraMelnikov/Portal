@@ -44,7 +44,6 @@ namespace Wiki
         public virtual DbSet<ManpowerPO> ManpowerPO { get; set; }
         public virtual DbSet<Month> Month { get; set; }
         public virtual DbSet<PercentSredniyVzveshenniyNOP> PercentSredniyVzveshenniyNOP { get; set; }
-        public virtual DbSet<PlanFactCosts> PlanFactCosts { get; set; }
         public virtual DbSet<PlanFactCostsLastYear> PlanFactCostsLastYear { get; set; }
         public virtual DbSet<PlanFactCostsThisYear> PlanFactCostsThisYear { get; set; }
         public virtual DbSet<ProjectList> ProjectList { get; set; }
@@ -59,5 +58,6 @@ namespace Wiki
         public virtual DbSet<WBS> WBS { get; set; }
         public virtual DbSet<Week> Week { get; set; }
         public virtual DbSet<ResultGraphicStatusPlanZakaz> ResultGraphicStatusPlanZakaz { get; set; }
+        public virtual DbSet<PlanFactCosts> PlanFactCosts { get; set; }
     }
 }

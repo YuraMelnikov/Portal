@@ -14,7 +14,7 @@ namespace Wiki
     
     public partial class PlanFactCosts
     {
-        public string year { get; set; }
+        public Nullable<int> year { get; set; }
         public string Период { get; set; }
         public Nullable<int> Коммерческие_издержки { get; set; }
         public Nullable<int> Издержки__ЗП_ПО_ { get; set; }

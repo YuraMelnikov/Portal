@@ -14,11 +14,17 @@ namespace Wiki
     
     public partial class WBS
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public WBS()
+        {
+            this.DashboardBP_ProjectTasks = new HashSet<DashboardBP_ProjectTasks>();
+        }
+    
         public int id { get; set; }
-        public string name { get; set; }
-        public string sName { get; set; }
-        public int level { get; set; }
-        public bool active { get; set; }
-        public string description { get; set; }
+        public string WBSName { get; set; }
+        public string WBSLongCiliricName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
     }
 }

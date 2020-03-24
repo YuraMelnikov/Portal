@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
     $('#pageData').hide();
     $('#intHide').hide();
-    if (userGroupId !== 1) {
-        $('#btnAddNewReclamations').hide();
-    }
+    //if (userGroupId !== 1) {
+    //    $('#btnAddNewReclamations').hide();
+    //}
     document.getElementById('pageData').innerHTML = 1;
     startPage();
 });

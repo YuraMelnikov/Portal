@@ -66,10 +66,10 @@ namespace Wiki
         public virtual Reclamation_CountError Reclamation_CountError { get; set; }
         public virtual Reclamation_CountError Reclamation_CountError1 { get; set; }
         public virtual Reclamation_Type Reclamation_Type { get; set; }
+        public virtual ReclamationTypeKB ReclamationTypeKB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reclamation_TechnicalAdvice> Reclamation_TechnicalAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
-        public virtual ReclamationTypeKB ReclamationTypeKB { get; set; }
     }
 }

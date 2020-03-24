@@ -78,6 +78,7 @@ namespace Wiki
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
         public virtual DbSet<RKD_TaskUIDProjectUD> RKD_TaskUIDProjectUD { get; set; }
+        public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
         public virtual DbSet<ApproveCDActions> ApproveCDActions { get; set; }
         public virtual DbSet<ApproveCDOrders> ApproveCDOrders { get; set; }
         public virtual DbSet<ApproveCDQuestionCorr> ApproveCDQuestionCorr { get; set; }
@@ -170,6 +171,7 @@ namespace Wiki
         public virtual DbSet<Reclamation_TechnicalAdviceProtocolPosition> Reclamation_TechnicalAdviceProtocolPosition { get; set; }
         public virtual DbSet<Reclamation_TechnicalAdviceTasks> Reclamation_TechnicalAdviceTasks { get; set; }
         public virtual DbSet<Reclamation_Type> Reclamation_Type { get; set; }
+        public virtual DbSet<ReclamationTypeKB> ReclamationTypeKB { get; set; }
         public virtual DbSet<RKD_Despatching> RKD_Despatching { get; set; }
         public virtual DbSet<RKD_FileMailVersion> RKD_FileMailVersion { get; set; }
         public virtual DbSet<RKD_GIP> RKD_GIP { get; set; }
@@ -200,7 +202,5 @@ namespace Wiki
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
-        public virtual DbSet<ReclamationTypeKB> ReclamationTypeKB { get; set; }
-        public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
     }
 }
