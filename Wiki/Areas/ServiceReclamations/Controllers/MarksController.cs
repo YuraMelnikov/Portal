@@ -128,7 +128,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                 {
                     pzString += db.PZ_PlanZakaz.Find(data).PlanZakaz.ToString() + "_";
                 }
-                string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString + reclamation.id.ToString();
+                string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Рекламации_Сервисного_Центра\" + pzString + reclamation.id.ToString() + @"\";
                 Directory.CreateDirectory(directory);
                 string inDirectory = directory + @"Входящие\";
                 Directory.CreateDirectory(inDirectory);

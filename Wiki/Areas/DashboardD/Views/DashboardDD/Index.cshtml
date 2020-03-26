@@ -13,7 +13,7 @@
     <script src="~/Content/Highcharts/exporting.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
-    <script src="~/Areas/DashboardD/Content/Dd.js?v.0.0"></script>
+    <script src="~/Areas/DashboardD/Content/Dd.js?v.0.1"></script>
 </head>
 
 <div class="row">
@@ -25,72 +25,82 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12" style="border-style: groove;">
+    <div class="col-lg-12">
         <div id="generalD"></div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-lg-4" style="border-style: groove;">
+    <div class="col-lg-4">
         <div id="rateToMonth"></div>
     </div>
-    <div class="col-lg-4" style="border-style: groove;">
+    <div class="col-lg-4">
         <div id="rateQuart"></div>
     </div>
-    <div class="col-lg-4" style="border-style: groove;">
+    <div class="col-lg-4">
         <div id="sumRateToYear"></div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-lg-1" style="border-style: groove"><div id="cilSSW"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilPK"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilPI"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilIK"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilSSM"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilS1"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilS2"></div></div>
-    <div class="col-lg-1" style="border-style: groove"><div id="cilFull"></div></div>
+    <div class="col-lg-2"><div id="cilSSW"></div></div>
+    <div class="col-lg-2"><div id="cilPK"></div></div>
+    <div class="col-lg-2"><div id="cilPI"></div></div>
+    <div class="col-lg-2"><div id="cilIK"></div></div>
+    <div class="col-lg-2"><div id="cilSSM"></div></div>
+    <div class="col-lg-2"><div id="cilS1"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mSSW"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLSSW"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTSSW"></div></div>
+    <div class="col-lg-2"><div id="cilS2"></div></div>
+    <div class="col-lg-2"><div id="cilFull"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mPK"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLPK"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTPK"></div></div>
+    <div class="col-lg-6"><div id="mSSW"></div></div>
+    <div class="col-lg-3"><div id="yLSSW"></div></div>
+    <div class="col-lg-3"><div id="yTSSW"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mPI"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLPI"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTPI"></div></div>
+    <div class="col-lg-6"><div id="mPK"></div></div>
+    <div class="col-lg-3"><div id="yLPK"></div></div>
+    <div class="col-lg-3"><div id="yTPK"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mIK"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLIK"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTIK"></div></div>
+    <div class="col-lg-6"><div id="mPI"></div></div>
+    <div class="col-lg-3"><div id="yLPI"></div></div>
+    <div class="col-lg-3"><div id="yTPI"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mSSM"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLSSM"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTSSM"></div></div>
+    <div class="col-lg-6"><div id="mIK"></div></div>
+    <div class="col-lg-3"><div id="yLIK"></div></div>
+    <div class="col-lg-3"><div id="yTIK"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mS1"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLS1"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTS1"></div></div>
+    <div class="col-lg-6"><div id="mSSM"></div></div>
+    <div class="col-lg-3"><div id="yLSSM"></div></div>
+    <div class="col-lg-3"><div id="yTSSM"></div></div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6" style="border-style: groove"><div id="mS2"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yLS2"></div></div>
-    <div class="col-lg-3" style="border-style: groove"><div id="yTS2"></div></div>
+    <div class="col-lg-6"><div id="mS1"></div></div>
+    <div class="col-lg-3"><div id="yLS1"></div></div>
+    <div class="col-lg-3"><div id="yTS1"></div></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6"><div id="mS2"></div></div>
+    <div class="col-lg-3"><div id="yLS2"></div></div>
+    <div class="col-lg-3"><div id="yTS2"></div></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3"><div id="oSSM"></div></div>
+    <div class="col-lg-3"><div id="oPr"></div></div>
+    <div class="col-lg-3"><div id="oRate"></div></div>
+    <div class="col-lg-3"><div id="oFSSM"></div></div>
 </div>

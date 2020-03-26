@@ -109,7 +109,51 @@ namespace Wiki.Areas.DashboardD.Controllers
                     data[i].FSSM = (int)query[i].ХССФакт / round;
                     data[i].RSSM = (int)query[i].ОтклСС / round;
                     data[i].FS1 = (int)query[i].Коммерческие_издержки_прочие / round;
-                    data[i].FS1 = (int)query[i].Коммерческие_издержки_Ш / round;
+                    data[i].FS2 = (int)query[i].Коммерческие_издержки_Ш / round;
+                    data[i].PFull = (int)query[i].Плановые_издержки / round;
+                    data[i].FFull = (int)query[i].Фактические_издержки / round;
+                    data[i].RFull = (int)query[i].Откл_издержек / round;
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetCustomerData()
+        {
+            int filtYear = DateTime.Now.Year - 3;
+            const int round = 1000;
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.DashboardDHCustomer.AsNoTracking().ToList();
+                int maxCounterValue = query.Count();
+                GeneralPlanFact[] data = new GeneralPlanFact[maxCounterValue];
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i] = new GeneralPlanFact();
+                }
+                for (int i = 0; i < maxCounterValue; i++)
+                {
+                    data[i].Month = query[i].Период;
+                    data[i].Year = query[i].year.Value;
+                    data[i].PSSW = (int)query[i].ХССЗП / round;
+                    data[i].FSSW = (int)query[i].Издержки__ЗП_ПО_ / round;
+                    data[i].RSSW = (int)query[i].ОтклЗППО / round;
+                    data[i].PPK = (int)query[i].ХППК / round;
+                    data[i].FPK = (int)query[i].Издержки___по_кредиту / round;
+                    data[i].RPK = (int)query[i].ОтклППК / round;
+                    data[i].PPI = (int)query[i].ХПИ / round;
+                    data[i].FPI = (int)query[i].Постоянные_издержки / round;
+                    data[i].RPI = (int)query[i].ОтклПИ / round;
+                    data[i].PIK = (int)query[i].ХПИ / round;
+                    data[i].FIK = (int)query[i].Коммерческие_издержки / round;
+                    data[i].RIK = (int)query[i].ОтклПИ / round;
+                    data[i].PSSM = (int)query[i].ХСС / round;
+                    data[i].FSSM = (int)query[i].ХССФакт / round;
+                    data[i].RSSM = (int)query[i].ОтклСС / round;
+                    data[i].FS1 = (int)query[i].Коммерческие_издержки_прочие / round;
+                    data[i].FS2 = (int)query[i].Коммерческие_издержки_Ш / round;
                     data[i].PFull = (int)query[i].Плановые_издержки / round;
                     data[i].FFull = (int)query[i].Фактические_издержки / round;
                     data[i].RFull = (int)query[i].Откл_издержек / round;

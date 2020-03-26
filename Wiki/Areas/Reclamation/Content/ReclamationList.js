@@ -421,6 +421,15 @@ function validate() {
     else {
         $('#pZ_PlanZakaz').css('border-color', 'lightgrey');
     }
+    if (counterDevision === 2) {
+        if ($('#id_ReclamationTypeKB').val() === null) {
+            $('#id_ReclamationTypeKB').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#id_ReclamationTypeKB').css('border-color', 'lightgrey');
+        }
+    }
     if ($('#id_Reclamation_Type').val() === null) {
         $('#id_Reclamation_Type').css('border-color', 'Red');
         isValid = false;
@@ -532,6 +541,9 @@ function GetReclamation(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            if (result.closeMKO === false) {
+                $('#id_ReclamationTypeKB').val("");
+            }
             AllNoDisabled();
             $('#id').val(result.id);
             $('#numberReclamation').val('Замечание №: ' + result.id);
