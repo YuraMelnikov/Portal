@@ -1,4 +1,6 @@
-﻿var colorStackLabels = '#3fb0ac';
+﻿import { DESTRUCTION } from "dns";
+
+var colorStackLabels = '#3fb0ac';
 var colorFactData = '#3fb0ac';
 var titleDiagrammColor = '#000';
 var titleFontSize = "14px";
@@ -8,6 +10,7 @@ $(document).ready(function () {
     getPeriodReport();
     GetGeneralD();
     GetPF();
+    GetCustomerData();
 });
 
 function getPeriodReport() {
@@ -94,11 +97,11 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('generalD', {
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
+                //navigation: {
+                //    buttonOptions: {
+                //        enabled: false
+                //    }
+                //},
                 chart: {
                     type: 'spline'
                 },
@@ -209,11 +212,11 @@ function GetGeneralD() {
                 }
             }
             Highcharts.chart('rateToMonth', {
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
+                //navigation: {
+                //    buttonOptions: {
+                //        enabled: false
+                //    }
+                //},
                 chart: {
                     type: 'spline'
                 },
@@ -262,11 +265,11 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('rateQuart', {
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
+                //navigation: {
+                //    buttonOptions: {
+                //        enabled: false
+                //    }
+                //},
                 chart: {
                     type: 'spline'
                 },
@@ -307,11 +310,11 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('sumRateToYear', {
-                navigation: {
-                    buttonOptions: {
-                        enabled: false
-                    }
-                },
+                //navigation: {
+                //    buttonOptions: {
+                //        enabled: false
+                //    }
+                //},
                 chart: {
                     type: 'area'
                 },
@@ -1856,8 +1859,105 @@ function GetCustomerData() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-          
-         
+            var lenghtArray = Object.keys(result).length;
+            var typeObj;
+            var ssmArray = new Array();
+            var profitArray = new Array();
+            var rateArray = new Array();
+            var fssmArray = new Array();
+
+            for (var i = 0; i < lenghtArray; i++) {
+                if (result[i].Ssm > 0) {
+                    typeObj = {
+                        name: result[i].Customer,
+                        y: result[i].Ssm
+                    };
+                    ssmArray.push(typeObj);
+                }
+
+                if (result[i].Profit > 0) {
+                    typeObj = {
+                        name: result[i].Customer,
+                        y: result[i].Profit
+                    };
+                    profitArray.push(typeObj);
+                }
+
+                if (result[i].Rate > 0) {
+                    typeObj = {
+                        name: result[i].Customer,
+                        y: result[i].Rate
+                    };
+                    rateArray.push(typeObj);
+                }
+
+                if (result[i].Fssm > 0) {
+                    typeObj = {
+                        name: result[i].Customer,
+                        y: result[i].Fssm
+                    };
+                    fssmArray.push(typeObj);
+                }
+            }
+
+
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                },
+                colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                    return {
+                        radialGradient: {
+                            cx: 0.5,
+                            cy: 0.3,
+                            r: 0.7
+                        },
+                        stops: [
+                            [0, color],
+                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')] 
+                        ]
+                    };
+                })
+            });
+            Highcharts.chart('oSSM', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Себестоимость материалов (%) (ТЭО отгружаемых станций в текущем году)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Доля',
+                    data: ssmArray
+                }]
+            });
         }
     });
 }

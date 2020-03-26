@@ -24,5 +24,6 @@ namespace Wiki
         public int PK { get; set; }
         public int PI { get; set; }
         public int Profit { get; set; }
+        public int FSSM { get; set; }
     }
 }

@@ -29,6 +29,7 @@ SELECT year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP) as [year]
 ,isnull(sum([PortalKATEK].[dbo].[PZ_TEO].IzdPPKredit), 0) as  PK
 ,isnull(sum([PortalKATEK].[dbo].[PZ_TEO].[PI]), 0) as  [PI]
 ,isnull(sum([PortalKATEK].[dbo].[PZ_TEO].NOP), 0) as  [Profit]
+,isnull(sum([exportImport].[dbo].[planZakaz].SSfact), 0) as [FSSM]
 FROM [PortalKATEK].[dbo].[PZ_PlanZakaz] 
 left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
 left join [exportImport].[dbo].[planZakaz] on [exportImport].[dbo].[planZakaz].Zakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz

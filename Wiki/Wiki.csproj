@@ -327,7 +327,7 @@
     <Compile Include="Areas\DashboardBP\Models\TEOData.cs" />
     <Compile Include="Areas\DashboardD\Controllers\DashboardDDController.cs" />
     <Compile Include="Areas\DashboardD\DashboardDAreaRegistration.cs" />
-    <Compile Include="Areas\DashboardD\Models\GenaralCustomer.cs" />
+    <Compile Include="Areas\DashboardD\Models\GeneralCustomer.cs" />
     <Compile Include="Areas\DashboardD\Models\GeneralID.cs" />
     <Compile Include="Areas\DashboardD\Models\GeneralPlanFact.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />

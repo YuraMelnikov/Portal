@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Wiki.Areas.DashboardD.Models
+﻿namespace Wiki.Areas.DashboardD.Models
 {
-    public class GenaralCustomer
+    public class GeneralCustomer
     {
         string customer;
         int ssm;

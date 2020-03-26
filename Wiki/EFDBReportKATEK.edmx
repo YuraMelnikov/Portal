@@ -81,6 +81,7 @@
           <Property Name="PK" Type="int" Nullable="false" />
           <Property Name="PI" Type="int" Nullable="false" />
           <Property Name="Profit" Type="int" Nullable="false" />
+          <Property Name="FSSM" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardDPercent">
           <Key>
@@ -857,6 +858,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="PK" Type="Int32" Nullable="false" />
           <Property Name="PI" Type="Int32" Nullable="false" />
           <Property Name="Profit" Type="Int32" Nullable="false" />
+          <Property Name="FSSM" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardDPercent">
           <Key>
@@ -1479,6 +1481,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySetMapping Name="DashboardDHCustomer">
             <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDHCustomer">
               <MappingFragment StoreEntitySet="DashboardDHCustomer">
+                <ScalarProperty Name="FSSM" ColumnName="FSSM" />
                 <ScalarProperty Name="Profit" ColumnName="Profit" />
                 <ScalarProperty Name="PI" ColumnName="PI" />
                 <ScalarProperty Name="PK" ColumnName="PK" />

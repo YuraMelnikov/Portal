@@ -120,44 +120,86 @@ namespace Wiki.Areas.DashboardD.Controllers
 
         public JsonResult GetCustomerData()
         {
-            int filtYear = DateTime.Now.Year - 3;
             const int round = 1000;
             using (ReportKATEKEntities db = new ReportKATEKEntities())
             {
+                int sSSM = 0;
+                int sProfit = 0;
+                int sRate = 0;
+                int sFSSM = 0;
+                int cSSM = 0;
+                int cProfit = 0;
+                int cRate = 0;
+                int cFSSM = 0;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardDHCustomer.AsNoTracking().ToList();
+                foreach (var dataInQuery in query)
+                {
+                    sSSM += dataInQuery.SSM;
+                    sProfit += dataInQuery.Profit;
+                    sRate += dataInQuery.Rate;
+                    sFSSM += dataInQuery.FSSM;
+                }
                 int maxCounterValue = query.Count();
-                GeneralPlanFact[] data = new GeneralPlanFact[maxCounterValue];
-                for (int i = 0; i < maxCounterValue; i++)
+                GeneralCustomer[] data = new GeneralCustomer[maxCounterValue + 1];
+                for (int i = 0; i < maxCounterValue + 1; i++)
                 {
-                    data[i] = new GeneralPlanFact();
+                    data[i] = new GeneralCustomer();
                 }
                 for (int i = 0; i < maxCounterValue; i++)
                 {
-                    data[i].Month = query[i].Период;
-                    data[i].Year = query[i].year.Value;
-                    data[i].PSSW = (int)query[i].ХССЗП / round;
-                    data[i].FSSW = (int)query[i].Издержки__ЗП_ПО_ / round;
-                    data[i].RSSW = (int)query[i].ОтклЗППО / round;
-                    data[i].PPK = (int)query[i].ХППК / round;
-                    data[i].FPK = (int)query[i].Издержки___по_кредиту / round;
-                    data[i].RPK = (int)query[i].ОтклППК / round;
-                    data[i].PPI = (int)query[i].ХПИ / round;
-                    data[i].FPI = (int)query[i].Постоянные_издержки / round;
-                    data[i].RPI = (int)query[i].ОтклПИ / round;
-                    data[i].PIK = (int)query[i].ХПИ / round;
-                    data[i].FIK = (int)query[i].Коммерческие_издержки / round;
-                    data[i].RIK = (int)query[i].ОтклПИ / round;
-                    data[i].PSSM = (int)query[i].ХСС / round;
-                    data[i].FSSM = (int)query[i].ХССФакт / round;
-                    data[i].RSSM = (int)query[i].ОтклСС / round;
-                    data[i].FS1 = (int)query[i].Коммерческие_издержки_прочие / round;
-                    data[i].FS2 = (int)query[i].Коммерческие_издержки_Ш / round;
-                    data[i].PFull = (int)query[i].Плановые_издержки / round;
-                    data[i].FFull = (int)query[i].Фактические_издержки / round;
-                    data[i].RFull = (int)query[i].Откл_издержек / round;
+                    data[i].Customer = query[i].Customer;
+                    if(query[i].SSM / sSSM < 0.05)
+                    {
+                        cSSM += query[i].SSM / round;
+                        data[i].Ssm = 0;
+                    }
+                    else
+                    {
+                        data[i].Ssm = query[i].SSM / round;
+                    }
+                    if (query[i].Profit / sProfit < 0.05)
+                    {
+                        cProfit += query[i].Profit / round;
+                        data[i].Profit = 0;
+                    }
+                    else
+                    {
+                        data[i].Profit = query[i].Profit / round;
+                    }
+                    if (query[i].Rate / sRate < 0.05)
+                    {
+                        cRate += query[i].Rate;
+                        data[i].Rate = 0;
+                    }
+                    else
+                    {
+                        data[i].Rate = query[i].Rate / round;
+                    }
+                    if (query[i].FSSM / sFSSM < 0.05)
+                    {
+                        cFSSM += query[i].FSSM;
+                        data[i].Fssm = 0;
+                    }
+                    else
+                    {
+                        data[i].Fssm = query[i].FSSM / round;
+                    }
                 }
+                GeneralCustomer generalCustomer1 = new GeneralCustomer
+                {
+                    Customer = "Прочие",
+                    Fssm = cFSSM,
+                    Profit = cProfit,
+                    Rate = cRate,
+                    Ssm = cSSM,
+                    PercentFSSM = cFSSM / sFSSM * 100,
+                    PercentProfit = cProfit / sProfit * 100,
+                    PercentRate = cRate / sRate * 100,
+                    PercentSSM = cSSM / sSSM * 100
+                };
+                data[maxCounterValue] = generalCustomer1;
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
