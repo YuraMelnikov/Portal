@@ -57,3 +57,13 @@ group by iif(SUBSTRING([PortalKATEK].[dbo].[PZ_Client].NameSort,0,CHARINDEX('-',
  SUBSTRING([PortalKATEK].[dbo].[PZ_Client].NameSort,0,CHARINDEX('-',[PortalKATEK].[dbo].[PZ_Client].NameSort,0)))
 
 
+ delete [ReportKATEK].[dbo].[DashboardDN]
+insert into [ReportKATEK].[dbo].[DashboardDN]
+SELECT [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Месяц] as [Month]
+,[ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[НОП] as [Profit]
+,[ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Выручка] as [Rate]
+,[ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[НОП] / [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Выручка] * 100 as [SN]
+,sum([НОП]) over (order by [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Месяц]) / sum([Выручка]) over (order by [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Месяц]) * 100 as [SVN]
+,iif([ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Месяц] = iif(len(month(getdate())) = 1, concat(year(getdate()), '.0', month(getdate())), concat(year(getdate()), '.', month(getdate()))),1,0) + iif(SUBSTRING([ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[Месяц],6,2)=12,1,0) as [Filter]
+FROM [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears]
+where [ReportKATEK].[dbo].[NOPOpenOrderLastTheerYears].[год] > year(getdate()) - 2

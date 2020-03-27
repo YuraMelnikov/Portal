@@ -1,6 +1,4 @@
-﻿import { DESTRUCTION } from "dns";
-
-var colorStackLabels = '#3fb0ac';
+﻿var colorStackLabels = '#3fb0ac';
 var colorFactData = '#3fb0ac';
 var titleDiagrammColor = '#000';
 var titleFontSize = "14px";
@@ -1865,7 +1863,6 @@ function GetCustomerData() {
             var profitArray = new Array();
             var rateArray = new Array();
             var fssmArray = new Array();
-
             for (var i = 0; i < lenghtArray; i++) {
                 if (result[i].Ssm > 0) {
                     typeObj = {
@@ -1874,7 +1871,6 @@ function GetCustomerData() {
                     };
                     ssmArray.push(typeObj);
                 }
-
                 if (result[i].Profit > 0) {
                     typeObj = {
                         name: result[i].Customer,
@@ -1882,7 +1878,6 @@ function GetCustomerData() {
                     };
                     profitArray.push(typeObj);
                 }
-
                 if (result[i].Rate > 0) {
                     typeObj = {
                         name: result[i].Customer,
@@ -1890,7 +1885,6 @@ function GetCustomerData() {
                     };
                     rateArray.push(typeObj);
                 }
-
                 if (result[i].Fssm > 0) {
                     typeObj = {
                         name: result[i].Customer,
@@ -1899,8 +1893,6 @@ function GetCustomerData() {
                     fssmArray.push(typeObj);
                 }
             }
-
-
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -1958,6 +1950,124 @@ function GetCustomerData() {
                     data: ssmArray
                 }]
             });
+            Highcharts.chart('oPr', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'НОП (%) (ТЭО отгружаемых станций в текущем году)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Доля',
+                    data: profitArray
+                }]
+            });
+            Highcharts.chart('oRate', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Выручка без НДС (%) (ТЭО отгружаемых станций в текущем году) ',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Доля',
+                    data: rateArray
+                }]
+            });
+            Highcharts.chart('oFSSM', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Фактическиая себестоимость материалов    (%) (ТЭО отгруженых станций в текущем году)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Доля',
+                    data: fssmArray
+                }]
+            });
         }
     });
 }
+

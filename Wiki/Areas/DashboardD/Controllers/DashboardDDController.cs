@@ -120,7 +120,7 @@ namespace Wiki.Areas.DashboardD.Controllers
 
         public JsonResult GetCustomerData()
         {
-            const int round = 1000;
+            const double round = 1000.0;
             using (ReportKATEKEntities db = new ReportKATEKEntities())
             {
                 int sSSM = 0;
@@ -150,41 +150,42 @@ namespace Wiki.Areas.DashboardD.Controllers
                 for (int i = 0; i < maxCounterValue; i++)
                 {
                     data[i].Customer = query[i].Customer;
-                    if(query[i].SSM / sSSM < 0.05)
+
+                    if (Convert.ToDouble(query[i].SSM) / Convert.ToDouble(sSSM) < 0.05)
                     {
-                        cSSM += query[i].SSM / round;
+                        cSSM += (int)(query[i].SSM / round);
                         data[i].Ssm = 0;
                     }
                     else
                     {
-                        data[i].Ssm = query[i].SSM / round;
+                        data[i].Ssm = (int)(query[i].SSM / round);
                     }
-                    if (query[i].Profit / sProfit < 0.05)
+                    if (Convert.ToDouble(query[i].Profit) / Convert.ToDouble(sProfit) < 0.05)
                     {
-                        cProfit += query[i].Profit / round;
+                        cProfit += (int)(query[i].Profit / round);
                         data[i].Profit = 0;
                     }
                     else
                     {
-                        data[i].Profit = query[i].Profit / round;
+                        data[i].Profit = (int)(query[i].Profit / round);
                     }
-                    if (query[i].Rate / sRate < 0.05)
+                    if (Convert.ToDouble(query[i].Rate) / Convert.ToDouble(sRate) < 0.05)
                     {
-                        cRate += query[i].Rate;
+                        cRate += (int)(query[i].Rate / round);
                         data[i].Rate = 0;
                     }
                     else
                     {
-                        data[i].Rate = query[i].Rate / round;
+                        data[i].Rate = (int)(query[i].Rate / round);
                     }
-                    if (query[i].FSSM / sFSSM < 0.05)
+                    if (Convert.ToDouble(query[i].FSSM) / Convert.ToDouble(sFSSM) < 0.05)
                     {
-                        cFSSM += query[i].FSSM;
+                        cFSSM += (int)(query[i].FSSM / round);
                         data[i].Fssm = 0;
                     }
                     else
                     {
-                        data[i].Fssm = query[i].FSSM / round;
+                        data[i].Fssm = (int)(query[i].FSSM / round);
                     }
                 }
                 GeneralCustomer generalCustomer1 = new GeneralCustomer
