@@ -204,5 +204,64 @@ namespace Wiki.Areas.DashboardD.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetN()
+        {
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+                var query = db.DashboardDN.AsNoTracking().OrderBy(a => a.month).ToList();
+                int sizeArray = query.Count;
+                GeneralN[] data = new GeneralN[sizeArray];
+                for (int i = 0; i < sizeArray; i++)
+                {
+                    data[i] = new GeneralN();
+                    data[i].Month = query[i].month;
+                    data[i].Ns = Math.Round(query[i].sn, 2);
+                    data[i].Nsv = Math.Round(query[i].svn, 2);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDSVN()
+        {
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                int filtYear = DateTime.Now.Year - 1;
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+                var query = db.PercentSredniyVzveshenniyNOP.AsNoTracking().Where(a => a.year >= filtYear).ToList();
+                int sizeArray = query.Count;
+                GeneralDSVN[] data = new GeneralDSVN[sizeArray];
+                for (int i = 0; i < sizeArray; i++)
+                {
+                    data[i] = new GeneralDSVN();
+                    data[i].Month = query[i].Месяц;
+                    data[i].Dsvn = Math.Round(query[i].Средний_взвешеный_НОП, 2);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetNCustomer()
+        {
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+                var query = db.DashboardDPercent.AsNoTracking().OrderByDescending(a => a.Data).ToList();
+                int sizeArray = query.Count;
+                GeneralPercentCustomer[] data = new GeneralPercentCustomer[sizeArray];
+                for(int i = 0; i < sizeArray; i++)
+                {
+                    data[i] = new GeneralPercentCustomer();
+                    data[i].Customer = query[i].Customer;
+                    data[i].Percent = Math.Round(query[i].Data, 2);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

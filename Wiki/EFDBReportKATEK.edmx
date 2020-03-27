@@ -83,6 +83,18 @@
           <Property Name="Profit" Type="int" Nullable="false" />
           <Property Name="FSSM" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DashboardDN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="month" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="profit" Type="int" Nullable="false" />
+          <Property Name="rate" Type="int" Nullable="false" />
+          <Property Name="sn" Type="float" Nullable="false" />
+          <Property Name="svn" Type="float" Nullable="false" />
+          <Property Name="filtr" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="DashboardDPercent">
           <Key>
             <PropertyRef Name="Id" />
@@ -636,6 +648,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySet Name="DashboardCountPZInDevision" EntityType="Self.DashboardCountPZInDevision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardDH" EntityType="Self.DashboardDH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardDHCustomer" EntityType="Self.DashboardDHCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DashboardDN" EntityType="Self.DashboardDN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardDPercent" EntityType="Self.DashboardDPercent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardProjectLiast" EntityType="Self.DashboardProjectLiast" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardRateToDateShipNextYear" EntityType="Self.DashboardRateToDateShipNextYear" Schema="dbo" store:Type="Tables" />
@@ -781,6 +794,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySet Name="Week" EntityType="ReportKATEKModel.Week" />
           <EntitySet Name="ResultGraphicStatusPlanZakaz" EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" />
           <EntitySet Name="PlanFactCosts" EntityType="ReportKATEKModel.PlanFactCosts" />
+          <EntitySet Name="DashboardDN" EntityType="ReportKATEKModel.DashboardDN" />
         </EntityContainer>
         <EntityType Name="BasicPlan">
           <Key>
@@ -1362,6 +1376,18 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="Фактические_издержки" Type="Double" />
           <Property Name="Откл_издержек" Type="Double" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DashboardDN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="profit" Type="Int32" Nullable="false" />
+          <Property Name="rate" Type="Int32" Nullable="false" />
+          <Property Name="sn" Type="Double" Nullable="false" />
+          <Property Name="svn" Type="Double" Nullable="false" />
+          <Property Name="filtr" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2023,6 +2049,19 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
                 <ScalarProperty Name="Коммерческие_издержки" ColumnName="Коммерческие издержки" />
                 <ScalarProperty Name="Период" ColumnName="Период" />
                 <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardDN">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDN">
+              <MappingFragment StoreEntitySet="DashboardDN">
+                <ScalarProperty Name="filtr" ColumnName="filtr" />
+                <ScalarProperty Name="svn" ColumnName="svn" />
+                <ScalarProperty Name="sn" ColumnName="sn" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

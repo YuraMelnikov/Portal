@@ -39,6 +39,7 @@
         <EntityTypeShape EntityType="ReportKATEKModel.Week" Width="1.5" PointX="17.75" PointY="0.75" />
         <EntityTypeShape EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" Width="1.5" PointX="17.75" PointY="2.75" />
         <EntityTypeShape EntityType="ReportKATEKModel.PlanFactCosts" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.DashboardDN" Width="1.5" PointX="9.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

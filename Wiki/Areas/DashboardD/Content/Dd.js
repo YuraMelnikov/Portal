@@ -1,14 +1,26 @@
-﻿var colorStackLabels = '#3fb0ac';
-var colorFactData = '#3fb0ac';
+﻿var colorStackLabels = '#000';
+var colorFactData = '#000';
 var titleDiagrammColor = '#000';
-var titleFontSize = "14px";
+var titleFontSize = "12px";
 var monthArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+var colorRate = '#003f5c';
+var colorSSM = "#910000";
+var colorMin = "#ffa600";
+var colorProfit = "#ff7c43";
+var colorSSW = "#f95d6a";
+var colorPK = "#d45087";
+var colorPI = "#a05195";
+var colorIK = "#665191";
 
 $(document).ready(function () {
     getPeriodReport();
     GetGeneralD();
     GetPF();
     GetCustomerData();
+    GetN();
+    GetDSVN();
+    GetNCustomer();
 });
 
 function getPeriodReport() {
@@ -95,13 +107,10 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('generalD', {
-                //navigation: {
-                //    buttonOptions: {
-                //        enabled: false
-                //    }
-                //},
                 chart: {
-                    type: 'spline'
+                    type: 'spline',
+                    borderColor: "#000",
+                    borderWidth: 1
                 },
                 title: {
                     text: 'Издержки заказов (тыс. / привязка к тр-там производства)',
@@ -121,36 +130,42 @@ function GetGeneralD() {
                     {
                         name: 'C/C мат.',
                         data: generalSSMArray,
-                        color: "#910000"
+                        color: colorSSM
                     },
                     {
                         name: 'С/С з/п ПО',
-                        data: generalSSWArray
+                        data: generalSSWArray,
+                        color: colorSSW
                     },
                     {
                         name: '% по кредит.',
-                        data: generalPKArray
+                        data: generalPKArray,
+                        color: colorPK
                     },
                     {
                         name: 'ПИ',
-                        data: generalPIArray
+                        data: generalPIArray,
+                        color: colorPI
                     },
                     {
                         name: 'Ком. изд.',
-                        data: generalIKArray
+                        data: generalIKArray,
+                        color: colorIK
                     },
                     {
                         name: 'Издержки',
-                        data: generalUnRate
+                        data: generalUnRate,
+                        color: colorMin
                     },
                     {
                         name: 'Выручка',
                         data: generalRateArray,
-                        color: colorFactData
+                        color: colorRate
                     },
                     {
                         name: 'НОП',
-                        data: generalProfitArray
+                        data: generalProfitArray,
+                        color: colorProfit
                     }
                 ],
                 yAxis: {
@@ -2071,3 +2086,239 @@ function GetCustomerData() {
     });
 }
 
+function GetN() {
+    $.ajax({
+        url: "/DashboardDD/GetN/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArray = Object.keys(result).length;
+            var snArray = new Array();
+            var svnArray = new Array();
+            var monthArray = new Array();
+            for (var i = 0; i < lenghtArray; i++) {
+                snArray.push(result[i].Ns);
+                svnArray.push(result[i].Nsv);
+                monthArray.push(result[i].Month);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('nSVN', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Средневзвешенный НОП (с накоплением - привязка к дате открытия заказа)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: monthArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [
+                    {
+                        name: 'СВНОП',
+                        data: svnArray
+                    }
+                ],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: colorStackLabels
+                            }
+                        }
+                    }
+                }
+            });
+            Highcharts.chart('nSN', {
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Средний НОП (средний показатель за месяц - привязка к дате открытия заказа)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: monthArray
+                },
+                series: [
+                    {
+                        name: 'Средний НОП',
+                        data: snArray,
+                        color: "#910000"
+                    }
+                ],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: colorStackLabels
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
+function GetDSVN() {
+    $.ajax({
+        url: "/DashboardDD/GetDSVN/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArray = Object.keys(result).length;
+            var dsvnArray = new Array();
+            var monthArray = new Array();
+            for (var i = 0; i < lenghtArray; i++) {
+                dsvnArray.push(result[i].Dsvn);
+                monthArray.push(result[i].Month);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('dSVN', {
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Динамика среднего взвешенного НОПа (средний показатель за месяц - привязка к дате отгрузки)',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: monthArray
+                },
+                series: [
+                    {
+                        name: 'Средний показатель',
+                        data: dsvnArray,
+                        color: "#910000"
+                    }
+                ],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: colorStackLabels
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
+function GetNCustomer() {
+    $.ajax({
+        url: "/DashboardDD/GetNCustomer/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArray = Object.keys(result).length;
+            var percentArray = new Array();
+            var customerArray = new Array();
+            for (var i = 0; i < lenghtArray; i++) {
+                percentArray.push(result[i].Percent);
+                customerArray.push(result[i].Customer);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('nPercent', {
+                navigation: {
+                    buttonOptions: {
+                        enabled: false
+                    }
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'НОП (%) (ТЭО открытых заказов в текущем году) ',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: customerArray
+                },
+                series: [
+                    {
+                        name: 'НОП (%)',
+                        data: percentArray,
+                        color: "#910000"
+                    }
+                ],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: colorStackLabels
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+}

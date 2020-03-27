@@ -328,7 +328,10 @@
     <Compile Include="Areas\DashboardD\Controllers\DashboardDDController.cs" />
     <Compile Include="Areas\DashboardD\DashboardDAreaRegistration.cs" />
     <Compile Include="Areas\DashboardD\Models\GeneralCustomer.cs" />
+    <Compile Include="Areas\DashboardD\Models\GeneralDSVN.cs" />
     <Compile Include="Areas\DashboardD\Models\GeneralID.cs" />
+    <Compile Include="Areas\DashboardD\Models\GeneralN.cs" />
+    <Compile Include="Areas\DashboardD\Models\GeneralPercentCustomer.cs" />
     <Compile Include="Areas\DashboardD\Models\GeneralPlanFact.cs" />
     <Compile Include="Areas\DashboardKO\Controllers\ReportPageController.cs" />
     <Compile Include="Areas\DashboardKO\DashboardKOAreaRegistration.cs" />
@@ -584,6 +587,9 @@
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="DashboardDHCustomer.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardDN.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="DashboardDPercent.cs">

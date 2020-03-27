@@ -59,5 +59,6 @@ namespace Wiki
         public virtual DbSet<Week> Week { get; set; }
         public virtual DbSet<ResultGraphicStatusPlanZakaz> ResultGraphicStatusPlanZakaz { get; set; }
         public virtual DbSet<PlanFactCosts> PlanFactCosts { get; set; }
+        public virtual DbSet<DashboardDN> DashboardDN { get; set; }
     }
 }
