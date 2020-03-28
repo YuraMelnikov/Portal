@@ -4,14 +4,20 @@ var titleDiagrammColor = '#000';
 var titleFontSize = "12px";
 var monthArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-var colorRate = '#003f5c';
-var colorSSM = "#910000";
-var colorMin = "#ffa600";
-var colorProfit = "#ff7c43";
-var colorSSW = "#f95d6a";
-var colorPK = "#d45087";
-var colorPI = "#a05195";
-var colorIK = "#665191";
+var colorRate = '#004963';
+var colorSSM = "#7a0d1c";
+var colorMin = "#d68900";
+var colorProfit = "#612d62";
+var colorSSW = "#05DFD7";
+var colorPK = "#EC7373";
+var colorPI = "#D8B5B5";
+var colorIK = "#FFE196";
+
+var colorFirstYear = "#05DFD7";
+var colorSecondYear = "#EC7373";
+var colorThreeYear = "#FFE196";
+
+var colorOneLenght = "#05DFD7";
 
 $(document).ready(function () {
     getPeriodReport();
@@ -225,13 +231,10 @@ function GetGeneralD() {
                 }
             }
             Highcharts.chart('rateToMonth', {
-                //navigation: {
-                //    buttonOptions: {
-                //        enabled: false
-                //    }
-                //},
                 chart: {
-                    type: 'spline'
+                    type: 'spline',
+                    borderColor: "#000",
+                    borderWidth: 1
                 },
                 title: {
                     text: 'Прибыль по месяцам (тыс. / привязка к тр-там производства)',
@@ -250,15 +253,18 @@ function GetGeneralD() {
                 series: [
                     {
                         name: firstYearName,
-                        data: firstYearRate
+                        data: firstYearRate,
+                        color: colorFirstYear
                     },
                     {
                         name: secondYearName,
-                        data: secondYearRate
+                        data: secondYearRate,
+                        color: colorSecondYear
                     },
                     {
                         name: threeYearName,
-                        data: threeYearRate
+                        data: threeYearRate,
+                        color: colorThreeYear
                     }
                 ],
                 yAxis: {
@@ -278,13 +284,10 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('rateQuart', {
-                //navigation: {
-                //    buttonOptions: {
-                //        enabled: false
-                //    }
-                //},
                 chart: {
-                    type: 'spline'
+                    type: 'spline',
+                    borderColor: "#000",
+                    borderWidth: 1
                 },
                 title: {
                     text: 'Прибыль квартальная (тыс. / привязка к тр-там производства)',
@@ -303,7 +306,8 @@ function GetGeneralD() {
                 series: [
                     {
                         name: 'Прибыль',
-                        data: quartRateArray
+                        data: quartRateArray,
+                        color: colorOneLenght
                     }
                 ],
                 yAxis: {
@@ -323,13 +327,10 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('sumRateToYear', {
-                //navigation: {
-                //    buttonOptions: {
-                //        enabled: false
-                //    }
-                //},
                 chart: {
-                    type: 'area'
+                    type: 'area',
+                    borderColor: "#000",
+                    borderWidth: 1
                 },
                 title: {
                     text: 'Прибыль с накоплением (тыс. / привязка к тр-там производства)',
@@ -348,15 +349,18 @@ function GetGeneralD() {
                 series: [
                     {
                         name: firstYearName,
-                        data: firstSProfitArray
+                        data: firstSProfitArray,
+                        color: colorFirstYear
                     },
                     {
                         name: secondYearName,
-                        data: secondSProfitArray
+                        data: secondSProfitArray,
+                        color: colorSecondYear
                     },
                     {
                         name: threeYearName,
-                        data: threeSProfitArray
+                        data: threeSProfitArray,
+                        color: colorThreeYear
                     }
                 ],
                 yAxis: {
