@@ -131,7 +131,6 @@ namespace Wiki.Areas.PZ.Models
             mail.To.Add(new MailAddress("myi@katek.by"));
             mail.To.Add(new MailAddress("gea@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
-            mail.To.Add(new MailAddress("Medvedev@katek.by"));
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == 15).Where(d => d.LockoutEnabled == true))
             {
                 mail.To.Add(new MailAddress(data.Email));

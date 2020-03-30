@@ -87,7 +87,6 @@ namespace Wiki.Areas.ApproveCD.Models
                 mailToList.Add(new MailList { mail = "goa@katek.by" });
                 mailToList.Add(new MailList { mail = "maj@katek.by" });
                 mailToList.Add(new MailList { mail = "nrf@katek.by" });
-                mailToList.Add(new MailList { mail = "Kuchynski@katek.by" });
                 mailToList.Add(new MailList { mail = "fvs@katek.by" });
                 mailToList.Add(new MailList { mail = "gea@katek.by" });
                 string mailToG = "";

@@ -135,7 +135,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            else if (login == "bav@katek.by")
             {
                 linkPartOne = firstPartLinkEditWeight;
                 linkPartTwo = lastPartEdit;
@@ -240,7 +240,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            else if (login == "bav@katek.by")
             {
                 linkPartOne = firstPartLinkEditWeight;
                 linkPartTwo = lastPartEdit;
@@ -331,7 +331,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            else if (login == "bav@katek.by")
             {
                 linkPartOne = firstPartLinkEditWeight;
                 linkPartTwo = lastPartEdit;
@@ -422,7 +422,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
             }
-            else if (login == "Medvedev@katek.by" || login == "bav@katek.by")
+            else if (login == "bav@katek.by")
             {
                 linkPartOne = firstPartLinkEditWeight;
                 linkPartTwo = lastPartEdit;

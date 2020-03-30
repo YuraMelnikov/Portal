@@ -159,8 +159,6 @@ namespace Wiki.Areas.VerifPlan.Controllers
             string login = HttpContext.User.Identity.Name;
             if (login == "bav@katek.by" || login == "myi@katek.by")
                 numberUserGroup = 2;
-            else if (login == "Medvedev@katek.by")
-                numberUserGroup = 3;
             else if (login == "pev@katek.by" || login == "myi@katek.by")
                 numberUserGroup = 1;
             return Json(numberUserGroup, JsonRequestBehavior.AllowGet);

@@ -2899,6 +2899,7 @@
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
+    <Folder Include="Scripts\tiny-editor-master\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

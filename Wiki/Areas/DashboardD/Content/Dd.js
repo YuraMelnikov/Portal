@@ -13,11 +13,13 @@ var colorPK = "#EC7373";
 var colorPI = "#D8B5B5";
 var colorIK = "#FFE196";
 
-var colorFirstYear = "#05DFD7";
-var colorSecondYear = "#EC7373";
-var colorThreeYear = "#FFE196";
+var colorFirstYear = "#ffac41";
+var colorSecondYear = "#910000";
+var colorThreeYear = "#698474";
 
 var colorOneLenght = "#05DFD7";
+
+var colorDiff = '#4a47a3';
 
 $(document).ready(function () {
     getPeriodReport();
@@ -136,7 +138,7 @@ function GetGeneralD() {
                     {
                         name: 'C/C мат.',
                         data: generalSSMArray,
-                        color: colorSSM
+                        color: '#f8615a'
                     },
                     {
                         name: 'С/С з/п ПО',
@@ -161,12 +163,12 @@ function GetGeneralD() {
                     {
                         name: 'Издержки',
                         data: generalUnRate,
-                        color: colorMin
+                        color: colorSecondYear
                     },
                     {
                         name: 'Выручка',
                         data: generalRateArray,
-                        color: colorRate
+                        color: '#698474'
                     },
                     {
                         name: 'НОП',
@@ -307,7 +309,7 @@ function GetGeneralD() {
                     {
                         name: 'Прибыль',
                         data: quartRateArray,
-                        color: colorOneLenght
+                        color: colorThreeYear
                     }
                 ],
                 yAxis: {
@@ -621,11 +623,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: pSSWArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fSSWArray
+                        data: fSSWArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -668,11 +671,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: psSSMArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsSSMArray
+                        data: fsSSMArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -715,11 +719,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: tpsSSMArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsSSMArray
+                        data: tfsSSMArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -762,11 +767,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: pPKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fPKArray
+                        data: fPKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -809,11 +815,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: psPKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsPKArray
+                        data: fsPKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -856,11 +863,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: tpsPKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsPKArray
+                        data: tfsPKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -903,11 +911,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: pPIArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fPIArray
+                        data: fPIArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -950,11 +959,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: psPIArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsPIArray
+                        data: fsPIArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -997,11 +1007,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: tpsPIArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsPIArray
+                        data: tfsPIArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1044,11 +1055,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: pIKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fIKArray
+                        data: fIKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1091,11 +1103,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: psIKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsIKArray
+                        data: fsIKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1138,11 +1151,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: tpsIKArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsIKArray
+                        data: tfsIKArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1185,11 +1199,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: pSSMArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fSSMArray
+                        data: fSSMArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1232,11 +1247,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: psSSMArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsSSMArray
+                        data: fsSSMArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1279,11 +1295,12 @@ function GetPF() {
                     {
                         name: 'План',
                         data: tpsSSMArray,
-                        color: "#910000"
+                        color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsSSMArray
+                        data: tfsSSMArray,
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1326,7 +1343,7 @@ function GetPF() {
                     {
                         name: 'Факт',
                         data: fS1Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1369,7 +1386,7 @@ function GetPF() {
                     {
                         name: 'Факт',
                         data: fsS1Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1412,7 +1429,7 @@ function GetPF() {
                     {
                         name: 'Факт',
                         data: tfsS1Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
