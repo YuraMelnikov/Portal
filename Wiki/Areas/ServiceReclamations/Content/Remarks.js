@@ -9,6 +9,7 @@
 });
 
 function loadData(listId) {
+    editor = CreateSEditor();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         activeReclamation();
@@ -373,16 +374,13 @@ function get(id) {
             else
                 $('#dateClose').val("");
             $('#folder').val(result.folder);
-            $('#id').val(result.id);
             $('#text').val(result.text);
+            $('#id').val(result.id);
             $('#description').val(result.description);
             $('#answerText').val(result.answerText);
             $('#answerHistiryText').val(result.answerHistiryText);
             $('#reclamationModal').modal('show');
             $('#btnAdd').hide();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
     return false;
@@ -418,9 +416,6 @@ function getView(id) {
             $('#reclamationModal').modal('show');
             $('#btnUpdate').hide();
             $('#btnAdd').hide();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
     return false;
@@ -431,7 +426,6 @@ function update() {
     if (res === false) {
         return false;
     }
-    var tmp = document.getElementById('id').innerHTML;
     var objRemark = {
         id: $('#id').val(),
         pZ_PlanZakaz: $('#pZ_PlanZakaz').val(),
@@ -455,11 +449,9 @@ function update() {
         success: function (result) {
             clearTextBoxRem();
             updateRemList(result);
+            $('#reclamationModal').modal('hide');
             $('#reclamationTable').DataTable().ajax.reload(null, false);
             $('#tableAnswers').DataTable().ajax.reload(null, false);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }

@@ -3,9 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/ServiceReclamations/Views/Shared/_LayoutServiceReclamations.cshtml";
 }
-<head>
-
-</head>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -83,24 +80,27 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-6">
-                        <label>Описание:</label>
+                    <label>Описание:</label>
+                    <div class="col-lg-12">
                         <textarea name="text" id="text" class="form-control" rows=8></textarea>
                     </div>
-                    <div class="col-lg-3">
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
                         <label>Прим.:</label>
                         <textarea name="description" id="description" class="form-control" rows=8></textarea>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <label>Контакты:</label>
                         <textarea name="contacts" id="contacts" class="form-control" rows=8></textarea>
                     </div>
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-12">
-                        <label>Добавить запись:</label>
-                        <textarea name="answerText" id="answerText" class="form-control" rows=5></textarea>
+                    <label>Добавить запись:</label>
+                    <div data-tiny-editor class="col-lg-12">
+                        <textarea name="answerText" id="answerText" class="form-control" rows=8></textarea>
                     </div>
                 </div>
             </div>
