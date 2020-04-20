@@ -438,9 +438,9 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax1
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax2
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax3
-,iif(isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) < 0, 0, isnull(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1)) as coefError
-,isnull(1 - ((400 * ReclamationCounter.countErrorG) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))), 1) as coefErrorG
-,iif(1 - ((400 * ReclamationCounter.countError) / (100 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)))) >= 0.99, @sizeQualityBonus, 0) as qualityBonus
+,iif(isnull(1.0 - ((400.0 * ReclamationCounter.countError) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, OrdersTasks.normH, 0.0)))), 1.0) < 0.0, 0.0, isnull(1.0 - ((400.0 * ReclamationCounter.countError) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, OrdersTasks.normH, 0.0)))), 1.0)) as coefError
+,isnull(1.0 - ((400.0 * ReclamationCounter.countErrorG) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, PortalKATEK.dbo.CMKO_BujetList.normH, 0.0)))), 1.0) as coefErrorG
+,iif(1.0 - ((400.0 * convert(float, ReclamationCounter.countError)) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, convert(float, OrdersTasks.normH), 0.0)))) >= 0.99, @sizeQualityBonus, 0.0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
 ,0 as nhGPlan
@@ -467,6 +467,7 @@ left join (select TableRes.id_AspNetUsers as id_AspNetUsersError
                 group by TableRes.id_AspNetUsers) as ReclamationCounter on ReclamationCounter.id_AspNetUsersError = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_Teach.id_CMKO_PeriodResult = @periodQua) as TeachTable on TeachTable.id_AspNetUsersTeacher = PortalKATEK.dbo.AspNetUsers.Id
 left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = @periodQua and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
+left join (select * from PortalKATEK.dbo.CMKO_BujetList where PortalKATEK.dbo.CMKO_BujetList.id_PZ_PlanZakaz is not null) as OrdersTasks on OrdersTasks.Id = [PortalKATEK].[dbo].[CMKO_BujetList].Id
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 and PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua
@@ -475,6 +476,9 @@ PortalKATEK.dbo.AspNetUsers.Id
 ,ReclamationCounter.countError
 ,ReclamationCounter.countErrorG
 ,PortalKATEK.dbo.CMKO_ThisCoefManager.coef
+
+
+update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] set [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].qualityBonus = 200 where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].coefError = 1
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] set

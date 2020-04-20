@@ -20,6 +20,19 @@ namespace Wiki.Controllers
             return View();
         }
 
+        public ActionResult NNNN()
+        {
+            var listPz = db.PZ_PlanZakaz
+                .Where(a => a.PlanZakaz > 2014 && a.PlanZakaz < 2600).ToList();
+            foreach(var date in listPz)
+            {
+                db.PZ_PlanZakaz.Remove(date);
+                db.SaveChanges();
+            }
+
+            return View();
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult UploadFoundationNorm()
         {
