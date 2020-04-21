@@ -135,7 +135,7 @@ namespace Wiki.Areas.Reclamation.Models
 
         bool GetCloseMKO(string login, bool reload)
         {
-            if (login == "fvs@katek.by" || login == "nrf@katek.by" || login == "Kuchynski@katek.by")
+            if (login == "fvs@katek.by" || login == "nrf@katek.by" || login == "Kuchynski@katek.by" || login == "vi@katek.by")
             {
                 reclamation.closeMKO = true;
                 reclamation.closeDevision = true;

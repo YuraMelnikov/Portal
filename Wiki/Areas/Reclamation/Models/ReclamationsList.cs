@@ -302,7 +302,7 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetReclamation(int id_Devision, bool active, string login)
         {
             Initialization();
-            if (login == "nrf@katek.by")
+            if (login == "nrf@katek.by" || login == "vi@katek.by")
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeMKO == active)

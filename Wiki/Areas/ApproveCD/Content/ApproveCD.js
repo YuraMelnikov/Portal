@@ -47,7 +47,8 @@ var objOrders = [
     { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
-    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true }
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false }
 ];
 
 var objQuestions = [
@@ -627,6 +628,8 @@ function ClearUOrderModalField() {
     $('#linkKD').val("");
     $('#commitTSToKO').val("");
     $('#commitTS').val("");
+    $('#counterM').val("");
+    $('#counrerE').val("");
     $('#hideIdOrder').val("");
 }
 
@@ -799,6 +802,20 @@ function ValidCustomerData() {
     else {
         $('#commitTS').css('border-color', 'lightgrey');
     }
+    if ($('#counterM').val() === '') {
+        $('#counterM').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#counterM').css('border-color', 'lightgrey');
+    }
+    if ($('#counrerE').val() === '') {
+        $('#counrerE').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#counrerE').css('border-color', 'lightgrey');
+    }
     return isValid;
 }
 
@@ -809,7 +826,9 @@ function UpdateOrderGetCustomerUpdate() {
     }
     var objVer = {
         hideIdOrder: $('#hideIdOrder').val(),
-        commitTS: $('#commitTS').val()
+        commitTS: $('#commitTS').val(),
+        counterM: $('#counterM').val(),
+        counrerE: $('#counrerE').val()
     };
     $.ajax({
         cache: false,
@@ -831,7 +850,9 @@ function UpdateOrderGetCustomerUpdate() {
 function UpdateOrderGetCustomerComplited() {
     var objVer = {
         hideIdOrder: $('#hideIdOrder').val(),
-        commitTS: $('#commitTS').val()
+        commitTS: $('#commitTS').val(),
+        counterM: $('#counterM').val(),
+        counrerE: $('#counrerE').val()
     };
     $.ajax({
         cache: false,
@@ -865,6 +886,27 @@ function CloseQuestion() {
         success: function (result) {
             $("#UQuestionModal").modal('hide');
             $('#questionsTable').DataTable().ajax.reload(null, false);
+        },
+        error: function () {
+        }
+    });
+}
+
+
+function UpdateDescription() {
+    var objDescription = {
+        idOrder: $('#hideIdOrder').val(),
+        description: $('#description').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateDescription",
+        data: JSON.stringify(objDescription),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#ordersTable').DataTable().ajax.reload(null, false);
         },
         error: function () {
         }

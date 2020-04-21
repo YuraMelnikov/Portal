@@ -26,6 +26,7 @@ namespace Wiki
         public int id_PZ_PlanZakaz { get; set; }
         public string id_AspNetUsersM { get; set; }
         public string id_AspNetUsersE { get; set; }
+        public string description { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

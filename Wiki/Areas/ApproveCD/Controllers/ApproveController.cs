@@ -6,6 +6,7 @@ using System.Data.Entity;
 using Newtonsoft.Json;
 using NLog;
 using Wiki.Areas.ApproveCD.Models;
+using System.Security.Cryptography;
 
 namespace Wiki.Areas.ApproveCD.Controllers
 {
@@ -84,7 +85,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
-                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", "")
+                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                        dataList.ApproveCDOrders.description
                     });
                     return Json(new { data });
                 }
@@ -145,7 +147,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
-                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", "")
+                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                        dataList.ApproveCDOrders.description
                     });
                     return Json(new { data });
                 }
@@ -852,7 +855,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateOrderGetCustomerUpdate(int hideIdOrder, string commitTS)
+        public JsonResult UpdateOrderGetCustomerUpdate(int hideIdOrder, string commitTS, 
+            int counterM, int counterE)
         {
             string login = HttpContext.User.Identity.Name;
             try
@@ -869,7 +873,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         id_ApproveCDVersions = approveCDVersions.id,
                         datetime = DateTime.Now,
                         id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                        id_RKD_VersionWork = 7
+                        id_RKD_VersionWork = 7,
+                        counterKBM = counterM,
+                        counterKBE = counterE
                     };
                     db.ApproveCDActions.Add(approveCDActions);
                     db.SaveChanges();
@@ -1015,6 +1021,27 @@ namespace Wiki.Areas.ApproveCD.Controllers
             catch (Exception ex)
             {
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateQuestion: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateDescription(int idOrder, string description)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    var order = db.ApproveCDOrders.Find(idOrder);
+                    order.description = description;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateDescription: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }

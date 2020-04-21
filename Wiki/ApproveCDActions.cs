@@ -19,6 +19,8 @@ namespace Wiki
         public int id_RKD_VersionWork { get; set; }
         public string id_AspNetUsers { get; set; }
         public System.DateTime datetime { get; set; }
+        public double counterKBM { get; set; }
+        public double counterKBE { get; set; }
     
         public virtual ApproveCDVersions ApproveCDVersions { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }

@@ -12,7 +12,7 @@
         <script src="~/Content/DataTables/pdfmake.min.js"></script>
         <script src="~/Content/DataTables/buttons.html5.min.js"></script>
         <script src="~/Content/globalScript.js?v1.0"></script>
-        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v1.7"></script>
+        <script src="~/Areas/ApproveCD/Content/ApproveCD.js?v1.8"></script>
         <style>
             th.dt-invisible-column {
                 border: 0 !important;
@@ -263,6 +263,16 @@
                         <textarea rows="6" id="descriptionOrder" class="form-control" disabled="disabled"></textarea>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <label>Прим.: </label>
+                        <input type="text" class="form-control" id="description" />
+                    </div>
+                    <div class="col-lg-2">
+                        <br />
+                        <button type="button" class="btn btn-primary" onclick="UpdateDescription();">Обновить прим.</button>
+                    </div>
+                </div>
                 <hr />
                 <div class="row" id="loadVerDiv">
                     <div class="col-lg-12">
@@ -302,6 +312,15 @@
                     </div>
                     <div class="col-lg-12">
                         <textarea rows="7" id="commitTS" class="form-control"></textarea>
+                    </div>
+                    <hr />
+                    <div class="col-lg-3">
+                        <label>Количество повторяющихся замечаний КБМ:</label>
+                        <input type="text" class="form-control" id="counterM" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Количество повторяющихся замечаний КБЭ:</label>
+                        <input type="text" class="form-control" id="counterE" />
                     </div>
                     <div class="col-lg-12">
                         <hr />

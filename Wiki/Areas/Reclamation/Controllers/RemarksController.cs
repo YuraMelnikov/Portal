@@ -60,7 +60,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            else if (login == "nrf@katek.by")
+            else if (login == "nrf@katek.by" || login == "vi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 foreach (var data in devisions)
@@ -228,7 +228,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by")
+            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "vi@katek.by")
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false, login);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false);
@@ -452,7 +452,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             reclamationListViewer.GetOneReclamation(reclamation.id);
             try
             {
-                if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by")
+                if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by" || login == "vi@katek.by")
                 {
                     if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16 || reclamation.id_DevisionReclamation == 12 || reclamation.id_DevisionReclamation == 18)
                     {
