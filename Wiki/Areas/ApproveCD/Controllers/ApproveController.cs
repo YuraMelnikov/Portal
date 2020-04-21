@@ -758,7 +758,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                             id_ApproveCDVersions = newApproveCDVersions.id,
                             datetime = DateTime.Now,
                             id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                            id_RKD_VersionWork = 1
+                            id_RKD_VersionWork = 1,
+                            counterKBE = 0,
+                            counterKBM = 0
                         };
                         db.ApproveCDActions.Add(approveCDActions);
                         db.SaveChanges();
@@ -774,7 +776,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                             id_ApproveCDVersions = approveCDVersions.id,
                             datetime = DateTime.Now,
                             id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                            id_RKD_VersionWork = 3
+                            id_RKD_VersionWork = 3,
+                            counterKBE = 0,
+                            counterKBM = 0
                         };
                         db.ApproveCDActions.Add(approveCDActions);
                         db.SaveChanges();
@@ -808,7 +812,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         id_ApproveCDVersions = approveCDVersions.id,
                         datetime = DateTime.Now,
                         id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                        id_RKD_VersionWork = 2
+                        id_RKD_VersionWork = 2,
+                        counterKBE = 0,
+                        counterKBM = 0
                     };
                     db.ApproveCDActions.Add(approveCDActions);
                     db.SaveChanges();
@@ -840,7 +846,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         id_ApproveCDVersions = approveCDVersions.id,
                         datetime = DateTime.Now,
                         id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                        id_RKD_VersionWork = 4
+                        id_RKD_VersionWork = 4,
+                        counterKBE = 0,
+                        counterKBM = 0
                     };
                     db.ApproveCDActions.Add(approveCDActions);
                     db.SaveChanges();
@@ -908,7 +916,9 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         id_ApproveCDVersions = approveCDVersions.id,
                         datetime = DateTime.Now,
                         id_AspNetUsers = db.AspNetUsers.First(a => a.Email == login).Id,
-                        id_RKD_VersionWork = 8
+                        id_RKD_VersionWork = 8,
+                        counterKBE = 0,
+                        counterKBM = 0
                     };
                     db.ApproveCDActions.Add(approveCDActions);
                     db.SaveChanges();
