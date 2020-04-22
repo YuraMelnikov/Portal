@@ -92,7 +92,7 @@ namespace Wiki.Areas.Reclamation.Models
                 count = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.id_DevisionCreate == 6).Count();
             else if (id_Devision == 28)
                 count = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.id_DevisionCreate == 28).Count();
-            else if (id_Devision == 3 || id_Devision == 16)
+            else if (id_Devision == 16)
                 count = pZ_PlanZakaz.Reclamation_PZ.Where(d => d.Reclamation.id_DevisionReclamation == 3 || d.Reclamation.id_DevisionReclamation == 16).Count();
             else if (id_Devision == 0)
                 count = pZ_PlanZakaz.Reclamation_PZ.Count();
@@ -121,9 +121,9 @@ namespace Wiki.Areas.Reclamation.Models
                     .Where(d => d.Reclamation.id_DevisionCreate == 28)
                     .Where(d => d.Reclamation.close == close)
                     .Count();
-            else if (id_Devision == 3 || id_Devision == 16)
+            else if (id_Devision == 16)
                 count = pZ_PlanZakaz.Reclamation_PZ
-                    .Where(d => d.Reclamation.id_DevisionReclamation == 3 || d.Reclamation.id_DevisionReclamation == 16)
+                    .Where(d => d.Reclamation.id_DevisionReclamation == 16)
                     .Where(d => d.Reclamation.close == close)
                     .Count();
             else if (id_Devision == 0)

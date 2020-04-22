@@ -47,15 +47,10 @@ namespace Wiki.Areas.Reclamation.Controllers
             if (login == "fvs@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 3 || d.Devision == 16)
+                    .Where(d => d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
@@ -63,11 +58,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (login == "nrf@katek.by" || login == "vi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
@@ -79,11 +69,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             else if (login == "bav@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.CRUDCounter = '1';
@@ -91,30 +76,9 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .Where(d => d.Devision == 0)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             }
-            else if (login == "Kuchynski@katek.by")
-            {
-                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
-                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
-                ViewBag.ButtonAddActivation = 1;
-                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 12 || d.Devision == 18)
-                    .Where(d => d.LockoutEnabled == true)
-                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
-                ViewBag.CRUDCounter = '2';
-            }
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22 || id_Devision == 5)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
@@ -135,28 +99,18 @@ namespace Wiki.Areas.Reclamation.Controllers
             if (id_Devision == 6)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.CRUDCounter = '1';
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             }
-            else if (id_Devision == 3 || id_Devision == 16 || id_Devision == 15)
+            else if (id_Devision == 16 || id_Devision == 15)
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activePO == true).OrderBy(d => d.name), "id", "name");
             else
                 ViewBag.id_Reclamation_Type = new SelectList(db.Reclamation_Type.Where(d => d.activeOTK == true).OrderBy(d => d.name), "id", "name");
             List<Devision> devisionsReload = db.Devision.Where(d => d.OTK == true && d.id != id_Devision).ToList();
             if (id_Devision == 6)
                 devisionsReload = db.Devision.Where(d => d.OTK == true).ToList();
-            foreach (var data in devisionsReload)
-            {
-                if (data.id == 16)
-                    data.name = "КБЭ";
-            }
             ViewBag.id_DevisionReclamationReload = new SelectList(devisionsReload.OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFirst = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.id_Reclamation_CountErrorFinal = new SelectList(db.Reclamation_CountError.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
@@ -174,11 +128,6 @@ namespace Wiki.Areas.Reclamation.Controllers
             if (id_Devision == 28)
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
-                foreach (var data in devisions)
-                {
-                    if (data.id == 16)
-                        data.name = "КБЭ";
-                }
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.CRUDCounter = '1';
@@ -228,7 +177,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "vi@katek.by")
+            if (login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false, login);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login), false);
@@ -452,9 +401,9 @@ namespace Wiki.Areas.Reclamation.Controllers
             reclamationListViewer.GetOneReclamation(reclamation.id);
             try
             {
-                if (login == "Kuchynski@katek.by" || login == "fvs@katek.by" || login == "nrf@katek.by" || login == "vi@katek.by")
+                if (login == "fvs@katek.by" || login == "nrf@katek.by" || login == "vi@katek.by")
                 {
-                    if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16 || reclamation.id_DevisionReclamation == 12 || reclamation.id_DevisionReclamation == 18)
+                    if (reclamation.id_DevisionReclamation == 15 || reclamation.id_DevisionReclamation == 16 || reclamation.id_DevisionReclamation == 12 || reclamation.id_DevisionReclamation == 18)
                     {
                         EmailReclamation emailReclamation = new EmailReclamation(reclamation, login, 5);
                     }

@@ -136,9 +136,9 @@ namespace Wiki.Areas.Reclamation.Models
                     {
                         mailToList.Add(data.Email);
                     }
-                    if (reclamation.id_DevisionReclamation == 3 || reclamation.id_DevisionReclamation == 16)
+                    if (reclamation.id_DevisionReclamation == 16)
                     {
-                        foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3 || d.Devision == 16).Where(d => d.LockoutEnabled == true))
+                        foreach (var data in db.AspNetUsers.Where(d => d.Devision == 16).Where(d => d.LockoutEnabled == true))
                         {
                             mailToList.Add(data.Email);
                         }

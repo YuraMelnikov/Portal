@@ -1204,23 +1204,6 @@ namespace Wiki.Areas.CMKO
                     .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
 
             }
-            else if (login == "Kuchynski@katek.by")
-            {
-                ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.teacherTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO != null)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-                ViewBag.studentTeach = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.dateToCMKO == null)
-                    .Where(d => d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
-            }
             else if (login == "nrf@katek.by" || login == "vi@katek.by")
             {
                 ViewBag.autor = new SelectList(db.AspNetUsers
@@ -1301,7 +1284,7 @@ namespace Wiki.Areas.CMKO
         bool GetStatusManagerUser()
         {
             string login = HttpContext.User.Identity.Name;
-            if (login == "Kuchynski@katek.by" || login == "bav@katek.by" ||
+            if (login == "bav@katek.by" ||
                 login == "fvs@katek.by" || login == "myi@katek.by" || login == "vi@katek.by" ||
                 login == "laa@katek.by" || login == "nrf@katek.by" || login == "Rusak@katek.by")
             {
@@ -1446,7 +1429,7 @@ namespace Wiki.Areas.CMKO
 
         string GetEditLinkCategory(string login, int id)
         {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCategory('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";
@@ -1454,7 +1437,7 @@ namespace Wiki.Areas.CMKO
 
         string GetEditLinkOptimization(string login, int id)
         {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOptimization('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";
@@ -1478,7 +1461,7 @@ namespace Wiki.Areas.CMKO
 
         string GetEditLinkCoefManager(string login, int id)
         {
-            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "Kuchynski@katek.by" || login == "vi@katek.by")
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetCoefManager('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";
@@ -1486,7 +1469,7 @@ namespace Wiki.Areas.CMKO
 
         string GetEditLinkTeach(string login, int id)
         {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetTeach('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";
@@ -1494,7 +1477,7 @@ namespace Wiki.Areas.CMKO
         
         string GetEditLinkUser(string login, string id)
         {
-            if (login == "myi@katek.by" || login == "Kuchynski@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
+            if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetUser('" + id.ToString() + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "<td></td>";

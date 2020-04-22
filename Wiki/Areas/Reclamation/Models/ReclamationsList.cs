@@ -192,11 +192,11 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
-            else if (id_Devision == 3 || id_Devision == 16)
+            else if (id_Devision == 16)
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeDevision == active)
-                    .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
+                    .Where(d => d.id_DevisionReclamation == 16)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
@@ -321,7 +321,7 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeMKO == active)
-                    .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
+                    .Where(d => d.id_DevisionReclamation == 16)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
@@ -383,11 +383,11 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
-            else if (id_Devision == 3 || id_Devision == 16)
+            else if (id_Devision == 16)
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
-                    .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
+                    .Where(d => d.id_DevisionReclamation == 16)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
@@ -511,13 +511,13 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
-            else if (id_Devision == 3 || id_Devision == 16)
+            else if (id_Devision == 16)
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.Reclamation_PZ.Count(c => c.id_PZ_PlanZakaz == id_PZ_PlanZakaz) > 0)
                     .Where(d => d.Reclamation_PZ.Max(c => c.PZ_PlanZakaz.dataOtgruzkiBP) > dateDeactiveOTK)
                     .Where(d => d.close == active)
-                    .Where(d => d.id_DevisionReclamation == 3 || d.id_DevisionReclamation == 16)
+                    .Where(d => d.id_DevisionReclamation == 16)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
