@@ -495,6 +495,8 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Name,
                 dataList.Description,
                 dataList.massa,
+                cgm = dataList.coefM,
+                cge = dataList.coefE,
                 dataList.MTR,
                 dataList.nomenklaturNumber,
                 dataList.timeContract,
@@ -621,7 +623,7 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
             editPZ = correctPlanZakaz.PZ_PlanZakaz;
-            db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(editPZ).State = EntityState.Modified;
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
@@ -735,6 +737,8 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PlanZakaz,
                 dataList.ProductType,
                 dataList.massa,
+                cgm = dataList.coefM,
+                cge = dataList.coefE,
                 dataList.nameTU,
                 dataList.Id
             });
@@ -742,7 +746,7 @@ namespace Wiki.Areas.PZ.Controllers
             return Json(data.First(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateKO(PZ_PlanZakaz pZ_PlanZakaz)
+        public JsonResult UpdateKO(PZ_PlanZakaz pZ_PlanZakaz, double cgm, double cge)
         {
             string login = HttpContext.User.Identity.Name;
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
@@ -757,6 +761,8 @@ namespace Wiki.Areas.PZ.Controllers
             {
                 editPZ.ProductType = pZ_PlanZakaz.ProductType;
             }
+            editPZ.coefM = cgm;
+            editPZ.coefE = cge;
             if (editPZ.massa != pZ_PlanZakaz.massa)
             {
                 try

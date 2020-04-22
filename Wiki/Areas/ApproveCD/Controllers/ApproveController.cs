@@ -460,7 +460,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                             {
                                 id_PZ_PlanZakaz = data,
                                 id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
-                                id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8"
+                                id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
+                                description = ""
                             };
                             db.ApproveCDOrders.Add(approveCDOrders);
                             db.SaveChanges();

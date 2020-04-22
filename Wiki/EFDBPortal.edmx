@@ -25,7 +25,7 @@
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="id_AspNetUsersM" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="id_AspNetUsersE" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="description" Type="varchar(max)" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -1467,6 +1467,8 @@
           <Property Name="objectOfExploitation" Type="varchar(max)" Nullable="false" />
           <Property Name="counterText" Type="varchar(max)" Nullable="false" />
           <Property Name="massa" Type="float" Nullable="false" />
+          <Property Name="coefM" Type="float" Nullable="false" />
+          <Property Name="coefE" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -7175,11 +7177,11 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="id_RKD_VersionWork" Type="Int32" Nullable="false" />
           <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="counterKBM" Type="Double" Nullable="false" />
+          <Property Name="counterKBE" Type="Double" Nullable="false" />
           <NavigationProperty Name="ApproveCDVersions" Relationship="PortalKATEKModel.FK_ApproveCDActions_ApproveCDVersions" FromRole="ApproveCDActions" ToRole="ApproveCDVersions" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ApproveCDActions_AspNetUsers" FromRole="ApproveCDActions" ToRole="AspNetUsers" />
           <NavigationProperty Name="TypeRKD_Mail_Version" Relationship="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" FromRole="ApproveCDActions" ToRole="TypeRKD_Mail_Version" />
-          <Property Name="counterKBM" Type="Double" Nullable="false" />
-          <Property Name="counterKBE" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDOrders">
           <Key>
@@ -7189,13 +7191,13 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
           <Property Name="id_AspNetUsersM" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="id_AspNetUsersE" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_ApproveCDOrders_AspNetUsers" FromRole="ApproveCDOrders" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_ApproveCDOrders_AspNetUsers1" FromRole="ApproveCDOrders" ToRole="AspNetUsers" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_ApproveCDOrders_PZ_PlanZakaz" FromRole="ApproveCDOrders" ToRole="PZ_PlanZakaz" />
           <NavigationProperty Name="ApproveCDQuestions" Relationship="PortalKATEKModel.FK_ApproveCDQuestions_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDQuestions" />
           <NavigationProperty Name="ApproveCDTasks" Relationship="PortalKATEKModel.FK_ApproveCDTasks_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDTasks" />
           <NavigationProperty Name="ApproveCDVersions" Relationship="PortalKATEKModel.FK_ApproveCDVersions_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDVersions" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -8389,6 +8391,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="objectOfExploitation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="counterText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="massa" Type="Double" Nullable="false" />
+          <Property Name="coefM" Type="Double" Nullable="false" />
+          <Property Name="coefE" Type="Double" Nullable="false" />
           <NavigationProperty Name="ApproveCDOrders" Relationship="PortalKATEKModel.FK_ApproveCDOrders_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ApproveCDOrders" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_AspNetUsers" FromRole="PZ_PlanZakaz" ToRole="AspNetUsers" />
           <NavigationProperty Name="BurnDown" Relationship="PortalKATEKModel.FK_BurnDownBP_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="BurnDown" />
@@ -13025,6 +13029,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <EntitySetMapping Name="PZ_PlanZakaz">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_PlanZakaz">
               <MappingFragment StoreEntitySet="PZ_PlanZakaz">
+                <ScalarProperty Name="coefE" ColumnName="coefE" />
+                <ScalarProperty Name="coefM" ColumnName="coefM" />
                 <ScalarProperty Name="massa" ColumnName="massa" />
                 <ScalarProperty Name="counterText" ColumnName="counterText" />
                 <ScalarProperty Name="objectOfExploitation" ColumnName="objectOfExploitation" />

@@ -367,6 +367,8 @@ function Add() {
     }
     $("#btnAdd").attr('disabled', true);
     var typeObj = {
+        cge: $('#cge').val(),
+        cgm: $('#cgm').val(),
         massa: $('#massa').val(),
         countOrders: $('#countOrders').val(),
         PlanZakaz: $('#PlanZakaz').val(),
@@ -520,6 +522,8 @@ function clearTextBox() {
     $('#Modul').val("");
     $('#PowerST').val("");
     $('#VN_NN').val("");
+    $('#cgm').val("");
+    $('#cge').val("");
     $('#massa').val();
     $('#TypeShip').val("");
     $('#criticalDateShip').val("");
@@ -575,6 +579,8 @@ function getbyID(Id) {
         success: function (result) {
             $('#btnGetInfGP').show();
             $('#Id').val(result.Id);
+            $('#cgm').val(result.cgm);
+            $('#cge').val(result.cge);
             $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
@@ -637,6 +643,8 @@ function Update() {
     var typeObj = {
         Id: $('#Id').val(),
         massa: $('#massa').val(),
+        cgm: $('#cgm').val(),
+        cge: $('#cge').val(),
         StantionGruzopoluchatel: $('#StantionGruzopoluchatel').val(),
         KodStanciiGruzopoluchatelya: $('#KodStanciiGruzopoluchatelya').val(),
         OsobieOtmetkiGruzopoluchatelya: $('#OsobieOtmetkiGruzopoluchatelya').val(),
@@ -692,6 +700,8 @@ function Update() {
             $('#Id').val("");
             $('#StantionGruzopoluchatel').val("");
             $('#massa').val("");
+            $('#cgm').val("");
+            $('#cge').val("");
             $('#KodStanciiGruzopoluchatelya').val("");
             $('#OsobieOtmetkiGruzopoluchatelya').val("");
             $('#PowerST').val("");
@@ -826,6 +836,8 @@ function getbyReadID(Id) {
         success: function (result) {
             $('#Id').val(result.Id);
             $('#massa').val(result.massa);
+            $('#cgm').val(result.cgm);
+            $('#cge').val(result.cge);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
             $('#OsobieOtmetkiGruzopoluchatelya').val(result.OsobieOtmetkiGruzopoluchatelya);
@@ -894,6 +906,8 @@ function UpdateOrders() {
         nomenklaturNumber: $('#mnomenklaturNumber').val(),
         timeContract: $('#mtimeContract').val(),
         massa: $('#massa').val(),
+        cgm: $('#cgm').val(),
+        cge: $('#cge').val(),
         timeContractDate: $('#mtimeContractDate').val(),
         timeArr: $('#mtimeArr').val(),
         timeArrDate: $('#mtimeArrDate').val(),
@@ -1014,6 +1028,8 @@ function getbyKOID(Id) {
         success: function (result) {
             $('#Id').val(result.Id);
             $('#massa').val(result.massa);
+            $('#cgm').val(result.cgm);
+            $('#cge').val(result.cge);
             $('#kPlanZakaz').val(result.PlanZakaz);
             $('#koProductType').val(result.ProductType);
             $('#nameTU').val(result.nameTU);
@@ -1039,7 +1055,9 @@ function UpdateKO() {
         PlanZakaz: $('#kPlanZakaz').val(),
         nameTU: $('#nameTU').val(),
         ProductType: $('#koProductType').val(),
-        massa: $('#massa').val().replace('.', ',')
+        massa: $('#massa').val().replace('.', ','),
+        cgm: $('#cgm').val().replace('.', ','),
+        cge: $('#cge').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
@@ -1075,6 +1093,21 @@ function validateUpdateKO() {
     }
     else {
         $('#massa').css('border-color', 'lightgrey');
+    }
+    if ($('#cgm').val() < 0) {
+        $('#cgm').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#cgm').css('border-color', 'lightgrey');
+    }
+
+    if ($('#cge').val() < 0) {
+        $('#cge').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#cge').css('border-color', 'lightgrey');
     }
     return isValid;
 }

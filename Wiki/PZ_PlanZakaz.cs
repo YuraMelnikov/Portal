@@ -92,6 +92,8 @@ namespace Wiki
         public string objectOfExploitation { get; set; }
         public string counterText { get; set; }
         public double massa { get; set; }
+        public double coefM { get; set; }
+        public double coefE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApproveCDOrders> ApproveCDOrders { get; set; }

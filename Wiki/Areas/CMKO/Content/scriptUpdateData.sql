@@ -23,13 +23,13 @@ DECLARE @coefErrorGip float;
 
 SET @coefErrorGip = 1000.0;
 SET @coefConvertCalendarNorm = 0.9;
-SET @periodQua ='2020.1';
-SET @periodM1 ='2020.1';
-SET @periodM2 ='2020.2';
-SET @periodM3 ='2020.3';
-SET @periodMP1 ='2020.01';
-SET @periodMP2 ='2020.02';
-SET @periodMP3 ='2020.03';
+SET @periodQua ='2020.2';
+SET @periodM1 ='2020.4';
+SET @periodM2 ='2020.5';
+SET @periodM3 ='2020.6';
+SET @periodMP1 ='2020.04';
+SET @periodMP2 ='2020.05';
+SET @periodMP3 ='2020.06';
 SET @coefBujetWorker = 0.0105;
 SET @coefBujetManager = 0.0020;
 SET @coenBujetNManager = 0.16;
@@ -330,7 +330,7 @@ LEFT OUTER JOIN ProjectWebApp.dbo.MSP_EpmResource_UserView ON ProjectWebApp.dbo.
 WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWork > 0 AND (ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБ%')
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM1)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
-where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP1)
+where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP1) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
 
 
 delete [PortalKATEK].[dbo].[DashboardKOMP2]
@@ -375,7 +375,7 @@ LEFT OUTER JOIN ProjectWebApp.dbo.MSP_EpmResource_UserView ON ProjectWebApp.dbo.
 WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWork > 0 AND (ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБ%')
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM2)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
-where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP2)
+where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP2) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
 
 
 delete [PortalKATEK].[dbo].[DashboardKOMP3]
@@ -420,7 +420,7 @@ LEFT OUTER JOIN ProjectWebApp.dbo.MSP_EpmResource_UserView ON ProjectWebApp.dbo.
 WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MSP_EpmTask_UserView.TaskWork > 0 AND (ProjectWebApp.dbo.MSP_EpmResource_UserView.[СДРес] like '%КБ%')
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM3)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
-where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3)
+where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
 
 
 delete [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
@@ -445,7 +445,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
 ,0 as nhGPlan
 ,0 as nhGFact
-,PortalKATEK.dbo.CMKO_ThisCoefManager.coef
+,1
 from
 PortalKATEK.dbo.CMKO_BujetList
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.ResourceUID = PortalKATEK.dbo.CMKO_BujetList.ResourceUID

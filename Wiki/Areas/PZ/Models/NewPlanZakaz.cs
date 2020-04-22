@@ -57,7 +57,9 @@ namespace Wiki.Areas.PZ.Models
                 PowerST = pZ_PlanZakaz.PowerST,
                 VN_NN = pZ_PlanZakaz.VN_NN,
                 objectOfExploitation = pZ_PlanZakaz.objectOfExploitation,
-                counterText = pZ_PlanZakaz.counterText
+                counterText = pZ_PlanZakaz.counterText,
+                coefM = 3.5,
+                coefE = 3.5
             };
             db.PZ_PlanZakaz.Add(newPZ_PlanZakaz);
             db.SaveChanges();
