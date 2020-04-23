@@ -49,6 +49,7 @@ namespace Wiki
         public bool closeMKO { get; set; }
         public bool fixedExpert { get; set; }
         public int id_ReclamationTypeKB { get; set; }
+        public bool closeKO { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

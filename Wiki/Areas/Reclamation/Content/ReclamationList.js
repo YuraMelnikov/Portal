@@ -129,7 +129,8 @@ var objRemarksList = [
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },
-    { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
+    { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true },
+    { "title": "Закрыто КБ", "data": "CloseKB", "autowidth": true, "bSortable": true }
 ];
 
 var objRemark = {
@@ -147,6 +148,7 @@ var objRemark = {
     timeToEliminate: $('#timeToEliminate').val(),
     close: $('#close').val(),
     closeMKO: $('#closeMKO').val(),
+    closeKO: $('#closeKO').val(),
     gip: $('gip').val(),
     closeDevision: $('#closeDevision').val(),
     PCAM: $('#PCAM').val(),
@@ -370,6 +372,7 @@ function Add() {
         PCAM: $('#PCAM').val(),
         closeDevision: $('#closeDevision').is(":checked"),
         closeMKO: $('#closeMKO').val(),
+        closeKO: $('#closeKO').val(),
         gip: $('#gip').is(":checked"),
         trash: $('#trash').is(":checked"),
         editManufacturingIdDevision: $('#editManufacturingIdDevision').val(),
@@ -559,6 +562,7 @@ function GetReclamation(id) {
             $('#vdateTimeCreate').val(result.dateTimeCreate);
             $('#id_ReclamationTypeKB').val(result.id_ReclamationTypeKB);
             $('#closeMKO').val(result.closeMKO);
+            $('#closeKO').val(result.closeKO);
             $('#answerText').val("");
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
@@ -785,6 +789,7 @@ function Update() {
         id_ReclamationTypeKB: $('#id_ReclamationTypeKB').val(),
         fixedExpert: $('#fixedExpert').val(),
         closeMKO: $('#closeMKO').val(),
+        closeKO: $('#closeKO').val(),
         dateTimeCreate: $('#dateTimeCreate').val(),
         id_AspNetUsersCreate: $('#id_AspNetUsersCreate').val(),
         id_DevisionCreate: $('#id_DevisionCreate').val(),
@@ -1166,6 +1171,7 @@ function GetReclamationExpert(id) {
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
             $('#closeMKO').val(result.closeMKO);
+            $('#closeKO').val(result.closeKO);
             $('#answerText').val("");
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#text').val(result.text);
@@ -1398,7 +1404,8 @@ var objRemarksListView = [
     { "title": "Ответ/ы", "data": "Answers", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Создал", "data": "UserCreate", "autowidth": true, "bSortable": true, "class": 'colu-200' },
     { "title": "Ответственный", "data": "UserReclamation", "autowidth": true, "bSortable": true },
-    { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true }
+    { "title": "Степень ошибки", "data": "LeavelReclamation", "autowidth": true, "bSortable": true },
+    { "title": "Закрыто КБ", "data": "сloseKB", "autowidth": true, "bSortable": true }
 ];
 
 function editManufList() {
@@ -1450,6 +1457,7 @@ function clearColor() {
 function clearBox1() {
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="closeKO"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
     $('[name="SMKO"]:checked').prop('checked', false);
 }
@@ -1457,6 +1465,7 @@ function clearBox1() {
 function clearBox2() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="closeKO"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
     $('[name="SMKO"]:checked').prop('checked', false);
 }
@@ -1472,6 +1481,7 @@ function clearBox4() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="closeKO"]:checked').prop('checked', false);
     $('[name="SMKO"]:checked').prop('checked', false);
 }
 
@@ -1479,6 +1489,7 @@ function clearBox5() {
     $('[name="close"]:checked').prop('checked', false);
     $('[name="closeDevision"]:checked').prop('checked', false);
     $('[name="closeMKO"]:checked').prop('checked', false);
+    $('[name="closeKO"]:checked').prop('checked', false);
     $('[name="gip"]:checked').prop('checked', false);
 }
 

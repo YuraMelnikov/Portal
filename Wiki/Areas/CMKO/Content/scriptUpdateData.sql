@@ -331,6 +331,7 @@ WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MS
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM1)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP1) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
+and (tableResPower.SumAssignmentActualWork is not null)
 
 
 delete [PortalKATEK].[dbo].[DashboardKOMP2]
@@ -376,6 +377,7 @@ WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MS
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM2)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP2) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
+and (tableResPower.SumAssignmentActualWork is not null)
 
 
 delete [PortalKATEK].[dbo].[DashboardKOMP3]
@@ -421,6 +423,7 @@ WHERE (ProjectWebApp.dbo.MSP_EpmTask_UserView.НК > 0) and ProjectWebApp.dbo.MS
 and (concat(year(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay), '.', month(ProjectWebApp.dbo.MSP_EpmAssignmentByDay_UserView.TimeByDay)) = @periodM3)
 group by ProjectWebApp.dbo.MSP_EpmAssignment_UserView.ResourceUID) as tableResPower on tableResPower.ResourceUID = [PortalKATEK].[dbo].[AspNetUsers].ResourceUID
 where ([PortalKATEK].[dbo].[ProductionCalendar].[period] = @periodMP3) and ([PortalKATEK].[dbo].[AspNetUsers].LockoutEnabled = 1)
+and (tableResPower.SumAssignmentActualWork is not null)
 
 
 delete [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]

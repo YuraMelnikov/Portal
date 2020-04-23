@@ -828,7 +828,7 @@ function UpdateOrderGetCustomerUpdate() {
         hideIdOrder: $('#hideIdOrder').val(),
         commitTS: $('#commitTS').val(),
         counterM: $('#counterM').val(),
-        counrerE: $('#counrerE').val()
+        counterE: $('#counterE').val()
     };
     $.ajax({
         cache: false,

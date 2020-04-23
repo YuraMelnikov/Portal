@@ -6,7 +6,6 @@ using System.Data.Entity;
 using Newtonsoft.Json;
 using NLog;
 using Wiki.Areas.ApproveCD.Models;
-using System.Security.Cryptography;
 
 namespace Wiki.Areas.ApproveCD.Controllers
 {

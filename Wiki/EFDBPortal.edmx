@@ -1562,6 +1562,7 @@
           <Property Name="closeMKO" Type="bit" Nullable="false" />
           <Property Name="fixedExpert" Type="bit" Nullable="false" />
           <Property Name="id_ReclamationTypeKB" Type="int" Nullable="false" />
+          <Property Name="closeKO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -2219,42 +2220,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
-        <Association Name="FK_ApproveCDActions_ApproveCDVersions">
-          <End Role="ApproveCDVersions" Type="Self.ApproveCDVersions" Multiplicity="1" />
-          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ApproveCDVersions">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ApproveCDActions">
-              <PropertyRef Name="id_ApproveCDVersions" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ApproveCDActions_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ApproveCDActions">
-              <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
-          <End Role="TypeRKD_Mail_Version" Type="Self.TypeRKD_Mail_Version" Multiplicity="1" />
-          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeRKD_Mail_Version">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ApproveCDActions">
-              <PropertyRef Name="id_RKD_VersionWork" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ApproveCDOrders_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ApproveCDOrders" Type="Self.ApproveCDOrders" Multiplicity="*" />
@@ -4779,18 +4744,6 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
     [RKD_TaskUIDProjectUD].[RKD] AS [RKD]
     FROM [dbo].[RKD_TaskUIDProjectUD] AS [RKD_TaskUIDProjectUD]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_ApproveCDActions_ApproveCDVersions" Association="Self.FK_ApproveCDActions_ApproveCDVersions">
-            <End Role="ApproveCDVersions" EntitySet="ApproveCDVersions" />
-            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ApproveCDActions_AspNetUsers" Association="Self.FK_ApproveCDActions_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="Self.FK_ApproveCDActions_TypeRKD_Mail_Version">
-            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
-            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
-          </AssociationSet>
           <AssociationSet Name="FK_ApproveCDOrders_AspNetUsers" Association="Self.FK_ApproveCDOrders_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ApproveCDOrders" EntitySet="ApproveCDOrders" />
@@ -8542,6 +8495,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <NavigationProperty Name="ReclamationTypeKB" Relationship="PortalKATEKModel.FK_Reclamation_ReclamationTypeKB" FromRole="Reclamation" ToRole="ReclamationTypeKB" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="Reclamation" ToRole="ServiceRemarksReclamations" />
+          <Property Name="closeKO" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -13153,6 +13107,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <EntitySetMapping Name="Reclamation">
             <EntityTypeMapping TypeName="PortalKATEKModel.Reclamation">
               <MappingFragment StoreEntitySet="Reclamation">
+                <ScalarProperty Name="closeKO" ColumnName="closeKO" />
                 <ScalarProperty Name="id_ReclamationTypeKB" ColumnName="id_ReclamationTypeKB" />
                 <ScalarProperty Name="fixedExpert" ColumnName="fixedExpert" />
                 <ScalarProperty Name="closeMKO" ColumnName="closeMKO" />

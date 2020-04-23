@@ -690,6 +690,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     id_PF = pfRem,
                     technicalAdvice = technicalAdviceRem,
                     closeMKO = false,
+                    closeKO = false,
                     fixedExpert = false
                 };
                 db.Reclamation.Add(reclamation);

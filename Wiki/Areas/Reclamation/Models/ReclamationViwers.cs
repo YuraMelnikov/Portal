@@ -21,6 +21,7 @@ namespace Wiki.Areas.Reclamation.Models
         string lastLeavelReclamation;
         string onePZName;
         string pfName;
+        string closeKB;
 
         public string EditLinkJS { get => editLinkJS; set => editLinkJS = value; }
         public string ViewLinkJS { get => viewLinkJS; set => viewLinkJS = value; }
@@ -37,6 +38,7 @@ namespace Wiki.Areas.Reclamation.Models
         public string LastLeavelReclamation { get => lastLeavelReclamation; set => lastLeavelReclamation = value; }
         public string OnePZName { get => onePZName; set => onePZName = value; }
         public string PfName { get => pfName; set => pfName = value; }
+        public string CloseKB { get => closeKB; set => closeKB = value; }
 
         public ReclamationViwers(Wiki.Reclamation reclamation)
         {
@@ -78,8 +80,17 @@ namespace Wiki.Areas.Reclamation.Models
                 userReclamation = "";
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
+            closeKB = GetCloseKB(reclamation.closeMKO);
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
             pfName = reclamation.PF.name;
+        }
+
+        private string GetCloseKB(bool close)
+        {
+            if (close == true)
+                return "Закрыта";
+            else
+                return "Открыта";
         }
 
         public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision)
@@ -125,21 +136,22 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            closeKB = GetCloseKB(reclamation.closeMKO);
             pfName = reclamation.PF.name;
         }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation, string onePZName) 
+        public ReclamationViwers(Wiki.Reclamation reclamation, string onePZName)
         {
             this.onePZName = onePZName;
             editLinkJS = "";
             id_Reclamation = reclamation.id;
             planZakaz = "";
             var pzList = reclamation.Reclamation_PZ.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz).ToList();
-            for(int i = 0; i < pzList.Count; i++)
+            for (int i = 0; i < pzList.Count; i++)
             {
                 planZakaz += pzList[i].PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
             }
-            if(reclamation.close == true)
+            if (reclamation.close == true)
             {
                 close = "активная";
                 viewLinkJS = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetReclamationView('" + reclamation.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list-alt" + '\u0022' + "></span></a></td>";
@@ -169,10 +181,11 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            closeKB = GetCloseKB(reclamation.closeMKO);
             pfName = reclamation.PF.name;
         }
 
-        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision, string onePZName) 
+        public ReclamationViwers(Wiki.Reclamation reclamation, int id_Devision, string onePZName)
         {
             this.onePZName = onePZName;
             id_Reclamation = reclamation.id;
@@ -215,6 +228,7 @@ namespace Wiki.Areas.Reclamation.Models
             }
             leavelReclamation = reclamation.Reclamation_CountError.name;
             lastLeavelReclamation = reclamation.Reclamation_CountError1.name;
+            closeKB = GetCloseKB(reclamation.closeMKO);
             pfName = reclamation.PF.name;
         }
     }

@@ -302,10 +302,25 @@ namespace Wiki.Areas.Reclamation.Models
         public void GetReclamation(int id_Devision, bool active, string login)
         {
             Initialization();
-            if (login == "nrf@katek.by" || login == "vi@katek.by")
+            if (login == "fvs@katek.by" || login == "vi@katek.by")
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeMKO == active)
+                    .Where(d => d.id_DevisionReclamation == id_Devision)
+                    .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                    .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                    .Include(d => d.Devision)
+                                    .Include(d => d.PF)
+                    .Include(d => d.AspNetUsers)
+                    .Include(d => d.AspNetUsers1)
+                    .Include(d => d.Reclamation_CountError)
+                    .Include(d => d.Reclamation_CountError1)
+                    .ToList();
+            }
+            else if (login == "nrf@katek.by")
+            {
+                Reclamations = db.Reclamation
+                    .Where(d => d.closeKO == active)
                     .Where(d => d.id_DevisionReclamation == id_Devision)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
