@@ -40,7 +40,6 @@ $(document).ready(function () {
     StartMenu();
     LoadData(9);
     GetUserName();
-    //LoadThem();
 });
 
 var objOptimization = [
@@ -107,23 +106,23 @@ function LoadData(id) {
             GetTextNamePeriod();
             GetTimeSheet();
             getPeriodReport();
-            GetSummaryWageFundWorker();
+            //GetSummaryWageFundWorker();
             $('#btnUpdateDateReport').hide();
             $('#summaryAccuredNotOrder').hide();
             $('#hideSummaryData').hide();
             $('#hideAccuredStandart').hide();
             $('#speedDevisionForManager').hide();
-            GetWithheldToBonusFund();
-            GetOverflowsBujet();
-            GetGAccrued();
-            GetHSSPO();
-            GetHSSKBM();
-            GetHSSKBE();
+            //GetWithheldToBonusFund();
+            //GetOverflowsBujet();
+            //GetGAccrued();
+            //GetHSSPO();
+            //GetHSSKBM();
+            //GetHSSKBE();
             GetManpowerFirstPeriod();
             GetManpowerSecondPeriod();
             GetManpowerThreePeriod();
-            GetAccuredPlan();
-            GetAccuredFact();
+            //GetAccuredPlan();
+            //GetAccuredFact();
             GetNhUsersThisQua();
             GetCoefWorker();
             GetCoefWorkerG();
@@ -139,21 +138,21 @@ function LoadData(id) {
             GetTextNamePeriod();
             GetTimeSheet();
             getPeriodReport();
-            GetSummaryWageFundWorker();
-            GetSummaryWageFundManager();
-            GetSummaryWageFundG();
-            GetRemainingBonus();
-            GetWithheldToBonusFund();
-            GetOverflowsBujet();
-            GetGAccrued();
-            GetHSSPO();
-            GetHSSKBM();
-            GetHSSKBE();
+            //GetSummaryWageFundWorker();
+            //GetSummaryWageFundManager();
+            //GetSummaryWageFundG();
+            //GetRemainingBonus();
+            //GetWithheldToBonusFund();
+            //GetOverflowsBujet();
+            //GetGAccrued();
+            //GetHSSPO();
+            //GetHSSKBM();
+            //GetHSSKBE();
             GetManpowerFirstPeriod();
             GetManpowerSecondPeriod();
             GetManpowerThreePeriod();
-            GetAccuredPlan();
-            GetAccuredFact();
+            //GetAccuredPlan();
+            //GetAccuredFact();
             GetNhUsersThisQua();
             GetCoefWorker();
             GetCoefWorkerG();
@@ -174,7 +173,7 @@ function LoadData(id) {
         $('#dashboardBody').show();
     }
     else if (id === 11) {
-       LoadManagUsersCoefTableTable();
+        LoadManagUsersCoefTableTable();
     }
 }
 
@@ -2179,11 +2178,11 @@ function GetNhUsersThisQua() {
         success: function (result) {
             var counter = Object.keys(result).length;
             var workerArray = new Array();
-            var planArray = new Array();
+            //var planArray = new Array();
             var factArray = new Array();
             for (var i = 0; i < counter; i++) {
                 workerArray.push(result[i].FullName);
-                planArray.push(result[i].Plan);
+                //planArray.push(result[i].Plan);
                 factArray.push(result[i].Fact);
             }
             Highcharts.setOptions({
@@ -2235,11 +2234,13 @@ function GetNhUsersThisQua() {
                         stacking: 'normal'
                     }
                 },
-                series: [{
-                    name: 'План',
-                    data: planArray,
-                    color: colorPlanData
-                }, {
+                series: [
+                //    {
+                //    name: 'План',
+                //    data: planArray,
+                //    color: colorPlanData
+                //},
+                    {
                     name: 'Факт',
                     data: factArray,
                     color: colorFactData
@@ -15301,7 +15302,7 @@ function ManpowerUsersInMonth3() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function GetUserName() {
     $.ajax({
@@ -15315,7 +15316,7 @@ function GetUserName() {
             document.getElementById("pUserName").textContent = "";
         }
     });
-} 
+}
 
 function GetAccuredPlan() {
     $.ajax({
@@ -15450,7 +15451,7 @@ function GetAccuredPlan() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function GetAccuredFact() {
     $.ajax({
@@ -15585,7 +15586,7 @@ function GetAccuredFact() {
             alert(errormessage.responseText);
         }
     });
-} 
+}
 
 function GetTimeSheet() {
     $.ajax({
@@ -16369,7 +16370,7 @@ function GetThemAvocado() {
 }
 
 function GetThemSunSet() {
-    Highcharts.theme = { 
+    Highcharts.theme = {
         colors: ['#FDD089', '#FF7F79', '#A0446E', '#251535'],
         colorAxis: {
             maxColor: '#60042E',
@@ -16377,13 +16378,13 @@ function GetThemSunSet() {
         },
         plotOptions: {
             map: {
-                nullColor: '#fefefc'  
+                nullColor: '#fefefc'
             }
-        },  
+        },
         navigator: {
             series: {
                 color: '#FF7F79',
-                lineColor: '#A0446E' 
+                lineColor: '#A0446E'
             }
         }
     };
@@ -16569,7 +16570,7 @@ function GetThemSendSignika() {
 
 function GetThemHighContrastLight() {
     Highcharts.theme = {
-        colors: [ 
+        colors: [
             '#5f98cf',
             '#434348',
             '#49a65e',

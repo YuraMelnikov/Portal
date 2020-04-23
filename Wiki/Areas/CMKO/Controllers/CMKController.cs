@@ -618,7 +618,7 @@ namespace Wiki.Areas.CMKO
                 var fundData = db.CMKO_ThisIndicatorsUsers
                     .AsNoTracking()
                     .Include(d => d.AspNetUsers)
-                    .OrderByDescending(d => d.nhPlan)
+                    .OrderByDescending(d => d.nhFact)
                     .ToList();
                 int coluntList = fundData.Count;
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];
@@ -626,7 +626,7 @@ namespace Wiki.Areas.CMKO
                 {
                     summaryWageFund[i] = new SummaryWageFundUser
                     {
-                        FullName = fundData[i].AspNetUsers.CiliricalName + GetRemainingPercent(fundData[i].AspNetUsers.Id),
+                        FullName = fundData[i].AspNetUsers.CiliricalName,
                         Plan = (int)fundData[i].nhPlan - (int)fundData[i].nhFact,
                         Fact = (int)fundData[i].nhFact
                     };
