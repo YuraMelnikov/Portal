@@ -15872,7 +15872,7 @@ function getRemainingWorkAll() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {
@@ -15939,7 +15939,7 @@ function getRemainingWork() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {
@@ -16006,7 +16006,7 @@ function getRemainingWorkDevisionAll() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {
@@ -16073,7 +16073,7 @@ function getRemainingDevisionWork() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {
@@ -16140,7 +16140,7 @@ function getRemainingWorkAllE() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {
@@ -16207,7 +16207,7 @@ function getRemainingWorkE() {
                 },
                 series: [{
                     color: colorFactData,
-                    name: 'НЧ',
+                    name: 'Тр-ты',
                     data: dataArray
                 }],
                 yAxis: {

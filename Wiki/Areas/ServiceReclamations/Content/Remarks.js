@@ -9,7 +9,6 @@
 });
 
 function loadData(listId) {
-    editor = CreateSEditor();
     document.getElementById('pageData').innerHTML = listId;
     if (listId === 1 || listId === "1") {
         activeReclamation();

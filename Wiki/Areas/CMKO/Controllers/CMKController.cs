@@ -617,8 +617,10 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var fundData = db.CMKO_ThisIndicatorsUsers
                     .AsNoTracking()
-                    .Include(d => d.AspNetUsers)
-                    .OrderByDescending(d => d.nhFact)
+                    .Include(d => d.AspNetUsers.Devision1)
+                                                            .OrderBy(d => d.AspNetUsers.Devision1.name)
+                    .ThenByDescending(d => d.nhFact)
+
                     .ToList();
                 int coluntList = fundData.Count;
                 SummaryWageFundUser[] summaryWageFund = new SummaryWageFundUser[coluntList];

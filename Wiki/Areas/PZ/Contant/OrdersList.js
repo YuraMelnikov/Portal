@@ -269,6 +269,48 @@ function OrdersListALL() {
     });
 }
 
+function OrdersOpenedList() {
+    var table = $('#myTable').DataTable();
+    table.destroy();
+    $('#myTable').empty();
+    $("#myTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        "ajax": {
+            "cache": false,
+            "url": "/Order/OrdersListForOpenedOrder",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "asc"]],
+        "bAutoWidth": false,
+        "columns": [
+            { "title": "№ заказа", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
+            { "title": "Контрактное наименование", "data": "Name", "autowidth": true, "bSortable": false },
+            { "title": "Заказчик", "data": "NameSort", "autowidth": true, "bSortable": false },
+            { "title": "Дата отгрузки", "data": "DateSupply", "autowidth": true, "bSortable": false },
+            { "title": "ОЛ", "data": "ol", "autowidth": true, "bSortable": false },
+            { "title": "ТП", "data": "tp", "autowidth": true, "bSortable": false },
+            { "title": "Предрасчет", "data": "tCost", "autowidth": true, "bSortable": false },
+            { "title": "ЕТТ", "data": "ett", "autowidth": true, "bSortable": false },
+            { "title": "Менеджер", "data": "managet", "autowidth": true, "bSortable": false },
+            { "title": "Запрос №", "data": "Zapros", "autowidth": true, "bSortable": false },
+            { "title": "Способ доставки", "data": "sd", "autowidth": true, "bSortable": false },
+            { "title": "Прим.", "data": "Description", "autowidth": true, "bSortable": false }
+        ],
+        "scrollY": '70vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+}
+
 function OrdersListInManufacturing() {
     $("#myTable").DataTable({
         "dom": 'Bfrtip',

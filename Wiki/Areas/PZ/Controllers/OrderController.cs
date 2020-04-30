@@ -469,6 +469,42 @@ namespace Wiki.Areas.PZ.Controllers
             return Json(new { data });
         }
 
+        [HttpPost]
+        public JsonResult OrdersListForOpenedOrder()
+        {
+            DateTime controlDate = DateTime.Now.AddDays(-7);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.PZ_PlanZakaz
+                .AsNoTracking()
+                .Include(d => d.PZ_ProductType)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.PZ_OperatorDogovora)
+                .Include(d => d.PZ_FIO)
+                .Include(d => d.PZ_Dostavka)
+                .Include(d => d.PZ_Client)
+                .Where(d => d.DateCreate > controlDate)
+                .ToList();
+
+            var data = query.Select(dataList => new
+            {
+                dataList.PlanZakaz,
+                dataList.Name,
+                dataList.PZ_Client.NameSort,
+                DateSupply = JsonConvert.SerializeObject(dataList.DateSupply, settings).Replace(@"""", ""),
+                ol = "+",
+                tp = "+",
+                tCost = "+",
+                ett = "-",
+                managet = dataList.AspNetUsers.CiliricalName,
+                dataList.Zapros,
+                sd = dataList.PZ_Dostavka.Name,
+                dataList.Description
+            });
+
+            return Json(new { data });
+        }
+
         public JsonResult Add(PZ_PlanZakaz pZ_PlanZakaz, int[] countOrders)
         {
             CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(pZ_PlanZakaz);
