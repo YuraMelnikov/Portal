@@ -321,11 +321,11 @@ namespace Wiki.Areas.Reclamation.Models
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeKO == active)
-                    .Where(d => d.id_DevisionReclamation == id_Devision)
+                    .Where(d => d.id_DevisionReclamation == 15 || d.id_DevisionReclamation == 16)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
                     .Include(d => d.Devision)
-                                    .Include(d => d.PF)
+                    .Include(d => d.PF)
                     .Include(d => d.AspNetUsers)
                     .Include(d => d.AspNetUsers1)
                     .Include(d => d.Reclamation_CountError)

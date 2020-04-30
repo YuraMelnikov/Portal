@@ -510,6 +510,7 @@ function clearTextBox() {
         $('#id_AspNetUsersError').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
+        $('#id_ReclamationTypeKB').prop('disabled', true);
     }
     else if (counterDevision === 2) {
         $('#close').prop('disabled', true);
@@ -517,6 +518,7 @@ function clearTextBox() {
         $('#timeToEliminate').prop('disabled', true);
     }
     else {
+        $('#id_ReclamationTypeKB').prop('disabled', true);
         $('#id_Reclamation_CountErrorFirst').prop('disabled', true);
         $('#gip').prop('disabled', true);
         $('#close').prop('disabled', true);
@@ -560,7 +562,11 @@ function GetReclamation(id) {
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
-            $('#id_ReclamationTypeKB').val(result.id_ReclamationTypeKB);
+            if (counterDevision === 2) {
+                if (result.id_ReclamationTypeKB === 26) {
+                    $('#id_ReclamationTypeKB').val("");
+                }
+            }
             $('#closeMKO').val(result.closeMKO);
             $('#closeKO').val(result.closeKO);
             $('#answerText').val("");

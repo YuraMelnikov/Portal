@@ -88,7 +88,7 @@ namespace Wiki.Areas.Reclamation.Models
         bool CorrectAddCloseReclamation()
         {
             if (reclamation.id_ReclamationTypeKB == 0)
-                reclamation.id_ReclamationTypeKB = 20;
+                reclamation.id_ReclamationTypeKB = 26;
             if (reclamation.id_DevisionCreate != 6)
             {
                 reclamation.closeDevision = false;

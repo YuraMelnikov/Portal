@@ -29,7 +29,7 @@ namespace Wiki.Areas.Reclamation.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.id_ReclamationTypeKB = new SelectList(db.ReclamationTypeKB.OrderBy(d => d.name), "id", "name");
+            ViewBag.id_ReclamationTypeKB = new SelectList(db.ReclamationTypeKB.Where(d => d.id != 26).OrderBy(d => d.name), "id", "name");
             @ViewBag.idPZ = 0;
             string login = HttpContext.User.Identity.Name;
             ViewBag.id_DevisionReclamation = new SelectList(db.Devision.Where(d => d.id == 0).OrderBy(d => d.name), "id", "name");
@@ -55,7 +55,18 @@ namespace Wiki.Areas.Reclamation.Controllers
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
             }
-            else if (login == "nrf@katek.by" || login == "vi@katek.by")
+            else if (login == "nrf@katek.by")
+            {
+                List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
+                ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
+                ViewBag.ButtonAddActivation = 1;
+                ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
+                    .Where(d => d.Devision == 15 || d.Devision == 16)
+                    .Where(d => d.LockoutEnabled == true)
+                    .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+                ViewBag.CRUDCounter = '2';
+            }
+            else if (login == "vi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
