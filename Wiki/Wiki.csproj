@@ -314,6 +314,7 @@
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
     <Compile Include="Areas\CMO\Models\EmailCMO.cs" />
     <Compile Include="Areas\CMO\Models\EmailSandwichPanel.cs" />
+    <Compile Include="Areas\CMO\Models\EmailStickers.cs" />
     <Compile Include="Areas\CMO\Models\SandwichPanelCRUD.cs" />
     <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
@@ -1117,6 +1118,12 @@
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StickersOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StickersPreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

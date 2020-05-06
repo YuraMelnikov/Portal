@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using NLog.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,18 +36,22 @@ namespace Wiki.Areas.CMO.Controllers
             }
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
-            if (devisionUser == 7 || login == "myi@katek.by")
+            if (devisionUser == 7)
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by")
                 ViewBag.userGroupId = 2;
             else if (login == "vi@katek.by")
                 ViewBag.userGroupId = 2;
-            else if (login == "ovp@katek.by" || login == "bav@katek.by" || login == "myi@katek.by")
+            else if (login == "ovp@katek.by" || login == "bav@katek.by")
                 ViewBag.userGroupId = 6;
             else if (devisionUser == 13)
                 ViewBag.userGroupId = 3;
             else if (devisionUser == 18 || devisionUser == 15)
                 ViewBag.userGroupId = 4;
+            else if (devisionUser == 16)
+            {
+                ViewBag.userGroupId = 7;
+            }
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
@@ -405,7 +411,7 @@ namespace Wiki.Areas.CMO.Controllers
                 dateComplited = JsonConvert.SerializeObject(dataList.datetimeComplited, longUsSetting).Replace(@"""", ""),
                 state = GetState(dataList),
                 customerName = GetCustomerName(dataList.SandwichPanelCustomer),
-                folder =  @"<a href =" + dataList.folder + "> Папка </a>",
+                folder = @"<a href =" + dataList.folder + "> Папка </a>",
                 dataList.numberOrder
             });
             return Json(new { data });
@@ -418,7 +424,7 @@ namespace Wiki.Areas.CMO.Controllers
                 state = "Отменен";
             else if (sandwichPanel.onApprove == true)
                 state = "На проверке";
-            else if(sandwichPanel.onCorrection == true)
+            else if (sandwichPanel.onCorrection == true)
                 state = "На исправлении";
             else if (sandwichPanel.onCustomer == true)
                 state = "Ожидание отправки";
@@ -642,7 +648,7 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PostPanelToWork(int spid) 
+        public JsonResult PostPanelToWork(int spid)
         {
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
@@ -756,6 +762,226 @@ namespace Wiki.Areas.CMO.Controllers
             catch (Exception ex)
             {
                 logger.Error("CMOAreaController / PostPanelToComplited: " + sandwichPanel.id + " | " + ex);
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetStickersPanel()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.StickersPreOrder
+                .Include(d => d.AspNetUsers)
+                .ToList();
+            var data = query.Select(dataList => new
+            {
+                removeLink = GetRemoveLink(dataList),
+                order = dataList.id,
+                user = dataList.AspNetUsers.CiliricalName,
+                dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, longUsSetting).Replace(@"""", ""),
+                deadline = JsonConvert.SerializeObject(dataList.deadline, longUsSetting).Replace(@"""", ""),
+                dataList.description,
+                manufacturingOrder = GetStickersManufacturerOrder(dataList.id_PZ_PlanZakaz),
+                state = GetStateStickersOrder(dataList.id_StickersOrder)
+            });
+            return Json(new { data });
+        }
+
+        private string GetRemoveLink(StickersPreOrder order)
+        {
+            if (order.id_StickersOrder == null)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>";
+            else
+                return "";
+        }
+
+        private string GetStickersManufacturerOrder(int? id)
+        {
+            if (id == null)
+                return "-";
+            else
+            {
+                PZ_PlanZakaz order = db.PZ_PlanZakaz.Find(id);
+                return order.PlanZakaz.ToString();
+            }
+        }
+
+        private string GetStateStickersOrder(int? id)
+        {
+            if (id == null)
+                return "Ожидает размещения";
+            else
+            {
+                StickersOrder order = db.StickersOrder.Find(id);
+                return "Заказ № " + order.id.ToString() + " от " + order.datetimeCreate.ToString();
+            }
+                
+        }
+
+        public JsonResult RemoveStickersOrder(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            StickersPreOrder order = db.StickersPreOrder.Find(id);
+            try
+            {
+                db.StickersPreOrder.Remove(order);
+                db.SaveChanges();
+                logger.Debug("CMOAreaController / RemoveStickersOrder: " + order.id + " | " + login);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / RemoveStickersOrder: " + order.id + " | " + ex + " | " + login);
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddStickersOrder(int? idStickersOrder, HttpPostedFileBase[] spfileStickers, 
+            DateTime? dateStickersOrder, string descStickersOrder)
+        {
+            string login = HttpContext.User.Identity.Name;
+            StickersPreOrder order = new StickersPreOrder
+            {
+                datetimeCreate = DateTime.Now,
+                deadline = dateStickersOrder.Value,
+                description = descStickersOrder,
+                id_PZ_PlanZakaz = idStickersOrder,
+                id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                id_StickersOrder = null
+            };
+            db.StickersPreOrder.Add(order);
+            db.SaveChanges();
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            Directory.CreateDirectory(directory);
+            foreach (var file in spfileStickers)
+            {
+                string fileReplace = Path.GetFileName(file.FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                file.SaveAs(fileName);
+            }
+            new EmailStickers(order, login, 1);
+            return RedirectToAction("Index");
+        }
+
+        private string ToSafeFileName(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
+        }
+
+        [HttpPost]
+        public ActionResult AddReStickersOrder(int? idStickersReOrder, HttpPostedFileBase[] spfileReStickers,
+                                                 DateTime? dateStickersReOrder, string descReOrder)
+        {
+            string login = HttpContext.User.Identity.Name;
+            StickersPreOrder order = new StickersPreOrder
+            {
+                datetimeCreate = DateTime.Now,
+                deadline = dateStickersReOrder.Value,
+                description = descReOrder,
+                id_PZ_PlanZakaz = idStickersReOrder,
+                id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                id_StickersOrder = null
+            };
+            db.StickersPreOrder.Add(order);
+            db.SaveChanges();
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            Directory.CreateDirectory(directory);
+            foreach (var file in spfileReStickers)
+            {
+                string fileReplace = Path.GetFileName(file.FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                file.SaveAs(fileName);
+            }
+            new EmailStickers(order, login, 2);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddSimpleStickersOrder(HttpPostedFileBase[] spfileSimpleStickers,
+                                         DateTime? dateStickersSimpleOrder, string descStickersSimpleOrder)
+        {
+            string login = HttpContext.User.Identity.Name;
+            StickersPreOrder order = new StickersPreOrder
+            {
+                datetimeCreate = DateTime.Now,
+                deadline = dateStickersSimpleOrder.Value,
+                description = descStickersSimpleOrder,
+                id_PZ_PlanZakaz = null,
+                id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
+                id_StickersOrder = null
+            };
+            db.StickersPreOrder.Add(order);
+            db.SaveChanges();
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            Directory.CreateDirectory(directory);
+            foreach (var file in spfileSimpleStickers)
+            {
+                string fileReplace = Path.GetFileName(file.FileName);
+                fileReplace = ToSafeFileName(fileReplace);
+                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                file.SaveAs(fileName);
+            }
+            new EmailStickers(order, login, 3);
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult PushStickersOrders()
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var preorderList = db.StickersPreOrder.Where(a => a.id_StickersOrder == null).OrderBy(a => a.id_PZ_PlanZakaz).ToList();
+            if(preorderList.Count == 0)
+                return Json(0, JsonRequestBehavior.AllowGet);
+            StickersOrder order = new StickersOrder
+            {
+                datetimeCreate = DateTime.Now
+            };
+            db.StickersOrder.Add(order);
+            db.SaveChanges();
+            int controlInt = 0;
+            if (preorderList[0].id_PZ_PlanZakaz != null)
+                controlInt = preorderList[0].id_PZ_PlanZakaz.Value;
+            try
+            {
+                foreach (var preorder in preorderList)
+                {
+                    int thisIdPZ = 0;
+                    if (preorder.id_PZ_PlanZakaz != null)
+                        thisIdPZ = preorder.id_PZ_PlanZakaz.Value;
+                    if (controlInt != thisIdPZ)
+                    {
+                        order = new StickersOrder
+                        {
+                            datetimeCreate = DateTime.Now
+                        };
+                        db.StickersOrder.Add(order);
+                        db.SaveChanges();
+                    }
+                    preorder.id_StickersOrder = order.id;
+                    new EmailStickers(preorder, login, 4);
+                    db.Entry(preorder).State = EntityState.Modified;
+                    db.SaveChanges();
+                    controlInt = thisIdPZ;
+                }
+                logger.Debug("CMOAreaController / PushStickersOrders: " + order.id + " | " + login);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOAreaController / PushStickersOrders: " + order.id + " | " + ex + " | " + login);
             }
             return Json(1, JsonRequestBehavior.AllowGet);
         }

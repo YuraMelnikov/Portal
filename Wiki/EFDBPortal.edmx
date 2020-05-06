@@ -1962,6 +1962,25 @@
           <Property Name="id_Reclamation_Type" Type="int" Nullable="false" />
           <Property Name="id_ServiceRemarks" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="StickersOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StickersPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="deadline" Type="date" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" />
+          <Property Name="id_StickersOrder" Type="int" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -2059,7 +2078,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -2086,7 +2105,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -2096,7 +2115,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2117,7 +2136,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2138,7 +2157,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -2210,7 +2229,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -4412,6 +4431,42 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StickersPreOrder_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="StickersPreOrder" Type="Self.StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StickersPreOrder_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="0..1" />
+          <End Role="StickersPreOrder" Type="Self.StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StickersPreOrder_StickersOrder">
+          <End Role="StickersOrder" Type="Self.StickersOrder" Multiplicity="0..1" />
+          <End Role="StickersPreOrder" Type="Self.StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StickersOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_StickersOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TaskForPZ_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="TaskForPZ" Type="Self.TaskForPZ" Multiplicity="*" />
@@ -4600,6 +4655,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="Self.ServiceRemarksPlanZakazs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksReclamations" EntityType="Self.ServiceRemarksReclamations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksTypes" EntityType="Self.ServiceRemarksTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StickersOrder" EntityType="Self.StickersOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StickersPreOrder" EntityType="Self.StickersPreOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="Self.TypeRKD_Mail_Version" Schema="dbo" store:Type="Tables" />
@@ -5471,6 +5528,18 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <AssociationSet Name="FK_ServiceRemarksTypes_ServiceRemarks" Association="Self.FK_ServiceRemarksTypes_ServiceRemarks">
             <End Role="ServiceRemarks" EntitySet="ServiceRemarks" />
             <End Role="ServiceRemarksTypes" EntitySet="ServiceRemarksTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_AspNetUsers" Association="Self.FK_StickersPreOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_PZ_PlanZakaz" Association="Self.FK_StickersPreOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_StickersOrder" Association="Self.FK_StickersPreOrder_StickersOrder">
+            <End Role="StickersOrder" EntitySet="StickersOrder" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_TaskForPZ_AspNetUsers" Association="Self.FK_TaskForPZ_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6407,6 +6476,20 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="StickersOrder" EntityType="PortalKATEKModel.StickersOrder" />
+          <EntitySet Name="StickersPreOrder" EntityType="PortalKATEKModel.StickersPreOrder" />
+          <AssociationSet Name="FK_StickersPreOrder_AspNetUsers" Association="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_StickersOrder" Association="PortalKATEKModel.FK_StickersPreOrder_StickersOrder">
+            <End Role="StickersOrder" EntitySet="StickersOrder" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -7307,6 +7390,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="StickersPreOrder" />
         </EntityType>
         <EntityType Name="BurnDown">
           <Key>
@@ -8379,6 +8463,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <NavigationProperty Name="RKD_Order" Relationship="PortalKATEKModel.FK_RKD_Order_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="RKD_Order" />
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
+          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="StickersPreOrder" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -11203,6 +11288,65 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="StickersOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_StickersOrder" FromRole="StickersOrder" ToRole="StickersPreOrder" />
+        </EntityType>
+        <EntityType Name="StickersPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" />
+          <Property Name="id_StickersOrder" Type="Int32" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="StickersPreOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="StickersPreOrder" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="StickersOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_StickersOrder" FromRole="StickersPreOrder" ToRole="StickersOrder" />
+        </EntityType>
+        <Association Name="FK_StickersPreOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StickersPreOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StickersPreOrder_StickersOrder">
+          <End Type="PortalKATEKModel.StickersOrder" Role="StickersOrder" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StickersOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_StickersOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13578,6 +13722,27 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="StickersOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.StickersOrder">
+              <MappingFragment StoreEntitySet="StickersOrder">
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StickersPreOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.StickersPreOrder">
+              <MappingFragment StoreEntitySet="StickersPreOrder">
+                <ScalarProperty Name="id_StickersOrder" ColumnName="id_StickersOrder" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

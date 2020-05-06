@@ -4,6 +4,7 @@
 // 04 - userKO
 // 05 - users
 // 06 - users manufacturing
+// 07 - user KBE
 
 $(document).ready(function () {
     $('#pageId').hide();
@@ -19,9 +20,18 @@ $(document).ready(function () {
     $('#dCustomerTable').hide();
     $('#dGetDateComplitedTable').hide();
     $('#dComplitedTable').hide();
+    $('#btnAddStickers').hide();
+    $('#btnReStickers').hide();
+    $('#btnSimpleStickers').hide();
+    $('#btnPushStickersOrders').hide();
+    $('#stickersPanel').hide();
     startMenu();
     if (userGroupId === 1) {
         loadData(2);
+        $('#btnPushStickersOrders').show();
+    }
+    if (userGroupId === 7) {
+        loadData(5);
     }
 });
 
@@ -39,6 +49,9 @@ function loadData(listId) {
     else if (listId === 4 || listId === "4") {
         loadReportPanel();
         loadpanel();
+    }
+    else if (listId === 5 || listId === "5") {
+        LoadStickersPanel();
     }
     else {
         loadReport();
@@ -94,12 +107,52 @@ var objWorkManuf = [
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": true }
 ];
 
+var objStickers = [
+    { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Автор заявки", "data": "user", "autowidth": true, "bSortable": true },
+    { "title": "Дата заявки", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Крайний срок", "data": "deadline", "autowidth": true, "bSortable": true },
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "manufacturingOrder", "autowidth": true, "bSortable": true },
+    { "title": "Статус заявки", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "Отменить", "data": "removeLink", "autowidth": true, "bSortable": false }
+];
+
 function startMenu() {
     if (userGroupId === 4 || userGroupId === 2) {
         $('#btnAddOrder').show();
         $('#btnReOrder').show();
         $('#btnAddSandwichPanel').show();
+        $('#btnAddStickers').show();
+        $('#btnReStickers').show();
+        $('#btnSimpleStickers').show();
     }
+    if (userGroupId === 7) {
+        $('#btnAddStickers').show();
+        $('#btnReStickers').show();
+        $('#btnSimpleStickers').show();
+    }
+    $("#stickersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/GetStickersPanel",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objStickers,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     $("#reportTable").DataTable({
         "ajax": {
             "cache": false,
@@ -292,6 +345,87 @@ function startMenu() {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
             "search": "Поиск"
+        }
+    });
+}
+
+function LoadStickersPanel() {
+    $('#dToWork').hide();
+    $('#dToManuf').hide();
+    $('#dToCompl').hide();
+    $('#dReOrder').hide();
+    $('#dReport').hide();
+    $('#dApproveTable').hide();
+    $('#dCorrectionTable').hide();
+    $('#dCustomerTable').hide();
+    $('#dGetDateComplitedTable').hide();
+    $('#dComplitedTable').hide();
+    $('#stickersPanel').show();
+    var table = $('#stickersTable').DataTable();
+    table.destroy();
+    $('#stickersTable').empty();
+    $("#stickersTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOArea/GetStickersPanel",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objStickers,
+        //"rowCallback": function (row, data, index) {
+        //    if (data.state === "Ожидает размещения") {
+        //        $('td', row).css('background-color', '#f28f43');
+        //    }
+        //},
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
+
+function ClearStickersData() {
+    $('#dateStickersSimpleOrder').val("");
+    $('#descStickersSimpleOrder').val("");
+    $('#spfileSimpleStickers').val("");
+    $('#dateStickersReOrder').val("");
+    $('#descReOrder').val("");
+    $('#spfileReStickers').val("");
+    $('#spfileStickers').val("");
+    $('#descStickersOrder').val("");
+    $('#dateStickersOrder').val("");
+}
+
+function PushStickersOrders() {
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/PushStickersOrders/",
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#stickersTable').DataTable().ajax.reload(null, false);
+        }
+    });
+}
+
+function RemoveStickersOrder(id) {
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/RemoveStickersOrder/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#stickersTable').DataTable().ajax.reload(null, false);
         }
     });
 }
@@ -789,6 +923,7 @@ function loadReport() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         fullReport();
     }
     else {
@@ -801,6 +936,7 @@ function loadReport() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         smallReport();
     }
 }
@@ -816,6 +952,7 @@ function loadOS() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         desckTopOS();
     }
     else {
@@ -828,6 +965,7 @@ function loadOS() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         smallReport();
     }
 }
@@ -842,6 +980,7 @@ function loadReportPanel() {
     $('#dCustomerTable').hide();
     $('#dGetDateComplitedTable').hide();
     $('#dComplitedTable').hide();
+    $('#stickersPanel').hide();
     sandwichPanelReport();
 }
 
@@ -856,6 +995,7 @@ function loadpanel() {
         $('#dCustomerTable').show();
         $('#dGetDateComplitedTable').show();
         $('#dComplitedTable').show();
+        $('#stickersPanel').hide();
         onCustomerTable();
         onGetDateComplitedTable();
         onComplitedTable();
@@ -870,6 +1010,7 @@ function loadpanel() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         onApproveTable();
     }
     else if (userGroupId === 4 || userGroupId === 2 || userGroupId === "4" || userGroupId === "2") {
@@ -882,6 +1023,7 @@ function loadpanel() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         onCorrectionTable();
     }
     else {
@@ -894,6 +1036,7 @@ function loadpanel() {
         $('#dCustomerTable').hide();
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
+        $('#stickersPanel').hide();
         sandwichPanelReport();
     }
 }

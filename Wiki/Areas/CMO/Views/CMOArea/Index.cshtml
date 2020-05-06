@@ -24,6 +24,7 @@
             <li><a onclick="return loadData(2);">Отдел снабжения (ЦМО)</a></li>
             <li><a onclick="return loadData(3);">Отчет (сэндвич-панели)</a></li>
             <li><a onclick="return loadData(4);">Задачи по сэндвич-панелям</a></li>
+            <li><a onclick="return loadData(5);">Заказ наклеек</a></li>
             <li><a href="~/Areas/CMO/Content/Табл ЦМО.xlsx">Отчет ЦМО (до июня 2019)</a></li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">
@@ -36,9 +37,13 @@
 </nav>
 <div class="row">
     <div class="col-md-12">
-        <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ</button>
-        <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ</button>
+        <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ железа</button>
+        <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ железа</button>
         <button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>
+        <button id="btnAddStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createStickersModal" onclick=ClearStickersData()>Сформировать заказ наклеек</button>
+        <button id="btnReStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createReStickersModal" onclick=ClearStickersData()>Сформировать дозаказ наклеек</button>
+        <button id="btnSimpleStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createSimpleStickersModal" onclick=ClearStickersData()>Сформировать заказ общих наклеек</button>
+        <button id="btnPushStickersOrders" type="button" class="btn-xs btn-danger" onclick=PushStickersOrders()>Отправить заказ наклеек в закупку</button>
         <hr />
         <div id="dApproveTable">
             <label>Требуется произвести сверку данных:</label>
@@ -90,8 +95,14 @@
             <table id="reportTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
+        <div id="stickersPanel">
+            <label>Заказ наклеек</label>
+            <table id="stickersTable" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
     </div>
 </div>
+
 <div id="createOrderModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -575,6 +586,188 @@
         </div>
     </div>
 </div>
+<div id="createStickersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddStickersOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Введите № заказа:</label>
+                            @Html.DropDownList("idStickersOrder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Требуемая дата:</label>
+                            <input type="text" class="form-control" id="dateStickersOrder" name="dateStickersOrder" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg col-xs-12">
+                            <label>Прим.:</label>
+                            <textarea name="descStickersOrder" id="descStickersOrder" class="form-control" rows=5></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="spfileStickers" multiple="multiple" name="spfileStickers" type="file" />
+                            <hr />
+                            <input type="submit" value="Разместить заказ" class="btn btn-primary" onclick="addOrder()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <hr />
+                }
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="createReStickersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddReStickersOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Введите № заказа:</label>
+                        @Html.DropDownList("idStickersReOrder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Требуемая дата:</label>
+                        <input type="text" class="form-control" id="dateStickersReOrder" name="dateStickersReOrder" />
+                    </div>
+                </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Прим.:</label>
+                            <textarea name="descReOrder" id="descReOrder" class="form-control" rows=5></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <input accept="file/*" id="spfileReStickers" multiple="multiple" name="spfileReStickers" type="file" />
+                            <hr />
+                            <input type="submit" value="Разместить дозаказ наклеек" class="btn btn-primary" onclick="AddReStickersOrder()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <hr />
+                }
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="createSimpleStickersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddSimpleStickersOrder", "CMOArea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Требуемая дата:</label>
+                            <input type="text" class="form-control" id="dateStickersSimpleOrder" name="dateStickersSimpleOrder" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Прим.:</label>
+                            <textarea name="descStickersSimpleOrder" id="descStickersSimpleOrder" class="form-control" rows=5></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input accept="file/*" id="spfileSimpleStickers" multiple="multiple" name="spfileSimpleStickers" type="file" />
+                            <hr />
+                            <input type="submit" value="Разместить заказ наклеек" class="btn btn-primary" onclick="AddSimpleStickersOrder()" />
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                    <hr />
+                }
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(".modal-wide").on("show.bs.modal", function () {
         var height = $(window).height() - 200;
@@ -632,6 +825,36 @@
 <script type="text/javascript">
     $(function () {
         $('#datetimeComplited').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateStickersOrder').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateStickersReOrder').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#dateStickersSimpleOrder').datetimepicker({
             locale: 'ru',
             format: 'L',
             calendarWeeks: true,
