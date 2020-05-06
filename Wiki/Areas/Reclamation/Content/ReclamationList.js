@@ -546,9 +546,6 @@ function GetReclamation(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            if (result.closeMKO === false) {
-                $('#id_ReclamationTypeKB').val("");
-            }
             AllNoDisabled();
             $('#id').val(result.id);
             $('#numberReclamation').val('Замечание №: ' + result.id);
