@@ -108,12 +108,13 @@ var objWorkManuf = [
 ];
 
 var objStickers = [
+    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Автор заявки", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Дата заявки", "data": "dateCreate", "autowidth": true, "bSortable": true },
-    { "title": "Крайний срок", "data": "deadline", "autowidth": true, "bSortable": true },
+    { "title": "Крайний срок", "data": "deadline1", "autowidth": true, "bSortable": true },
+    { "title": "Плановый срок", "data": "deadline2", "autowidth": true, "bSortable": true },
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
-    { "title": "№ заказа", "data": "manufacturingOrder", "autowidth": true, "bSortable": true },
     { "title": "Статус заявки", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Отменить", "data": "removeLink", "autowidth": true, "bSortable": false }
 ];
@@ -1734,4 +1735,47 @@ function getSandwichPanel(id) {
         }
     });
     return false;
+}
+
+function GetStickersOrder(id) {
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/GetStickersOrder/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#updateStickerId').val(result.updateStickerId);
+            $('#updateStickerNum').val(result.updateStickerNum);
+            $('#updateStickerDeadline').val(result.updateStickerDeadline);
+            $('#updateStickerNewDate').val("");
+            $('#editStickersModal').modal('show');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function EditStickers() {
+    var typeObj = {
+        updateStickerId: $('#updateStickerId').val(),
+        updateStickerNewDate: $('#updateStickerNewDate').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/EditStickers",
+        data: JSON.stringify(typeObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#stickersTable').DataTable().ajax.reload(null, false);
+            $('#editStickersModal').modal('hide');
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
 }

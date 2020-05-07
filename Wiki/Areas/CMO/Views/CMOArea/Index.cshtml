@@ -4,7 +4,7 @@
     Layout = "~/Areas/CMO/Views/Shared/_LayoutCMO.cshtml";
 }
 <head>
-    <script src="~/Areas/CMO/Content/CMO.js?v2.0"></script>
+    <script src="~/Areas/CMO/Content/CMO.js?v2.1"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -598,7 +598,7 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <label>Введите № заказа:</label>
-                            @Html.DropDownList("idStickersOrder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+                            @Html.DropDownList("idStickersOrder", ViewBag.id_PlanZakazStickerOrder as MultiSelectList, new { @class = "form-control" })
                         </div>
                         <div class="col-lg-2">
                             <label>Требуемая дата:</label>
@@ -660,7 +660,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label>Введите № заказа:</label>
-                        @Html.DropDownList("idStickersReOrder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "form-control" })
+                        @Html.DropDownList("idStickersReOrder", ViewBag.id_PlanZakazReStickersOrder as MultiSelectList, new { @class = "form-control" })
                     </div>
                     <div class="col-lg-2">
                         <label>Требуемая дата:</label>
@@ -757,6 +757,58 @@
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>
                     <hr />
                 }
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div
+<div id="editStickersModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>ИД:</label>
+                        <input type="text" class="form-control" id="updateStickerId" name="updateStickerId" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>№ заявки:</label>
+                        <input type="text" class="form-control" id="updateStickerNum" name="updateStickerNum" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Требуемая дата:</label>
+                        <input type="text" class="form-control" id="updateStickerDeadline" name="updateStickerDeadline" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Новая дата:</label>
+                        <input type="text" class="form-control" id="updateStickerNewDate" name="updateStickerNewDate" />
+                    </div>
+                </div>
+                <input type="submit" value="Изменить срок готовности" class="btn btn-primary" onclick="EditStickers()" />
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">

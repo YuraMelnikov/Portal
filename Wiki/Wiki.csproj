@@ -1118,9 +1118,6 @@
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="StickersOrder.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="StickersPreOrder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

@@ -1962,13 +1962,6 @@
           <Property Name="id_Reclamation_Type" Type="int" Nullable="false" />
           <Property Name="id_ServiceRemarks" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="StickersOrder">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="StickersPreOrder">
           <Key>
             <PropertyRef Name="id" />
@@ -1979,7 +1972,10 @@
           <Property Name="deadline" Type="date" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="id_PZ_PlanZakaz" Type="int" />
-          <Property Name="id_StickersOrder" Type="int" />
+          <Property Name="datetimePush" Type="datetime" />
+          <Property Name="datetimeClose" Type="datetime" />
+          <Property Name="datePlanUpload" Type="date" Nullable="false" />
+          <Property Name="orderNumString" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -2239,6 +2235,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RKD" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
+        <Association Name="FK_ApproveCDActions_ApproveCDVersions">
+          <End Role="ApproveCDVersions" Type="Self.ApproveCDVersions" Multiplicity="1" />
+          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApproveCDVersions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ApproveCDActions">
+              <PropertyRef Name="id_ApproveCDVersions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApproveCDActions_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApproveCDActions">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
+          <End Role="TypeRKD_Mail_Version" Type="Self.TypeRKD_Mail_Version" Multiplicity="1" />
+          <End Role="ApproveCDActions" Type="Self.ApproveCDActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeRKD_Mail_Version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ApproveCDActions">
+              <PropertyRef Name="id_RKD_VersionWork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ApproveCDOrders_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ApproveCDOrders" Type="Self.ApproveCDOrders" Multiplicity="*" />
@@ -4455,18 +4487,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StickersPreOrder_StickersOrder">
-          <End Role="StickersOrder" Type="Self.StickersOrder" Multiplicity="0..1" />
-          <End Role="StickersPreOrder" Type="Self.StickersPreOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StickersOrder">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StickersPreOrder">
-              <PropertyRef Name="id_StickersOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TaskForPZ_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="TaskForPZ" Type="Self.TaskForPZ" Multiplicity="*" />
@@ -4655,7 +4675,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="Self.ServiceRemarksPlanZakazs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksReclamations" EntityType="Self.ServiceRemarksReclamations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksTypes" EntityType="Self.ServiceRemarksTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StickersOrder" EntityType="Self.StickersOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StickersPreOrder" EntityType="Self.StickersPreOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
@@ -4801,6 +4820,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
     [RKD_TaskUIDProjectUD].[RKD] AS [RKD]
     FROM [dbo].[RKD_TaskUIDProjectUD] AS [RKD_TaskUIDProjectUD]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_ApproveCDActions_ApproveCDVersions" Association="Self.FK_ApproveCDActions_ApproveCDVersions">
+            <End Role="ApproveCDVersions" EntitySet="ApproveCDVersions" />
+            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApproveCDActions_AspNetUsers" Association="Self.FK_ApproveCDActions_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="Self.FK_ApproveCDActions_TypeRKD_Mail_Version">
+            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
+            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
+          </AssociationSet>
           <AssociationSet Name="FK_ApproveCDOrders_AspNetUsers" Association="Self.FK_ApproveCDOrders_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ApproveCDOrders" EntitySet="ApproveCDOrders" />
@@ -5537,10 +5568,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_StickersPreOrder_StickersOrder" Association="Self.FK_StickersPreOrder_StickersOrder">
-            <End Role="StickersOrder" EntitySet="StickersOrder" />
-            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
-          </AssociationSet>
           <AssociationSet Name="FK_TaskForPZ_AspNetUsers" Association="Self.FK_TaskForPZ_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="TaskForPZ" EntitySet="TaskForPZ" />
@@ -5732,6 +5759,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="PortalKATEKModel.ServiceRemarksPlanZakazs" />
           <EntitySet Name="ServiceRemarksReclamations" EntityType="PortalKATEKModel.ServiceRemarksReclamations" />
           <EntitySet Name="ServiceRemarksTypes" EntityType="PortalKATEKModel.ServiceRemarksTypes" />
+          <EntitySet Name="StickersPreOrder" EntityType="PortalKATEKModel.StickersPreOrder" />
           <EntitySet Name="TaskForPZ" EntityType="PortalKATEKModel.TaskForPZ" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="PortalKATEKModel.TypeRKD_Mail_Version" />
           <EntitySet Name="TypeTaskForPZ" EntityType="PortalKATEKModel.TypeTaskForPZ" />
@@ -5742,10 +5770,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           </AssociationSet>
           <AssociationSet Name="FK_ApproveCDActions_AspNetUsers" Association="PortalKATEKModel.FK_ApproveCDActions_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version">
-            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
             <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
           </AssociationSet>
           <AssociationSet Name="FK_ApproveCDOrders_AspNetUsers" Association="PortalKATEKModel.FK_ApproveCDOrders_AspNetUsers">
@@ -5963,6 +5987,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_ServiceRemarksActions_AspNetUsers" Association="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ServiceRemarksActions" EntitySet="ServiceRemarksActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_AspNetUsers" Association="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_TaskForPZ_AspNetUsers" Association="PortalKATEKModel.FK_TaskForPZ_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6320,6 +6348,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="ServiceRemarksPlanZakazs" EntitySet="ServiceRemarksPlanZakazs" />
           </AssociationSet>
+          <AssociationSet Name="FK_StickersPreOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reclamation_Answer_Reclamation" Association="PortalKATEKModel.FK_Reclamation_Answer_Reclamation">
             <End Role="Reclamation" EntitySet="Reclamation" />
             <End Role="Reclamation_Answer" EntitySet="Reclamation_Answer" />
@@ -6476,19 +6508,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="StickersOrder" EntityType="PortalKATEKModel.StickersOrder" />
-          <EntitySet Name="StickersPreOrder" EntityType="PortalKATEKModel.StickersPreOrder" />
-          <AssociationSet Name="FK_StickersPreOrder_AspNetUsers" Association="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StickersPreOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz">
-            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
-            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StickersPreOrder_StickersOrder" Association="PortalKATEKModel.FK_StickersPreOrder_StickersOrder">
-            <End Role="StickersOrder" EntitySet="StickersOrder" />
-            <End Role="StickersPreOrder" EntitySet="StickersPreOrder" />
+          <AssociationSet Name="FK_ApproveCDActions_TypeRKD_Mail_Version" Association="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version">
+            <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
+            <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
@@ -7388,9 +7410,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="SandwichPanel" Relationship="PortalKATEKModel.FK_SandwichPanel_AspNetUsers" FromRole="AspNetUsers" ToRole="SandwichPanel" />
           <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarks_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarks" />
           <NavigationProperty Name="ServiceRemarksActions" Relationship="PortalKATEKModel.FK_ServiceRemarksActions_AspNetUsers" FromRole="AspNetUsers" ToRole="ServiceRemarksActions" />
+          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="StickersPreOrder" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="StickersPreOrder" />
         </EntityType>
         <EntityType Name="BurnDown">
           <Key>
@@ -8565,6 +8587,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="closeMKO" Type="Boolean" Nullable="false" />
           <Property Name="fixedExpert" Type="Boolean" Nullable="false" />
           <Property Name="id_ReclamationTypeKB" Type="Int32" Nullable="false" />
+          <Property Name="closeKO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers" FromRole="Reclamation" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_Reclamation_AspNetUsers1" FromRole="Reclamation" ToRole="AspNetUsers" />
           <NavigationProperty Name="CMKO_RemarksList" Relationship="PortalKATEKModel.FK_CMKO_RemarksList_Reclamation" FromRole="Reclamation" ToRole="CMKO_RemarksList" />
@@ -8580,7 +8603,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ReclamationTypeKB" Relationship="PortalKATEKModel.FK_Reclamation_ReclamationTypeKB" FromRole="Reclamation" ToRole="ReclamationTypeKB" />
           <NavigationProperty Name="Reclamation_TechnicalAdvice" Relationship="PortalKATEKModel.FK_Reclamation_TechnicalAdvice_Reclamation" FromRole="Reclamation" ToRole="Reclamation_TechnicalAdvice" />
           <NavigationProperty Name="ServiceRemarksReclamations" Relationship="PortalKATEKModel.FK_ServiceRemarksReclamations_Reclamation" FromRole="Reclamation" ToRole="ServiceRemarksReclamations" />
-          <Property Name="closeKO" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Reclamation_Answer">
           <Key>
@@ -9030,6 +9052,23 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="ServiceRemarksTypes" ToRole="Reclamation_Type" />
           <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarksTypes" ToRole="ServiceRemarks" />
         </EntityType>
+        <EntityType Name="StickersPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" />
+          <Property Name="datetimePush" Type="DateTime" Precision="3" />
+          <Property Name="datetimeClose" Type="DateTime" Precision="3" />
+          <Property Name="datePlanUpload" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="orderNumString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="StickersPreOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="StickersPreOrder" ToRole="PZ_PlanZakaz" />
+        </EntityType>
         <EntityType Name="TaskForPZ">
           <Key>
             <PropertyRef Name="id" />
@@ -9051,9 +9090,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ApproveCDActions" Relationship="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="ApproveCDActions" />
           <NavigationProperty Name="RKD_Mail_Version" Relationship="PortalKATEKModel.FK_RKD_Mail_Version_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="RKD_Mail_Version" />
           <NavigationProperty Name="RKD_PostList" Relationship="PortalKATEKModel.FK_RKD_PostList_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="RKD_PostList" />
+          <NavigationProperty Name="ApproveCDActions" Relationship="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" FromRole="TypeRKD_Mail_Version" ToRole="ApproveCDActions" />
         </EntityType>
         <EntityType Name="TypeTaskForPZ">
           <Key>
@@ -9093,18 +9132,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Principal>
             <Dependent Role="ApproveCDActions">
               <PropertyRef Name="id_AspNetUsers" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
-          <End Type="PortalKATEKModel.TypeRKD_Mail_Version" Role="TypeRKD_Mail_Version" Multiplicity="1" />
-          <End Type="PortalKATEKModel.ApproveCDActions" Role="ApproveCDActions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeRKD_Mail_Version">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ApproveCDActions">
-              <PropertyRef Name="id_RKD_VersionWork" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9756,6 +9783,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ServiceRemarksActions">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StickersPreOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
               <PropertyRef Name="id_AspNetUsersCreate" />
             </Dependent>
           </ReferentialConstraint>
@@ -10828,6 +10867,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StickersPreOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StickersPreOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reclamation_Answer_Reclamation">
           <End Type="PortalKATEKModel.Reclamation" Role="Reclamation" Multiplicity="1" />
           <End Type="PortalKATEKModel.Reclamation_Answer" Role="Reclamation_Answer" Multiplicity="*" />
@@ -11288,62 +11339,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityType Name="StickersOrder">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_StickersOrder" FromRole="StickersOrder" ToRole="StickersPreOrder" />
-        </EntityType>
-        <EntityType Name="StickersPreOrder">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="deadline" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="id_PZ_PlanZakaz" Type="Int32" />
-          <Property Name="id_StickersOrder" Type="Int32" />
-          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="StickersPreOrder" ToRole="AspNetUsers" />
-          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="StickersPreOrder" ToRole="PZ_PlanZakaz" />
-          <NavigationProperty Name="StickersOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_StickersOrder" FromRole="StickersPreOrder" ToRole="StickersOrder" />
-        </EntityType>
-        <Association Name="FK_StickersPreOrder_AspNetUsers">
-          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
+        <Association Name="FK_ApproveCDActions_TypeRKD_Mail_Version">
+          <End Type="PortalKATEKModel.TypeRKD_Mail_Version" Role="TypeRKD_Mail_Version" Multiplicity="1" />
+          <End Type="PortalKATEKModel.ApproveCDActions" Role="ApproveCDActions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StickersPreOrder">
-              <PropertyRef Name="id_AspNetUsersCreate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StickersPreOrder_PZ_PlanZakaz">
-          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PZ_PlanZakaz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StickersPreOrder">
-              <PropertyRef Name="id_PZ_PlanZakaz" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StickersPreOrder_StickersOrder">
-          <End Type="PortalKATEKModel.StickersOrder" Role="StickersOrder" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.StickersPreOrder" Role="StickersPreOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StickersOrder">
+            <Principal Role="TypeRKD_Mail_Version">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="StickersPreOrder">
-              <PropertyRef Name="id_StickersOrder" />
+            <Dependent Role="ApproveCDActions">
+              <PropertyRef Name="id_RKD_VersionWork" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -13676,6 +13680,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StickersPreOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.StickersPreOrder">
+              <MappingFragment StoreEntitySet="StickersPreOrder">
+                <ScalarProperty Name="orderNumString" ColumnName="orderNumString" />
+                <ScalarProperty Name="datePlanUpload" ColumnName="datePlanUpload" />
+                <ScalarProperty Name="datetimeClose" ColumnName="datetimeClose" />
+                <ScalarProperty Name="datetimePush" ColumnName="datetimePush" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaskForPZ">
             <EntityTypeMapping TypeName="PortalKATEKModel.TaskForPZ">
               <MappingFragment StoreEntitySet="TaskForPZ">
@@ -13722,27 +13742,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="StickersOrder">
-            <EntityTypeMapping TypeName="PortalKATEKModel.StickersOrder">
-              <MappingFragment StoreEntitySet="StickersOrder">
-                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StickersPreOrder">
-            <EntityTypeMapping TypeName="PortalKATEKModel.StickersPreOrder">
-              <MappingFragment StoreEntitySet="StickersPreOrder">
-                <ScalarProperty Name="id_StickersOrder" ColumnName="id_StickersOrder" />
-                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="deadline" ColumnName="deadline" />
-                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
-                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

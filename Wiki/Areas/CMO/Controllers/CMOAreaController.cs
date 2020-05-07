@@ -35,6 +35,9 @@ namespace Wiki.Areas.CMO.Controllers
 
             }
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+
+            ViewBag.id_PlanZakazStickerOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now && d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) == 0).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.id_PlanZakazReStickersOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now && d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) != 0).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
             if (devisionUser == 7)
                 ViewBag.userGroupId = 1;
@@ -768,54 +771,96 @@ namespace Wiki.Areas.CMO.Controllers
 
         public JsonResult GetStickersPanel()
         {
+            string login = HttpContext.User.Identity.Name;
+            int devision = GetDevision(login);
+            DateTime controlDate = DateTime.Now.AddDays(-180);
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.StickersPreOrder
                 .Include(d => d.AspNetUsers)
+                .Where(a => a.datetimeCreate > controlDate)
                 .ToList();
             var data = query.Select(dataList => new
             {
-                removeLink = GetRemoveLink(dataList),
-                order = dataList.id,
+                editLink = GetEditStickerLink(dataList, devision),
+                removeLink = GetRemoveLink(dataList, devision),
+                closeOrderLink = GetCloseOrderLink(dataList, devision),
+                order = dataList.orderNumString,
                 user = dataList.AspNetUsers.CiliricalName,
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, longUsSetting).Replace(@"""", ""),
-                deadline = JsonConvert.SerializeObject(dataList.deadline, longUsSetting).Replace(@"""", ""),
+                deadline1 = JsonConvert.SerializeObject(dataList.deadline, longUsSetting).Replace(@"""", ""),
+                deadline2 = JsonConvert.SerializeObject(dataList.datePlanUpload, longUsSetting).Replace(@"""", ""),
                 dataList.description,
-                manufacturingOrder = GetStickersManufacturerOrder(dataList.id_PZ_PlanZakaz),
-                state = GetStateStickersOrder(dataList.id_StickersOrder)
+                state = GetStateStickersOrder(dataList)
             });
             return Json(new { data });
         }
 
-        private string GetRemoveLink(StickersPreOrder order)
+        private string GetRemoveLink(StickersPreOrder order, int devision)
         {
-            if (order.id_StickersOrder == null)
+            bool inWork = GetInWork(devision);
+            if (order.datetimePush == null && inWork == true)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>";
             else
                 return "";
         }
 
-        private string GetStickersManufacturerOrder(int? id)
+        private string GetEditStickerLink(StickersPreOrder order, int devision)
         {
-            if (id == null)
-                return "-";
+            bool inWork = GetInWorkOS(devision);
+            if (order.datetimePush == null && inWork == true)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
+                return "";
+        }
+
+        private string GetCloseOrderLink(StickersPreOrder order, int devision)
+        {
+            bool inWork = GetInWorkOS(devision);
+            if (order.datetimeClose == null && inWork == true)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            else
+                return "";
+        }
+
+        private bool GetInWork(int devision)
+        {
+            if (devision == 7 || devision == 15 || devision == 16)
+                return true;
+            else
+                return false;
+        }
+
+        private bool GetInWorkOS(int devision)
+        {
+            if (devision == 7)
+                return true;
+            else
+                return false;
+        }
+
+        private int GetDevision(string login)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            try
             {
-                PZ_PlanZakaz order = db.PZ_PlanZakaz.Find(id);
-                return order.PlanZakaz.ToString();
+                return db.AspNetUsers.First(a => a.Email == login).Devision.Value;
+            }
+            catch
+            {
+                return 0;
             }
         }
 
-        private string GetStateStickersOrder(int? id)
+        private string GetStateStickersOrder(StickersPreOrder order)
         {
-            if (id == null)
-                return "Ожидает размещения";
+            if (order.datetimePush == null)
+                return "Ожидает отправки";
+            else if (order.datetimeClose == null)
+                return "Ожидается поставка";
             else
-            {
-                StickersOrder order = db.StickersOrder.Find(id);
-                return "Заказ № " + order.id.ToString() + " от " + order.datetimeCreate.ToString();
-            }
-                
+                return "Поступили на склад";
         }
 
         public JsonResult RemoveStickersOrder(int id)
@@ -849,11 +894,14 @@ namespace Wiki.Areas.CMO.Controllers
                 description = descStickersOrder,
                 id_PZ_PlanZakaz = idStickersOrder,
                 id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
-                id_StickersOrder = null
+                datetimePush = null,
+                datetimeClose = null,
+                datePlanUpload = dateStickersOrder.Value,
+                orderNumString = db.PZ_PlanZakaz.Find(idStickersOrder).PlanZakaz.ToString() + " - З"
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileStickers)
             {
@@ -892,11 +940,14 @@ namespace Wiki.Areas.CMO.Controllers
                 description = descReOrder,
                 id_PZ_PlanZakaz = idStickersReOrder,
                 id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
-                id_StickersOrder = null
+                datetimePush = null,
+                datetimeClose = null,
+                datePlanUpload = dateStickersReOrder.Value,
+                orderNumString = db.PZ_PlanZakaz.Find(idStickersReOrder).PlanZakaz.ToString() + GetDZName(idStickersReOrder.Value).ToString()
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileReStickers)
             {
@@ -907,6 +958,13 @@ namespace Wiki.Areas.CMO.Controllers
             }
             new EmailStickers(order, login, 2);
             return RedirectToAction("Index");
+        }
+
+        private int GetDZName(int id_Order)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            return db.StickersPreOrder.Count(d => d.id_PZ_PlanZakaz == id_Order) + 1;
         }
 
         [HttpPost]
@@ -921,11 +979,17 @@ namespace Wiki.Areas.CMO.Controllers
                 description = descStickersSimpleOrder,
                 id_PZ_PlanZakaz = null,
                 id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
-                id_StickersOrder = null
+                datetimePush = null,
+                datetimeClose = null,
+                datePlanUpload = dateStickersSimpleOrder.Value,
+                orderNumString = ""
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            order.orderNumString = order.id + " - M";
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileSimpleStickers)
             {
@@ -943,46 +1007,49 @@ namespace Wiki.Areas.CMO.Controllers
             string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            var preorderList = db.StickersPreOrder.Where(a => a.id_StickersOrder == null).OrderBy(a => a.id_PZ_PlanZakaz).ToList();
+            var preorderList = db.StickersPreOrder.Where(a => a.datetimePush == null).OrderBy(a => a.id_PZ_PlanZakaz).ToList();
             if(preorderList.Count == 0)
                 return Json(0, JsonRequestBehavior.AllowGet);
-            StickersOrder order = new StickersOrder
-            {
-                datetimeCreate = DateTime.Now
-            };
-            db.StickersOrder.Add(order);
-            db.SaveChanges();
-            int controlInt = 0;
-            if (preorderList[0].id_PZ_PlanZakaz != null)
-                controlInt = preorderList[0].id_PZ_PlanZakaz.Value;
             try
             {
                 foreach (var preorder in preorderList)
                 {
-                    int thisIdPZ = 0;
-                    if (preorder.id_PZ_PlanZakaz != null)
-                        thisIdPZ = preorder.id_PZ_PlanZakaz.Value;
-                    if (controlInt != thisIdPZ)
-                    {
-                        order = new StickersOrder
-                        {
-                            datetimeCreate = DateTime.Now
-                        };
-                        db.StickersOrder.Add(order);
-                        db.SaveChanges();
-                    }
-                    preorder.id_StickersOrder = order.id;
                     new EmailStickers(preorder, login, 4);
+                    preorder.datetimePush = DateTime.Now;
                     db.Entry(preorder).State = EntityState.Modified;
                     db.SaveChanges();
-                    controlInt = thisIdPZ;
                 }
-                logger.Debug("CMOAreaController / PushStickersOrders: " + order.id + " | " + login);
+                logger.Debug("CMOAreaController / PushStickersOrders: " + DateTime.Now.ToString() + " | " + login);
             }
             catch (Exception ex)
             {
-                logger.Error("CMOAreaController / PushStickersOrders: " + order.id + " | " + ex + " | " + login);
+                logger.Error("CMOAreaController / PushStickersOrders: " + DateTime.Now.ToString() + " | " + ex + " | " + login);
             }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetStickersOrder(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var query = db.StickersPreOrder.Where(d => d.id == id).ToList();
+            var data = query.Select(dataList => new
+            {
+                updateStickerId = dataList.id,
+                updateStickerNum = dataList.orderNumString,
+                updateStickerDeadline = dataList.deadline.ToShortDateString()
+            });
+            return Json(data.First(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditStickers(int updateStickerId, DateTime updateStickerNewDate)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            StickersPreOrder order = db.StickersPreOrder.Find(updateStickerId);
+            order.datePlanUpload = updateStickerNewDate;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

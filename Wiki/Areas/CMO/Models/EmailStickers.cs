@@ -72,58 +72,43 @@ namespace Wiki.Areas.CMO.Models
         {
             if (stepNumber == 1)
             {
-                subject = "Размещен новый заказ наклеек: " + GetPlanZakazs();
+                subject = "Размещен новый заказ наклеек: " + order.orderNumString;
             }
             else if (stepNumber == 2)
             {
-                subject = "Размещен новый дозаказ наклеек: " + GetPlanZakazs();
+                subject = "Размещен новый дозаказ наклеек: " + order.orderNumString;
             }
             else if (stepNumber == 3)
             {
-                subject = "Размещен новый заказ наклеек (общий)";
+                subject = "Размещен новый заказ наклеек (общий): " + order.orderNumString;
             }
             else
             {
-                subject = "Заказ наклеек: " + GetPlanZakazs();
+                subject = "Заказ наклеек: " + order.orderNumString;
             }
             subject = subject.Replace(Environment.NewLine, "");
             return true;
-        }
-
-        private string GetPlanZakazs()
-        {
-            string pzs = "";
-            if(order.id_PZ_PlanZakaz == null)
-            {
-                pzs += " (заявка № " + order.id.ToString() + ")";
-            }
-            else
-            {
-                pzs += "заказ № " + db.PZ_PlanZakaz.Find(order.id_PZ_PlanZakaz).PlanZakaz.ToString();
-                pzs += " (заявка № " + order.id.ToString() + ")";
-            }
-            return pzs;
         }
 
         private bool GetBody()
         {
             if (stepNumber == 1)
             {
-                body = "Размещен новый заказ наклеек: " + GetPlanZakazs() + "<br/>";
+                body = "Размещен новый заказ наклеек: " + order.orderNumString + "<br/>";
                 body += "Требуемая дата изготовления: " + order.deadline.ToShortDateString() + "<br/>";
                 if(order.description != "")
                     body += "Прим.: " + order.description + "<br/>";
             }
             else if (stepNumber == 2)
             {
-                body = "Размещен новый дозаказ наклеек: " + GetPlanZakazs() + "<br/>";
+                body = "Размещен новый дозаказ наклеек: " + order.orderNumString + "<br/>";
                 body += "Требуемая дата изготовления: " + order.deadline.ToShortDateString() + "<br/>";
                 if (order.description != "")
                     body += "Прим.: " + order.description + "<br/>";
             }
             else if (stepNumber == 3)
             {
-                body = "Размещен новый общий заказ наклеек: заявка №" + order.id + "<br/>";
+                body = "Размещен новый общий заказ наклеек: " + order.orderNumString + "<br/>";
                 body += "Требуемая дата изготовления: " + order.deadline.ToShortDateString() + "<br/>";
                 if (order.description != "")
                     body += "Прим.: " + order.description + "<br/>";
@@ -131,7 +116,8 @@ namespace Wiki.Areas.CMO.Models
             else if (stepNumber == 4)
             {
                 body = "Добрый день!" + "<br/>";
-                body += "Просим выслать предложение/счет на поставку наклеек. Внутренний номер " + order.id + ", просим прописывать в счете." + "<br/>" + "<br/>";
+                body += "Просим выслать предложение/счет на поставку наклеек. Внутренний номер " + order.orderNumString + ", просим прописывать в счете." + "<br/>";
+                body += "Крайний срок изготовления: " + order.deadline.ToShortDateString() + "<br/>" + "<br/>";
                 body += "С уважением," + "<br/>" +
                     "Гришель Дмитрий Петрович" + "<br/>" +
                     "Начальник отдела по материально - техническому снабжению" + "<br/>" +

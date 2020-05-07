@@ -20,10 +20,12 @@ namespace Wiki
         public System.DateTime deadline { get; set; }
         public string description { get; set; }
         public Nullable<int> id_PZ_PlanZakaz { get; set; }
-        public Nullable<int> id_StickersOrder { get; set; }
+        public Nullable<System.DateTime> datetimePush { get; set; }
+        public Nullable<System.DateTime> datetimeClose { get; set; }
+        public System.DateTime datePlanUpload { get; set; }
+        public string orderNumString { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
-        public virtual StickersOrder StickersOrder { get; set; }
     }
 }

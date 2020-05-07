@@ -198,11 +198,10 @@ namespace Wiki
         public virtual DbSet<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         public virtual DbSet<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
         public virtual DbSet<ServiceRemarksTypes> ServiceRemarksTypes { get; set; }
+        public virtual DbSet<StickersPreOrder> StickersPreOrder { get; set; }
         public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
-        public virtual DbSet<StickersOrder> StickersOrder { get; set; }
-        public virtual DbSet<StickersPreOrder> StickersPreOrder { get; set; }
     }
 }
