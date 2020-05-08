@@ -455,25 +455,28 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     {
                         foreach (var data in newOrders)
                         {
-                            ApproveCDOrders approveCDOrders = new ApproveCDOrders
+                            if(db.ApproveCDOrders.Count(a => a.id_PZ_PlanZakaz == data) == 0)
                             {
-                                id_PZ_PlanZakaz = data,
-                                id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
-                                id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
-                                description = ""
-                            };
-                            db.ApproveCDOrders.Add(approveCDOrders);
-                            db.SaveChanges();
-                            ApproveCDVersions approveCDVersions = new ApproveCDVersions
-                            {
-                                id_ApproveCDOrders = approveCDOrders.id,
-                                id_RKD_VersionWork = 12,
-                                numberVersion1 = 0,
-                                numberVersion2 = 0,
-                                activeVersion = true
-                            };
-                            db.ApproveCDVersions.Add(approveCDVersions);
-                            db.SaveChanges();
+                                ApproveCDOrders approveCDOrders = new ApproveCDOrders
+                                {
+                                    id_PZ_PlanZakaz = data,
+                                    id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
+                                    id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
+                                    description = ""
+                                };
+                                db.ApproveCDOrders.Add(approveCDOrders);
+                                db.SaveChanges();
+                                ApproveCDVersions approveCDVersions = new ApproveCDVersions
+                                {
+                                    id_ApproveCDOrders = approveCDOrders.id,
+                                    id_RKD_VersionWork = 12,
+                                    numberVersion1 = 0,
+                                    numberVersion2 = 0,
+                                    activeVersion = true
+                                };
+                                db.ApproveCDVersions.Add(approveCDVersions);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     return Json(1, JsonRequestBehavior.AllowGet);

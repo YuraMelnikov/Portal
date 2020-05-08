@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using NLog;
-using NLog.Fluent;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -88,9 +88,39 @@ namespace Wiki.Areas.CMO.Controllers
                 dataList.finCost,
                 dataList.id,
                 folder = @"<a href =" + dataList.folder + "> Папка </a>",
-                status = GetStatuName(dataList)
+                status = GetStatuName(dataList),
+                removeLink = GetFeRemoveLink(dataList.id)
             });
             return Json(new { data });
+        }
+
+        private string GetFeRemoveLink(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            int devision = GetDevision(login);
+            if (devision == 7)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveFe('" + id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>";
+            else
+                return "";
+        }
+
+        public JsonResult RemoveFe(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            var orders = db.CMO2_Position.Where(a => a.id_CMO2 == id).ToList();
+            foreach(var order in orders)
+            {
+                db.CMO2_Position.Remove(order);
+                db.SaveChanges();
+            }
+
+            CMO2_Order cMO2_Order = db.CMO2_Order.Find(id);
+            new EmailCMO(cMO2_Order, login, 6);
+            db.CMO2_Order.Remove(cMO2_Order);
+            db.SaveChanges();
+            return Json(6, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

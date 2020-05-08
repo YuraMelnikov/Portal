@@ -51,6 +51,11 @@ namespace Wiki.Areas.CMO.Models
                 {
                     GetMailPM();
                 }
+                else if (stepNumber == 6) //Remove
+                {
+                    GetMailList();
+                    GetMailPM();
+                }
                 else
                 {
 
@@ -89,6 +94,10 @@ namespace Wiki.Areas.CMO.Models
             if (stepNumber == 1)
             {
                 subject = "Размещен новый заказ деталей: " + GetPlanZakazs();
+            }
+            if (stepNumber == 6)
+            {
+                subject = "Удален заказ деталей железа №: " + order.id;
             }
             else
             {
@@ -154,6 +163,10 @@ namespace Wiki.Areas.CMO.Models
                 body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                         "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
                         "gdp@katek.by";
+            }
+            else if (stepNumber == 6)
+            {
+                body += "Удален заказ железа №: " + order.id + "<br/>" + "<br/>";
             }
             return true;
         }

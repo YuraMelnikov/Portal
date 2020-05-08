@@ -85,7 +85,8 @@ var objFullReport = [
     { "title": "Стоимость, б/НДС (BYN)", "data": "finCost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "№ заявки", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Статус", "data": "status", "autowidth": true, "bSortable": true },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true }
+    { "title": "Папка заказа", "data": "folder", "autowidth": true },
+    { "title": "Удалить", "data": "removeLink", "autowidth": true }
 ];
 
 var objWork = [
@@ -1781,6 +1782,20 @@ function CloseStickersOrder(id) {
         dataType: "json",
         success: function (result) {
             $('#stickersTable').DataTable().ajax.reload(null, false);
+        }
+    });
+    return false;
+}
+
+function RemoveFe(id) {
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/RemoveFe/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#reportTable').DataTable().ajax.reload(null, false);
         }
     });
     return false;
