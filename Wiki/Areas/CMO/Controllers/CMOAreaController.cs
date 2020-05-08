@@ -782,14 +782,15 @@ namespace Wiki.Areas.CMO.Controllers
                 .ToList();
             var data = query.Select(dataList => new
             {
+                dataList.id,
                 editLink = GetEditStickerLink(dataList, devision),
                 removeLink = GetRemoveLink(dataList, devision),
                 closeOrderLink = GetCloseOrderLink(dataList, devision),
                 order = dataList.orderNumString,
                 user = dataList.AspNetUsers.CiliricalName,
                 dateCreate = JsonConvert.SerializeObject(dataList.datetimeCreate, longUsSetting).Replace(@"""", ""),
-                deadline1 = JsonConvert.SerializeObject(dataList.deadline, longUsSetting).Replace(@"""", ""),
-                deadline2 = JsonConvert.SerializeObject(dataList.datePlanUpload, longUsSetting).Replace(@"""", ""),
+                deadline1 = JsonConvert.SerializeObject(dataList.deadline, shortSetting).Replace(@"""", ""),
+                deadline2 = JsonConvert.SerializeObject(dataList.datePlanUpload, shortSetting).Replace(@"""", ""),
                 dataList.description,
                 state = GetStateStickersOrder(dataList)
             });
@@ -817,8 +818,8 @@ namespace Wiki.Areas.CMO.Controllers
         private string GetCloseOrderLink(StickersPreOrder order, int devision)
         {
             bool inWork = GetInWorkOS(devision);
-            if (order.datetimeClose == null && inWork == true)
-                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+            if (order.datetimeClose == null && inWork == true && order.datetimePush != null)
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return CloseStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-ok" + '\u0022' + "></span></a></td>";
             else
                 return "";
         }
@@ -873,6 +874,7 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 db.StickersPreOrder.Remove(order);
                 db.SaveChanges();
+                new EmailStickers(order, login, 7);
                 logger.Debug("CMOAreaController / RemoveStickersOrder: " + order.id + " | " + login);
             }
             catch (Exception ex)
@@ -887,6 +889,8 @@ namespace Wiki.Areas.CMO.Controllers
             DateTime? dateStickersOrder, string descStickersOrder)
         {
             string login = HttpContext.User.Identity.Name;
+            if (dateStickersOrder == null)
+                dateStickersOrder = DateTime.Now.AddDays(7);
             StickersPreOrder order = new StickersPreOrder
             {
                 datetimeCreate = DateTime.Now,
@@ -901,14 +905,21 @@ namespace Wiki.Areas.CMO.Controllers
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileStickers)
             {
-                string fileReplace = Path.GetFileName(file.FileName);
-                fileReplace = ToSafeFileName(fileReplace);
-                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
-                file.SaveAs(fileName);
+                try
+                {
+                    string fileReplace = Path.GetFileName(file.FileName);
+                    fileReplace = ToSafeFileName(fileReplace);
+                    var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                    file.SaveAs(fileName);
+                }
+                catch
+                {
+
+                }
             }
             new EmailStickers(order, login, 1);
             return RedirectToAction("Index");
@@ -933,6 +944,8 @@ namespace Wiki.Areas.CMO.Controllers
                                                  DateTime? dateStickersReOrder, string descReOrder)
         {
             string login = HttpContext.User.Identity.Name;
+            if (dateStickersReOrder == null)
+                dateStickersReOrder = DateTime.Now.AddDays(7);
             StickersPreOrder order = new StickersPreOrder
             {
                 datetimeCreate = DateTime.Now,
@@ -943,28 +956,35 @@ namespace Wiki.Areas.CMO.Controllers
                 datetimePush = null,
                 datetimeClose = null,
                 datePlanUpload = dateStickersReOrder.Value,
-                orderNumString = db.PZ_PlanZakaz.Find(idStickersReOrder).PlanZakaz.ToString() + GetDZName(idStickersReOrder.Value).ToString()
+                orderNumString = db.PZ_PlanZakaz.Find(idStickersReOrder).PlanZakaz.ToString() + GetDZName(idStickersReOrder.Value)
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileReStickers)
             {
-                string fileReplace = Path.GetFileName(file.FileName);
-                fileReplace = ToSafeFileName(fileReplace);
-                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
-                file.SaveAs(fileName);
+                try
+                {
+                    string fileReplace = Path.GetFileName(file.FileName);
+                    fileReplace = ToSafeFileName(fileReplace);
+                    var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                    file.SaveAs(fileName);
+                }
+                catch
+                {
+
+                }
             }
             new EmailStickers(order, login, 2);
             return RedirectToAction("Index");
         }
 
-        private int GetDZName(int id_Order)
+        private string GetDZName(int id_Order)
         {
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-            return db.StickersPreOrder.Count(d => d.id_PZ_PlanZakaz == id_Order) + 1;
+            return " - Д" + db.StickersPreOrder.Count(d => d.id_PZ_PlanZakaz == id_Order);
         }
 
         [HttpPost]
@@ -972,6 +992,8 @@ namespace Wiki.Areas.CMO.Controllers
                                          DateTime? dateStickersSimpleOrder, string descStickersSimpleOrder)
         {
             string login = HttpContext.User.Identity.Name;
+            if (dateStickersSimpleOrder == null)
+                dateStickersSimpleOrder = DateTime.Now.AddDays(7);
             StickersPreOrder order = new StickersPreOrder
             {
                 datetimeCreate = DateTime.Now,
@@ -989,14 +1011,21 @@ namespace Wiki.Areas.CMO.Controllers
             order.orderNumString = order.id + " - M";
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileSimpleStickers)
             {
-                string fileReplace = Path.GetFileName(file.FileName);
-                fileReplace = ToSafeFileName(fileReplace);
-                var fileName = string.Format("{0}\\{1}", directory, fileReplace);
-                file.SaveAs(fileName);
+                try
+                {
+                    string fileReplace = Path.GetFileName(file.FileName);
+                    fileReplace = ToSafeFileName(fileReplace);
+                    var fileName = string.Format("{0}\\{1}", directory, fileReplace);
+                    file.SaveAs(fileName);
+                }
+                catch
+                {
+
+                }
             }
             new EmailStickers(order, login, 3);
             return RedirectToAction("Index");
@@ -1044,12 +1073,27 @@ namespace Wiki.Areas.CMO.Controllers
 
         public JsonResult EditStickers(int updateStickerId, DateTime updateStickerNewDate)
         {
+            string login = HttpContext.User.Identity.Name;
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             StickersPreOrder order = db.StickersPreOrder.Find(updateStickerId);
             order.datePlanUpload = updateStickerNewDate;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+            new EmailStickers(order, login, 5);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CloseStickersOrder(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            StickersPreOrder order = db.StickersPreOrder.Find(id);
+            order.datetimeClose = DateTime.Now;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            new EmailStickers(order, login, 6);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

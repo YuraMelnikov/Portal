@@ -37,6 +37,7 @@ $(document).ready(function () {
 
 function loadData(listId) {
     document.getElementById('pageId').innerHTML = listId;
+
     if (listId === 1 || listId === "1") {
         loadReport();
     }
@@ -108,6 +109,7 @@ var objWorkManuf = [
 ];
 
 var objStickers = [
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": true },
     { "title": "№ заявки", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Автор заявки", "data": "user", "autowidth": true, "bSortable": true },
@@ -116,6 +118,7 @@ var objStickers = [
     { "title": "Плановый срок", "data": "deadline2", "autowidth": true, "bSortable": true },
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
     { "title": "Статус заявки", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "Пост.", "data": "closeOrderLink", "autowidth": true, "bSortable": true },
     { "title": "Отменить", "data": "removeLink", "autowidth": true, "bSortable": false }
 ];
 
@@ -362,6 +365,7 @@ function LoadStickersPanel() {
     $('#dGetDateComplitedTable').hide();
     $('#dComplitedTable').hide();
     $('#stickersPanel').show();
+    $('#stickersTable').show();
     var table = $('#stickersTable').DataTable();
     table.destroy();
     $('#stickersTable').empty();
@@ -375,11 +379,6 @@ function LoadStickersPanel() {
         "order": [[0, "desc"]],
         "processing": true,
         "columns": objStickers,
-        //"rowCallback": function (row, data, index) {
-        //    if (data.state === "Ожидает размещения") {
-        //        $('td', row).css('background-color', '#f28f43');
-        //    }
-        //},
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -925,6 +924,7 @@ function loadReport() {
         $('#dGetDateComplitedTable').hide();
         $('#dComplitedTable').hide();
         $('#stickersPanel').hide();
+        $('#stickersTable').hide();
         fullReport();
     }
     else {
@@ -982,6 +982,7 @@ function loadReportPanel() {
     $('#dGetDateComplitedTable').hide();
     $('#dComplitedTable').hide();
     $('#stickersPanel').hide();
+    $('#stickersTable').hide();
     sandwichPanelReport();
 }
 
@@ -1729,9 +1730,6 @@ function getSandwichPanel(id) {
                 $('#btnPanelToComplited').show();
             }
             $('#OSSPModalView').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
     return false;
@@ -1750,9 +1748,6 @@ function GetStickersOrder(id) {
             $('#updateStickerDeadline').val(result.updateStickerDeadline);
             $('#updateStickerNewDate').val("");
             $('#editStickersModal').modal('show');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
     return false;
@@ -1773,9 +1768,20 @@ function EditStickers() {
         success: function (result) {
             $('#stickersTable').DataTable().ajax.reload(null, false);
             $('#editStickersModal').modal('hide');
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
+}
+
+function CloseStickersOrder(id) {
+    $.ajax({
+        cache: false,
+        url: "/CMOArea/CloseStickersOrder/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#stickersTable').DataTable().ajax.reload(null, false);
+        }
+    });
+    return false;
 }

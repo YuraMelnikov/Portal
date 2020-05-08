@@ -53,6 +53,24 @@ namespace Wiki.Areas.CMO.Models
                     GetMailKO();
                     GetMailMYI();
                 }
+                else if (stepNumber == 5) 
+                {
+                    GetMailPurchaseDepartment();
+                    GetMailKO();
+                    GetMailMYI();
+                }
+                else if (stepNumber == 6) 
+                {
+                    GetMailPurchaseDepartment();
+                    GetMailKO();
+                    GetMailMYI();
+                }
+                else if (stepNumber == 7) 
+                {
+                    GetMailPurchaseDepartment();
+                    GetMailKO();
+                    GetMailMYI();
+                }
                 else
                 {
                     GetMailMYI();
@@ -81,6 +99,22 @@ namespace Wiki.Areas.CMO.Models
             else if (stepNumber == 3)
             {
                 subject = "Размещен новый заказ наклеек (общий): " + order.orderNumString;
+            }
+            else if (stepNumber == 4)
+            {
+                subject = "Заказ наклеек: " + order.orderNumString;
+            }
+            else if(stepNumber == 5)
+            {
+                subject = "Изменен ожидаемый срок поставки наклеек: " + order.orderNumString;
+            }
+            else if (stepNumber == 6)
+            {
+                subject = "Наклейки поступили на склад: " + order.orderNumString;
+            }
+            else if (stepNumber == 7)
+            {
+                subject = "Удален (отменен) заказ наклеек: " + order.orderNumString;
             }
             else
             {
@@ -125,6 +159,22 @@ namespace Wiki.Areas.CMO.Models
                     "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" +
                     "Skype: sitek_dima" + "<br/>";
             }
+            else if(stepNumber == 5)
+            {
+                body = "Изменен ожидаемый срок поставки наклеек: " + order.orderNumString + "<br/>";
+                body += "Требуемая дата изготовления: " + order.deadline.ToShortDateString() + "<br/>";
+                body += "Дата готовности поставщика: " + order.datePlanUpload.ToShortDateString() + "<br/>";
+                if (order.description != "")
+                    body += "Прим.: " + order.description + "<br/>";
+            }
+            else if (stepNumber == 6)
+            {
+                body = "Наклейки поступили на склад: " + order.orderNumString + "<br/>";
+            }
+            else if (stepNumber == 7)
+            {
+                body = "Удален (отменен) заказ наклеек: " + order.orderNumString;
+            }
             return true;
         }
 
@@ -147,7 +197,7 @@ namespace Wiki.Areas.CMO.Models
 
         private List<string> GetFileArray()
         {
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.id.ToString() + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
             var fileList = Directory.GetFiles(directory).ToList();
             return fileList;
         }
@@ -160,9 +210,9 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailKO()
         {
-            //mailToList.Add("nrf@katek.by");
-            //mailToList.Add("vi@katek.by");
-            //mailToList.Add("fvs@katek.by");
+            mailToList.Add("nrf@katek.by");
+            mailToList.Add("vi@katek.by");
+            mailToList.Add("fvs@katek.by");
             return true;
         }
 
@@ -173,8 +223,8 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailPurchaseDepartment()
         {
-            //mailToList.Add("xan@katek.by");
-            //mailToList.Add("gdp@katek.by");
+            mailToList.Add("xan@katek.by");
+            mailToList.Add("gdp@katek.by");
             return true;
         }
     }
