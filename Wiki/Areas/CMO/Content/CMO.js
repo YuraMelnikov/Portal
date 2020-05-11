@@ -30,6 +30,9 @@ $(document).ready(function () {
         loadData(2);
         $('#btnPushStickersOrders').show();
     }
+    if (userGroupId === 2) {
+        $('#btnPushStickersOrders').show();
+    }
     if (userGroupId === 7) {
         loadData(5);
     }

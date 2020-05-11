@@ -102,7 +102,7 @@ namespace Wiki.Areas.CMO.Models
             }
             else if (stepNumber == 4)
             {
-                subject = "Заказ наклеек: " + order.orderNumString;
+                subject = "ЗАО КАТЭК. Заказ наклеек. Заказ №:" + order.orderNumString;
             }
             else if(stepNumber == 5)
             {
@@ -150,14 +150,19 @@ namespace Wiki.Areas.CMO.Models
             else if (stepNumber == 4)
             {
                 body = "Добрый день!" + "<br/>";
-                body += "Просим выслать предложение/счет на поставку наклеек. Внутренний номер " + order.orderNumString + ", просим прописывать в счете." + "<br/>";
-                body += "Крайний срок изготовления: " + order.deadline.ToShortDateString() + "<br/>" + "<br/>";
+                body += "Просим изготовить наклейки в соответствии с вложениями." + "<br/>";
+                body += "Заказ № " + order.orderNumString + "<br/>";
+                body += "Крайний срок изготовления: " + order.deadline.ToShortDateString() + "<br/>";
+                if (order.description != "")
+                    body += "Прим.: " + order.description + "<br/>" + "<br/>";
+                else
+                    body += "<br/>";
                 body += "С уважением," + "<br/>" +
-                    "Гришель Дмитрий Петрович" + "<br/>" +
-                    "Начальник отдела по материально - техническому снабжению" + "<br/>" +
-                    "Тел: +375 17 366 90 67(вн. 329)" + "<br/>" +
-                    "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" +
-                    "Skype: sitek_dima" + "<br/>";
+                    "Филончик Валентина Сергеевна" + "<br/>" +
+                    "начальник конструкторского бюро электриков" + "<br/>" +
+                    "Моб.:   + 375 44 546 24 20" + "<br/>" +
+                    "Раб.:   +375 17 366 94 15 ( вн. 337)" + "<br/>" +
+                    "fvs@katek.by" + "<br/>";
             }
             else if(stepNumber == 5)
             {
@@ -197,7 +202,11 @@ namespace Wiki.Areas.CMO.Models
 
         private List<string> GetFileArray()
         {
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
+            string directory = "";
+            if(order.id_PZ_PlanZakaz == null)
+                directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
+            else
+                directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
             var fileList = Directory.GetFiles(directory).ToList();
             return fileList;
         }
@@ -218,6 +227,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailCustomer()
         {
+            mailToList.Add("order@printtech.by");
             return true;
         }
 

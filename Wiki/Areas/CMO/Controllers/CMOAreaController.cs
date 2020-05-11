@@ -803,7 +803,7 @@ namespace Wiki.Areas.CMO.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             int devision = GetDevision(login);
-            DateTime controlDate = DateTime.Now.AddDays(-180);
+            DateTime controlDate = DateTime.Now.AddDays(-90);
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var query = db.StickersPreOrder
@@ -931,7 +931,7 @@ namespace Wiki.Areas.CMO.Controllers
                 datetimePush = null,
                 datetimeClose = null,
                 datePlanUpload = dateStickersOrder.Value,
-                orderNumString = db.PZ_PlanZakaz.Find(idStickersOrder).PlanZakaz.ToString() + " - З"
+                orderNumString = db.PZ_PlanZakaz.Find(idStickersOrder).PlanZakaz.ToString()
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
@@ -1038,10 +1038,10 @@ namespace Wiki.Areas.CMO.Controllers
             };
             db.StickersPreOrder.Add(order);
             db.SaveChanges();
-            order.orderNumString = order.id + " - M";
+            order.orderNumString = "О - " + order.id;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + order.id + @"\";
+            string directory = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Stickers\" + order.orderNumString + @"\";
             Directory.CreateDirectory(directory);
             foreach (var file in spfileSimpleStickers)
             {
