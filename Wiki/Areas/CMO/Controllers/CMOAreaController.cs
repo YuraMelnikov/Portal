@@ -55,6 +55,10 @@ namespace Wiki.Areas.CMO.Controllers
             {
                 ViewBag.userGroupId = 7;
             }
+            else if (login == "fvs@katek.by")
+            {
+                ViewBag.userGroupId = 8;
+            }
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");

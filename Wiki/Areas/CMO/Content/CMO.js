@@ -30,8 +30,9 @@ $(document).ready(function () {
         loadData(2);
         $('#btnPushStickersOrders').show();
     }
-    if (userGroupId === 2) {
+    if (userGroupId === 8) {
         $('#btnPushStickersOrders').show();
+        loadData(5);
     }
     if (userGroupId === 7) {
         loadData(5);
@@ -136,6 +137,11 @@ function startMenu() {
         $('#btnSimpleStickers').show();
     }
     if (userGroupId === 7) {
+        $('#btnAddStickers').show();
+        $('#btnReStickers').show();
+        $('#btnSimpleStickers').show();
+    }
+    if (userGroupId === 8) {
         $('#btnAddStickers').show();
         $('#btnReStickers').show();
         $('#btnSimpleStickers').show();
