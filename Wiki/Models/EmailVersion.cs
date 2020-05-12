@@ -40,7 +40,6 @@ namespace Wiki.Models
             mail.To.Add(new MailAddress("fvs@katek.by"));
             mail.To.Add(new MailAddress("myi@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
-            mail.To.Add(new MailAddress("gea@katek.by"));
         }
     }
 }

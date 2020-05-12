@@ -64,7 +64,6 @@ namespace Wiki.Areas.PZ.Models
             if(renameTU != true)
                 mail.To.Add(new MailAddress("maa@katek.by"));
             mail.To.Add(new MailAddress("myi@katek.by"));
-            mail.To.Add(new MailAddress("gea@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
             mail.To.Add(new MailAddress("pev@katek.by"));
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == 3).Where(d => d.LockoutEnabled == true))
@@ -129,7 +128,6 @@ namespace Wiki.Areas.PZ.Models
         void SetMailAddressMass()
         {
             mail.To.Add(new MailAddress("myi@katek.by"));
-            mail.To.Add(new MailAddress("gea@katek.by"));
             mail.To.Add(new MailAddress("bav@katek.by"));
             foreach (var data in db.AspNetUsers.Where(d => d.Devision == 15).Where(d => d.LockoutEnabled == true))
             {

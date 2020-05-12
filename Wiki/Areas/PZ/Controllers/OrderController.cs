@@ -130,7 +130,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            else if (devision == 5 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -235,7 +235,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            else if (devision == 5 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -326,7 +326,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            else if (devision == 5 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -417,7 +417,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by" || login == "gea@katek.by")
+            else if (devision == 5 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;

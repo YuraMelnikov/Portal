@@ -137,7 +137,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gea@katek.by" || login == "gvi@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
                 {
                     var query = db.PZ_TEO
                        .AsNoTracking()
@@ -427,7 +427,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
@@ -507,7 +507,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
@@ -573,7 +573,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             string login = HttpContext.User.Identity.Name;
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by" || login == "gea@katek.by")
+                if (login == "myi@katek.by" || login == "laa@katek.by" || login == "gvi@katek.by")
                 {
                     DateTime nowDate = DateTime.Now;
                     db.Configuration.ProxyCreationEnabled = false;
@@ -1006,7 +1006,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     if (pzList.IndexOf(workToDeb.id_PlanZakaz) == -1)
                         pzList.Add(workToDeb.id_PlanZakaz);
                 }
-                if(login == "gea@katek.by" || login == "myi@katek.by")
+                if(login == "myi@katek.by")
                 {
                     var data = pzList.Select(dataList => new
                     {

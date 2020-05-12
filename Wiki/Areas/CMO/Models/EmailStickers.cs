@@ -227,7 +227,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailCustomer()
         {
-            mailToList.Add("order@printtech.by");
+            mailToList.Add("stickers@katek.by");
             return true;
         }
 

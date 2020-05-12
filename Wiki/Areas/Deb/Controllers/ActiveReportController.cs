@@ -24,7 +24,7 @@ namespace Wiki.Areas.Deb.Controllers
             Debit_PeriodReportOprih debit_PeriodReportOprih = db.Debit_PeriodReportOprih.Find(db.Debit_PeriodReportOprih.Max(d => d.id));
             int closePeriod = 1;
             string login = HttpContext.User.Identity.Name;
-            if (login == "mvv@katek.by" || login == "myi@katek.by" || login == "gea@katek.by")
+            if (login == "mvv@katek.by" || login == "myi@katek.by")
             {
                 closePeriod = 0;
                 if (debit_PeriodReportOprih.close == true)

@@ -20,7 +20,6 @@ namespace Wiki.Areas.AccountsReceivable.Models
                 mail.From = new MailAddress(login);
                 mailToList = new List<string>();
                 mailToList.Add("myi@katek.by");
-                mailToList.Add("gea@katek.by");
                 mailToList.Add("mvv@katek.by");
                 mailToList.Add("omo@katek.by");
                 mailToList.Add("evy@katek.by");
