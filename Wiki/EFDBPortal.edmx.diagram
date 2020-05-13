@@ -371,6 +371,11 @@
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
         <AssociationConnector Association="PortalKATEKModel.FK_ApproveCDActions_TypeRKD_Mail_Version" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OrdersTables" Width="1.5" PointX="8.25" PointY="39.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.OrdersTablesPositions" Width="1.5" PointX="16.5" PointY="27.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_OrdersTables_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_OrdersTablesPositions_OrdersTables" />
+        <AssociationConnector Association="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

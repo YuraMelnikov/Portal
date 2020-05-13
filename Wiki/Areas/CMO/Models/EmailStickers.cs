@@ -233,8 +233,6 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailPurchaseDepartment()
         {
-            mailToList.Add("xan@katek.by");
-            mailToList.Add("gdp@katek.by");
             return true;
         }
     }

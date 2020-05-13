@@ -993,7 +993,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 string login = HttpContext.User.Identity.Name;
-                string userId = db.AspNetUsers.First(d => d.Email == "gea@katek.by").Id;
+                string userId = db.AspNetUsers.First(d => d.Id == "f9bdc6ed-ce38-4a15-b983-3d85be1e30b1").Id;
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.Debit_WorkBit

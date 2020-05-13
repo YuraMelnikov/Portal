@@ -1235,6 +1235,26 @@
           <Property Name="dateMail" Type="date" Nullable="false" />
           <Property Name="numMail" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrdersTables">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateCreate" Type="datetime" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dateClose" Type="date" />
+          <Property Name="dateRemove" Type="date" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersTablesPositions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_OrdersTables" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="PF">
           <Key>
             <PropertyRef Name="id" />
@@ -3395,6 +3415,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrdersTables_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="OrdersTables" Type="Self.OrdersTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersTables">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTablesPositions_OrdersTables">
+          <End Role="OrdersTables" Type="Self.OrdersTables" Multiplicity="1" />
+          <End Role="OrdersTablesPositions" Type="Self.OrdersTablesPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdersTables">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrdersTablesPositions">
+              <PropertyRef Name="id_OrdersTables" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTablesPositions_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="OrdersTablesPositions" Type="Self.OrdersTablesPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersTablesPositions">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PlanVerificationItems_PZ_PlanZakaz">
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
           <End Role="PlanVerificationItems" Type="Self.PlanVerificationItems" Multiplicity="*" />
@@ -4611,6 +4667,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailGraphic" EntityType="Self.MailGraphic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersTables" EntityType="Self.OrdersTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersTablesPositions" EntityType="Self.OrdersTablesPositions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PF" EntityType="Self.PF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVerificationItems" EntityType="Self.PlanVerificationItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVerificationItemsLog" EntityType="Self.PlanVerificationItemsLog" Schema="dbo" store:Type="Tables" />
@@ -5203,6 +5261,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="Self.FK_MailGraphic_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="MailGraphic" EntitySet="MailGraphic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTables_AspNetUsers" Association="Self.FK_OrdersTables_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OrdersTables" EntitySet="OrdersTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTablesPositions_OrdersTables" Association="Self.FK_OrdersTablesPositions_OrdersTables">
+            <End Role="OrdersTables" EntitySet="OrdersTables" />
+            <End Role="OrdersTablesPositions" EntitySet="OrdersTablesPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTablesPositions_PZ_PlanZakaz" Association="Self.FK_OrdersTablesPositions_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="OrdersTablesPositions" EntitySet="OrdersTablesPositions" />
           </AssociationSet>
           <AssociationSet Name="FK_PlanVerificationItems_PZ_PlanZakaz" Association="Self.FK_PlanVerificationItems_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -6512,6 +6582,20 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="TypeRKD_Mail_Version" EntitySet="TypeRKD_Mail_Version" />
             <End Role="ApproveCDActions" EntitySet="ApproveCDActions" />
           </AssociationSet>
+          <EntitySet Name="OrdersTables" EntityType="PortalKATEKModel.OrdersTables" />
+          <EntitySet Name="OrdersTablesPositions" EntityType="PortalKATEKModel.OrdersTablesPositions" />
+          <AssociationSet Name="FK_OrdersTables_AspNetUsers" Association="PortalKATEKModel.FK_OrdersTables_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OrdersTables" EntitySet="OrdersTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTablesPositions_OrdersTables" Association="PortalKATEKModel.FK_OrdersTablesPositions_OrdersTables">
+            <End Role="OrdersTables" EntitySet="OrdersTables" />
+            <End Role="OrdersTablesPositions" EntitySet="OrdersTablesPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTablesPositions_PZ_PlanZakaz" Association="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="OrdersTablesPositions" EntitySet="OrdersTablesPositions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -7413,6 +7497,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="StickersPreOrder" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="OrdersTables" Relationship="PortalKATEKModel.FK_OrdersTables_AspNetUsers" FromRole="AspNetUsers" ToRole="OrdersTables" />
         </EntityType>
         <EntityType Name="BurnDown">
           <Key>
@@ -8486,6 +8571,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="StickersPreOrder" />
+          <NavigationProperty Name="OrdersTablesPositions" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OrdersTablesPositions" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -11351,6 +11437,66 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrdersTables">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateClose" Type="DateTime" Precision="0" />
+          <Property Name="dateRemove" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_OrdersTables_AspNetUsers" FromRole="OrdersTables" ToRole="AspNetUsers" />
+          <NavigationProperty Name="OrdersTablesPositions" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_OrdersTables" FromRole="OrdersTables" ToRole="OrdersTablesPositions" />
+        </EntityType>
+        <EntityType Name="OrdersTablesPositions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_OrdersTables" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OrdersTables" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_OrdersTables" FromRole="OrdersTablesPositions" ToRole="OrdersTables" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" FromRole="OrdersTablesPositions" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_OrdersTables_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.OrdersTables" Role="OrdersTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersTables">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTablesPositions_OrdersTables">
+          <End Type="PortalKATEKModel.OrdersTables" Role="OrdersTables" Multiplicity="1" />
+          <End Type="PortalKATEKModel.OrdersTablesPositions" Role="OrdersTablesPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdersTables">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrdersTablesPositions">
+              <PropertyRef Name="id_OrdersTables" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTablesPositions_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.OrdersTablesPositions" Role="OrdersTablesPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersTablesPositions">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13742,6 +13888,28 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="OrdersTables">
+            <EntityTypeMapping TypeName="PortalKATEKModel.OrdersTables">
+              <MappingFragment StoreEntitySet="OrdersTables">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="dateRemove" ColumnName="dateRemove" />
+                <ScalarProperty Name="dateClose" ColumnName="dateClose" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersTablesPositions">
+            <EntityTypeMapping TypeName="PortalKATEKModel.OrdersTablesPositions">
+              <MappingFragment StoreEntitySet="OrdersTablesPositions">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="id_OrdersTables" ColumnName="id_OrdersTables" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

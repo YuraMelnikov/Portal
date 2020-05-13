@@ -355,6 +355,8 @@
     <Compile Include="Areas\Deb\Models\EmailDeb.cs" />
     <Compile Include="Areas\NotesOrders\Controllers\NoteOrderController.cs" />
     <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
+    <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
+    <Compile Include="Areas\OrdersTables\OrdersTablesAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
     <Compile Include="Areas\PZ\Controllers\OperatorController.cs" />
@@ -865,6 +867,12 @@
     <Compile Include="Month.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdersTables.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrdersTablesPositions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PercentSredniyVzveshenniyNOP.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
@@ -1204,6 +1212,7 @@
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
     <Content Include="Areas\NotesOrders\Content\notes.js" />
+    <Content Include="Areas\OrdersTables\Content\OrderTable.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
     <Content Include="Areas\PZ\Contant\DataTable\Scroll\dataTables.fixedColumns.min.js" />
@@ -2345,6 +2354,9 @@
     <Content Include="Areas\DashboardD\Views\web.config" />
     <Content Include="Areas\DashboardD\Views\Shared\_LayoutDashboardD.cshtml" />
     <Content Include="Areas\DashboardD\Views\DashboardDD\Index.cshtml" />
+    <Content Include="Areas\OrdersTables\Views\web.config" />
+    <Content Include="Areas\OrdersTables\Views\Shared\_LayoutOrderFeTable.cshtml" />
+    <Content Include="Areas\OrdersTables\Views\OrderFeTable\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
