@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.IO;
 
 namespace Wiki.Areas.PZ.Controllers
 {
@@ -835,16 +836,49 @@ namespace Wiki.Areas.PZ.Controllers
 
         public JsonResult TableOrders(int[] Id)
         {
-            string part = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Таблички\" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "_" + "_" + DateTime.Now.Minute + DateTime.Now.Second + "_" + "(";
+            string part = @"\\192.168.1.30\m$\_ЗАКАЗЫ\Таблички\" + DateTime.Now.ToShortDateString() + ".txt";
+            string[] body = GetFileBodyCRD(Id);
+            System.IO.File.WriteAllLines(part, body);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        private string[] GetFileBodyCRD(int[] Id)
+        {
+            int sizeArray = Id.Count() * 7 + 3;
+            int stepArray = 3;
+            int counterStep = 0;
+            string[] body = new string[sizeArray];
+            body[0] = "sizeArray = " + Id.Count().ToString() + "\n";
+            body[1] += "Dim cardArray(" + (Id.Count() - 1).ToString() + ") As CardClass";
+            body[2] += "counterStep = 0" + "\n";
             foreach (var data in Id)
             {
-                part += db.PZ_PlanZakaz.Find(data).PlanZakaz.ToString() + ", ";
+                var order = db.PZ_PlanZakaz.Find(data);
+                body[stepArray] += "Set cardArray(" + counterStep.ToString() + ") = New CardClass";
+                stepArray++;
+                if (order.massa < 1000)
+                {
+                    body[stepArray] += "cardArray(" + counterStep.ToString() + ").Weight = " + @"""" + "          кг." + @"""";
+                    stepArray++;
+                }
+                else
+                {
+                    body[stepArray] += "cardArray(" + counterStep.ToString() + ").Weight = " + @"""" + order.massa.ToString() + " кг." + @"""";
+                    stepArray++;
+                }
+                body[stepArray] += "cardArray(" + counterStep.ToString() + ").name = " + @"""" + order.Name + @"""";
+                stepArray++;
+                body[stepArray] += "cardArray(" + counterStep.ToString() + ").NameT = " + @"""" + order.nameTU + @"""";
+                stepArray++;
+                body[stepArray] += "cardArray(" + counterStep.ToString() + ").Num = " + @"""" + order.PlanZakaz.ToString() + @"""";
+                stepArray++;
+                body[stepArray] += "cardArray(" + counterStep.ToString() + ").TU = " + @"""" + order.PZ_ProductType.tu + @"""";
+                stepArray++;
+                body[stepArray] += "cardArray(" + counterStep.ToString() + ").Year = " + @"""" + DateTime.Now.Year.ToString() + @"""";
+                stepArray++;
+                counterStep++;
             }
-            part += ").docx";
-            GeneratedTablesOreder generatedTablesOreder = new GeneratedTablesOreder(Id);
-            generatedTablesOreder.CreatePackage(part, Id.Length);
-
-            return Json(1, JsonRequestBehavior.AllowGet);
+            return body;
         }
 
         private string ExctraxtIni(string s)

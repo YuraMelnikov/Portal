@@ -1809,3 +1809,9 @@ function RemoveFe(id) {
     });
     return false;
 }
+
+function AddReStickersOrder() {
+    $('#btn1AddStickers').hide();
+    $('#btn1AddReStickers').hide();
+    $('#btn1AddSimpleStickers').hide();
+}

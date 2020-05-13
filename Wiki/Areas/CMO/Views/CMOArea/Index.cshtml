@@ -4,7 +4,7 @@
     Layout = "~/Areas/CMO/Views/Shared/_LayoutCMO.cshtml";
 }
 <head>
-    <script src="~/Areas/CMO/Content/CMO.js?v2.6"></script>
+    <script src="~/Areas/CMO/Content/CMO.js?v2.7"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -616,7 +616,7 @@
                         <div class="col-lg-12">
                             <input accept="file/*" id="spfileStickers" multiple="multiple" name="spfileStickers" type="file" />
                             <hr />
-                            <input type="submit" value="Разместить заказ" class="btn btn-primary" onclick="addOrder()" />
+                            <input type="submit" name="btn1AddStickers" id="btn1AddStickers" value="Разместить заказ" class="btn btn-primary" onclick="AddReStickersOrder()" />
                         </div>
                     </div>
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -678,7 +678,7 @@
                         <div class="col-lg-10">
                             <input accept="file/*" id="spfileReStickers" multiple="multiple" name="spfileReStickers" type="file" />
                             <hr />
-                            <input type="submit" value="Разместить дозаказ наклеек" class="btn btn-primary" onclick="AddReStickersOrder()" />
+                            <input type="submit" name="btn1AddReStickers" id="btn1AddReStickers"  value="Разместить дозаказ наклеек" class="btn btn-primary" onclick="AddReStickersOrder()" />
                         </div>
                     </div>
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -736,7 +736,7 @@
                         <div class="col-lg-12">
                             <input accept="file/*" id="spfileSimpleStickers" multiple="multiple" name="spfileSimpleStickers" type="file" />
                             <hr />
-                            <input type="submit" value="Разместить заказ наклеек" class="btn btn-primary" onclick="AddSimpleStickersOrder()" />
+                            <input type="submit" name="btn1AddSimpleStickers" id="btn1AddSimpleStickers" value="Разместить заказ наклеек" class="btn btn-primary" onclick="AddReStickersOrder()" />
                         </div>
                     </div>
                     <div class="row"><div class="col-lg-4">&nbsp</div></div>

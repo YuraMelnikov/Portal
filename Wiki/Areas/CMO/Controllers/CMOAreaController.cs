@@ -37,7 +37,7 @@ namespace Wiki.Areas.CMO.Controllers
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
 
             ViewBag.id_PlanZakazStickerOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now && d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) == 0).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
-            ViewBag.id_PlanZakazReStickersOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now && d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) != 0).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
+            ViewBag.id_PlanZakazReStickersOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) != 0 || d.dataOtgruzkiBP < DateTime.Now).Where(d => d.PlanZakaz < 8000 && d.dataOtgruzkiBP.Year > 1900).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
             if (devisionUser == 7)
                 ViewBag.userGroupId = 1;
@@ -51,14 +51,10 @@ namespace Wiki.Areas.CMO.Controllers
                 ViewBag.userGroupId = 3;
             else if (devisionUser == 18 || devisionUser == 15)
                 ViewBag.userGroupId = 4;
-            else if (devisionUser == 16)
-            {
-                ViewBag.userGroupId = 7;
-            }
-            else if (login == "fvs@katek.by")
-            {
+            else if (login == "fvs@katek.by" || login == "myi@katek.by")
                 ViewBag.userGroupId = 8;
-            }
+            else if (devisionUser == 16)
+                ViewBag.userGroupId = 7;
             else
                 ViewBag.userGroupId = 5;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
