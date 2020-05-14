@@ -1382,6 +1382,13 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="sName" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
             <PropertyRef Name="id" />
@@ -1489,6 +1496,7 @@
           <Property Name="massa" Type="float" Nullable="false" />
           <Property Name="coefM" Type="float" Nullable="false" />
           <Property Name="coefE" Type="float" Nullable="false" />
+          <Property Name="id_Provider" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -3631,6 +3639,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PZ_PlanZakaz_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_PlanZakaz">
+              <PropertyRef Name="id_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PZ_PlanZakaz_PZ_Client">
           <End Role="PZ_Client" Type="Self.PZ_Client" Multiplicity="1" />
           <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="*" />
@@ -4681,6 +4701,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTaskLinks" EntityType="Self.ProjectTaskLinks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTypesLine" EntityType="Self.ProjectTypesLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Client" EntityType="Self.PZ_Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Currency" EntityType="Self.PZ_Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PZ_Dostavka" EntityType="Self.PZ_Dostavka" Schema="dbo" store:Type="Tables" />
@@ -5332,6 +5353,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           </AssociationSet>
           <AssociationSet Name="FK_PZ_PlanZakaz_AspNetUsers" Association="Self.FK_PZ_PlanZakaz_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PZ_PlanZakaz_Provider" Association="Self.FK_PZ_PlanZakaz_Provider">
+            <End Role="Provider" EntitySet="Provider" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
           <AssociationSet Name="FK_PZ_PlanZakaz_PZ_Client" Association="Self.FK_PZ_PlanZakaz_PZ_Client">
@@ -6595,6 +6620,11 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_OrdersTablesPositions_PZ_PlanZakaz" Association="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="OrdersTablesPositions" EntitySet="OrdersTablesPositions" />
+          </AssociationSet>
+          <EntitySet Name="Provider" EntityType="PortalKATEKModel.Provider" />
+          <AssociationSet Name="FK_PZ_PlanZakaz_Provider" Association="PortalKATEKModel.FK_PZ_PlanZakaz_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
@@ -8572,6 +8602,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="StickersPreOrder" />
           <NavigationProperty Name="OrdersTablesPositions" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OrdersTablesPositions" />
+          <Property Name="id_Provider" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Provider" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" FromRole="PZ_PlanZakaz" ToRole="Provider" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -11497,6 +11529,26 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" FromRole="Provider" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_PZ_PlanZakaz_Provider">
+          <End Type="PortalKATEKModel.Provider" Role="Provider" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PZ_PlanZakaz">
+              <PropertyRef Name="id_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13277,6 +13329,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="PZ_PlanZakaz">
             <EntityTypeMapping TypeName="PortalKATEKModel.PZ_PlanZakaz">
               <MappingFragment StoreEntitySet="PZ_PlanZakaz">
+                <ScalarProperty Name="id_Provider" ColumnName="id_Provider" />
                 <ScalarProperty Name="coefE" ColumnName="coefE" />
                 <ScalarProperty Name="coefM" ColumnName="coefM" />
                 <ScalarProperty Name="massa" ColumnName="massa" />
@@ -13906,6 +13959,14 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="id_OrdersTables" ColumnName="id_OrdersTables" />
                 <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provider">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Provider">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

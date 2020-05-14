@@ -96,6 +96,7 @@ namespace Wiki
         public double massa { get; set; }
         public double coefM { get; set; }
         public double coefE { get; set; }
+        public int id_Provider { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApproveCDOrders> ApproveCDOrders { get; set; }
@@ -160,5 +161,6 @@ namespace Wiki
         public virtual ICollection<StickersPreOrder> StickersPreOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTablesPositions> OrdersTablesPositions { get; set; }
+        public virtual Provider Provider { get; set; }
     }
 }

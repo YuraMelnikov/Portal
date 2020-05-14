@@ -253,6 +253,10 @@
                         <label for="counterText">Ед. измерения по договору:</label>
                         <input type="text" class="form-control" id="counterText" />
                     </div>
+                    <div class="col-lg-2">
+                        <label for="Manager">Поставщик:</label>
+                        @Html.DropDownList("id_Provider", ViewBag.id_Provider as MultiSelectList, new { @class = "form-control" })
+                    </div>
                 </div>
                 <br />
                 @*<hr />*@
@@ -476,6 +480,10 @@
                     <div class="col-lg-2">
                         <label for="mcounterText">Ед. измерения по договору:</label>
                         <input type="text" class="form-control" id="mcounterText" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="Manager">Поставщик:</label>
+                        @Html.DropDownList("mid_Provider", ViewBag.id_Provider as MultiSelectList, "-", new { @class = "form-control" })
                     </div>
                 </div>
                 <hr />

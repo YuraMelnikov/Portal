@@ -376,6 +376,8 @@
         <AssociationConnector Association="PortalKATEKModel.FK_OrdersTables_AspNetUsers" />
         <AssociationConnector Association="PortalKATEKModel.FK_OrdersTablesPositions_OrdersTables" />
         <AssociationConnector Association="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Provider" Width="1.5" PointX="7.375" PointY="4.875" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

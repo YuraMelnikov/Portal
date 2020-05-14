@@ -938,6 +938,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Provider.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PWA_EmpProject.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

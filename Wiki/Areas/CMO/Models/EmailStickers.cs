@@ -219,10 +219,17 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailKO()
         {
-            mailToList.Add(this.login);
             mailToList.Add("nrf@katek.by");
             mailToList.Add("vi@katek.by");
             mailToList.Add("fvs@katek.by");
+            try
+            {
+                mailToList.Add(GetUserPost());
+            }
+            catch
+            {
+
+            }
             return true;
         }
 
@@ -235,6 +242,23 @@ namespace Wiki.Areas.CMO.Models
         bool GetMailPurchaseDepartment()
         {
             return true;
+        }
+
+        private string GetUserPost()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    return db.AspNetUsers.First(a => a.Id == order.id_AspNetUsersCreate).Email;
+                }
+                catch
+                {
+                    return "";
+                }
+            }
         }
     }
 }

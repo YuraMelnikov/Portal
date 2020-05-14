@@ -559,6 +559,7 @@ function GetReclamation(id) {
             $('#id_AspNetUsersCreate').val(result.id_AspNetUsersCreate);
             $('#id_DevisionCreate').val(result.id_DevisionCreate);
             $('#vdateTimeCreate').val(result.dateTimeCreate);
+            $('#id_ReclamationTypeKB').val(result.id_ReclamationTypeKB);
             if (counterDevision === 2) {
                 if (result.id_ReclamationTypeKB === 26) {
                     $('#id_ReclamationTypeKB').val("");

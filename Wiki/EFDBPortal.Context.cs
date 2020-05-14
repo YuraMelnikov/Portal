@@ -205,5 +205,6 @@ namespace Wiki
         public virtual DbSet<WBS> WBS { get; set; }
         public virtual DbSet<OrdersTables> OrdersTables { get; set; }
         public virtual DbSet<OrdersTablesPositions> OrdersTablesPositions { get; set; }
+        public virtual DbSet<Provider> Provider { get; set; }
     }
 }

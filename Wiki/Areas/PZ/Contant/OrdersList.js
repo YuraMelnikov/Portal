@@ -416,6 +416,7 @@ function Add() {
         PlanZakaz: $('#PlanZakaz').val(),
         DateCreate: $('#DateCreate').val(),
         Manager: $('#Manager').val(),
+        id_Provider: $('#id_Provider').val(),
         Client: $('#Client').val(),
         id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
         id_PZ_FIO: $('#id_PZ_FIO').val(),
@@ -489,7 +490,13 @@ function validate() {
     else {
         $('#Manager').css('border-color', 'lightgrey');
     }
-
+    if ($('#id_Provider').val() === null) {
+        $('#id_Provider').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_Provider').css('border-color', 'lightgrey');
+    }
     if ($('#Client').val() === null) {
         $('#Client').css('border-color', 'Red');
         isValid = false;
@@ -573,6 +580,7 @@ function clearTextBox() {
     $('#PlanZakaz').val("");
     $('#DateCreate').val("");
     $('#Manager').val("");
+    $('#id_Provider').val("");
     $('#Client').val("");
     $('#id_PZ_OperatorDogovora').val("");
     $('#id_PZ_FIO').val("");
@@ -663,6 +671,7 @@ function getbyID(Id) {
             $('#id_PZ_OperatorDogovora').val(result.id_PZ_OperatorDogovora);
             $('#Client').val(result.Client);
             $('#Manager').val(result.Manager);
+            $('#id_Provider').val(result.id_Provider);
             $('#DateCreate').val(result.DateCreate);
             $('#PlanZakaz').val(result.PlanZakaz);
             $('#orderModal').modal('show');
@@ -704,6 +713,7 @@ function Update() {
         PlanZakaz: $('#PlanZakaz').val(),
         DateCreate: $('#DateCreate').val(),
         Manager: $('#Manager').val(),
+        id_Provider: $('#id_Provider').val(),
         Client: $('#Client').val(),
         id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
         id_PZ_FIO: $('#id_PZ_FIO').val(),
@@ -781,6 +791,7 @@ function Update() {
             $('#id_PZ_OperatorDogovora').val("");
             $('#Client').val("");
             $('#Manager').val("");
+            $('#id_Provider').val("");
             $('#DateCreate').val("");
             $('#PlanZakaz').val("");
         },
@@ -799,7 +810,13 @@ function validateUpdate() {
     else {
         $('#Manager').css('border-color', 'lightgrey');
     }
-
+    if ($('#id_Provider').val() === null) {
+        $('#id_Provider').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#id_Provider').css('border-color', 'lightgrey');
+    }
     if ($('#Client').val() === null) {
         $('#Client').css('border-color', 'Red');
         isValid = false;
@@ -919,6 +936,7 @@ function getbyReadID(Id) {
             $('#id_PZ_OperatorDogovora').val(result.id_PZ_OperatorDogovora);
             $('#Client').val(result.Client);
             $('#Manager').val(result.Manager);
+            $('#id_Provider').val(result.id_Provider);
             $('#DateCreate').val(result.DateCreate);
             $('#PlanZakaz').val(result.PlanZakaz);
             $('#orderModal').modal('show');
@@ -939,6 +957,7 @@ function UpdateOrders() {
     var typeObj = {
         Orders: $('#Orders').val(),
         Manager: $('#mManager').val(),
+        id_Provider: $('#mid_Provider').val(),
         Client: $('#mClient').val(),
         id_PZ_OperatorDogovora: $('#mid_PZ_OperatorDogovora').val(),
         id_PZ_FIO: $('#mid_PZ_FIO').val(),
@@ -1016,6 +1035,7 @@ function clearTextBoxUpdateOrders() {
     $('#mPlanZakaz').val("");
     $('#mDateCreate').val("");
     $('#mManager').val("");
+    $('#mid_Provider').val("");
     $('#mClient').val("");
     $('#mid_PZ_OperatorDogovora').val("");
     $('#mid_PZ_FIO').val("");

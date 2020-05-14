@@ -25,6 +25,7 @@ namespace Wiki.Areas.PZ.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.id_Provider = new SelectList(db.Provider.OrderBy(a => a.name), "id", "name");
             ViewBag.Orders = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(x => x.PlanZakaz), "id", "PlanZakaz");
             ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
             ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
@@ -525,6 +526,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.PlanZakaz,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 dataList.Manager,
+                dataList.id_Provider,
                 dataList.Client,
                 dataList.id_PZ_OperatorDogovora,
                 dataList.id_PZ_FIO,
@@ -577,6 +579,8 @@ namespace Wiki.Areas.PZ.Controllers
             PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.First(d => d.PlanZakaz == pZ_PlanZakaz.PlanZakaz);
             if (editPZ.Manager != pZ_PlanZakaz.Manager)
                 editPZ.Manager = pZ_PlanZakaz.Manager;
+            if (editPZ.id_Provider != pZ_PlanZakaz.id_Provider)
+                editPZ.id_Provider = pZ_PlanZakaz.id_Provider;
             if (editPZ.Client != pZ_PlanZakaz.Client)
                 editPZ.Client = pZ_PlanZakaz.Client;
             if (editPZ.id_PZ_OperatorDogovora != pZ_PlanZakaz.id_PZ_OperatorDogovora)
@@ -674,6 +678,7 @@ namespace Wiki.Areas.PZ.Controllers
                 PZ_PlanZakaz editPZ = db.PZ_PlanZakaz.Find(Orders[i]);
                 if (pZ_PlanZakaz.Manager != null)
                     editPZ.Manager = pZ_PlanZakaz.Manager;
+                editPZ.id_Provider = pZ_PlanZakaz.id_Provider;
                 if (pZ_PlanZakaz.Client != 0)
                     editPZ.Client = pZ_PlanZakaz.Client;
                 if (pZ_PlanZakaz.id_PZ_OperatorDogovora != 0)
@@ -759,7 +764,7 @@ namespace Wiki.Areas.PZ.Controllers
                     editPZ.DescriptionGruzopoluchatel = pZ_PlanZakaz.DescriptionGruzopoluchatel;
                 CorrectPlanZakaz correctPlanZakaz = new CorrectPlanZakaz(editPZ);
                 editPZ = correctPlanZakaz.PZ_PlanZakaz;
-                db.Entry(editPZ).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(editPZ).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return Json(1, JsonRequestBehavior.AllowGet);
