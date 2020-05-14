@@ -106,7 +106,7 @@ namespace Wiki.Areas.CMO.Models
             }
             else if(stepNumber == 5)
             {
-                subject = "Изменен ожидаемый срок поставки наклеек: " + order.orderNumString;
+                subject = "Изменен требуемый срок поставки наклеек: " + order.orderNumString;
             }
             else if (stepNumber == 6)
             {
@@ -219,6 +219,7 @@ namespace Wiki.Areas.CMO.Models
 
         bool GetMailKO()
         {
+            mailToList.Add(this.login);
             mailToList.Add("nrf@katek.by");
             mailToList.Add("vi@katek.by");
             mailToList.Add("fvs@katek.by");

@@ -51,6 +51,11 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Corel.Interop.CorelDRAW, Version=18.0.0.448, Culture=neutral, PublicKeyToken=e4835428e22ad6f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files\Corel\CorelDRAW Graphics Suite X8\Programs64\Assemblies\Corel.Interop.CorelDRAW.dll</HintPath>
+    </Reference>
     <Reference Include="DataTables.AspNet.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DataTables.AspNet.Core.2.0.2\lib\net45\DataTables.AspNet.Core.dll</HintPath>
     </Reference>
@@ -2045,6 +2050,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\VBA\TextFile1.txt" />
+    <Content Include="Corel.Interop.CorelDRAW.dll" />
     <Content Include="datatables.mvc5.0.1.0\lib\net45\DataTables.Mvc.dll" />
     <Content Include="EFDBPortal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

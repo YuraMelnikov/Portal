@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System.IO;
 
 namespace Wiki.Areas.PZ.Controllers
 {
@@ -1069,7 +1068,7 @@ namespace Wiki.Areas.PZ.Controllers
             foreach (var order in correctSortList)
             {
                 int countElements = contractDatas.Where(d => d.Client == order.PZ.PZ_Client.Name && d.Number == order.PZ.timeContract && d.NumberCh == order.PZ.timeArr).Count();
-                if(countElements == 0)
+                if (countElements == 0)
                 {
                     try
                     {
@@ -1139,7 +1138,7 @@ namespace Wiki.Areas.PZ.Controllers
             string lastSheetName = thisYear.ToString();
 
             int contractNum = 1;
-            foreach(var data in contractDatas)
+            foreach (var data in contractDatas)
             {
                 ws.Column(1).Width = 6;
                 ws.Column(2).Width = 16;
@@ -1162,7 +1161,7 @@ namespace Wiki.Areas.PZ.Controllers
                 ws.Column(5).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                 ws.Column(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-                if(data.Orders.Length != 0)
+                if (data.Orders.Length != 0)
                 {
                     if (lastSheetName != data.OrderBy.Year.ToString())
                     {
@@ -1227,7 +1226,7 @@ namespace Wiki.Areas.PZ.Controllers
                         ws.Cells[string.Format("E{0}", rowNumber)].Value = data1.Sale;
                         ws.Cells[string.Format("E{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                         ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
-                        if(data1.Curency != "RUB")
+                        if (data1.Curency != "RUB")
                         {
                             ws.Cells[string.Format("E{0}", rowNumber)].Style.Fill.PatternType = ExcelFillStyle.Gray0625;
                         }
@@ -1248,7 +1247,7 @@ namespace Wiki.Areas.PZ.Controllers
 
         string GetContractName(ContractData data)
         {
-            if(data.NumberCh != "")
+            if (data.NumberCh != "")
                 try
                 {
                     return "Договор №: " + data.Number + " от " + data.Date.ToShortDateString() + ". Приложение №: " + data.NumberCh + " от " + data.DateCh.Value.ToShortDateString();

@@ -813,7 +813,7 @@ namespace Wiki.Areas.CMO.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.id,
-                editLink = GetEditStickerLink(dataList, devision),
+                editLink = GetEditStickerLink(dataList),
                 removeLink = GetRemoveLink(dataList, devision),
                 closeOrderLink = GetCloseOrderLink(dataList, devision),
                 order = dataList.orderNumString,
@@ -836,10 +836,9 @@ namespace Wiki.Areas.CMO.Controllers
                 return "";
         }
 
-        private string GetEditStickerLink(StickersPreOrder order, int devision)
+        private string GetEditStickerLink(StickersPreOrder order)
         {
-            bool inWork = GetInWorkOS(devision);
-            if (order.datetimePush == null && inWork == true)
+            if (order.datetimePush == null)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
             else
                 return "";
@@ -847,7 +846,7 @@ namespace Wiki.Areas.CMO.Controllers
 
         private string GetCloseOrderLink(StickersPreOrder order, int devision)
         {
-            bool inWork = GetInWorkOS(devision);
+            bool inWork = GetInWork(devision);
             if (order.datetimeClose == null && inWork == true && order.datetimePush != null)
                 return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return CloseStickersOrder('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-ok" + '\u0022' + "></span></a></td>";
             else
@@ -1108,6 +1107,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             StickersPreOrder order = db.StickersPreOrder.Find(updateStickerId);
             order.datePlanUpload = updateStickerNewDate;
+            order.deadline = updateStickerNewDate;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
             new EmailStickers(order, login, 5);
