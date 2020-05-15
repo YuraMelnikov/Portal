@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    LoadData("active");
+    StartMenu();
 });
 
 var objOrders = [
@@ -14,42 +14,36 @@ var objOrders = [
     { "title": "Уд.", "data": "removeLink", "autowidth": true, "bSortable": true, "className": 'text-center' }
 ];
 
-//function StartMenu() {
-//    $("#orderModal").DataTable({
-//        "dom": 'Bfrtip',
-//        "buttons": [
-//            'copyHtml5',
-//            'excelHtml5',
-//            'csvHtml5'
-//        ],
-//        "ajax": {
-//            "cache": false,
-//            "url": "/Remarks/ActiveReclamation",
-//            "type": "POST",
-//            "datatype": "json"
-//        },
-//        "bDestroy": true,
-//        "order": [[0, "desc"]],
-//        "processing": true,
-//        "columns": objRemarksList,
-//        "rowCallback": function (row, data, index) {
-//            if (data.Close !== "активная") {
-//                $('td', row).css('background-color', '#d9534f');
-//                $('td', row).css('color', 'white');
-//            }
-//        },
-//        "scrollY": '75vh',
-//        "scrollX": true,
-//        "paging": false,
-//        "info": false,
-//        "scrollCollapse": true,
-//        "language": {
-//            "zeroRecords": "Отсутствуют записи",
-//            "infoEmpty": "Отсутствуют записи",
-//            "search": "Поиск"
-//        }
-//    });
-//}
+function StartMenu() {
+    $("#ordersTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        "ajax": {
+            "cache": false,
+            "url": "/OrderFeTable/ListActive",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[2, "asc"]],
+        "processing": true,
+        "columns": objOrders,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+}
 
 function LoadData(type) {
     var table = $('#ordersTable').DataTable();
@@ -57,6 +51,12 @@ function LoadData(type) {
         table.destroy();
         $('#ordersTable').empty();
         $("#ordersTable").DataTable({
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5'
+            ],
             "ajax": {
                 "cache": false,
                 "url": "/OrderFeTable/ListActive/",

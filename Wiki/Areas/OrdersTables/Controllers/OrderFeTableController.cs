@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Wiki.Areas.OrdersTables.Controllers
@@ -172,7 +173,7 @@ namespace Wiki.Areas.OrdersTables.Controllers
                     fi.CopyTo(directory + fi.Name, true);
                 }
                 string[] body = GetFileBodyCRD(ordersList, directory);
-                System.IO.File.WriteAllLines(directory + "RecordedMacros.bas", body);
+                System.IO.File.WriteAllLines(directory + "RecordedMacros.bas", body, Encoding.Unicode);
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
@@ -203,8 +204,8 @@ namespace Wiki.Areas.OrdersTables.Controllers
                     {
                         dataList.Add("cardArray(" + counterStep.ToString() + ").Weight = " + @"""" + order.massa.ToString() + " кг." + @"""");
                     }
-                    dataList.Add("cardArray(" + counterStep.ToString() + ").name = " + @"""" + order.Name + @"""");
-                    dataList.Add("cardArray(" + counterStep.ToString() + ").NameT = " + @"""" + order.nameTU + @"""");
+                    dataList.Add("cardArray(" + counterStep.ToString() + ").name = " + @"""" + order.Name.Replace(@"""", " + Chr (34) + ").Replace(@"«", " + Chr (34) + ").Replace(@"»", " + Chr (34) + ") + @"""");
+                    dataList.Add("cardArray(" + counterStep.ToString() + ").NameT = " + @"""" + order.nameTU.Replace(@"""", " + Chr (34) + ").Replace(@"«", " + Chr (34) + ").Replace(@"»", " + Chr (34) + ") + @"""");
                     dataList.Add("cardArray(" + counterStep.ToString() + ").Num = " + @"""" + order.PlanZakaz.ToString() + @"""");
                     dataList.Add("cardArray(" + counterStep.ToString() + ").TU = " + @"""" + order.PZ_ProductType.tu + @"""");
                     dataList.Add("cardArray(" + counterStep.ToString() + ").Year = " + @"""" + DateTime.Now.Year.ToString() + @"""");
@@ -270,7 +271,7 @@ namespace Wiki.Areas.OrdersTables.Controllers
                 dataList.Add("Sub Save()");
                 dataList.Add("Dim Path As String");
                 dataList.Add("Dim Name As String");
-                dataList.Add("Path = Chr(34)" + directory + "Chr(34)");
+                dataList.Add("Path = Chr(34) + " + directory + " + Chr(34)");
                 dataList.Add("Name = Chr(34) + RecordedMacros.cdr + Chr(34)");
                 dataList.Add("Dim SaveOptions As StructSaveAsOptions");
                 dataList.Add("Set SaveOptions = CreateStructSaveAsOptions");

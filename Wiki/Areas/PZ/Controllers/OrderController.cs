@@ -104,6 +104,7 @@ namespace Wiki.Areas.PZ.Controllers
                 .Include(d => d.PZ_FIO)
                 .Include(d => d.PZ_Dostavka)
                 .Include(d => d.PZ_Client)
+                .Include(d => d.Provider)
                 .Where(d => d.dataOtgruzkiBP > DateTime.Now)
                 .ToList();
             string login = "";
@@ -156,6 +157,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Name,
                 dataList.nameTU,
                 dataList.OL,
+                provider = dataList.Provider.name,
                 dataList.PZ_Client.NameSort,
                 dataList.Zapros,
                 dataList.massa,
@@ -208,6 +210,7 @@ namespace Wiki.Areas.PZ.Controllers
                 .Include(d => d.PZ_FIO)
                 .Include(d => d.PZ_Dostavka)
                 .Include(d => d.PZ_Client)
+                .Include(d => d.Provider)
                 .OrderByDescending(d => d.DateCreate)
                 .Take(countLastOrdersView)
                 .ToList();
@@ -260,6 +263,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.nomenklaturNumber,
                 dataList.Name,
                 dataList.nameTU,
+                provider = dataList.Provider.name,
                 dataList.massa,
                 dataList.OL,
                 dataList.PZ_Client.NameSort,
@@ -300,6 +304,7 @@ namespace Wiki.Areas.PZ.Controllers
                 .Include(d => d.PZ_OperatorDogovora)
                 .Include(d => d.PZ_FIO)
                 .Include(d => d.PZ_Dostavka)
+                .Include(d => d.Provider)
                 .Include(d => d.PZ_Client)
                 .Where(d => d.DateCreate.Year == yearCreateOrder).ToList();
             string login = "";
@@ -352,6 +357,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Name,
                 dataList.nameTU,
                 dataList.OL,
+                provider = dataList.Provider.name,
                 dataList.PZ_Client.NameSort,
                 dataList.massa,
                 dataList.Zapros,
@@ -392,6 +398,7 @@ namespace Wiki.Areas.PZ.Controllers
                 .Include(d => d.PZ_FIO)
                 .Include(d => d.PZ_Dostavka)
                 .Include(d => d.PZ_Client)
+                .Include(d => d.Provider)
                 .ToList();
             string login = "";
             try
@@ -447,6 +454,7 @@ namespace Wiki.Areas.PZ.Controllers
                 dataList.Zapros,
                 dataList.massa,
                 dataList.numZakupki,
+                provider = dataList.Provider.name,
                 dataList.numLota,
                 dataList.timeContract,
                 timeContractDate = JsonConvert.SerializeObject(dataList.timeContractDate, settings).Replace(@"""", ""),

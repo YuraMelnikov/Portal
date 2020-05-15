@@ -397,6 +397,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 {
                     editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return getSetup('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                     dataList.PZ_PlanZakaz.PlanZakaz,
+                    UTP = GetUserTP(dataList.userTP),
                     Manager = dataList.PZ_PlanZakaz.AspNetUsers.CiliricalName,
                     Client = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
                     dataList.KolVoDneyNaPrijemku,
@@ -404,6 +405,23 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     dataList.UslovieOplatyText
                 });
                 return Json(new { data });
+            }
+        }
+
+        private string GetUserTP(string id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    return db.AspNetUsers.First(a => a.Id == id).CiliricalName;
+                }
+                catch
+                {
+                    return "";
+                }
             }
         }
 

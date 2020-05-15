@@ -177,6 +177,7 @@ var objContract = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "Номер", "data": "PlanZakaz", "autowidth": true }
     , { "title": "Менеджер", "data": "Manager", "autowidth": true }
+    , { "title": "Сотрудник ТП", "data": "UTP", "autowidth": true }
     , { "title": "Заказчик", "data": "Client", "autowidth": true }
     , { "title": "Кол-во дней на приемку", "data": "KolVoDneyNaPrijemku", "autowidth": true }
     , { "title": "Условия приемки изделия", "data": "PunktDogovoraOSrokahPriemki", "autowidth": true }
