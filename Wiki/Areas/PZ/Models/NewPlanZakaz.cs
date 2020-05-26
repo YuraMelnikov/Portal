@@ -12,6 +12,7 @@ namespace Wiki.Areas.PZ.Models
         { 
             int numberPZ = db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).Max(d => d.PlanZakaz) + 1;
             PZ_PlanZakaz newPZ_PlanZakaz = new PZ_PlanZakaz() {
+                id_Provider = pZ_PlanZakaz.id_Provider,
                 PlanZakaz = numberPZ,
                 DateCreate = DateTime.Now,
                 MTR = pZ_PlanZakaz.MTR,

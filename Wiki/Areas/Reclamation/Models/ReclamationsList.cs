@@ -111,7 +111,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                                     .Include(d => d.PF)
                     .ToList();
-            else if(id_Devision == 8)
+            else if (id_Devision == 8)
                 Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == 8 || d.id_DevisionReclamation == 20)
                     .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
                     .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
@@ -155,6 +155,21 @@ namespace Wiki.Areas.Reclamation.Models
                                     .Include(d => d.PF)
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
+        }
+
+        public void GetReclamation(int id_Devision, int dev2)
+        {
+            Initialization();
+            Reclamations = db.Reclamation.Where(d => d.id_DevisionReclamation == 15 || d.id_DevisionReclamation == 16)
+                .Include(d => d.Reclamation_PZ.Select(s => s.PZ_PlanZakaz))
+                .Include(d => d.Reclamation_Answer.Select(s => s.AspNetUsers))
+                .Include(d => d.Devision)
+                .Include(d => d.AspNetUsers)
+                .Include(d => d.AspNetUsers1)
+                .Include(d => d.Reclamation_CountError)
+                                .Include(d => d.PF)
+                .Include(d => d.Reclamation_CountError1)
+                .ToList();
         }
 
         public void GetReclamation(int id_Devision, bool active)

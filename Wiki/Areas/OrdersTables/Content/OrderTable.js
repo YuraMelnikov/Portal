@@ -29,7 +29,7 @@ function StartMenu() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        "order": [[1, "desc"]],
         "processing": true,
         "columns": objOrders,
         "scrollY": '75vh',
@@ -64,7 +64,7 @@ function LoadData(type) {
                 "datatype": "json"
             },
             "bDestroy": true,
-            "order": [[2, "asc"]],
+            "order": [[1, "desc"]],
             "processing": true,
             "columns": objOrders,
             "scrollY": '75vh',
@@ -90,7 +90,7 @@ function LoadData(type) {
                 "datatype": "json"
             },
             "bDestroy": true,
-            "order": [[2, "asc"]],
+            "order": [[1, "desc"]],
             "processing": true,
             "columns": objOrders,
             "scrollY": '75vh',

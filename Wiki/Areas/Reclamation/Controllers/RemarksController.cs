@@ -231,7 +231,10 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(GetIdDevision(login));
+            if (login == "nrf@katek.by" || login == "myi@katek.by")
+                reclamationListViewer.GetReclamation(0, 0);
+            else
+                reclamationListViewer.GetReclamation(GetIdDevision(login));
             return Json(new { data = reclamationListViewer.ReclamationsListView.OrderByDescending(d => d.Id_Reclamation).Take(2000) });
         }
 
@@ -239,7 +242,10 @@ namespace Wiki.Areas.Reclamation.Controllers
         {
             string login = HttpContext.User.Identity.Name;
             ReclamationListViewer reclamationListViewer = new ReclamationListViewer();
-            reclamationListViewer.GetReclamation(GetIdDevision(login), true);
+            if (login == "nrf@katek.by" || login == "myi@katek.by")
+                reclamationListViewer.GetReclamation(GetIdDevision(login), true, login);
+            else
+                reclamationListViewer.GetReclamation(GetIdDevision(login), true);
             return Json(new { data = reclamationListViewer.ReclamationsListView });
         }
 

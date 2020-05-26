@@ -4776,7 +4776,7 @@ function GetManpowerFirstPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Стрельченок Евгений Александрович']
+                                categories: ['Логацкий Иван Сергеевич']
                             },
                             yAxis: {
                                 min: 0,
@@ -4919,7 +4919,7 @@ function GetManpowerSecondPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Стрельченок Евгений Александрович']
+                                categories: ['Логацкий Иван Сергеевич']
                             },
                             yAxis: {
                                 min: 0,
@@ -7170,7 +7170,7 @@ function GetManpowerThreePeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Стрельченок Евгений Александрович']
+                                categories: ['Логацкий Иван Сергеевич']
                             },
                             yAxis: {
                                 min: 0,
@@ -9285,7 +9285,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Стрельченок Евгений Александрович']
+                    categories: ['Логацкий Иван Сергеевич']
                 },
                 yAxis: {
                     min: 0,

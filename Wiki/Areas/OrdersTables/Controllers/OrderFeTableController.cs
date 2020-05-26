@@ -174,7 +174,37 @@ namespace Wiki.Areas.OrdersTables.Controllers
                 }
                 string[] body = GetFileBodyCRD(ordersList, directory);
                 System.IO.File.WriteAllLines(directory + "RecordedMacros.bas", body, Encoding.Unicode);
+                body = GetArrayFileBodyCRD(ordersList);
+                System.IO.File.WriteAllLines(directory + "RecordedMacros.txt", body, Encoding.Unicode);
                 return Json(1, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string[] GetArrayFileBodyCRD(int[] Id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                List<string> dataList = new List<string>();
+                foreach (var data in Id)
+                {
+                    var order = db.PZ_PlanZakaz.AsNoTracking().Include(a => a.PZ_ProductType).First(a => a.Id == data);
+                    if (order.massa < 1000)
+                    {
+                        dataList.Add("          кг.");
+                    }
+                    else
+                    {
+                        dataList.Add(order.massa.ToString());
+                    }
+                    dataList.Add(order.Name);
+                    dataList.Add(order.nameTU);
+                    dataList.Add(order.PlanZakaz.ToString());
+                    dataList.Add(order.PZ_ProductType.tu);
+                    dataList.Add(DateTime.Now.Year.ToString());
+                }
+                return dataList.ToArray();
             }
         }
 

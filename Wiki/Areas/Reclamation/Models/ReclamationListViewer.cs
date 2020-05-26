@@ -67,6 +67,19 @@ namespace Wiki.Areas.Reclamation.Models
             }
         }
 
+        public void GetReclamation(int id_Devision, int dev2)
+        {
+            ReclamationsList reclamations = new ReclamationsList();
+            reclamations.GetReclamation(id_Devision, dev2);
+            int count = reclamations.Reclamations.Count;
+            InitializationList(count);
+            for (int i = 0; i < count; i++)
+            {
+                ReclamationViwers reclamation = new ReclamationViwers(reclamations.Reclamations[i], id_Devision);
+                reclamationsListView[i] = reclamation;
+            }
+        }
+
         public void GetReclamation(int id_Devision, bool active)
         {
             ReclamationsList reclamations = new ReclamationsList();
