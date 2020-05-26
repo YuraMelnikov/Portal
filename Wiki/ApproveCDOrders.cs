@@ -27,6 +27,7 @@ namespace Wiki
         public string id_AspNetUsersM { get; set; }
         public string id_AspNetUsersE { get; set; }
         public string description { get; set; }
+        public bool remove { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

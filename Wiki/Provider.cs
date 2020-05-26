@@ -22,6 +22,7 @@ namespace Wiki
     
         public int id { get; set; }
         public string name { get; set; }
+        public string SKU { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_PlanZakaz> PZ_PlanZakaz { get; set; }

@@ -26,6 +26,7 @@
           <Property Name="id_AspNetUsersM" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="id_AspNetUsersE" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="remove" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -1388,6 +1389,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="SKU" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -7370,6 +7372,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ApproveCDQuestions" Relationship="PortalKATEKModel.FK_ApproveCDQuestions_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDQuestions" />
           <NavigationProperty Name="ApproveCDTasks" Relationship="PortalKATEKModel.FK_ApproveCDTasks_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDTasks" />
           <NavigationProperty Name="ApproveCDVersions" Relationship="PortalKATEKModel.FK_ApproveCDVersions_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDVersions" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -11536,6 +11539,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" FromRole="Provider" ToRole="PZ_PlanZakaz" />
+          <Property Name="SKU" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_PZ_PlanZakaz_Provider">
           <End Type="PortalKATEKModel.Provider" Role="Provider" Multiplicity="1" />
@@ -12315,6 +12319,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="ApproveCDOrders">
             <EntityTypeMapping TypeName="PortalKATEKModel.ApproveCDOrders">
               <MappingFragment StoreEntitySet="ApproveCDOrders">
+                <ScalarProperty Name="remove" ColumnName="remove" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id_AspNetUsersE" ColumnName="id_AspNetUsersE" />
                 <ScalarProperty Name="id_AspNetUsersM" ColumnName="id_AspNetUsersM" />
@@ -13966,6 +13971,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="Provider">
             <EntityTypeMapping TypeName="PortalKATEKModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

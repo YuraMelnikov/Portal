@@ -70,7 +70,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         .Include(a => a.ApproveCDOrders.AspNetUsers1)
                         .Include(a => a.RKD_VersionWork)
                         .Include(a => a.RKD_VersionWork)
-                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10)
+                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10 && a.ApproveCDOrders.remove == false)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -85,7 +85,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
-                        dataList.ApproveCDOrders.description
+                        dataList.ApproveCDOrders.description,
+                        removeLink = GetRemoveLink(dataList.id)
                     });
                     return Json(new { data });
                 }
@@ -95,6 +96,15 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNoApproveTable: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private string GetRemoveLink(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            if (login == "maj@katek.by" || login == "myi@katek.by")
+                return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>";
+            else
+                return "";
         }
 
         private DateTime? GetDateLastUpload(int idOrder)
@@ -147,7 +157,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
-                        dataList.ApproveCDOrders.description
+                        dataList.ApproveCDOrders.description,
+                        removeLink = ""
                     });
                     return Json(new { data });
                 }
@@ -462,7 +473,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                                     id_PZ_PlanZakaz = data,
                                     id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
                                     id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
-                                    description = ""
+                                    description = "",
+                                    remove = false
                                 };
                                 db.ApproveCDOrders.Add(approveCDOrders);
                                 db.SaveChanges();
@@ -573,6 +585,29 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         questionTextU = dataList.textQuestion
                     });
                     return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetQuestionById: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult RemoveOrder(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var version = db.ApproveCDVersions.Find(id);
+                    var order = db.ApproveCDOrders.Find(version.id_ApproveCDOrders);
+                    order.remove = true;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)

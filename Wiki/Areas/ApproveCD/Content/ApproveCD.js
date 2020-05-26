@@ -48,7 +48,8 @@ var objOrders = [
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
     { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
-    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false }
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
+    { "title": "Уд.", "data": "removeLink", "autowidth": true, "bSortable": false }
 ];
 
 var objQuestions = [
@@ -909,6 +910,19 @@ function UpdateDescription() {
             $('#ordersTable').DataTable().ajax.reload(null, false);
         },
         error: function () {
+        }
+    });
+}
+
+function RemoveOrder(id) {
+    $.ajax({
+        cache: false,
+        url: "/Approve/RemoveOrder/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#ordersTable').DataTable().ajax.reload(null, false);
         }
     });
 }
