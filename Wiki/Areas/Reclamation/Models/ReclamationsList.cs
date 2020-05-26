@@ -332,7 +332,7 @@ namespace Wiki.Areas.Reclamation.Models
                     .Include(d => d.Reclamation_CountError1)
                     .ToList();
             }
-            else if (login == "nrf@katek.by")
+            else if (login == "nrf@katek.by" || login == "myi@katek.by")
             {
                 Reclamations = db.Reclamation
                     .Where(d => d.closeKO == active)

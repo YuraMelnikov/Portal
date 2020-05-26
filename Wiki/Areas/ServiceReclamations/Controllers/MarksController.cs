@@ -691,7 +691,8 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     technicalAdvice = technicalAdviceRem,
                     closeMKO = false,
                     closeKO = false,
-                    fixedExpert = false
+                    fixedExpert = false,
+                    id_ReclamationTypeKB = 26
                 };
                 db.Reclamation.Add(reclamation);
                 db.SaveChanges();

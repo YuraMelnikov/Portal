@@ -387,8 +387,8 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#myTable').DataTable().ajax.reload(null, false);
             $('#viewReclamation').modal('hide');
+            $('#myTable').DataTable().ajax.reload(null, false);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -830,9 +830,6 @@ function Update() {
         success: function (result) {
             $('#viewReclamation').modal('hide');
             $('#myTable').DataTable().ajax.reload(null, false);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
         }
     });
 }

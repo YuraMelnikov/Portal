@@ -235,7 +235,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 reclamationListViewer.GetReclamation(0, 0);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login));
-            return Json(new { data = reclamationListViewer.ReclamationsListView.OrderByDescending(d => d.Id_Reclamation).Take(2000) });
+            return Json(new { data = reclamationListViewer.ReclamationsListView.OrderByDescending(d => d.Id_Reclamation).Take(1500) });
         }
 
         public JsonResult CloseReclamation()
@@ -246,7 +246,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 reclamationListViewer.GetReclamation(GetIdDevision(login), true, login);
             else
                 reclamationListViewer.GetReclamation(GetIdDevision(login), true);
-            return Json(new { data = reclamationListViewer.ReclamationsListView });
+            return Json(new { data = reclamationListViewer.ReclamationsListView.OrderByDescending(d => d.Id_Reclamation).Take(1500) });
         }
 
         public JsonResult MyReclamation()
