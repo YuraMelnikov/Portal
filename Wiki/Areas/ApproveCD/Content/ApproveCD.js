@@ -56,7 +56,7 @@ var objQuestions = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
-    { "title": "Ид. вопр.", "data": "idQue", "autowidth": true, "bSortable": false, "className": 'text-center' },
+    { "title": "Ид. вопр.", "data": "idQue", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Вопрос", "data": "que", "autowidth": true, "bSortable": false },
     { "title": "Ход обсуждения", "data": "queData", "autowidth": true, "bSortable": false },
     { "title": "Создан", "data": "createDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
@@ -124,7 +124,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[2, "asc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objQuestions,
         "cache": false,
@@ -294,7 +294,7 @@ function GetNotCloseQuestionsTable() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objQuestions,
         "scrollY": vhScrollY,
@@ -322,7 +322,7 @@ function GetCloseQuestionsTable() {
             "datatype": "json"
         },
         "bDestroy": true,
-        "order": [[2, "asc"]],
+        "order": [[3, "desc"]],
         "processing": true,
         "columns": objQuestions,
         "scrollY": vhScrollY,
