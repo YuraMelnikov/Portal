@@ -61,6 +61,7 @@ namespace Wiki.Areas.CMO.Models
                 }
                 else if (stepNumber == 6) 
                 {
+                    GetMailPO();
                     GetMailPurchaseDepartment();
                     GetMailKO();
                     GetMailMYI();
@@ -214,6 +215,12 @@ namespace Wiki.Areas.CMO.Models
         bool GetMailMYI()
         {
             mailToList.Add("myi@katek.by");
+            return true;
+        }
+
+        bool GetMailPO()
+        {
+            mailToList.Add("korhov@katek.by");
             return true;
         }
 

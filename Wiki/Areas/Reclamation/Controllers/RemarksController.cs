@@ -89,7 +89,7 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
             else if (id_Devision == 8 || id_Devision == 9 || id_Devision == 10 || id_Devision == 20 || id_Devision == 22 || id_Devision == 5)
             {
-                List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16).ToList();
+                List<Devision> devisions = db.Devision.Where(d => d.id == 15 || d.id == 16 || d.id == 12 || d.id == 18).ToList();
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers

@@ -15,7 +15,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
     <script src="~/Content/jquery.cookie.js"></script>
-    <script src="~/Areas/CMKO/Content/cmko.js?v2.1.1"></script>
+    <script src="~/Areas/CMKO/Content/cmko.js?v2.1.2"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -48,44 +48,9 @@
     <div class="row" id="divPeriodReportTitle">
         <div class="col-lg-11">
             <h5 id="periodReportString" style="font-weight: bold; color: #717171"></h5>
-            <h5 style="font-weight: bold; color: #ff0000">* для PWA рекомендован браузер Chrome (IE лучше !НЕ! использовать)</h5>
-        </div>
-        <div class="col-lg-1">
-            <button type="button" id="btnUpdateDateReport" class="btn-xs btn-primary" data-toggle="modal" data-target="" onclick="UpdateDateReport();"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-            <h5 id="bg_color" style="color: white"></h5>
         </div>
     </div>
     <hr class="standart">
-    @*<div class="row" id="summaryDivForManager">
-        <div class="row" id="summaryDivTitle">
-            <div class="col-lg-12">
-                <h5 style="font-weight: bold; color: #717171; text-align: center">Суммарные показатели</h5>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div id="summaryWageFundWorker" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-            <a href="~/Areas/CMKO/Content/ФОТ (выгрузка).xlsx">Получить данные (click)</a>
-        </div>
-        <div id="hideSummaryData">
-            <div class="col-lg-2">
-                <div id="summaryWageFundManager" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-                <a href="~/Areas/CMKO/Content/ФОТ (расширенная выгрузка).xlsx">Получить данные (click)</a>
-            </div>
-            <div class="col-lg-2">
-                <div id="summaryWageFundG" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-            </div>
-            <div class="col-lg-2">
-                <div id="remainingBonus" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div id="withheldToBonusFund" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-        </div>
-        <div class="col-lg-2">
-            <div id="overflowsBujet" style="max-width: 800px; height: 200px; margin: 0 auto;"></div>
-        </div>
-    </div>
-    <hr class="standart">*@
     <div class="row" id="accuredDiv">
         <div class="col-lg-6">
             <div id="nhUsersThisQua" style="max-width: 800px;  height: 400px; margin: 0 auto;"></div>
@@ -94,29 +59,6 @@
             <div id="timesheetContainer"></div>
         </div>
     </div>
-    @*<hr class="standart">
-    <div class="row" id="hss">
-        <div class="col-lg-4">
-            <div id="hssKBM" style="margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="hssKBE" style="margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <div id="hssPO" style="margin: 0 auto"></div>
-        </div>
-    </div>*@
-    @*<hr class="standart">
-    <div class="row" id="divAccuredUsers">
-        <div class="col-lg-6">
-            <div id="usersAccuredPlan" style="max-width: 800px;  margin: 0 auto;"></div>
-            <h5 id="textUserAccuredPlan" style="font-weight: bold; text-align:center; color: #FF4500"></h5>
-        </div>
-        <div class="col-lg-6">
-            <div id="usersAccuredFact" style="max-width: 800px;  margin: 0 auto;"></div>
-            <h5 id="textAccuredUserFact" style="font-weight: bold; text-align:center; color: #FF4500"></h5>
-        </div>
-    </div>*@
     <hr class="standart">
     <div class="row">
         <div class="col-lg-12"><h5 style="font-weight: bold; text-align:center; color: #717171">Выработка НЧ</h5></div>

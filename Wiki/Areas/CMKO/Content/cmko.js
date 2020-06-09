@@ -4719,7 +4719,7 @@ function GetManpowerFirstPeriod() {
                     }
                 });
             }
-            else if (result === 'sea@katek.by') {
+            else if (result === 'lis@katek.by') {
                 $('#speed1').hide();
                 $('#speed2').hide();
                 $('#speed3').hide();
@@ -4878,7 +4878,7 @@ function GetManpowerSecondPeriod() {
             if (result === 1 || result === '1') {
                 ManpowerUsersInMonth2();
             }
-            else if (result === 'sea@katek.by') {
+            else if (result === 'lis@katek.by') {
                 $('#container2-17').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP2_17/",
@@ -7129,7 +7129,7 @@ function GetManpowerThreePeriod() {
                     }
                 });
             }
-            else if (result === 'sea@katek.by') {
+            else if (result === 'lis@katek.by') {
                 $('#container3-17').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP3_17/",
