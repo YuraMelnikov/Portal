@@ -86,7 +86,7 @@ namespace Wiki.Areas.CMKO
                 bool statusManager = GetStatusManagerUser();
                 int counterUsers = 1;
 
-                if(statusManager == true)
+                if (statusManager == true)
                 {
                     counterUsers = db.CMKO_ThisAccrued.AsNoTracking().Count();
                 }
@@ -563,7 +563,7 @@ namespace Wiki.Areas.CMKO
                     .Count();
                 if (query > 0)
                 {
-                    if(GetStatusManagerUser() == true)
+                    if (GetStatusManagerUser() == true)
                     {
                         return Json(1, JsonRequestBehavior.AllowGet);
                     }
@@ -1190,10 +1190,10 @@ namespace Wiki.Areas.CMKO
             ViewBag.period = new SelectList(db.CMKO_PeriodResult.Where(d => d.close == false).OrderByDescending(x => x.period), "period", "period");
             if (login == "myi@katek.by")
             {
-                 ViewBag.autor = new SelectList(db.AspNetUsers
-                    .Where(d => d.LockoutEnabled == true)
-                    .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
-                    .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
+                ViewBag.autor = new SelectList(db.AspNetUsers
+                   .Where(d => d.LockoutEnabled == true)
+                   .Where(d => d.Devision == 3 || d.Devision == 15 || d.Devision == 16)
+                   .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
                 ViewBag.teacherTeach = new SelectList(db.AspNetUsers
                     .Where(d => d.LockoutEnabled == true)
                     .Where(d => d.dateToCMKO != null)
@@ -1240,7 +1240,7 @@ namespace Wiki.Areas.CMKO
                     .Where(d => d.Devision == 3)
                     .OrderBy(x => x.CiliricalName), "Id", "CiliricalName");
             }
-            else 
+            else
             {
                 ViewBag.autor = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
                 ViewBag.teacherTeach = new SelectList(db.AspNetUsers.Where(d => d.Id == ""), "Id", "CiliricalName");
@@ -1476,7 +1476,7 @@ namespace Wiki.Areas.CMKO
             else
                 return "<td></td>";
         }
-        
+
         string GetEditLinkUser(string login, string id)
         {
             if (login == "myi@katek.by" || login == "nrf@katek.by" || login == "fvs@katek.by" || login == "vi@katek.by")
@@ -1531,7 +1531,7 @@ namespace Wiki.Areas.CMKO
                 return Json(summaryWageFund, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         public JsonResult GetCoefWorkerG()
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -1597,7 +1597,7 @@ namespace Wiki.Areas.CMKO
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             List<CMKO_RemarksList> query;
-            if(filt == true)
+            if (filt == true)
             {
                 query = db.CMKO_RemarksList
                             .Include(d => d.AspNetUsers)

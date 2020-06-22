@@ -110,7 +110,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var orders = db.CMO2_Position.Where(a => a.id_CMO2 == id).ToList();
-            foreach(var order in orders)
+            foreach (var order in orders)
             {
                 db.CMO2_Position.Remove(order);
                 db.SaveChanges();
@@ -914,7 +914,7 @@ namespace Wiki.Areas.CMO.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddStickersOrder(int? idStickersOrder, HttpPostedFileBase[] spfileStickers, 
+        public ActionResult AddStickersOrder(int? idStickersOrder, HttpPostedFileBase[] spfileStickers,
             DateTime? dateStickersOrder, string descStickersOrder)
         {
             string login = HttpContext.User.Identity.Name;
@@ -1066,7 +1066,7 @@ namespace Wiki.Areas.CMO.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var preorderList = db.StickersPreOrder.Where(a => a.datetimePush == null).OrderBy(a => a.id_PZ_PlanZakaz).ToList();
-            if(preorderList.Count == 0)
+            if (preorderList.Count == 0)
                 return Json(0, JsonRequestBehavior.AllowGet);
             try
             {
