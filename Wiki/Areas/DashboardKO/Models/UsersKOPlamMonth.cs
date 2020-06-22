@@ -10,7 +10,7 @@
         public int plan10;
         public int plan20;
         public int plan30;
-        public int normHoure;
-        public int normHoureFact;
+        public double normHoure;
+        public double normHoureFact;
     }
 }

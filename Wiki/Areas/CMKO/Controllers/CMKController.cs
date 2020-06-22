@@ -1700,8 +1700,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1732,8 +1732,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1764,8 +1764,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1796,8 +1796,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1828,8 +1828,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1860,8 +1860,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1892,8 +1892,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1924,8 +1924,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1956,8 +1956,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1988,8 +1988,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2020,8 +2020,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2052,8 +2052,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2084,8 +2084,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2116,8 +2116,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2148,8 +2148,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2180,8 +2180,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2212,8 +2212,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2244,8 +2244,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2276,8 +2276,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2308,8 +2308,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2340,8 +2340,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2372,8 +2372,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2404,8 +2404,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2436,8 +2436,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2468,8 +2468,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2500,8 +2500,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2532,8 +2532,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2564,8 +2564,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2596,8 +2596,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2628,8 +2628,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2660,8 +2660,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2692,8 +2692,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2724,8 +2724,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2756,8 +2756,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2788,8 +2788,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2820,8 +2820,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2852,8 +2852,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2884,8 +2884,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2916,8 +2916,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2948,8 +2948,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2980,8 +2980,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3012,8 +3012,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3044,8 +3044,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3076,8 +3076,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3108,8 +3108,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3140,8 +3140,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3172,8 +3172,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3204,8 +3204,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3236,8 +3236,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3268,8 +3268,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -3300,8 +3300,8 @@ namespace Wiki.Areas.CMKO
                     data[i].plan10 = (int)query[i].plan10;
                     data[i].plan20 = (int)query[i].plan20;
                     data[i].plan30 = (int)query[i].plan30;
-                    data[i].normHoure = (int)query[i].normHoure;
-                    data[i].normHoureFact = (int)query[i].normHoureFact;
+                    data[i].normHoure = Math.Round(query[i].normHoure, 2);
+                    data[i].normHoureFact = Math.Round(query[i].normHoureFact, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

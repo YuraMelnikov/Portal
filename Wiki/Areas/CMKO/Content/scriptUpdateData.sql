@@ -74,6 +74,8 @@ from PortalKATEK.dbo.Reclamation
                 and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
                 and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
                 and PortalKATEK.dbo.Reclamation.closeMKO = 1
+				and PortalKATEK.dbo.Reclamation.closeKO = 1
+				and PortalKATEK.dbo.Reclamation.gip = 0
 				and (PortalKATEK.dbo.Reclamation_CountError.[count] != 0)
 
 
@@ -295,10 +297,10 @@ SELECT
 [PortalKATEK].[dbo].[AspNetUsers].CiliricalName as ciliricalName,
 [PortalKATEK].[dbo].[Devision].[name] as devisionName
 ,[PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] as [plan]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]) as [plan]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10) as [plan10]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20) as [plan20]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30) as [plan30]
 ,tableResPower.SumAssignmentActualWork
 ,tableResPower.SumAssignmentWork
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
@@ -341,10 +343,10 @@ SELECT
 [PortalKATEK].[dbo].[AspNetUsers].CiliricalName as ciliricalName,
 [PortalKATEK].[dbo].[Devision].[name] as devisionName
 ,[PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] as [plan]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]) as [plan]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10) as [plan10]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20) as [plan20]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30) as [plan30]
 ,isnull(tableResPower.SumAssignmentActualWork, 0)
 ,isnull(tableResPower.SumAssignmentWork, 0)
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
@@ -387,10 +389,10 @@ SELECT
 [PortalKATEK].[dbo].[AspNetUsers].CiliricalName as ciliricalName,
 [PortalKATEK].[dbo].[Devision].[name] as devisionName
 ,[PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] as [plan]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10 as [plan10]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20 as [plan20]
-,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30 as [plan30]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k]) as [plan]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.10) as [plan10]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.20) as [plan20]
+,convert(int,[PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * @coefConvertCalendarNorm * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] + [PortalKATEK].[dbo].[ProductionCalendar].timeToOnePerson * [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan].[k] * 0.30) as [plan30]
 ,tableResPower.SumAssignmentActualWork
 ,tableResPower.SumAssignmentWork
 FROM [PortalKATEK].[dbo].[DashboardKO_UsersMonthPlan] left join 
@@ -441,7 +443,7 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax1
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax2
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax3
-,iif(isnull(1.0 - ((400.0 * ReclamationCounter.countError) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, OrdersTasks.normH, 0.0)))), 1.0) < 0.0, 0.0, isnull(1.0 - ((400.0 * ReclamationCounter.countError) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, OrdersTasks.normH, 0.0)))), 1.0)) as coefError
+,isnull(1 - 4 * (ReclamationCounter.countError / sum(OrdersTasks.normH)), 1) as coefError
 ,isnull(1.0 - ((400.0 * ReclamationCounter.countErrorG) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, PortalKATEK.dbo.CMKO_BujetList.normH, 0.0)))), 1.0) as coefErrorG
 ,iif(1.0 - ((400.0 * convert(float, ReclamationCounter.countError)) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, convert(float, OrdersTasks.normH), 0.0)))) >= 0.99, @sizeQualityBonus, 0.0) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
