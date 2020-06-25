@@ -466,13 +466,37 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     {
                         foreach (var data in newOrders)
                         {
-                            if(db.ApproveCDOrders.Count(a => a.id_PZ_PlanZakaz == data) == 0)
+
+                            var order = db.PZ_PlanZakaz.Find(data);
+                            string id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95";
+                            string id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8";
+                            try
+                            {
+                                var mg = db.PWA_EmpTaskAll.First(a => a.PlanZakaz == order.PlanZakaz && a.TaskName == "Согласовать РКД (КБМ)");
+                                AspNetUsers um = db.AspNetUsers.First(a => a.ResourceUID == mg.ResourceUID);
+                                id_AspNetUsersM = um.Id;
+                            }
+                            catch
+                            {
+
+                            }
+                            try
+                            {
+                                var me = db.PWA_EmpTaskAll.First(a => a.PlanZakaz == order.PlanZakaz && a.TaskName == "Согласовать РКД (КБЭ)");
+                                AspNetUsers ue = db.AspNetUsers.First(a => a.ResourceUID == me.ResourceUID);
+                                id_AspNetUsersE = ue.Id;
+                            }
+                            catch
+                            {
+
+                            }
+                            if (db.ApproveCDOrders.Count(a => a.id_PZ_PlanZakaz == data) == 0)
                             {
                                 ApproveCDOrders approveCDOrders = new ApproveCDOrders
                                 {
                                     id_PZ_PlanZakaz = data,
-                                    id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
-                                    id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
+                                    id_AspNetUsersM = id_AspNetUsersM,
+                                    id_AspNetUsersE = id_AspNetUsersE,
                                     description = "",
                                     remove = false
                                 };
@@ -489,6 +513,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                                 db.ApproveCDVersions.Add(approveCDVersions);
                                 db.SaveChanges();
                             }
+
                         }
                     }
                     return Json(1, JsonRequestBehavior.AllowGet);
