@@ -378,6 +378,21 @@
         <AssociationConnector Association="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" />
         <EntityTypeShape EntityType="PortalKATEKModel.Provider" Width="1.5" PointX="7.375" PointY="4.875" />
         <AssociationConnector Association="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSOrder" Width="1.5" PointX="18.75" PointY="24.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSOrderPreOrder" Width="1.5" PointX="24.75" PointY="22.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSPositionOrder" Width="1.5" PointX="21" PointY="21.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSPositionPreOrder" Width="1.5" PointX="24.75" PointY="25.5" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSPreOrder" Width="1.5" PointX="22.5" PointY="25.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CMOSRate" Width="1.5" PointX="9.375" PointY="4.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSOrder_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSPreOrder_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSOrder_CMO_Company" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSPreOrder_CMO_TypeProduct" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSOrder" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSPositionOrder_CMOSOrder" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSPreOrder" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CMOSPreOrder_PZ_PlanZakaz" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

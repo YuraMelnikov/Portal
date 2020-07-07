@@ -511,6 +511,24 @@
     <Compile Include="CMO2_Position.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="CMOSOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMOSOrderPreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMOSPositionOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMOSPositionPreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMOSPreOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMOSRate.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CMO_Company.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1202,6 +1220,7 @@
     <Content Include="Areas\CMKO\Content\cmko.js" />
     <Content Include="Areas\CMKO\Content\scriptUpdateQuaFinalResult.sql" />
     <Content Include="Areas\CMKO\Content\scriptUpdateData.sql" />
+    <Content Include="Areas\CMOS\Content\CMOS.js" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
     <Content Include="Areas\DashboardD\Content\Dd.js" />
@@ -2370,6 +2389,7 @@
     <Content Include="Areas\OrdersTables\Views\OrderFeTable\Index.cshtml" />
     <Content Include="Areas\CMOS\Views\web.config" />
     <Content Include="Areas\CMOS\Views\Shared\_LayoutCMOS.cshtml" />
+    <Content Include="Areas\CMOS\Views\CMOSS\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2926,8 +2946,6 @@
     <Content Include="Views\UploadER\NNNN.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\CMOS\Content\" />
-    <Folder Include="Areas\CMOS\Views\CMOSS\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />

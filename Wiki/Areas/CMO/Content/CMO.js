@@ -1306,7 +1306,7 @@ function deactivatedModalOS(countDA) {
         $('#workDateTime').prop('disabled', true);
         $('#workCost').prop('disabled', true);
         $('#workComplitet').prop('disabled', true);
-        $('#manufIn').prop('disabled', true); 
+        $('#manufIn').prop('disabled', true);
         $('#manufCost').prop('disabled', true);
         $('#manufComplited').prop('disabled', true);
         $('#finIn').prop('disabled', true);
@@ -1691,7 +1691,7 @@ function ValidPostPanelToComplited() {
     else {
         $('#numberOrder').css('border-color', 'lightgrey');
     }
-    return isValid; 
+    return isValid;
 }
 
 function getSandwichPanel(id) {

@@ -35,7 +35,6 @@ namespace Wiki.Areas.CMO.Controllers
 
             }
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
-
             ViewBag.id_PlanZakazStickerOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now && d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) == 0).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_PlanZakazReStickersOrder = new SelectList(db.PZ_PlanZakaz.Where(d => d.StickersPreOrder.Count(s => s.id_PZ_PlanZakaz == d.Id) != 0 || d.dataOtgruzkiBP < DateTime.Now).Where(d => d.PlanZakaz < 8000 && d.dataOtgruzkiBP.Year > 1900).OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");

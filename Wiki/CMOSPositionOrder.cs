@@ -12,20 +12,21 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class Provider
+    public partial class CMOSPositionOrder
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Provider()
-        {
-            this.PZ_PlanZakaz = new HashSet<PZ_PlanZakaz>();
-        }
-    
         public int id { get; set; }
+        public int id_CMOSOrder { get; set; }
+        public string positionNum { get; set; }
+        public string designation { get; set; }
         public string name { get; set; }
-        public string SKU { get; set; }
-        public string shortName { get; set; }
+        public string index { get; set; }
+        public double weight { get; set; }
+        public double quantity { get; set; }
+        public double summaryWeight { get; set; }
+        public string color { get; set; }
+        public string coating { get; set; }
+        public string note { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PZ_PlanZakaz> PZ_PlanZakaz { get; set; }
+        public virtual CMOSOrder CMOSOrder { get; set; }
     }
 }

@@ -68,6 +68,8 @@ namespace Wiki
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.OrdersTables = new HashSet<OrdersTables>();
+            this.CMOSOrder = new HashSet<CMOSOrder>();
+            this.CMOSPreOrder = new HashSet<CMOSPreOrder>();
         }
     
         public string Id { get; set; }
@@ -193,5 +195,9 @@ namespace Wiki
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTables> OrdersTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMOSOrder> CMOSOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMOSPreOrder> CMOSPreOrder { get; set; }
     }
 }

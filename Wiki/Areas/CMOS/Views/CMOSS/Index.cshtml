@@ -1,0 +1,303 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
+}
+<head>
+    <script src="~/Areas/CMO/Content/CMO.js?v.0.0"></script>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <style>
+        .highlightColor {
+            background-color: #c42525;
+            color: white;
+        }
+    </style>
+</head>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "CMOSArea"); }
+                </a>
+            </li>
+            <li><a id="pageId"></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-12">
+        <button id="btnAddPreOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreatePreOrder()>Сформировать предзаказ изделий из ЛМ</button>
+        <button id="btnReOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" donclick=CreateBackorder()>Сформировать дозаказ изделий из ЛМ</button>
+        <button id="btnAddOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" donclick=CreateOrder()>Сформировать заказ изделий из ЛМ</button>
+        <div id="dTableNoPlaningPreOrder" style="display:none;">
+            <label>Требуется сформировать заказ поставщику:</label>
+            <table id="tableNoPlaningPreOrder" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dTableNoPlaningOrder" style="display:none;">
+            <label>Подтвердить запуск заказа/дозаказа в работу:</label>
+            <table id="tableNoPlaningOrder" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dTableTNOrder" style="display:none;">
+            <label>Получить накладную по заказу/дозаказу:</label>
+            <table id="tableTNOrder" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dTableNoClothingOrder" style="display: none;">
+            <label>Подтвердить поступление изделий из ЛМ:</label>
+            <table id="tableNoClothingOrder" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dFullReport" style="display:none;">
+            <table id="fullReport" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dShortReport" style="display:none;">
+            <table id="shortReport" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div id="creatingPreOrderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Введите №заказа/ов:</label>
+                        @Html.ListBox("pzList", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Укажите полуфабрикат:</label>
+                        @Html.DropDownList("typeProductId", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input accept="file/*" id="filePreorder" multiple="multiple" name="filePreorder" type="file" />
+                        <hr />
+                        <input type="submit" id="btnAddPreOrderModal" value="Создать предзаказ" class="btn btn-primary" onclick="AddPreOrder()" />
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="creatingBackorderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Введите №заказа/ов:</label>
+                        @Html.ListBox("pzListBackorder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Укажите поставщика:</label>
+                        @Html.DropDownList("customerBackorder", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input accept="file/*" id="fileBackorder" multiple="multiple" name="fileBackorder" type="file" />
+                        <hr />
+                        <input type="submit" id="btnAddBackorderModal" value="Создать дозаказ" class="btn btn-primary" onclick="AddBackorder()" />
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="orderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>ИД заказа:</label>
+                        <input type="text" class="form-control" id="idOrder" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-10">
+                        <label>Укажите предзаказ/ы:</label>
+                        @Html.ListBox("preordersList", ViewBag.id_CMOSPreorder as MultiSelectList, new { @class = "chosen-select" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Укажите поставщика:</label>
+                        @Html.DropDownList("customerOrderId", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Автор заказа:</label>
+                        <input type="text" class="form-control" id="aspNetUsersCreateId" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Дата и время создания:</label>
+                        <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Срок получения ответа:</label>
+                        <input type="text" class="form-control" id="workDate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Плановая дата поступления:</label>
+                        <input type="text" class="form-control" id="manufDate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Дата поступления:</label>
+                        <input type="text" class="form-control" id="finDate" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Номер накладной:</label>
+                        <input type="text" class="form-control" id="numberTN" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Плановая стоимость, без НДС (BYN):</label>
+                        <input type="text" class="form-control" id="cost" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Фактическая стоимость, без НДС (BYN):</label>
+                        <input type="text" class="form-control" id="factCost" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Курс валюты (на дату размещения):</label>
+                        <input type="text" class="form-control" id="cources" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Расчетный вес:</label>
+                        <input type="text" class="form-control" id="planWeight" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Фактический вес (по накладной):</label>
+                        <input type="text" class="form-control" id="factWeightTN" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Фактический вес (по документу поступления):</label>
+                        <input type="text" class="form-control" id="factWeightDoc" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary" id="btnAddOrderModal" style="display:none;" onclick="AddOrder();">Создать заказ</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateOrder" style="display:none;" onclick="UpdateOrder();">Обновить заказ</button>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+<script>
+    var userGroupId = @ViewBag.userGroupId;
+</script>

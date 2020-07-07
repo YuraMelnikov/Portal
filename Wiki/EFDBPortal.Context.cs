@@ -206,5 +206,11 @@ namespace Wiki
         public virtual DbSet<OrdersTables> OrdersTables { get; set; }
         public virtual DbSet<OrdersTablesPositions> OrdersTablesPositions { get; set; }
         public virtual DbSet<Provider> Provider { get; set; }
+        public virtual DbSet<CMOSOrder> CMOSOrder { get; set; }
+        public virtual DbSet<CMOSOrderPreOrder> CMOSOrderPreOrder { get; set; }
+        public virtual DbSet<CMOSPositionOrder> CMOSPositionOrder { get; set; }
+        public virtual DbSet<CMOSPositionPreOrder> CMOSPositionPreOrder { get; set; }
+        public virtual DbSet<CMOSPreOrder> CMOSPreOrder { get; set; }
+        public virtual DbSet<CMOSRate> CMOSRate { get; set; }
     }
 }

@@ -45,6 +45,7 @@ namespace Wiki
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
             this.StickersPreOrder = new HashSet<StickersPreOrder>();
             this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
+            this.CMOSPreOrder = new HashSet<CMOSPreOrder>();
         }
     
         public int Id { get; set; }
@@ -162,5 +163,7 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTablesPositions> OrdersTablesPositions { get; set; }
         public virtual Provider Provider { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMOSPreOrder> CMOSPreOrder { get; set; }
     }
 }

@@ -643,6 +643,90 @@
           <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
           <Property Name="id_CMO_TypeProduct" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CMOSOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aspNetUsersCreateId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="workDate" Type="datetime" />
+          <Property Name="manufDate" Type="date" />
+          <Property Name="finDate" Type="date" />
+          <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="cMO_CompanyId" Type="int" Nullable="false" />
+          <Property Name="numberTN" Type="varchar" MaxLength="50" />
+          <Property Name="cost" Type="float" Nullable="false" />
+          <Property Name="factCost" Type="float" />
+          <Property Name="remove" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSOrderPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_CMOSPreOrder" Type="int" Nullable="false" />
+          <Property Name="id_CMOSOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSPositionOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_CMOSOrder" Type="int" Nullable="false" />
+          <Property Name="positionNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="designation" Type="varchar(max)" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="index" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="weight" Type="float" Nullable="false" />
+          <Property Name="quantity" Type="float" Nullable="false" />
+          <Property Name="summaryWeight" Type="float" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="coating" Type="varchar(max)" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSPositionPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CMOSPreOrderId" Type="int" Nullable="false" />
+          <Property Name="positionNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="designation" Type="varchar(max)" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="index" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="weight" Type="float" Nullable="false" />
+          <Property Name="quantity" Type="float" Nullable="false" />
+          <Property Name="summaryWeight" Type="float" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="coating" Type="varchar(max)" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+          <Property Name="weightTN" Type="float" Nullable="false" />
+          <Property Name="weightDoc" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsersCreate" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_CMO_TypeProduct" Type="int" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="reOrder" Type="bit" Nullable="false" />
+          <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="remove" Type="bit" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSRate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateStart" Type="date" Nullable="false" />
+          <Property Name="dateFinish" Type="date" />
+          <Property Name="cost" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="CurencyBYN">
           <Key>
             <PropertyRef Name="date" />
@@ -1390,6 +1474,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="SKU" Type="varchar(max)" Nullable="false" />
+          <Property Name="shortName" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PZ_Client">
           <Key>
@@ -3033,6 +3118,114 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CMOSOrder_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMOSOrder" Type="Self.CMOSOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSOrder">
+              <PropertyRef Name="aspNetUsersCreateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrder_CMO_Company">
+          <End Role="CMO_Company" Type="Self.CMO_Company" Multiplicity="1" />
+          <End Role="CMOSOrder" Type="Self.CMOSOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrder">
+              <PropertyRef Name="cMO_CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrderPreOrder_CMOSOrder">
+          <End Role="CMOSOrder" Type="Self.CMOSOrder" Multiplicity="1" />
+          <End Role="CMOSOrderPreOrder" Type="Self.CMOSOrderPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrderPreOrder">
+              <PropertyRef Name="id_CMOSOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrderPreOrder_CMOSPreOrder">
+          <End Role="CMOSPreOrder" Type="Self.CMOSPreOrder" Multiplicity="1" />
+          <End Role="CMOSOrderPreOrder" Type="Self.CMOSOrderPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSPreOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrderPreOrder">
+              <PropertyRef Name="id_CMOSPreOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPositionOrder_CMOSOrder">
+          <End Role="CMOSOrder" Type="Self.CMOSOrder" Multiplicity="1" />
+          <End Role="CMOSPositionOrder" Type="Self.CMOSPositionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPositionOrder">
+              <PropertyRef Name="id_CMOSOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPositionPreOrder_CMOSPreOrder">
+          <End Role="CMOSPreOrder" Type="Self.CMOSPreOrder" Multiplicity="1" />
+          <End Role="CMOSPositionPreOrder" Type="Self.CMOSPositionPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSPreOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPositionPreOrder">
+              <PropertyRef Name="CMOSPreOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CMOSPreOrder" Type="Self.CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_CMO_TypeProduct">
+          <End Role="CMO_TypeProduct" Type="Self.CMO_TypeProduct" Multiplicity="1" />
+          <End Role="CMOSPreOrder" Type="Self.CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="CMOSPreOrder" Type="Self.CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DashboardBP_HSSPO_DashboardBP_State">
           <End Role="DashboardBP_State" Type="Self.DashboardBP_State" Multiplicity="1" />
           <End Role="DashboardBP_HSSPO" Type="Self.DashboardBP_HSSPO" Multiplicity="*" />
@@ -4640,6 +4833,12 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="CMO_UploadResult" EntityType="Self.CMO_UploadResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO2_Order" EntityType="Self.CMO2_Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMO2_Position" EntityType="Self.CMO2_Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSOrder" EntityType="Self.CMOSOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSOrderPreOrder" EntityType="Self.CMOSOrderPreOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSPositionOrder" EntityType="Self.CMOSPositionOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSPositionPreOrder" EntityType="Self.CMOSPositionPreOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSPreOrder" EntityType="Self.CMOSPreOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CMOSRate" EntityType="Self.CMOSRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurencyBYN" EntityType="Self.CurencyBYN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPO" EntityType="Self.DashboardBP_HSSPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPOSmall" EntityType="Self.DashboardBP_HSSPOSmall" Schema="dbo" store:Type="Tables" />
@@ -5156,6 +5355,42 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_CMO2_Position_PZ_PlanZakaz" Association="Self.FK_CMO2_Position_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMO2_Position" EntitySet="CMO2_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrder_AspNetUsers" Association="Self.FK_CMOSOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrder_CMO_Company" Association="Self.FK_CMOSOrder_CMO_Company">
+            <End Role="CMO_Company" EntitySet="CMO_Company" />
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrderPreOrder_CMOSOrder" Association="Self.FK_CMOSOrderPreOrder_CMOSOrder">
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+            <End Role="CMOSOrderPreOrder" EntitySet="CMOSOrderPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrderPreOrder_CMOSPreOrder" Association="Self.FK_CMOSOrderPreOrder_CMOSPreOrder">
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+            <End Role="CMOSOrderPreOrder" EntitySet="CMOSOrderPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPositionOrder_CMOSOrder" Association="Self.FK_CMOSPositionOrder_CMOSOrder">
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+            <End Role="CMOSPositionOrder" EntitySet="CMOSPositionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPositionPreOrder_CMOSPreOrder" Association="Self.FK_CMOSPositionPreOrder_CMOSPreOrder">
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+            <End Role="CMOSPositionPreOrder" EntitySet="CMOSPositionPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_AspNetUsers" Association="Self.FK_CMOSPreOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_CMO_TypeProduct" Association="Self.FK_CMOSPreOrder_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_PZ_PlanZakaz" Association="Self.FK_CMOSPreOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="Self.FK_DashboardBP_HSSPO_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
@@ -6628,6 +6863,48 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="Provider" EntitySet="Provider" />
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
           </AssociationSet>
+          <EntitySet Name="CMOSOrder" EntityType="PortalKATEKModel.CMOSOrder" />
+          <EntitySet Name="CMOSOrderPreOrder" EntityType="PortalKATEKModel.CMOSOrderPreOrder" />
+          <EntitySet Name="CMOSPositionOrder" EntityType="PortalKATEKModel.CMOSPositionOrder" />
+          <EntitySet Name="CMOSPositionPreOrder" EntityType="PortalKATEKModel.CMOSPositionPreOrder" />
+          <EntitySet Name="CMOSPreOrder" EntityType="PortalKATEKModel.CMOSPreOrder" />
+          <EntitySet Name="CMOSRate" EntityType="PortalKATEKModel.CMOSRate" />
+          <AssociationSet Name="FK_CMOSOrder_AspNetUsers" Association="PortalKATEKModel.FK_CMOSOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_AspNetUsers" Association="PortalKATEKModel.FK_CMOSPreOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrder_CMO_Company" Association="PortalKATEKModel.FK_CMOSOrder_CMO_Company">
+            <End Role="CMO_Company" EntitySet="CMO_Company" />
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_CMO_TypeProduct" Association="PortalKATEKModel.FK_CMOSPreOrder_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrderPreOrder_CMOSOrder" Association="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSOrder">
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+            <End Role="CMOSOrderPreOrder" EntitySet="CMOSOrderPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPositionOrder_CMOSOrder" Association="PortalKATEKModel.FK_CMOSPositionOrder_CMOSOrder">
+            <End Role="CMOSOrder" EntitySet="CMOSOrder" />
+            <End Role="CMOSPositionOrder" EntitySet="CMOSPositionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSOrderPreOrder_CMOSPreOrder" Association="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSPreOrder">
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+            <End Role="CMOSOrderPreOrder" EntitySet="CMOSOrderPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPositionPreOrder_CMOSPreOrder" Association="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder">
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+            <End Role="CMOSPositionPreOrder" EntitySet="CMOSPositionPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CMOSPreOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_CMOSPreOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -7531,6 +7808,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="OrdersTables" Relationship="PortalKATEKModel.FK_OrdersTables_AspNetUsers" FromRole="AspNetUsers" ToRole="OrdersTables" />
+          <NavigationProperty Name="CMOSOrder" Relationship="PortalKATEKModel.FK_CMOSOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="CMOSOrder" />
+          <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="CMOSPreOrder" />
         </EntityType>
         <EntityType Name="BurnDown">
           <Key>
@@ -7803,6 +8082,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="CMO_Order" Relationship="PortalKATEKModel.FK_CMO_Order_CMO_Company" FromRole="CMO_Company" ToRole="CMO_Order" />
           <NavigationProperty Name="CMO_UploadResult" Relationship="PortalKATEKModel.FK_CMO_UploadResult_CMO_Company" FromRole="CMO_Company" ToRole="CMO_UploadResult" />
           <NavigationProperty Name="CMO2_Order" Relationship="PortalKATEKModel.FK_CMO2_Order_CMO_Company" FromRole="CMO_Company" ToRole="CMO2_Order" />
+          <NavigationProperty Name="CMOSOrder" Relationship="PortalKATEKModel.FK_CMOSOrder_CMO_Company" FromRole="CMO_Company" ToRole="CMOSOrder" />
         </EntityType>
         <EntityType Name="CMO_CompanyMailList">
           <Key>
@@ -7932,6 +8212,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="CMO_PositionOrder" Relationship="PortalKATEKModel.FK_CMO_PositionOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO_PositionOrder" />
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO_PositionPreOrder" />
           <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO2_Position" />
+          <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPreOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMOSPreOrder" />
         </EntityType>
         <EntityType Name="CMO_TypeTask">
           <Key>
@@ -8607,6 +8888,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="OrdersTablesPositions" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OrdersTablesPositions" />
           <Property Name="id_Provider" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Provider" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" FromRole="PZ_PlanZakaz" ToRole="Provider" />
+          <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CMOSPreOrder" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -11540,6 +11822,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PZ_PlanZakaz_Provider" FromRole="Provider" ToRole="PZ_PlanZakaz" />
           <Property Name="SKU" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shortName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_PZ_PlanZakaz_Provider">
           <End Type="PortalKATEKModel.Provider" Role="Provider" Multiplicity="1" />
@@ -11550,6 +11833,211 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Principal>
             <Dependent Role="PZ_PlanZakaz">
               <PropertyRef Name="id_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CMOSOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aspNetUsersCreateId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="workDate" Type="DateTime" Precision="3" />
+          <Property Name="manufDate" Type="DateTime" Precision="0" />
+          <Property Name="finDate" Type="DateTime" Precision="0" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cMO_CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="numberTN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cost" Type="Double" Nullable="false" />
+          <Property Name="factCost" Type="Double" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMOSOrder_AspNetUsers" FromRole="CMOSOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CMO_Company" Relationship="PortalKATEKModel.FK_CMOSOrder_CMO_Company" FromRole="CMOSOrder" ToRole="CMO_Company" />
+          <NavigationProperty Name="CMOSOrderPreOrder" Relationship="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSOrder" FromRole="CMOSOrder" ToRole="CMOSOrderPreOrder" />
+          <NavigationProperty Name="CMOSPositionOrder" Relationship="PortalKATEKModel.FK_CMOSPositionOrder_CMOSOrder" FromRole="CMOSOrder" ToRole="CMOSPositionOrder" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSOrderPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_CMOSPreOrder" Type="Int32" Nullable="false" />
+          <Property Name="id_CMOSOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CMOSOrder" Relationship="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSOrder" FromRole="CMOSOrderPreOrder" ToRole="CMOSOrder" />
+          <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSPreOrder" FromRole="CMOSOrderPreOrder" ToRole="CMOSPreOrder" />
+        </EntityType>
+        <EntityType Name="CMOSPositionOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_CMOSOrder" Type="Int32" Nullable="false" />
+          <Property Name="positionNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="index" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
+          <Property Name="quantity" Type="Double" Nullable="false" />
+          <Property Name="summaryWeight" Type="Double" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="coating" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CMOSOrder" Relationship="PortalKATEKModel.FK_CMOSPositionOrder_CMOSOrder" FromRole="CMOSPositionOrder" ToRole="CMOSOrder" />
+        </EntityType>
+        <EntityType Name="CMOSPositionPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CMOSPreOrderId" Type="Int32" Nullable="false" />
+          <Property Name="positionNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="index" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
+          <Property Name="quantity" Type="Double" Nullable="false" />
+          <Property Name="summaryWeight" Type="Double" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="coating" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
+          <Property Name="weightTN" Type="Double" Nullable="false" />
+          <Property Name="weightDoc" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CMOSPreOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_AspNetUsersCreate" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_CMO_TypeProduct" Type="Int32" Nullable="false" />
+          <Property Name="dateTimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="reOrder" Type="Boolean" Nullable="false" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_CMOSPreOrder_AspNetUsers" FromRole="CMOSPreOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CMO_TypeProduct" Relationship="PortalKATEKModel.FK_CMOSPreOrder_CMO_TypeProduct" FromRole="CMOSPreOrder" ToRole="CMO_TypeProduct" />
+          <NavigationProperty Name="CMOSOrderPreOrder" Relationship="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSPreOrder" FromRole="CMOSPreOrder" ToRole="CMOSOrderPreOrder" />
+          <NavigationProperty Name="CMOSPositionPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPreOrder" ToRole="CMOSPositionPreOrder" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CMOSPreOrder_PZ_PlanZakaz" FromRole="CMOSPreOrder" ToRole="PZ_PlanZakaz" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CMOSRate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateFinish" Type="DateTime" Precision="0" />
+          <Property Name="cost" Type="Double" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CMOSOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSOrder" Role="CMOSOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSOrder">
+              <PropertyRef Name="aspNetUsersCreateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSPreOrder" Role="CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_AspNetUsersCreate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrder_CMO_Company">
+          <End Type="PortalKATEKModel.CMO_Company" Role="CMO_Company" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSOrder" Role="CMOSOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrder">
+              <PropertyRef Name="cMO_CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_CMO_TypeProduct">
+          <End Type="PortalKATEKModel.CMO_TypeProduct" Role="CMO_TypeProduct" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSPreOrder" Role="CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrderPreOrder_CMOSOrder">
+          <End Type="PortalKATEKModel.CMOSOrder" Role="CMOSOrder" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSOrderPreOrder" Role="CMOSOrderPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrderPreOrder">
+              <PropertyRef Name="id_CMOSOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPositionOrder_CMOSOrder">
+          <End Type="PortalKATEKModel.CMOSOrder" Role="CMOSOrder" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSPositionOrder" Role="CMOSPositionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPositionOrder">
+              <PropertyRef Name="id_CMOSOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSOrderPreOrder_CMOSPreOrder">
+          <End Type="PortalKATEKModel.CMOSPreOrder" Role="CMOSPreOrder" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSOrderPreOrder" Role="CMOSOrderPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSPreOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSOrderPreOrder">
+              <PropertyRef Name="id_CMOSPreOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPositionPreOrder_CMOSPreOrder">
+          <End Type="PortalKATEKModel.CMOSPreOrder" Role="CMOSPreOrder" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSPositionPreOrder" Role="CMOSPositionPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMOSPreOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CMOSPositionPreOrder">
+              <PropertyRef Name="CMOSPreOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CMOSPreOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CMOSPreOrder" Role="CMOSPreOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CMOSPreOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -13971,8 +14459,99 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="Provider">
             <EntityTypeMapping TypeName="PortalKATEKModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="shortName" ColumnName="shortName" />
                 <ScalarProperty Name="SKU" ColumnName="SKU" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSOrder">
+              <MappingFragment StoreEntitySet="CMOSOrder">
+                <ScalarProperty Name="remove" ColumnName="remove" />
+                <ScalarProperty Name="factCost" ColumnName="factCost" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="numberTN" ColumnName="numberTN" />
+                <ScalarProperty Name="cMO_CompanyId" ColumnName="cMO_CompanyId" />
+                <ScalarProperty Name="folder" ColumnName="folder" />
+                <ScalarProperty Name="finDate" ColumnName="finDate" />
+                <ScalarProperty Name="manufDate" ColumnName="manufDate" />
+                <ScalarProperty Name="workDate" ColumnName="workDate" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="aspNetUsersCreateId" ColumnName="aspNetUsersCreateId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSOrderPreOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSOrderPreOrder">
+              <MappingFragment StoreEntitySet="CMOSOrderPreOrder">
+                <ScalarProperty Name="id_CMOSOrder" ColumnName="id_CMOSOrder" />
+                <ScalarProperty Name="id_CMOSPreOrder" ColumnName="id_CMOSPreOrder" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSPositionOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionOrder">
+              <MappingFragment StoreEntitySet="CMOSPositionOrder">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="coating" ColumnName="coating" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="summaryWeight" ColumnName="summaryWeight" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="positionNum" ColumnName="positionNum" />
+                <ScalarProperty Name="id_CMOSOrder" ColumnName="id_CMOSOrder" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSPositionPreOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionPreOrder">
+              <MappingFragment StoreEntitySet="CMOSPositionPreOrder">
+                <ScalarProperty Name="weightDoc" ColumnName="weightDoc" />
+                <ScalarProperty Name="weightTN" ColumnName="weightTN" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="coating" ColumnName="coating" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="summaryWeight" ColumnName="summaryWeight" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="positionNum" ColumnName="positionNum" />
+                <ScalarProperty Name="CMOSPreOrderId" ColumnName="CMOSPreOrderId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSPreOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPreOrder">
+              <MappingFragment StoreEntitySet="CMOSPreOrder">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="remove" ColumnName="remove" />
+                <ScalarProperty Name="folder" ColumnName="folder" />
+                <ScalarProperty Name="reOrder" ColumnName="reOrder" />
+                <ScalarProperty Name="dateTimeCreate" ColumnName="dateTimeCreate" />
+                <ScalarProperty Name="id_CMO_TypeProduct" ColumnName="id_CMO_TypeProduct" />
+                <ScalarProperty Name="id_AspNetUsersCreate" ColumnName="id_AspNetUsersCreate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMOSRate">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CMOSRate">
+              <MappingFragment StoreEntitySet="CMOSRate">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="dateFinish" ColumnName="dateFinish" />
+                <ScalarProperty Name="dateStart" ColumnName="dateStart" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
