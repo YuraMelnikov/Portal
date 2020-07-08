@@ -2946,6 +2946,7 @@
     <Content Include="Views\UploadER\NNNN.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\CMOS\Models\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />

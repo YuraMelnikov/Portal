@@ -29,84 +29,82 @@ $(document).ready(function () {
 });
 
 var objFullReport = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
-    { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true },
-    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Цена, б/НДС (BYN)", "data": "cost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Стоимость, б/НДС (BYN)", "data": "factCost", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true }
+    { "title": "Стоимость, б/НДС (BYN)", "data": "factCost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
 var objSmallReport = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
-    { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true },
-    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Цена, б/НДС (BYN)", "data": "cost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Стоимость, б/НДС (BYN)", "data": "factCost", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Папка заказа", "data": "folder", "autowidth": true }
 ];
 
 var objPreOrdersList = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
-    { "title": "Позиция", "data": "positionName", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Позиция", "data": "positionName", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
-    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
+    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false },
 ];
 
 var objNoPlaningOrders = [
-    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": true },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Ответ до", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
-    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": true },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": true }
+    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
+    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
 ];
 
 var objTNOrders = [
-    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": true },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
-    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": true },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": true }
+    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
+    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
 ];
 
 var objOrders = [
-    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": true },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true, "class": 'colu-200' },
-    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": true },
-    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processZero },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "№ накладной", "data": "tn", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
-    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull },
-    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": true },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": true }
+    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
+    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
 ];
 
 function StartMenu() {
     $("#tableNoPlaningPreOrder").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableNoPlaningPreOrder",
+            "url": "/CMOSS/GetTableNoPlaningPreOrder",
             "type": "POST",
             "datatype": "json"
         },
@@ -117,6 +115,7 @@ function StartMenu() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -127,7 +126,7 @@ function StartMenu() {
     $("#tableNoPlaningOrder").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableNoPlaningOrder",
+            "url": "/CMOSS/GetTableNoPlaningOrder",
             "type": "POST",
             "datatype": "json"
         },
@@ -138,6 +137,7 @@ function StartMenu() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -148,7 +148,7 @@ function StartMenu() {
     $("#tableTNOrder").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableTNOrder",
+            "url": "/CMOSS/GetTableTNOrder",
             "type": "POST",
             "datatype": "json"
         },
@@ -159,6 +159,7 @@ function StartMenu() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -169,7 +170,7 @@ function StartMenu() {
     $("#tableNoClothingOrder").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableNoClothingOrder",
+            "url": "/CMOSS/GetTableNoClothingOrder",
             "type": "POST",
             "datatype": "json"
         },
@@ -180,6 +181,7 @@ function StartMenu() {
         "scrollX": true,
         "paging": false,
         "info": false,
+        "searching": false,
         "scrollCollapse": true,
         "language": {
             "zeroRecords": "Отсутствуют записи",
@@ -190,7 +192,7 @@ function StartMenu() {
     $("#fullReport").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableOrders",
+            "url": "/CMOSS/GetTableOrders",
             "type": "POST",
             "datatype": "json"
         },
@@ -211,7 +213,7 @@ function StartMenu() {
     $("#shortReport").DataTable({
         "ajax": {
             "cache": false,
-            "url": "/CMOSArea/GetTableOrders",
+            "url": "/CMOSS/GetTableOrders",
             "type": "POST",
             "datatype": "json"
         },
@@ -232,6 +234,7 @@ function StartMenu() {
 }
 
 function CleanerModals() {
+    $('#typeProductId').css('border-color', 'lightgrey');
     $('#idOrder').val("");
     $('#typeProductId').val("");
     $('#pzList').val("");
@@ -278,23 +281,54 @@ function CreateOrder() {
 }
 
 function AddPreOrder() {
-    var obj = {
-        pzList: $('#pzList').val(),
-        typeProductId: $('#typeProductId').val()
-    };
+    var files = document.getElementById('filePreorder').files;
+    var valid = ValidCreatingPreOrder(files.length);
+    if (valid === false) {
+        return false;
+    }
+
+
+
+    var data = new FormData();
+    data.append($('#pzList').val(), $('#typeProductId').val());
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
     $.ajax({
-        cache: false,
-        url: "/CMOSArea/AddPreOrder",
-        data: JSON.stringify(obj),
         type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
+        url: "/CMOSS/AddPreOrder",
+        contentType: false,
+        processData: false,
+        data: data,
         success: function (result) {
             $('#btnAddPreOrderModal').hide();
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#creatingPreOrderModal').modal('hide');
         }
     });
+}
+
+function ValidCreatingPreOrder(lenghtFile) {
+    var isValid = true;
+
+    var tmp1 = $('#pzList').val().trim();
+    var tmp2 = $('#typeProductId').val().trim();
+
+
+    if (lenghtFile === 0) {
+        isValid = false;
+    }
+    if ($('#pzList').val().trim() === "") {
+        isValid = false;
+    }
+    if ($('#typeProductId').val().trim() === "") {
+        $('#typeProductId').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#typeProductId').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 function AddBackorder() {
@@ -305,7 +339,7 @@ function AddBackorder() {
     };
     $.ajax({
         cache: false,
-        url: "/CMOSArea/AddBackorder",
+        url: "/CMOSS/AddBackorder",
         data: JSON.stringify(obj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -326,7 +360,7 @@ function AddOrder() {
     };
     $.ajax({
         cache: false,
-        url: "/CMOSArea/AddBackorder",
+        url: "/CMOSS/AddBackorder",
         data: JSON.stringify(obj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -344,7 +378,7 @@ function GetOrder(id) {
     $('#btnAddOrderModal').hide();
     $.ajax({
         cache: false,
-        url: "/CMOSArea/GetOrder/" + id,
+        url: "/CMOSS/GetOrder/" + id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -393,7 +427,7 @@ function UpdateOrder() {
     };
     $.ajax({
         cache: false,
-        url: "/CMOSArea/UpdateOrder",
+        url: "/CMOSS/UpdateOrder",
         data: JSON.stringify(obj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -412,7 +446,7 @@ function UpdateOrder() {
 function RemovePreOrder(id) {
     $.ajax({
         cache: false,
-        url: "/CMOArea/RemovePreOrder/" + id,
+        url: "/CMOSS/RemovePreOrder/" + id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -426,7 +460,7 @@ function RemovePreOrder(id) {
 function RemoveOrder(id) {
     $.ajax({
         cache: false,
-        url: "/CMOArea/RemoveOrder/" + id,
+        url: "/CMOSS/RemoveOrder/" + id,
         typr: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -438,4 +472,12 @@ function RemoveOrder(id) {
         }
     });
     return false;
+}
+
+function processNull(data) {
+    if (data === 'null') {
+        return '';
+    } else {
+        return data;
+    }
 }

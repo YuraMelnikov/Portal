@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -272,7 +273,30 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        public JsonResult AddPreOrder(int[] pzList, HttpPostedFileBase[] filePreorder, int typeProductId)
+        [HttpPost]
+        public JsonResult AddPreOrder()
+        {
+            string login = HttpContext.User.Identity.Name;
+
+            //get ordersNum & typeObjNumber
+            var tmp1 = Request.Form.ToString();
+            //fiels
+            var tmp = Request.Files;
+
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+                }
+            }
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UploadFiles(int[] pzList, int typeProductId)
         {
             string login = HttpContext.User.Identity.Name;
             try
@@ -297,7 +321,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         };
                         db.CMOSPreOrder.Add(preorder);
                         db.SaveChanges();
-                        preorder.folder = CreateFolderAndFileForPreOrder(preorder.id, filePreorder);
+                        //preorder.folder = CreateFolderAndFileForPreOrder(preorder.id, filePreorder);
                         db.Entry(preorder).State = EntityState.Modified;
                         db.SaveChanges();
                     }
