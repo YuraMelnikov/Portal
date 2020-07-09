@@ -33,8 +33,8 @@
 <div class="row">
     <div class="col-md-12">
         <button id="btnAddPreOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreatePreOrder()>Сформировать предзаказ изделий из ЛМ</button>
-        <button id="btnReOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" donclick=CreateBackorder()>Сформировать дозаказ изделий из ЛМ</button>
-        <button id="btnAddOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" donclick=CreateOrder()>Сформировать заказ изделий из ЛМ</button>
+        <button id="btnReOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateBackorder()>Сформировать дозаказ изделий из ЛМ</button>
+        <button id="btnAddOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateOrder()>Сформировать заказ изделий из ЛМ</button>
         <hr />
         <div id="dTableNoPlaningPreOrder" style="display:none;">
             <label>Требуется сформировать заказ поставщику:</label>
@@ -77,12 +77,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                         <label>Введите №заказа/ов:</label>
                         @Html.ListBox("pzList", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-4">
                         <label>Укажите полуфабрикат:</label>
                         @Html.DropDownList("typeProductId", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "form-control" })
@@ -90,10 +88,10 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-12">
-                        @*<input accept="file/*" id="filePreorder" multiple="multiple" name="filePreorder" type="file" enctype="multipart/form-data" />*@
-                        @*<input type="submit" id="btnAddPreOrderModal" value="Создать предзаказ" class="btn btn-primary" onclick="AddPreOrder()" />*@
-                        <input accept="file/*" type="file" multiple name="filePreorder" id="filePreorder" enctype="multipart/form-data" value="Выбрать файл/ы" /><br />
+                    <div class="col-lg-8">
+                        <input accept=".xls, .xlsx" type="file" multiple name="filePreorder" id="filePreorder" enctype="multipart/form-data" value="Выбрать файл/ы" /><br />
+                    </div>
+                    <div class="col-lg-4">
                         <button id="btnAddPreOrderModal" class="btn btn-primary" onclick="AddPreOrder()">Создать предзаказ</button>
                     </div>
                 </div>
@@ -103,15 +101,6 @@
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                @*<div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>*@
                 <hr />
             </div>
             <div class="modal-footer">
@@ -133,34 +122,28 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                         <label>Введите №заказа/ов:</label>
                         @Html.ListBox("pzListBackorder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-4">
                         <label>Укажите поставщика:</label>
                         @Html.DropDownList("customerBackorder", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
                     </div>
                 </div>
                 <hr />
+
+
+
+
                 <div class="row">
-                    <div class="col-lg-12">
-                        <input accept="file/*" id="fileBackorder" multiple="multiple" name="fileBackorder" type="file" />
-                        <hr />
-                        <input type="submit" id="btnAddBackorderModal" value="Создать дозаказ" class="btn btn-primary" onclick="AddBackorder()" />
+                    <div class="col-lg-8">
+                        <input accept="file/*" type="file" multiple name="fileBackorder" id="fileBackorder" enctype="multipart/form-data" value="Выбрать файл/ы" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnAddPreOrderModal" class="btn btn-primary" onclick="AddPreOrder()">Создать предзаказ</button>
                     </div>
                 </div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>

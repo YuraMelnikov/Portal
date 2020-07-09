@@ -699,12 +699,11 @@
           <Property Name="index" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="weight" Type="float" Nullable="false" />
           <Property Name="quantity" Type="float" Nullable="false" />
+          <Property Name="quantity8" Type="float" Nullable="false" />
           <Property Name="summaryWeight" Type="float" Nullable="false" />
           <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="coating" Type="varchar(max)" Nullable="false" />
           <Property Name="note" Type="varchar(max)" Nullable="false" />
-          <Property Name="weightTN" Type="float" Nullable="false" />
-          <Property Name="weightDoc" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -11908,6 +11907,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
           <Property Name="weightTN" Type="Double" Nullable="false" />
           <Property Name="weightDoc" Type="Double" Nullable="false" />
+          <Property Name="quantity8" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -14520,8 +14520,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSPositionPreOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionPreOrder">
               <MappingFragment StoreEntitySet="CMOSPositionPreOrder">
-                <ScalarProperty Name="weightDoc" ColumnName="weightDoc" />
-                <ScalarProperty Name="weightTN" ColumnName="weightTN" />
+                <ScalarProperty Name="quantity8" ColumnName="quantity8" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="coating" ColumnName="coating" />
                 <ScalarProperty Name="color" ColumnName="color" />

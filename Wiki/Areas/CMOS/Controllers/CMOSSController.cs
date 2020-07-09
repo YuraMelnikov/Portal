@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -276,42 +277,24 @@ namespace Wiki.Areas.CMOS.Controllers
         public JsonResult AddPreOrder()
         {
             string login = HttpContext.User.Identity.Name;
-
-            //get ordersNum & typeObjNumber
-            var tmp1 = Request.Form.ToString();
-            //fiels
-            var tmp = Request.Files;
-
-            foreach (string file in Request.Files)
-            {
-                var upload = Request.Files[file];
-                if (upload != null)
-                {
-                    string fileName = Path.GetFileName(upload.FileName);
-                    upload.SaveAs(Server.MapPath("~/Files/" + fileName));
-                }
-            }
-            return Json(0, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult UploadFiles(int[] pzList, int typeProductId)
-        {
-            string login = HttpContext.User.Identity.Name;
             try
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-
-                    db.Configuration.ProxyCreationEnabled = false;
-                    db.Configuration.LazyLoadingEnabled = false;
-                    foreach (var ord in pzList)
+                    HttpPostedFileBase[] files = new HttpPostedFileBase[Request.Files.Count];
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        files[i] = Request.Files[i];
+                    }
+                    int[] ord = GetOrdersArray(Request.Form.ToString());
+                    int typeMaterials = GetTypeMaterials(Request.Form.ToString());
+                    foreach (var p in ord)
                     {
                         var preorder = new CMOSPreOrder
                         {
-                            id_PZ_PlanZakaz = ord,
+                            id_PZ_PlanZakaz = p,
                             id_AspNetUsersCreate = db.AspNetUsers.First(a => a.Email == login).Id,
-                            id_CMO_TypeProduct = typeProductId,
+                            id_CMO_TypeProduct = typeMaterials,
                             dateTimeCreate = DateTime.Now,
                             reOrder = false,
                             remove = false,
@@ -320,7 +303,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         };
                         db.CMOSPreOrder.Add(preorder);
                         db.SaveChanges();
-                        //preorder.folder = CreateFolderAndFileForPreOrder(preorder.id, filePreorder);
+                        preorder.folder = CreateFolderAndFileForPreOrder(preorder.id, files);
                         db.Entry(preorder).State = EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -394,9 +377,6 @@ namespace Wiki.Areas.CMOS.Controllers
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
-        //
-        //GetOrder
-        //UpdateOrder
 
         public JsonResult AddOrder(int[] preordersList, int customerOrderId, DateTime workDate)
         {
@@ -441,6 +421,44 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / AddOrder: " + " | " + ex + " | " + login);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private void CreatingPositionsPreorder(int preorderId, string path)
+        {
+            List<string> fiels = GetFileArray(path);
+            foreach (var fiel in fiels)
+            {
+                Application ObjExcel = new Application();
+                Workbook ObjWorkBook = ObjExcel.Workbooks.Open(fiel, 0, false, 5, "", "", false, XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+                Worksheet ObjWorkSheet;
+                ObjWorkSheet = (Worksheet)ObjWorkBook.Sheets[1];
+
+                // Указываем номер столбца (таблицы Excel) из которого будут считываться данные.
+                int numCol = 2;
+                Range usedColumn = ObjWorkSheet.UsedRange.Columns[numCol];
+                Array myvalues = (Array)usedColumn.Cells.Value2;
+                string[] strArray = myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
+
+                ObjExcel.Quit();
+            }
+        }
+
+        private int[] GetOrdersArray(string str)
+        {
+            str = str.Split('=')[0];
+            var strList = str.Split(new string[] { "%2c" }, StringSplitOptions.RemoveEmptyEntries);
+            int[] res = new int[strList.Length];
+            for (int i = 0; i < strList.Length; i++)
+            {
+                res[i] = Convert.ToInt32(strList[i]);
+            }
+            return res;
+        }
+
+        private int GetTypeMaterials(string str)
+        {
+            str = str.Split('=').Last();
+            return Convert.ToInt32(str);
         }
 
         private string CreateFolderAndFileForPreOrder(int id, HttpPostedFileBase[] fileUploadArray)

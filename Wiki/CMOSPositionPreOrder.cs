@@ -28,6 +28,7 @@ namespace Wiki
         public string note { get; set; }
         public double weightTN { get; set; }
         public double weightDoc { get; set; }
+        public double quantity8 { get; set; }
     
         public virtual CMOSPreOrder CMOSPreOrder { get; set; }
     }

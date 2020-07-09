@@ -260,6 +260,8 @@ function CleanerModals() {
     $('#planWeight').val("");
     $('#factWeightTN').val("");
     $('#factWeightDoc').val("");
+    $('#filePreorder').val("");
+    $('#fileBackorder').val("");
 }
 
 function CreatePreOrder() {
@@ -286,9 +288,6 @@ function AddPreOrder() {
     if (valid === false) {
         return false;
     }
-
-
-
     var data = new FormData();
     data.append($('#pzList').val(), $('#typeProductId').val());
     for (var x = 0; x < files.length; x++) {
@@ -310,18 +309,13 @@ function AddPreOrder() {
 
 function ValidCreatingPreOrder(lenghtFile) {
     var isValid = true;
-
-    var tmp1 = $('#pzList').val().trim();
-    var tmp2 = $('#typeProductId').val().trim();
-
-
     if (lenghtFile === 0) {
         isValid = false;
     }
-    if ($('#pzList').val().trim() === "") {
+    if ($('#pzList').val().length === 0) {
         isValid = false;
     }
-    if ($('#typeProductId').val().trim() === "") {
+    if ($('#typeProductId').val() === null) {
         $('#typeProductId').css('border-color', 'Red');
         isValid = false;
     }
