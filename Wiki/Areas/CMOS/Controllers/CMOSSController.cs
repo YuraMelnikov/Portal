@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -288,7 +287,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 var upload = Request.Files[file];
                 if (upload != null)
                 {
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    string fileName = Path.GetFileName(upload.FileName);
                     upload.SaveAs(Server.MapPath("~/Files/" + fileName));
                 }
             }

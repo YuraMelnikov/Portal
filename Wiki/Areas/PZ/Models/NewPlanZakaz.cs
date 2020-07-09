@@ -135,6 +135,18 @@ namespace Wiki.Areas.PZ.Models
             };
             db.PlanVerificationItems.Add(planVerificationItems);
             db.SaveChanges();
+            ApproveCDOrders approveCDOrders = new ApproveCDOrders
+            {
+                id_PZ_PlanZakaz = newPZ_PlanZakaz.Id,
+                id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95",
+                id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8",
+                description = "",
+                remove = false,
+                gHand = false,
+                isOpening = false
+            };
+            db.ApproveCDOrders.Add(approveCDOrders);
+            db.SaveChanges();
             if (addDebitWork == true)
             {
                 List<TaskForPZ> dateTaskWork = db.TaskForPZ.Where(w => w.step == 1).Where(z => z.id_TypeTaskForPZ == 1).ToList();

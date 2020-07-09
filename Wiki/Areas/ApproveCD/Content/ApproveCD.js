@@ -9,12 +9,14 @@ $(document).ready(function () {
     $('#BtnAddQuestion').hide();
     $('#BtnAddTask').hide();
     $('#hideIdOrder').hide();
+    $('#DnoPlaningOrdersTable').hide();
     StartMenu();
     LoadData(1);
 });
 
 function LoadData(id) {
     if (id === 1 || id === "1") {
+        $('#DnoPlaningOrdersTable').show();
         document.getElementById("labelOrdersTable").textContent = "Несогласованные заказы";
         document.getElementById("labelQuestionsTable").textContent = "Активные вопросы";
         document.getElementById("labelActionsTable").textContent = "Лента событий";
@@ -46,6 +48,7 @@ var objOrders = [
     { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Ред. ГИПа", "data": "gHandLink", "autowidth": true, "bSortable": false },
     { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
     { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
     { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
@@ -69,6 +72,15 @@ var objTasks = [
     { "title": "Описание", "data": "action", "autowidth": true, "bSortable": false },
     { "title": "Ответственный", "data": "user", "autowidth": true, "bSortable": true },
     { "title": "Срок", "data": "deadline", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull }
+];
+
+var objNoPlaningOrders = [
+    { "title": "Ред. ГИПа", "data": "gHandLink", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
 ];
 
 function StartMenu() {
@@ -187,6 +199,35 @@ function StartMenu() {
         "order": [[0, "desc"]],
         "processing": true,
         "columns": objTasks,
+        "cache": false,
+        "async": false,
+        "scrollY": vhScrollY,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#noPlaningOrdersTable").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        "ajax": {
+            "cache": false,
+            "url": "/Approve/GetNoPlaningOrders/",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[1, "desc"]],
+        "processing": true,
+        "columns": objNoPlaningOrders,
         "cache": false,
         "async": false,
         "scrollY": vhScrollY,
@@ -926,3 +967,45 @@ function RemoveOrder(id) {
         }
     });
 }
+
+
+function GetG(id) {
+    $('#gkbm').val("");
+    $('#gkbe').val("");
+    $('#gOrderNumber').val("");
+    $.ajax({
+        cache: false,
+        url: "/Approve/GetG/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#gOrderNumber').val(result.gOrderNumber);
+            $('#gkbm').val(result.gkbm);
+            $('#gkbe').val(result.gkbe);
+            $('#GModal').modal('show');
+        }
+    });
+}
+
+function UpdateG() {
+    var objDescription = {
+        gOrderNumber: $('#gOrderNumber').val(),
+        gkbm: $('#gkbm').val(),
+        gkbe: $('#gkbe').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Approve/UpdateG",
+        data: JSON.stringify(objDescription),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#GModal').modal('hide');
+            $('#ordersTable').DataTable().ajax.reload(null, false);
+            $('#noPlaningOrdersTable').DataTable().ajax.reload(null, false);
+        }
+    }); 
+}
+

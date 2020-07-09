@@ -27,6 +27,8 @@
           <Property Name="id_AspNetUsersE" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="remove" Type="bit" Nullable="false" />
+          <Property Name="gHand" Type="bit" Nullable="false" />
+          <Property Name="isOpening" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -7650,6 +7652,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="ApproveCDTasks" Relationship="PortalKATEKModel.FK_ApproveCDTasks_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDTasks" />
           <NavigationProperty Name="ApproveCDVersions" Relationship="PortalKATEKModel.FK_ApproveCDVersions_ApproveCDOrders" FromRole="ApproveCDOrders" ToRole="ApproveCDVersions" />
           <Property Name="remove" Type="Boolean" Nullable="false" />
+          <Property Name="gHand" Type="Boolean" Nullable="false" />
+          <Property Name="isOpening" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ApproveCDQuestionCorr">
           <Key>
@@ -12807,6 +12811,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="ApproveCDOrders">
             <EntityTypeMapping TypeName="PortalKATEKModel.ApproveCDOrders">
               <MappingFragment StoreEntitySet="ApproveCDOrders">
+                <ScalarProperty Name="isOpening" ColumnName="isOpening" />
+                <ScalarProperty Name="gHand" ColumnName="gHand" />
                 <ScalarProperty Name="remove" ColumnName="remove" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id_AspNetUsersE" ColumnName="id_AspNetUsersE" />

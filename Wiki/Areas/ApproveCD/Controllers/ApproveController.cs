@@ -25,7 +25,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
             @ViewBag.LeavelUser = GetUserLeavel(login);
             @ViewBag.NewOrders = new SelectList(db.PZ_PlanZakaz
                 .Include(d => d.ApproveCDOrders)
-                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.ApproveCDOrders.Count == 0)
+                .Where(d => d.dataOtgruzkiBP > DateTime.Now && d.ApproveCDOrders.Count(a => a.isOpening == false) == 1)
                 .OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.OrdersForQuestion = new SelectList(db.PZ_PlanZakaz
                 .Include(d => d.ApproveCDOrders)
@@ -39,6 +39,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 .Where(a => a.LockoutEnabled == true)
                 .Where(a => a.Devision == 3 || a.Devision == 15 || a.Devision == 16 || a.Email == "bav@katek.by" || a.Email == "maj@katek.by")
                 .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            ViewBag.GM = new SelectList(db.AspNetUsers.Where(a => a.LockoutEnabled == true).Where(a => a.Devision == 15).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            ViewBag.GE = new SelectList(db.AspNetUsers.Where(a => a.LockoutEnabled == true).Where(a => a.Devision == 16).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             return View();
         }
 
@@ -70,7 +72,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         .Include(a => a.ApproveCDOrders.AspNetUsers1)
                         .Include(a => a.RKD_VersionWork)
                         .Include(a => a.RKD_VersionWork)
-                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10 && a.ApproveCDOrders.remove == false)
+                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10 && a.ApproveCDOrders.remove == false && a.ApproveCDOrders.isOpening == true)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -86,7 +88,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
                         dataList.ApproveCDOrders.description,
-                        removeLink = GetRemoveLink(dataList.id)
+                        removeLink = GetRemoveLink(dataList.id),
+                        gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
                     });
                     return Json(new { data });
                 }
@@ -95,6 +98,27 @@ namespace Wiki.Areas.ApproveCD.Controllers
             {
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNoApproveTable: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string GetEditLinkGHand(int id_ApproveCDOrders, string login)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                ApproveCDOrders order = db.ApproveCDOrders.Find(id_ApproveCDOrders);
+                if(login == "nrf@katek.by" || login == "vi@katek.by" || login == "fvs@katek.by" || login == "myi@katek.by")
+                {
+                    if (order.gHand == true)
+                        return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetG('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil colorRed" + '\u0022' + "></span></a></td>";
+                    else
+                        return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetG('" + order.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
 
@@ -142,7 +166,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         .Include(a => a.ApproveCDOrders.AspNetUsers1)
                         .Include(a => a.RKD_VersionWork)
                         .Include(a => a.RKD_VersionWork)
-                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork == 10)
+                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork == 10 && a.ApproveCDOrders.isOpening == true)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -158,7 +182,8 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
                         dataList.ApproveCDOrders.description,
-                        removeLink = ""
+                        removeLink = "",
+                        gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
                     });
                     return Json(new { data });
                 }
@@ -466,45 +491,12 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     {
                         foreach (var data in newOrders)
                         {
-
                             var order = db.PZ_PlanZakaz.Find(data);
-                            string id_AspNetUsersM = "4f91324a-1918-4e62-b664-d8cd89a19d95";
-                            string id_AspNetUsersE = "8363828f-bba2-4a89-8ed8-d7f5623b4fa8";
-                            try
+                            if (db.ApproveCDVersions.Count(a => a.ApproveCDOrders.id_PZ_PlanZakaz == data && a.ApproveCDOrders.isOpening == true) == 0)
                             {
-                                var mg = db.PWA_EmpTaskAll.First(a => a.PlanZakaz == order.PlanZakaz && a.TaskName == "Согласовать РКД (КБМ)");
-                                AspNetUsers um = db.AspNetUsers.First(a => a.ResourceUID == mg.ResourceUID);
-                                id_AspNetUsersM = um.Id;
-                            }
-                            catch
-                            {
-
-                            }
-                            try
-                            {
-                                var me = db.PWA_EmpTaskAll.First(a => a.PlanZakaz == order.PlanZakaz && a.TaskName == "Согласовать РКД (КБЭ)");
-                                AspNetUsers ue = db.AspNetUsers.First(a => a.ResourceUID == me.ResourceUID);
-                                id_AspNetUsersE = ue.Id;
-                            }
-                            catch
-                            {
-
-                            }
-                            if (db.ApproveCDOrders.Count(a => a.id_PZ_PlanZakaz == data) == 0)
-                            {
-                                ApproveCDOrders approveCDOrders = new ApproveCDOrders
-                                {
-                                    id_PZ_PlanZakaz = data,
-                                    id_AspNetUsersM = id_AspNetUsersM,
-                                    id_AspNetUsersE = id_AspNetUsersE,
-                                    description = "",
-                                    remove = false
-                                };
-                                db.ApproveCDOrders.Add(approveCDOrders);
-                                db.SaveChanges();
                                 ApproveCDVersions approveCDVersions = new ApproveCDVersions
                                 {
-                                    id_ApproveCDOrders = approveCDOrders.id,
+                                    id_ApproveCDOrders = db.ApproveCDOrders.First(a => a.id_PZ_PlanZakaz == data).id,
                                     id_RKD_VersionWork = 12,
                                     numberVersion1 = 0,
                                     numberVersion2 = 0,
@@ -512,8 +504,11 @@ namespace Wiki.Areas.ApproveCD.Controllers
                                 };
                                 db.ApproveCDVersions.Add(approveCDVersions);
                                 db.SaveChanges();
+                                var ord = db.ApproveCDOrders.First(a => a.id_PZ_PlanZakaz == data);
+                                ord.isOpening = true;
+                                db.Entry(ord).State = EntityState.Modified;
+                                db.SaveChanges();
                             }
-
                         }
                     }
                     return Json(1, JsonRequestBehavior.AllowGet);
@@ -1115,6 +1110,100 @@ namespace Wiki.Areas.ApproveCD.Controllers
             catch (Exception ex)
             {
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateDescription: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetG(int id)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.ApproveCDOrders
+                        .Include(a => a.PZ_PlanZakaz)
+                        //.Include(a => a.AspNetUsers)
+                        //.Include(a => a.AspNetUsers1)
+                        .Where(a => a.id == id)
+                        .ToList();
+
+                    var data = query.Select(dataList => new
+                    {
+                        gOrderNumber = dataList.PZ_PlanZakaz.PlanZakaz,
+                        gkbm = dataList.id_AspNetUsersM,
+                        gkbe = dataList.id_AspNetUsersE
+                    });
+                    return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetG: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateG(int gOrderNumber, string gkbm, string gkbe)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    var order = db.ApproveCDOrders
+                        .First(a => a.PZ_PlanZakaz.PlanZakaz == gOrderNumber);
+                    order.gHand = true;
+                    order.id_AspNetUsersM = gkbm;
+                    order.id_AspNetUsersE = gkbe;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    logger.Debug("Wiki.Areas.ApproveCD.Controllers.UpdateG: " + login + " | " + gkbm + " | " + gkbe);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.UpdateG: " + ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetNoPlaningOrders()
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.ApproveCDOrders
+                        .Include(a => a.PZ_PlanZakaz.PZ_Client)
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.AspNetUsers1)
+
+                        .Where(a => a.isOpening == false || a.remove == true)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        order = dataList.PZ_PlanZakaz.PlanZakaz,
+                        gm = dataList.AspNetUsers.CiliricalName,
+                        ge = dataList.AspNetUsers1.CiliricalName,
+                        customer = dataList.PZ_PlanZakaz.PZ_Client.NameSort,
+                        dateOpen = JsonConvert.SerializeObject(dataList.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
+                        gHandLink = GetEditLinkGHand(dataList.id, login)
+                    });
+                    return Json(new { data });
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Wiki.Areas.ApproveCD.Controllers.GetNoPlaningOrders: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
