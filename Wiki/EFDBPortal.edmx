@@ -11905,8 +11905,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="coating" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
-          <Property Name="weightTN" Type="Double" Nullable="false" />
-          <Property Name="weightDoc" Type="Double" Nullable="false" />
           <Property Name="quantity8" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">

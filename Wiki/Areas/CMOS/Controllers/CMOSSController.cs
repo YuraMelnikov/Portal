@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -304,6 +303,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.CMOSPreOrder.Add(preorder);
                         db.SaveChanges();
                         preorder.folder = CreateFolderAndFileForPreOrder(preorder.id, files);
+                        CreatingPositionsPreorder(preorder.id, preorder.folder);
                         db.Entry(preorder).State = EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -428,20 +428,27 @@ namespace Wiki.Areas.CMOS.Controllers
             List<string> fiels = GetFileArray(path);
             foreach (var fiel in fiels)
             {
-                Application ObjExcel = new Application();
-                Workbook ObjWorkBook = ObjExcel.Workbooks.Open(fiel, 0, false, 5, "", "", false, XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-                Worksheet ObjWorkSheet;
-                ObjWorkSheet = (Worksheet)ObjWorkBook.Sheets[1];
 
-                // Указываем номер столбца (таблицы Excel) из которого будут считываться данные.
-                int numCol = 2;
-                Range usedColumn = ObjWorkSheet.UsedRange.Columns[numCol];
-                Array myvalues = (Array)usedColumn.Cells.Value2;
-                string[] strArray = myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
-
-                ObjExcel.Quit();
+                var tmp = "";
+                //string[] positionNumArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[1]);
+                //string[] designationArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[2]);
+                //string[] nameArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[3]);
+                //string[] indexArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[4]);
+                //string[] weightArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[5]);
+                //string[] quantityArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[6]);
+                //string[] summaryWeightArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[7]);
+                //string[] colorArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[8]);
+                //string[] coatingArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[9]);
+                //string[] noteArray = GetStringColumnExcel(ObjWorkSheet.UsedRange.Columns[10]);
+                //ObjExcel.Quit();
             }
         }
+
+        //private string[] GetStringColumnExcel(Range range)
+        //{
+        //    Array myvalues = (Array)range.Cells.Value2;
+        //    return myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
+        //}
 
         private int[] GetOrdersArray(string str)
         {
