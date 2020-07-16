@@ -28,68 +28,93 @@ $(document).ready(function () {
     }
 });
 
+var objPositionsPreorder = [
+    { "title": "№ поз.", "data": "positionNum", "autowidth": true, "bSortable": true },
+    { "title": "№ заказа", "data": "CMOSPreOrderId", "autowidth": true, "bSortable": false },
+    { "title": "Обозначение", "data": "designation", "autowidth": true, "bSortable": true },
+    { "title": "Наименование", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Индекс", "data": "index", "autowidth": true, "bSortable": false },
+    { "title": "Вес", "data": "weight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Кол-во", "data": "quantity", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Кол-во (склад)", "data": "quantity8", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Суммарный вес", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Цвет RAL", "data": "color", "autowidth": true, "bSortable": true },
+    { "title": "Покрытие", "data": "coating", "autowidth": true, "bSortable": true },
+    { "title": "Прим.", "data": "note", "autowidth": true, "bSortable": true }
+];
+
 var objFullReport = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
-    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Цена, б/НДС (BYN)", "data": "cost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Стоимость, б/НДС (BYN)", "data": "factCost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Цена, BYN", "data": "cost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Стоимость, BYN", "data": "factCost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Ставка за кг,USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
 var objSmallReport = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
-    { "title": "Вес", "data": "summryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка заказа", "data": "folder", "autowidth": true }
 ];
 
 var objPreOrdersList = [
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
     { "title": "Позиция", "data": "positionName", "autowidth": true, "bSortable": true },
+    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
+    { "title": "Позиции", "data": "positionsList", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false },
 ];
 
 var objNoPlaningOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Ответ до", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
+    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
 ];
 
 var objTNOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
+    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
 ];
 
 var objOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
-    { "title": "Ид.", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
@@ -97,7 +122,7 @@ var objOrders = [
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
-    { "title": "Удалить", "data": "order", "autowidth": true, "bSortable": false }
+    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
 ];
 
 function StartMenu() {
@@ -231,6 +256,27 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+    $("#tablePositionsPreorder").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetPositionsPreorder/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [[0, "desc"]],
+        "processing": true,
+        "columns": objPositionsPreorder,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
 function CleanerModals() {
@@ -241,9 +287,10 @@ function CleanerModals() {
     $('#pzList').chosen();
     $('#pzList').trigger('chosen:updated');
     $('#customerId').val("");
-    $('#pzListForBackorder').val("");
-    $('#pzListForBackorder').chosen();
-    $('#pzListForBackorder').trigger('chosen:updated');
+    $('#pzListBackorder').val("");
+    $('#pzListBackorder').chosen();
+    $('#pzListBackorder').trigger('chosen:updated');
+    $('#customerBackorder').val("");
     $('#customerOrderId').val("");
     $('#preordersList').val("");
     $('#preordersList').chosen();
@@ -268,18 +315,14 @@ function CreatePreOrder() {
     CleanerModals();
     $('#btnAddPreOrderModal').show();
     $('#creatingPreOrderModal').modal('show');
+    $('#loaderPreorder').hide();
 }
 
 function CreateBackorder() {
     CleanerModals();
     $('#btnAddBackorderModal').show();
     $('#creatingBackorderModal').modal('show');
-}
-
-function CreateOrder() {
-    CleanerModals();
-    $('#btnAddOrderModal').show();
-    $('#orderModal').modal('show');
+    $('#loaderBackorder').hide();
 }
 
 function AddPreOrder() {
@@ -288,6 +331,8 @@ function AddPreOrder() {
     if (valid === false) {
         return false;
     }
+    $('#btnAddPreOrderModal').hide();
+    $('#loaderPreorder').show();
     var data = new FormData();
     data.append($('#pzList').val(), $('#typeProductId').val());
     for (var x = 0; x < files.length; x++) {
@@ -300,7 +345,7 @@ function AddPreOrder() {
         processData: false,
         data: data,
         success: function (result) {
-            $('#btnAddPreOrderModal').hide();
+            $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#creatingPreOrderModal').modal('hide');
         }
@@ -326,27 +371,66 @@ function ValidCreatingPreOrder(lenghtFile) {
 }
 
 function AddBackorder() {
-    var obj = {
-        pzListBackorder: $('#pzListBackorder').val(),
-        customerBackorder: $('#customerBackorder').val(),
-        fileBackorder: $('#fileBackorder').val()
-    };
+    var files = document.getElementById('fileBackorder').files;
+    var valid = ValidCreatingBackorder(files.length);
+    if (valid === false) {
+        return false;
+    }
+    $('#btnAddBackorderModal').hide();
+    $('#loaderBackorder').show();
+    var data = new FormData();
+    data.append($('#pzListBackorder').val(), $('#customerBackorder').val());
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
     $.ajax({
-        cache: false,
-        url: "/CMOSS/AddBackorder",
-        data: JSON.stringify(obj),
         type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
+        url: "/CMOSS/AddBackorder",
+        contentType: false,
+        processData: false,
+        data: data,
         success: function (result) {
-            $('#btnAddBackorderModal').hide();
+            $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#creatingBackorderModal').modal('hide');
         }
     });
 }
 
+function ValidCreatingBackorder(lenghtFile) {
+    var isValid = true;
+    if (lenghtFile !== 1) {
+        isValid = false;
+    }
+    if ($('#pzListBackorder').val().length === 0) {
+        isValid = false;
+    }
+    if ($('#customerBackorder').val() === null) {
+        $('#customerBackorder').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#customerBackorder').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+function CreateOrder() {
+    $('#workDate').prop('disabled', false);
+    CleanerModals();
+    $('#btnAddOrderModal').show();
+    $('#btnUpdateOrder').hide();
+    $('#orderModal').modal('show');
+    $('#loaderOrder').hide();
+}
+
 function AddOrder() {
+    var valid = ValidCreatingOrder();
+    if (valid === false) {
+        return false;
+    }
+    $('#btnAddOrderModal').hide();
+    $('#loaderOrder').show();
     var obj = {
         preordersList: $('#preordersList').val(),
         customerOrderId: $('#customerOrderId').val(),
@@ -354,17 +438,41 @@ function AddOrder() {
     };
     $.ajax({
         cache: false,
-        url: "/CMOSS/AddBackorder",
+        url: "/CMOSS/AddOrder",
         data: JSON.stringify(obj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            $('#btnAddOrderModal').hide();
-            $('#dTableNoPlaningOrder').DataTable().ajax.reload(null, false);
+            //cleaning orders list
+            $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
+            $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
+            $('#workDate').prop('disabled', true);
             $('#orderModal').modal('hide');
         }
     });
+}
+
+function ValidCreatingOrder() {
+    var isValid = true;
+    if ($('#preordersList').val().length === 0) {
+        isValid = false;
+    }
+    if ($('#customerOrderId').val() === null) {
+        $('#customerOrderId').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#customerOrderId').css('border-color', 'lightgrey');
+    }
+    if ($('#workDate').val() === "") {
+        $('#workDate').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#workDate').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 function GetOrder(id) {
@@ -428,10 +536,10 @@ function UpdateOrder() {
         dataType: "json",
         success: function (result) {
             $('#btnUpdateOrder').hide();
-            $('#dTableNoPlaningOrder').DataTable().ajax.reload(null, false);
-            $('#dTableTNOrder').DataTable().ajax.reload(null, false);
-            $('#dTableNoClothingOrder').DataTable().ajax.reload(null, false);
-            $('#dFullReport').DataTable().ajax.reload(null, false);
+            $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
+            $('#tableTNOrder').DataTable().ajax.reload(null, false);
+            $('#tableNoClothingOrder').DataTable().ajax.reload(null, false);
+            $('#fullReport').DataTable().ajax.reload(null, false);
             $('#orderModal').modal('hide');
         }
     });
@@ -459,10 +567,10 @@ function RemoveOrder(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            $('#dTableNoPlaningOrder').DataTable().ajax.reload(null, false);
-            $('#dTableTNOrder').DataTable().ajax.reload(null, false);
-            $('#dTableNoClothingOrder').DataTable().ajax.reload(null, false);
-            $('#dFullReport').DataTable().ajax.reload(null, false);
+            $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
+            $('#tableTNOrder').DataTable().ajax.reload(null, false);
+            $('#tableNoClothingOrder').DataTable().ajax.reload(null, false);
+            $('#fullReport').DataTable().ajax.reload(null, false);
         }
     });
     return false;
@@ -474,4 +582,58 @@ function processNull(data) {
     } else {
         return data;
     }
+}
+
+function GetPositionsPreorder(id) {
+    $("#tablePositionsPreorder").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetPositionsPreorder/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "asc"]],
+        "bAutoWidth": false,
+        "columns": objPositionsPreorder,
+        "scrollY": '70vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#positionsPreorderModal').modal('show');
+}
+
+function GetPositionsOrder(id) {
+    $("#tablePositionsPreorder").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetPositionsOrder/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "order": [[0, "asc"]],
+        "bAutoWidth": false,
+        "columns": objPositionsPreorder,
+        "scrollY": '70vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $('#positionsPreorderModal').modal('show');
 }

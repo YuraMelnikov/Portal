@@ -3,13 +3,25 @@
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
 }
 <head>
-    <script src="~/Areas/CMOS/Content/CMOS.js?v.0.1"></script>
+    <script src="~/Areas/CMOS/Content/CMOS.js?v.0.4"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
         .highlightColor {
             background-color: #c42525;
             color: white;
+        }
+        .loader {
+            border: 5px solid #d7d7d7;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -85,6 +97,7 @@
                         <label>Укажите полуфабрикат:</label>
                         @Html.DropDownList("typeProductId", ViewBag.id_CMO_TypeProduct as MultiSelectList, new { @class = "form-control" })
                     </div>
+
                 </div>
                 <hr />
                 <div class="row">
@@ -93,6 +106,7 @@
                     </div>
                     <div class="col-lg-4">
                         <button id="btnAddPreOrderModal" class="btn btn-primary" onclick="AddPreOrder()">Создать предзаказ</button>
+                        <div id="loaderPreorder" class="loader"></div>
                     </div>
                 </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -101,7 +115,8 @@
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <hr />
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -132,16 +147,13 @@
                     </div>
                 </div>
                 <hr />
-
-
-
-
                 <div class="row">
                     <div class="col-lg-8">
-                        <input accept="file/*" type="file" multiple name="fileBackorder" id="fileBackorder" enctype="multipart/form-data" value="Выбрать файл/ы" /><br />
+                        <input accept=".xls, .xlsx" type="file" multiple name="fileBackorder" id="fileBackorder" enctype="multipart/form-data" value="Выбрать файл" /><br />
                     </div>
                     <div class="col-lg-4">
-                        <button id="btnAddPreOrderModal" class="btn btn-primary" onclick="AddPreOrder()">Создать предзаказ</button>
+                        <button id="btnAddBackorderModal" class="btn btn-primary" onclick="AddBackorder()">Создать предзаказ</button>
+                        <div id="loaderBackorder" class="loader"></div>
                     </div>
                 </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -150,7 +162,8 @@
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <hr />
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -171,80 +184,79 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-2">
-                        <label>ИД заказа:</label>
+                    <div class="col-lg-1">
+                        <label>ИД:</label>
                         <input type="text" class="form-control" id="idOrder" disabled="disabled" />
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <label>Укажите предзаказ/ы:</label>
                         @Html.ListBox("preordersList", ViewBag.id_CMOSPreorder as MultiSelectList, new { @class = "chosen-select" })
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-2">
                         <label>Укажите поставщика:</label>
                         @Html.DropDownList("customerOrderId", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <label>Автор заказа:</label>
                         <input type="text" class="form-control" id="aspNetUsersCreateId" disabled="disabled" />
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <label>Дата и время создания:</label>
                         <input type="text" class="form-control" id="dateTimeCreate" disabled="disabled" />
                     </div>
                 </div>
+                <hr />
                 <div class="row">
-                    <div class="col-lg-3">
-                        <label>Срок получения ответа:</label>
+                    <div class="col-lg-2">
+                        <label>Получить ответ:</label>
                         <input type="text" class="form-control" id="workDate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-3">
-                        <label>Плановая дата поступления:</label>
+                    <div class="col-lg-2">
+                        <label>Срок поставки:</label>
                         <input type="text" class="form-control" id="manufDate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-3">
-                        <label>Дата поступления:</label>
+                    <div class="col-lg-2">
+                        <label>Дата поставки:</label>
                         <input type="text" class="form-control" id="finDate" disabled="disabled" />
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label>Номер накладной:</label>
                         <input type="text" class="form-control" id="numberTN" disabled="disabled" />
                     </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
                 </div>
+                <hr />
                 <div class="row">
-                    <div class="col-lg-2">
-                        <label>Плановая стоимость, без НДС (BYN):</label>
-                        <input type="text" class="form-control" id="cost" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Фактическая стоимость, без НДС (BYN):</label>
-                        <input type="text" class="form-control" id="factCost" disabled="disabled" />
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Курс валюты (на дату размещения):</label>
-                        <input type="text" class="form-control" id="cources" disabled="disabled" />
-                    </div>
                     <div class="col-lg-2">
                         <label>Расчетный вес:</label>
                         <input type="text" class="form-control" id="planWeight" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Фактический вес (по накладной):</label>
+                        <label>Фактический вес:</label>
                         <input type="text" class="form-control" id="factWeightTN" disabled="disabled" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Фактический вес (по документу поступления):</label>
+                        <label>Цена, BYN:</label>
+                        <input type="text" class="form-control" id="cost" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Стоимость, BYN:</label>
+                        <input type="text" class="form-control" id="factCost" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Курс валюты:</label>
+                        <input type="text" class="form-control" id="cources" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Ставка за кг, USD:</label>
                         <input type="text" class="form-control" id="factWeightDoc" disabled="disabled" />
                     </div>
                 </div>
-                <hr />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="btn btn-primary" id="btnAddOrderModal" style="display:none;" onclick="AddOrder();">Создать заказ</button>
-                        <button type="button" class="btn btn-primary" id="btnUpdateOrder" style="display:none;" onclick="UpdateOrder();">Обновить заказ</button>
-                    </div>
-                </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -255,17 +267,32 @@
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <div class="row"><div class="col-lg-4">&nbsp</div></div>
-                <hr />
             </div>
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        <button id="btnAddOrderModal" class="btn btn-primary" onclick="AddOrder()">Создать заказ</button>
+                        <button id="btnUpdateOrder" class="btn btn-primary" onclick="UpdateOrder()">Обновить заказ</button>
+                        <div id="loaderOrder" class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="positionsPreorderModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Позиции предзаказа:</label>
+                        <table id="tablePositionsPreorder" class="table table-hover table-striped" style="width:100%;"></table>
                     </div>
                 </div>
             </div>
@@ -287,4 +314,14 @@
 </script>
 <script>
     var userGroupId = @ViewBag.userGroupId;
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#workDate').datetimepicker({
+            locale: 'ru',
+            //format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
 </script>

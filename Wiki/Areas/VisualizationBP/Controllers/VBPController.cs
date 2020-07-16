@@ -186,7 +186,7 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                     workDay = dataList.workday,
                     workMode = Math.Round(dataList.workMode, 2),
                     dataList.ProductionCalendar.period,
-                    coefDefaultWork = dataList.DashboardBPDevisionCoef.coefDefaultWork
+                    dataList.DashboardBPDevisionCoef.coefDefaultWork
                 });
                 return Json(new { data });
             }
@@ -1249,11 +1249,13 @@ namespace Wiki.Areas.VisualizationBP.Controllers
                 OrderForDashboardTV[] dataList = new OrderForDashboardTV[projectList.Count];
                 for (int i = 0; i < projectList.Count; i++)
                 {
-                    dataList[i] = new OrderForDashboardTV();
-                    dataList[i].PercentComplited = projectList[i].TaskPercentWorkCompleted;
-                    dataList[i].RemainingDuration = projectList[i].TaskRemainingWork.Value;
-                    dataList[i].DataOtgruzkiBP = projectList[i].TaskStartDate;
-                    dataList[i].ContractDateComplited = projectList[i].TaskfinishDate;
+                    dataList[i] = new OrderForDashboardTV
+                    {
+                        PercentComplited = projectList[i].TaskPercentWorkCompleted,
+                        RemainingDuration = projectList[i].TaskRemainingWork.Value,
+                        DataOtgruzkiBP = projectList[i].TaskStartDate,
+                        ContractDateComplited = projectList[i].TaskfinishDate
+                    };
                     try
                     {
                         dataList[i].OrderNumber = projectList[i].AspNetUsers.Devision1.name + " | " + projectList[i].AspNetUsers.CiliricalName;

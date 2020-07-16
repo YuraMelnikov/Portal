@@ -173,7 +173,7 @@ namespace Wiki.Areas.ServiceReclamations.Controllers
                     .Where(d => d.id == id).ToList();
                 var data = query.Select(dataList => new
                 {
-                    contacts = dataList.contacts,
+                    dataList.contacts,
                     numberReclamation = "Рекламация №: " + dataList.id,
                     dataList.id,
                     pZ_PlanZakaz = GetPlanZakazArray(dataList.ServiceRemarksPlanZakazs.ToList()),

@@ -660,7 +660,10 @@
           <Property Name="numberTN" Type="varchar" MaxLength="50" />
           <Property Name="cost" Type="float" Nullable="false" />
           <Property Name="factCost" Type="float" />
+          <Property Name="weight" Type="float" Nullable="false" />
           <Property Name="remove" Type="bit" Nullable="false" />
+          <Property Name="rate" Type="float" Nullable="false" />
+          <Property Name="curency" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="CMOSOrderPreOrder">
           <Key>
@@ -11859,6 +11862,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="CMOSOrderPreOrder" Relationship="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSOrder" FromRole="CMOSOrder" ToRole="CMOSOrderPreOrder" />
           <NavigationProperty Name="CMOSPositionOrder" Relationship="PortalKATEKModel.FK_CMOSPositionOrder_CMOSOrder" FromRole="CMOSOrder" ToRole="CMOSPositionOrder" />
           <Property Name="remove" Type="Boolean" Nullable="false" />
+          <Property Name="rate" Type="Double" Nullable="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
+          <Property Name="curency" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="CMOSOrderPreOrder">
           <Key>
@@ -14473,6 +14479,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSOrder">
               <MappingFragment StoreEntitySet="CMOSOrder">
+                <ScalarProperty Name="curency" ColumnName="curency" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="remove" ColumnName="remove" />
                 <ScalarProperty Name="factCost" ColumnName="factCost" />
                 <ScalarProperty Name="cost" ColumnName="cost" />
