@@ -1,0 +1,2052 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="E3_Components_Symbols_EditModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assembly">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="LPNTR" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="FLAGS" Type="int" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="80" />
+          <Property Name="SUBENTRY" Type="nvarchar" MaxLength="255" />
+          <Property Name="SUBVERSION" Type="nvarchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="BlockedInfos">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="RootEntry" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="RootEntry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="BlockedPins" Type="image" />
+        </EntityType>
+        <EntityType Name="Cable">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="BundleID" Type="int" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" />
+          <Property Name="NODENO" Type="int" />
+          <Property Name="CrossSection" Type="real" />
+          <Property Name="Color" Type="int" />
+          <Property Name="Flags" Type="int" />
+          <Property Name="SUBENTRY" Type="nvarchar" MaxLength="255" />
+          <Property Name="SUBVERSION" Type="nvarchar" MaxLength="4" />
+          <Property Name="OuterDia" Type="real" />
+        </EntityType>
+        <EntityType Name="COMPONENT_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="COMP_ID" />
+            <PropertyRef Name="SYMBOL_STATE_ID" />
+            <PropertyRef Name="GATNUM" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="COMP_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="SYMBOL_STATE_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="GATNUM" Type="int" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="int" />
+        </EntityType>
+        <EntityType Name="ComponentAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="BundleID" />
+            <PropertyRef Name="NODENO" />
+            <PropertyRef Name="Flags" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="BundleID" Type="int" Nullable="false" />
+          <Property Name="NODENO" Type="int" Nullable="false" />
+          <Property Name="Flags" Type="int" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ComponentData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" />
+          <Property Name="DeviceLetterCode" Type="nvarchar" MaxLength="6" />
+          <Property Name="Class" Type="nvarchar" MaxLength="80" />
+          <Property Name="ENTRYTYP" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="LPNTR" Type="nvarchar" MaxLength="255" />
+          <Property Name="VSTATUS" Type="nvarchar" MaxLength="1" />
+          <Property Name="VersionText" Type="nvarchar" MaxLength="80" />
+          <Property Name="DATEMAIN" Type="datetime" />
+          <Property Name="LASTUPDT" Type="datetime" />
+          <Property Name="MPNTR" Type="nvarchar" MaxLength="255" />
+          <Property Name="Flags" Type="int" />
+          <Property Name="ArticleNumber" Type="nvarchar" MaxLength="80" />
+          <Property Name="Supplier" Type="nvarchar" MaxLength="80" />
+          <Property Name="SPNTR" Type="nvarchar" MaxLength="20" />
+          <Property Name="Class-main" Type="nvarchar" MaxLength="255" />
+          <Property Name="katek_1C" Type="nvarchar" MaxLength="255" />
+          <Property Name="katek_type_rkd" Type="nvarchar" MaxLength="255" />
+          <Property Name="katek_name_rkd" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="DatabaseInfo">
+          <Key>
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="Version" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Drill">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="Diameter" Type="real" />
+          <Property Name="Tolerance" Type="real" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="20" />
+          <Property Name="Type" Type="int" />
+          <Property Name="TData" Type="image" />
+        </EntityType>
+        <EntityType Name="FUNCTION_ATTRIBUTES">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PORT_NUMBER" />
+            <PropertyRef Name="ATTRIBUTE_NAME" />
+            <PropertyRef Name="COPY" />
+            <PropertyRef Name="STATE_ID" />
+          </Key>
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="PORT_NUMBER" Type="int" Nullable="false" />
+          <Property Name="ATTRIBUTE_NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="STATE_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="ATTRIBUTE_VALUE" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_ASSIGNMENTS">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="PINCOPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PINCOPY" Type="int" Nullable="false" />
+          <Property Name="FUNAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="FUPORT" Type="int" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_PORTS">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="PORT" Type="nvarchar" MaxLength="255" />
+          <Property Name="FLAGS" Type="int" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_UNIT_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FU_NAME" />
+            <PropertyRef Name="FU_ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="FU_NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FU_ID" Type="int" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="int" />
+          <Property Name="FLAGS" Type="int" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_UNITS">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SYMBOL" Type="nvarchar" MaxLength="255" />
+          <Property Name="TYPE" Type="int" />
+        </EntityType>
+        <EntityType Name="Gate">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="CCTNAME" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="GATE_FUNCTION_ATTRIBUTES">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="FUSUBID" />
+            <PropertyRef Name="STATE_ID" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="LPNTR" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="GateNumber" Type="int" Nullable="false" />
+          <Property Name="FUSUBID" Type="int" Nullable="false" />
+          <Property Name="STATE_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="GatePinRelation">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="PinNumber" />
+            <PropertyRef Name="Representation" />
+            <PropertyRef Name="NodeNumber" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="GateNumber" Type="int" Nullable="false" />
+          <Property Name="PinNumber" Type="int" Nullable="false" />
+          <Property Name="Representation" Type="int" Nullable="false" />
+          <Property Name="NodeNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Layer">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="LayerName" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LOCKINFO">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="TYPE" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="TYPE" Type="int" Nullable="false" />
+          <Property Name="USER" Type="nvarchar" MaxLength="255" />
+          <Property Name="HOST" Type="nvarchar" MaxLength="255" />
+          <Property Name="PID" Type="int" />
+          <Property Name="TIME" Type="int" />
+        </EntityType>
+        <EntityType Name="LogicAttribute">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="GateNumber" Type="int" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ModelAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ModelData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Class" Type="nvarchar" MaxLength="80" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="LASTUPDT" Type="datetime" />
+          <Property Name="DATEMAIN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Outlines">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="OutlineNumber" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="OutlineNumber" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="X" Type="float" />
+          <Property Name="Y" Type="float" />
+          <Property Name="Z" Type="float" />
+          <Property Name="LineY" Type="float" />
+          <Property Name="LineZ" Type="float" />
+          <Property Name="AreaZ" Type="float" />
+          <Property Name="Height" Type="float" />
+          <Property Name="OutlineData" Type="image" />
+          <Property Name="RestrictedLayer" Type="int" />
+          <Property Name="DescriptionLevel" Type="int" />
+          <Property Name="Flags" Type="int" />
+        </EntityType>
+        <EntityType Name="OutlineSymbols">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="OutlineNumber" />
+            <PropertyRef Name="ViewNumber" />
+            <PropertyRef Name="Symbol" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="OutlineNumber" Type="int" Nullable="false" />
+          <Property Name="ViewNumber" Type="int" Nullable="false" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PadStack">
+          <Key>
+            <PropertyRef Name="EntryID" />
+            <PropertyRef Name="LayerID" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="PadSym" Type="nvarchar" MaxLength="20" />
+          <Property Name="LayerID" Type="int" Nullable="false" />
+          <Property Name="Flags" Type="int" />
+        </EntityType>
+        <EntityType Name="PhysPin">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="PinNumber" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PinNumber" Type="int" Nullable="false" />
+          <Property Name="ConnX" Type="float" />
+          <Property Name="ConnY" Type="float" />
+          <Property Name="ConnZ" Type="float" />
+          <Property Name="ConnType" Type="int" />
+          <Property Name="ConnDirection" Type="int" />
+          <Property Name="WireColor" Type="int" />
+          <Property Name="ConnDimension1" Type="real" />
+          <Property Name="ConnDimension2" Type="real" />
+          <Property Name="AWGMin" Type="real" />
+          <Property Name="AWGMax" Type="real" />
+          <Property Name="ConnDimensionMax" Type="real" />
+          <Property Name="WireMax" Type="int" />
+          <Property Name="SpineX" Type="float" />
+          <Property Name="SpineY" Type="float" />
+          <Property Name="SpineZ" Type="float" />
+          <Property Name="SlopeAngle" Type="float" />
+          <Property Name="PluggableDepth" Type="float" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="PinLayer" Type="int" />
+          <Property Name="PinRotation" Type="float" />
+          <Property Name="TestPointCode" Type="int" />
+          <Property Name="TechStackS" Type="nvarchar" MaxLength="20" />
+          <Property Name="TechStackC" Type="nvarchar" MaxLength="20" />
+          <Property Name="DrillID" Type="int" />
+          <Property Name="Flags2" Type="int" />
+        </EntityType>
+        <EntityType Name="Pin">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="PHYSPIN" Type="nvarchar" MaxLength="64" />
+          <Property Name="FUNCT" Type="int" />
+          <Property Name="PINEQUIV" Type="int" />
+          <Property Name="LPINEQV" Type="int" />
+          <Property Name="PINNAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="NPINEQV" Type="int" />
+          <Property Name="Flags" Type="int" />
+          <Property Name="TPNPRIO" Type="int" />
+          <Property Name="FLAGS2" Type="int" />
+        </EntityType>
+        <EntityType Name="PinAttribute">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="PinNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PinNumber" Type="int" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PinDesign">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="TechnologyID" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Copy" Type="int" />
+          <Property Name="TechnologyID" Type="int" Nullable="false" />
+          <Property Name="PadStackID" Type="int" />
+        </EntityType>
+        <EntityType Name="PlugInfo">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="PINCOMP" Type="nvarchar" MaxLength="255" />
+          <Property Name="ActiveCounterPart" Type="bit" />
+          <Property Name="PINPART" Type="nvarchar" MaxLength="255" />
+          <Property Name="ActiveFittingPart" Type="bit" />
+          <Property Name="PinNumber" Type="int" />
+          <Property Name="ActiveWireSeal" Type="bit" />
+        </EntityType>
+        <EntityType Name="RetainingRailTypes">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SheetInformation">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SheetType" Type="int" />
+          <Property Name="LayoutType" Type="int" />
+          <Property Name="HorzLayout" Type="image" />
+          <Property Name="VertLayout" Type="image" />
+          <Property Name="Orientation" Type="nvarchar" MaxLength="12" />
+          <Property Name="DrawingArea" Type="image" />
+          <Property Name="PRINT_AREA" Type="varbinary" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="SlotAttribute">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="SlotNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SlotNumber" Type="int" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Slots">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="Entry" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="RetainingRailType" Type="int" />
+          <Property Name="x1" Type="float" />
+          <Property Name="y1" Type="float" />
+          <Property Name="z1" Type="float" />
+          <Property Name="x2" Type="float" />
+          <Property Name="y2" Type="float" />
+          <Property Name="z2" Type="float" />
+          <Property Name="Width" Type="float" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="Potentialnummer" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Potentialnummer" Type="int" Nullable="false" />
+          <Property Name="Potentialname" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SYMBOL_FUNCTION">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="LBNNUM" />
+            <PropertyRef Name="FUSUBID" />
+          </Key>
+          <Property Name="LPNTR" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LBNNUM" Type="int" Nullable="false" />
+          <Property Name="FUSUBID" Type="int" Nullable="false" />
+          <Property Name="FUNAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="FUPORT" Type="int" />
+        </EntityType>
+        <EntityType Name="SYMBOL_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="SYMBOL_ID" />
+            <PropertyRef Name="FU_STATE_ID" />
+            <PropertyRef Name="FUSUBID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="SYMBOL_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="FU_STATE_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="FUSUBID" Type="int" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="int" />
+          <Property Name="FLAGS" Type="int" />
+        </EntityType>
+        <EntityType Name="SymbolAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SymbolData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" />
+          <Property Name="VERSION" Type="nvarchar" MaxLength="4" />
+          <Property Name="Norm" Type="int" />
+          <Property Name="LSHDES" Type="nvarchar" MaxLength="4" />
+          <Property Name="LSHTYP" Type="int" />
+          <Property Name="ENTRYTYP" Type="int" />
+          <Property Name="LPNTR" Type="nvarchar" MaxLength="255" />
+          <Property Name="VSTATUS" Type="nvarchar" MaxLength="1" />
+          <Property Name="VersionText" Type="nvarchar" MaxLength="80" />
+          <Property Name="DATEMAIN" Type="datetime" />
+          <Property Name="LASTUPDT" Type="datetime" />
+          <Property Name="Class" Type="nvarchar" MaxLength="80" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="SYMINDEX" Type="int" />
+          <Property Name="FLAGS2" Type="int" />
+          <Property Name="FLAGS" Type="int" />
+        </EntityType>
+        <EntityType Name="SymbolDimension">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LSHX1" Type="float" />
+          <Property Name="LSHY1" Type="float" />
+          <Property Name="LSHX2" Type="float" />
+          <Property Name="LSHY2" Type="float" />
+        </EntityType>
+        <EntityType Name="SymbolGraphic">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="GraphicType" Type="int" />
+          <Property Name="Linecolor" Type="int" />
+          <Property Name="Linetype" Type="int" />
+          <Property Name="Linewidth" Type="float" />
+          <Property Name="Fillmode" Type="int" />
+          <Property Name="Fillcolor" Type="int" />
+          <Property Name="HatchData" Type="varbinary" MaxLength="56" />
+          <Property Name="GraphicData" Type="image" />
+          <Property Name="GraphicLevel" Type="int" />
+          <Property Name="Flags" Type="int" />
+          <Property Name="ID" Type="int" />
+          <Property Name="STATE_ID" Type="nvarchar" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="SymbolNodes">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="LIBNTY" Type="int" />
+          <Property Name="LIBNX" Type="float" />
+          <Property Name="LIBNY" Type="float" />
+          <Property Name="LBSTUB" Type="int" />
+          <Property Name="LBNNUM" Type="int" />
+          <Property Name="Function" Type="int" />
+        </EntityType>
+        <EntityType Name="SymbolPoints">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="FLAGS" Type="int" />
+          <Property Name="POSX" Type="float" />
+          <Property Name="POSY" Type="float" />
+        </EntityType>
+        <EntityType Name="SymbolText">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="COPY" Type="int" Nullable="false" />
+          <Property Name="TTYPE" Type="int" />
+          <Property Name="TX" Type="float" />
+          <Property Name="TY" Type="float" />
+          <Property Name="TJUST" Type="int" />
+          <Property Name="THT" Type="float" />
+          <Property Name="TMOD" Type="int" />
+          <Property Name="TLEV" Type="int" />
+          <Property Name="TSTR" Type="nvarchar" MaxLength="255" />
+          <Property Name="LBNNUM" Type="int" />
+          <Property Name="Flags" Type="int" />
+          <Property Name="TROT" Type="float" />
+          <Property Name="FontName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FontStyle" Type="int" />
+          <Property Name="TextColor" Type="int" />
+          <Property Name="Flags2" Type="int" />
+          <Property Name="SIZEX" Type="float" />
+          <Property Name="SIZEY" Type="float" />
+          <Property Name="Hyperlink" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="EntryID" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ValidRetainingRailTypes">
+          <Key>
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="E3_Components_Symbols_EditModelStoreContainer">
+          <EntitySet Name="Assembly" EntityType="Self.Assembly" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlockedInfos" EntityType="Self.BlockedInfos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cable" EntityType="Self.Cable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPONENT_STATES" EntityType="Self.COMPONENT_STATES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComponentAttribute" EntityType="Self.ComponentAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComponentData" EntityType="Self.ComponentData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatabaseInfo" EntityType="Self.DatabaseInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drill" EntityType="Self.Drill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCTION_ATTRIBUTES" EntityType="Self.FUNCTION_ATTRIBUTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCTIONAL_ASSIGNMENTS" EntityType="Self.FUNCTIONAL_ASSIGNMENTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCTIONAL_PORTS" EntityType="Self.FUNCTIONAL_PORTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCTIONAL_UNIT_STATES" EntityType="Self.FUNCTIONAL_UNIT_STATES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCTIONAL_UNITS" EntityType="Self.FUNCTIONAL_UNITS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gate" EntityType="Self.Gate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GATE_FUNCTION_ATTRIBUTES" EntityType="Self.GATE_FUNCTION_ATTRIBUTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GatePinRelation" EntityType="Self.GatePinRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Layer" EntityType="Self.Layer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOCKINFO" EntityType="Self.LOCKINFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogicAttribute" EntityType="Self.LogicAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelAttribute" EntityType="Self.ModelAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelData" EntityType="Self.ModelData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outlines" EntityType="Self.Outlines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutlineSymbols" EntityType="Self.OutlineSymbols" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PadStack" EntityType="Self.PadStack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhysPin" EntityType="Self.PhysPin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pin" EntityType="Self.Pin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PinAttribute" EntityType="Self.PinAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PinDesign" EntityType="Self.PinDesign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlugInfo" EntityType="Self.PlugInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RetainingRailTypes" EntityType="Self.RetainingRailTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SheetInformation" EntityType="Self.SheetInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SlotAttribute" EntityType="Self.SlotAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slots" EntityType="Self.Slots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYMBOL_FUNCTION" EntityType="Self.SYMBOL_FUNCTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYMBOL_STATES" EntityType="Self.SYMBOL_STATES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolAttribute" EntityType="Self.SymbolAttribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolData" EntityType="Self.SymbolData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolDimension" EntityType="Self.SymbolDimension" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolGraphic" EntityType="Self.SymbolGraphic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolNodes" EntityType="Self.SymbolNodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolPoints" EntityType="Self.SymbolPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymbolText" EntityType="Self.SymbolText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technology" EntityType="Self.Technology" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValidRetainingRailTypes" EntityType="Self.ValidRetainingRailTypes" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="E3_Components_Symbols_EditModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assembly">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="LPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="FLAGS" Type="Int32" />
+          <Property Name="NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="SUBENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SUBVERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BlockedInfos">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="RootEntry" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RootEntry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BlockedPins" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Cable">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="BundleID" Type="Int32" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="NODENO" Type="Int32" />
+          <Property Name="CrossSection" Type="Single" />
+          <Property Name="Color" Type="Int32" />
+          <Property Name="Flags" Type="Int32" />
+          <Property Name="SUBENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SUBVERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="OuterDia" Type="Single" />
+        </EntityType>
+        <EntityType Name="COMPONENT_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="COMP_ID" />
+            <PropertyRef Name="SYMBOL_STATE_ID" />
+            <PropertyRef Name="GATNUM" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SYMBOL_STATE_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GATNUM" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ComponentAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="BundleID" />
+            <PropertyRef Name="NODENO" />
+            <PropertyRef Name="Flags" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BundleID" Type="Int32" Nullable="false" />
+          <Property Name="NODENO" Type="Int32" Nullable="false" />
+          <Property Name="Flags" Type="Int32" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ComponentData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceLetterCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Class" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ENTRYTYP" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VSTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="VersionText" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="DATEMAIN" Type="DateTime" Precision="3" />
+          <Property Name="LASTUPDT" Type="DateTime" Precision="3" />
+          <Property Name="MPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Flags" Type="Int32" />
+          <Property Name="ArticleNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Supplier" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="SPNTR" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Class_main" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="katek_1C" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="katek_type_rkd" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="katek_name_rkd" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DatabaseInfo">
+          <Key>
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="Version" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Drill">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" />
+          <Property Name="Diameter" Type="Single" />
+          <Property Name="Tolerance" Type="Single" />
+          <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="TData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="FUNCTION_ATTRIBUTES">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PORT_NUMBER" />
+            <PropertyRef Name="ATTRIBUTE_NAME" />
+            <PropertyRef Name="COPY" />
+            <PropertyRef Name="STATE_ID" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="PORT_NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="ATTRIBUTE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="STATE_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ATTRIBUTE_VALUE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_ASSIGNMENTS">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="PINCOPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PINCOPY" Type="Int32" Nullable="false" />
+          <Property Name="FUNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="FUPORT" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_PORTS">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="PORT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FLAGS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_UNIT_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FU_NAME" />
+            <PropertyRef Name="FU_ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FU_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FU_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="Int32" />
+          <Property Name="FLAGS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FUNCTIONAL_UNITS">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SYMBOL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TYPE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Gate">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="CCTNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GATE_FUNCTION_ATTRIBUTES">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="FUSUBID" />
+            <PropertyRef Name="STATE_ID" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="LPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GateNumber" Type="Int32" Nullable="false" />
+          <Property Name="FUSUBID" Type="Int32" Nullable="false" />
+          <Property Name="STATE_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GatePinRelation">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="PinNumber" />
+            <PropertyRef Name="Representation" />
+            <PropertyRef Name="NodeNumber" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GateNumber" Type="Int32" Nullable="false" />
+          <Property Name="PinNumber" Type="Int32" Nullable="false" />
+          <Property Name="Representation" Type="Int32" Nullable="false" />
+          <Property Name="NodeNumber" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Layer">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" />
+          <Property Name="LayerName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LOCKINFO">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="TYPE" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE" Type="Int32" Nullable="false" />
+          <Property Name="USER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HOST" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="TIME" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LogicAttribute">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="GateNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GateNumber" Type="Int32" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ModelAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ModelData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Class" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LASTUPDT" Type="DateTime" Precision="3" />
+          <Property Name="DATEMAIN" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Outlines">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="OutlineNumber" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OutlineNumber" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="Z" Type="Double" />
+          <Property Name="LineY" Type="Double" />
+          <Property Name="LineZ" Type="Double" />
+          <Property Name="AreaZ" Type="Double" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="OutlineData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RestrictedLayer" Type="Int32" />
+          <Property Name="DescriptionLevel" Type="Int32" />
+          <Property Name="Flags" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OutlineSymbols">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="OutlineNumber" />
+            <PropertyRef Name="ViewNumber" />
+            <PropertyRef Name="Symbol" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OutlineNumber" Type="Int32" Nullable="false" />
+          <Property Name="ViewNumber" Type="Int32" Nullable="false" />
+          <Property Name="Symbol" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PadStack">
+          <Key>
+            <PropertyRef Name="EntryID" />
+            <PropertyRef Name="LayerID" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" />
+          <Property Name="PadSym" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LayerID" Type="Int32" Nullable="false" />
+          <Property Name="Flags" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PhysPin">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="PinNumber" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PinNumber" Type="Int32" Nullable="false" />
+          <Property Name="ConnX" Type="Double" />
+          <Property Name="ConnY" Type="Double" />
+          <Property Name="ConnZ" Type="Double" />
+          <Property Name="ConnType" Type="Int32" />
+          <Property Name="ConnDirection" Type="Int32" />
+          <Property Name="WireColor" Type="Int32" />
+          <Property Name="ConnDimension1" Type="Single" />
+          <Property Name="ConnDimension2" Type="Single" />
+          <Property Name="AWGMin" Type="Single" />
+          <Property Name="AWGMax" Type="Single" />
+          <Property Name="ConnDimensionMax" Type="Single" />
+          <Property Name="WireMax" Type="Int32" />
+          <Property Name="SpineX" Type="Double" />
+          <Property Name="SpineY" Type="Double" />
+          <Property Name="SpineZ" Type="Double" />
+          <Property Name="SlopeAngle" Type="Double" />
+          <Property Name="PluggableDepth" Type="Double" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="PinLayer" Type="Int32" />
+          <Property Name="PinRotation" Type="Double" />
+          <Property Name="TestPointCode" Type="Int32" />
+          <Property Name="TechStackS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TechStackC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DrillID" Type="Int32" />
+          <Property Name="Flags2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Pin">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="PHYSPIN" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="FUNCT" Type="Int32" />
+          <Property Name="PINEQUIV" Type="Int32" />
+          <Property Name="LPINEQV" Type="Int32" />
+          <Property Name="PINNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NPINEQV" Type="Int32" />
+          <Property Name="Flags" Type="Int32" />
+          <Property Name="TPNPRIO" Type="Int32" />
+          <Property Name="FLAGS2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PinAttribute">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="PinNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PinNumber" Type="Int32" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PinDesign">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="TechnologyID" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" />
+          <Property Name="TechnologyID" Type="Int32" Nullable="false" />
+          <Property Name="PadStackID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PlugInfo">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="PINCOMP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveCounterPart" Type="Boolean" />
+          <Property Name="PINPART" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveFittingPart" Type="Boolean" />
+          <Property Name="PinNumber" Type="Int32" />
+          <Property Name="ActiveWireSeal" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RetainingRailTypes">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SheetInformation">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SheetType" Type="Int32" />
+          <Property Name="LayoutType" Type="Int32" />
+          <Property Name="HorzLayout" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="VertLayout" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Orientation" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="DrawingArea" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PRINT_AREA" Type="Binary" MaxLength="24" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SlotAttribute">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="SlotNumber" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SlotNumber" Type="Int32" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Slots">
+          <Key>
+            <PropertyRef Name="Entry" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="Entry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="RetainingRailType" Type="Int32" />
+          <Property Name="x1" Type="Double" />
+          <Property Name="y1" Type="Double" />
+          <Property Name="z1" Type="Double" />
+          <Property Name="x2" Type="Double" />
+          <Property Name="y2" Type="Double" />
+          <Property Name="z2" Type="Double" />
+          <Property Name="Width" Type="Double" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="Potentialnummer" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Potentialnummer" Type="Int32" Nullable="false" />
+          <Property Name="Potentialname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SYMBOL_FUNCTION">
+          <Key>
+            <PropertyRef Name="LPNTR" />
+            <PropertyRef Name="LBNNUM" />
+            <PropertyRef Name="FUSUBID" />
+          </Key>
+          <Property Name="LPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LBNNUM" Type="Int32" Nullable="false" />
+          <Property Name="FUSUBID" Type="Int32" Nullable="false" />
+          <Property Name="FUNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="FUPORT" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SYMBOL_STATES">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="SYMBOL_ID" />
+            <PropertyRef Name="FU_STATE_ID" />
+            <PropertyRef Name="FUSUBID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SYMBOL_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FU_STATE_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FUSUBID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_NUM" Type="Int32" />
+          <Property Name="FLAGS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SymbolAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="VERSION" />
+            <PropertyRef Name="AttributeName" />
+            <PropertyRef Name="Copy" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttributeName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SymbolData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VERSION" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Norm" Type="Int32" />
+          <Property Name="LSHDES" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="LSHTYP" Type="Int32" />
+          <Property Name="ENTRYTYP" Type="Int32" />
+          <Property Name="LPNTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VSTATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="VersionText" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="DATEMAIN" Type="DateTime" Precision="3" />
+          <Property Name="LASTUPDT" Type="DateTime" Precision="3" />
+          <Property Name="Class" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SYMINDEX" Type="Int32" />
+          <Property Name="FLAGS2" Type="Int32" />
+          <Property Name="FLAGS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SymbolDimension">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LSHX1" Type="Double" />
+          <Property Name="LSHY1" Type="Double" />
+          <Property Name="LSHX2" Type="Double" />
+          <Property Name="LSHY2" Type="Double" />
+        </EntityType>
+        <EntityType Name="SymbolGraphic">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="GraphicType" Type="Int32" />
+          <Property Name="Linecolor" Type="Int32" />
+          <Property Name="Linetype" Type="Int32" />
+          <Property Name="Linewidth" Type="Double" />
+          <Property Name="Fillmode" Type="Int32" />
+          <Property Name="Fillcolor" Type="Int32" />
+          <Property Name="HatchData" Type="Binary" MaxLength="56" FixedLength="false" />
+          <Property Name="GraphicData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="GraphicLevel" Type="Int32" />
+          <Property Name="Flags" Type="Int32" />
+          <Property Name="ID" Type="Int32" />
+          <Property Name="STATE_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SymbolNodes">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="LIBNTY" Type="Int32" />
+          <Property Name="LIBNX" Type="Double" />
+          <Property Name="LIBNY" Type="Double" />
+          <Property Name="LBSTUB" Type="Int32" />
+          <Property Name="LBNNUM" Type="Int32" />
+          <Property Name="Function" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SymbolPoints">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="FLAGS" Type="Int32" />
+          <Property Name="POSX" Type="Double" />
+          <Property Name="POSY" Type="Double" />
+        </EntityType>
+        <EntityType Name="SymbolText">
+          <Key>
+            <PropertyRef Name="ENTRY" />
+            <PropertyRef Name="COPY" />
+          </Key>
+          <Property Name="ENTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COPY" Type="Int32" Nullable="false" />
+          <Property Name="TTYPE" Type="Int32" />
+          <Property Name="TX" Type="Double" />
+          <Property Name="TY" Type="Double" />
+          <Property Name="TJUST" Type="Int32" />
+          <Property Name="THT" Type="Double" />
+          <Property Name="TMOD" Type="Int32" />
+          <Property Name="TLEV" Type="Int32" />
+          <Property Name="TSTR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LBNNUM" Type="Int32" />
+          <Property Name="Flags" Type="Int32" />
+          <Property Name="TROT" Type="Double" />
+          <Property Name="FontName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FontStyle" Type="Int32" />
+          <Property Name="TextColor" Type="Int32" />
+          <Property Name="Flags2" Type="Int32" />
+          <Property Name="SIZEX" Type="Double" />
+          <Property Name="SIZEY" Type="Double" />
+          <Property Name="Hyperlink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="EntryID" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ValidRetainingRailTypes">
+          <Key>
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="E3_Components_Symbols_EditEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assembly" EntityType="Self.Assembly" />
+          <EntitySet Name="BlockedInfos" EntityType="Self.BlockedInfos" />
+          <EntitySet Name="Cable" EntityType="Self.Cable" />
+          <EntitySet Name="COMPONENT_STATES" EntityType="Self.COMPONENT_STATES" />
+          <EntitySet Name="ComponentAttribute" EntityType="Self.ComponentAttribute" />
+          <EntitySet Name="ComponentData" EntityType="Self.ComponentData" />
+          <EntitySet Name="DatabaseInfo" EntityType="Self.DatabaseInfo" />
+          <EntitySet Name="Drill" EntityType="Self.Drill" />
+          <EntitySet Name="FUNCTION_ATTRIBUTES" EntityType="Self.FUNCTION_ATTRIBUTES" />
+          <EntitySet Name="FUNCTIONAL_ASSIGNMENTS" EntityType="Self.FUNCTIONAL_ASSIGNMENTS" />
+          <EntitySet Name="FUNCTIONAL_PORTS" EntityType="Self.FUNCTIONAL_PORTS" />
+          <EntitySet Name="FUNCTIONAL_UNIT_STATES" EntityType="Self.FUNCTIONAL_UNIT_STATES" />
+          <EntitySet Name="FUNCTIONAL_UNITS" EntityType="Self.FUNCTIONAL_UNITS" />
+          <EntitySet Name="Gate" EntityType="Self.Gate" />
+          <EntitySet Name="GATE_FUNCTION_ATTRIBUTES" EntityType="Self.GATE_FUNCTION_ATTRIBUTES" />
+          <EntitySet Name="GatePinRelation" EntityType="Self.GatePinRelation" />
+          <EntitySet Name="Layer" EntityType="Self.Layer" />
+          <EntitySet Name="LOCKINFO" EntityType="Self.LOCKINFO" />
+          <EntitySet Name="LogicAttribute" EntityType="Self.LogicAttribute" />
+          <EntitySet Name="ModelAttribute" EntityType="Self.ModelAttribute" />
+          <EntitySet Name="ModelData" EntityType="Self.ModelData" />
+          <EntitySet Name="Outlines" EntityType="Self.Outlines" />
+          <EntitySet Name="OutlineSymbols" EntityType="Self.OutlineSymbols" />
+          <EntitySet Name="PadStack" EntityType="Self.PadStack" />
+          <EntitySet Name="PhysPin" EntityType="Self.PhysPin" />
+          <EntitySet Name="Pin" EntityType="Self.Pin" />
+          <EntitySet Name="PinAttribute" EntityType="Self.PinAttribute" />
+          <EntitySet Name="PinDesign" EntityType="Self.PinDesign" />
+          <EntitySet Name="PlugInfo" EntityType="Self.PlugInfo" />
+          <EntitySet Name="RetainingRailTypes" EntityType="Self.RetainingRailTypes" />
+          <EntitySet Name="SheetInformation" EntityType="Self.SheetInformation" />
+          <EntitySet Name="SlotAttribute" EntityType="Self.SlotAttribute" />
+          <EntitySet Name="Slots" EntityType="Self.Slots" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" />
+          <EntitySet Name="SYMBOL_FUNCTION" EntityType="Self.SYMBOL_FUNCTION" />
+          <EntitySet Name="SYMBOL_STATES" EntityType="Self.SYMBOL_STATES" />
+          <EntitySet Name="SymbolAttribute" EntityType="Self.SymbolAttribute" />
+          <EntitySet Name="SymbolData" EntityType="Self.SymbolData" />
+          <EntitySet Name="SymbolDimension" EntityType="Self.SymbolDimension" />
+          <EntitySet Name="SymbolGraphic" EntityType="Self.SymbolGraphic" />
+          <EntitySet Name="SymbolNodes" EntityType="Self.SymbolNodes" />
+          <EntitySet Name="SymbolPoints" EntityType="Self.SymbolPoints" />
+          <EntitySet Name="SymbolText" EntityType="Self.SymbolText" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Technology" EntityType="Self.Technology" />
+          <EntitySet Name="ValidRetainingRailTypes" EntityType="Self.ValidRetainingRailTypes" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="E3_Components_Symbols_EditModelStoreContainer" CdmEntityContainer="E3_Components_Symbols_EditEntities">
+          <EntitySetMapping Name="Assembly">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Assembly">
+              <MappingFragment StoreEntitySet="Assembly">
+                <ScalarProperty Name="LPNTR" ColumnName="LPNTR" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SUBENTRY" ColumnName="SUBENTRY" />
+                <ScalarProperty Name="SUBVERSION" ColumnName="SUBVERSION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlockedInfos">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.BlockedInfos">
+              <MappingFragment StoreEntitySet="BlockedInfos">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="RootEntry" ColumnName="RootEntry" />
+                <ScalarProperty Name="BlockedPins" ColumnName="BlockedPins" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cable">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Cable">
+              <MappingFragment StoreEntitySet="Cable">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="BundleID" ColumnName="BundleID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NODENO" ColumnName="NODENO" />
+                <ScalarProperty Name="CrossSection" ColumnName="CrossSection" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="SUBENTRY" ColumnName="SUBENTRY" />
+                <ScalarProperty Name="SUBVERSION" ColumnName="SUBVERSION" />
+                <ScalarProperty Name="OuterDia" ColumnName="OuterDia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPONENT_STATES">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.COMPONENT_STATES">
+              <MappingFragment StoreEntitySet="COMPONENT_STATES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="SYMBOL_STATE_ID" ColumnName="SYMBOL_STATE_ID" />
+                <ScalarProperty Name="GATNUM" ColumnName="GATNUM" />
+                <ScalarProperty Name="ORDER_NUM" ColumnName="ORDER_NUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComponentAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.ComponentAttribute">
+              <MappingFragment StoreEntitySet="ComponentAttribute">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="BundleID" ColumnName="BundleID" />
+                <ScalarProperty Name="NODENO" ColumnName="NODENO" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComponentData">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.ComponentData">
+              <MappingFragment StoreEntitySet="ComponentData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="DeviceLetterCode" ColumnName="DeviceLetterCode" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="ENTRYTYP" ColumnName="ENTRYTYP" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LPNTR" ColumnName="LPNTR" />
+                <ScalarProperty Name="VSTATUS" ColumnName="VSTATUS" />
+                <ScalarProperty Name="VersionText" ColumnName="VersionText" />
+                <ScalarProperty Name="DATEMAIN" ColumnName="DATEMAIN" />
+                <ScalarProperty Name="LASTUPDT" ColumnName="LASTUPDT" />
+                <ScalarProperty Name="MPNTR" ColumnName="MPNTR" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="ArticleNumber" ColumnName="ArticleNumber" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="SPNTR" ColumnName="SPNTR" />
+                <ScalarProperty Name="Class_main" ColumnName="Class-main" />
+                <ScalarProperty Name="katek_1C" ColumnName="katek_1C" />
+                <ScalarProperty Name="katek_type_rkd" ColumnName="katek_type_rkd" />
+                <ScalarProperty Name="katek_name_rkd" ColumnName="katek_name_rkd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatabaseInfo">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.DatabaseInfo">
+              <MappingFragment StoreEntitySet="DatabaseInfo">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drill">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Drill">
+              <MappingFragment StoreEntitySet="Drill">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="Diameter" ColumnName="Diameter" />
+                <ScalarProperty Name="Tolerance" ColumnName="Tolerance" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TData" ColumnName="TData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCTION_ATTRIBUTES">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.FUNCTION_ATTRIBUTES">
+              <MappingFragment StoreEntitySet="FUNCTION_ATTRIBUTES">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PORT_NUMBER" ColumnName="PORT_NUMBER" />
+                <ScalarProperty Name="ATTRIBUTE_NAME" ColumnName="ATTRIBUTE_NAME" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="ATTRIBUTE_VALUE" ColumnName="ATTRIBUTE_VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCTIONAL_ASSIGNMENTS">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.FUNCTIONAL_ASSIGNMENTS">
+              <MappingFragment StoreEntitySet="FUNCTIONAL_ASSIGNMENTS">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PINCOPY" ColumnName="PINCOPY" />
+                <ScalarProperty Name="FUNAME" ColumnName="FUNAME" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="FUPORT" ColumnName="FUPORT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCTIONAL_PORTS">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.FUNCTIONAL_PORTS">
+              <MappingFragment StoreEntitySet="FUNCTIONAL_PORTS">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="PORT" ColumnName="PORT" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCTIONAL_UNIT_STATES">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.FUNCTIONAL_UNIT_STATES">
+              <MappingFragment StoreEntitySet="FUNCTIONAL_UNIT_STATES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="FU_NAME" ColumnName="FU_NAME" />
+                <ScalarProperty Name="FU_ID" ColumnName="FU_ID" />
+                <ScalarProperty Name="ORDER_NUM" ColumnName="ORDER_NUM" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCTIONAL_UNITS">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.FUNCTIONAL_UNITS">
+              <MappingFragment StoreEntitySet="FUNCTIONAL_UNITS">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SYMBOL" ColumnName="SYMBOL" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gate">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Gate">
+              <MappingFragment StoreEntitySet="Gate">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="CCTNAME" ColumnName="CCTNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GATE_FUNCTION_ATTRIBUTES">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.GATE_FUNCTION_ATTRIBUTES">
+              <MappingFragment StoreEntitySet="GATE_FUNCTION_ATTRIBUTES">
+                <ScalarProperty Name="LPNTR" ColumnName="LPNTR" />
+                <ScalarProperty Name="GateNumber" ColumnName="GateNumber" />
+                <ScalarProperty Name="FUSUBID" ColumnName="FUSUBID" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GatePinRelation">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.GatePinRelation">
+              <MappingFragment StoreEntitySet="GatePinRelation">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="GateNumber" ColumnName="GateNumber" />
+                <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
+                <ScalarProperty Name="Representation" ColumnName="Representation" />
+                <ScalarProperty Name="NodeNumber" ColumnName="NodeNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Layer">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Layer">
+              <MappingFragment StoreEntitySet="Layer">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="LayerName" ColumnName="LayerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOCKINFO">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.LOCKINFO">
+              <MappingFragment StoreEntitySet="LOCKINFO">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="USER" ColumnName="USER" />
+                <ScalarProperty Name="HOST" ColumnName="HOST" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogicAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.LogicAttribute">
+              <MappingFragment StoreEntitySet="LogicAttribute">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="GateNumber" ColumnName="GateNumber" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModelAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.ModelAttribute">
+              <MappingFragment StoreEntitySet="ModelAttribute">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModelData">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.ModelData">
+              <MappingFragment StoreEntitySet="ModelData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LASTUPDT" ColumnName="LASTUPDT" />
+                <ScalarProperty Name="DATEMAIN" ColumnName="DATEMAIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outlines">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Outlines">
+              <MappingFragment StoreEntitySet="Outlines">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="OutlineNumber" ColumnName="OutlineNumber" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="LineY" ColumnName="LineY" />
+                <ScalarProperty Name="LineZ" ColumnName="LineZ" />
+                <ScalarProperty Name="AreaZ" ColumnName="AreaZ" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="OutlineData" ColumnName="OutlineData" />
+                <ScalarProperty Name="RestrictedLayer" ColumnName="RestrictedLayer" />
+                <ScalarProperty Name="DescriptionLevel" ColumnName="DescriptionLevel" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutlineSymbols">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.OutlineSymbols">
+              <MappingFragment StoreEntitySet="OutlineSymbols">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="OutlineNumber" ColumnName="OutlineNumber" />
+                <ScalarProperty Name="ViewNumber" ColumnName="ViewNumber" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PadStack">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.PadStack">
+              <MappingFragment StoreEntitySet="PadStack">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="PadSym" ColumnName="PadSym" />
+                <ScalarProperty Name="LayerID" ColumnName="LayerID" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhysPin">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.PhysPin">
+              <MappingFragment StoreEntitySet="PhysPin">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
+                <ScalarProperty Name="ConnX" ColumnName="ConnX" />
+                <ScalarProperty Name="ConnY" ColumnName="ConnY" />
+                <ScalarProperty Name="ConnZ" ColumnName="ConnZ" />
+                <ScalarProperty Name="ConnType" ColumnName="ConnType" />
+                <ScalarProperty Name="ConnDirection" ColumnName="ConnDirection" />
+                <ScalarProperty Name="WireColor" ColumnName="WireColor" />
+                <ScalarProperty Name="ConnDimension1" ColumnName="ConnDimension1" />
+                <ScalarProperty Name="ConnDimension2" ColumnName="ConnDimension2" />
+                <ScalarProperty Name="AWGMin" ColumnName="AWGMin" />
+                <ScalarProperty Name="AWGMax" ColumnName="AWGMax" />
+                <ScalarProperty Name="ConnDimensionMax" ColumnName="ConnDimensionMax" />
+                <ScalarProperty Name="WireMax" ColumnName="WireMax" />
+                <ScalarProperty Name="SpineX" ColumnName="SpineX" />
+                <ScalarProperty Name="SpineY" ColumnName="SpineY" />
+                <ScalarProperty Name="SpineZ" ColumnName="SpineZ" />
+                <ScalarProperty Name="SlopeAngle" ColumnName="SlopeAngle" />
+                <ScalarProperty Name="PluggableDepth" ColumnName="PluggableDepth" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="PinLayer" ColumnName="PinLayer" />
+                <ScalarProperty Name="PinRotation" ColumnName="PinRotation" />
+                <ScalarProperty Name="TestPointCode" ColumnName="TestPointCode" />
+                <ScalarProperty Name="TechStackS" ColumnName="TechStackS" />
+                <ScalarProperty Name="TechStackC" ColumnName="TechStackC" />
+                <ScalarProperty Name="DrillID" ColumnName="DrillID" />
+                <ScalarProperty Name="Flags2" ColumnName="Flags2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pin">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Pin">
+              <MappingFragment StoreEntitySet="Pin">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="PHYSPIN" ColumnName="PHYSPIN" />
+                <ScalarProperty Name="FUNCT" ColumnName="FUNCT" />
+                <ScalarProperty Name="PINEQUIV" ColumnName="PINEQUIV" />
+                <ScalarProperty Name="LPINEQV" ColumnName="LPINEQV" />
+                <ScalarProperty Name="PINNAME" ColumnName="PINNAME" />
+                <ScalarProperty Name="NPINEQV" ColumnName="NPINEQV" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="TPNPRIO" ColumnName="TPNPRIO" />
+                <ScalarProperty Name="FLAGS2" ColumnName="FLAGS2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PinAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.PinAttribute">
+              <MappingFragment StoreEntitySet="PinAttribute">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PinDesign">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.PinDesign">
+              <MappingFragment StoreEntitySet="PinDesign">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="TechnologyID" ColumnName="TechnologyID" />
+                <ScalarProperty Name="PadStackID" ColumnName="PadStackID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlugInfo">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.PlugInfo">
+              <MappingFragment StoreEntitySet="PlugInfo">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="PINCOMP" ColumnName="PINCOMP" />
+                <ScalarProperty Name="ActiveCounterPart" ColumnName="ActiveCounterPart" />
+                <ScalarProperty Name="PINPART" ColumnName="PINPART" />
+                <ScalarProperty Name="ActiveFittingPart" ColumnName="ActiveFittingPart" />
+                <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
+                <ScalarProperty Name="ActiveWireSeal" ColumnName="ActiveWireSeal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RetainingRailTypes">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.RetainingRailTypes">
+              <MappingFragment StoreEntitySet="RetainingRailTypes">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SheetInformation">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SheetInformation">
+              <MappingFragment StoreEntitySet="SheetInformation">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="SheetType" ColumnName="SheetType" />
+                <ScalarProperty Name="LayoutType" ColumnName="LayoutType" />
+                <ScalarProperty Name="HorzLayout" ColumnName="HorzLayout" />
+                <ScalarProperty Name="VertLayout" ColumnName="VertLayout" />
+                <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+                <ScalarProperty Name="DrawingArea" ColumnName="DrawingArea" />
+                <ScalarProperty Name="PRINT_AREA" ColumnName="PRINT_AREA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlotAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SlotAttribute">
+              <MappingFragment StoreEntitySet="SlotAttribute">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="SlotNumber" ColumnName="SlotNumber" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slots">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Slots">
+              <MappingFragment StoreEntitySet="Slots">
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RetainingRailType" ColumnName="RetainingRailType" />
+                <ScalarProperty Name="x1" ColumnName="x1" />
+                <ScalarProperty Name="y1" ColumnName="y1" />
+                <ScalarProperty Name="z1" ColumnName="z1" />
+                <ScalarProperty Name="x2" ColumnName="x2" />
+                <ScalarProperty Name="y2" ColumnName="y2" />
+                <ScalarProperty Name="z2" ColumnName="z2" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supply">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Supply">
+              <MappingFragment StoreEntitySet="Supply">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="Potentialnummer" ColumnName="Potentialnummer" />
+                <ScalarProperty Name="Potentialname" ColumnName="Potentialname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYMBOL_FUNCTION">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SYMBOL_FUNCTION">
+              <MappingFragment StoreEntitySet="SYMBOL_FUNCTION">
+                <ScalarProperty Name="LPNTR" ColumnName="LPNTR" />
+                <ScalarProperty Name="LBNNUM" ColumnName="LBNNUM" />
+                <ScalarProperty Name="FUSUBID" ColumnName="FUSUBID" />
+                <ScalarProperty Name="FUNAME" ColumnName="FUNAME" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="FUPORT" ColumnName="FUPORT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYMBOL_STATES">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SYMBOL_STATES">
+              <MappingFragment StoreEntitySet="SYMBOL_STATES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SYMBOL_ID" ColumnName="SYMBOL_ID" />
+                <ScalarProperty Name="FU_STATE_ID" ColumnName="FU_STATE_ID" />
+                <ScalarProperty Name="FUSUBID" ColumnName="FUSUBID" />
+                <ScalarProperty Name="ORDER_NUM" ColumnName="ORDER_NUM" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolAttribute">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolAttribute">
+              <MappingFragment StoreEntitySet="SymbolAttribute">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolData">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolData">
+              <MappingFragment StoreEntitySet="SymbolData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="LSHDES" ColumnName="LSHDES" />
+                <ScalarProperty Name="LSHTYP" ColumnName="LSHTYP" />
+                <ScalarProperty Name="ENTRYTYP" ColumnName="ENTRYTYP" />
+                <ScalarProperty Name="LPNTR" ColumnName="LPNTR" />
+                <ScalarProperty Name="VSTATUS" ColumnName="VSTATUS" />
+                <ScalarProperty Name="VersionText" ColumnName="VersionText" />
+                <ScalarProperty Name="DATEMAIN" ColumnName="DATEMAIN" />
+                <ScalarProperty Name="LASTUPDT" ColumnName="LASTUPDT" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SYMINDEX" ColumnName="SYMINDEX" />
+                <ScalarProperty Name="FLAGS2" ColumnName="FLAGS2" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolDimension">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolDimension">
+              <MappingFragment StoreEntitySet="SymbolDimension">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="LSHX1" ColumnName="LSHX1" />
+                <ScalarProperty Name="LSHY1" ColumnName="LSHY1" />
+                <ScalarProperty Name="LSHX2" ColumnName="LSHX2" />
+                <ScalarProperty Name="LSHY2" ColumnName="LSHY2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolGraphic">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolGraphic">
+              <MappingFragment StoreEntitySet="SymbolGraphic">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="GraphicType" ColumnName="GraphicType" />
+                <ScalarProperty Name="Linecolor" ColumnName="Linecolor" />
+                <ScalarProperty Name="Linetype" ColumnName="Linetype" />
+                <ScalarProperty Name="Linewidth" ColumnName="Linewidth" />
+                <ScalarProperty Name="Fillmode" ColumnName="Fillmode" />
+                <ScalarProperty Name="Fillcolor" ColumnName="Fillcolor" />
+                <ScalarProperty Name="HatchData" ColumnName="HatchData" />
+                <ScalarProperty Name="GraphicData" ColumnName="GraphicData" />
+                <ScalarProperty Name="GraphicLevel" ColumnName="GraphicLevel" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolNodes">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolNodes">
+              <MappingFragment StoreEntitySet="SymbolNodes">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="LIBNTY" ColumnName="LIBNTY" />
+                <ScalarProperty Name="LIBNX" ColumnName="LIBNX" />
+                <ScalarProperty Name="LIBNY" ColumnName="LIBNY" />
+                <ScalarProperty Name="LBSTUB" ColumnName="LBSTUB" />
+                <ScalarProperty Name="LBNNUM" ColumnName="LBNNUM" />
+                <ScalarProperty Name="Function" ColumnName="Function" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolPoints">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolPoints">
+              <MappingFragment StoreEntitySet="SymbolPoints">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+                <ScalarProperty Name="POSX" ColumnName="POSX" />
+                <ScalarProperty Name="POSY" ColumnName="POSY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymbolText">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.SymbolText">
+              <MappingFragment StoreEntitySet="SymbolText">
+                <ScalarProperty Name="ENTRY" ColumnName="ENTRY" />
+                <ScalarProperty Name="COPY" ColumnName="COPY" />
+                <ScalarProperty Name="TTYPE" ColumnName="TTYPE" />
+                <ScalarProperty Name="TX" ColumnName="TX" />
+                <ScalarProperty Name="TY" ColumnName="TY" />
+                <ScalarProperty Name="TJUST" ColumnName="TJUST" />
+                <ScalarProperty Name="THT" ColumnName="THT" />
+                <ScalarProperty Name="TMOD" ColumnName="TMOD" />
+                <ScalarProperty Name="TLEV" ColumnName="TLEV" />
+                <ScalarProperty Name="TSTR" ColumnName="TSTR" />
+                <ScalarProperty Name="LBNNUM" ColumnName="LBNNUM" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
+                <ScalarProperty Name="TROT" ColumnName="TROT" />
+                <ScalarProperty Name="FontName" ColumnName="FontName" />
+                <ScalarProperty Name="FontStyle" ColumnName="FontStyle" />
+                <ScalarProperty Name="TextColor" ColumnName="TextColor" />
+                <ScalarProperty Name="Flags2" ColumnName="Flags2" />
+                <ScalarProperty Name="SIZEX" ColumnName="SIZEX" />
+                <ScalarProperty Name="SIZEY" ColumnName="SIZEY" />
+                <ScalarProperty Name="Hyperlink" ColumnName="Hyperlink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technology">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.Technology">
+              <MappingFragment StoreEntitySet="Technology">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ValidRetainingRailTypes">
+            <EntityTypeMapping TypeName="E3_Components_Symbols_EditModel.ValidRetainingRailTypes">
+              <MappingFragment StoreEntitySet="ValidRetainingRailTypes">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

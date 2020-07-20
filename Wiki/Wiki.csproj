@@ -373,6 +373,7 @@
     <Compile Include="Areas\Deb\Models\EmailDeb.cs" />
     <Compile Include="Areas\E3\Controllers\E3SeriesController.cs" />
     <Compile Include="Areas\E3\E3AreaRegistration.cs" />
+    <Compile Include="Areas\E3\Models\EmailE3.cs" />
     <Compile Include="Areas\NotesOrders\Controllers\NoteOrderController.cs" />
     <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
     <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
@@ -439,11 +440,20 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Assembly.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="BasicPlan.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="BlockedInfos.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="BurnDown.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cable.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="Calendar.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -584,6 +594,15 @@
     <Compile Include="CMO_UploadResult.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComponentAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentData.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMPONENT_STATES.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DevisionsController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
@@ -717,6 +736,9 @@
     <Compile Include="DashboardYearsSpidimetrs.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseInfo.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="DateActualReport.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
@@ -761,6 +783,39 @@
     </Compile>
     <Compile Include="Devision.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Drill.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols.tt</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols_Edit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols_Edit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols_Edit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="E3_Components_Symbols_Edit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>E3_Components_Symbols_Edit.edmx</DependentUpon>
     </Compile>
     <Compile Include="EFDBPortal.Context.cs">
       <AutoGen>True</AutoGen>
@@ -840,8 +895,41 @@
     <Compile Include="FolderDocument.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="FUNCTIONAL_ASSIGNMENTS.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FUNCTIONAL_PORTS.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FUNCTIONAL_UNITS.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FUNCTIONAL_UNIT_STATES.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FUNCTION_ATTRIBUTES.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gate.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GatePinRelation.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GATE_FUNCTION_ATTRIBUTES.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Layer.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LOCKINFO.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogicAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="MailGraphic.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -850,6 +938,12 @@
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelData.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelIdentity\AppRole.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointments.cs" />
@@ -911,11 +1005,32 @@
     <Compile Include="OrdersTablesPositions.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Outlines.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OutlineSymbols.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PadStack.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="PercentSredniyVzveshenniyNOP.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="PF.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhysPin.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pin.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PinAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PinDesign.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="PlanFactCosts.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
@@ -934,6 +1049,9 @@
     </Compile>
     <Compile Include="planZakaz.cs">
       <DependentUpon>ExportImportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlugInfo.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="PostAlertShip.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -1070,6 +1188,9 @@
     <Compile Include="ResultReeportStatusPlanZakaz.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="RetainingRailTypes.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="RKD_Despatching.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1163,18 +1284,63 @@
     <Compile Include="ServiceRemarksTypes.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="SheetInformation.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sklad.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="SKU.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="SlotAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Slots.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="StickersPreOrder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Supply.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolAttribute.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolData.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolDimension.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolGraphic.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolNodes.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolPoints.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SymbolText.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYMBOL_FUNCTION.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYMBOL_STATES.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
     <Compile Include="TaskForPZ.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Technology.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="TEOInWorkKBE.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
@@ -1205,6 +1371,9 @@
     </Compile>
     <Compile Include="UserPO.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidRetainingRailTypes.cs">
+      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="WBS.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
@@ -2089,6 +2258,26 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\VBA\TextFile1.txt" />
     <Content Include="datatables.mvc5.0.1.0\lib\net45\DataTables.Mvc.dll" />
+    <Content Include="E3_Components_Symbols.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>E3_Components_Symbols.edmx</DependentUpon>
+      <LastGenOutput>E3_Components_Symbols.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="E3_Components_Symbols.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>E3_Components_Symbols.edmx</DependentUpon>
+      <LastGenOutput>E3_Components_Symbols.cs</LastGenOutput>
+    </Content>
+    <Content Include="E3_Components_Symbols_Edit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>E3_Components_Symbols_Edit.edmx</DependentUpon>
+      <LastGenOutput>E3_Components_Symbols_Edit.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="E3_Components_Symbols_Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>E3_Components_Symbols_Edit.edmx</DependentUpon>
+      <LastGenOutput>E3_Components_Symbols_Edit.cs</LastGenOutput>
+    </Content>
     <Content Include="EFDBPortal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFDBPortal.edmx</DependentUpon>
@@ -2406,6 +2595,20 @@
     <Content Include="Areas\E3\Views\web.config" />
     <Content Include="Areas\E3\Views\Shared\_LayoutE3.cshtml" />
     <Content Include="Areas\E3\Views\E3Series\Index.cshtml" />
+    <EntityDeploy Include="E3_Components_Symbols.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>E3_Components_Symbols.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="E3_Components_Symbols.edmx.diagram">
+      <DependentUpon>E3_Components_Symbols.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="E3_Components_Symbols_Edit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>E3_Components_Symbols_Edit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="E3_Components_Symbols_Edit.edmx.diagram">
+      <DependentUpon>E3_Components_Symbols_Edit.edmx</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2965,7 +3168,6 @@
   <ItemGroup>
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
-    <Folder Include="Areas\E3\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a90661511c3d40f2a596f12b9a52e4a2" Name="Diagram1">
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Assembly" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.BlockedInfos" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Cable" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.COMPONENT_STATES" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.ComponentAttribute" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.ComponentData" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.DatabaseInfo" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Drill" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.FUNCTION_ATTRIBUTES" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.FUNCTIONAL_ASSIGNMENTS" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.FUNCTIONAL_PORTS" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.FUNCTIONAL_UNIT_STATES" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.FUNCTIONAL_UNITS" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Gate" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.GATE_FUNCTION_ATTRIBUTES" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.GatePinRelation" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Layer" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.LOCKINFO" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.LogicAttribute" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.ModelAttribute" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.ModelData" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Outlines" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.OutlineSymbols" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.PadStack" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.PhysPin" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Pin" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.PinAttribute" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.PinDesign" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.PlugInfo" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.RetainingRailTypes" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SheetInformation" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SlotAttribute" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Slots" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Supply" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SYMBOL_FUNCTION" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SYMBOL_STATES" Width="1.5" PointX="2.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolAttribute" Width="1.5" PointX="8.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolData" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolDimension" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolGraphic" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolNodes" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolPoints" Width="1.5" PointX="16.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.SymbolText" Width="1.5" PointX="12.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.sysdiagrams" Width="1.5" PointX="16.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.Technology" Width="1.5" PointX="14.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="E3_Components_Symbols_EditModel.ValidRetainingRailTypes" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
