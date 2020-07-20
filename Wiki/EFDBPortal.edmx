@@ -707,6 +707,8 @@
           <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="coating" Type="varchar(max)" Nullable="false" />
           <Property Name="note" Type="varchar(max)" Nullable="false" />
+          <Property Name="flow" Type="float" Nullable="false" />
+          <Property Name="sku" Type="int" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -2080,6 +2082,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_Reclamation_Type" Type="int" Nullable="false" />
           <Property Name="id_ServiceRemarks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SKU">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="designation" Type="varchar(max)" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="indexMaterial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sku" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StickersPreOrder">
           <Key>
@@ -4959,6 +4971,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="Self.ServiceRemarksPlanZakazs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksReclamations" EntityType="Self.ServiceRemarksReclamations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceRemarksTypes" EntityType="Self.ServiceRemarksTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SKU" EntityType="Self.SKU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StickersPreOrder" EntityType="Self.StickersPreOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskForPZ" EntityType="Self.TaskForPZ" Schema="dbo" store:Type="Tables" />
@@ -6909,6 +6922,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
           </AssociationSet>
+          <EntitySet Name="SKU" EntityType="PortalKATEKModel.SKU" />
           </EntityContainer>
         <EntityType Name="Calendar">
           <Key>
@@ -11912,6 +11926,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
           <Property Name="quantity8" Type="Double" Nullable="false" />
+          <Property Name="flow" Type="Double" Nullable="false" />
+          <Property Name="sku" Type="Int32" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -12049,6 +12065,16 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SKU">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="indexMaterial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sku1" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14527,6 +14553,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSPositionPreOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionPreOrder">
               <MappingFragment StoreEntitySet="CMOSPositionPreOrder">
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="flow" ColumnName="flow" />
                 <ScalarProperty Name="quantity8" ColumnName="quantity8" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="coating" ColumnName="coating" />
@@ -14564,6 +14592,17 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
                 <ScalarProperty Name="cost" ColumnName="cost" />
                 <ScalarProperty Name="dateFinish" ColumnName="dateFinish" />
                 <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SKU">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SKU">
+              <MappingFragment StoreEntitySet="SKU">
+                <ScalarProperty Name="sku1" ColumnName="sku" />
+                <ScalarProperty Name="indexMaterial" ColumnName="indexMaterial" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -212,5 +212,6 @@ namespace Wiki
         public virtual DbSet<CMOSPositionPreOrder> CMOSPositionPreOrder { get; set; }
         public virtual DbSet<CMOSPreOrder> CMOSPreOrder { get; set; }
         public virtual DbSet<CMOSRate> CMOSRate { get; set; }
+        public virtual DbSet<SKU> SKU { get; set; }
     }
 }

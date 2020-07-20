@@ -27,6 +27,8 @@ namespace Wiki
         public string coating { get; set; }
         public string note { get; set; }
         public double quantity8 { get; set; }
+        public double flow { get; set; }
+        public Nullable<int> sku { get; set; }
     
         public virtual CMOSPreOrder CMOSPreOrder { get; set; }
     }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.CMOS.Models;
+using Wiki.Areas.CMOS.Struct;
 
 namespace Wiki.Areas.CMOS.Controllers
 {
@@ -180,15 +181,19 @@ namespace Wiki.Areas.CMOS.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                         dataList.id,
                         userCreate = dataList.AspNetUsers.CiliricalName,
                         dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                         positionName = GetPositionsNameOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, longSetting).Replace(@"""", ""),
-                        dataList.folder,
-                        remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>"
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                        remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
+                        summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
+                        posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                        planingCost = dataList.cost,
+                        dataList.rate
                     });
                     logger.Debug("CMOSSController / GetTableTNOrder");
                     return Json(new { data });
@@ -453,6 +458,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                     CreatingFileOrder(order.id);
+                    CreatingStockFileOrder(order.id);
                     logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -538,6 +544,149 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetPositionsOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetOrder(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.CMOSOrder
+                        .AsNoTracking()
+                        .Include(a => a.CMOSOrderPreOrder)
+                        .Include(a => a.AspNetUsers)
+                        .Include(a => a.CMO_Company)
+                        .Where(a => a.id == id)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        preordersList = GetPreorderArray(dataList.CMOSOrderPreOrder.ToList()), 
+                        idOrder = dataList.id,
+                        aspNetUsersCreateId = dataList.AspNetUsers.CiliricalName,
+                        dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, longSetting).Replace(@"""", ""),
+                        workDate = JsonConvert.SerializeObject(dataList.workDate, shortDefaultSetting).Replace(@"""", ""),
+                        manufDate = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
+                        customerOrderId = dataList.cMO_CompanyId,
+                        numberTN = dataList.numberTN,
+                        cost = dataList.cost,
+                        factCost = dataList.factCost,
+                        planWeight = GetWeigthtOrder(dataList.id),
+                        factWeightTN = dataList.weight,
+                        curency = dataList.curency,
+                        rate = dataList.rate
+                    });
+                    logger.Debug("CMOSSController / GetOrder");
+                    return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetOrder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate, 
+            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate)
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    CMOSOrder order = db.CMOSOrder.Find(idOrder);
+                    DateTime curencyDate = new DateTime();
+                    if(order.manufDate == null)
+                    {
+                        curencyDate = db.CurencyBYN.Max(a => a.date);
+                    }
+                    else
+                    {
+                        curencyDate = db.CurencyBYN.Max(a => a.date);
+                    }
+                    double curency = db.CurencyBYN.Find(curencyDate).USD;
+                    double summaryWeight = db.CMOSPositionOrder.Where(a => a.id_CMOSOrder == order.id).Sum(a => a.summaryWeight);
+                    if (rate != order.rate)
+                    {
+                        order.rate = rate;
+                        order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
+                        db.Entry(order).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    if(customerOrderId != order.cMO_CompanyId)
+                    {
+                        order.manufDate = null;
+                        order.finDate = null;
+                        order.cMO_CompanyId = customerOrderId;
+                        order.curency = curency;
+                        order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
+                        db.Entry(order).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else if (numberTN == "" && finDate == null)
+                    {
+                        order.manufDate = manufDate;
+                        order.curency = curency;
+                        order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
+                        db.Entry(order).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else if (finDate == null)
+                    {
+                        order.numberTN = numberTN;
+                        order.factCost = factCost;
+                        order.weight = factWeightTN.Value;
+                        db.Entry(order).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else if (finDate != null)
+                    {
+                        order.numberTN = numberTN;
+                        order.factCost = factCost;
+                        order.weight = factWeightTN.Value;
+                        order.finDate = finDate;
+                        db.Entry(order).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    logger.Debug("CMOSSController / UpdateOrder: " + " | " + login + " | " + idOrder);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / UpdateOrder: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private double GetWeigthtOrder(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    return Math.Round(db.CMOSPositionOrder.Where(a => a.id_CMOSOrder == id).Sum(a => a.summaryWeight), 4);
+                }
+            }
+            catch
+            {
+                return 0.0;
+            }
+        }
+
+        private string GetPreorderArray(List<CMOSOrderPreOrder> reclamation_PZs)
+        {
+            string list = "";
+            foreach (var data in reclamation_PZs)
+            {
+                list += data.id_CMOSPreOrder + "; ";
+            }
+            return list;
         }
 
         private void CreatingFileOrder(int id)
@@ -674,6 +823,143 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        private void CreatingStockFileOrder(int id)
+        {
+            string saveDirectory = CreateFolderForStock(id);
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var preordersList = db.CMOSOrderPreOrder
+                    .Include(a => a.CMOSPreOrder.CMOSPositionPreOrder)
+                    .Where(a => a.id_CMOSOrder == id)
+                    .ToList();
+                int lenghtGrid = 0;
+                foreach (var preorder in preordersList)
+                {
+                    lenghtGrid += preorder.CMOSPreOrder.CMOSPositionPreOrder.Where(a => a.note != "Входит в сб.").Count();
+                    lenghtGrid++;
+                }
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    IStyle style = workbook.Styles.Add("FullStyle");
+                    style.Font.Size = 8;
+                    style.Font.FontName = "Arial";
+                    style.Font.Bold = false;
+                    style.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    string sizeTable = "A1:N" + (lenghtGrid + 6).ToString();
+                    string sizeTableForGrig = "A4:N" + (lenghtGrid + 6).ToString();
+                    worksheet[sizeTable].RowHeight = 12.0;
+                    worksheet[sizeTable].CellStyle = style;
+                    IRange range = worksheet.Range[sizeTableForGrig];
+                    range.BorderInside(ExcelLineStyle.Thin);
+                    range.BorderAround(ExcelLineStyle.Thin);
+                    worksheet["A1"].ColumnWidth = 6.0;
+                    worksheet["B1"].ColumnWidth = 8.9;
+                    worksheet["C1"].ColumnWidth = 27.0;
+                    worksheet["D1"].ColumnWidth = 27.0;
+                    worksheet["E1"].ColumnWidth = 27.0;
+                    worksheet["F1"].ColumnWidth = 7.7;
+                    worksheet["G1"].ColumnWidth = 7.7;
+                    worksheet["H1"].ColumnWidth = 10.0;
+                    worksheet["I1"].ColumnWidth = 10.0;
+                    worksheet["J1"].ColumnWidth = 11.4;
+                    worksheet["K1"].ColumnWidth = 9.0;
+                    worksheet["L1"].ColumnWidth = 11.5;
+                    worksheet["M1"].ColumnWidth = 11.5;
+                    worksheet["N1"].ColumnWidth = 27.0;
+                    worksheet.Range["A2:N2"].Merge();
+                    worksheet.Range["A2"].Text = "Реестр заказных позиций для изделия (изделий) №: " + id.ToString() + " от " + DateTime.Now.ToShortDateString();
+                    worksheet.Range["A2"].CellStyle.Font.Bold = true;
+                    worksheet["A2"].RowHeight = 18.0;
+                    worksheet.Range["A2"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet.Range["A4:N4"].CellStyle.Font.Bold = true;
+                    worksheet.Range["A4:N4"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["A4"].Text = "№ п/п";
+                    worksheet["B4"].Text = "План-заказ";
+                    worksheet["C4"].Text = "Полуфабрикат";
+                    worksheet["D4"].Text = "Обозначение";
+                    worksheet["E4"].Text = "Наименование";
+                    worksheet["F4"].Text = "Индекс";
+                    worksheet["G4"].Text = "Вес, кг";
+                    worksheet["H4"].Text = "Количество";
+                    worksheet["I4"].Text = "Поступило";
+                    worksheet["J4"].Text = "Общий вес, кг";
+                    worksheet["K4"].Text = "Цвет RAL";
+                    worksheet["L4"].Text = "Покрытие";
+                    worksheet["M4"].Text = "ИД. 1с7";
+                    worksheet["N4"].Text = "Примечание";
+                    worksheet.Range["A5:N5"].Merge();
+                    worksheet.Range["A5"].Text = "Заказные детали:";
+                    worksheet.Range["A5"].CellStyle.Font.Bold = true;
+                    int rowNum = 6;
+                    foreach (var prd in preordersList)
+                    {
+                        var preorder = db.CMOSPositionPreOrder
+                            .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                            .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                            .Where(a => a.CMOSPreOrderId == prd.id_CMOSPreOrder && a.note != "Входит в сб.")
+                            .ToList();
+                        foreach (var pos in preorder)
+                        {
+                            worksheet.Range[rowNum, 1].Text = pos.positionNum;
+                            worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 2].Text = pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString();
+                            worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 3].Text = pos.CMOSPreOrder.CMO_TypeProduct.name;
+                            worksheet.Range[rowNum, 4].Text = pos.designation;
+                            worksheet.Range[rowNum, 5].Text = pos.name;
+                            worksheet.Range[rowNum, 6].Text = pos.index;
+                            worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 7].NumberFormat = "0.0000";
+                            worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 7].Number = pos.weight;
+                            worksheet.Range[rowNum, 8].NumberFormat = "0.0000";
+                            worksheet.Range[rowNum, 8].Number = pos.quantity;
+                            worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 9].NumberFormat = "0.0000";
+                            worksheet.Range[rowNum, 9].Number = pos.flow;
+                            worksheet.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 10].NumberFormat = "0.0000";
+                            worksheet.Range[rowNum, 10].Number = pos.summaryWeight;
+                            worksheet.Range[rowNum, 10].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheet.Range[rowNum, 11].Text = pos.color;
+                            worksheet.Range[rowNum, 11].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 12].Text = pos.coating;
+                            worksheet.Range[rowNum, 12].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 13].Text = pos.sku.ToString();
+                            worksheet.Range[rowNum, 14].Text = pos.note;
+                            rowNum++;
+                        }
+                        worksheet.Range[rowNum, 4].CellStyle.Font.Bold = true;
+                        worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 5].CellStyle.Font.Bold = true;
+                        worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 6].CellStyle.Font.Bold = true;
+                        worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 7].CellStyle.Font.Bold = true;
+                        worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range["A" + rowNum.ToString() + ":D" + rowNum.ToString()].Merge();
+                        worksheet.Range[rowNum, 1].Text = "Итого:";
+                        worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 1].CellStyle.Font.Bold = true;
+                        worksheet.Range[rowNum, 5].Text = "-";
+                        worksheet.Range[rowNum, 6].NumberFormat = "0.0000";
+                        worksheet.Range[rowNum, 7].NumberFormat = "0.0000";
+                        worksheet.Range[rowNum, 6].Number = preorder.Sum(a => a.quantity);
+                        worksheet.Range[rowNum, 7].Number = preorder.Sum(a => a.summaryWeight);
+                        rowNum++;
+                        rowNum++;
+                    }
+                    workbook.SaveAs(saveDirectory + "Заказ изделий из ЛМ №_" + id.ToString() + ".xlsx");
+                }
+            }
+        }
+
         private void CreatingPositionsBackorder(int preorderId, string path)
         {
             List<string> fiels = GetFileArray(path);
@@ -726,6 +1012,80 @@ namespace Wiki.Areas.CMOS.Controllers
 
                     }
                 }
+            }
+        }
+
+        public JsonResult LoadingMaterialsC()
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    HttpPostedFileBase fiel = Request.Files[0];
+                    string fileReplace = Path.GetFileName(fiel.FileName);
+                    var fileName = Path.Combine(Server.MapPath("~/Areas/CMOS/ToSKU"), fileReplace);
+                    fiel.SaveAs(fileName);
+                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    {
+                        FileStream inputStream = fiel.InputStream as FileStream;
+                        IApplication application = excelEngine.Excel;
+                        IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
+                        IWorksheet worksheet = workbook.Worksheets[0];
+                        int rowsQuantity = worksheet.Rows.Length;
+                        SKUStruct[] skuUpList = new SKUStruct[rowsQuantity];
+                        var list = worksheet.Rows.ToArray();
+                        int i = 0;
+                        foreach (var t in list)
+                        {
+                            SKUStruct skuUp = new SKUStruct
+                            {
+                                sku1 = (int)t.Cells[0].Number,
+                                name = t.Cells[1].Value,
+                                indexMaterial = t.Cells[2].Value,
+                                designation = t.Cells[3].Value
+                            };
+                            skuUpList[i] = skuUp;
+                            i++;
+                        }
+                        var dbres = db.SKU.ToArray();
+                        SKU skuIn = new SKU();
+                        foreach (var sku in skuUpList)
+                        {
+                            if (dbres.Count(a => a.sku1 == sku.sku1) == 0)
+                            {
+                                SKU skuAdd = new SKU
+                                {
+                                    designation = sku.designation,
+                                    name = sku.name,
+                                    indexMaterial = sku.indexMaterial,
+                                    sku1 = sku.sku1
+                                };
+                                db.SKU.Add(skuAdd);
+                            }
+                            else
+                            {
+                                skuIn = dbres.First(a => a.sku1 == sku.sku1);
+                                if (skuIn.designation != sku.designation || skuIn.name != sku.name || skuIn.indexMaterial != sku.indexMaterial)
+                                {
+                                    SKU update = db.SKU.First(a => a.sku1 == sku.sku1);
+                                    update.designation = sku.designation;
+                                    update.name = sku.name;
+                                    update.indexMaterial = sku.indexMaterial;
+                                    db.Entry(update).State = EntityState.Modified;
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+                    }
+                    logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / LoadingMaterialsC: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -853,7 +1213,8 @@ namespace Wiki.Areas.CMOS.Controllers
                                             summaryWeight = Convert.ToDouble(worksheet.Rows[i].Cells[6].Value),
                                             color = worksheet.Rows[i].Cells[7].Value,
                                             coating = worksheet.Rows[i].Cells[8].Value,
-                                            note = worksheet.Rows[i].Cells[9].Value
+                                            note = worksheet.Rows[i].Cells[9].Value,
+                                            flow = 0
                                         };
                                         db.CMOSPositionPreOrder.Add(pos);
                                         db.SaveChanges();
@@ -985,6 +1346,16 @@ namespace Wiki.Areas.CMOS.Controllers
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\CMOS\\Order\\" + id.ToString() + "\\";
+                Directory.CreateDirectory(directory);
+                return directory;
+            }
+        }
+
+        private string CreateFolderForStock(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\CMOS\\Stock\\" + id.ToString() + "\\";
                 Directory.CreateDirectory(directory);
                 return directory;
             }

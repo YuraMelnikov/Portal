@@ -16,6 +16,7 @@ $(document).ready(function () {
         //после проверки удалить!
         $('#btnAddPreOrder').show();
         $('#btnReOrder').show();
+        $('#btnOpeningMaterialsCModal').show();
     }
     else if (userGroupId === 2) {
         $('#btnAddPreOrder').show();
@@ -108,6 +109,10 @@ var objTNOrders = [
     { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
 ];
@@ -293,8 +298,6 @@ function CleanerModals() {
     $('#customerBackorder').val("");
     $('#customerOrderId').val("");
     $('#preordersList').val("");
-    $('#preordersList').chosen();
-    $('#preordersList').trigger('chosen:updated');
     $('#aspNetUsersCreateId').val("");
     $('#dateTimeCreate').val("");
     $('#workDate').val("");
@@ -303,10 +306,11 @@ function CleanerModals() {
     $('#numberTN').val("");
     $('#cost').val("");
     $('#factCost').val("");
-    $('#cources').val("");
     $('#planWeight').val("");
     $('#factWeightTN').val("");
-    $('#factWeightDoc').val("");
+    $('#curency').val("");
+    $('#rate').val("");
+    $('#factWeightTN').val("");
     $('#filePreorder').val("");
     $('#fileBackorder').val("");
 }
@@ -485,26 +489,28 @@ function GetOrder(id) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+            $('#preordersList').val(result.preordersList);
             $('#idOrder').val(result.idOrder);
-            $("#preordersList").val(result.id_PlanZakaz).trigger("chosen:updated");
-            $('#customerOrderId').val(result.customerOrderId);
             $('#aspNetUsersCreateId').val(result.aspNetUsersCreateId);
             $('#dateTimeCreate').val(result.dateTimeCreate);
             $('#workDate').val(result.workDate);
             $('#manufDate').val(result.manufDate);
             $('#finDate').val(result.finDate);
+            $('#customerOrderId').val(result.customerOrderId);
             $('#numberTN').val(result.numberTN);
             $('#cost').val(result.cost);
             $('#factCost').val(result.factCost);
-            $('#cources').val(result.cources);
             $('#planWeight').val(result.planWeight);
             $('#factWeightTN').val(result.factWeightTN);
-            $('#factWeightDoc').val(result.factWeightDoc);
-            if (result.manufDate === "") {
+            $('#curency').val(result.curency);
+            $('#rate').val(result.rate);
+            if (result.manufDate === "null") {
                 $('#manufDate').prop('disabled', false);
             }
-            else if (result.numberTN === "") {
+            else if (result.numberTN === null) {
                 $('#numberTN').prop('disabled', false);
+                $('#factWeightTN').prop('disabled', false);
+                $('#factCost').prop('disabled', false);
             }
             else {
                 $('#finDate').prop('disabled', false);
@@ -519,13 +525,12 @@ function UpdateOrder() {
     var obj = {
         idOrder: $('#idOrder').val(),
         customerOrderId: $('#customerOrderId').val(),
-        workDate: $('#workDate').val(),
         manufDate: $('#manufDate').val(),
         finDate: $('#finDate').val(),
         numberTN: $('#numberTN').val(),
-        factCost: $('#factCost').val(),
-        factWeightTN: $('#factWeightTN').val(),
-        factWeightDoc: $('#factWeightDoc').val()
+        factCost: $('#factCost').val().replace('.', ','),
+        factWeightTN: $('#factWeightTN').val().replace('.', ','),
+        rate: $('#rate').val().replace('.', ',')
     };
     $.ajax({
         cache: false,
@@ -537,6 +542,7 @@ function UpdateOrder() {
         success: function (result) {
             $('#btnUpdateOrder').hide();
             $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
+            $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#tableTNOrder').DataTable().ajax.reload(null, false);
             $('#tableNoClothingOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
@@ -636,4 +642,26 @@ function GetPositionsOrder(id) {
         }
     });
     $('#positionsPreorderModal').modal('show');
+}
+
+function OpeningMaterialsCModal() {
+    $('#materialsCModal').modal('show');
+}
+
+function LoadingMaterialsC() {
+    var data = new FormData();
+    var files = document.getElementById('fileC').files;
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingMaterialsC",
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function (result) {
+            $('#materialsCModal').modal('hide');
+        }
+    });
 }

@@ -393,6 +393,7 @@
         <AssociationConnector Association="PortalKATEKModel.FK_CMOSOrderPreOrder_CMOSPreOrder" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" />
         <AssociationConnector Association="PortalKATEKModel.FK_CMOSPreOrder_PZ_PlanZakaz" />
+        <EntityTypeShape EntityType="PortalKATEKModel.SKU" Width="1.5" PointX="11.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

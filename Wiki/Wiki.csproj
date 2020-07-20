@@ -326,6 +326,7 @@
     <Compile Include="Areas\CMOS\Controllers\CMOSSController.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsOrdObj.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsPreObj.cs" />
+    <Compile Include="Areas\CMOS\Struct\SKUStruct.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
     <Compile Include="Areas\CMO\Models\CMOOrederValid.cs" />
@@ -370,6 +371,8 @@
     <Compile Include="Areas\Deb\Controllers\UploadController.cs" />
     <Compile Include="Areas\Deb\DebAreaRegistration.cs" />
     <Compile Include="Areas\Deb\Models\EmailDeb.cs" />
+    <Compile Include="Areas\E3\Controllers\E3SeriesController.cs" />
+    <Compile Include="Areas\E3\E3AreaRegistration.cs" />
     <Compile Include="Areas\NotesOrders\Controllers\NoteOrderController.cs" />
     <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
     <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
@@ -1163,11 +1166,11 @@
     <Compile Include="Sklad.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
-    <Compile Include="Startup.cs" />
-    <Compile Include="StickersPreOrder.cs">
+    <Compile Include="SKU.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
+    <Compile Include="Startup.cs" />
+    <Compile Include="StickersPreOrder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskForPZ.cs">
@@ -1250,6 +1253,7 @@
     <Content Include="Areas\Deb\Contant\Upload.js" />
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
+    <Content Include="Areas\E3\Contents\E3.js" />
     <Content Include="Areas\NotesOrders\Content\notes.js" />
     <Content Include="Areas\OrdersTables\Content\OrderTable.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
@@ -2399,6 +2403,9 @@
     <Content Include="Areas\CMOS\Views\web.config" />
     <Content Include="Areas\CMOS\Views\Shared\_LayoutCMOS.cshtml" />
     <Content Include="Areas\CMOS\Views\CMOSS\Index.cshtml" />
+    <Content Include="Areas\E3\Views\web.config" />
+    <Content Include="Areas\E3\Views\Shared\_LayoutE3.cshtml" />
+    <Content Include="Areas\E3\Views\E3Series\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2956,7 +2963,9 @@
     <Content Include="Views\UploadER\NNNN.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
+    <Folder Include="Areas\E3\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
