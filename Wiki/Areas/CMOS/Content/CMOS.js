@@ -138,7 +138,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [0, "desc"],
         "processing": true,
         "columns": objPreOrdersList,
         "scrollY": '75vh',
@@ -160,7 +160,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [1, "desc"],
         "processing": true,
         "columns": objNoPlaningOrders,
         "scrollY": '75vh',
@@ -182,7 +182,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [1, "desc"],
         "processing": true,
         "columns": objTNOrders,
         "scrollY": '75vh',
@@ -204,9 +204,9 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[1, "desc"]],
+        "order": [1, "desc"],
         "processing": true,
-        "columns": objOrders,
+        "columns": objTNOrders,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -226,7 +226,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [0, "desc"],
         "processing": true,
         "columns": objFullReport,
         "scrollY": '75vh',
@@ -247,7 +247,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [0, "desc"],
         "processing": true,
         "columns": objSmallReport,
         "scrollY": '75vh',
@@ -268,7 +268,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [[0, "desc"]],
+        "order": [0, "desc"],
         "processing": true,
         "columns": objPositionsPreorder,
         "scrollY": '75vh',
@@ -420,11 +420,13 @@ function ValidCreatingBackorder(lenghtFile) {
 }
 
 function CreateOrder() {
-    $('#workDate').prop('disabled', false);
-    CleanerModals();
-    $('#btnAddOrderModal').show();
-    $('#btnUpdateOrder').hide();
-    $('#orderModal').modal('show');
+    $('#btnAddNewOrderModal').show();
+    $('#customerNewOrderId').val("");
+    $('#workDateNew').val("");
+    $('#id_CMOSPreorder').val("");
+    $('#id_CMOSPreorder').chosen();
+    $('#id_CMOSPreorder').trigger('chosen:updated');
+    $('#newOrderModal').modal('show');
     $('#loaderOrder').hide();
 }
 
@@ -433,12 +435,11 @@ function AddOrder() {
     if (valid === false) {
         return false;
     }
-    $('#btnAddOrderModal').hide();
-    $('#loaderOrder').show();
+    $('#btnAddNewOrderModal').hide();
     var obj = {
-        preordersList: $('#preordersList').val(),
-        customerOrderId: $('#customerOrderId').val(),
-        workDate: $('#workDate').val()
+        preordersList: $('#id_CMOSPreorder').val(),
+        customerOrderId: $('#customerNewOrderId').val(),
+        workDate: $('#workDateNew').val()
     };
     $.ajax({
         cache: false,
@@ -451,30 +452,30 @@ function AddOrder() {
             //cleaning orders list
             $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
-            $('#workDate').prop('disabled', true);
-            $('#orderModal').modal('hide');
+            UpdatePreordersList();
+            $('#newOrderModal').modal('hide');
         }
     });
 }
 
 function ValidCreatingOrder() {
     var isValid = true;
-    if ($('#preordersList').val().length === 0) {
+    if ($('#id_CMOSPreorder').val().length === 0) {
         isValid = false;
     }
-    if ($('#customerOrderId').val() === null) {
-        $('#customerOrderId').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#customerOrderId').css('border-color', 'lightgrey');
-    }
-    if ($('#workDate').val() === "") {
-        $('#workDate').css('border-color', 'Red');
+    if ($('#customerNewOrderId').val() === null) {
+        $('#customerNewOrderId').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#workDate').css('border-color', 'lightgrey');
+        $('#customerNewOrderId').css('border-color', 'lightgrey');
+    }
+    if ($('#workDateNew').val() === "") {
+        $('#workDateNew').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#workDateNew').css('border-color', 'lightgrey');
     }
     return isValid;
 }
@@ -662,6 +663,26 @@ function LoadingMaterialsC() {
         data: data,
         success: function (result) {
             $('#materialsCModal').modal('hide');
+        }
+    });
+}
+
+function UpdatePreordersList() {
+    $.ajax({
+        cache: false,
+        url: "/CMOSS/UpdatePreordersList/",
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var x = document.getElementById("id_CMOSPreorder");
+            for (var i = x.children.length; i >= 0; i--) {
+                x.remove(i);
+            }
+            for (var j = 0; j < data.length; j++) {
+                var optionhtml = '<option value="' + data[j].Value + '">' + data[j].Text + '</option>';
+                $("#id_CMOSPreorder").append(optionhtml);
+            }
         }
     });
 }

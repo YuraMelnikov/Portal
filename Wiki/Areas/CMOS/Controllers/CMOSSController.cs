@@ -29,8 +29,21 @@ namespace Wiki.Areas.CMOS.Controllers
             string login = HttpContext.User.Identity.Name;
             int devisionUser = GetDevision(login);
             ViewBag.id_PlanZakaz = new SelectList(db.PZ_PlanZakaz.Where(d => d.dataOtgruzkiBP > DateTime.Now).OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
-            ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true), "id", "name");
-            ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0), "id", "id_PZ_PlanZakaz");
+            ViewBag.id_CMO_TypeProduct = new SelectList(db.CMO_TypeProduct.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            var preordersList = db.CMOSPreOrder
+                .Include(d => d.PZ_PlanZakaz)
+                .Include(d => d.CMO_TypeProduct)
+                .Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false)
+                .ToList();
+            List<object> newList = new List<object>();
+            foreach (var member in preordersList)
+                newList.Add(new
+                {
+                    Id = member.id,
+                    Name = member.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + member.CMO_TypeProduct.name
+                });
+            ViewBag.id_CMOSPreorder = new SelectList(newList, "Id", "Name");
+            //ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false), "id", "id_PZ_PlanZakaz");
             if (devisionUser == 7 || login == "myi@katek.by")
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by" || login == "vi@katek.by")
@@ -74,7 +87,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.rate
                     });
                     logger.Debug("CMOSSController / GetTableOrders");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -113,7 +126,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         folder = @"<a href =" + dataList.folder + "> Папка </a>"
                     });
                     logger.Debug("CMOSSController / GetTableNoPlaningPreOrder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -155,7 +168,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.rate
                     });
                     logger.Debug("CMOSSController / GetTableNoPlaningOrder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -196,7 +209,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.rate
                     });
                     logger.Debug("CMOSSController / GetTableTNOrder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -222,19 +235,22 @@ namespace Wiki.Areas.CMOS.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
                         dataList.id,
                         userCreate = dataList.AspNetUsers.CiliricalName,
                         dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                         positionName = GetPositionsNameOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.workDate, longSetting).Replace(@"""", ""),
-                        dataList.folder,
-                        tn = dataList.numberTN,
-                        remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>"
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        folder = @"<a href =" + dataList.folder + "> Папка </a>",
+                        remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
+                        summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
+                        posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                        planingCost = dataList.cost,
+                        dataList.rate
                     });
                     logger.Debug("CMOSSController / GetTableNoClothingOrder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -284,6 +300,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     ord.remove = true;
                     db.Entry(ord).State = EntityState.Modified;
                     db.SaveChanges();
+                    new EmailCMOS(ord, login, 6);
                     logger.Debug("CMOSSController / RemoveOrder: " + id.ToString() + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -329,6 +346,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         CreatingPositionsPreorder(preorder.id, preorder.folder);
                         db.Entry(preorder).State = EntityState.Modified;
                         db.SaveChanges();
+                        new EmailCMOS(preorder, login, 0);
                     }
                     logger.Debug("CMOSSController / AddPreOrder: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
@@ -402,6 +420,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
+                    new EmailCMOS(order, login, 4);
                     logger.Debug("CMOSSController / AddBackorder: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -459,6 +478,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.SaveChanges();
                     CreatingFileOrder(order.id);
                     CreatingStockFileOrder(order.id);
+                    new EmailCMOS(order, login, 2);
                     logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -498,7 +518,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.note
                     });
                     logger.Debug("CMOSSController / GetPositionsPreorder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -536,7 +556,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.note
                     });
                     logger.Debug("CMOSSController / GetPositionsOrder");
-                    return Json(new { data });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -563,7 +583,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        preordersList = GetPreorderArray(dataList.CMOSOrderPreOrder.ToList()), 
+                        preordersList = GetPreorderArray(dataList.id),
                         idOrder = dataList.id,
                         aspNetUsersCreateId = dataList.AspNetUsers.CiliricalName,
                         dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, longSetting).Replace(@"""", ""),
@@ -591,7 +611,7 @@ namespace Wiki.Areas.CMOS.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate, 
+        public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate,
             DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate)
         {
             string login = HttpContext.User.Identity.Name;
@@ -601,7 +621,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 {
                     CMOSOrder order = db.CMOSOrder.Find(idOrder);
                     DateTime curencyDate = new DateTime();
-                    if(order.manufDate == null)
+                    if (order.manufDate == null)
                     {
                         curencyDate = db.CurencyBYN.Max(a => a.date);
                     }
@@ -618,7 +638,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    if(customerOrderId != order.cMO_CompanyId)
+                    if (customerOrderId != order.cMO_CompanyId)
                     {
                         order.manufDate = null;
                         order.finDate = null;
@@ -627,6 +647,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
+                        new EmailCMOS(order, login, 2);
                     }
                     else if (numberTN == "" && finDate == null)
                     {
@@ -635,6 +656,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
+                        new EmailCMOS(order, login, 3);
                     }
                     else if (finDate == null)
                     {
@@ -664,6 +686,24 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        public JsonResult UpdatePreordersList()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var sucursalList = db.CMOSPreOrder
+                    .Include(d => d.PZ_PlanZakaz)
+                    .Include(d => d.CMO_TypeProduct)
+                    .Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false)
+                    .ToList();
+                var data = sucursalList.Select(m => new SelectListItem()
+                {
+                    Text = m.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + m.CMO_TypeProduct.name,
+                    Value = m.id.ToString()
+                });
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private double GetWeigthtOrder(int id)
         {
             try
@@ -679,14 +719,22 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        private string GetPreorderArray(List<CMOSOrderPreOrder> reclamation_PZs)
+        private string GetPreorderArray(int idOrder)
         {
-            string list = "";
-            foreach (var data in reclamation_PZs)
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                list += data.id_CMOSPreOrder + "; ";
+                string res = "";
+                var list = db.CMOSOrderPreOrder
+                    .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                    .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                    .Where(a => a.id_CMOSOrder == idOrder)
+                    .ToList();
+                foreach (var prd in list)
+                {
+                    res += prd.id + " - " + prd.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + ": " + prd.CMOSPreOrder.CMO_TypeProduct.name + "; ";
+                }
+                return res;
             }
-            return list;
         }
 
         private void CreatingFileOrder(int id)
@@ -1089,6 +1137,35 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+
+
+
+
+
+
+        public JsonResult GetActiveOrders()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.CMOSOrder
+                    .AsNoTracking()
+                    .Include(a => a.CMO_Company)
+                    .Include(a => a.AspNetUsers)
+                    //.Where(a => a.finDate == null && a.numberTN != null && a.manufDate != null && a.remove == false)
+                    .ToList();
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+
+
+
+
+
         private void CreatingPositionsOrder(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -1218,6 +1295,17 @@ namespace Wiki.Areas.CMOS.Controllers
                                         };
                                         db.CMOSPositionPreOrder.Add(pos);
                                         db.SaveChanges();
+                                        try
+                                        {
+                                            var sku = db.SKU.First(a => a.designation == pos.designation && a.name == pos.name && a.indexMaterial == pos.index);
+                                            pos.sku = sku.sku1;
+                                            db.Entry(pos).State = EntityState.Modified;
+                                            db.SaveChanges();
+                                        }
+                                        catch
+                                        {
+
+                                        }
                                     }
                                     catch
                                     {
@@ -1436,9 +1524,11 @@ namespace Wiki.Areas.CMOS.Controllers
                 try
                 {
                     var data = db.CMOSOrder.Find(id);
-                    if (data.workDate != null)
+                    if (data.workDate == null)
+                        return "Не размещен";
+                    else if (data.manufDate == null)
                         return "Ожидание сроков";
-                    else if (data.manufDate != null)
+                    else if (data.finDate == null)
                         return "Производится";
                     else
                         return "Оприходован";

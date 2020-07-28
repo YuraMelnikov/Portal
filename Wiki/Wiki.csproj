@@ -323,7 +323,9 @@
     <Compile Include="Areas\CMKO\Types\SummaryWageFundUser.cs" />
     <Compile Include="Areas\CMKO\Types\UserResult.cs" />
     <Compile Include="Areas\CMOS\CMOSAreaRegistration.cs" />
+    <Compile Include="Areas\CMOS\Controllers\CMOSApiController.cs" />
     <Compile Include="Areas\CMOS\Controllers\CMOSSController.cs" />
+    <Compile Include="Areas\CMOS\Models\EmailCMOS.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsOrdObj.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsPreObj.cs" />
     <Compile Include="Areas\CMOS\Struct\SKUStruct.cs" />
