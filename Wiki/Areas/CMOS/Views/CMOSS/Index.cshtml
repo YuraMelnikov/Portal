@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
 }
 <head>
-    <script src="~/Areas/CMOS/Content/CMOS.js?v.0.7"></script>
+    <script src="~/Areas/CMOS/Content/CMOS.js?v.1.1"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -100,7 +100,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8">
-                        <label>Введите №заказа/ов:</label>
+                        <label>Введите № план-заказа/ов:</label>
                         @Html.ListBox("pzList", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-4">
@@ -147,7 +147,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8">
-                        <label>Введите №заказа/ов:</label>
+                        <label>Введите №план-заказа/ов:</label>
                         @Html.ListBox("pzListBackorder", ViewBag.id_PlanZakaz as MultiSelectList, new { @class = "chosen-select" })
                     </div>
                     <div class="col-lg-4">
@@ -161,7 +161,7 @@
                         <input accept=".xls, .xlsx" type="file" multiple name="fileBackorder" id="fileBackorder" enctype="multipart/form-data" value="Выбрать файл" /><br />
                     </div>
                     <div class="col-lg-4">
-                        <button id="btnAddBackorderModal" class="btn btn-primary" onclick="AddBackorder()">Создать предзаказ</button>
+                        <button id="btnAddBackorderModal" class="btn btn-primary" onclick="AddBackorder()">Создать дозаказ</button>
                         <div id="loaderBackorder" class="loader"></div>
                     </div>
                 </div>
@@ -369,6 +369,24 @@
                     </div>
                     <div class="col-lg-4">
                         <button id="btnLoadingMaterialsC" class="btn btn-primary" onclick="LoadingMaterialsC()">Загрузить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bujetListModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Позиции предзаказа:</label>
+                        <table id="tableBujet" class="table table-hover table-striped" style="width:100%;"></table>
                     </div>
                 </div>
             </div>

@@ -323,11 +323,11 @@
     <Compile Include="Areas\CMKO\Types\SummaryWageFundUser.cs" />
     <Compile Include="Areas\CMKO\Types\UserResult.cs" />
     <Compile Include="Areas\CMOS\CMOSAreaRegistration.cs" />
-    <Compile Include="Areas\CMOS\Controllers\CMOSApiController.cs" />
     <Compile Include="Areas\CMOS\Controllers\CMOSSController.cs" />
     <Compile Include="Areas\CMOS\Models\EmailCMOS.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsOrdObj.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsPreObj.cs" />
+    <Compile Include="Areas\CMOS\Models\PositionBujet.cs" />
     <Compile Include="Areas\CMOS\Struct\SKUStruct.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />
@@ -3168,7 +3168,6 @@
     <Content Include="Views\UploadER\NNNN.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />

@@ -27,7 +27,14 @@ $(document).ready(function () {
     else {
         $('#dShortReport').show();
     }
-});
+}); 
+
+var objBujet = [
+    { "title": "", "data": "name", "autowidth": true, "bSortable": true },
+    { "title": "Расчет", "data": "plan", "autowidth": true, "bSortable": false },
+    { "title": "Факт, расчет", "data": "factAuto", "autowidth": true, "bSortable": true },
+    { "title": "Факт, документ", "data": "factDoc", "autowidth": true, "bSortable": true },
+]; 
 
 var objPositionsPreorder = [
     { "title": "№ поз.", "data": "positionNum", "autowidth": true, "bSortable": true },
@@ -35,7 +42,7 @@ var objPositionsPreorder = [
     { "title": "Обозначение", "data": "designation", "autowidth": true, "bSortable": true },
     { "title": "Наименование", "data": "name", "autowidth": true, "bSortable": true },
     { "title": "Индекс", "data": "index", "autowidth": true, "bSortable": false },
-    { "title": "Вес", "data": "weight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Расчетный вес, кг", "data": "weight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Кол-во", "data": "quantity", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Кол-во (склад)", "data": "quantity8", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Суммарный вес", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
@@ -75,15 +82,15 @@ var objSmallReport = [
 
 var objPreOrdersList = [
     { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
-    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true },
-    { "title": "Позиция", "data": "positionName", "autowidth": true, "bSortable": true },
-    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true },
+    { "title": "№ план-заказа", "data": "order", "autowidth": true, "bSortable": true },
+    { "title": "Полуфабрикат", "data": "positionName", "autowidth": true, "bSortable": true },
+    { "title": "Расчетный вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
     { "title": "Позиции", "data": "positionsList", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false },
-];
+]; 
 
 var objNoPlaningOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
@@ -93,7 +100,8 @@ var objNoPlaningOrders = [
     { "title": "Ответ до", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
-    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Курс, USD", "data": "curency", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 4, '') },
+    { "title": "Расчетный вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
@@ -106,11 +114,32 @@ var objTNOrders = [
     { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
-    { "title": "Срок поступл.", "data": "dateGetMail", "autowidth": true, "bSortable": true },
+    { "title": "Срок поставки", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
     { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
-    { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Курс, USD", "data": "curency", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 4, '') },
+    { "title": "Расчетный вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
+    { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
+    { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
+];
+
+var objNoClothingOrder = [
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Бюджет", "data": "bujetList", "autowidth": true, "bSortable": false },
+    { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Позиция/и", "data": "positionName", "autowidth": true, "bSortable": false, "class": 'colu-200' },
+    { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Срок поставки", "data": "dateGetMail", "autowidth": true, "bSortable": true },
+    { "title": "Кем создано", "data": "userCreate", "autowidth": true, "bSortable": true },
+    { "title": "Создано", "data": "dateCreate", "autowidth": true, "bSortable": true },
+    { "title": "Курс, USD", "data": "curency", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 4, '') },
+    { "title": "Расчетный вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Вес, кг", "data": "weight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Стоимость, BYN", "data": "cost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
@@ -206,7 +235,13 @@ function StartMenu() {
         },
         "order": [1, "desc"],
         "processing": true,
-        "columns": objTNOrders,
+        "columns": objNoClothingOrder,
+        "rowCallback": function (row, data, index) {
+            if (data.cost > data.planingCost) {
+                $('td', row).css('background-color', '#A52A2A');
+                $('td', row).css('color', 'white');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -271,6 +306,26 @@ function StartMenu() {
         "order": [0, "desc"],
         "processing": true,
         "columns": objPositionsPreorder,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#tableBujet").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetBujetList/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objBujet,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -508,13 +563,26 @@ function GetOrder(id) {
             if (result.manufDate === "null") {
                 $('#manufDate').prop('disabled', false);
             }
+            else if (result.numberTN === null && result.finDate === null) {
+                $('#numberTN').prop('disabled', true);
+                $('#factWeightTN').prop('disabled', true);
+                $('#factCost').prop('disabled', true);
+            }
             else if (result.numberTN === null) {
+                $('#customerOrderId').prop('disabled', true);
+                $('#manufDate').prop('disabled', true);
+                $('#rate').prop('disabled', true);
                 $('#numberTN').prop('disabled', false);
                 $('#factWeightTN').prop('disabled', false);
                 $('#factCost').prop('disabled', false);
             }
             else {
+                $('#factWeightTN').prop('disabled', false);
+                $('#factCost').prop('disabled', false);
+                $('#customerOrderId').prop('disabled', true);
+                $('#manufDate').prop('disabled', true);
                 $('#finDate').prop('disabled', false);
+                $('#rate').prop('disabled', true);
             }
             $('#btnUpdateOrder').show();
             $('#orderModal').modal('show');
@@ -533,6 +601,12 @@ function UpdateOrder() {
         factWeightTN: $('#factWeightTN').val().replace('.', ','),
         rate: $('#rate').val().replace('.', ',')
     };
+    if (obj.numberTN !== "") {
+        var valid = ValidTN();
+        if (valid === false) {
+            return false;
+        }
+    }
     $.ajax({
         cache: false,
         url: "/CMOSS/UpdateOrder",
@@ -550,6 +624,27 @@ function UpdateOrder() {
             $('#orderModal').modal('hide');
         }
     });
+}
+
+function ValidTN() {
+    var isValid = true;
+    var tmp = $('#factWeightTN').val();
+    var tmp1 = $('#factCost').val();
+    if ($('#factWeightTN').val() === "0" || $('#factWeightTN').val() === "" || $('#factWeightTN').val() === 0) {
+        $('#factWeightTN').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#factWeightTN').css('border-color', 'lightgrey');
+    }
+    if ($('#factCost').val() === "0" || $('#factCost').val() === "" || $('#factCost').val() === 0) {
+        $('#factCost').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#factCost').css('border-color', 'lightgrey');
+    }
+    return isValid;
 }
 
 function RemovePreOrder(id) {
@@ -685,4 +780,25 @@ function UpdatePreordersList() {
             }
         }
     });
+}
+
+function GetBujetList(id) {
+    $("#tableBujet").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetBujetList/" + id,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "bDestroy": true,
+        "bAutoWidth": false,
+        "columns": objBujet,
+        "scrollY": '70vh',
+        "searching": false,
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "scrollCollapse": true
+    });
+    $('#bujetListModal').modal('show');
 }

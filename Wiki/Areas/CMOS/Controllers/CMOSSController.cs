@@ -165,7 +165,8 @@ namespace Wiki.Areas.CMOS.Controllers
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
                         planingCost = dataList.cost,
-                        dataList.rate
+                        dataList.rate,
+                        curency = dataList.curency
                     });
                     logger.Debug("CMOSSController / GetTableNoPlaningOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
@@ -189,6 +190,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     var query = db.CMOSOrder
                         .AsNoTracking()
                         .Include(a => a.CMO_Company)
+                        .Include(a => a.CMOSPositionOrder)
                         .Include(a => a.AspNetUsers)
                         .Where(a => a.numberTN == null && a.manufDate != null && a.remove == false)
                         .ToList();
@@ -206,7 +208,8 @@ namespace Wiki.Areas.CMOS.Controllers
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
                         planingCost = dataList.cost,
-                        dataList.rate
+                        dataList.rate,
+                        curency = dataList.curency
                     });
                     logger.Debug("CMOSSController / GetTableTNOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
@@ -231,11 +234,13 @@ namespace Wiki.Areas.CMOS.Controllers
                         .AsNoTracking()
                         .Include(a => a.CMO_Company)
                         .Include(a => a.AspNetUsers)
+                        .Include(a => a.CMOSPositionOrder)
                         .Where(a => a.finDate == null && a.numberTN != null && a.manufDate != null && a.remove == false)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
                         editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        bujetList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetBujetList('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-warning-sign" + '\u0022' + "></span></a></td>",
                         dataList.id,
                         userCreate = dataList.AspNetUsers.CiliricalName,
                         dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
@@ -247,7 +252,11 @@ namespace Wiki.Areas.CMOS.Controllers
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
                         planingCost = dataList.cost,
-                        dataList.rate
+                        dataList.rate,
+                        percentComplited = GetPercentComplited(dataList.id),
+                        curency = dataList.curency,
+                        weight = dataList.weight,
+                        cost = dataList.factCost
                     });
                     logger.Debug("CMOSSController / GetTableNoClothingOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
@@ -656,7 +665,11 @@ namespace Wiki.Areas.CMOS.Controllers
                         order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
-                        new EmailCMOS(order, login, 3);
+                        var prd = db.CMOSOrderPreOrder
+                            .Include(a => a.CMOSPreOrder)
+                            .First(a => a.id_CMOSOrder == order.id);
+                        if (prd.CMOSPreOrder.reOrder == false)
+                            new EmailCMOS(order, login, 3);
                     }
                     else if (finDate == null)
                     {
@@ -701,6 +714,169 @@ namespace Wiki.Areas.CMOS.Controllers
                     Value = m.id.ToString()
                 });
                 return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult LoadingMaterialsC()
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    HttpPostedFileBase fiel = Request.Files[0];
+                    string fileReplace = Path.GetFileName(fiel.FileName);
+                    var fileName = Path.Combine(Server.MapPath("~/Areas/CMOS/ToSKU"), fileReplace);
+                    fiel.SaveAs(fileName);
+                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    {
+                        FileStream inputStream = fiel.InputStream as FileStream;
+                        IApplication application = excelEngine.Excel;
+                        IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
+                        IWorksheet worksheet = workbook.Worksheets[0];
+                        int rowsQuantity = worksheet.Rows.Length;
+                        SKUStruct[] skuUpList = new SKUStruct[rowsQuantity];
+                        var list = worksheet.Rows.ToArray();
+                        int i = 0;
+                        foreach (var t in list)
+                        {
+                            SKUStruct skuUp = new SKUStruct
+                            {
+                                sku1 = (int)t.Cells[0].Number,
+                                name = t.Cells[1].Value,
+                                indexMaterial = t.Cells[2].Value,
+                                designation = t.Cells[3].Value
+                            };
+                            skuUpList[i] = skuUp;
+                            i++;
+                        }
+                        var dbres = db.SKU.ToArray();
+                        SKU skuIn = new SKU();
+                        foreach (var sku in skuUpList)
+                        {
+                            if (dbres.Count(a => a.sku1 == sku.sku1) == 0)
+                            {
+                                SKU skuAdd = new SKU
+                                {
+                                    designation = sku.designation,
+                                    name = sku.name,
+                                    indexMaterial = sku.indexMaterial,
+                                    sku1 = sku.sku1
+                                };
+                                db.SKU.Add(skuAdd);
+                            }
+                            else
+                            {
+                                skuIn = dbres.First(a => a.sku1 == sku.sku1);
+                                if (skuIn.designation != sku.designation || skuIn.name != sku.name || skuIn.indexMaterial != sku.indexMaterial)
+                                {
+                                    SKU update = db.SKU.First(a => a.sku1 == sku.sku1);
+                                    update.designation = sku.designation;
+                                    update.name = sku.name;
+                                    update.indexMaterial = sku.indexMaterial;
+                                    db.Entry(update).State = EntityState.Modified;
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+                    }
+                    logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / LoadingMaterialsC: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetActiveOrders()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var query = db.CMOSOrder
+                    .AsNoTracking()
+                    .Include(a => a.CMO_Company)
+                    .Include(a => a.AspNetUsers)
+                    //.Where(a => a.finDate == null && a.numberTN != null && a.manufDate != null && a.remove == false)
+                    .ToList();
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetBujetList(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var order = db.CMOSOrder.Find(id);
+                    var positionsList = db.CMOSPositionOrder
+                        .AsNoTracking()
+                        .Where(a => a.id_CMOSOrder == id)
+                        .ToList();
+                    List<PositionBujet> list = new List<PositionBujet>();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        list.Add(new PositionBujet());
+                    }
+                    list[0].name = "Ставка";
+                    list[1].name = "Курс";
+                    list[2].name = "Вес";
+                    list[3].name = "_Итого";
+                    list[0].plan = order.rate.ToString();
+                    list[1].plan = order.curency.ToString();
+                    list[2].plan = Math.Round(positionsList.Sum(a => a.summaryWeight), 2).ToString();
+                    list[3].plan = order.cost.ToString();
+                    list[0].factAuto = order.rate.ToString();
+                    list[1].factAuto = order.curency.ToString();
+                    list[2].factAuto = order.weight.ToString();
+                    list[3].factAuto = Math.Round((order.rate * order.curency * order.weight), 2).ToString();
+                    list[0].factDoc = order.rate.ToString();
+                    list[1].factDoc = order.curency.ToString();
+                    list[2].factDoc = order.weight.ToString();
+                    list[3].factDoc = order.factCost.ToString();
+                    var data = list.Select(dataList => new
+                    {
+                        dataList.name,
+                        dataList.plan,
+                        dataList.factAuto,
+                        dataList.factDoc
+                    });
+                    logger.Debug("GetBujetList / GetPositionsOrder");
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        private string GetPercentComplited(int id)
+        {
+            double weightGet = 0;
+            double summaryWeight = 0;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var prdList = db.CMOSOrderPreOrder.AsNoTracking().Where(a => a.id_CMOSOrder == id).ToList();
+                foreach (var prdId in prdList)
+                {
+                    var pos = db.CMOSPositionPreOrder.AsNoTracking().Where(a => a.CMOSPreOrderId == prdId.id_CMOSPreOrder).ToList();
+                    summaryWeight += pos.Sum(a => a.summaryWeight);
+                    foreach (var p in pos)
+                    {
+                        weightGet += p.flow * p.weight;
+                    }
+                }
+                return Math.Round((weightGet / summaryWeight * 100), 2).ToString();
             }
         }
 
@@ -774,7 +950,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheet["I1"].ColumnWidth = 11.83;
                     worksheet["J1"].ColumnWidth = 30.5;
                     worksheet.Range["A2:J2"].Merge();
-                    worksheet.Range["A2"].Text = "Реестр заказных позиций для изделия (изделий) №: " + id.ToString() + " от " + DateTime.Now.ToShortDateString();
+                    worksheet.Range["A2"].Text = "Реестр заказных позиций для изделия (изделий) №: " + id.ToString() + " от " + DateTime.Now.ToShortDateString() + " (" + GetPositionsNameOrder(id) + ")";
                     worksheet.Range["A2"].CellStyle.Font.Bold = true;
                     worksheet["A2"].RowHeight = 18.0;
                     worksheet.Range["A2"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
@@ -921,7 +1097,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheet["M1"].ColumnWidth = 11.5;
                     worksheet["N1"].ColumnWidth = 27.0;
                     worksheet.Range["A2:N2"].Merge();
-                    worksheet.Range["A2"].Text = "Реестр заказных позиций для изделия (изделий) №: " + id.ToString() + " от " + DateTime.Now.ToShortDateString();
+                    worksheet.Range["A2"].Text = "Реестр заказных позиций для изделия (изделий) №: " + id.ToString() + " от " + DateTime.Now.ToShortDateString() + " (" + GetPositionsNameOrder(id) + ")";
                     worksheet.Range["A2"].CellStyle.Font.Bold = true;
                     worksheet["A2"].RowHeight = 18.0;
                     worksheet.Range["A2"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
@@ -1062,109 +1238,6 @@ namespace Wiki.Areas.CMOS.Controllers
                 }
             }
         }
-
-        public JsonResult LoadingMaterialsC()
-        {
-            string login = HttpContext.User.Identity.Name;
-            try
-            {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
-                {
-                    HttpPostedFileBase fiel = Request.Files[0];
-                    string fileReplace = Path.GetFileName(fiel.FileName);
-                    var fileName = Path.Combine(Server.MapPath("~/Areas/CMOS/ToSKU"), fileReplace);
-                    fiel.SaveAs(fileName);
-                    using (ExcelEngine excelEngine = new ExcelEngine())
-                    {
-                        FileStream inputStream = fiel.InputStream as FileStream;
-                        IApplication application = excelEngine.Excel;
-                        IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
-                        IWorksheet worksheet = workbook.Worksheets[0];
-                        int rowsQuantity = worksheet.Rows.Length;
-                        SKUStruct[] skuUpList = new SKUStruct[rowsQuantity];
-                        var list = worksheet.Rows.ToArray();
-                        int i = 0;
-                        foreach (var t in list)
-                        {
-                            SKUStruct skuUp = new SKUStruct
-                            {
-                                sku1 = (int)t.Cells[0].Number,
-                                name = t.Cells[1].Value,
-                                indexMaterial = t.Cells[2].Value,
-                                designation = t.Cells[3].Value
-                            };
-                            skuUpList[i] = skuUp;
-                            i++;
-                        }
-                        var dbres = db.SKU.ToArray();
-                        SKU skuIn = new SKU();
-                        foreach (var sku in skuUpList)
-                        {
-                            if (dbres.Count(a => a.sku1 == sku.sku1) == 0)
-                            {
-                                SKU skuAdd = new SKU
-                                {
-                                    designation = sku.designation,
-                                    name = sku.name,
-                                    indexMaterial = sku.indexMaterial,
-                                    sku1 = sku.sku1
-                                };
-                                db.SKU.Add(skuAdd);
-                            }
-                            else
-                            {
-                                skuIn = dbres.First(a => a.sku1 == sku.sku1);
-                                if (skuIn.designation != sku.designation || skuIn.name != sku.name || skuIn.indexMaterial != sku.indexMaterial)
-                                {
-                                    SKU update = db.SKU.First(a => a.sku1 == sku.sku1);
-                                    update.designation = sku.designation;
-                                    update.name = sku.name;
-                                    update.indexMaterial = sku.indexMaterial;
-                                    db.Entry(update).State = EntityState.Modified;
-                                }
-                            }
-                        }
-                        db.SaveChanges();
-                    }
-                    logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
-                    return Json(1, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("CMOSSController / LoadingMaterialsC: " + " | " + ex + " | " + login);
-                return Json(0, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-
-
-
-
-
-        public JsonResult GetActiveOrders()
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var query = db.CMOSOrder
-                    .AsNoTracking()
-                    .Include(a => a.CMO_Company)
-                    .Include(a => a.AspNetUsers)
-                    //.Where(a => a.finDate == null && a.numberTN != null && a.manufDate != null && a.remove == false)
-                    .ToList();
-                return Json(query, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-
-
-
-
-
 
         private void CreatingPositionsOrder(int id)
         {
