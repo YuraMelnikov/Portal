@@ -563,7 +563,8 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.summaryWeight,
                         dataList.color,
                         dataList.coating,
-                        dataList.note
+                        dataList.note,
+                        sku = GetSKU(dataList.name, dataList.index, dataList.designation)
                     });
                     logger.Debug("CMOSSController / GetPositionsOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
@@ -616,6 +617,53 @@ namespace Wiki.Areas.CMOS.Controllers
             catch (Exception ex)
             {
                 logger.Error("CMOSSController / GetOrder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetPositionsPreorderApi(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.CMOSOrderPreOrder
+                        .AsNoTracking()
+                        .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                        .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                        .Include(a => a.CMOSPreOrder.CMOSPositionPreOrder)
+                        .Where(a => a.id_CMOSOrder == id)
+                        .ToList();
+                    List<CMOSPositionPreOrder> listPrd = new List<CMOSPositionPreOrder>();
+                    foreach (var prds in query)
+                    {
+                        foreach (var prd in prds.CMOSPreOrder.CMOSPositionPreOrder)
+                        {
+                            listPrd.Add(prd);
+                        }
+                    }
+                    var data = listPrd.Select(dataList => new
+                    {
+                        name = dataList.name + " - " + dataList.index + " - " + dataList.designation,
+                        code = dataList.sku,
+                        weight = dataList.weight,
+                        shortName = dataList.designation,
+                        norm = dataList.quantity,
+                        rate = dataList.flow, 
+                        loading = dataList.quantity - dataList.flow,
+                        order = "ПЗ №: " + dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name,
+                        color = "RAL" + dataList.color,
+                        id = dataList.id
+                    });
+                    logger.Debug("CMOSSController / GetPositionsPreorderApi");
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetPositionsPreorderApi: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
@@ -860,6 +908,11 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+
+        private string GetSKU(string name, string index, string designation)
+        {
+            return "";
+        }
 
         private string GetPercentComplited(int id)
         {
