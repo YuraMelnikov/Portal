@@ -59,7 +59,7 @@ function loadData(listId) {
         LoadStickersPanel();
     }
     else {
-        loadReport();
+        loadReport(); 
     }
 }
 

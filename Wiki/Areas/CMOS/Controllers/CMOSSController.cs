@@ -256,7 +256,8 @@ namespace Wiki.Areas.CMOS.Controllers
                         percentComplited = GetPercentComplited(dataList.id),
                         curency = dataList.curency,
                         weight = dataList.weight,
-                        cost = dataList.factCost
+                        cost = dataList.factCost,
+                        dataList.numberTN
                     });
                     logger.Debug("CMOSSController / GetTableNoClothingOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
