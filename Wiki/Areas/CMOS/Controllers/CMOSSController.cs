@@ -646,14 +646,14 @@ namespace Wiki.Areas.CMOS.Controllers
                     }
                     var data = listPrd.Select(dataList => new
                     {
-                        name = dataList.name + " - " + dataList.index + " - " + dataList.designation,
+                        name = dataList.designation + " - " + dataList.index + " - " + dataList.name,
                         code = dataList.sku,
                         weight = dataList.weight,
-                        shortName = dataList.designation,
+                        shortName = dataList.name,
                         norm = dataList.quantity,
                         rate = dataList.flow, 
                         loading = dataList.quantity - dataList.flow,
-                        order = "ПЗ №: " + dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name,
+                        order = ("ПЗ №: " + dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name).Replace("\r\n", ""),
                         color = "RAL" + dataList.color,
                         id = dataList.id
                     });
