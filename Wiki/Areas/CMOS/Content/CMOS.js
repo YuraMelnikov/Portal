@@ -13,9 +13,9 @@ $(document).ready(function () {
         $('#dFullReport').show();
 
         //после проверки удалить!
-        //$('#btnAddPreOrder').show();
-        //$('#btnReOrder').show();
-        //$('#btnOpeningMaterialsCModal').show();
+        $('#btnAddPreOrder').show();
+        $('#btnReOrder').show();
+        $('#btnOpeningMaterialsCModal').show();
     }
     else if (userGroupId === 2) {
         $('#btnAddPreOrder').show();

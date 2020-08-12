@@ -82,7 +82,8 @@ namespace Wiki.Areas.CMOS.Models
                 }
                 else if (stepNumber == 6) //Remove
                 {
-                    GetMailList();
+                    GetMailClient();
+                    GetMailListCreate();
                     GetMailPM();
                 }
                 else if (stepNumber == 7) //stickers

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
+using Newtonsoft.Json;
 using NLog;
 using Syncfusion.XlsIO;
 using System;
@@ -46,7 +47,7 @@ namespace Wiki.Areas.CMOS.Controllers
             //ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false), "id", "id_PZ_PlanZakaz");
             if (devisionUser == 7 || login == "myi@katek.by" || login == "koag@katek.by")
                 ViewBag.userGroupId = 1;
-            else if (login == "nrf@katek.by" || login == "vi@katek.by")
+            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by")
                 ViewBag.userGroupId = 2;
             else
                 ViewBag.userGroupId = 3;
@@ -469,7 +470,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     };
                     db.CMOSOrder.Add(order);
                     db.SaveChanges();
-                    order.folder = CreateFolderAndFileForOrder(order.id, preordersList);
+                    order.folder = CreateFolderAndFileForOrder(order.id);
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                     foreach (var preord in preordersList)
@@ -730,6 +731,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     {
                         order.numberTN = numberTN;
                         order.dateTN = dateTN;
+                        order.cost = Math.Round(order.rate * GetCurrency(order.dateTN.Value) * summaryWeight, 2);
                         order.factCost = factCost;
                         order.weight = factWeightTN.Value;
                         db.Entry(order).State = EntityState.Modified;
@@ -915,6 +917,31 @@ namespace Wiki.Areas.CMOS.Controllers
                 if(id != 0)
                     logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private double GetCurrency(DateTime date)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    try
+                    {
+                        return db.CurencyBYN.First(a => a.date == date).USD;
+                    }
+                    catch
+                    {
+                        date = db.CurencyBYN.Max(a => a.date);
+                        return db.CurencyBYN.First(a => a.date == date).USD;
+                    }
+                }
+            }
+            catch
+            {
+                return 0.0;
             }
         }
 
@@ -1566,7 +1593,7 @@ namespace Wiki.Areas.CMOS.Controllers
             return directory;
         }
 
-        private string CreateFolderAndFileForOrder(int id, int[] preordersList)
+        private string CreateFolderAndFileForOrder(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -1633,14 +1660,25 @@ namespace Wiki.Areas.CMOS.Controllers
                 try
                 {
                     var positionsList = db.CMOSOrderPreOrder
+                        .AsNoTracking()
                         .Include(a => a.CMOSPreOrder.CMOSPositionPreOrder)
                         .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
                         .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
                         .Where(a => a.id_CMOSOrder == id)
                         .ToList();
-                    foreach (var dataInList in positionsList)
+                    int idPrd = positionsList[0].id_CMOSPreOrder;
+                    bool reorder = db.CMOSPreOrder.AsNoTracking().First(a => a.id == idPrd).reOrder;
+                    if (reorder == false)
                     {
-                        data += dataInList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataInList.CMOSPreOrder.CMO_TypeProduct.name + "\n";
+                        foreach (var dataInList in positionsList)
+                        {
+                            data += dataInList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataInList.CMOSPreOrder.CMO_TypeProduct.name + "\n";
+                        }
+                    }
+                    else
+                    {
+                        int preOrderID = db.CMOSOrderPreOrder.First(a => a.id_CMOSOrder == id).id_CMOSPreOrder;
+                        data += db.CMOSPreOrder.Find(preOrderID).note;
                     }
                     return data;
                 }
@@ -1687,13 +1725,24 @@ namespace Wiki.Areas.CMOS.Controllers
                 try
                 {
                     var listPos = db.CMOSOrderPreOrder
+                        .AsNoTracking()
                         .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
                         .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
                         .Where(a => a.id_CMOSOrder == id)
                         .ToList();
-                    foreach (var pos in listPos)
+                    int idPrd = listPos[0].id_CMOSPreOrder;
+                    bool reorder = db.CMOSPreOrder.AsNoTracking().First(a => a.id == idPrd).reOrder;
+                    if (reorder == false)
                     {
-                        data += pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + pos.CMOSPreOrder.CMO_TypeProduct.name + "\n";
+                        foreach (var pos in listPos)
+                        {
+                            data += pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + pos.CMOSPreOrder.CMO_TypeProduct.name + "\n";
+                        }
+                    }
+                    else
+                    {
+                        int preOrderID = db.CMOSOrderPreOrder.First(a => a.id_CMOSOrder == id).id_CMOSPreOrder;
+                        data += db.CMOSPreOrder.Find(preOrderID).note;
                     }
                     return data;
                 }
