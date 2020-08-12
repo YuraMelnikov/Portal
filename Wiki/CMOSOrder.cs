@@ -36,6 +36,7 @@ namespace Wiki
         public double rate { get; set; }
         public double weight { get; set; }
         public double curency { get; set; }
+        public Nullable<System.DateTime> dateTN { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual CMO_Company CMO_Company { get; set; }

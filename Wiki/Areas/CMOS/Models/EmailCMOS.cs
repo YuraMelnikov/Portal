@@ -19,6 +19,7 @@ namespace Wiki.Areas.CMOS.Models
         List<string> mailToList;
         CMOSPreOrder preOrder;
         CMOSOrder order;
+        DateTime? datePlanningGetMaterials;
         private new readonly PortalKATEKEntities db = new PortalKATEKEntities();
 
         public EmailCMOS(CMOSPreOrder preOrder, string login, int stepNumber)
@@ -52,7 +53,7 @@ namespace Wiki.Areas.CMOS.Models
                 this.stepNumber = stepNumber;
                 this.order = db.CMOSOrder.Find(order.id);
                 mail.From = new MailAddress(login);
-                if (stepNumber == 1) //Create - 1
+                if (stepNumber == 0) //Create - 0
                 {
                     GetMailListCreate();
                     GetMailPM();
@@ -84,6 +85,12 @@ namespace Wiki.Areas.CMOS.Models
                     GetMailList();
                     GetMailPM();
                 }
+                else if (stepNumber == 7) //stickers
+                {
+                    //GetMailList();
+                    GetMailListStock();
+                    GetMailPM();
+                }
                 else
                 {
 
@@ -98,6 +105,31 @@ namespace Wiki.Areas.CMOS.Models
                 logger.Error("EmailCMOS: " + order.id + " | " + ex);
             }
         }
+
+        public EmailCMOS(CMOSOrder order, string login, int stepNumber, DateTime? datePlanningGetMaterials)
+        {
+            mailToList = new List<string>();
+            try
+            {
+                this.datePlanningGetMaterials = datePlanningGetMaterials;
+                this.login = login;
+                this.stepNumber = stepNumber;
+                this.order = db.CMOSOrder.Find(order.id);
+                mail.From = new MailAddress(login);
+                GetMailList();
+                GetMailClient();
+                GetMailPM();
+                GetSubject();
+                GetBody();
+                SendEmail();
+                logger.Debug("EmailCMOS: " + order.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("EmailCMOS: " + order.id + " | " + ex);
+            }
+        }
+
 
         void SendEmail()
         {
@@ -180,6 +212,10 @@ namespace Wiki.Areas.CMOS.Models
             {
                 body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + order.id + "<br/>";
                 body += "Прошу прислать сроки готовности заказа: " + order.workDate.ToString().Substring(0, 16) + "<br/>";
+                if(datePlanningGetMaterials != null)
+                {
+                    body += "Требуемая дата поставки: " + datePlanningGetMaterials.Value.ToShortDateString() + "<br/>";
+                }
                 body += "Внутренний номер зказа: " + order.id.ToString() + ", просим прописывать в счете." + "<br/>" + "<br/>";
                 body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                         "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
@@ -220,30 +256,37 @@ namespace Wiki.Areas.CMOS.Models
 
         bool GetMailListCreate()
         {
-            //mailToList.Add("xan@katek.by");
-            //mailToList.Add("gdp@katek.by");
-            //mailToList.Add("bav@katek.by");
-            //mailToList.Add("vi@katek.by");
-            //mailToList.Add("nrf@katek.by");
-            //mailToList.Add("goa@katek.by");
+            mailToList.Add("xan@katek.by");
+            mailToList.Add("gdp@katek.by");
+            mailToList.Add("bav@katek.by");
+            mailToList.Add("vi@katek.by");
+            mailToList.Add("nrf@katek.by");
+            mailToList.Add("goa@katek.by");
             return true;
         }
 
         bool GetMailList()
         {
-            //mailToList.Add("xan@katek.by");
-            //mailToList.Add("gdp@katek.by");
-            //mailToList.Add("bav@katek.by");
+            mailToList.Add("xan@katek.by");
+            mailToList.Add("gdp@katek.by");
+            mailToList.Add("bav@katek.by");
+            return true;
+        }
+
+        bool GetMailListStock()
+        {
+            mailToList.Add("snv@katek.by");
+            mailToList.Add("sim@katek.by");
             return true;
         }
 
         bool GetMailClient()
         {
-            //var query = db.CMO_CompanyMailList.Where(d => d.id_CMO_Company == order.cMO_CompanyId && d.active == true).ToList();
-            //foreach (var data in query)
-            //{
-            //    mailToList.Add(data.email);
-            //}
+            var query = db.CMO_CompanyMailList.Where(d => d.id_CMO_Company == order.cMO_CompanyId && d.active == true).ToList();
+            foreach (var data in query)
+            {
+                mailToList.Add(data.email);
+            }
             return true;
         }
 

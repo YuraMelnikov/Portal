@@ -1336,7 +1336,7 @@
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
-      <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskForPZ.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>

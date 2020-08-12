@@ -19,6 +19,7 @@ namespace Wiki.Areas.Reclamation.Controllers
         private readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
         private readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
         private readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
+        private readonly JsonSerializerSettings longSettingYY = new JsonSerializerSettings { DateFormatString = "dd.MM.yy HH:mm" };
 
         public ActionResult Debug()
         {
@@ -447,7 +448,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 dataList.id_Reclamation_CountErrorFinal,
                 id_AspNetUsersCreate = dataList.AspNetUsers.CiliricalName,
                 dataList.id_DevisionCreate,
-                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, settings).Replace(@"""", ""),
+                dateTimeCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, longSettingYY).Replace(@"""", ""),
                 dataList.text,
                 dataList.description,
                 dataList.timeToSearch,

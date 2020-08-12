@@ -12,11 +12,10 @@ $(document).ready(function () {
         $('#dTableNoClothingOrder').show();
         $('#dFullReport').show();
 
-
         //после проверки удалить!
-        $('#btnAddPreOrder').show();
-        $('#btnReOrder').show();
-        $('#btnOpeningMaterialsCModal').show();
+        //$('#btnAddPreOrder').show();
+        //$('#btnReOrder').show();
+        //$('#btnOpeningMaterialsCModal').show();
     }
     else if (userGroupId === 2) {
         $('#btnAddPreOrder').show();
@@ -144,7 +143,7 @@ var objNoClothingOrder = [
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
-];
+]; 
 
 var objOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
@@ -359,6 +358,7 @@ function CleanerModals() {
     $('#manufDate').val("");
     $('#finDate').val("");
     $('#numberTN').val("");
+    $('#dateTN').val("");
     $('#cost').val("");
     $('#factCost').val("");
     $('#planWeight').val("");
@@ -368,6 +368,7 @@ function CleanerModals() {
     $('#factWeightTN').val("");
     $('#filePreorder').val("");
     $('#fileBackorder').val("");
+    $('#datePlanningGetMaterials').val("");
 }
 
 function CreatePreOrder() {
@@ -494,6 +495,7 @@ function AddOrder() {
     var obj = {
         preordersList: $('#id_CMOSPreorder').val(),
         customerOrderId: $('#customerNewOrderId').val(),
+        datePlanningGetMaterials: $('#datePlanningGetMaterials').val(),
         workDate: $('#workDateNew').val()
     };
     $.ajax({
@@ -554,6 +556,7 @@ function GetOrder(id) {
             $('#finDate').val(result.finDate);
             $('#customerOrderId').val(result.customerOrderId);
             $('#numberTN').val(result.numberTN);
+            $('#dateTN').val(result.dateTN);
             $('#cost').val(result.cost);
             $('#factCost').val(result.factCost);
             $('#planWeight').val(result.planWeight);
@@ -565,6 +568,7 @@ function GetOrder(id) {
             }
             else if (result.numberTN === null && result.finDate === null) {
                 $('#numberTN').prop('disabled', true);
+                $('#dateTN').prop('disabled', true);
                 $('#factWeightTN').prop('disabled', true);
                 $('#factCost').prop('disabled', true);
             }
@@ -573,6 +577,7 @@ function GetOrder(id) {
                 $('#manufDate').prop('disabled', true);
                 $('#rate').prop('disabled', true);
                 $('#numberTN').prop('disabled', false);
+                $('#dateTN').prop('disabled', false);
                 $('#factWeightTN').prop('disabled', false);
                 $('#factCost').prop('disabled', false);
             }
@@ -597,6 +602,7 @@ function UpdateOrder() {
         manufDate: $('#manufDate').val(),
         finDate: $('#finDate').val(),
         numberTN: $('#numberTN').val(),
+        dateTN: $('#dateTN').val(),
         factCost: $('#factCost').val().replace('.', ','),
         factWeightTN: $('#factWeightTN').val().replace('.', ','),
         rate: $('#rate').val().replace('.', ',')

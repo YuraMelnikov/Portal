@@ -664,6 +664,7 @@
           <Property Name="remove" Type="bit" Nullable="false" />
           <Property Name="rate" Type="float" Nullable="false" />
           <Property Name="curency" Type="float" Nullable="false" />
+          <Property Name="dateTN" Type="date" />
         </EntityType>
         <EntityType Name="CMOSOrderPreOrder">
           <Key>
@@ -11879,6 +11880,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="rate" Type="Double" Nullable="false" />
           <Property Name="weight" Type="Double" Nullable="false" />
           <Property Name="curency" Type="Double" Nullable="false" />
+          <Property Name="dateTN" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="CMOSOrderPreOrder">
           <Key>
@@ -14505,6 +14507,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSOrder">
               <MappingFragment StoreEntitySet="CMOSOrder">
+                <ScalarProperty Name="dateTN" ColumnName="dateTN" />
                 <ScalarProperty Name="curency" ColumnName="curency" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
                 <ScalarProperty Name="rate" ColumnName="rate" />

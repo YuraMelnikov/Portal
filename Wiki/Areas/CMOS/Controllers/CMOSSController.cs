@@ -44,7 +44,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 });
             ViewBag.id_CMOSPreorder = new SelectList(newList, "Id", "Name");
             //ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false), "id", "id_PZ_PlanZakaz");
-            if (devisionUser == 7 || login == "myi@katek.by")
+            if (devisionUser == 7 || login == "myi@katek.by" || login == "koag@katek.by")
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by" || login == "vi@katek.by")
                 ViewBag.userGroupId = 2;
@@ -82,6 +82,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.factCost,
                         folder = @"<a href =" + dataList.folder + "> Папка </a>",
                         tnNumber = dataList.numberTN,
+                        dateTN = dataList.dateTN,
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
                         dataList.rate
@@ -412,7 +413,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         cMO_CompanyId = customerId,
                         cost = 0,
                         remove = false,
-                        rate = rate,
+                        rate = 3.8,
                         weight = 0.0,
                         curency = curency
                     };
@@ -442,7 +443,7 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        public JsonResult AddOrder(int[] preordersList, int customerOrderId, DateTime workDate)
+        public JsonResult AddOrder(int[] preordersList, int customerOrderId, DateTime workDate, DateTime? datePlanningGetMaterials)
         {
             string login = HttpContext.User.Identity.Name;
             try
@@ -488,7 +489,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.SaveChanges();
                     CreatingFileOrder(order.id);
                     CreatingStockFileOrder(order.id);
-                    new EmailCMOS(order, login, 2);
+                    new EmailCMOS(order, login, 2, datePlanningGetMaterials);
                     logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -603,6 +604,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
                         customerOrderId = dataList.cMO_CompanyId,
                         numberTN = dataList.numberTN,
+                        dateTN = dataList.dateTN,
                         cost = dataList.cost,
                         factCost = dataList.factCost,
                         planWeight = GetWeigthtOrder(dataList.id),
@@ -646,14 +648,14 @@ namespace Wiki.Areas.CMOS.Controllers
                     }
                     var data = listPrd.Select(dataList => new
                     {
-                        name = dataList.designation + " - " + dataList.index + " - " + dataList.name,
+                        name = dataList.designation + "<" + dataList.index + ">" + dataList.name,
                         code = dataList.sku,
                         weight = dataList.weight,
                         shortName = dataList.name,
                         norm = dataList.quantity,
                         rate = dataList.flow, 
                         loading = dataList.quantity - dataList.flow,
-                        order = ("ПЗ №: " + dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name).Replace("\r\n", ""),
+                        order = (dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name).Replace("\r\n", ""),
                         color = "RAL" + dataList.color,
                         id = dataList.id
                     });
@@ -670,7 +672,8 @@ namespace Wiki.Areas.CMOS.Controllers
 
         [HttpPost]
         public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate,
-            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate)
+            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate, 
+            DateTime? dateTN)
         {
             string login = HttpContext.User.Identity.Name;
             try
@@ -709,28 +712,34 @@ namespace Wiki.Areas.CMOS.Controllers
                     }
                     else if (numberTN == "" && finDate == null)
                     {
-                        order.manufDate = manufDate;
-                        order.curency = curency;
-                        order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
-                        db.Entry(order).State = EntityState.Modified;
-                        db.SaveChanges();
-                        var prd = db.CMOSOrderPreOrder
-                            .Include(a => a.CMOSPreOrder)
-                            .First(a => a.id_CMOSOrder == order.id);
-                        if (prd.CMOSPreOrder.reOrder == false)
-                            new EmailCMOS(order, login, 3);
+                        if(order.manufDate != manufDate)
+                        {
+                            order.manufDate = manufDate;
+                            order.curency = curency;
+                            order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
+                            db.Entry(order).State = EntityState.Modified;
+                            db.SaveChanges();
+                            var prd = db.CMOSOrderPreOrder
+                                .Include(a => a.CMOSPreOrder)
+                                .First(a => a.id_CMOSOrder == order.id);
+                            if (prd.CMOSPreOrder.reOrder == false)
+                                new EmailCMOS(order, login, 3);
+                        }
                     }
                     else if (finDate == null)
                     {
                         order.numberTN = numberTN;
+                        order.dateTN = dateTN;
                         order.factCost = factCost;
                         order.weight = factWeightTN.Value;
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
+                        new EmailCMOS(order, login, 7);
                     }
                     else if (finDate != null)
                     {
                         order.numberTN = numberTN;
+                        order.dateTN = dateTN;
                         order.factCost = factCost;
                         order.weight = factWeightTN.Value;
                         order.finDate = finDate;
@@ -903,7 +912,8 @@ namespace Wiki.Areas.CMOS.Controllers
             }
             catch (Exception ex)
             {
-                logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
+                if(id != 0)
+                    logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
