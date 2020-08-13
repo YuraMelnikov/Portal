@@ -13,14 +13,17 @@ $(document).ready(function () {
         $('#dFullReport').show();
 
         //после проверки удалить!
-        $('#btnAddPreOrder').show();
-        $('#btnReOrder').show();
-        $('#btnOpeningMaterialsCModal').show();
+        //$('#btnAddPreOrder').show();
+        //$('#btnReOrder').show();
+        //$('#btnOpeningMaterialsCModal').show();
     }
-    else if (userGroupId === 2) {
+    else if (userGroupId === 2) { 
         $('#btnAddPreOrder').show();
         $('#btnReOrder').show();
         $('#dTableNoPlaningPreOrder').show();
+        $('#dFullReport').show();
+    }
+    else if (userGroupId === 4) {
         $('#dFullReport').show();
     }
     else {
@@ -57,12 +60,14 @@ var objFullReport = [
     { "title": "Номер ТН", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Статус", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Начало", "data": "startDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
+    { "title": "Срок поставки", "data": "dateGetMail", "autowidth": true, "bSortable": true },
     { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Цена, BYN", "data": "cost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Стоимость, BYN", "data": "factCost", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Ставка за кг,USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
+
     { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": false }
 ];
 
@@ -76,8 +81,8 @@ var objSmallReport = [
     { "title": "Окончание", "data": "finishDate", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
     { "title": "Вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
-    { "title": "Папка заказа", "data": "folder", "autowidth": true }
-];
+    { "title": "Папка заказа", "data": "folder", "autowidth": true, "bSortable": false } 
+]; 
 
 var objPreOrdersList = [
     { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
@@ -106,7 +111,7 @@ var objNoPlaningOrders = [
     { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
-];
+]; 
 
 var objTNOrders = [
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },

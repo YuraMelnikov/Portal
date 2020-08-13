@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NLog;
 using Syncfusion.XlsIO;
 using System;
@@ -49,6 +48,8 @@ namespace Wiki.Areas.CMOS.Controllers
                 ViewBag.userGroupId = 1;
             else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by")
                 ViewBag.userGroupId = 2;
+            else if (login == "bav@katek.by")
+                ViewBag.userGroupId = 4;
             else
                 ViewBag.userGroupId = 3;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
@@ -74,6 +75,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     var data = query.Select(dataList => new
                     {
                         dataList.id,
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
                         positions = GetPositionsNamePreOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
                         state = GetStateOrder(dataList.id),
