@@ -252,6 +252,13 @@ namespace Wiki.Areas.CMOS.Models
             {
                 body += "Удален заказ железа №: " + order.id + "<br/>" + "<br/>";
             }
+            else if (stepNumber == 7)
+            {
+                body = "Добрый день!" + "<br/>";
+                body += "На заказ изделий из ЛМ № : " + order.id + "<br/>";
+                body += "в 1с7 создан документ Поступление ТМЦ: " + order.numberTN + "<br/>";
+                body += "Необходимо распечатать этикетки и передать их подрядчику" + "<br/>";
+            }
             return true;
         }
 

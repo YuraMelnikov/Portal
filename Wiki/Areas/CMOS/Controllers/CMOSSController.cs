@@ -46,7 +46,7 @@ namespace Wiki.Areas.CMOS.Controllers
             //ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false), "id", "id_PZ_PlanZakaz");
             if (devisionUser == 7 || login == "myi@katek.by" || login == "koag@katek.by")
                 ViewBag.userGroupId = 1;
-            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by")
+            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
                 ViewBag.userGroupId = 2;
             else if (login == "bav@katek.by")
                 ViewBag.userGroupId = 4;
