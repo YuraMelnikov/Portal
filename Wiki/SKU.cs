@@ -19,5 +19,6 @@ namespace Wiki
         public string name { get; set; }
         public string indexMaterial { get; set; }
         public int sku1 { get; set; }
+        public double weight { get; set; }
     }
 }

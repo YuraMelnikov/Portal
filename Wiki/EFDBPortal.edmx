@@ -2093,6 +2093,7 @@
           <Property Name="name" Type="varchar(max)" Nullable="false" />
           <Property Name="indexMaterial" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="sku" Type="int" Nullable="false" />
+          <Property Name="weight" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="StickersPreOrder">
           <Key>
@@ -12076,6 +12077,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="indexMaterial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="sku1" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -14602,6 +14604,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="SKU">
             <EntityTypeMapping TypeName="PortalKATEKModel.SKU">
               <MappingFragment StoreEntitySet="SKU">
+                <ScalarProperty Name="weight" ColumnName="weight" />
                 <ScalarProperty Name="sku1" ColumnName="sku" />
                 <ScalarProperty Name="indexMaterial" ColumnName="indexMaterial" />
                 <ScalarProperty Name="name" ColumnName="name" />

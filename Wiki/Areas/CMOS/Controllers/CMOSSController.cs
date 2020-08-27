@@ -206,7 +206,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                         positionName = GetPositionsNameOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                         folder = @"<a href =" + dataList.folder + "> Папка </a>",
                         remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
@@ -250,7 +250,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dateCreate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                         positionName = GetPositionsNameOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                         folder = @"<a href =" + dataList.folder + "> Папка </a>",
                         remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemoveOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
@@ -656,7 +656,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         weight = dataList.weight,
                         shortName = dataList.name,
                         norm = dataList.quantity,
-                        rate = dataList.flow, 
+                        rate = dataList.flow,
                         loading = dataList.quantity - dataList.flow,
                         order = (dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name).Replace("\r\n", ""),
                         color = "RAL" + dataList.color,
@@ -675,7 +675,7 @@ namespace Wiki.Areas.CMOS.Controllers
 
         [HttpPost]
         public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate,
-            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate, 
+            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate,
             DateTime? dateTN)
         {
             string login = HttpContext.User.Identity.Name;
@@ -715,7 +715,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     }
                     else if (numberTN == "" && finDate == null)
                     {
-                        if(order.manufDate != manufDate)
+                        if (order.manufDate != manufDate)
                         {
                             order.manufDate = manufDate;
                             order.curency = curency;
@@ -806,13 +806,22 @@ namespace Wiki.Areas.CMOS.Controllers
                             {
                                 sku1 = (int)t.Cells[0].Number,
                                 name = t.Cells[1].Value,
-                                indexMaterial = t.Cells[2].Value,
-                                designation = t.Cells[3].Value
+                                weight = Convert.ToDouble(t.Cells[2].Number),
+                                indexMaterial = t.Cells[3].Value,
+                                designation = t.Cells[4].Value
                             };
+                            try
+                            {
+                                skuUp.weight = (double)Convert.ToDecimal(skuUp.weight);
+                            }
+                            catch
+                            {
+                                skuUp.weight = 0.0;
+                            }
                             skuUpList[i] = skuUp;
                             i++;
                         }
-                        var dbres = db.SKU.ToArray();
+                        var dbres = db.SKU.AsNoTracking().ToArray();
                         SKU skuIn = new SKU();
                         foreach (var sku in skuUpList)
                         {
@@ -823,25 +832,23 @@ namespace Wiki.Areas.CMOS.Controllers
                                     designation = sku.designation,
                                     name = sku.name,
                                     indexMaterial = sku.indexMaterial,
-                                    sku1 = sku.sku1
+                                    sku1 = sku.sku1,
+                                    weight = sku.weight
                                 };
                                 db.SKU.Add(skuAdd);
                             }
                             else
                             {
                                 skuIn = dbres.First(a => a.sku1 == sku.sku1);
-                                if (skuIn.designation != sku.designation || skuIn.name != sku.name || skuIn.indexMaterial != sku.indexMaterial)
-                                {
-                                    SKU update = db.SKU.First(a => a.sku1 == sku.sku1);
-                                    update.designation = sku.designation;
-                                    update.name = sku.name;
-                                    update.indexMaterial = sku.indexMaterial;
-                                    db.Entry(update).State = EntityState.Modified;
-                                }
+                                skuIn.designation = sku.designation;
+                                skuIn.name = sku.name;
+                                skuIn.indexMaterial = sku.indexMaterial;
+                                skuIn.weight = (double)sku.weight;
+                                db.Entry(skuIn).State = EntityState.Modified;
                             }
                         }
-                        db.SaveChanges();
                     }
+                    db.SaveChanges();
                     logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -916,7 +923,7 @@ namespace Wiki.Areas.CMOS.Controllers
             }
             catch (Exception ex)
             {
-                if(id != 0)
+                if (id != 0)
                     logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
