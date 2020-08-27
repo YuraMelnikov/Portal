@@ -572,8 +572,8 @@ function GetOrder(id) {
             else if (result.numberTN === null) {
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
-                $('#rate').prop('disabled', true);
-                $('#numberTN').prop('disabled', false);
+                //$('#rate').prop('disabled', true);
+                $('#numberTN').prop('disabled', false); 
                 $('#dateTN').prop('disabled', false);
                 $('#factWeightTN').prop('disabled', false);
                 $('#factCost').prop('disabled', false);
@@ -584,7 +584,7 @@ function GetOrder(id) {
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
                 $('#finDate').prop('disabled', false);
-                $('#rate').prop('disabled', true);
+                //$('#rate').prop('disabled', true); 
             }
             $('#btnUpdateOrder').show();
             $('#orderModal').modal('show');

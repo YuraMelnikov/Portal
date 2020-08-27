@@ -75,7 +75,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     var data = query.Select(dataList => new
                     {
                         dataList.id,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortDefaultSetting).Replace(@"""", ""),
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                         positions = GetPositionsNamePreOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
                         state = GetStateOrder(dataList.id),
@@ -607,7 +607,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
                         customerOrderId = dataList.cMO_CompanyId,
                         numberTN = dataList.numberTN,
-                        dateTN = dataList.dateTN,
+                        dateTN = JsonConvert.SerializeObject(dataList.dateTN, shortDefaultSetting).Replace(@"""", ""),
                         cost = dataList.cost,
                         factCost = dataList.factCost,
                         planWeight = GetWeigthtOrder(dataList.id),
