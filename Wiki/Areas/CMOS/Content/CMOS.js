@@ -8,10 +8,8 @@ $(document).ready(function () {
         $('#btnAddOrder').show();
         $('#dTableNoPlaningPreOrder').show();
         $('#dTableNoPlaningOrder').show();
-        $('#dTableTNOrder').show();
         $('#dTableNoClothingOrder').show();
-        $('#dFullReport').show();
-
+        $('#dFullReport').show(); 
         //после проверки удалить!
         //$('#btnAddPreOrder').show();
         //$('#btnReOrder').show();
@@ -24,6 +22,10 @@ $(document).ready(function () {
         $('#dFullReport').show();
     }
     else if (userGroupId === 4) {
+        $('#dFullReport').show();
+    }
+    else if (userGroupId === 5) {
+        $('#dTableTNOrder').show();
         $('#dFullReport').show();
     }
     else {
@@ -235,7 +237,7 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [1, "desc"],
+        "order": [4, "asc"],
         "processing": true,
         "columns": objNoClothingOrder,
         "scrollY": '75vh',
@@ -257,9 +259,14 @@ function StartMenu() {
             "type": "POST",
             "datatype": "json"
         },
-        "order": [0, "desc"],
+        "order": [6, "desc"],
         "processing": true,
         "columns": objFullReport,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "Оприходован") {
+                $('td', row).css('background-color', '#00A4CCFF'); 
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,

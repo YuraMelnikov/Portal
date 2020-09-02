@@ -310,7 +310,7 @@ namespace Wiki.Areas.CMOS.Models
             if (stepNumber == 0)
                 return Directory.GetFiles(preOrder.folder).ToList();
             if (stepNumber == 7)
-                return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Order\" + order.id.ToString() + @"\").ToList();
+                return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
             else
                 return Directory.GetFiles(order.folder).ToList();
         }

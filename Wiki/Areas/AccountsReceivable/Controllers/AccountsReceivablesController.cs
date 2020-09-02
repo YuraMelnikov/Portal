@@ -23,7 +23,7 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
         public ActionResult Index()
         {
             PortalKATEKEntities db = new PortalKATEKEntities();
-            ViewBag.userTP = new SelectList(db.AspNetUsers.Where(d => d.Devision == 4).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
+            ViewBag.userTP = new SelectList(db.AspNetUsers.Where(d => d.Devision == 4 || d.Devision == 18).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             ViewBag.currency = new SelectList(db.PZ_Currency.OrderBy(d => d.Name), "id", "Name");
             ViewBag.orders = new SelectList(db.PZ_PlanZakaz.OrderBy(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");

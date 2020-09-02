@@ -43,12 +43,13 @@ namespace Wiki.Areas.CMOS.Controllers
                     Name = member.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + member.CMO_TypeProduct.name
                 });
             ViewBag.id_CMOSPreorder = new SelectList(newList, "Id", "Name");
-            //ViewBag.id_CMOSPreorder = new SelectList(db.CMOSPreOrder.Where(d => d.CMOSOrderPreOrder.Count == 0 && d.remove == false), "id", "id_PZ_PlanZakaz");
-            if (devisionUser == 7 || login == "myi@katek.by" || login == "koag@katek.by")
+            if (devisionUser == 7)
                 ViewBag.userGroupId = 1;
+            else if (login == "myi@katek.by" || login == "koag@katek.by" || login == "naa@katek.by")
+                ViewBag.userGroupId = 5;
             else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
                 ViewBag.userGroupId = 2;
-            else if (login == "bav@katek.by")
+            else if (login == "bav@katek.by" || login == "laa@katek.by")
                 ViewBag.userGroupId = 4;
             else
                 ViewBag.userGroupId = 3;
@@ -239,7 +240,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         .Include(a => a.CMO_Company)
                         .Include(a => a.AspNetUsers)
                         .Include(a => a.CMOSPositionOrder)
-                        .Where(a => a.finDate == null && a.numberTN != null && a.manufDate != null && a.remove == false)
+                        .Where(a => a.finDate == null && a.manufDate != null && a.remove == false)
                         .ToList();
                     var data = query.Select(dataList => new
                     {
@@ -836,6 +837,7 @@ namespace Wiki.Areas.CMOS.Controllers
                                     weight = sku.weight
                                 };
                                 db.SKU.Add(skuAdd);
+                                db.SaveChanges();
                             }
                             else
                             {
@@ -845,10 +847,10 @@ namespace Wiki.Areas.CMOS.Controllers
                                 skuIn.indexMaterial = sku.indexMaterial;
                                 skuIn.weight = (double)sku.weight;
                                 db.Entry(skuIn).State = EntityState.Modified;
+                                db.SaveChanges();
                             }
                         }
                     }
-                    db.SaveChanges();
                     logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
