@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using Org.BouncyCastle.Crypto.Tls;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
@@ -89,7 +90,11 @@ namespace Wiki.Areas.CMOS.Controllers
                         dateTN = dataList.dateTN,
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
-                        dataList.rate
+                        dataList.rate,
+                        factWeight = dataList.weight,
+                        curency = dataList.curency,
+                        deviation = GetDeviation(dataList.cost, dataList.curency * dataList.rate * dataList.weight),
+                        rfactCost = GetRFactCost(dataList.rate, dataList.curency, dataList.weight)
                     });
                     logger.Debug("CMOSSController / GetTableOrders");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
@@ -100,6 +105,14 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetTableOrders: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private double GetDeviation(double cost, double deviationCost)
+        {
+            if (deviationCost == 0.0)
+                return deviationCost;
+            else
+                return deviationCost - cost;
         }
 
         public JsonResult GetTableNoPlaningPreOrder()
@@ -273,6 +286,14 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetTableNoClothingOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private double GetRFactCost(double rate, double curency, double weight)
+        {
+            if (weight == 0)
+                return 0.00;
+            else
+                return rate * curency * weight;
         }
 
         public JsonResult RemovePreOrder(int id)

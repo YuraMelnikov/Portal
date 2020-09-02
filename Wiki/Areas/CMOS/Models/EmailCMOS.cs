@@ -307,7 +307,7 @@ namespace Wiki.Areas.CMOS.Models
 
         private List<string> GetFileArray()
         {
-            if (stepNumber == 0)
+            if (stepNumber == 0 || preOrder.reOrder == true)
                 return Directory.GetFiles(preOrder.folder).ToList();
             if (stepNumber == 7)
                 return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
