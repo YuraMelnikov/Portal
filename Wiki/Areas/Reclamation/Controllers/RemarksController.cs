@@ -2,10 +2,14 @@
 using NLog;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Linq.Dynamic;
+using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.Reclamation.Models;
 using Wiki.Models;
@@ -1112,6 +1116,127 @@ namespace Wiki.Areas.Reclamation.Controllers
                 Response.BinaryWrite(pck.GetAsByteArray());
                 Response.End();
             }
+        }
+
+        public JsonResult GetShortReport()
+        {
+            string login = HttpContext.User.Identity.Name;
+            int devision = GetDevisionId(login);
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var reclamationsList = db.Reclamation
+                        .AsNoTracking()
+                        .Include(a => a.Reclamation_PZ.Select(b => b.PZ_PlanZakaz))
+                        .Include(a => a.PF)
+                        .Include(a => a.AspNetUsers) //create
+                        .Include(a => a.Reclamation_Answer.Select(b => b.AspNetUsers))
+                        .Where(a => a.id_DevisionReclamation == devision)
+                        .ToList();
+                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    {
+                        IApplication application = excelEngine.Excel;
+                        application.DefaultVersion = ExcelVersion.Excel2013;
+                        IWorkbook workbook = application.Workbooks.Create(1);
+                        IWorksheet worksheet = workbook.Worksheets[0];
+                        IStyle style = workbook.Styles.Add("FullStyle");
+                        style.Font.Size = 12;
+                        style.Font.FontName = "Arial";
+                        style.Font.Bold = false;
+                        style.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        string sizeTable = "A1:F" + reclamationsList.Count.ToString();
+                        worksheet[sizeTable].RowHeight = 12.0;
+                        worksheet[sizeTable].CellStyle = style;
+                        //IRange range = worksheet.Range[sizeTableForGrig];
+                        //range.BorderInside(ExcelLineStyle.Thin);
+                        //range.BorderAround(ExcelLineStyle.Thin);
+                        worksheet["A1"].ColumnWidth = 6.0;
+                        worksheet["B1"].ColumnWidth = 8.9;
+                        worksheet["C1"].ColumnWidth = 27.0;
+                        worksheet["D1"].ColumnWidth = 10.0;
+                        worksheet["E1"].ColumnWidth = 10.0;
+                        worksheet["F1"].ColumnWidth = 6.0;
+                        worksheet.Range["A1:F1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet["A1"].Text = "№ п/п";
+                        worksheet["B1"].Text = "План-заказ/ы";
+                        worksheet["C1"].Text = "Текст";
+                        worksheet["D1"].Text = "Полуфабрикат";
+                        worksheet["E1"].Text = "Автор";
+                        worksheet["F1"].Text = "Статус";
+                        int rowNum = 2;
+                        foreach (var prd in reclamationsList)
+                        {
+                            worksheet.Range[rowNum, 1].Text = prd.id.ToString();
+                            worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 2].Text = GetOrdersName(prd.id);
+                            worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 3].Text = prd.text;
+                            worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 4].Text = prd.PF.name;
+                            worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            worksheet.Range[rowNum, 5].Text = prd.AspNetUsers.CiliricalName;
+                            worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            if(prd.close == true)
+                                worksheet.Range[rowNum, 6].Text = "Закрыта";
+                            else
+                                worksheet.Range[rowNum, 6].Text = "Активная";
+                            worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                            rowNum++;
+                        }
+                        HttpResponse response = HttpContext.ApplicationInstance.Response;
+                        workbook.SaveAs("Замечания.xlsx", response, ExcelDownloadType.Open);
+                    }
+                    logger.Debug("RemarksController / GetShortReport: " + " | " + login);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("RemarksController / GetShortReport: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string GetOrdersName(int id)
+        {
+            string result = "";
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var pz = db.Reclamation_PZ
+                    .AsNoTracking()
+                    .Include(a => a.PZ_PlanZakaz)
+                    .Where(a => a.id_Reclamation == id)
+                    .ToList();
+                foreach (var data in pz)
+                {
+                    result += data.PZ_PlanZakaz.PlanZakaz.ToString() + "; ";
+                }
+                return result;
+            }
+        }
+
+        private int GetDevisionId(string login)
+        {
+            int devision = 0;
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    devision = db.AspNetUsers.First(a => a.Email == login).Devision.Value;
+                }
+                catch
+                {
+
+                }
+            }
+            return devision;
         }
     }
 }

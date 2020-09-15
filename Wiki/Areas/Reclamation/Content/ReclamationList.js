@@ -1566,3 +1566,15 @@ function addNewRemarkOTK(id) {
 function noClosedRemarkToExcel() {
     $('#modalNoClosedOrder').modal('show');
 }
+
+function GetShortReport() {
+    $.ajax({
+        cache: false,
+        url: "/Remarks/GetShortReport/",
+        typr: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+        }
+    });
+}

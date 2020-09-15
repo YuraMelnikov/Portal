@@ -307,12 +307,23 @@ namespace Wiki.Areas.CMOS.Models
 
         private List<string> GetFileArray()
         {
-            if (stepNumber == 0 || preOrder.reOrder == true)
-                return Directory.GetFiles(preOrder.folder).ToList();
+            var pre = db.CMOSOrderPreOrder.First(a => a.id_CMOSOrder == order.id);
+
             if (stepNumber == 7)
-                return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
+            {
+                if(pre.CMOSPreOrder.reOrder == true)
+                {
+                    return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
+                }
+                else
+                {
+                    return Directory.GetFiles(order.folder).ToList();
+                }
+            }
             else
+            {
                 return Directory.GetFiles(order.folder).ToList();
+            }
         }
     }
 }
