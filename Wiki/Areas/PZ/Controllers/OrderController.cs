@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Wiki.Areas.PZ.Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using Syncfusion.XlsIO;
+using System.Web;
 
 namespace Wiki.Areas.PZ.Controllers
 {
@@ -1107,49 +1109,30 @@ namespace Wiki.Areas.PZ.Controllers
                     }
                 }
             }
-
-
-
-
-
             contractDatas = contractDatas.OrderBy(d => d.OrderBy.Year).ToList();
-
-
-
-
             ExcelPackage pck = new ExcelPackage();
             int rowNumber = 2;
-
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add(thisYear.ToString());
             ws.Cells[string.Format("A{0}", rowNumber)].Value = leg1;
             ws.Cells[string.Format("A{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             ws.Cells[string.Format("B{0}", rowNumber)].Value = leg2;
             ws.Cells[string.Format("B{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             ws.Cells[string.Format("C{0}", rowNumber)].Value = leg3;
             ws.Cells[string.Format("C{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             ws.Cells[string.Format("D{0}", rowNumber)].Value = leg4;
             ws.Cells[string.Format("D{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             ws.Cells[string.Format("E{0}", rowNumber)].Value = leg5;
             ws.Cells[string.Format("E{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             ws.Cells[string.Format("F{0}", rowNumber)].Value = leg6;
             ws.Cells[string.Format("F{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-            ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             rowNumber = 3;
-
-
-
             string lastSheetName = thisYear.ToString();
-
             int contractNum = 1;
             foreach (var data in contractDatas)
             {
@@ -1167,12 +1150,12 @@ namespace Wiki.Areas.PZ.Controllers
                 ws.Column(5).Style.WrapText = true;
                 ws.Column(6).Style.WrapText = true;
 
-                ws.Column(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                ws.Column(2).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                ws.Column(3).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                ws.Column(4).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                ws.Column(5).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                ws.Column(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                ws.Column(1).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                ws.Column(2).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                ws.Column(3).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                ws.Column(4).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                ws.Column(5).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                ws.Column(6).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
 
                 if (data.Orders.Length != 0)
                 {
@@ -1182,27 +1165,27 @@ namespace Wiki.Areas.PZ.Controllers
                         ws = pck.Workbook.Worksheets.Add(data.OrderBy.Year.ToString());
                         ws.Cells[string.Format("A{0}", rowNumber)].Value = leg1;
                         ws.Cells[string.Format("A{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         ws.Cells[string.Format("B{0}", rowNumber)].Value = leg2;
                         ws.Cells[string.Format("B{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         ws.Cells[string.Format("C{0}", rowNumber)].Value = leg3;
                         ws.Cells[string.Format("C{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         ws.Cells[string.Format("D{0}", rowNumber)].Value = leg4;
                         ws.Cells[string.Format("D{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         ws.Cells[string.Format("E{0}", rowNumber)].Value = leg5;
                         ws.Cells[string.Format("E{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         ws.Cells[string.Format("F{0}", rowNumber)].Value = leg6;
                         ws.Cells[string.Format("F{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         rowNumber = 3;
                         lastSheetName = data.OrderBy.Year.ToString();
                         contractNum = 1;
@@ -1210,13 +1193,13 @@ namespace Wiki.Areas.PZ.Controllers
 
                     ws.Cells[string.Format("A{0}", rowNumber)].Value = contractNum.ToString() + ".";
                     ws.Cells[string.Format("A{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                     ws.Cells[rowNumber, 2, rowNumber, 6].Merge = true;
 
                     ws.Cells[string.Format("B{0}", rowNumber)].Value = GetContractName(data);
                     ws.Cells[string.Format("B{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                    ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                     ws.Cells[string.Format("C{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                     ws.Cells[string.Format("D{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                     ws.Cells[string.Format("E{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
@@ -1226,26 +1209,26 @@ namespace Wiki.Areas.PZ.Controllers
                     {
                         ws.Cells[string.Format("A{0}", rowNumber)].Value = "";
                         ws.Cells[string.Format("A{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("A{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         ws.Cells[string.Format("B{0}", rowNumber)].Value = data1.Start.Year + "." + data1.Start.Month + " - " + data1.Finish.Value.Year + "." + data1.Finish.Value.Month;
                         ws.Cells[string.Format("B{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("B{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         ws.Cells[string.Format("C{0}", rowNumber)].Value = data.Client;
                         ws.Cells[string.Format("C{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                        ws.Cells[string.Format("C{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         ws.Cells[string.Format("D{0}", rowNumber)].Value = data1.Name;
                         ws.Cells[string.Format("D{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                        ws.Cells[string.Format("D{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         ws.Cells[string.Format("E{0}", rowNumber)].Value = data1.Sale;
                         ws.Cells[string.Format("E{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                        ws.Cells[string.Format("E{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
                         if (data1.Curency != "RUB")
                         {
                             ws.Cells[string.Format("E{0}", rowNumber)].Style.Fill.PatternType = ExcelFillStyle.Gray0625;
                         }
                         ws.Cells[string.Format("F{0}", rowNumber)].Value = "";
                         ws.Cells[string.Format("F{0}", rowNumber)].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[string.Format("F{0}", rowNumber)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         rowNumber++;
                     }
                     contractNum++;
@@ -1256,6 +1239,124 @@ namespace Wiki.Areas.PZ.Controllers
             Response.AddHeader("content-daisposition", "attachment: filename=" + "ExcelReport.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
+        }
+
+        public ActionResult GetRefT2()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var ordersList = db.PZ_PlanZakaz
+                    .AsNoTracking()
+                    .Include(a => a.PZ_Client)
+                    .Include(a => a.Provider)
+                    .Include(a => a.PZ_FIO)
+                    .Include(a => a.PZ_TEO.Select(b => b.PZ_Currency))
+                    .OrderBy(a => a.DateCreate)
+                    .Where(a => a.Client != 39)
+                    .Where(a => a.PlanZakaz != 1)
+                    .Where(a => a.DateCreate.Year > 2014)
+                    .ToList();
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    worksheet["A1"].ColumnWidth = 6.0;
+                    worksheet["B1"].ColumnWidth = 35.0;
+                    worksheet["C1"].ColumnWidth = 60.0;
+                    worksheet["D1"].ColumnWidth = 45.0;
+                    worksheet["E1"].ColumnWidth = 50.0;
+                    worksheet["F1"].ColumnWidth = 20.0;
+                    worksheet["G1"].ColumnWidth = 20.0;
+                    worksheet["H1"].ColumnWidth = 10.0;
+
+                    worksheet["A1"].Text = "№ п/п";
+                    worksheet["B1"].Text = "№ договора, дата";
+                    worksheet["C1"].Text = "Тип оборудования";
+                    worksheet["D1"].Text = "Заказчик";
+                    worksheet["E1"].Text = "Куратор договора (ФИО), контактный телефон (Заказчика)";
+                    worksheet["F1"].Text = "Сумма договора";
+                    worksheet["G1"].Text = "Поставщик";
+                    worksheet["H1"].Text = "Дата регистрации";
+
+                    worksheet.Range["A1:H1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet.Range["A1:H1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet.Range["A1:H1"].WrapText = true;
+
+                    int rowNum = 2;
+                    string fio = "";
+                    foreach (var order in ordersList)
+                    {
+                        worksheet.Range[rowNum, 1].Text = (rowNum - 1).ToString();
+                        worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 1].WrapText = true;
+
+                        try
+                        {
+                            worksheet.Range[rowNum, 2].Text = order.timeContract + " от " + order.timeContractDate.Value.ToShortDateString();
+                            worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheet.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheet.Range[rowNum, 2].WrapText = true;
+                        }
+                        catch
+                        {
+                            worksheet.Range[rowNum, 2].Text = "";
+                            worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheet.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheet.Range[rowNum, 2].WrapText = true;
+                        }
+
+                        worksheet.Range[rowNum, 3].Text = order.Name;
+                        worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 3].WrapText = true;
+
+                        worksheet.Range[rowNum, 4].Text = order.PZ_Client.Name;
+                        worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 4].WrapText = true;
+
+                        fio = order.PZ_FIO.fio + " " + order.PZ_FIO.i + " " + order.PZ_FIO.o + ", " + order.PZ_FIO.email + ", " + order.PZ_FIO.phone + ", " + order.PZ_FIO.position;
+                        if (fio == "- - -, -, -, -")
+                            worksheet.Range[rowNum, 5].Text = "";
+                        else
+                            worksheet.Range[rowNum, 5].Text = order.PZ_FIO.fio + " " + order.PZ_FIO.i + " " + order.PZ_FIO.o + ", " + order.PZ_FIO.email + ", " + order.PZ_FIO.phone + ", " + order.PZ_FIO.position;
+                        worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 5].WrapText = true;
+
+                        worksheet.Range[rowNum, 6].Number = order.PZ_TEO.First().OtpuskChena;
+                        worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 6].WrapText = true;
+
+                        worksheet.Range[rowNum, 7].Text = order.Provider.name;
+                        worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 7].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 7].WrapText = true;
+
+                        worksheet.Range[rowNum, 8].Text = order.DateCreate.ToShortDateString();
+                        worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 8].WrapText = true;
+
+                        rowNum++;
+                    }
+                    HttpResponse response = HttpContext.ApplicationInstance.Response;
+                    try
+                    {
+                        workbook.SaveAs("Референс.xlsx", HttpContext.ApplicationInstance.Response, ExcelDownloadType.Open);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return View();
         }
 
         string GetContractName(ContractData data)
