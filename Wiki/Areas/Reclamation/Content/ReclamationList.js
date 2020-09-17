@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#expertData').hide();
     if (buttonAddActivation === 0)
         $('#btnAddNewReclamation').hide();
-});
+}); 
 
 function loadData(listId) {
     clearTextBox();
@@ -1567,14 +1567,14 @@ function noClosedRemarkToExcel() {
     $('#modalNoClosedOrder').modal('show');
 }
 
-function GetShortReport() {
-    $.ajax({
-        cache: false,
-        url: "/Remarks/GetShortReport/",
-        typr: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-        }
-    });
-}
+//function GetShortReport() {
+//    $.ajax({
+//        cache: false,
+//        url: "/Remarks/GetShortReport/",
+//        typr: "POST",
+//        contentType: "application/json;charset=UTF-8",
+//        dataType: "json",
+//        success: function (result) {
+//        }
+//    });
+//}

@@ -6,7 +6,6 @@ using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Web;
@@ -1118,86 +1117,82 @@ namespace Wiki.Areas.Reclamation.Controllers
             }
         }
 
-        public JsonResult GetShortReport()
+        public ActionResult GetShortReport()
         {
             string login = HttpContext.User.Identity.Name;
             int devision = GetDevisionId(login);
-            try
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var reclamationsList = db.Reclamation
+                    .AsNoTracking()
+                    .Include(a => a.Reclamation_PZ.Select(b => b.PZ_PlanZakaz))
+                    .Include(a => a.PF)
+                    .Include(a => a.AspNetUsers) //create
+                    .Include(a => a.Reclamation_Answer.Select(b => b.AspNetUsers))
+                    .Where(a => a.id_DevisionReclamation == devision)
+                    .ToList();
+                using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    db.Configuration.LazyLoadingEnabled = false;
-                    var reclamationsList = db.Reclamation
-                        .AsNoTracking()
-                        .Include(a => a.Reclamation_PZ.Select(b => b.PZ_PlanZakaz))
-                        .Include(a => a.PF)
-                        .Include(a => a.AspNetUsers) //create
-                        .Include(a => a.Reclamation_Answer.Select(b => b.AspNetUsers))
-                        .Where(a => a.id_DevisionReclamation == devision)
-                        .ToList();
-                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    worksheet["A1"].ColumnWidth = 6.0;
+                    worksheet["B1"].ColumnWidth = 15.0;
+                    worksheet["C1"].ColumnWidth = 100.0;
+                    worksheet["D1"].ColumnWidth = 44.0;
+                    worksheet["E1"].ColumnWidth = 35.0;
+                    worksheet["F1"].ColumnWidth = 10.0;
+                    worksheet.Range["A1:F1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["A1"].Text = "№ п/п";
+                    worksheet["B1"].Text = "План-заказ/ы";
+                    worksheet["C1"].Text = "Текст";
+                    worksheet["D1"].Text = "Полуфабрикат";
+                    worksheet["E1"].Text = "Автор";
+                    worksheet["F1"].Text = "Статус";
+                    int rowNum = 2;
+                    foreach (var prd in reclamationsList)
                     {
-                        IApplication application = excelEngine.Excel;
-                        application.DefaultVersion = ExcelVersion.Excel2013;
-                        IWorkbook workbook = application.Workbooks.Create(1);
-                        IWorksheet worksheet = workbook.Worksheets[0];
-                        IStyle style = workbook.Styles.Add("FullStyle");
-                        style.Font.Size = 12;
-                        style.Font.FontName = "Arial";
-                        style.Font.Bold = false;
-                        style.VerticalAlignment = ExcelVAlign.VAlignCenter;
-                        string sizeTable = "A1:F" + reclamationsList.Count.ToString();
-                        worksheet[sizeTable].RowHeight = 12.0;
-                        worksheet[sizeTable].CellStyle = style;
-                        //IRange range = worksheet.Range[sizeTableForGrig];
-                        //range.BorderInside(ExcelLineStyle.Thin);
-                        //range.BorderAround(ExcelLineStyle.Thin);
-                        worksheet["A1"].ColumnWidth = 6.0;
-                        worksheet["B1"].ColumnWidth = 8.9;
-                        worksheet["C1"].ColumnWidth = 27.0;
-                        worksheet["D1"].ColumnWidth = 10.0;
-                        worksheet["E1"].ColumnWidth = 10.0;
-                        worksheet["F1"].ColumnWidth = 6.0;
-                        worksheet.Range["A1:F1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                        worksheet["A1"].Text = "№ п/п";
-                        worksheet["B1"].Text = "План-заказ/ы";
-                        worksheet["C1"].Text = "Текст";
-                        worksheet["D1"].Text = "Полуфабрикат";
-                        worksheet["E1"].Text = "Автор";
-                        worksheet["F1"].Text = "Статус";
-                        int rowNum = 2;
-                        foreach (var prd in reclamationsList)
-                        {
-                            worksheet.Range[rowNum, 1].Text = prd.id.ToString();
-                            worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            worksheet.Range[rowNum, 2].Text = GetOrdersName(prd.id);
-                            worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            worksheet.Range[rowNum, 3].Text = prd.text;
-                            worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            worksheet.Range[rowNum, 4].Text = prd.PF.name;
-                            worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            worksheet.Range[rowNum, 5].Text = prd.AspNetUsers.CiliricalName;
-                            worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            if(prd.close == true)
-                                worksheet.Range[rowNum, 6].Text = "Закрыта";
-                            else
-                                worksheet.Range[rowNum, 6].Text = "Активная";
-                            worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                            rowNum++;
-                        }
-                        HttpResponse response = HttpContext.ApplicationInstance.Response;
-                        workbook.SaveAs("Замечания.xlsx", response, ExcelDownloadType.Open);
+                        worksheet.Range[rowNum, 1].Text = prd.id.ToString();
+                        worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 1].WrapText = true;
+                        worksheet.Range[rowNum, 2].Text = GetOrdersName(prd.id);
+                        worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 2].WrapText = true;
+                        worksheet.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 3].Text = prd.text;
+                        worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 3].WrapText = true;
+                        worksheet.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 4].Text = prd.PF.name;
+                        worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 4].WrapText = true;
+                        worksheet.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 5].Text = prd.AspNetUsers.CiliricalName;
+                        worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 5].WrapText = true;
+                        worksheet.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        if (prd.close == true)
+                            worksheet.Range[rowNum, 6].Text = "Закрыта";
+                        else
+                            worksheet.Range[rowNum, 6].Text = "Активная";
+                        worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        rowNum++;
                     }
-                    logger.Debug("RemarksController / GetShortReport: " + " | " + login);
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    HttpResponse response = HttpContext.ApplicationInstance.Response;
+                    try
+                    {
+                        workbook.SaveAs("Замечания.xlsx", HttpContext.ApplicationInstance.Response, ExcelDownloadType.Open);
+                    }
+                    catch
+                    {
+                    }
                 }
             }
-            catch (Exception ex)
-            {
-                logger.Error("RemarksController / GetShortReport: " + " | " + ex + " | " + login);
-                return Json(0, JsonRequestBehavior.AllowGet);
-            }
+            return View();
         }
 
         private string GetOrdersName(int id)
