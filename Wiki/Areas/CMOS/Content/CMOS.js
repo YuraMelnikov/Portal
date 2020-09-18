@@ -10,9 +10,6 @@ $(document).ready(function () {
         $('#dTableNoPlaningOrder').show();
         $('#dTableNoClothingOrder').show();
         $('#dFullReport').show(); 
-        //после проверки удалить!
-        //$('#btnAddPreOrder').show();
-        //$('#btnReOrder').show();
         $('#btnOpeningMaterialsCModal').show();
     }
     else if (userGroupId === 2) { 
