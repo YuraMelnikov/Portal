@@ -36,6 +36,7 @@ namespace Wiki.Areas.DashboardD.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardDH
                     .AsNoTracking()
+                    .Where(a => a.Year <= DateTime.Now.Year)
                     .OrderBy(d => d.Month)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -93,26 +94,26 @@ namespace Wiki.Areas.DashboardD.Controllers
                 {
                     data[i].Month = query[i].Период;
                     data[i].Year = query[i].year.Value;
-                    data[i].PSSW = (int)query[i].ХССЗП / round;
-                    data[i].FSSW = (int)query[i].Издержки__ЗП_ПО_ / round;
-                    data[i].RSSW = (int)query[i].ОтклЗППО / round;
-                    data[i].PPK = (int)query[i].ХППК / round;
-                    data[i].FPK = (int)query[i].Издержки___по_кредиту / round;
-                    data[i].RPK = (int)query[i].ОтклППК / round;
-                    data[i].PPI = (int)query[i].ХПИ / round;
-                    data[i].FPI = (int)query[i].Постоянные_издержки / round;
-                    data[i].RPI = (int)query[i].ОтклПИ / round;
-                    data[i].PIK = (int)query[i].ХПИ / round;
-                    data[i].FIK = (int)query[i].Коммерческие_издержки / round;
-                    data[i].RIK = (int)query[i].ОтклПИ / round;
-                    data[i].PSSM = (int)query[i].ХСС / round;
-                    data[i].FSSM = (int)query[i].ХССФакт / round;
-                    data[i].RSSM = (int)query[i].ОтклСС / round;
-                    data[i].FS1 = (int)query[i].Коммерческие_издержки_прочие / round;
-                    data[i].FS2 = (int)query[i].Коммерческие_издержки_Ш / round;
-                    data[i].PFull = (int)query[i].Плановые_издержки / round;
-                    data[i].FFull = (int)query[i].Фактические_издержки / round;
-                    data[i].RFull = (int)query[i].Откл_издержек / round;
+                    data[i].PSSW = (double)(query[i].ХССЗП / round);
+                    data[i].FSSW = (double)((double)query[i].Издержки__ЗП_ПО_ / round);
+                    data[i].RSSW = (double)(query[i].ОтклЗППО / round);
+                    data[i].PPK = (double)(query[i].ХППК / round);
+                    data[i].FPK = (double)((double)query[i].Издержки___по_кредиту / round);
+                    data[i].RPK = (double)(query[i].ОтклППК / round);
+                    data[i].PPI = (double)(query[i].ХПИ / round);
+                    data[i].FPI = (double)((double)query[i].Постоянные_издержки / round);
+                    data[i].RPI = (double)(query[i].ОтклПИ / round);
+                    data[i].PIK = (double)(query[i].ХПИ / round);
+                    data[i].FIK = (double)((double)query[i].Коммерческие_издержки / round);
+                    data[i].RIK = (double)(query[i].ОтклПИ / round);
+                    data[i].PSSM = (double)(query[i].ХСС / round);
+                    data[i].FSSM = (double)(query[i].ХССФакт / round);
+                    data[i].RSSM = (double)(query[i].ОтклСС / round);
+                    data[i].FS1 = (double)((double)query[i].Коммерческие_издержки_прочие / round);
+                    data[i].FS2 = (double)((double)query[i].Коммерческие_издержки_Ш / round);
+                    data[i].PFull = (double)(query[i].Плановые_издержки / round);
+                    data[i].FFull = (double)(query[i].Фактические_издержки / round);
+                    data[i].RFull = (double)(query[i].Откл_издержек / round);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

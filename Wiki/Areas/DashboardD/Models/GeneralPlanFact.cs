@@ -4,48 +4,48 @@
     {
         int year;
         string month;
-        int pSSW;
-        int fSSW;
-        int rSSW;
-        int pPK;
-        int fPK;
-        int rPK;
-        int pPI;
-        int fPI;
-        int rPI;
-        int pIK;
-        int fIK;
-        int rIK;
-        int pSSM;
-        int fSSM;
-        int rSSM;
-        int fS1;
-        int fS2;
-        int pFull;
-        int fFull;
-        int rFull;
+        double pSSW;
+        double fSSW;
+        double rSSW;
+        double pPK;
+        double fPK;
+        double rPK;
+        double pPI;
+        double fPI;
+        double rPI;
+        double pIK;
+        double fIK;
+        double rIK;
+        double pSSM;
+        double fSSM;
+        double rSSM;
+        double fS1;
+        double fS2;
+        double pFull;
+        double fFull;
+        double rFull;
 
         public int Year { get => year; set => year = value; }
-        public int PSSW { get => pSSW; set => pSSW = value; }
-        public int FSSW { get => fSSW; set => fSSW = value; }
-        public int RSSW { get => rSSW; set => rSSW = value; }
-        public int PPK { get => pPK; set => pPK = value; }
-        public int FPK { get => fPK; set => fPK = value; }
-        public int RPK { get => rPK; set => rPK = value; }
-        public int PPI { get => pPI; set => pPI = value; }
-        public int FPI { get => fPI; set => fPI = value; }
-        public int RPI { get => rPI; set => rPI = value; }
-        public int PIK { get => pIK; set => pIK = value; }
-        public int FIK { get => fIK; set => fIK = value; }
-        public int RIK { get => rIK; set => rIK = value; }
-        public int PSSM { get => pSSM; set => pSSM = value; }
-        public int FSSM { get => fSSM; set => fSSM = value; }
-        public int RSSM { get => rSSM; set => rSSM = value; }
-        public int FS1 { get => fS1; set => fS1 = value; }
-        public int FS2 { get => fS2; set => fS2 = value; }
-        public int PFull { get => pFull; set => pFull = value; }
-        public int FFull { get => fFull; set => fFull = value; }
-        public int RFull { get => rFull; set => rFull = value; }
+        public double PSSW { get => pSSW; set => pSSW = value; }
+        public double FSSW { get => fSSW; set => fSSW = value; }
+        public double RSSW { get => rSSW; set => rSSW = value; }
+        public double PPK { get => pPK; set => pPK = value; }
+        public double FPK { get => fPK; set => fPK = value; }
+        public double RPK { get => rPK; set => rPK = value; }
+        public double PPI { get => pPI; set => pPI = value; }
+        public double FPI { get => fPI; set => fPI = value; }
+        public double RPI { get => rPI; set => rPI = value; }
+        public double PIK { get => pIK; set => pIK = value; }
+        public double FIK { get => fIK; set => fIK = value; }
+        public double RIK { get => rIK; set => rIK = value; }
+        public double PSSM { get => pSSM; set => pSSM = value; }
+        public double FSSM { get => fSSM; set => fSSM = value; }
+        public double RSSM { get => rSSM; set => rSSM = value; }
+        public double FS1 { get => fS1; set => fS1 = value; }
+        public double FS2 { get => fS2; set => fS2 = value; }
+        public double PFull { get => pFull; set => pFull = value; }
+        public double FFull { get => fFull; set => fFull = value; }
+        public double RFull { get => rFull; set => rFull = value; }
         public string Month { get => month; set => month = value; }
     }
 }

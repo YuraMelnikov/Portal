@@ -1,21 +1,21 @@
 ﻿var colorStackLabels = '#000';
 var colorFactData = '#000';
-var titleDiagrammColor = '#000';
+var titleDiagrammColor = '#000'; 
 var titleFontSize = "12px";
 var monthArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-var colorRate = '#004963';
-var colorSSM = "#7a0d1c";
+var colorRate = '#DA291CFF';
+var colorSSM = "#56A8CBFF";
 var colorMin = "#d68900";
-var colorProfit = "#612d62";
+var colorProfit = "#2BAE66FF";
 var colorSSW = "#05DFD7";
-var colorPK = "#EC7373";
+var colorPK = "#EC7373"; 
 var colorPI = "#D8B5B5";
 var colorIK = "#FFE196";
 
-var colorFirstYear = "#ffac41";
-var colorSecondYear = "#910000";
-var colorThreeYear = "#698474";
+var colorFirstYear = "#56A8CBFF";
+var colorSecondYear = "#DA291CFF"; 
+var colorThreeYear = "#53A567FF";
 
 var colorOneLenght = "#05DFD7";
 
@@ -114,12 +114,7 @@ function GetGeneralD() {
                     enabled: false
                 }
             });
-            Highcharts.chart('generalD', {
-                chart: {
-                    type: 'spline',
-                    borderColor: "#000",
-                    borderWidth: 1
-                },
+            Highcharts.chart('generalD', { 
                 title: {
                     text: 'Издержки заказов (тыс. / привязка к тр-там производства)',
                     style: {
@@ -138,7 +133,7 @@ function GetGeneralD() {
                     {
                         name: 'C/C мат.',
                         data: generalSSMArray,
-                        color: '#f8615a'
+                        color: '#56A8CBFF'
                     },
                     {
                         name: 'С/С з/п ПО',
@@ -168,7 +163,7 @@ function GetGeneralD() {
                     {
                         name: 'Выручка',
                         data: generalRateArray,
-                        color: '#698474'
+                        color: '#53A567FF'
                     },
                     {
                         name: 'НОП',
@@ -233,11 +228,6 @@ function GetGeneralD() {
                 }
             }
             Highcharts.chart('rateToMonth', {
-                chart: {
-                    type: 'spline',
-                    borderColor: "#000",
-                    borderWidth: 1
-                },
                 title: {
                     text: 'Прибыль по месяцам (тыс. / привязка к тр-там производства)',
                     style: {
@@ -277,7 +267,7 @@ function GetGeneralD() {
                 plotOptions: {
                     series: {
                         dataLabels: {
-                            enabled: true,
+                            enabled: true, 
                             style: {
                                 color: colorStackLabels
                             }
@@ -286,11 +276,6 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('rateQuart', {
-                chart: {
-                    type: 'spline',
-                    borderColor: "#000",
-                    borderWidth: 1
-                },
                 title: {
                     text: 'Прибыль квартальная (тыс. / привязка к тр-там производства)',
                     style: {
@@ -329,11 +314,6 @@ function GetGeneralD() {
                 }
             });
             Highcharts.chart('sumRateToYear', {
-                chart: {
-                    type: 'area',
-                    borderColor: "#000",
-                    borderWidth: 1
-                },
                 title: {
                     text: 'Прибыль с накоплением (тыс. / привязка к тр-там производства)',
                     style: {
@@ -451,7 +431,7 @@ function GetPF() {
             var tsfsS1 = 0;
             var tsfsS2 = 0;
             var lspsSSW = 0;
-            var lsfsSSW = 0;
+            var lsfsSSW = 0.0;
             var lsosSSW = 0;
             var lspsPK = 0;
             var lsfsPK = 0;
@@ -609,7 +589,7 @@ function GetPF() {
                     type: 'spline'
                 },
                 title: {
-                    text: 'з/п производства (тыс.)',
+                    text: 'з/п производства (тыс.)', 
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -1607,14 +1587,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsSSW, tspsSSW]
+                    data: [lspsSSW, tspsSSW],
+                    color: colorFirstYear
                 }, {
-                        name: 'Факт',
-                    data: [lsfsSSW, tsfsSSW]
+                    name: 'Факт',
+                    data: [lsfsSSW, tsfsSSW],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                    data: [lsosSSW, tsosSSW]
-                }]
+                    data: [lsosSSW, tsosSSW],
+                    color: colorThreeYear
+                }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                },
             });
             Highcharts.chart('cilPK', {
                 navigation: {
@@ -1646,14 +1640,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsPK, tspsPK]
+                    data: [lspsPK, tspsPK],
+                    color: colorFirstYear 
                 }, {
                     name: 'Факт',
-                        data: [lsfsPK, tsfsPK]
+                        data: [lsfsPK, tsfsPK],
+                        color: colorSecondYear 
                 }, {
                     name: 'Откл.',
-                        data: [lsosPK, tsosPK]
-                }]
+                        data: [lsosPK, tsosPK],
+                        color: colorThreeYear 
+                    }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                },
             });
             Highcharts.chart('cilPI', {
                 navigation: {
@@ -1685,14 +1693,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsPI, tspsPI]
+                    data: [lspsPI, tspsPI],
+                    color: colorFirstYear
                 }, {
                     name: 'Факт',
-                    data: [lsfsPI, tsfsPI]
+                        data: [lsfsPI, tsfsPI],
+                        color: colorSecondYear  
                 }, {
                     name: 'Откл.',
-                    data: [lsosPI, tsosPI]
-                }]
+                        data: [lsosPI, tsosPI],
+                        color: colorThreeYear  
+                    }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                },
             });
             Highcharts.chart('cilIK', {
                 navigation: {
@@ -1724,14 +1746,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsIK, tspsIK]
+                    data: [lspsIK, tspsIK],
+                    color: colorFirstYear 
                 }, {
                     name: 'Факт',
-                    data: [lsfsIK, tsfsIK]
+                        data: [lsfsIK, tsfsIK],
+                        color: colorSecondYear  
                 }, {
                     name: 'Откл.',
-                    data: [lsosIK, tsosIK]
-                }]
+                        data: [lsosIK, tsosIK],
+                        color: colorThreeYear  
+                    }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                },
             });
             Highcharts.chart('cilSSM', {
                 navigation: {
@@ -1763,14 +1799,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsSSM, tspsSSM]
+                    data: [lspsSSM, tspsSSM],
+                    color: colorFirstYear 
                 }, {
                     name: 'Факт',
-                        data: [lsfsSSM, tsfsSSM]
+                        data: [lsfsSSM, tsfsSSM],
+                        color: colorSecondYear 
                 }, {
                     name: 'Откл.',
-                        data: [lsosSSM, tsosSSM]
-                }]
+                        data: [lsosSSM, tsosSSM],
+                        color: colorThreeYear  
+                    }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                },
             });
             Highcharts.chart('cilS1', {
                 navigation: {
@@ -1942,7 +1992,7 @@ function GetCustomerData() {
                         },
                         stops: [
                             [0, color],
-                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')] 
+                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')]
                         ]
                     };
                 })
