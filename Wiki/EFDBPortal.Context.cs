@@ -25,48 +25,23 @@ namespace Wiki
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Calendar> Calendar { get; set; }
-        public virtual DbSet<CMKO_CounterError> CMKO_CounterError { get; set; }
-        public virtual DbSet<CMKO_ThisDeductionsBonusFund> CMKO_ThisDeductionsBonusFund { get; set; }
         public virtual DbSet<CMKO_ThisFinalBonus> CMKO_ThisFinalBonus { get; set; }
-        public virtual DbSet<CMKO_ThisHSS> CMKO_ThisHSS { get; set; }
         public virtual DbSet<CMKO_ThisPeriod> CMKO_ThisPeriod { get; set; }
-        public virtual DbSet<CMKO_ThisWageFund> CMKO_ThisWageFund { get; set; }
-        public virtual DbSet<CMKO_ThisWithheldToBonusFund> CMKO_ThisWithheldToBonusFund { get; set; }
-        public virtual DbSet<CurencyBYN> CurencyBYN { get; set; }
-        public virtual DbSet<DashboardBP_HSSPOSmall> DashboardBP_HSSPOSmall { get; set; }
-        public virtual DbSet<DashboardBPComments> DashboardBPComments { get; set; }
-        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
-        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
         public virtual DbSet<DashboardKOHssPO> DashboardKOHssPO { get; set; }
-        public virtual DbSet<DashboardKOKBHss> DashboardKOKBHss { get; set; }
-        public virtual DbSet<DashboardKOM1> DashboardKOM1 { get; set; }
-        public virtual DbSet<DashboardKOM2> DashboardKOM2 { get; set; }
-        public virtual DbSet<DashboardKOM3> DashboardKOM3 { get; set; }
-        public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
-        public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
-        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
-        public virtual DbSet<DashboardKOQuaHumen> DashboardKOQuaHumen { get; set; }
-        public virtual DbSet<DashboardKOQuartal> DashboardKOQuartal { get; set; }
-        public virtual DbSet<DashboardKORemainingWork> DashboardKORemainingWork { get; set; }
         public virtual DbSet<DashboardKORemainingWorkAll> DashboardKORemainingWorkAll { get; set; }
         public virtual DbSet<DashboardKOTimesheet> DashboardKOTimesheet { get; set; }
         public virtual DbSet<DashboardRatePlan> DashboardRatePlan { get; set; }
         public virtual DbSet<DashboardRemaining> DashboardRemaining { get; set; }
         public virtual DbSet<DashboardTV_BasicPlanData> DashboardTV_BasicPlanData { get; set; }
         public virtual DbSet<DashboardTV_DataForProjectPortfolio> DashboardTV_DataForProjectPortfolio { get; set; }
-        public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
         public virtual DbSet<Debit_EmailList> Debit_EmailList { get; set; }
-        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Folder> Folder { get; set; }
         public virtual DbSet<FolderDocument> FolderDocument { get; set; }
-        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<ProjectServer_CreateTasks> ProjectServer_CreateTasks { get; set; }
         public virtual DbSet<ProjectServer_UpdateMustStartOn> ProjectServer_UpdateMustStartOn { get; set; }
         public virtual DbSet<ProjectServer_UpdateTasks> ProjectServer_UpdateTasks { get; set; }
         public virtual DbSet<RenameTasksKBM> RenameTasksKBM { get; set; }
         public virtual DbSet<RKD_FailBPlan> RKD_FailBPlan { get; set; }
-        public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserPO> UserPO { get; set; }
         public virtual DbSet<WBS_BP> WBS_BP { get; set; }
@@ -78,7 +53,8 @@ namespace Wiki
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
         public virtual DbSet<RKD_TaskUIDProjectUD> RKD_TaskUIDProjectUD { get; set; }
-        public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AdvancePaynemts> AdvancePaynemts { get; set; }
         public virtual DbSet<ApproveCDActions> ApproveCDActions { get; set; }
         public virtual DbSet<ApproveCDOrders> ApproveCDOrders { get; set; }
         public virtual DbSet<ApproveCDQuestionCorr> ApproveCDQuestionCorr { get; set; }
@@ -90,10 +66,13 @@ namespace Wiki
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<BurnDown> BurnDown { get; set; }
+        public virtual DbSet<Calendar> Calendar { get; set; }
         public virtual DbSet<CMKO_BujetList> CMKO_BujetList { get; set; }
+        public virtual DbSet<CMKO_CounterError> CMKO_CounterError { get; set; }
         public virtual DbSet<CMKO_Optimization> CMKO_Optimization { get; set; }
         public virtual DbSet<CMKO_PeriodResult> CMKO_PeriodResult { get; set; }
         public virtual DbSet<CMKO_ProjectFactBujet> CMKO_ProjectFactBujet { get; set; }
+        public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
         public virtual DbSet<CMKO_RemarksList> CMKO_RemarksList { get; set; }
         public virtual DbSet<CMKO_RemarksListG> CMKO_RemarksListG { get; set; }
         public virtual DbSet<CMKO_SummaryResultToMonth> CMKO_SummaryResultToMonth { get; set; }
@@ -102,8 +81,12 @@ namespace Wiki
         public virtual DbSet<CMKO_ThisAccrued> CMKO_ThisAccrued { get; set; }
         public virtual DbSet<CMKO_ThisAccruedG> CMKO_ThisAccruedG { get; set; }
         public virtual DbSet<CMKO_ThisCoefManager> CMKO_ThisCoefManager { get; set; }
+        public virtual DbSet<CMKO_ThisDeductionsBonusFund> CMKO_ThisDeductionsBonusFund { get; set; }
+        public virtual DbSet<CMKO_ThisHSS> CMKO_ThisHSS { get; set; }
         public virtual DbSet<CMKO_ThisIndicatorsUsers> CMKO_ThisIndicatorsUsers { get; set; }
         public virtual DbSet<CMKO_ThisOverflowsBujet> CMKO_ThisOverflowsBujet { get; set; }
+        public virtual DbSet<CMKO_ThisWageFund> CMKO_ThisWageFund { get; set; }
+        public virtual DbSet<CMKO_ThisWithheldToBonusFund> CMKO_ThisWithheldToBonusFund { get; set; }
         public virtual DbSet<CMO_Company> CMO_Company { get; set; }
         public virtual DbSet<CMO_CompanyMailList> CMO_CompanyMailList { get; set; }
         public virtual DbSet<CMO_FileOrder> CMO_FileOrder { get; set; }
@@ -119,19 +102,43 @@ namespace Wiki
         public virtual DbSet<CMO_UploadResult> CMO_UploadResult { get; set; }
         public virtual DbSet<CMO2_Order> CMO2_Order { get; set; }
         public virtual DbSet<CMO2_Position> CMO2_Position { get; set; }
+        public virtual DbSet<CMOSOrder> CMOSOrder { get; set; }
+        public virtual DbSet<CMOSOrderPreOrder> CMOSOrderPreOrder { get; set; }
+        public virtual DbSet<CMOSPositionOrder> CMOSPositionOrder { get; set; }
+        public virtual DbSet<CMOSPositionPreOrder> CMOSPositionPreOrder { get; set; }
+        public virtual DbSet<CMOSPreOrder> CMOSPreOrder { get; set; }
+        public virtual DbSet<CMOSRate> CMOSRate { get; set; }
+        public virtual DbSet<Contracts> Contracts { get; set; }
+        public virtual DbSet<CurencyBYN> CurencyBYN { get; set; }
         public virtual DbSet<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
+        public virtual DbSet<DashboardBP_HSSPOSmall> DashboardBP_HSSPOSmall { get; set; }
         public virtual DbSet<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
         public virtual DbSet<DashboardBP_ProjectTasks> DashboardBP_ProjectTasks { get; set; }
         public virtual DbSet<DashboardBP_State> DashboardBP_State { get; set; }
+        public virtual DbSet<DashboardBPComments> DashboardBPComments { get; set; }
         public virtual DbSet<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
         public virtual DbSet<DashboardBPManpowerManuf> DashboardBPManpowerManuf { get; set; }
         public virtual DbSet<DashboardBPTaskInsert> DashboardBPTaskInsert { get; set; }
+        public virtual DbSet<DashboardHSSPlan> DashboardHSSPlan { get; set; }
+        public virtual DbSet<DashboardKO_Quartal> DashboardKO_Quartal { get; set; }
         public virtual DbSet<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
+        public virtual DbSet<DashboardKOKBHss> DashboardKOKBHss { get; set; }
+        public virtual DbSet<DashboardKOM1> DashboardKOM1 { get; set; }
+        public virtual DbSet<DashboardKOM2> DashboardKOM2 { get; set; }
+        public virtual DbSet<DashboardKOM3> DashboardKOM3 { get; set; }
+        public virtual DbSet<DashboardKOMP1> DashboardKOMP1 { get; set; }
+        public virtual DbSet<DashboardKOMP2> DashboardKOMP2 { get; set; }
+        public virtual DbSet<DashboardKOMP3> DashboardKOMP3 { get; set; }
+        public virtual DbSet<DashboardKOQuaHumen> DashboardKOQuaHumen { get; set; }
+        public virtual DbSet<DashboardKOQuartal> DashboardKOQuartal { get; set; }
+        public virtual DbSet<DashboardKORemainingWork> DashboardKORemainingWork { get; set; }
         public virtual DbSet<DashboardTV_FinishWorkInStartWeek> DashboardTV_FinishWorkInStartWeek { get; set; }
+        public virtual DbSet<DashboardTV_MonthPlan> DashboardTV_MonthPlan { get; set; }
         public virtual DbSet<Debit_CMR> Debit_CMR { get; set; }
         public virtual DbSet<Debit_CostUpdate> Debit_CostUpdate { get; set; }
         public virtual DbSet<Debit_DataReportOprih> Debit_DataReportOprih { get; set; }
         public virtual DbSet<Debit_IstPost> Debit_IstPost { get; set; }
+        public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Debit_PeriodReportOprih> Debit_PeriodReportOprih { get; set; }
         public virtual DbSet<Debit_Platform> Debit_Platform { get; set; }
         public virtual DbSet<Debit_PostingOffType> Debit_PostingOffType { get; set; }
@@ -141,14 +148,21 @@ namespace Wiki
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Devision> Devision { get; set; }
         public virtual DbSet<MailGraphic> MailGraphic { get; set; }
+        public virtual DbSet<Measure> Measure { get; set; }
+        public virtual DbSet<OrdersTables> OrdersTables { get; set; }
+        public virtual DbSet<OrdersTablesPositions> OrdersTablesPositions { get; set; }
         public virtual DbSet<PF> PF { get; set; }
+        public virtual DbSet<PlanOrders> PlanOrders { get; set; }
         public virtual DbSet<PlanVerificationItems> PlanVerificationItems { get; set; }
         public virtual DbSet<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
         public virtual DbSet<PostAlertShip> PostAlertShip { get; set; }
+        public virtual DbSet<PostMatching> PostMatching { get; set; }
         public virtual DbSet<ProductionCalendar> ProductionCalendar { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<ProjectTask> ProjectTask { get; set; }
         public virtual DbSet<ProjectTaskLinks> ProjectTaskLinks { get; set; }
         public virtual DbSet<ProjectTypesLine> ProjectTypesLine { get; set; }
+        public virtual DbSet<Provider> Provider { get; set; }
         public virtual DbSet<PZ_Client> PZ_Client { get; set; }
         public virtual DbSet<PZ_Currency> PZ_Currency { get; set; }
         public virtual DbSet<PZ_Dostavka> PZ_Dostavka { get; set; }
@@ -175,6 +189,7 @@ namespace Wiki
         public virtual DbSet<RKD_Despatching> RKD_Despatching { get; set; }
         public virtual DbSet<RKD_FileMailVersion> RKD_FileMailVersion { get; set; }
         public virtual DbSet<RKD_GIP> RKD_GIP { get; set; }
+        public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<RKD_Institute> RKD_Institute { get; set; }
         public virtual DbSet<RKD_Mail_TimeForComplited> RKD_Mail_TimeForComplited { get; set; }
         public virtual DbSet<RKD_Mail_Version> RKD_Mail_Version { get; set; }
@@ -198,20 +213,13 @@ namespace Wiki
         public virtual DbSet<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         public virtual DbSet<ServiceRemarksReclamations> ServiceRemarksReclamations { get; set; }
         public virtual DbSet<ServiceRemarksTypes> ServiceRemarksTypes { get; set; }
+        public virtual DbSet<SKU> SKU { get; set; }
+        public virtual DbSet<Specifications> Specifications { get; set; }
+        public virtual DbSet<SpecificationsPositions> SpecificationsPositions { get; set; }
         public virtual DbSet<StickersPreOrder> StickersPreOrder { get; set; }
         public virtual DbSet<TaskForPZ> TaskForPZ { get; set; }
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
-        public virtual DbSet<OrdersTables> OrdersTables { get; set; }
-        public virtual DbSet<OrdersTablesPositions> OrdersTablesPositions { get; set; }
-        public virtual DbSet<Provider> Provider { get; set; }
-        public virtual DbSet<CMOSOrder> CMOSOrder { get; set; }
-        public virtual DbSet<CMOSOrderPreOrder> CMOSOrderPreOrder { get; set; }
-        public virtual DbSet<CMOSPositionOrder> CMOSPositionOrder { get; set; }
-        public virtual DbSet<CMOSPositionPreOrder> CMOSPositionPreOrder { get; set; }
-        public virtual DbSet<CMOSPreOrder> CMOSPreOrder { get; set; }
-        public virtual DbSet<CMOSRate> CMOSRate { get; set; }
-        public virtual DbSet<SKU> SKU { get; set; }
     }
 }

@@ -27,6 +27,7 @@ $(document).ready(function () {
     GetPF();
     GetCustomerData();
     GetN();
+    GetNLast120();
     GetDSVN();
     GetNCustomer();
 });
@@ -82,20 +83,20 @@ function GetGeneralD() {
             for (var i = 0; i < generalLenghtArray; i++) {
                 generalMonthArray[i] = result[i].Month;
                 generalYearArray[i] = result[i].Year;
-                generalRateArray[i] = result[i].Rate;
-                generalSSMArray[i] = result[i].SSM;
-                generalSSWArray[i] = result[i].SSW;
-                generalIKArray[i] = result[i].IK;
-                generalPKArray[i] = result[i].PK;
-                generalPIArray[i] = result[i].PI;
-                generalProfitArray[i] = result[i].Profit;
-                generalUnRate[i] = result[i].SSM + result[i].SSW + result[i].IK + result[i].IK + result[i].PK + result[i].PI;
+                generalRateArray[i] = result[i].Rate / 1000;
+                generalSSMArray[i] = result[i].SSM / 1000;
+                generalSSWArray[i] = result[i].SSW / 1000;
+                generalIKArray[i] = result[i].IK / 1000;
+                generalPKArray[i] = result[i].PK / 1000;
+                generalPIArray[i] = result[i].PI / 1000;
+                generalProfitArray[i] = result[i].Profit / 1000;
+                generalUnRate[i] = (result[i].SSM / 1000) + (result[i].SSW / 1000) + (result[i].IK / 1000) + (result[i].PK / 1000) + (result[i].PI / 1000);
                 generalMonthNum[i] = result[i].MonthNum;
                 if (thisQua !== result[i].Quart) {
                     quartArray.push(result[i].Quart);
                     thisQua = result[i].Quart;
                     if (thisQua !== "") {
-                        quartRateArray.push(countQuaRate);
+                        quartRateArray.push(countQuaRate / 1000);
                         countQuaRate = 0;
                         countQuaRate += result[i].Profit;
                     }
@@ -107,7 +108,7 @@ function GetGeneralD() {
                     countQuaRate += result[i].Profit;
                 }
             }
-            quartRateArray.push(countQuaRate);
+            quartRateArray.push(countQuaRate / 1000);
             quartRateArray.shift();
             Highcharts.setOptions({
                 credits: {
@@ -128,6 +129,9 @@ function GetGeneralD() {
                     style: {
                         width: '100px'
                     }
+                },
+                tooltip: {
+                    pointFormat: "{point.y:,.3f}"
                 },
                 series: [
                     {
@@ -180,6 +184,7 @@ function GetGeneralD() {
                     series: {
                         dataLabels: {
                             enabled: true,
+                            format: "{point.y:,.0f}",  
                             style: {
                                 color: colorStackLabels
                             }
@@ -236,6 +241,9 @@ function GetGeneralD() {
                     },
                     margin: 0
                 },
+                tooltip: {
+                    pointFormat: "{point.y:,.3f}"
+                },
                 xAxis: {
                     categories: monthArray,
                     style: {
@@ -268,6 +276,7 @@ function GetGeneralD() {
                     series: {
                         dataLabels: {
                             enabled: true, 
+                            format: "{point.y:,.0f}",  
                             style: {
                                 color: colorStackLabels
                             }
@@ -283,6 +292,9 @@ function GetGeneralD() {
                         "color": titleDiagrammColor
                     },
                     margin: 0
+                },
+                tooltip: {
+                    pointFormat: "{point.y:,.3f}"
                 },
                 xAxis: {
                     categories: quartArray,
@@ -306,6 +318,7 @@ function GetGeneralD() {
                     series: {
                         dataLabels: {
                             enabled: true,
+                            format: "{point.y:,.0f}",  
                             style: {
                                 color: colorStackLabels
                             }
@@ -354,6 +367,7 @@ function GetGeneralD() {
                     series: {
                         dataLabels: {
                             enabled: true,
+                            format: "{point.y:,.0f}",  
                             style: {
                                 color: colorStackLabels
                             }
@@ -413,6 +427,9 @@ function GetPF() {
             var tfsSSMArray = new Array();
             var tfsS1Array = new Array();
             var tfsS2Array = new Array();
+            var tyMonthArray = new Array();
+            var lyMonthArray = new Array();  
+
             var tspsSSW = 0;
             var tsfsSSW = 0;
             var tsosSSW = 0;
@@ -459,20 +476,26 @@ function GetPF() {
             var fsSSM = 0;
             var fsS1 = 0;
             var fsS2 = 0;
+            var pFullty = 0;
+            var fFullty = 0;
+            var pFullly = 0;
+            var fFullly = 0;
+
             for (var i = 0; i < lenghtResult; i++) {
                 monthArray.push(result[i].Month);
-                pSSWArray.push(result[i].PSSW);
-                fSSWArray.push(result[i].FSSW);
-                pPKArray.push(result[i].PPK);
-                fPKArray.push(result[i].FPK);
-                pPIArray.push(result[i].PPI);
-                fPIArray.push(result[i].FPI);
-                pIKArray.push(result[i].PIK);
-                fIKArray.push(result[i].FIK);
-                pSSMArray.push(result[i].PSSM);
-                fSSMArray.push(result[i].FSSM);
-                fS1Array.push(result[i].FS1);
-                fS2Array.push(result[i].FS2);
+                pSSWArray.push(Math.round(result[i].PSSW));
+                fSSWArray.push(Math.round(result[i].FSSW));
+                pPKArray.push(Math.round(result[i].PPK));
+                fPKArray.push(Math.round(result[i].FPK));
+                pPIArray.push(Math.round(result[i].PPI));
+                fPIArray.push(Math.round(result[i].FPI));
+                pIKArray.push(Math.round(result[i].PIK));
+                fIKArray.push(Math.round(result[i].FIK));
+                pSSMArray.push(Math.round(result[i].PSSM));
+                fSSMArray.push(Math.round(result[i].FSSM));
+                fS1Array.push(Math.round(result[i].FS1));
+                fS2Array.push(Math.round(result[i].FS2));
+
                 if (result[i].Year === lYear) {
                     psSSW += result[i].PSSW;
                     fsSSW += result[i].FSSW;
@@ -486,18 +509,22 @@ function GetPF() {
                     fsSSM += result[i].FSSM;
                     fsS1 += result[i].FS1;
                     fsS2 += result[i].FS2;
-                    psSSWArray.push(psSSW);
-                    fsSSWArray.push(fsSSW);
-                    psPKArray.push(psPK);
-                    fsPKArray.push(fsPK);
-                    psPIArray.push(psPI);
-                    fsPIArray.push(fsPI);
-                    psIKArray.push(psIK);
-                    fsIKArray.push(fsIK);
-                    psSSMArray.push(psSSM);
-                    fsSSMArray.push(fsSSM);
-                    fsS1Array.push(fsS1);
-                    fsS2Array.push(fsS2);
+                    pFullly += result[i].PFull;
+                    fFullly += result[i].FFull;
+
+                    lyMonthArray.push(result[i].Month);
+                    psSSWArray.push(Math.round(psSSW));
+                    fsSSWArray.push(Math.round(fsSSW));
+                    psPKArray.push(Math.round(psPK));
+                    fsPKArray.push(Math.round(fsPK));
+                    psPIArray.push(Math.round(psPI));
+                    fsPIArray.push(Math.round(fsPI));
+                    psIKArray.push(Math.round(psIK));
+                    fsIKArray.push(Math.round(fsIK));
+                    psSSMArray.push(Math.round(psSSM));
+                    fsSSMArray.push(Math.round(fsSSM));
+                    fsS1Array.push(Math.round(fsS1));
+                    fsS2Array.push(Math.round(fsS2));
                     lspsSSW += result[i].PSSW;
                     lsfsSSW += result[i].FSSW;
                     lspsPK += result[i].PPK;
@@ -510,6 +537,7 @@ function GetPF() {
                     lsfsSSM += result[i].FSSM;
                     lsfsS1 += result[i].FS1;
                     lsfsS2 += result[i].FS2;
+
                 }
                 if (result[i].Year === tYear) {
                     if (switchBack === 0) {
@@ -525,6 +553,7 @@ function GetPF() {
                         fsSSM = 0;
                         fsS1 = 0;
                         fsS2 = 0;
+                        switchBack = 1;
                     }
                     psSSW += result[i].PSSW;
                     fsSSW += result[i].FSSW;
@@ -538,18 +567,19 @@ function GetPF() {
                     fsSSM += result[i].FSSM;
                     fsS1 += result[i].FS1;
                     fsS2 += result[i].FS2;
-                    tpsSSWArray.push(psSSW);
-                    tfsSSWArray.push(fsSSW);
-                    tpsPKArray.push(psPK);
-                    tfsPKArray.push(fsPK);
-                    tpsPIArray.push(psPI);
-                    tfsPIArray.push(fsPI);
-                    tpsIKArray.push(psIK);
-                    tfsIKArray.push(fsIK);
-                    tpsSSMArray.push(psSSM);
-                    tfsSSMArray.push(fsSSM);
-                    tfsS1Array.push(fsS1);
-                    tfsS2Array.push(fsS2);
+                    tyMonthArray.push(result[i].Month);
+                    tpsSSWArray.push(Math.round(psSSW));
+                    tfsSSWArray.push(Math.round(fsSSW));
+                    tpsPKArray.push(Math.round(psPK));
+                    tfsPKArray.push(Math.round(fsPK));
+                    tpsPIArray.push(Math.round(psPI));
+                    tfsPIArray.push(Math.round(fsPI));
+                    tpsIKArray.push(Math.round(psIK));
+                    tfsIKArray.push(Math.round(fsIK));
+                    tpsSSMArray.push(Math.round(psSSM));
+                    tfsSSMArray.push(Math.round(fsSSM));
+                    tfsS1Array.push(Math.round(fsS1));
+                    tfsS2Array.push(Math.round(fsS2));
                     tspsSSW += result[i].PSSW;
                     tsfsSSW += result[i].FSSW;
                     tspsPK += result[i].PPK;
@@ -562,6 +592,8 @@ function GetPF() {
                     tsfsSSM += result[i].FSSM;
                     tsfsS1 += result[i].FS1;
                     tsfsS2 += result[i].FS2;
+                    pFullty += result[i].PFull;
+                    fFullty += result[i].FFull;
                 }
             }
             lsosSSW = lsfsSSW - lspsSSW;
@@ -578,7 +610,7 @@ function GetPF() {
                 credits: {
                     enabled: false
                 }
-            });
+            }); 
             Highcharts.chart('mSSW', {
                 navigation: {
                     buttonOptions: {
@@ -589,7 +621,7 @@ function GetPF() {
                     type: 'spline'
                 },
                 title: {
-                    text: 'з/п производства (тыс.)', 
+                    text: 'з/п производства (тыс.)',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -645,17 +677,17 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
                         name: 'План',
-                        data: psSSMArray,
+                        data: psSSWArray,
                         color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: fsSSMArray,
+                        data: fsSSWArray,
                         color: colorSecondYear
                     }
                 ],
@@ -693,17 +725,17 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
                         name: 'План',
-                        data: tpsSSMArray,
+                        data: tpsSSWArray,
                         color: colorThreeYear
                     },
                     {
                         name: 'Факт',
-                        data: tfsSSMArray,
+                        data: tfsSSWArray,
                         color: colorSecondYear
                     }
                 ],
@@ -789,7 +821,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
@@ -837,7 +869,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
@@ -933,7 +965,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
@@ -981,7 +1013,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
@@ -1077,7 +1109,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
@@ -1125,7 +1157,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
@@ -1221,7 +1253,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
@@ -1269,7 +1301,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
@@ -1360,7 +1392,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
@@ -1403,7 +1435,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
@@ -1452,7 +1484,7 @@ function GetPF() {
                     {
                         name: 'Факт',
                         data: fS2Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1489,13 +1521,13 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: lyMonthArray
                 },
                 series: [
                     {
                         name: 'Факт',
                         data: fsS2Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1532,13 +1564,13 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: monthArray
+                    categories: tyMonthArray
                 },
                 series: [
                     {
                         name: 'Факт',
                         data: tfsS2Array,
-                        color: "#910000"
+                        color: colorSecondYear
                     }
                 ],
                 yAxis: {
@@ -1587,15 +1619,15 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsSSW, tspsSSW],
+                    data: [Math.round(lspsSSW), Math.round(tspsSSW)],
                     color: colorFirstYear
                 }, {
                     name: 'Факт',
-                    data: [lsfsSSW, tsfsSSW],
+                    data: [Math.round(lsfsSSW), Math.round(tsfsSSW)],
                     color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                    data: [lsosSSW, tsosSSW],
+                    data: [Math.round(lsosSSW), Math.round(tsosSSW)],
                     color: colorThreeYear
                 }],
                 plotOptions: {
@@ -1640,17 +1672,17 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsPK, tspsPK],
-                    color: colorFirstYear 
+                    data: [Math.round(lspsPK), Math.round(tspsPK)],
+                    color: colorFirstYear
                 }, {
                     name: 'Факт',
-                        data: [lsfsPK, tsfsPK],
-                        color: colorSecondYear 
+                    data: [Math.round(lsfsPK), Math.round(tsfsPK)],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                        data: [lsosPK, tsosPK],
-                        color: colorThreeYear 
-                    }],
+                    data: [Math.round(lsosPK), Math.round(tsosPK)],
+                    color: colorThreeYear
+                }],
                 plotOptions: {
                     column: {
                         dataLabels: {
@@ -1693,17 +1725,17 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsPI, tspsPI],
+                    data: [Math.round(lspsPI), Math.round(tspsPI)],
                     color: colorFirstYear
                 }, {
                     name: 'Факт',
-                        data: [lsfsPI, tsfsPI],
-                        color: colorSecondYear  
+                    data: [Math.round(lsfsPI), Math.round(tsfsPI)],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                        data: [lsosPI, tsosPI],
-                        color: colorThreeYear  
-                    }],
+                    data: [Math.round(lsosPI), Math.round(tsosPI)],
+                    color: colorThreeYear
+                }],
                 plotOptions: {
                     column: {
                         dataLabels: {
@@ -1746,17 +1778,17 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsIK, tspsIK],
-                    color: colorFirstYear 
+                    data: [Math.round(lspsIK), Math.round(tspsIK)],
+                    color: colorFirstYear
                 }, {
                     name: 'Факт',
-                        data: [lsfsIK, tsfsIK],
-                        color: colorSecondYear  
+                    data: [Math.round(lsfsIK), Math.round(tsfsIK)],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                        data: [lsosIK, tsosIK],
-                        color: colorThreeYear  
-                    }],
+                    data: [Math.round(lsosIK), Math.round(tsosIK)],
+                    color: colorThreeYear
+                }],
                 plotOptions: {
                     column: {
                         dataLabels: {
@@ -1799,17 +1831,17 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [lspsSSM, tspsSSM],
-                    color: colorFirstYear 
+                    data: [Math.round(lspsSSM), Math.round(tspsSSM)],
+                    color: colorFirstYear
                 }, {
                     name: 'Факт',
-                        data: [lsfsSSM, tsfsSSM],
-                        color: colorSecondYear 
+                    data: [Math.round(lsfsSSM), Math.round(tsfsSSM)],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                        data: [lsosSSM, tsosSSM],
-                        color: colorThreeYear  
-                    }],
+                    data: [Math.round(lsosSSM), Math.round(tsosSSM)],
+                    color: colorThreeYear
+                }],
                 plotOptions: {
                     column: {
                         dataLabels: {
@@ -1852,8 +1884,20 @@ function GetPF() {
                 },
                 series: [{
                     name: 'Факт',
-                    data: [lsfsS1, tsfsS1]
-                }]
+                    data: [Math.round(lsfsS1), Math.round(tsfsS1)],
+                    color: colorSecondYear
+                }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                }
             });
             Highcharts.chart('cilS2', {
                 navigation: {
@@ -1873,7 +1917,7 @@ function GetPF() {
                     margin: 0
                 },
                 xAxis: {
-                    categories: [lYear, tYear]
+                    categories: [Math.round(lYear), Math.round(tYear)]
                 },
                 yAxis: {
                     title: {
@@ -1885,15 +1929,27 @@ function GetPF() {
                 },
                 series: [{
                     name: 'Факт',
-                    data: [lsfsS2, tsfsS2]
-                }]
+                    data: [Math.round(lsfsS2), Math.round(tsfsS2)],
+                    color: colorSecondYear
+                }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                }
             });
-            var a1 = lspsSSW + lspsPK + lspsPI + lspsIK + lspsSSM;
-            var a2 = tspsSSW + tspsPK + tspsPI + tspsIK + tspsSSM;
-            var b1 = lsfsSSW + lsfsPK + lsfsPI + lsfsIK + lsfsSSM + lsfsS1 + lsfsS2;
-            var b2 = tsfsSSW + tsfsPK + tsfsPI + tsfsIK + tsfsSSM + tsfsS1 + tsfsS2;
-            var c1 = lsosSSW + lsosPK + lsosPI + lsosIK + lsosSSM;
-            var c2 = tsosSSW + tsosPK + tsosPI + tsosIK + tsosSSM;
+            var a1 = pFullly;
+            var a2 = pFullty;
+            var b1 = fFullly;
+            var b2 = fFullty;
+            var c1 = fFullly - pFullly;
+            var c2 = fFullty - pFullty;
             Highcharts.chart('cilFull', {
                 navigation: {
                     buttonOptions: {
@@ -1924,14 +1980,28 @@ function GetPF() {
                 },
                 series: [{
                     name: 'План',
-                    data: [a1, a2]
+                    data: [Math.round(a1), Math.round(a2)],
+                    color: colorFirstYear
                 }, {
                     name: 'Факт',
-                    data: [b1, b2]
+                    data: [Math.round(b1), Math.round(b2)],
+                    color: colorSecondYear
                 }, {
                     name: 'Откл.',
-                    data: [c1, c2]
-                }]
+                    data: [Math.round(c1), Math.round(c2)],
+                    color: colorThreeYear
+                }],
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            color: "black",
+                            style: {
+                                textOutline: false
+                            }
+                        }
+                    }
+                }
             });
         }
     });
@@ -2017,7 +2087,7 @@ function GetCustomerData() {
                 },
                 accessibility: {
                     point: {
-                        valueSuffix: '%'
+                        valueSuffix: '%' 
                     }
                 },
                 plotOptions: {
@@ -2026,7 +2096,7 @@ function GetCustomerData() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            format: '<b>{point.name} {point.y}</b>: {point.percentage:.1f} %',
                             connectorColor: 'silver'
                         }
                     }
@@ -2065,7 +2135,7 @@ function GetCustomerData() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            format: '<b>{point.name} {point.y}</b>: {point.percentage:.1f} %',
                             connectorColor: 'silver'
                         }
                     }
@@ -2104,7 +2174,7 @@ function GetCustomerData() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            format: '<b>{point.name} {point.y}</b>: {point.percentage:.1f} %',
                             connectorColor: 'silver'
                         }
                     }
@@ -2143,7 +2213,7 @@ function GetCustomerData() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            format: '<b>{point.name} {point.y}</b>: {point.percentage:.1f} %',
                             connectorColor: 'silver'
                         }
                     }
@@ -2177,46 +2247,6 @@ function GetN() {
                     enabled: false
                 }
             });
-            Highcharts.chart('nSVN', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: 'Средневзвешенный НОП (с накоплением - привязка к дате открытия заказа)',
-                    style: {
-                        "font-size": titleFontSize,
-                        "color": titleDiagrammColor
-                    },
-                    margin: 0
-                },
-                xAxis: {
-                    categories: monthArray,
-                    style: {
-                        width: '100px'
-                    }
-                },
-                series: [
-                    {
-                        name: 'СВНОП',
-                        data: svnArray
-                    }
-                ],
-                yAxis: {
-                    title: {
-                        enabled: false
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                color: colorStackLabels
-                            }
-                        }
-                    }
-                }
-            });
             Highcharts.chart('nSN', {
                 navigation: {
                     buttonOptions: {
@@ -2242,6 +2272,68 @@ function GetN() {
                         name: 'Средний НОП',
                         data: snArray,
                         color: "#910000"
+                    }
+                ],
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                color: colorStackLabels
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
+function GetNLast120() {
+    $.ajax({
+        url: "/DashboardDD/GetNLast120/",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var lenghtArray = Object.keys(result).length;
+            var snArray = new Array();
+            var monthArray = new Array();
+            for (var i = 0; i < lenghtArray; i++) {
+                snArray.push(result[i].Ns);
+                monthArray.push(result[i].Month);
+            }
+            Highcharts.setOptions({
+                credits: {
+                    enabled: false
+                }
+            });
+            Highcharts.chart('nSVN', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Средневзвешенный НОП (привязка к дате открытия заказа) *',
+                    style: {
+                        "font-size": titleFontSize,
+                        "color": titleDiagrammColor
+                    },
+                    margin: 0
+                },
+                xAxis: {
+                    categories: monthArray,
+                    style: {
+                        width: '100px'
+                    }
+                },
+                series: [
+                    {
+                        name: 'СВНОП',
+                        data: snArray 
                     }
                 ],
                 yAxis: {
@@ -2292,7 +2384,7 @@ function GetDSVN() {
                     type: 'spline'
                 },
                 title: {
-                    text: 'Динамика среднего взвешенного НОПа (средний показатель за месяц - привязка к дате отгрузки)',
+                    text: 'Динамика среднего взвешенного НОПа **',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor

@@ -22,13 +22,13 @@ namespace Wiki
         }
     
         public int id { get; set; }
+        public int id_PZ_PlanZakaz { get; set; }
         public string id_AspNetUsersCreate { get; set; }
         public int id_CMO_TypeProduct { get; set; }
         public System.DateTime dateTimeCreate { get; set; }
         public bool reOrder { get; set; }
         public string folder { get; set; }
         public bool remove { get; set; }
-        public int id_PZ_PlanZakaz { get; set; }
         public string note { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }

@@ -22,11 +22,11 @@ namespace Wiki
         public string index { get; set; }
         public double weight { get; set; }
         public double quantity { get; set; }
+        public double quantity8 { get; set; }
         public double summaryWeight { get; set; }
         public string color { get; set; }
         public string coating { get; set; }
         public string note { get; set; }
-        public double quantity8 { get; set; }
         public double flow { get; set; }
         public Nullable<int> sku { get; set; }
     

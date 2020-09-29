@@ -283,6 +283,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancePaynemts.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApproveCDActions.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -608,6 +611,9 @@
     <Compile Include="COMPONENT_STATES.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contracts.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DevisionsController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
@@ -616,6 +622,9 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadERController.cs" />
     <Compile Include="CurencyBYN.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="DashboardBPComments.cs">
@@ -900,6 +909,9 @@
     <Compile Include="FolderDocument.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="forT3.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="FUNCTIONAL_ASSIGNMENTS.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
@@ -941,6 +953,9 @@
     </Compile>
     <Compile Include="ManpowerPO.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Measure.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelAttribute.cs">
@@ -1004,6 +1019,12 @@
     <Compile Include="Month.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="NoPlaningPZ.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NOPOpenOrderLastTheerYears.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrdersTables.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1046,6 +1067,9 @@
     <Compile Include="PlanFactCostsThisYear.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
+    <Compile Include="PlanOrders.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="PlanVerificationItems.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1061,10 +1085,16 @@
     <Compile Include="PostAlertShip.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="PostControlRazreshenieProizvodstva.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="PostMatching.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductionCalendar.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectList.cs">
@@ -1196,6 +1226,12 @@
     <Compile Include="RetainingRailTypes.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
+    <Compile Include="RKD.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RKD_DateAction.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
     <Compile Include="RKD_Despatching.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1304,12 +1340,21 @@
     <Compile Include="Slots.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
     </Compile>
+    <Compile Include="Specifications.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecificationsPositions.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="StickersPreOrder.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Supply.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SVNLast120.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="SymbolAttribute.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
@@ -1354,6 +1399,9 @@
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="TEOInWorkPO.cs">
+      <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEOInWorkPOGroupBy.cs">
       <DependentUpon>EFDBReportKATEK.tt</DependentUpon>
     </Compile>
     <Compile Include="TEOInWorkPOHist.cs">

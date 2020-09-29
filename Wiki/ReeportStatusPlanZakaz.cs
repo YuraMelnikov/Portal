@@ -18,7 +18,7 @@ namespace Wiki
         public string reportColumnName { get; set; }
         public bool active { get; set; }
         public bool activePO { get; set; }
-        public Nullable<bool> activeGraphic { get; set; }
+        public bool activeGraphic { get; set; }
         public string graphicColumnName { get; set; }
     }
 }

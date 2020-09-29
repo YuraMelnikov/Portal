@@ -17,6 +17,6 @@ namespace Wiki
         public int id { get; set; }
         public int id_ReportStatusPlanZakaz { get; set; }
         public int id_WBS { get; set; }
-        public bool active { get; set; }
+        public int active { get; set; }
     }
 }

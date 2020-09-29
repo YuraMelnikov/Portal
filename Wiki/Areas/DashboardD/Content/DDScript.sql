@@ -10,6 +10,7 @@ SELECT [Месяц] as [Month]
 ,isnull(sum([ХППК]), 0) as [PK]
 ,isnull(sum([ХПИ]), 0) as [PI]
 ,isnull(sum([ХНОП]), 0) as [Profit]
+,isnull(sum([RSSM]), 0) as [SSMR]
 FROM [ReportKATEK].[dbo].[TEOInWorkPO]
 where [year] > year(getdate()) - 3
 group by [Месяц]
@@ -50,7 +51,7 @@ FROM [PortalKATEK].[dbo].[PZ_PlanZakaz]
 left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].Id
 left join [exportImport].[dbo].[planZakaz] on [exportImport].[dbo].[planZakaz].Zakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
 left join [PortalKATEK].[dbo].[PZ_Client] on [PortalKATEK].[dbo].[PZ_Client].id = [PortalKATEK].[dbo].[PZ_PlanZakaz] .Client
-where year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP) = year(getdate())
+where year([PortalKATEK].[dbo].[PZ_PlanZakaz].DateCreate) = year(getdate())
 and [PortalKATEK].[dbo].[PZ_TEO].Rate > 0
 group by iif(SUBSTRING([PortalKATEK].[dbo].[PZ_Client].NameSort,0,CHARINDEX('-',[PortalKATEK].[dbo].[PZ_Client].NameSort,0)) = '',
  [PortalKATEK].[dbo].[PZ_Client].NameSort,

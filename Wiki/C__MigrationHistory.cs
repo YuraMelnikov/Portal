@@ -12,18 +12,11 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class DashboardDH
+    public partial class C__MigrationHistory
     {
-        public int id { get; set; }
-        public string Month { get; set; }
-        public int Year { get; set; }
-        public int Rate { get; set; }
-        public int SSM { get; set; }
-        public int SSW { get; set; }
-        public int IK { get; set; }
-        public int PK { get; set; }
-        public int PI { get; set; }
-        public int Profit { get; set; }
-        public int SSMR { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

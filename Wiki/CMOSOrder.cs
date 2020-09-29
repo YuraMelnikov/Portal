@@ -32,9 +32,9 @@ namespace Wiki
         public string numberTN { get; set; }
         public double cost { get; set; }
         public Nullable<double> factCost { get; set; }
+        public double weight { get; set; }
         public bool remove { get; set; }
         public double rate { get; set; }
-        public double weight { get; set; }
         public double curency { get; set; }
         public Nullable<System.DateTime> dateTN { get; set; }
     

@@ -66,6 +66,7 @@
           <Property Name="PK" Type="int" Nullable="false" />
           <Property Name="PI" Type="int" Nullable="false" />
           <Property Name="Profit" Type="int" Nullable="false" />
+          <Property Name="SSMR" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardDHCustomer">
           <Key>
@@ -358,8 +359,8 @@
           <Property Name="reportColumnName" Type="varchar(max)" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="activePO" Type="bit" Nullable="false" />
-          <Property Name="activeGraphic" Type="bit" />
-          <Property Name="graphicColumnName" Type="varchar(max)" />
+          <Property Name="activeGraphic" Type="bit" Nullable="false" />
+          <Property Name="graphicColumnName" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ReportStatusPlanZakazAndWBS">
           <Key>
@@ -368,7 +369,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_ReportStatusPlanZakaz" Type="int" Nullable="false" />
           <Property Name="id_WBS" Type="int" Nullable="false" />
-          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="active" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -455,6 +456,16 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="П_Ведомость в 1с (КБМ)" Type="datetime" />
           <Property Name="П_Ведомость в 1с (КБЭ)" Type="datetime" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SVNLast120">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="quart" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="month" Type="nchar" MaxLength="7" Nullable="false" />
+          <Property Name="data" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TEOInWorkKBE">
           <Key>
@@ -578,22 +589,24 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="ХНОП" Type="float" />
           <Property Name="ХССЗПФакт" Type="float" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RSSM" Type="float" />
+          <Property Name="RSSMF" Type="float" />
         </EntityType>
         <EntityType Name="TEOInWorkPOHist">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="DateReport" Type="datetime" Nullable="false" />
-          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
-          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
-          <Property Name="year" Type="int" />
-          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
-          <Property Name="TimeByDay" Type="datetime" />
-          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
-          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
-          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Месяц" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="year" Type="smallint" Nullable="false" />
+          <Property Name="№ заказа" Type="smallint" Nullable="false" />
+          <Property Name="Название задачи" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TimeByDay" Type="date" Nullable="false" />
+          <Property Name="AssignmentWork" Type="float" Nullable="false" />
+          <Property Name="СДРес" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="КПО" Type="tinyint" Nullable="false" />
           <Property Name="Выручка без НДС" Type="float" />
           <Property Name="С/С материалов" Type="float" />
           <Property Name="С/С материалов - факт1с" Type="float" />
@@ -643,6 +656,188 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           </Key>
           <Property Name="Week" Type="varchar" MaxLength="26" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.CMKO_TimeWorkOnOrder' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CMKO_TimeWorkOnOrder">
+          <Property Name="numberOrder" Type="nvarchar" MaxLength="4000" />
+          <Property Name="taskWorkKBM" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="normHourKBM" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="taskWorkKBE" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="normHourKBE" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.forT3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="forT3">
+          <Key>
+            <PropertyRef Name="Месяц" />
+            <PropertyRef Name="quart" />
+            <PropertyRef Name="Неделя" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Неделя" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Название задачи" Type="nvarchar" MaxLength="255" />
+          <Property Name="TimeByDay" Type="datetime" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="КПО" Type="decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка без НДС" Type="float" />
+          <Property Name="С/С материалов" Type="float" />
+          <Property Name="С/С материалов - факт1с" Type="float" />
+          <Property Name="С/С зп рабочих" Type="float" />
+          <Property Name="Издержки коммерческие" Type="float" />
+          <Property Name="% по кредиту" Type="float" />
+          <Property Name="Постоянные издержки" Type="float" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Выручка без НДС 1ч ПО" Type="float" />
+          <Property Name="С/С материалов 1ч ПО" Type="float" />
+          <Property Name="С/С материалов - факт1с 1ч ПО" Type="float" />
+          <Property Name="С/С зп рабочих 1ч ПО" Type="float" />
+          <Property Name="Издержки коммерческие 1ч ПО" Type="float" />
+          <Property Name="% по кредиту 1ч ПО" Type="float" />
+          <Property Name="Постоянные издержки 1ч ПО" Type="float" />
+          <Property Name="НОП 1ч ПО" Type="float" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.NoPlaningPZ' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NoPlaningPZ">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PlanZakaz" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PlanZakaz" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.NOPOpenOrderLastTheerYears' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NOPOpenOrderLastTheerYears">
+          <Key>
+            <PropertyRef Name="Месяц" />
+            <PropertyRef Name="quart" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="год" Type="varchar" MaxLength="5" />
+          <Property Name="НОП" Type="float" />
+          <Property Name="Выручка" Type="float" />
+          <Property Name="quart" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.PostControlRazreshenieProizvodstva' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PostControlRazreshenieProizvodstva">
+          <Key>
+            <PropertyRef Name="count" />
+          </Key>
+          <Property Name="PlanZakaz" Type="int" />
+          <Property Name="count" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.ProjectWorkKBE' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ProjectWorkKBE">
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.ProjectWorkKBM' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ProjectWorkKBM">
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.ProjectWorkPO' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ProjectWorkPO">
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.ReportGraphicStatusPlanZakazPost' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReportGraphicStatusPlanZakazPost">
+          <Property Name="Id" Type="int" />
+          <Property Name="PlanZakaz" Type="int" />
+          <Property Name="graphicColumnName" Type="varchar(max)" />
+          <Property Name="TaskWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TaskActualWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="PercentComplited" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.ReportStatusPlanZakazTasksStatus' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReportStatusPlanZakazTasksStatus">
+          <Property Name="Id" Type="int" />
+          <Property Name="PlanZakaz" Type="int" />
+          <Property Name="reportColumnName" Type="varchar(max)" />
+          <Property Name="TaskWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TaskActualWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="PercentComplited" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TaskStartDate" Type="datetime" />
+          <Property Name="TaskFinishDate" Type="datetime" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.RKD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RKD">
+          <Key>
+            <PropertyRef Name="Версия" />
+          </Key>
+          <Property Name="Заказ" Type="int" />
+          <Property Name="Версия" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Дата отправки" Type="date" />
+          <Property Name="Дата отправки первой версии" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.RKD_DateAction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RKD_DateAction">
+          <Key>
+            <PropertyRef Name="Версия" />
+          </Key>
+          <Property Name="Заказ" Type="int" />
+          <Property Name="Версия" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="da" Type="date" />
+          <Property Name="name" Type="varchar(max)" />
+          <Property Name="numberEctionOrderByDESCDateAction" Type="bigint" />
+          <Property Name="Дата отправки первой версии" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportKATEK.dbo.TaskGroupByP' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TaskGroupByP">
+          <Property Name="№ заказа" Type="nvarchar" MaxLength="4000" />
+          <Property Name="СДРес" Type="nvarchar" MaxLength="4000" />
+          <Property Name="СДРесПО" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssignmentRemainingWork" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="AssignmentWork" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEOInWorkPOGroupBy">
+          <Key>
+            <PropertyRef Name="Месяц" />
+          </Key>
+          <Property Name="Месяц" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="тр-ты" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="ХВыручка" Type="float" />
+          <Property Name="ХСС" Type="float" />
+          <Property Name="ХССФакт" Type="float" />
+          <Property Name="ХССЗП" Type="float" />
+          <Property Name="ХИК" Type="float" />
+          <Property Name="ХППК" Type="float" />
+          <Property Name="ХПИ" Type="float" />
+          <Property Name="ХНОП" Type="float" />
+          <Property Name="ХССЗПФакт" Type="float" />
+        </EntityType>
         <EntityContainer Name="ReportKATEKModelStoreContainer">
           <EntitySet Name="BasicPlan" EntityType="Self.BasicPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardCountPZInDevision" EntityType="Self.DashboardCountPZInDevision" Schema="dbo" store:Type="Tables" />
@@ -671,6 +866,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySet Name="ReportStatusPlanZakazAndWBS" EntityType="Self.ReportStatusPlanZakazAndWBS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResultReeportStatusPlanZakaz" EntityType="Self.ResultReeportStatusPlanZakaz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sklad" EntityType="Self.Sklad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SVNLast120" EntityType="Self.SVNLast120" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEOInWorkKBE" EntityType="Self.TEOInWorkKBE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEOInWorkKBM" EntityType="Self.TEOInWorkKBM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" Schema="dbo" store:Type="Tables" />
@@ -711,60 +907,110 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
     [ResultGraphicStatusPlanZakaz].[TaskFinishDate] AS [TaskFinishDate]
     FROM [dbo].[ResultGraphicStatusPlanZakaz] AS [ResultGraphicStatusPlanZakaz]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="forT3" EntityType="Self.forT3" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [forT3].[Месяц] AS [Месяц], 
+    [forT3].[quart] AS [quart], 
+    [forT3].[Неделя] AS [Неделя], 
+    [forT3].[year] AS [year], 
+    [forT3].[№ заказа] AS [№ заказа], 
+    [forT3].[Название задачи] AS [Название задачи], 
+    [forT3].[TimeByDay] AS [TimeByDay], 
+    [forT3].[AssignmentWork] AS [AssignmentWork], 
+    [forT3].[СДРес] AS [СДРес], 
+    [forT3].[КПО] AS [КПО], 
+    [forT3].[Выручка без НДС] AS [Выручка без НДС], 
+    [forT3].[С/С материалов] AS [С/С материалов], 
+    [forT3].[С/С материалов - факт1с] AS [С/С материалов - факт1с], 
+    [forT3].[С/С зп рабочих] AS [С/С зп рабочих], 
+    [forT3].[Издержки коммерческие] AS [Издержки коммерческие], 
+    [forT3].[% по кредиту] AS [% по кредиту], 
+    [forT3].[Постоянные издержки] AS [Постоянные издержки], 
+    [forT3].[НОП] AS [НОП], 
+    [forT3].[Выручка без НДС 1ч ПО] AS [Выручка без НДС 1ч ПО], 
+    [forT3].[С/С материалов 1ч ПО] AS [С/С материалов 1ч ПО], 
+    [forT3].[С/С материалов - факт1с 1ч ПО] AS [С/С материалов - факт1с 1ч ПО], 
+    [forT3].[С/С зп рабочих 1ч ПО] AS [С/С зп рабочих 1ч ПО], 
+    [forT3].[Издержки коммерческие 1ч ПО] AS [Издержки коммерческие 1ч ПО], 
+    [forT3].[% по кредиту 1ч ПО] AS [% по кредиту 1ч ПО], 
+    [forT3].[Постоянные издержки 1ч ПО] AS [Постоянные издержки 1ч ПО], 
+    [forT3].[НОП 1ч ПО] AS [НОП 1ч ПО], 
+    [forT3].[ХВыручка] AS [ХВыручка], 
+    [forT3].[ХСС] AS [ХСС], 
+    [forT3].[ХССФакт] AS [ХССФакт], 
+    [forT3].[ХССЗП] AS [ХССЗП], 
+    [forT3].[ХИК] AS [ХИК], 
+    [forT3].[ХППК] AS [ХППК], 
+    [forT3].[ХПИ] AS [ХПИ], 
+    [forT3].[ХНОП] AS [ХНОП], 
+    [forT3].[id] AS [id]
+    FROM [dbo].[forT3] AS [forT3]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NoPlaningPZ" EntityType="Self.NoPlaningPZ" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NoPlaningPZ].[Id] AS [Id], 
+    [NoPlaningPZ].[PlanZakaz] AS [PlanZakaz]
+    FROM [dbo].[NoPlaningPZ] AS [NoPlaningPZ]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NOPOpenOrderLastTheerYears" EntityType="Self.NOPOpenOrderLastTheerYears" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NOPOpenOrderLastTheerYears].[Месяц] AS [Месяц], 
+    [NOPOpenOrderLastTheerYears].[год] AS [год], 
+    [NOPOpenOrderLastTheerYears].[НОП] AS [НОП], 
+    [NOPOpenOrderLastTheerYears].[Выручка] AS [Выручка], 
+    [NOPOpenOrderLastTheerYears].[quart] AS [quart]
+    FROM [dbo].[NOPOpenOrderLastTheerYears] AS [NOPOpenOrderLastTheerYears]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PostControlRazreshenieProizvodstva" EntityType="Self.PostControlRazreshenieProizvodstva" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PostControlRazreshenieProizvodstva].[PlanZakaz] AS [PlanZakaz], 
+    [PostControlRazreshenieProizvodstva].[count] AS [count]
+    FROM [dbo].[PostControlRazreshenieProizvodstva] AS [PostControlRazreshenieProizvodstva]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RKD" EntityType="Self.RKD" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RKD].[Заказ] AS [Заказ], 
+    [RKD].[Версия] AS [Версия], 
+    [RKD].[Дата отправки] AS [Дата отправки], 
+    [RKD].[Дата отправки первой версии] AS [Дата отправки первой версии]
+    FROM [dbo].[RKD] AS [RKD]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RKD_DateAction" EntityType="Self.RKD_DateAction" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RKD_DateAction].[Заказ] AS [Заказ], 
+    [RKD_DateAction].[Версия] AS [Версия], 
+    [RKD_DateAction].[da] AS [da], 
+    [RKD_DateAction].[name] AS [name], 
+    [RKD_DateAction].[numberEctionOrderByDESCDateAction] AS [numberEctionOrderByDESCDateAction], 
+    [RKD_DateAction].[Дата отправки первой версии] AS [Дата отправки первой версии]
+    FROM [dbo].[RKD_DateAction] AS [RKD_DateAction]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEOInWorkPOGroupBy" EntityType="Self.TEOInWorkPOGroupBy" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TEOInWorkPOGroupBy].[Месяц] AS [Месяц], 
+    [TEOInWorkPOGroupBy].[тр-ты] AS [тр-ты], 
+    [TEOInWorkPOGroupBy].[ХВыручка] AS [ХВыручка], 
+    [TEOInWorkPOGroupBy].[ХСС] AS [ХСС], 
+    [TEOInWorkPOGroupBy].[ХССФакт] AS [ХССФакт], 
+    [TEOInWorkPOGroupBy].[ХССЗП] AS [ХССЗП], 
+    [TEOInWorkPOGroupBy].[ХИК] AS [ХИК], 
+    [TEOInWorkPOGroupBy].[ХППК] AS [ХППК], 
+    [TEOInWorkPOGroupBy].[ХПИ] AS [ХПИ], 
+    [TEOInWorkPOGroupBy].[ХНОП] AS [ХНОП], 
+    [TEOInWorkPOGroupBy].[ХССЗПФакт] AS [ХССЗПФакт]
+    FROM [dbo].[TEOInWorkPOGroupBy] AS [TEOInWorkPOGroupBy]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReportKATEKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="TEOInWorkPO">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="Месяц" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="quart" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Неделя" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="year" Type="Int32" />
-          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
-          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
-          <Property Name="Выручка_без_НДС" Type="Double" />
-          <Property Name="С_С_материалов" Type="Double" />
-          <Property Name="С_С_материалов___факт1с" Type="Double" />
-          <Property Name="С_С_зп_рабочих" Type="Double" />
-          <Property Name="Издержки_коммерческие" Type="Double" />
-          <Property Name="C__по_кредиту" Type="Double" />
-          <Property Name="Постоянные_издержки" Type="Double" />
-          <Property Name="НОП" Type="Double" />
-          <Property Name="С_С_зп_рабочих___фактХТЭО" Type="Double" />
-          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
-          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
-          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
-          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
-          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
-          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
-          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
-          <Property Name="НОП_1ч_ПО" Type="Double" />
-          <Property Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" Type="Double" />
-          <Property Name="ХВыручка" Type="Double" />
-          <Property Name="ХСС" Type="Double" />
-          <Property Name="ХССФакт" Type="Double" />
-          <Property Name="ХССЗП" Type="Double" />
-          <Property Name="ХИК" Type="Double" />
-          <Property Name="ХППК" Type="Double" />
-          <Property Name="ХПИ" Type="Double" />
-          <Property Name="ХНОП" Type="Double" />
-          <Property Name="ХССЗПФакт" Type="Double" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityContainer Name="ReportKATEKEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TEOInWorkPO" EntityType="Self.TEOInWorkPO" />
           <EntitySet Name="BasicPlan" EntityType="ReportKATEKModel.BasicPlan" />
           <EntitySet Name="DashboardCountPZInDevision" EntityType="ReportKATEKModel.DashboardCountPZInDevision" />
           <EntitySet Name="DashboardDH" EntityType="ReportKATEKModel.DashboardDH" />
           <EntitySet Name="DashboardDHCustomer" EntityType="ReportKATEKModel.DashboardDHCustomer" />
+          <EntitySet Name="DashboardDN" EntityType="ReportKATEKModel.DashboardDN" />
           <EntitySet Name="DashboardDPercent" EntityType="ReportKATEKModel.DashboardDPercent" />
           <EntitySet Name="DashboardProjectLiast" EntityType="ReportKATEKModel.DashboardProjectLiast" />
           <EntitySet Name="DashboardRateToDateShipNextYear" EntityType="ReportKATEKModel.DashboardRateToDateShipNextYear" />
@@ -779,6 +1025,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySet Name="ManpowerPO" EntityType="ReportKATEKModel.ManpowerPO" />
           <EntitySet Name="Month" EntityType="ReportKATEKModel.Month" />
           <EntitySet Name="PercentSredniyVzveshenniyNOP" EntityType="ReportKATEKModel.PercentSredniyVzveshenniyNOP" />
+          <EntitySet Name="PlanFactCosts" EntityType="ReportKATEKModel.PlanFactCosts" />
           <EntitySet Name="PlanFactCostsLastYear" EntityType="ReportKATEKModel.PlanFactCostsLastYear" />
           <EntitySet Name="PlanFactCostsThisYear" EntityType="ReportKATEKModel.PlanFactCostsThisYear" />
           <EntitySet Name="ProjectList" EntityType="ReportKATEKModel.ProjectList" />
@@ -786,15 +1033,22 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySet Name="ReportStatusPlanZakazAndWBS" EntityType="ReportKATEKModel.ReportStatusPlanZakazAndWBS" />
           <EntitySet Name="ResultReeportStatusPlanZakaz" EntityType="ReportKATEKModel.ResultReeportStatusPlanZakaz" />
           <EntitySet Name="Sklad" EntityType="ReportKATEKModel.Sklad" />
+          <EntitySet Name="SVNLast120" EntityType="ReportKATEKModel.SVNLast120" />
           <EntitySet Name="TEOInWorkKBE" EntityType="ReportKATEKModel.TEOInWorkKBE" />
           <EntitySet Name="TEOInWorkKBM" EntityType="ReportKATEKModel.TEOInWorkKBM" />
+          <EntitySet Name="TEOInWorkPO" EntityType="ReportKATEKModel.TEOInWorkPO" />
           <EntitySet Name="TEOInWorkPOHist" EntityType="ReportKATEKModel.TEOInWorkPOHist" />
           <EntitySet Name="TVManuf_DateReport" EntityType="ReportKATEKModel.TVManuf_DateReport" />
           <EntitySet Name="WBS" EntityType="ReportKATEKModel.WBS" />
           <EntitySet Name="Week" EntityType="ReportKATEKModel.Week" />
           <EntitySet Name="ResultGraphicStatusPlanZakaz" EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" />
-          <EntitySet Name="PlanFactCosts" EntityType="ReportKATEKModel.PlanFactCosts" />
-          <EntitySet Name="DashboardDN" EntityType="ReportKATEKModel.DashboardDN" />
+          <EntitySet Name="forT3" EntityType="ReportKATEKModel.forT3" />
+          <EntitySet Name="NoPlaningPZ" EntityType="ReportKATEKModel.NoPlaningPZ" />
+          <EntitySet Name="NOPOpenOrderLastTheerYears" EntityType="ReportKATEKModel.NOPOpenOrderLastTheerYears" />
+          <EntitySet Name="PostControlRazreshenieProizvodstva" EntityType="ReportKATEKModel.PostControlRazreshenieProizvodstva" />
+          <EntitySet Name="RKD" EntityType="ReportKATEKModel.RKD" />
+          <EntitySet Name="RKD_DateAction" EntityType="ReportKATEKModel.RKD_DateAction" />
+          <EntitySet Name="TEOInWorkPOGroupBy" EntityType="ReportKATEKModel.TEOInWorkPOGroupBy" />
         </EntityContainer>
         <EntityType Name="BasicPlan">
           <Key>
@@ -857,6 +1111,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="PK" Type="Int32" Nullable="false" />
           <Property Name="PI" Type="Int32" Nullable="false" />
           <Property Name="Profit" Type="Int32" Nullable="false" />
+          <Property Name="SSMR" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardDHCustomer">
           <Key>
@@ -873,6 +1128,18 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="PI" Type="Int32" Nullable="false" />
           <Property Name="Profit" Type="Int32" Nullable="false" />
           <Property Name="FSSM" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DashboardDN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="profit" Type="Int32" Nullable="false" />
+          <Property Name="rate" Type="Int32" Nullable="false" />
+          <Property Name="sn" Type="Double" Nullable="false" />
+          <Property Name="svn" Type="Double" Nullable="false" />
+          <Property Name="filtr" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DashboardDPercent">
           <Key>
@@ -1032,6 +1299,36 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="Средний_взвешеный_НОП" Type="Double" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="PlanFactCosts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="Int32" />
+          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Коммерческие_издержки" Type="Int32" />
+          <Property Name="Издержки__ЗП_ПО_" Type="Int32" />
+          <Property Name="Издержки___по_кредиту" Type="Int32" />
+          <Property Name="Постоянные_издержки" Type="Int32" />
+          <Property Name="Коммерческие_издержки_Ш" Type="Int32" />
+          <Property Name="Коммерческие_издержки_прочие" Type="Int32" />
+          <Property Name="Условно_ПИ" Type="Int32" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="Тр_ты_ПО" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ОтклЗППО" Type="Double" />
+          <Property Name="ОтклППК" Type="Double" />
+          <Property Name="ОтклПИ" Type="Double" />
+          <Property Name="ОтклКИ" Type="Double" />
+          <Property Name="ОтклСС" Type="Double" />
+          <Property Name="Плановые_издержки" Type="Double" />
+          <Property Name="Фактические_издержки" Type="Double" />
+          <Property Name="Откл_издержек" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="PlanFactCostsLastYear">
           <Key>
             <PropertyRef Name="id" />
@@ -1107,8 +1404,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="reportColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
           <Property Name="activePO" Type="Boolean" Nullable="false" />
-          <Property Name="activeGraphic" Type="Boolean" />
-          <Property Name="graphicColumnName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activeGraphic" Type="Boolean" Nullable="false" />
+          <Property Name="graphicColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ReportStatusPlanZakazAndWBS">
           <Key>
@@ -1117,7 +1414,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_ReportStatusPlanZakaz" Type="Int32" Nullable="false" />
           <Property Name="id_WBS" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="active" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ResultReeportStatusPlanZakaz">
           <Key>
@@ -1167,6 +1464,16 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="П_Ведомость_в_1с__КБМ_" Type="DateTime" Precision="3" />
           <Property Name="П_Ведомость_в_1с__КБЭ_" Type="DateTime" Precision="3" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="SVNLast120">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="data" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="TEOInWorkKBE">
           <Key>
@@ -1248,11 +1555,10 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="ХНОП" Type="Double" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="TEOInWorkPOHist">
+        <EntityType Name="TEOInWorkPO">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="DateReport" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
           <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
@@ -1263,6 +1569,52 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
           <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="С_С_зп_рабочих___фактХТЭО" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="ХССЗПФакт" Type="Double" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RSSM" Type="Double" />
+          <Property Name="RSSMF" Type="Double" />
+        </EntityType>
+        <EntityType Name="TEOInWorkPOHist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="DateReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="Int16" Nullable="false" />
+          <Property Name="C__заказа" Type="Int16" Nullable="false" />
+          <Property Name="Название_задачи" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TimeByDay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AssignmentWork" Type="Double" Nullable="false" />
+          <Property Name="СДРес" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="КПО" Type="Byte" Nullable="false" />
           <Property Name="Выручка_без_НДС" Type="Double" />
           <Property Name="С_С_материалов" Type="Double" />
           <Property Name="С_С_материалов___факт1с" Type="Double" />
@@ -1347,98 +1699,117 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <Property Name="TaskStartDate" Type="DateTime" Precision="3" />
           <Property Name="TaskFinishDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="PlanFactCosts">
+        <EntityType Name="forT3">
           <Key>
+            <PropertyRef Name="Месяц" />
+            <PropertyRef Name="quart" />
+            <PropertyRef Name="Неделя" />
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Неделя" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
           <Property Name="year" Type="Int32" />
-          <Property Name="Период" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Коммерческие_издержки" Type="Int32" />
-          <Property Name="Издержки__ЗП_ПО_" Type="Int32" />
-          <Property Name="Издержки___по_кредиту" Type="Int32" />
-          <Property Name="Постоянные_издержки" Type="Int32" />
-          <Property Name="Коммерческие_издержки_Ш" Type="Int32" />
-          <Property Name="Коммерческие_издержки_прочие" Type="Int32" />
-          <Property Name="Условно_ПИ" Type="Int32" />
-          <Property Name="ХИК" Type="Double" />
+          <Property Name="C__заказа" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Название_задачи" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TimeByDay" Type="DateTime" Precision="3" />
+          <Property Name="AssignmentWork" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="СДРес" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="КПО" Type="Decimal" Precision="25" Scale="6" />
+          <Property Name="Выручка_без_НДС" Type="Double" />
+          <Property Name="С_С_материалов" Type="Double" />
+          <Property Name="С_С_материалов___факт1с" Type="Double" />
+          <Property Name="С_С_зп_рабочих" Type="Double" />
+          <Property Name="Издержки_коммерческие" Type="Double" />
+          <Property Name="C__по_кредиту" Type="Double" />
+          <Property Name="Постоянные_издержки" Type="Double" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Выручка_без_НДС_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов_1ч_ПО" Type="Double" />
+          <Property Name="С_С_материалов___факт1с_1ч_ПО" Type="Double" />
+          <Property Name="С_С_зп_рабочих_1ч_ПО" Type="Double" />
+          <Property Name="Издержки_коммерческие_1ч_ПО" Type="Double" />
+          <Property Name="C__по_кредиту_1ч_ПО" Type="Double" />
+          <Property Name="Постоянные_издержки_1ч_ПО" Type="Double" />
+          <Property Name="НОП_1ч_ПО" Type="Double" />
+          <Property Name="ХВыручка" Type="Double" />
           <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
           <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
           <Property Name="ХППК" Type="Double" />
           <Property Name="ХПИ" Type="Double" />
-          <Property Name="Тр_ты_ПО" Type="Decimal" Precision="38" Scale="6" />
-          <Property Name="ХССФакт" Type="Double" />
-          <Property Name="ОтклЗППО" Type="Double" />
-          <Property Name="ОтклППК" Type="Double" />
-          <Property Name="ОтклПИ" Type="Double" />
-          <Property Name="ОтклКИ" Type="Double" />
-          <Property Name="ОтклСС" Type="Double" />
-          <Property Name="Плановые_издержки" Type="Double" />
-          <Property Name="Фактические_издержки" Type="Double" />
-          <Property Name="Откл_издержек" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="DashboardDN">
+        <EntityType Name="NoPlaningPZ">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="PlanZakaz" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="month" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="profit" Type="Int32" Nullable="false" />
-          <Property Name="rate" Type="Int32" Nullable="false" />
-          <Property Name="sn" Type="Double" Nullable="false" />
-          <Property Name="svn" Type="Double" Nullable="false" />
-          <Property Name="filtr" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PlanZakaz" Type="Int32" Nullable="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="NOPOpenOrderLastTheerYears">
+          <Key>
+            <PropertyRef Name="Месяц" />
+            <PropertyRef Name="quart" />
+          </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="год" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="НОП" Type="Double" />
+          <Property Name="Выручка" Type="Double" />
+          <Property Name="quart" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PostControlRazreshenieProizvodstva">
+          <Key>
+            <PropertyRef Name="count" />
+          </Key>
+          <Property Name="PlanZakaz" Type="Int32" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RKD">
+          <Key>
+            <PropertyRef Name="Версия" />
+          </Key>
+          <Property Name="Заказ" Type="Int32" />
+          <Property Name="Версия" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Дата_отправки" Type="DateTime" Precision="0" />
+          <Property Name="Дата_отправки_первой_версии" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="RKD_DateAction">
+          <Key>
+            <PropertyRef Name="Версия" />
+          </Key>
+          <Property Name="Заказ" Type="Int32" />
+          <Property Name="Версия" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="da" Type="DateTime" Precision="0" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="numberEctionOrderByDESCDateAction" Type="Int64" />
+          <Property Name="Дата_отправки_первой_версии" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="TEOInWorkPOGroupBy">
+          <Key>
+            <PropertyRef Name="Месяц" />
+          </Key>
+          <Property Name="Месяц" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="тр_ты" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="ХВыручка" Type="Double" />
+          <Property Name="ХСС" Type="Double" />
+          <Property Name="ХССФакт" Type="Double" />
+          <Property Name="ХССЗП" Type="Double" />
+          <Property Name="ХИК" Type="Double" />
+          <Property Name="ХППК" Type="Double" />
+          <Property Name="ХПИ" Type="Double" />
+          <Property Name="ХНОП" Type="Double" />
+          <Property Name="ХССЗПФакт" Type="Double" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ReportKATEKModelStoreContainer" CdmEntityContainer="ReportKATEKEntities">
-          <EntitySetMapping Name="TEOInWorkPO">
-            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPO">
-              <MappingFragment StoreEntitySet="TEOInWorkPO">
-                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
-                <ScalarProperty Name="quart" ColumnName="quart" />
-                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
-                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
-                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
-                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
-                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
-                <ScalarProperty Name="КПО" ColumnName="КПО" />
-                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
-                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
-                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
-                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
-                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
-                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
-                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
-                <ScalarProperty Name="НОП" ColumnName="НОП" />
-                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО" ColumnName="С/С зп рабочих - фактХТЭО" />
-                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
-                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
-                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
-                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
-                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
-                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
-                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
-                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
-                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" ColumnName="С/С зп рабочих - фактХТЭО 1ч ПО" />
-                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
-                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
-                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
-                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
-                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
-                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
-                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
-                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
-                <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BasicPlan">
             <EntityTypeMapping TypeName="ReportKATEKModel.BasicPlan">
               <MappingFragment StoreEntitySet="BasicPlan">
@@ -1491,6 +1862,7 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
           <EntitySetMapping Name="DashboardDH">
             <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDH">
               <MappingFragment StoreEntitySet="DashboardDH">
+                <ScalarProperty Name="SSMR" ColumnName="SSMR" />
                 <ScalarProperty Name="Profit" ColumnName="Profit" />
                 <ScalarProperty Name="PI" ColumnName="PI" />
                 <ScalarProperty Name="PK" ColumnName="PK" />
@@ -1517,6 +1889,19 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Customer" ColumnName="Customer" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DashboardDN">
+            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDN">
+              <MappingFragment StoreEntitySet="DashboardDN">
+                <ScalarProperty Name="filtr" ColumnName="filtr" />
+                <ScalarProperty Name="svn" ColumnName="svn" />
+                <ScalarProperty Name="sn" ColumnName="sn" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+                <ScalarProperty Name="month" ColumnName="month" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1693,6 +2078,37 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PlanFactCosts">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCosts">
+              <MappingFragment StoreEntitySet="PlanFactCosts">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Откл_издержек" ColumnName="Откл издержек" />
+                <ScalarProperty Name="Фактические_издержки" ColumnName="Фактические издержки" />
+                <ScalarProperty Name="Плановые_издержки" ColumnName="Плановые издержки" />
+                <ScalarProperty Name="ОтклСС" ColumnName="ОтклСС" />
+                <ScalarProperty Name="ОтклКИ" ColumnName="ОтклКИ" />
+                <ScalarProperty Name="ОтклПИ" ColumnName="ОтклПИ" />
+                <ScalarProperty Name="ОтклППК" ColumnName="ОтклППК" />
+                <ScalarProperty Name="ОтклЗППО" ColumnName="ОтклЗППО" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="Тр_ты_ПО" ColumnName="Тр-ты ПО" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="Условно_ПИ" ColumnName="Условно ПИ" />
+                <ScalarProperty Name="Коммерческие_издержки_прочие" ColumnName="Коммерческие издержки прочие" />
+                <ScalarProperty Name="Коммерческие_издержки_Ш" ColumnName="Коммерческие издержки Ш" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="Издержки___по_кредиту" ColumnName="Издержки % по кредиту" />
+                <ScalarProperty Name="Издержки__ЗП_ПО_" ColumnName="Издержки (ЗП ПО)" />
+                <ScalarProperty Name="Коммерческие_издержки" ColumnName="Коммерческие издержки" />
+                <ScalarProperty Name="Период" ColumnName="Период" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PlanFactCostsLastYear">
             <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCostsLastYear">
               <MappingFragment StoreEntitySet="PlanFactCostsLastYear">
@@ -1836,6 +2252,17 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SVNLast120">
+            <EntityTypeMapping TypeName="ReportKATEKModel.SVNLast120">
+              <MappingFragment StoreEntitySet="SVNLast120">
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TEOInWorkKBE">
             <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkKBE">
               <MappingFragment StoreEntitySet="TEOInWorkKBE">
@@ -1897,6 +2324,52 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
                 <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
                 <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
                 <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEOInWorkPO">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPO">
+              <MappingFragment StoreEntitySet="TEOInWorkPO">
+                <ScalarProperty Name="RSSMF" ColumnName="RSSMF" />
+                <ScalarProperty Name="RSSM" ColumnName="RSSM" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО_1ч_ПО" ColumnName="С/С зп рабочих - фактХТЭО 1ч ПО" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих___фактХТЭО" ColumnName="С/С зп рабочих - фактХТЭО" />
                 <ScalarProperty Name="НОП" ColumnName="НОП" />
                 <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
                 <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
@@ -2021,47 +2494,110 @@ warning 6002: The table/view 'ReportKATEK.dbo.ResultGraphicStatusPlanZakaz' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PlanFactCosts">
-            <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCosts">
-              <MappingFragment StoreEntitySet="PlanFactCosts">
+          <EntitySetMapping Name="forT3">
+            <EntityTypeMapping TypeName="ReportKATEKModel.forT3">
+              <MappingFragment StoreEntitySet="forT3">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Откл_издержек" ColumnName="Откл издержек" />
-                <ScalarProperty Name="Фактические_издержки" ColumnName="Фактические издержки" />
-                <ScalarProperty Name="Плановые_издержки" ColumnName="Плановые издержки" />
-                <ScalarProperty Name="ОтклСС" ColumnName="ОтклСС" />
-                <ScalarProperty Name="ОтклКИ" ColumnName="ОтклКИ" />
-                <ScalarProperty Name="ОтклПИ" ColumnName="ОтклПИ" />
-                <ScalarProperty Name="ОтклППК" ColumnName="ОтклППК" />
-                <ScalarProperty Name="ОтклЗППО" ColumnName="ОтклЗППО" />
-                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
-                <ScalarProperty Name="Тр_ты_ПО" ColumnName="Тр-ты ПО" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
                 <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
                 <ScalarProperty Name="ХППК" ColumnName="ХППК" />
-                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
-                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
                 <ScalarProperty Name="ХИК" ColumnName="ХИК" />
-                <ScalarProperty Name="Условно_ПИ" ColumnName="Условно ПИ" />
-                <ScalarProperty Name="Коммерческие_издержки_прочие" ColumnName="Коммерческие издержки прочие" />
-                <ScalarProperty Name="Коммерческие_издержки_Ш" ColumnName="Коммерческие издержки Ш" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="НОП_1ч_ПО" ColumnName="НОП 1ч ПО" />
+                <ScalarProperty Name="Постоянные_издержки_1ч_ПО" ColumnName="Постоянные издержки 1ч ПО" />
+                <ScalarProperty Name="C__по_кредиту_1ч_ПО" ColumnName="% по кредиту 1ч ПО" />
+                <ScalarProperty Name="Издержки_коммерческие_1ч_ПО" ColumnName="Издержки коммерческие 1ч ПО" />
+                <ScalarProperty Name="С_С_зп_рабочих_1ч_ПО" ColumnName="С/С зп рабочих 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов___факт1с_1ч_ПО" ColumnName="С/С материалов - факт1с 1ч ПО" />
+                <ScalarProperty Name="С_С_материалов_1ч_ПО" ColumnName="С/С материалов 1ч ПО" />
+                <ScalarProperty Name="Выручка_без_НДС_1ч_ПО" ColumnName="Выручка без НДС 1ч ПО" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
                 <ScalarProperty Name="Постоянные_издержки" ColumnName="Постоянные издержки" />
-                <ScalarProperty Name="Издержки___по_кредиту" ColumnName="Издержки % по кредиту" />
-                <ScalarProperty Name="Издержки__ЗП_ПО_" ColumnName="Издержки (ЗП ПО)" />
-                <ScalarProperty Name="Коммерческие_издержки" ColumnName="Коммерческие издержки" />
-                <ScalarProperty Name="Период" ColumnName="Период" />
+                <ScalarProperty Name="C__по_кредиту" ColumnName="% по кредиту" />
+                <ScalarProperty Name="Издержки_коммерческие" ColumnName="Издержки коммерческие" />
+                <ScalarProperty Name="С_С_зп_рабочих" ColumnName="С/С зп рабочих" />
+                <ScalarProperty Name="С_С_материалов___факт1с" ColumnName="С/С материалов - факт1с" />
+                <ScalarProperty Name="С_С_материалов" ColumnName="С/С материалов" />
+                <ScalarProperty Name="Выручка_без_НДС" ColumnName="Выручка без НДС" />
+                <ScalarProperty Name="КПО" ColumnName="КПО" />
+                <ScalarProperty Name="СДРес" ColumnName="СДРес" />
+                <ScalarProperty Name="AssignmentWork" ColumnName="AssignmentWork" />
+                <ScalarProperty Name="TimeByDay" ColumnName="TimeByDay" />
+                <ScalarProperty Name="Название_задачи" ColumnName="Название задачи" />
+                <ScalarProperty Name="C__заказа" ColumnName="№ заказа" />
                 <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Неделя" ColumnName="Неделя" />
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DashboardDN">
-            <EntityTypeMapping TypeName="ReportKATEKModel.DashboardDN">
-              <MappingFragment StoreEntitySet="DashboardDN">
-                <ScalarProperty Name="filtr" ColumnName="filtr" />
-                <ScalarProperty Name="svn" ColumnName="svn" />
-                <ScalarProperty Name="sn" ColumnName="sn" />
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="profit" ColumnName="profit" />
-                <ScalarProperty Name="month" ColumnName="month" />
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="NoPlaningPZ">
+            <EntityTypeMapping TypeName="ReportKATEKModel.NoPlaningPZ">
+              <MappingFragment StoreEntitySet="NoPlaningPZ">
+                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOPOpenOrderLastTheerYears">
+            <EntityTypeMapping TypeName="ReportKATEKModel.NOPOpenOrderLastTheerYears">
+              <MappingFragment StoreEntitySet="NOPOpenOrderLastTheerYears">
+                <ScalarProperty Name="quart" ColumnName="quart" />
+                <ScalarProperty Name="Выручка" ColumnName="Выручка" />
+                <ScalarProperty Name="НОП" ColumnName="НОП" />
+                <ScalarProperty Name="год" ColumnName="год" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostControlRazreshenieProizvodstva">
+            <EntityTypeMapping TypeName="ReportKATEKModel.PostControlRazreshenieProizvodstva">
+              <MappingFragment StoreEntitySet="PostControlRazreshenieProizvodstva">
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="PlanZakaz" ColumnName="PlanZakaz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RKD">
+            <EntityTypeMapping TypeName="ReportKATEKModel.RKD">
+              <MappingFragment StoreEntitySet="RKD">
+                <ScalarProperty Name="Дата_отправки_первой_версии" ColumnName="Дата отправки первой версии" />
+                <ScalarProperty Name="Дата_отправки" ColumnName="Дата отправки" />
+                <ScalarProperty Name="Версия" ColumnName="Версия" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RKD_DateAction">
+            <EntityTypeMapping TypeName="ReportKATEKModel.RKD_DateAction">
+              <MappingFragment StoreEntitySet="RKD_DateAction">
+                <ScalarProperty Name="Дата_отправки_первой_версии" ColumnName="Дата отправки первой версии" />
+                <ScalarProperty Name="numberEctionOrderByDESCDateAction" ColumnName="numberEctionOrderByDESCDateAction" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="da" ColumnName="da" />
+                <ScalarProperty Name="Версия" ColumnName="Версия" />
+                <ScalarProperty Name="Заказ" ColumnName="Заказ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEOInWorkPOGroupBy">
+            <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPOGroupBy">
+              <MappingFragment StoreEntitySet="TEOInWorkPOGroupBy">
+                <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
+                <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
+                <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />
+                <ScalarProperty Name="ХППК" ColumnName="ХППК" />
+                <ScalarProperty Name="ХИК" ColumnName="ХИК" />
+                <ScalarProperty Name="ХССЗП" ColumnName="ХССЗП" />
+                <ScalarProperty Name="ХССФакт" ColumnName="ХССФакт" />
+                <ScalarProperty Name="ХСС" ColumnName="ХСС" />
+                <ScalarProperty Name="ХВыручка" ColumnName="ХВыручка" />
+                <ScalarProperty Name="тр_ты" ColumnName="тр-ты" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

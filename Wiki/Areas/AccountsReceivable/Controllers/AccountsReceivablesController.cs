@@ -1330,8 +1330,8 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 foreach (var pz in pZ_PlanZakazRKD)
                 {
-                    RKD rKD = new RKD(pz);
-                    rKD.CreateRKDOrder();
+                    //RKD rKD = new RKD(pz);
+                    //rKD.CreateRKDOrder();
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
             }

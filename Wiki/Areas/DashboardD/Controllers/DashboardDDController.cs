@@ -29,7 +29,6 @@ namespace Wiki.Areas.DashboardD.Controllers
 
         public JsonResult GetGeneralD()
         {
-            const int round = 1000;
             using (ReportKATEKEntities db = new ReportKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
@@ -49,13 +48,13 @@ namespace Wiki.Areas.DashboardD.Controllers
                 {
                     data[i].Month = query[i].Month;
                     data[i].Year = query[i].Year;
-                    data[i].Rate = query[i].Rate / round;
-                    data[i].SSM = query[i].SSM / round;
-                    data[i].SSW = query[i].SSW / round;
-                    data[i].IK = query[i].IK / round;
-                    data[i].PK = query[i].PK / round;
-                    data[i].PI = query[i].PI / round;
-                    data[i].Profit = query[i].Profit / round;
+                    data[i].Rate = query[i].Rate;
+                    data[i].SSM = query[i].SSMR;
+                    data[i].SSW = query[i].SSW;
+                    data[i].IK = query[i].IK;
+                    data[i].PK = query[i].PK;
+                    data[i].PI = query[i].PI;
+                    data[i].Profit = query[i].Profit;
                     data[i].MonthNum = GetMonthNum(query[i].Month);
                     data[i].Quart = query[i].Year.ToString() + "." + ((data[i].MonthNum + 2) / 3);
                 }
@@ -103,14 +102,14 @@ namespace Wiki.Areas.DashboardD.Controllers
                     data[i].PPI = (double)(query[i].ХПИ / round);
                     data[i].FPI = (double)((double)query[i].Постоянные_издержки / round);
                     data[i].RPI = (double)(query[i].ОтклПИ / round);
-                    data[i].PIK = (double)(query[i].ХПИ / round);
+                    data[i].PIK = (double)(query[i].ХИК / round);
                     data[i].FIK = (double)((double)query[i].Коммерческие_издержки / round);
-                    data[i].RIK = (double)(query[i].ОтклПИ / round);
+                    data[i].RIK = (double)(query[i].ОтклКИ / round);
                     data[i].PSSM = (double)(query[i].ХСС / round);
                     data[i].FSSM = (double)(query[i].ХССФакт / round);
                     data[i].RSSM = (double)(query[i].ОтклСС / round);
                     data[i].FS1 = (double)((double)query[i].Коммерческие_издержки_прочие / round);
-                    data[i].FS2 = (double)((double)query[i].Коммерческие_издержки_Ш / round);
+                    data[i].FS2 = (double)((double)query[i].Условно_ПИ / round);
                     data[i].PFull = (double)(query[i].Плановые_издержки / round);
                     data[i].FFull = (double)(query[i].Фактические_издержки / round);
                     data[i].RFull = (double)(query[i].Откл_издержек / round);
@@ -260,6 +259,25 @@ namespace Wiki.Areas.DashboardD.Controllers
                     data[i] = new GeneralPercentCustomer();
                     data[i].Customer = query[i].Customer;
                     data[i].Percent = Math.Round(query[i].Data, 2);
+                }
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetNLast120()
+        {
+            using (ReportKATEKEntities db = new ReportKATEKEntities())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+                var query = db.SVNLast120.AsNoTracking().OrderBy(a => a.month).ToList();
+                int sizeArray = query.Count;
+                GeneralN[] data = new GeneralN[sizeArray];
+                for (int i = 0; i < sizeArray; i++)
+                {
+                    data[i] = new GeneralN();
+                    data[i].Month = query[i].month;
+                    data[i].Ns = Math.Round(query[i].data, 2);
                 }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

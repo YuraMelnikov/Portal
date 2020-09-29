@@ -12,19 +12,18 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class TEOInWorkPOHist
+    public partial class forT3
     {
-        public System.DateTime DateReport { get; set; }
         public string Месяц { get; set; }
         public string quart { get; set; }
         public string Неделя { get; set; }
-        public short year { get; set; }
-        public short C__заказа { get; set; }
+        public Nullable<int> year { get; set; }
+        public string C__заказа { get; set; }
         public string Название_задачи { get; set; }
-        public System.DateTime TimeByDay { get; set; }
-        public double AssignmentWork { get; set; }
+        public Nullable<System.DateTime> TimeByDay { get; set; }
+        public Nullable<decimal> AssignmentWork { get; set; }
         public string СДРес { get; set; }
-        public byte КПО { get; set; }
+        public Nullable<decimal> КПО { get; set; }
         public Nullable<double> Выручка_без_НДС { get; set; }
         public Nullable<double> С_С_материалов { get; set; }
         public Nullable<double> С_С_материалов___факт1с { get; set; }

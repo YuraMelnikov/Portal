@@ -52,5 +52,7 @@ namespace Wiki
         public Nullable<double> ХНОП { get; set; }
         public Nullable<double> ХССЗПФакт { get; set; }
         public int id { get; set; }
+        public Nullable<double> RSSM { get; set; }
+        public Nullable<double> RSSMF { get; set; }
     }
 }

@@ -12,18 +12,11 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class DashboardDH
+    public partial class RKD
     {
-        public int id { get; set; }
-        public string Month { get; set; }
-        public int Year { get; set; }
-        public int Rate { get; set; }
-        public int SSM { get; set; }
-        public int SSW { get; set; }
-        public int IK { get; set; }
-        public int PK { get; set; }
-        public int PI { get; set; }
-        public int Profit { get; set; }
-        public int SSMR { get; set; }
+        public Nullable<int> Заказ { get; set; }
+        public string Версия { get; set; }
+        public Nullable<System.DateTime> Дата_отправки { get; set; }
+        public Nullable<System.DateTime> Дата_отправки_первой_версии { get; set; }
     }
 }

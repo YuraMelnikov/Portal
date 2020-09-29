@@ -25,6 +25,7 @@ namespace Wiki
             this.CMO_PositionOrder = new HashSet<CMO_PositionOrder>();
             this.CMO_PositionPreOrder = new HashSet<CMO_PositionPreOrder>();
             this.CMO2_Position = new HashSet<CMO2_Position>();
+            this.CMOSPreOrder = new HashSet<CMOSPreOrder>();
             this.DashboardBP_HSSPO = new HashSet<DashboardBP_HSSPO>();
             this.DashboardBP_ProjectList = new HashSet<DashboardBP_ProjectList>();
             this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
@@ -34,6 +35,7 @@ namespace Wiki
             this.Debit_WorkBit = new HashSet<Debit_WorkBit>();
             this.DebitReclamation = new HashSet<DebitReclamation>();
             this.MailGraphic = new HashSet<MailGraphic>();
+            this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
             this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
             this.PZ_PZNotes = new HashSet<PZ_PZNotes>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
@@ -44,8 +46,6 @@ namespace Wiki
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
             this.StickersPreOrder = new HashSet<StickersPreOrder>();
-            this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
-            this.CMOSPreOrder = new HashSet<CMOSPreOrder>();
         }
     
         public int Id { get; set; }
@@ -117,6 +117,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMO2_Position> CMO2_Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMOSPreOrder> CMOSPreOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_HSSPO> DashboardBP_HSSPO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardBP_ProjectList> DashboardBP_ProjectList { get; set; }
@@ -135,7 +137,10 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MailGraphic> MailGraphic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdersTablesPositions> OrdersTablesPositions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanVerificationItems> PlanVerificationItems { get; set; }
+        public virtual Provider Provider { get; set; }
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
         public virtual PZ_FIO PZ_FIO { get; set; }
@@ -160,10 +165,5 @@ namespace Wiki
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StickersPreOrder> StickersPreOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdersTablesPositions> OrdersTablesPositions { get; set; }
-        public virtual Provider Provider { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMOSPreOrder> CMOSPreOrder { get; set; }
     }
 }

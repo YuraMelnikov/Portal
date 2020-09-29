@@ -12,18 +12,9 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class DashboardDH
+    public partial class NoPlaningPZ
     {
-        public int id { get; set; }
-        public string Month { get; set; }
-        public int Year { get; set; }
-        public int Rate { get; set; }
-        public int SSM { get; set; }
-        public int SSW { get; set; }
-        public int IK { get; set; }
-        public int PK { get; set; }
-        public int PI { get; set; }
-        public int Profit { get; set; }
-        public int SSMR { get; set; }
+        public int Id { get; set; }
+        public int PlanZakaz { get; set; }
     }
 }
