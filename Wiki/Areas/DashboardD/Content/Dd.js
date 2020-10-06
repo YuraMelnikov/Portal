@@ -114,7 +114,34 @@ function GetGeneralD() {
                 credits: {
                     enabled: false
                 }
-            });
+            });  
+
+            var ismouseover = false;
+            const mouseOver = function () {
+                if (!ismouseover) {
+                    this.chart.series.forEach(function (s) {
+                        s.update({
+                            dataLabels: {
+                                allowOverlap: true,
+                            }
+                        }, true, false, false);
+                    });
+                    ismouseover = true;
+                }
+            };
+
+            const mouseOut = function () {
+                this.chart.series.forEach(function (s) {
+                    s.setState('');
+                    s.update({
+                        dataLabels: {
+                            allowOverlap: false,
+                        }
+                    }, true, false, false);
+                });
+                ismouseover = false;
+            }
+
             Highcharts.chart('generalD', { 
                 title: {
                     text: 'Издержки заказов (тыс. / привязка к тр-там производства)',
@@ -123,6 +150,15 @@ function GetGeneralD() {
                         "color": titleDiagrammColor
                     },
                     margin: 0
+                },
+                chart: {
+                    styledMode: false
+                }, 
+                legend: {
+                    itemEvents: {
+                        mouseover: mouseOver,
+                        mouseout: mouseOut
+                    }
                 },
                 xAxis: {
                     categories: generalMonthArray,
@@ -147,7 +183,10 @@ function GetGeneralD() {
                     {
                         name: '% по кредит.',
                         data: generalPKArray,
-                        color: colorPK
+                        color: colorPK,
+                        marker: {
+                            enabled: true
+                        }
                     },
                     {
                         name: 'ПИ',
@@ -181,13 +220,19 @@ function GetGeneralD() {
                     }
                 },
                 plotOptions: {
-                    series: {
+                    line: {
                         dataLabels: {
                             enabled: true,
-                            format: "{point.y:,.0f}",  
-                            style: {
-                                color: colorStackLabels
-                            }
+                            allowOverlap: false,
+                            format: "{point.y:,.0f}"
+                        },
+                        enableMouseTracking: true
+                    },
+                    series: {
+                        stickyTracking: false,
+                        events: {
+                            mouseOver: mouseOver,
+                            mouseOut: mouseOut
                         }
                     }
                 }
@@ -401,6 +446,8 @@ function GetPF() {
             var pSSMArray = new Array();
             var fSSMArray = new Array();
             var fS1Array = new Array();
+            var fS11Array = new Array();
+            var fS12Array = new Array();
             var fS2Array = new Array();
             var psSSWArray = new Array();
             var fsSSWArray = new Array();
@@ -413,6 +460,8 @@ function GetPF() {
             var psSSMArray = new Array();
             var fsSSMArray = new Array();
             var fsS1Array = new Array();
+            var fsS11Array = new Array();
+            var fsS12Array = new Array();
             var fsS2Array = new Array();
             var switchBack = 0;
             var tpsSSWArray = new Array();
@@ -426,6 +475,8 @@ function GetPF() {
             var tpsSSMArray = new Array();
             var tfsSSMArray = new Array();
             var tfsS1Array = new Array();
+            var tfsS11Array = new Array();
+            var tfsS12Array = new Array();
             var tfsS2Array = new Array();
             var tyMonthArray = new Array();
             var lyMonthArray = new Array();  
@@ -446,6 +497,8 @@ function GetPF() {
             var tsfsSSM = 0;
             var tsosSSM = 0;
             var tsfsS1 = 0;
+            var tsfsS11 = 0;
+            var tsfsS12 = 0;
             var tsfsS2 = 0;
             var lspsSSW = 0;
             var lsfsSSW = 0.0;
@@ -463,6 +516,8 @@ function GetPF() {
             var lsfsSSM = 0;
             var lsosSSM = 0;
             var lsfsS1 = 0;
+            var lsfsS11 = 0;
+            var lsfsS12 = 0;
             var lsfsS2 = 0;
             var psSSW = 0;
             var fsSSW = 0;
@@ -475,6 +530,8 @@ function GetPF() {
             var psSSM = 0;
             var fsSSM = 0;
             var fsS1 = 0;
+            var fsS11 = 0;
+            var fsS12 = 0;
             var fsS2 = 0;
             var pFullty = 0;
             var fFullty = 0;
@@ -494,6 +551,8 @@ function GetPF() {
                 pSSMArray.push(Math.round(result[i].PSSM));
                 fSSMArray.push(Math.round(result[i].FSSM));
                 fS1Array.push(Math.round(result[i].FS1));
+                fS11Array.push(Math.round(result[i].FS11));
+                fS12Array.push(Math.round(result[i].FS12));
                 fS2Array.push(Math.round(result[i].FS2));
 
                 if (result[i].Year === lYear) {
@@ -508,6 +567,8 @@ function GetPF() {
                     psSSM += result[i].PSSM;
                     fsSSM += result[i].FSSM;
                     fsS1 += result[i].FS1;
+                    fsS11 += result[i].FS11;
+                    fsS12 += result[i].FS12;
                     fsS2 += result[i].FS2;
                     pFullly += result[i].PFull;
                     fFullly += result[i].FFull;
@@ -524,6 +585,8 @@ function GetPF() {
                     psSSMArray.push(Math.round(psSSM));
                     fsSSMArray.push(Math.round(fsSSM));
                     fsS1Array.push(Math.round(fsS1));
+                    fsS11Array.push(Math.round(fsS11));
+                    fsS12Array.push(Math.round(fsS12));
                     fsS2Array.push(Math.round(fsS2));
                     lspsSSW += result[i].PSSW;
                     lsfsSSW += result[i].FSSW;
@@ -536,6 +599,8 @@ function GetPF() {
                     lspsSSM += result[i].PSSM;
                     lsfsSSM += result[i].FSSM;
                     lsfsS1 += result[i].FS1;
+                    lsfsS11 += result[i].FS11;
+                    lsfsS12 += result[i].FS12;
                     lsfsS2 += result[i].FS2;
 
                 }
@@ -552,6 +617,8 @@ function GetPF() {
                         psSSM = 0;
                         fsSSM = 0;
                         fsS1 = 0;
+                        fsS11 = 0;
+                        fsS12 = 0;
                         fsS2 = 0;
                         switchBack = 1;
                     }
@@ -566,6 +633,8 @@ function GetPF() {
                     psSSM += result[i].PSSM;
                     fsSSM += result[i].FSSM;
                     fsS1 += result[i].FS1;
+                    fsS11 += result[i].FS11;
+                    fsS12 += result[i].FS12;
                     fsS2 += result[i].FS2;
                     tyMonthArray.push(result[i].Month);
                     tpsSSWArray.push(Math.round(psSSW));
@@ -579,6 +648,8 @@ function GetPF() {
                     tpsSSMArray.push(Math.round(psSSM));
                     tfsSSMArray.push(Math.round(fsSSM));
                     tfsS1Array.push(Math.round(fsS1));
+                    tfsS11Array.push(Math.round(fsS11));
+                    tfsS12Array.push(Math.round(fsS12));
                     tfsS2Array.push(Math.round(fsS2));
                     tspsSSW += result[i].PSSW;
                     tsfsSSW += result[i].FSSW;
@@ -591,6 +662,8 @@ function GetPF() {
                     tspsSSM += result[i].PSSM;
                     tsfsSSM += result[i].FSSM;
                     tsfsS1 += result[i].FS1;
+                    tsfsS12 += result[i].FS11;
+                    tsfsS12 += result[i].FS12;
                     tsfsS2 += result[i].FS2;
                     pFullty += result[i].PFull;
                     fFullty += result[i].FFull;
@@ -1353,9 +1426,17 @@ function GetPF() {
                 },
                 series: [
                     {
-                        name: 'Факт',
+                        name: 'Всего',
                         data: fS1Array,
                         color: colorSecondYear
+                    }, {
+                        name: 'Претензии',
+                        data: fS12Array,
+                        color: '#56A8CBFF'
+                    }, {
+                        name: 'Комиссия от выручки',
+                        data: fS11Array,
+                        color: colorIK
                     }
                 ],
                 yAxis: {
@@ -1396,9 +1477,17 @@ function GetPF() {
                 },
                 series: [
                     {
-                        name: 'Факт',
+                        name: 'Всего',
                         data: fsS1Array,
                         color: colorSecondYear
+                    }, {
+                        name: 'Претензии',
+                        data: fsS12Array,
+                        color: '#56A8CBFF'
+                    }, {
+                        name: 'Комиссия от выручки',
+                        data: fsS11Array,
+                        color: colorIK
                     }
                 ],
                 yAxis: {
@@ -1439,9 +1528,17 @@ function GetPF() {
                 },
                 series: [
                     {
-                        name: 'Факт',
+                        name: 'Всего',
                         data: tfsS1Array,
                         color: colorSecondYear
+                    }, {
+                        name: 'Комиссия от выручки',
+                        data: tfsS11Array,
+                        color: colorIK
+                    }, {
+                        name: 'Претензии',
+                        data: tfsS12Array,
+                        color: '#56A8CBFF'
                     }
                 ],
                 yAxis: {
@@ -2019,36 +2116,48 @@ function GetCustomerData() {
             var profitArray = new Array();
             var rateArray = new Array();
             var fssmArray = new Array();
+            var c1 = 0;
+            var c2 = 0;
+            var c3 = 0;
+            var c4 = 0;
             for (var i = 0; i < lenghtArray; i++) {
                 if (result[i].Ssm > 0) {
                     typeObj = {
                         name: result[i].Customer,
-                        y: result[i].Ssm
+                        y: Math.round(result[i].Ssm / 1000)
                     };
                     ssmArray.push(typeObj);
-                }
+                    c1 += result[i].Ssm;
+                } 
                 if (result[i].Profit > 0) {
                     typeObj = {
                         name: result[i].Customer,
-                        y: result[i].Profit
+                        y: Math.round(result[i].Profit / 1000)
                     };
                     profitArray.push(typeObj);
+                    c2 += result[i].Profit;
                 }
                 if (result[i].Rate > 0) {
                     typeObj = {
                         name: result[i].Customer,
-                        y: result[i].Rate
+                        y: Math.round(result[i].Rate / 1000)
                     };
                     rateArray.push(typeObj);
+                    c3 += result[i].Rate;
                 }
                 if (result[i].Fssm > 0) {
                     typeObj = {
                         name: result[i].Customer,
-                        y: result[i].Fssm
+                        y: Math.round(result[i].Fssm / 1000)
                     };
                     fssmArray.push(typeObj);
+                    c4 += result[i].Fssm;
                 }
             }
+            document.getElementById("summaryoSSM").textContent = 'Всего: ' + Math.round(c1 / 1000);
+            document.getElementById("summaryoPr").textContent = 'Всего: ' + Math.round(c2 / 1000);
+            document.getElementById("summaryoRate").textContent = 'Всего: ' + Math.round(c3 / 1000);
+            document.getElementById("summaryoFSSM").textContent = 'Всего: ' + Math.round(c4 / 1000); 
             Highcharts.setOptions({
                 credits: {
                     enabled: false
@@ -2067,6 +2176,7 @@ function GetCustomerData() {
                     };
                 })
             });
+
             Highcharts.chart('oSSM', {
                 chart: {
                     plotBackgroundColor: null,

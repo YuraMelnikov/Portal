@@ -109,6 +109,14 @@ namespace Wiki.Areas.DashboardD.Controllers
                     data[i].FSSM = (double)(query[i].ХССФакт / round);
                     data[i].RSSM = (double)(query[i].ОтклСС / round);
                     data[i].FS1 = (double)((double)query[i].Коммерческие_издержки_прочие / round);
+                    if (query[i].комиссия_от_выручки == null)
+                        data[i].FS11 = 0.0;
+                    else
+                        data[i].FS11 = (double)((double)query[i].комиссия_от_выручки / round);
+                    if (query[i].претензии == null)
+                        data[i].FS12 = 0.0;
+                    else
+                        data[i].FS12 = (double)((double)query[i].претензии / round);
                     data[i].FS2 = (double)((double)query[i].Условно_ПИ / round);
                     data[i].PFull = (double)(query[i].Плановые_издержки / round);
                     data[i].FFull = (double)(query[i].Фактические_издержки / round);
@@ -120,7 +128,6 @@ namespace Wiki.Areas.DashboardD.Controllers
 
         public JsonResult GetCustomerData()
         {
-            const double round = 1000.0;
             using (ReportKATEKEntities db = new ReportKATEKEntities())
             {
                 int sSSM = 0;
@@ -153,39 +160,39 @@ namespace Wiki.Areas.DashboardD.Controllers
 
                     if (Convert.ToDouble(query[i].SSM) / Convert.ToDouble(sSSM) < 0.05)
                     {
-                        cSSM += (int)(query[i].SSM / round);
+                        cSSM += query[i].SSM;
                         data[i].Ssm = 0;
                     }
                     else
                     {
-                        data[i].Ssm = (int)(query[i].SSM / round);
+                        data[i].Ssm = query[i].SSM;
                     }
                     if (Convert.ToDouble(query[i].Profit) / Convert.ToDouble(sProfit) < 0.05)
                     {
-                        cProfit += (int)(query[i].Profit / round);
+                        cProfit += query[i].Profit;
                         data[i].Profit = 0;
                     }
                     else
                     {
-                        data[i].Profit = (int)(query[i].Profit / round);
+                        data[i].Profit = query[i].Profit;
                     }
                     if (Convert.ToDouble(query[i].Rate) / Convert.ToDouble(sRate) < 0.05)
                     {
-                        cRate += (int)(query[i].Rate / round);
+                        cRate += query[i].Rate;
                         data[i].Rate = 0;
                     }
                     else
                     {
-                        data[i].Rate = (int)(query[i].Rate / round);
+                        data[i].Rate = query[i].Rate;
                     }
                     if (Convert.ToDouble(query[i].FSSM) / Convert.ToDouble(sFSSM) < 0.05)
                     {
-                        cFSSM += (int)(query[i].FSSM / round);
+                        cFSSM += query[i].FSSM;
                         data[i].Fssm = 0;
                     }
                     else
                     {
-                        data[i].Fssm = (int)(query[i].FSSM / round);
+                        data[i].Fssm = query[i].FSSM;
                     }
                 }
                 GeneralCustomer generalCustomer1 = new GeneralCustomer

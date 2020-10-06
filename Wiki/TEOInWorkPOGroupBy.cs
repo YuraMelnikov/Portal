@@ -25,5 +25,7 @@ namespace Wiki
         public Nullable<double> ХПИ { get; set; }
         public Nullable<double> ХНОП { get; set; }
         public Nullable<double> ХССЗПФакт { get; set; }
+        public Nullable<double> RSSM { get; set; }
+        public Nullable<double> RSSMF { get; set; }
     }
 }

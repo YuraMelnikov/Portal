@@ -36,7 +36,6 @@ left join [PortalKATEK].[dbo].[PZ_TEO] on [PortalKATEK].[dbo].[PZ_TEO].Id_PlanZa
 left join [exportImport].[dbo].[planZakaz] on [exportImport].[dbo].[planZakaz].Zakaz = [PortalKATEK].[dbo].[PZ_PlanZakaz].PlanZakaz
 left join [PortalKATEK].[dbo].[PZ_Client] on [PortalKATEK].[dbo].[PZ_Client].id = [PortalKATEK].[dbo].[PZ_PlanZakaz] .Client
 where year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP) = year(getdate())
-and ([PortalKATEK].[dbo].[PZ_TEO].SSM != 0)
 group by year([PortalKATEK].[dbo].[PZ_PlanZakaz].dataOtgruzkiBP)
 ,iif(SUBSTRING([PortalKATEK].[dbo].[PZ_Client].NameSort,0,CHARINDEX('-',[PortalKATEK].[dbo].[PZ_Client].NameSort,0)) = '', [PortalKATEK].[dbo].[PZ_Client].NameSort, SUBSTRING([PortalKATEK].[dbo].[PZ_Client].NameSort,0,CHARINDEX('-',[PortalKATEK].[dbo].[PZ_Client].NameSort,0)))
 

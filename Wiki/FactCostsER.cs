@@ -25,5 +25,7 @@ namespace Wiki
         public Nullable<int> Коммерческие_издержки_прочие { get; set; }
         public Nullable<int> Условно_ПИ { get; set; }
         public int id { get; set; }
+        public Nullable<int> комиссия_от_выручки { get; set; }
+        public Nullable<int> претензии { get; set; }
     }
 }

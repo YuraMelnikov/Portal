@@ -191,6 +191,8 @@
           <Property Name="Коммерческие издержки прочие" Type="int" />
           <Property Name="Условно ПИ" Type="int" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="комиссия от выручки" Type="int" />
+          <Property Name="претензии" Type="int" />
         </EntityType>
         <EntityType Name="FilterYearReport">
           <Key>
@@ -283,6 +285,8 @@
           <Property Name="Фактические издержки" Type="float" />
           <Property Name="Откл издержек" Type="float" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="комиссия от выручки" Type="int" />
+          <Property Name="претензии" Type="int" />
         </EntityType>
         <EntityType Name="PlanFactCostsLastYear">
           <Key>
@@ -837,6 +841,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <Property Name="ХПИ" Type="float" />
           <Property Name="ХНОП" Type="float" />
           <Property Name="ХССЗПФакт" Type="float" />
+          <Property Name="RSSM" Type="float" />
+          <Property Name="RSSMF" Type="float" />
         </EntityType>
         <EntityContainer Name="ReportKATEKModelStoreContainer">
           <EntitySet Name="BasicPlan" EntityType="Self.BasicPlan" Schema="dbo" store:Type="Tables" />
@@ -997,7 +1003,9 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
     [TEOInWorkPOGroupBy].[ХППК] AS [ХППК], 
     [TEOInWorkPOGroupBy].[ХПИ] AS [ХПИ], 
     [TEOInWorkPOGroupBy].[ХНОП] AS [ХНОП], 
-    [TEOInWorkPOGroupBy].[ХССЗПФакт] AS [ХССЗПФакт]
+    [TEOInWorkPOGroupBy].[ХССЗПФакт] AS [ХССЗПФакт], 
+    [TEOInWorkPOGroupBy].[RSSM] AS [RSSM], 
+    [TEOInWorkPOGroupBy].[RSSMF] AS [RSSMF]
     FROM [dbo].[TEOInWorkPOGroupBy] AS [TEOInWorkPOGroupBy]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -1236,6 +1244,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <Property Name="Коммерческие_издержки_прочие" Type="Int32" />
           <Property Name="Условно_ПИ" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="комиссия_от_выручки" Type="Int32" />
+          <Property Name="претензии" Type="Int32" />
         </EntityType>
         <EntityType Name="FilterYearReport">
           <Key>
@@ -1328,6 +1338,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <Property Name="Фактические_издержки" Type="Double" />
           <Property Name="Откл_издержек" Type="Double" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="комиссия_от_выручки" Type="Int32" />
+          <Property Name="претензии" Type="Int32" />
         </EntityType>
         <EntityType Name="PlanFactCostsLastYear">
           <Key>
@@ -1803,6 +1815,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <Property Name="ХПИ" Type="Double" />
           <Property Name="ХНОП" Type="Double" />
           <Property Name="ХССЗПФакт" Type="Double" />
+          <Property Name="RSSM" Type="Double" />
+          <Property Name="RSSMF" Type="Double" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1996,6 +2010,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <EntitySetMapping Name="FactCostsER">
             <EntityTypeMapping TypeName="ReportKATEKModel.FactCostsER">
               <MappingFragment StoreEntitySet="FactCostsER">
+                <ScalarProperty Name="претензии" ColumnName="претензии" />
+                <ScalarProperty Name="комиссия_от_выручки" ColumnName="комиссия от выручки" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Условно_ПИ" ColumnName="Условно ПИ" />
                 <ScalarProperty Name="Коммерческие_издержки_прочие" ColumnName="Коммерческие издержки прочие" />
@@ -2081,6 +2097,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <EntitySetMapping Name="PlanFactCosts">
             <EntityTypeMapping TypeName="ReportKATEKModel.PlanFactCosts">
               <MappingFragment StoreEntitySet="PlanFactCosts">
+                <ScalarProperty Name="претензии" ColumnName="претензии" />
+                <ScalarProperty Name="комиссия_от_выручки" ColumnName="комиссия от выручки" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Откл_издержек" ColumnName="Откл издержек" />
                 <ScalarProperty Name="Фактические_издержки" ColumnName="Фактические издержки" />
@@ -2587,6 +2605,8 @@ warning 6002: The table/view 'ReportKATEK.dbo.TEOInWorkPOGroupBy' does not have 
           <EntitySetMapping Name="TEOInWorkPOGroupBy">
             <EntityTypeMapping TypeName="ReportKATEKModel.TEOInWorkPOGroupBy">
               <MappingFragment StoreEntitySet="TEOInWorkPOGroupBy">
+                <ScalarProperty Name="RSSMF" ColumnName="RSSMF" />
+                <ScalarProperty Name="RSSM" ColumnName="RSSM" />
                 <ScalarProperty Name="ХССЗПФакт" ColumnName="ХССЗПФакт" />
                 <ScalarProperty Name="ХНОП" ColumnName="ХНОП" />
                 <ScalarProperty Name="ХПИ" ColumnName="ХПИ" />

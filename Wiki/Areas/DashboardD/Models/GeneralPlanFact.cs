@@ -24,6 +24,8 @@
         double pFull;
         double fFull;
         double rFull;
+        double fS11;
+        double fS12;
 
         public int Year { get => year; set => year = value; }
         public double PSSW { get => pSSW; set => pSSW = value; }
@@ -42,6 +44,8 @@
         public double FSSM { get => fSSM; set => fSSM = value; }
         public double RSSM { get => rSSM; set => rSSM = value; }
         public double FS1 { get => fS1; set => fS1 = value; }
+        public double FS11 { get => fS11; set => fS11 = value; }
+        public double FS12 { get => fS12; set => fS12 = value; }
         public double FS2 { get => fS2; set => fS2 = value; }
         public double PFull { get => pFull; set => pFull = value; }
         public double FFull { get => fFull; set => fFull = value; }

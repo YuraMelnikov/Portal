@@ -35,19 +35,19 @@
         <EntityTypeShape EntityType="ReportKATEKModel.SVNLast120" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkKBE" Width="1.5" PointX="14.75" PointY="3.75" />
         <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkKBM" Width="1.5" PointX="14.75" PointY="11.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPO" Width="1.5" PointX="8.75" PointY="15.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPOHist" Width="1.5" PointX="10.75" PointY="15.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.TVManuf_DateReport" Width="1.5" PointX="16.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.WBS" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.Week" Width="1.5" PointX="16.75" PointY="2.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" Width="1.5" PointX="16.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.forT3" Width="1.5" PointX="16.75" PointY="11.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.NoPlaningPZ" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.NOPOpenOrderLastTheerYears" Width="1.5" PointX="18.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.PostControlRazreshenieProizvodstva" Width="1.5" PointX="18.75" PointY="6.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.RKD" Width="1.5" PointX="18.75" PointY="9.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.RKD_DateAction" Width="1.5" PointX="18.75" PointY="12.75" />
-        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPOGroupBy" Width="1.5" PointX="18.75" PointY="15.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPO" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPOHist" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TVManuf_DateReport" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.WBS" Width="1.5" PointX="16.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.Week" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.ResultGraphicStatusPlanZakaz" Width="1.5" PointX="16.75" PointY="12.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.forT3" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.NoPlaningPZ" Width="1.5" PointX="6.75" PointY="18.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.NOPOpenOrderLastTheerYears" Width="1.5" PointX="18.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.PostControlRazreshenieProizvodstva" Width="1.5" PointX="8.75" PointY="18.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.RKD" Width="1.5" PointX="10.75" PointY="18.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.RKD_DateAction" Width="1.5" PointX="18.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ReportKATEKModel.TEOInWorkPOGroupBy" Width="1.5" PointX="18.75" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

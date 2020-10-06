@@ -39,5 +39,7 @@ namespace Wiki
         public Nullable<double> Фактические_издержки { get; set; }
         public Nullable<double> Откл_издержек { get; set; }
         public int id { get; set; }
+        public Nullable<int> комиссия_от_выручки { get; set; }
+        public Nullable<int> претензии { get; set; }
     }
 }
