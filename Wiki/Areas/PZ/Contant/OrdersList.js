@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     loadData();
-});
+}); 
 
 function loadData() {
     $("#myTable").DataTable({
@@ -8,7 +8,7 @@ function loadData() {
         "buttons": [
             'copyHtml5',
             'excelHtml5',
-            'csvHtml5'
+            'csvHtml5' 
         ],
         "ajax": {
             "cache": false,
@@ -284,6 +284,7 @@ function OrdersOpenedList() {
         "columns": [
             { "title": "№ заказа", "data": "PlanZakaz", "autowidth": true, "bSortable": true },
             { "title": "Контрактное наименование", "data": "Name", "autowidth": true, "bSortable": false },
+            { "title": "Наименование по ТУ", "data": "nameTU", "autowidth": true, "bSortable": false }, 
             { "title": "Заказчик", "data": "NameSort", "autowidth": true, "bSortable": false },
             { "title": "Дата отгрузки", "data": "DateSupply", "autowidth": true, "bSortable": false },
             { "title": "ОЛ", "data": "ol", "autowidth": true, "bSortable": false },
@@ -402,6 +403,7 @@ function Add() {
     }
     $("#btnAdd").attr('disabled', true);
     var typeObj = {
+        nameTU: $('#nameTU').val(),
         cge: $('#cge').val(),
         cgm: $('#cgm').val(),
         massa: $('#massa').val(),
@@ -468,7 +470,13 @@ function Add() {
 
 function validate() {
     var isValid = true;
-
+    if ($('#nameTU').val() === null) {
+        $('#nameTU').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#nameTU').css('border-color', 'lightgrey');
+    }
     if ($('#countOrders').val().trim() === "") {
         $('#countOrders').css('border-color', 'Red');
         isValid = false;
@@ -559,6 +567,7 @@ function validate() {
 
 function clearTextBox() {
     $('#btnGetInfGP').show();
+    $("#nameTU").attr('disabled', false);
     $("#btnAdd").attr('disabled', false);
     $('#Dostavka').val("");
     $('#Modul').val("");
@@ -594,6 +603,7 @@ function clearTextBox() {
     $('#ProductType').val("");
     $('#OL').val("");
     $('#Zapros').val("");
+    $('#nameTU').val("");
     $('#numZakupki').val("");
     $('#numLota').val("");
     $('#Gruzopoluchatel').val("");
@@ -624,6 +634,8 @@ function getbyID(Id) {
             $('#Id').val(result.Id);
             $('#cgm').val(result.cgm);
             $('#cge').val(result.cge);
+            $('#nameTU').val(result.nameTU);
+            $("#nameTU").attr('disabled', true);
             $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);
@@ -1108,7 +1120,7 @@ function UpdateKO() {
     var typeObj = {
         Id: $('#Id').val(),
         PlanZakaz: $('#kPlanZakaz').val(),
-        nameTU: $('#nameTU').val(),
+        //nameTU: $('#nameTU').val(),
         ProductType: $('#koProductType').val(),
         massa: $('#massa').val().replace('.', ','),
         cgm: $('#cgm').val().replace('.', ','),
@@ -1124,7 +1136,7 @@ function UpdateKO() {
         success: function (result) {
             $('#myTable').DataTable().ajax.reload(null, false);
             $('#orderKOModal').modal('hide');
-            $("#btnUpdateKO").attr('disabled', false);
+            $("#btnUpdateKO").attr('disabled', false); 
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1135,13 +1147,13 @@ function UpdateKO() {
 function validateUpdateKO() {
     var isValid = true;
     var tmp = $('#massa').val();
-    if ($('#nameTU').val() === null) {
-        $('#nameTU').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#nameTU').css('border-color', 'lightgrey');
-    }
+    //if ($('#nameTU').val() === null) {
+    //    $('#nameTU').css('border-color', 'Red');
+    //    isValid = false;
+    //}
+    //else {
+    //    $('#nameTU').css('border-color', 'lightgrey');
+    //}
     if ($('#massa').val() < 1) {
         $('#massa').css('border-color', 'Red');
         isValid = false;

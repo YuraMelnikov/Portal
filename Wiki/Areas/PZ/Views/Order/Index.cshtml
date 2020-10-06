@@ -12,7 +12,7 @@
     <script src="~/Content/DataTables/jszip.min.js"></script>
     <script src="~/Content/DataTables/pdfmake.min.js"></script>
     <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.12"></script>
+    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.14"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -130,6 +130,12 @@
                     <div class="col-lg-6">
                         <label for="Description">Примечание:</label>
                         @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", @rows = 4 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="nameTU">Наименование по ТУ:</label>
+                        <input type="text" class="form-control" id="nameTU" />
                     </div>
                 </div>
                 <br />
@@ -548,10 +554,10 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-lg-6">
+                    @*<div class="col-lg-6">
                         <label for="nameTU">Наименование по ТУ:</label>
                         @Html.TextAreaFor(model => model.nameTU, htmlAttributes: new { @class = "form-control", @rows = 5 })
-                    </div>
+                    </div>*@
                     <div class="col-lg-2">
                         <label for="ProductType">Тип продукции:</label>
                         @Html.DropDownList("koProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })
