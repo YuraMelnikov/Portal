@@ -308,10 +308,11 @@ namespace Wiki.Areas.CMOS.Models
         private List<string> GetFileArray()
         {
             var pre = db.CMOSOrderPreOrder.First(a => a.id_CMOSOrder == order.id);
+            var preOrder = db.CMOSPreOrder.First(a => a.id == pre.id_CMOSPreOrder);
 
             if (stepNumber == 7)
             {
-                if(pre.CMOSPreOrder.reOrder == true)
+                if(preOrder.reOrder == false)
                 {
                     return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
                 }

@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
 }
 <head>
-    <script src="~/Areas/CMOS/Content/CMOS.js?v.1.22"></script>
+    <script src="~/Areas/CMOS/Content/CMOS.js?v.2.0"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -231,41 +231,43 @@
                     </div>
                     <div class="col-lg-2">
                         <label>№ док. поступления ТМЦ:</label>
-                        <input type="text" class="form-control" id="numberTN" disabled="disabled"autocomplete="off"  />
+                        <input type="text" class="form-control" id="numberTN" disabled="disabled" autocomplete="off" />
+                    </div>
+                    @*<div class="col-lg-2">
+            <label>Дата создания док. пост. ТМЦ:</label>
+            <input type="text" class="form-control" id="dateTN" disabled="disabled" autocomplete="off" />
+        </div>*@
+                    <div class="col-lg-2">
+                        <label>Расчетный вес:</label>
+                        <input type="text" class="form-control" id="planWeight" disabled="disabled" autocomplete="off" />
                     </div>
                     <div class="col-lg-2">
-                        <label>Дата создания док. пост. ТМЦ:</label>
-                        <input type="text" class="form-control" id="dateTN" disabled="disabled" autocomplete="off" />
+                        <label>Ставка за кг, USD:</label>
+                        <input type="text" class="form-control" id="rate" />
                     </div>
                     <div class="col-lg-2">
                     </div>
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-lg-2">
-                        <label>Расчетный вес:</label>
-                        <input type="text" class="form-control" id="planWeight" disabled="disabled" autocomplete="off" />
-                    </div>
-                    <div class="col-lg-2">
+
+                    @*<div class="col-lg-2">
                         <label>Фактический вес:</label>
                         <input type="text" class="form-control" id="factWeightTN" disabled="disabled" autocomplete="off" />
-                    </div>
+                    </div>*@
                     <div class="col-lg-2">
                         <label>Цена, BYN:</label>
                         <input type="text" class="form-control" id="cost" disabled="disabled" autocomplete="off" />
                     </div>
-                    <div class="col-lg-2">
+                    @*<div class="col-lg-2">
                         <label>Стоимость, BYN:</label>
                         <input type="text" class="form-control" id="factCost" disabled="disabled" autocomplete="off" />
-                    </div>
+                    </div>*@
                     <div class="col-lg-2">
                         <label>Курс валюты:</label>
                         <input type="text" class="form-control" id="curency" disabled="disabled" autocomplete="off" />
                     </div>
-                    <div class="col-lg-2">
-                        <label>Ставка за кг, USD:</label>
-                        <input type="text" class="form-control" id="rate" />
-                    </div>
+
                 </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -381,7 +383,7 @@
     </div>
 </div>
 
-<div id="bujetListModal" class="modal modal-wide fade" data-keyboard="false">
+@*<div id="bujetListModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -397,7 +399,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <script>
     $(".modal-wide").on("show.bs.modal", function () {

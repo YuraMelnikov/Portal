@@ -86,7 +86,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.factCost,
                         folder = @"<a href =" + dataList.folder + "> Папка </a>",
                         tnNumber = dataList.numberTN,
-                        dateTN = dataList.dateTN,
+                        //dateTN = dataList.dateTN,
                         summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
                         dataList.rate,
@@ -335,7 +335,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     ord.remove = true;
                     db.Entry(ord).State = EntityState.Modified;
                     db.SaveChanges();
-                    new EmailCMOS(ord, login, 6);
+                    //new EmailCMOS(ord, login, 6);
                     logger.Debug("CMOSSController / RemoveOrder: " + id.ToString() + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -513,7 +513,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.SaveChanges();
                     CreatingFileOrder(order.id);
                     CreatingStockFileOrder(order.id);
-                    new EmailCMOS(order, login, 2, datePlanningGetMaterials);
+                    //new EmailCMOS(order, login, 2, datePlanningGetMaterials);
                     logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -628,7 +628,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
                         customerOrderId = dataList.cMO_CompanyId,
                         numberTN = dataList.numberTN,
-                        dateTN = JsonConvert.SerializeObject(dataList.dateTN, shortDefaultSetting).Replace(@"""", ""),
+                        //dateTN = JsonConvert.SerializeObject(dataList.dateTN, shortDefaultSetting).Replace(@"""", ""),
                         cost = dataList.cost,
                         factCost = dataList.factCost,
                         planWeight = GetWeigthtOrder(dataList.id),
@@ -696,8 +696,7 @@ namespace Wiki.Areas.CMOS.Controllers
 
         [HttpPost]
         public JsonResult UpdateOrder(int idOrder, int customerOrderId, DateTime? manufDate,
-            DateTime? finDate, string numberTN, double? factCost, double? factWeightTN, double rate,
-            DateTime? dateTN)
+            DateTime? finDate, string numberTN, double rate)
         {
             string login = HttpContext.User.Identity.Name;
             try
@@ -732,7 +731,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
-                        new EmailCMOS(order, login, 2);
+                        //new EmailCMOS(order, login, 2);
                     }
                     else if (numberTN == "" && finDate == null)
                     {
@@ -746,27 +745,28 @@ namespace Wiki.Areas.CMOS.Controllers
                             var prd = db.CMOSOrderPreOrder
                                 .Include(a => a.CMOSPreOrder)
                                 .First(a => a.id_CMOSOrder == order.id);
-                            if (prd.CMOSPreOrder.reOrder == false)
-                                new EmailCMOS(order, login, 3);
+                            //if (prd.CMOSPreOrder.reOrder == false)
+                            //    new EmailCMOS(order, login, 3);
                         }
                     }
                     else if (finDate == null)
                     {
+                        if(order.numberTN == "")
+                            order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         order.numberTN = numberTN;
-                        order.dateTN = dateTN;
-                        order.cost = Math.Round(order.rate * GetCurrency(order.dateTN.Value) * summaryWeight, 2);
-                        order.factCost = factCost;
-                        order.weight = factWeightTN.Value;
+                        //order.dateTN = dateTN;
+                        //order.factCost = factCost;
+                        //order.weight = factWeightTN.Value;
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
-                        new EmailCMOS(order, login, 7);
+                        //new EmailCMOS(order, login, 7);
                     }
                     else if (finDate != null)
                     {
                         order.numberTN = numberTN;
-                        order.dateTN = dateTN;
-                        order.factCost = factCost;
-                        order.weight = factWeightTN.Value;
+                        //order.dateTN = dateTN;
+                        //order.factCost = factCost;
+                        //order.weight = factWeightTN.Value;
                         order.finDate = finDate;
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
@@ -975,7 +975,6 @@ namespace Wiki.Areas.CMOS.Controllers
                 return 0.0;
             }
         }
-
 
         private string GetSKU(string name, string index, string designation)
         {

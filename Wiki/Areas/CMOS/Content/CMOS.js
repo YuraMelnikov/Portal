@@ -364,14 +364,13 @@ function CleanerModals() {
     $('#manufDate').val("");
     $('#finDate').val("");
     $('#numberTN').val("");
-    $('#dateTN').val("");
+    //$('#dateTN').val("");
     $('#cost').val("");
-    $('#factCost').val("");
+    //$('#factCost').val("");
     $('#planWeight').val("");
-    $('#factWeightTN').val("");
     $('#curency').val("");
     $('#rate').val("");
-    $('#factWeightTN').val("");
+    //$('#factWeightTN').val("");
     $('#filePreorder').val("");
     $('#fileBackorder').val("");
     $('#datePlanningGetMaterials').val("");
@@ -562,11 +561,11 @@ function GetOrder(id) {
             $('#finDate').val(result.finDate);
             $('#customerOrderId').val(result.customerOrderId);
             $('#numberTN').val(result.numberTN);
-            $('#dateTN').val(result.dateTN);
+            //$('#dateTN').val(result.dateTN);
             $('#cost').val(result.cost);
-            $('#factCost').val(result.factCost);
+            //$('#factCost').val(result.factCost); 
             $('#planWeight').val(result.planWeight);
-            $('#factWeightTN').val(result.factWeightTN);
+            //$('#factWeightTN').val(result.factWeightTN);
             $('#curency').val(result.curency);
             $('#rate').val(result.rate);
             if (result.manufDate === "null") {
@@ -574,25 +573,26 @@ function GetOrder(id) {
             }
             else if (result.numberTN === null && result.finDate === null) {
                 $('#numberTN').prop('disabled', true);
-                $('#dateTN').prop('disabled', true);
-                $('#factWeightTN').prop('disabled', true);
-                $('#factCost').prop('disabled', true);
+                //$('#dateTN').prop('disabled', true);
+                //$('#factWeightTN').prop('disabled', true); 
+                //$('#factCost').prop('disabled', true);
             }
             else if (result.numberTN === null) {
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
                 //$('#rate').prop('disabled', true);
                 $('#numberTN').prop('disabled', false); 
-                $('#dateTN').prop('disabled', false);
-                $('#factWeightTN').prop('disabled', false);
-                $('#factCost').prop('disabled', false);
+                //$('#dateTN').prop('disabled', false);
+                //$('#factWeightTN').prop('disabled', false);
+                //$('#factCost').prop('disabled', false);
             }
             else {
-                $('#factWeightTN').prop('disabled', false);
-                $('#factCost').prop('disabled', false);
+                //$('#factWeightTN').prop('disabled', false);
+                //$('#factCost').prop('disabled', false);
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
                 $('#finDate').prop('disabled', false);
+                $('#numberTN').prop('disabled', false); 
                 //$('#rate').prop('disabled', true); 
             }
             $('#btnUpdateOrder').show();
@@ -608,9 +608,9 @@ function UpdateOrder() {
         manufDate: $('#manufDate').val(),
         finDate: $('#finDate').val(),
         numberTN: $('#numberTN').val(),
-        dateTN: $('#dateTN').val(),
-        factCost: $('#factCost').val().replace('.', ','),
-        factWeightTN: $('#factWeightTN').val().replace('.', ','),
+        //dateTN: $('#dateTN').val(),
+        //factCost: $('#factCost').val().replace('.', ','),
+        //factWeightTN: $('#factWeightTN').val().replace('.', ','), 
         rate: $('#rate').val().replace('.', ',')
     };
     if (obj.numberTN !== "") {
@@ -640,13 +640,13 @@ function UpdateOrder() {
 
 function ValidTN() {
     var isValid = true;
-    if ($('#factCost').val() === "0" || $('#factCost').val() === "" || $('#factCost').val() === 0) {
-        $('#factCost').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#factCost').css('border-color', 'lightgrey');
-    }
+    //if ($('#factCost').val() === "0" || $('#factCost').val() === "" || $('#factCost').val() === 0) {
+    //    $('#factCost').css('border-color', 'Red');
+    //    isValid = false;
+    //}
+    //else {
+    //    $('#factCost').css('border-color', 'lightgrey');
+    //}
     return isValid;
 }
 
