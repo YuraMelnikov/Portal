@@ -120,7 +120,7 @@ namespace Wiki.Areas.Reclamation.Models
             mailToList.Add("myi@katek.by");
             if (stepNumber == 5)
             {
-                mailToList.Add(reclamation.AspNetUsers1.Email);
+                mailToList.Add(db.AspNetUsers.Find(reclamation.id_AspNetUsersError).Email);
             }
             else
             {
