@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
 }
 <head>
-    <script src="~/Areas/CMOS/Content/CMOS.js?v.2.0"></script>
+    <script src="~/Areas/CMOS/Content/CMOS.js?v.2.1.3"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -56,6 +56,10 @@
         <button id="btnReOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateBackorder()>Сформировать дозаказ изделий из ЛМ</button>
         <button id="btnAddOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateOrder()>Сформировать заказ изделий из ЛМ</button>
         <button id="btnOpeningMaterialsCModal" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningMaterialsCModal()>Загрузить SKU</button>
+
+        <button id="btnCorrectArmis" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectArmis()>Сверка Армис</button>
+        <button id="btnCorrectGratius" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectGratius()>Сверка Гратиус</button>
+        <button id="btnCorrectEcowood" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectEcowood()>Сверка Эковуд</button>
         <hr />
         <div id="dTableNoPlaningPreOrder" style="display:none;">
             <label>Требуется сформировать заказ поставщику:</label>
@@ -400,6 +404,135 @@
         </div>
     </div>
 </div>*@
+
+<div id="OpeningCorrectArmisModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label>Укажите № заказа изделий из ЛМ:</label>
+                        @Html.DropDownList("correctingListArmis", ViewBag.correctingListArmis as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xls, .xlsx" type="file" multiple name="fileArmisOrder" id="fileArmisOrder" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingFileArmis" class="btn btn-primary" onclick="LoadingFileArmis()">Проверить файл</button>
+                        <div id="loaderOpeningCorrectArmisModal" class="loader"></div>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="OpeningCorrectGratiusModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label>Укажите № заказа изделий из ЛМ:</label>
+                        @Html.DropDownList("correctingListGratius", ViewBag.correctingListGratius as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xls, .xlsx" type="file" multiple name="fileGratiusOrder" id="fileGratiusOrder" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingFileGratius" class="btn btn-primary" onclick="LoadingFileGratius()">Проверить файл</button>
+                        <div id="loaderOpeningCorrectGratiusModal" class="loader"></div>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="OpeningCorrectEcowoodModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label>Укажите № заказа изделий из ЛМ:</label>
+                        @Html.DropDownList("correctingListEcowood", ViewBag.correctingListEcowood as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xls, .xlsx" type="file" multiple name="fileEcowoodOrder" id="fileEcowoodOrder" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingFileEcowood" class="btn btn-primary" onclick="LoadingFileEcowood()">Проверить файл</button>
+                        <div id="loaderOpeningCorrectEcowoodModal" class="loader"></div>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(".modal-wide").on("show.bs.modal", function () {

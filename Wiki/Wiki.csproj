@@ -330,6 +330,7 @@
     <Compile Include="Areas\CMKO\Types\UserResult.cs" />
     <Compile Include="Areas\CMOS\CMOSAreaRegistration.cs" />
     <Compile Include="Areas\CMOS\Controllers\CMOSSController.cs" />
+    <Compile Include="Areas\CMOS\Models\CorrectingModel.cs" />
     <Compile Include="Areas\CMOS\Models\EmailCMOS.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsOrdObj.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsPreObj.cs" />
@@ -3224,6 +3225,7 @@
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
+    <Folder Include="temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

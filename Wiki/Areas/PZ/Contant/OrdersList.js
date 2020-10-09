@@ -569,6 +569,7 @@ function clearTextBox() {
     $('#btnGetInfGP').show();
     $("#nameTU").attr('disabled', false);
     $("#btnAdd").attr('disabled', false);
+    $("#Cost").attr('disabled', false);
     $('#Dostavka').val("");
     $('#Modul').val("");
     $('#PowerST').val("");
@@ -636,6 +637,7 @@ function getbyID(Id) {
             $('#cge').val(result.cge);
             $('#nameTU').val(result.nameTU);
             $("#nameTU").attr('disabled', true);
+            $("#Cost").attr('disabled', true); 
             $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);

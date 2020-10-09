@@ -6,8 +6,8 @@ DECLARE @periodMP1 NVARCHAR(7);
 DECLARE @periodMP2 NVARCHAR(7);
 DECLARE @periodMP3 NVARCHAR(7);
 DECLARE @coefConvertCalendarNorm float;
-DECLARE	@coefBujetManager float;
-DECLARE	@coefBujetWorker float;
+DECLARE @coefBujetManager float;
+DECLARE @coefBujetWorker float;
 DECLARE @coenBujetNManager float;
 DECLARE @coefBujetNWorker float;
 DECLARE @cost1N float;
@@ -23,13 +23,15 @@ DECLARE @coefErrorGip float;
 
 SET @coefErrorGip = 1000.0;
 SET @coefConvertCalendarNorm = 0.9;
-SET @periodQua ='2020.2';
-SET @periodM1 ='2020.4';
-SET @periodM2 ='2020.5';
-SET @periodM3 ='2020.6';
-SET @periodMP1 ='2020.04';
-SET @periodMP2 ='2020.05';
-SET @periodMP3 ='2020.06';
+SET @periodQua ='2020.4';
+--short
+SET @periodM1 ='2020.10';
+SET @periodM2 ='2020.11';
+SET @periodM3 ='2020.12';
+--long
+SET @periodMP1 ='2020.10';
+SET @periodMP2 ='2020.11';
+SET @periodMP3 ='2020.12';
 SET @coefBujetWorker = 0.0105;
 SET @coefBujetManager = 0.0020;
 SET @coenBujetNManager = 0.16;
@@ -69,7 +71,7 @@ from PortalKATEK.dbo.Reclamation
                 left join ProjectWebApp.dbo.MSP_EpmProject_UserView on ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа] like PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz
                 left join PortalKATEK.dbo.Reclamation_CountError on PortalKATEK.dbo.Reclamation_CountError.id = PortalKATEK.dbo.Reclamation.id_Reclamation_CountErrorFirst
                 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = PortalKATEK.dbo.Reclamation.id_AspNetUsersError
-                where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
+                where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 15 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
                 and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
                 and ProjectWebApp.dbo.MSP_EpmProject_UserView.[Кол-во КО] != 0
                 and PortalKATEK.dbo.Reclamation.id_AspNetUsersError is not null
@@ -95,7 +97,7 @@ ROW_NUMBER() OVER(PARTITION BY PortalKATEK.dbo.Reclamation.id ORDER BY PortalKAT
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 		left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
+		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16)
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua
 		and PortalKATEK.dbo.Reclamation.gip = 1
@@ -444,8 +446,12 @@ PortalKATEK.dbo.AspNetUsers.Id as id_AspNetUsers
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax2
 ,isnull(max(PortalKATEK.dbo.AspNetUsers.tax), 0) as tax3
 ,isnull(1 - 4 * (ReclamationCounter.countError / sum(OrdersTasks.normH)), 1) as coefError
-,isnull(1.0 - ((400.0 * ReclamationCounter.countErrorG) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, PortalKATEK.dbo.CMKO_BujetList.normH, 0.0)))), 1.0) as coefErrorG
-,iif(1.0 - ((400.0 * convert(float, ReclamationCounter.countError)) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, convert(float, OrdersTasks.normH), 0.0)))) >= 0.99, @sizeQualityBonus, 0.0) as qualityBonus
+,iif((100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, PortalKATEK.dbo.CMKO_BujetList.normH, 0.0))) = 0, 0,
+isnull(1.0 - ((400.0 * ReclamationCounter.countErrorG) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, 
+PortalKATEK.dbo.CMKO_BujetList.normH, 0.0)))), 1.0)) as coefErrorG
+,iif(100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, convert(float, OrdersTasks.normH), 0.0)) = 0, 0, 
+iif(1.0 - ((400.0 * convert(float, ReclamationCounter.countError)) / (100.0 * sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100.0, 
+convert(float, OrdersTasks.normH), 0.0)))) >= 0.99, @sizeQualityBonus, 0.0)) as qualityBonus
 ,sum(PortalKATEK.dbo.CMKO_BujetList.normH) as nhPlan
 ,sum(iif(PortalKATEK.dbo.CMKO_BujetList.TaskPercentCompleted = 100, PortalKATEK.dbo.CMKO_BujetList.normH, 0)) as nhFact
 ,0 as nhGPlan
@@ -474,7 +480,7 @@ left join (select * from PortalKATEK.dbo.CMKO_Teach where PortalKATEK.dbo.CMKO_T
 left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = @periodQua and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
 left join (select * from PortalKATEK.dbo.CMKO_BujetList where PortalKATEK.dbo.CMKO_BujetList.id_PZ_PlanZakaz is not null) as OrdersTasks on OrdersTasks.Id = [PortalKATEK].[dbo].[CMKO_BujetList].Id
 where PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1
-and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
+and (PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 and PortalKATEK.dbo.CMKO_BujetList.quartalFinishTask = @periodQua
 group by
 PortalKATEK.dbo.AspNetUsers.Id
@@ -517,7 +523,7 @@ from (select PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersE as id_UserKBE
 		left join PortalKATEK.dbo.PZ_PlanZakaz on PortalKATEK.dbo.PZ_PlanZakaz.id = PortalKATEK.dbo.Reclamation_PZ.id_PZ_PlanZakaz
 		left join ProjectWebApp.dbo.MSP_EpmProject_UserView on PortalKATEK.dbo.PZ_PlanZakaz.PlanZakaz like ProjectWebApp.dbo.MSP_EpmProject_UserView.[№ заказа]
 		left join PortalKATEK.dbo.ApproveCDOrders on PortalKATEK.dbo.ApproveCDOrders.id_PZ_PlanZakaz = PortalKATEK.dbo.PZ_PlanZakaz.Id
-		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 16 or PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
+		where (PortalKATEK.dbo.Reclamation.id_DevisionReclamation = 3)
 		and PortalKATEK.dbo.Reclamation.closeMKO = 1 
 		and concat(year(Portalkatek.dbo.Reclamation.dateTimeCreate),'.', (month(Portalkatek.dbo.Reclamation.dateTimeCreate) + 2) / 3) = @periodQua 
 		and PortalKATEK.dbo.Reclamation.gip = 1
@@ -526,7 +532,7 @@ from (select PortalKATEK.dbo.ApproveCDOrders.id_AspNetUsersE as id_UserKBE
 		group by TableResult.id_UserKBE) as TableGipCoef on TableGipCoef.id_UserKBE = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
-where (PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16)
+where (PortalKATEK.dbo.Devision.id = 16)
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
@@ -535,7 +541,7 @@ from
 [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers] left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.Id = [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].id_AspNetUsers
 left join PortalKATEK.dbo.Devision on PortalKATEK.dbo.Devision.id = PortalKATEK.dbo.AspNetUsers.Devision
 where [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers].nhGFact = 0
-and (PortalKATEK.dbo.Devision.id = 3 or PortalKATEK.dbo.Devision.id = 16)
+and (PortalKATEK.dbo.Devision.id = 16)
 
 
 update [PortalKATEK].[dbo].[CMKO_ThisIndicatorsUsers]
@@ -784,7 +790,7 @@ select PortalKATEK.dbo.CMKO_PeriodResult.[period]
 ,PortalKATEK.dbo.AspNetUsers.Id
 ,1
 from PortalKATEK.dbo.CMKO_PeriodResult 
-left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1 and (PortalKATEK.dbo.AspNetUsers.Devision = 3 or PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
+left join PortalKATEK.dbo.AspNetUsers on PortalKATEK.dbo.AspNetUsers.LockoutEnabled = 1 and (PortalKATEK.dbo.AspNetUsers.Devision = 15 or PortalKATEK.dbo.AspNetUsers.Devision = 16)
 left join PortalKATEK.dbo.CMKO_ThisCoefManager on PortalKATEK.dbo.CMKO_ThisCoefManager.id_CMKO_PeriodResult = PortalKATEK.dbo.CMKO_PeriodResult.[period] and PortalKATEK.dbo.CMKO_ThisCoefManager.id_AspNetUsers = PortalKATEK.dbo.AspNetUsers.Id
 where PortalKATEK.dbo.CMKO_ThisCoefManager.id is null
 

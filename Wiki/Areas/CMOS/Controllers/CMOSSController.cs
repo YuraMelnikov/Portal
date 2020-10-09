@@ -54,6 +54,15 @@ namespace Wiki.Areas.CMOS.Controllers
             else
                 ViewBag.userGroupId = 3;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
+            ViewBag.correctingListArmis = new SelectList(db.CMOSOrder
+                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 1)
+                .OrderBy(d => d.id), "id", "id");
+            ViewBag.correctingListGratius = new SelectList(db.CMOSOrder
+                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 2)
+                .OrderBy(d => d.id), "id", "id");
+            ViewBag.correctingListEcowood = new SelectList(db.CMOSOrder
+                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 3)
+                .OrderBy(d => d.id), "id", "id");
             logger.Debug("CMOSSController/Index: " + login);
             return View();
         }
@@ -335,7 +344,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     ord.remove = true;
                     db.Entry(ord).State = EntityState.Modified;
                     db.SaveChanges();
-                    //new EmailCMOS(ord, login, 6);
+                    new EmailCMOS(ord, login, 6);
                     logger.Debug("CMOSSController / RemoveOrder: " + id.ToString() + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -513,7 +522,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.SaveChanges();
                     CreatingFileOrder(order.id);
                     CreatingStockFileOrder(order.id);
-                    //new EmailCMOS(order, login, 2, datePlanningGetMaterials);
+                    new EmailCMOS(order, login, 2, datePlanningGetMaterials);
                     logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
@@ -731,7 +740,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
-                        //new EmailCMOS(order, login, 2);
+                        new EmailCMOS(order, login, 2);
                     }
                     else if (numberTN == "" && finDate == null)
                     {
@@ -745,8 +754,8 @@ namespace Wiki.Areas.CMOS.Controllers
                             var prd = db.CMOSOrderPreOrder
                                 .Include(a => a.CMOSPreOrder)
                                 .First(a => a.id_CMOSOrder == order.id);
-                            //if (prd.CMOSPreOrder.reOrder == false)
-                            //    new EmailCMOS(order, login, 3);
+                            if (prd.CMOSPreOrder.reOrder == false)
+                                new EmailCMOS(order, login, 3);
                         }
                     }
                     else if (finDate == null)
@@ -759,7 +768,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         //order.weight = factWeightTN.Value;
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
-                        //new EmailCMOS(order, login, 7);
+                        new EmailCMOS(order, login, 7);
                     }
                     else if (finDate != null)
                     {
@@ -949,6 +958,275 @@ namespace Wiki.Areas.CMOS.Controllers
                     logger.Error("GetBujetList / GetPositionsOrder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult LoadingFileArmis()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                HttpPostedFileBase[] files = new HttpPostedFileBase[Request.Files.Count];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Request.Files[i];
+                }
+                int ord = GetTypeMaterials(Request.Form.ToString());
+                var positions = db.CMOSPositionOrder
+                    .AsNoTracking()
+                    .Where(a => a.id_CMOSOrder == ord && a.note != "Входит в сб.")
+                    .ToList();
+                foreach (var p in positions)
+                {
+                    p.weight = 0.0;
+                }
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.Open(files[0].InputStream);
+                    workbook.Version = ExcelVersion.Excel97to2003;
+                    string fullPath = Path.Combine(Server.MapPath("~/temp"), files[0].FileName);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    bool read = false;
+                    int rows = worksheet.Rows.Length;
+
+
+                    var t = GetPositionsNameOrder(ord);
+
+                    worksheet.Rows[0].Cells[0].Text = ord.ToString() + ": " + GetPositionsNameOrder(ord).Replace("\r\n\n", "; ");
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (read == false)
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "Наименование товара")
+                            {
+                                read = true;
+                                i += 3;
+                            }
+                        }
+                        else
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "ИТОГО")
+                            {
+                                worksheet.Rows[1].Cells[0].Text = "Кол-во строк: " + (i + 2).ToString();
+                                i = rows;
+                            }
+                            else
+                            {
+                                string postName = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "");
+                                string name = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "");
+                                string[] split = postName.Split();
+                                if (split[0] == "")
+                                {
+                                    name = name.Substring(1, name.Length - 1);
+                                    postName = postName.Substring(1, postName.Length - 1);
+                                }
+                                var indexPos = name.IndexOf(">");
+                                name = name.Substring(0, indexPos);
+                                postName = postName.Substring(indexPos);
+                                if (double.IsNaN(worksheet.Rows[i].Cells[20].Number))
+                                    worksheet.Rows[i].Cells[20].Number = 0.0;
+                                if (double.IsNaN(worksheet.Rows[i].Cells[25].Number))
+                                    worksheet.Rows[i].Cells[25].Number = 0.0;
+                                if (double.IsNaN(worksheet.Rows[i].Cells[28].Number))
+                                    worksheet.Rows[i].Cells[28].Number = 0.0;
+                                if (double.IsNaN(worksheet.Rows[i].Cells[33].Number))
+                                    worksheet.Rows[i].Cells[33].Number = 0.0;
+                                worksheet.Rows[i].Cells[0].Text = name + postName;
+                                double quentity = worksheet.Rows[i].Cells[13].Number;
+                                try
+                                {
+                                    var findPosition = positions.First(a => a.designation + " <" + a.index == name);
+                                    findPosition.weight += quentity;
+                                    if (findPosition.quantity != quentity)
+                                    {
+                                        worksheet.Rows[i].Cells[38].Text = "Неверное кол-во, заложено: " + Math.Round(findPosition.quantity, 2).ToString();
+                                        worksheet.Rows[i].Cells[38].CellStyle.ColorIndex = ExcelKnownColors.Light_yellow;
+                                    }
+                                }
+                                catch
+                                {
+                                    worksheet.Rows[i].Cells[38].Text = "Позиция не найдена";
+                                    worksheet.Rows[i].Cells[38].CellStyle.ColorIndex = ExcelKnownColors.Red2;
+                                }
+                            }
+                        }
+                    }
+                    var notFoundPositions = positions.Where(a => a.weight == 0.0).ToList();
+                    int j = 0;
+                    foreach (var p in notFoundPositions)
+                    {
+                        worksheet.Rows[j].Cells[46].Value = p.designation + "<" + p.index + ">" + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
+                        j++;
+                    }
+                    workbook.SaveAs(@"\\192.168.1.16\public$\Финансовый отдел\Армис для загрузки\" + ord.ToString() + ".xls");
+                }
+                return Json(1);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult LoadingFileGratius()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                HttpPostedFileBase[] files = new HttpPostedFileBase[Request.Files.Count];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Request.Files[i];
+                }
+                int ord = GetTypeMaterials(Request.Form.ToString());
+                var positions = db.CMOSPositionOrder
+                    .AsNoTracking()
+                    .Where(a => a.id_CMOSOrder == ord && a.note != "Входит в сб.")
+                    .ToList();
+                foreach (var p in positions)
+                {
+                    p.weight = 0.0;
+                }
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.Open(files[0].InputStream);
+                    string fullPath = Path.Combine(Server.MapPath("~/temp"), files[0].FileName);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    bool read = false;
+                    int rows = worksheet.Rows.Length;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (read == false)
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "№ п/п")
+                            {
+                                read = true;
+                            }
+                        }
+                        else
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "")
+                                i = rows;
+                            else
+                            {
+                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + "<" + worksheet.Rows[i].Cells[3].Value.Replace(" ", "");
+                                worksheet.Rows[i].Cells[1].Text = name + ">" + worksheet.Rows[i].Cells[2].Text;
+                                double quentity = worksheet.Rows[i].Cells[4].Number;
+                                try
+                                {
+                                    var findPosition = positions.First(a => a.designation + "<" + a.index == name);
+                                    findPosition.weight += quentity;
+                                    if (findPosition.quantity != quentity)
+                                    {
+                                        worksheet.Rows[i].Cells[9].Text = "Неверное кол-во, заложено: " + Math.Round(findPosition.quantity, 2).ToString();
+                                        worksheet.Rows[i].Cells[9].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
+                                    }
+                                }
+                                catch
+                                {
+                                    worksheet.Rows[i].Cells[9].Text = "Позиция не найдена";
+                                    worksheet.Rows[i].Cells[9].CellStyle.ColorIndex = ExcelKnownColors.Red2;
+                                }
+                            }
+                        }
+                    }
+                    var notFoundPositions = positions.Where(a => a.weight == 0.0).ToList();
+                    int j = 8;
+                    foreach (var p in notFoundPositions)
+                    {
+                        worksheet.Rows[j].Cells[8].Value = p.designation + "<" + p.index + ">" + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
+                        worksheet.Rows[j].Cells[8].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
+                        j++;
+                    }
+                    workbook.SaveAs(fullPath);
+                }
+                var errorMessage = "you can return the errors here!";
+                return Json(new { fileName = files[0].FileName, errorMessage });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult LoadingFileEcowood()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                HttpPostedFileBase[] files = new HttpPostedFileBase[Request.Files.Count];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Request.Files[i];
+                }
+                int ord = GetTypeMaterials(Request.Form.ToString());
+                var positions = db.CMOSPositionOrder
+                    .AsNoTracking()
+                    .Where(a => a.id_CMOSOrder == ord && a.note != "Входит в сб.")
+                    .ToList();
+                foreach (var p in positions)
+                {
+                    p.weight = 0.0;
+                }
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.Open(files[0].InputStream);
+                    string fullPath = Path.Combine(Server.MapPath("~/temp"), files[0].FileName);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    bool read = false;
+                    int rows = worksheet.Rows.Length;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        if (read == false)
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "№п/п")
+                            {
+                                read = true;
+                            }
+                        }
+                        else
+                        {
+                            if (worksheet.Rows[i].Cells[0].Value == "")
+                                i = rows;
+                            else
+                            {
+                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + "<" + worksheet.Rows[i].Cells[3].Value.Replace(" ", "");
+                                worksheet.Rows[i].Cells[1].Text = name + ">" + worksheet.Rows[i].Cells[2].Text;
+                                double quentity = worksheet.Rows[i].Cells[4].Number;
+                                try
+                                {
+                                    var findPosition = positions.First(a => a.designation + "<" + a.index == name);
+                                    findPosition.weight += quentity;
+                                    if (findPosition.quantity != quentity)
+                                    {
+                                        worksheet.Rows[i].Cells[9].Text = "Неверное кол-во, заложено: " + Math.Round(findPosition.quantity, 2).ToString();
+                                        worksheet.Rows[i].Cells[9].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
+                                    }
+                                }
+                                catch
+                                {
+                                    worksheet.Rows[i].Cells[9].Text = "Позиция не найдена";
+                                    worksheet.Rows[i].Cells[9].CellStyle.ColorIndex = ExcelKnownColors.Red2;
+                                }
+                            }
+                        }
+                    }
+                    var notFoundPositions = positions.Where(a => a.weight == 0.0).ToList();
+                    int j = 8;
+                    foreach (var p in notFoundPositions)
+                    {
+                        worksheet.Rows[j].Cells[8].Value = p.designation + "<" + p.index + ">" + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
+                        worksheet.Rows[j].Cells[8].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
+                        j++;
+                    }
+                    workbook.SaveAs(fullPath);
+                }
+                var errorMessage = "you can return the errors here!";
+                return Json(new { fileName = files[0].FileName, errorMessage });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Download(string fileName)
+        {
+            string fullPath = Path.Combine(Server.MapPath("~/temp"), fileName);
+            byte[] fileByteArray = System.IO.File.ReadAllBytes(fullPath);
+            System.IO.File.Delete(fullPath);
+            return File(fileByteArray, "application/vnd.ms-excel", fileName);
         }
 
         private double GetCurrency(DateTime date)

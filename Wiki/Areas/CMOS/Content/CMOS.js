@@ -11,6 +11,9 @@ $(document).ready(function () {
         $('#dTableNoClothingOrder').show();
         $('#dFullReport').show(); 
         $('#btnOpeningMaterialsCModal').show();
+        $('#btnCorrectArmis').show();
+        $('#btnCorrectGratius').show();
+        $('#btnCorrectEcowood').show();
     }
     else if (userGroupId === 2) { 
         $('#btnAddPreOrder').show();
@@ -20,10 +23,16 @@ $(document).ready(function () {
     }
     else if (userGroupId === 4) {
         $('#dFullReport').show();
+        $('#btnCorrectArmis').show();
+        $('#btnCorrectGratius').show();
+        $('#btnCorrectEcowood').show();
     }
     else if (userGroupId === 5) {
         $('#dTableTNOrder').show();
         $('#dFullReport').show();
+        $('#btnCorrectArmis').show();
+        $('#btnCorrectGratius').show();
+        $('#btnCorrectEcowood').show();
     }
     else {
         $('#dShortReport').show();
@@ -805,3 +814,117 @@ function GetBujetList(id) {
     });
     $('#bujetListModal').modal('show');
 }
+
+function ValidLoadingFile(lenghtFile) {
+    var isValid = true;
+    if (lenghtFile === 0) {
+        isValid = false;
+    }
+    return isValid;
+} 
+
+function LoadingFileArmis() {
+    var files = document.getElementById('fileArmisOrder').files;
+    var valid = ValidLoadingFile(files.length);
+    if (valid === false) {
+        return false;
+    }
+    $('#btnLoadingFileArmis').hide();
+    $('#loaderOpeningCorrectArmisModal').show();
+    var data = new FormData();
+    var t = $('#correctingListArmis').val(); 
+    data.append(t, t);
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingFileArmis",
+        contentType: false,
+        processData: false,
+        data: data,
+
+    }).done(function (data) {
+        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
+        //window.location.href = myUrl;
+        $('#OpeningCorrectArmisModal').modal('hide');
+        $('#btnLoadingFileArmis').show();
+        $('#loaderOpeningCorrectArmisModal').hide();
+    }); 
+}
+
+function OpeningCorrectArmis() {
+    $('#OpeningCorrectArmisModal').modal('show');
+    $('#loaderOpeningCorrectArmisModal').hide();
+}
+
+function LoadingFileGratius() {
+    var files = document.getElementById('fileGratiusOrder').files;
+    var valid = ValidLoadingFile(files.length);
+    if (valid === false) {
+        return false;
+    }
+    $('#btnLoadingFileGratius').hide();
+    $('#loaderOpeningCorrectGratiusModal').show();
+    var data = new FormData();
+    var t = $('#correctingListGratius').val();
+    data.append(t, t);
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingFileGratius",
+        contentType: false,
+        processData: false,
+        data: data,
+
+    }).done(function (data) {
+        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
+        //window.location.href = myUrl;
+        $('#OpeningCorrectGratiusModal').modal('hide');
+        $('#btnLoadingFileGratius').show();
+        $('#loaderOpeningCorrectGratiusModal').hide();
+    });
+}
+
+function OpeningCorrectGratius() {
+    $('#OpeningCorrectGratiusModal').modal('show');
+    $('#loaderOpeningCorrectGratiusModal').hide();
+} 
+
+//
+function LoadingFileEcowood() {
+    var files = document.getElementById('fileEcowoodOrder').files;
+    var valid = ValidLoadingFile(files.length);
+    if (valid === false) {
+        return false;
+    }
+    $('#btnLoadingFileEcowood').hide();
+    $('#loaderOpeningCorrectEcowoodModal').show();
+    var data = new FormData();
+    var t = $('#correctingListEcowood').val();
+    data.append(t, t);
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingFileEcowood",
+        contentType: false,
+        processData: false,
+        data: data,
+
+    }).done(function (data) {
+        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
+        //window.location.href = myUrl;
+        $('#OpeningCorrectEcowoodModal').modal('hide');
+        $('#btnLoadingFileEcowood').show(); 
+        $('#loaderOpeningCorrectEcowoodModal').hide();
+    });
+}
+
+function OpeningCorrectEcowood() {
+    $('#OpeningCorrectEcowoodModal').modal('show');
+    $('#loaderOpeningCorrectEcowoodModal').hide();
+} 
