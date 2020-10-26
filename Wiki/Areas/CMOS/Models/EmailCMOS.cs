@@ -35,7 +35,7 @@ namespace Wiki.Areas.CMOS.Models
                 GetMailPM();
                 GetSubject();
                 GetBody();
-                SendEmail();
+                SendEmailPreorder();
                 logger.Debug("EmailCMOS: " + preOrder.id);
             }
             catch (Exception ex)
@@ -131,10 +131,26 @@ namespace Wiki.Areas.CMOS.Models
             }
         }
 
-
         void SendEmail()
         {
             foreach (var data in GetFileArray())
+            {
+                mail.Attachments.Add(new Attachment(data));
+            }
+            foreach (var dataUser in mailToList)
+            {
+                mail.To.Add(new MailAddress(dataUser));
+            }
+            mail.IsBodyHtml = true;
+            mail.Subject = subject;
+            mail.Body = body;
+            client.Send(mail);
+            mail.Dispose();
+        }
+
+        void SendEmailPreorder()
+        {
+            foreach (var data in GetFileArrayPreorder())
             {
                 mail.Attachments.Add(new Attachment(data));
             }
@@ -270,6 +286,7 @@ namespace Wiki.Areas.CMOS.Models
             mailToList.Add("vi@katek.by");
             mailToList.Add("nrf@katek.by");
             mailToList.Add("goa@katek.by");
+            mailToList.Add("kaav@katek.by");
             return true;
         }
 
@@ -325,6 +342,11 @@ namespace Wiki.Areas.CMOS.Models
             {
                 return Directory.GetFiles(order.folder).ToList();
             }
+        }
+
+        private List<string> GetFileArrayPreorder()
+        {
+            return Directory.GetFiles(preOrder.folder).ToList();
         }
     }
 }

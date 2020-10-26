@@ -164,6 +164,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
                         .Include(a => a.ApproveCDOrders.AspNetUsers)
                         .Include(a => a.ApproveCDOrders.AspNetUsers1)
+                        .Include(a => a.ApproveCDActions)
                         .Include(a => a.RKD_VersionWork)
                         .Include(a => a.RKD_VersionWork)
                         .Where(a => a.activeVersion == true && a.id_RKD_VersionWork == 10 && a.ApproveCDOrders.isOpening == true)
@@ -174,6 +175,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         editLink = "",
                         order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
                         state = dataList.RKD_VersionWork.name,
+                        finish = JsonConvert.SerializeObject(GetFinishDate(dataList.ApproveCDActions.ToList()), shortSetting).Replace(@"""", ""),
                         gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
                         ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
                         customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
@@ -192,6 +194,18 @@ namespace Wiki.Areas.ApproveCD.Controllers
             {
                 logger.Error("Wiki.Areas.ApproveCD.Controllers.GetApproveTable: " + ex.Message);
                 return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private DateTime GetFinishDate(List<ApproveCDActions> approveCDActions)
+        {
+            if (approveCDActions.Count == 0)
+            {
+                return DateTime.Now;
+            }
+            else
+            {
+                return approveCDActions.Last().datetime;
             }
         }
 

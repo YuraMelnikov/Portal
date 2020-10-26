@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NLog;
 using Syncfusion.XlsIO;
 using System;
@@ -47,7 +48,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 ViewBag.userGroupId = 1;
             else if (login == "myi@katek.by" || login == "koag@katek.by" || login == "naa@katek.by")
                 ViewBag.userGroupId = 5;
-            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
+            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "kaav@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
                 ViewBag.userGroupId = 2;
             else if (login == "bav@katek.by" || login == "laa@katek.by")
                 ViewBag.userGroupId = 4;
@@ -55,13 +56,13 @@ namespace Wiki.Areas.CMOS.Controllers
                 ViewBag.userGroupId = 3;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.correctingListArmis = new SelectList(db.CMOSOrder
-                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 1)
+                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 1)
                 .OrderBy(d => d.id), "id", "id");
             ViewBag.correctingListGratius = new SelectList(db.CMOSOrder
-                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 2)
+                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 2)
                 .OrderBy(d => d.id), "id", "id");
             ViewBag.correctingListEcowood = new SelectList(db.CMOSOrder
-                .Where(d => d.remove == false && d.numberTN == null && d.cMO_CompanyId == 3)
+                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 3)
                 .OrderBy(d => d.id), "id", "id");
             logger.Debug("CMOSSController/Index: " + login);
             return View();
@@ -292,6 +293,38 @@ namespace Wiki.Areas.CMOS.Controllers
             catch (Exception ex)
             {
                 logger.Error("CMOSSController / GetTableNoClothingOrder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTableNoClothingOrderApi()
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.CMOSOrder
+                        .AsNoTracking()
+                        .Include(a => a.CMO_Company)
+                        .Where(a => a.finDate == null && a.manufDate != null && a.remove == false && a.numberTN != null)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        dataList.id,
+                        positionName = GetPositionsNameOrderReparce(dataList.id),
+                        customer = dataList.CMO_Company.name,
+                        percentComplited = GetPercentComplited(dataList.id),
+                        dataList.numberTN
+                    });
+                    logger.Debug("CMOSSController / GetTableNoClothingOrderApi");
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetTableNoClothingOrderApi: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
@@ -674,7 +707,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     List<CMOSPositionPreOrder> listPrd = new List<CMOSPositionPreOrder>();
                     foreach (var prds in query)
                     {
-                        foreach (var prd in prds.CMOSPreOrder.CMOSPositionPreOrder)
+                        foreach (var prd in prds.CMOSPreOrder.CMOSPositionPreOrder.Where(a => a.note != "Входит в сб.").ToList())
                         {
                             listPrd.Add(prd);
                         }
@@ -682,7 +715,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     var data = listPrd.Select(dataList => new
                     {
                         name = dataList.designation + "<" + dataList.index + ">" + dataList.name,
-                        code = dataList.sku,
+                        code = GetSKUName(dataList.sku.Value),
                         weight = dataList.weight,
                         shortName = dataList.name,
                         norm = dataList.quantity,
@@ -701,6 +734,50 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetPositionsPreorderApi: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        public JsonResult PostPositionsPreorderApi(JObject id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var model = JsonConvert.DeserializeObject<List<Position>>(id.ToString());
+                    foreach(var t in model)
+                    {
+                        var query = db.CMOSPositionPreOrder.First(a => a.id == t.Id);
+                        query.weight = t.Weight;
+                        query.quantity8 = t.Weight;
+                        query.flow = t.Rate;
+                        db.Entry(query).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    logger.Debug("CMOSSController / PostPositionsPreorderApi");
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string GetSKUName(int sku)
+        {
+            if (sku.ToString().Length == 5)
+                return sku.ToString();
+            else if (sku.ToString().Length == 4)
+                return "0" + sku.ToString();
+            else if (sku.ToString().Length == 3)
+                return "00" + sku.ToString();
+            else if (sku.ToString().Length == 2)
+                return "000" + sku.ToString();
+            else 
+                return "0000" + sku.ToString();
         }
 
         [HttpPost]
@@ -988,10 +1065,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     IWorksheet worksheet = workbook.Worksheets[0];
                     bool read = false;
                     int rows = worksheet.Rows.Length;
-
-
-                    var t = GetPositionsNameOrder(ord);
-
                     worksheet.Rows[0].Cells[0].Text = ord.ToString() + ": " + GetPositionsNameOrder(ord).Replace("\r\n\n", "; ");
                     for (int i = 0; i < rows; i++)
                     {
@@ -1106,8 +1179,8 @@ namespace Wiki.Areas.CMOS.Controllers
                                 i = rows;
                             else
                             {
-                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + "<" + worksheet.Rows[i].Cells[3].Value.Replace(" ", "");
-                                worksheet.Rows[i].Cells[1].Text = name + ">" + worksheet.Rows[i].Cells[2].Text;
+                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + " <" + worksheet.Rows[i].Cells[3].Value.Replace(" ", "");
+                                worksheet.Rows[i].Cells[1].Text = name + "> " + worksheet.Rows[i].Cells[2].Text;
                                 double quentity = worksheet.Rows[i].Cells[4].Number;
                                 try
                                 {
@@ -1131,14 +1204,13 @@ namespace Wiki.Areas.CMOS.Controllers
                     int j = 8;
                     foreach (var p in notFoundPositions)
                     {
-                        worksheet.Rows[j].Cells[8].Value = p.designation + "<" + p.index + ">" + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
+                        worksheet.Rows[j].Cells[8].Value = p.designation + " <" + p.index + "> " + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
                         worksheet.Rows[j].Cells[8].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
                         j++;
                     }
-                    workbook.SaveAs(fullPath);
+                    workbook.SaveAs(@"\\192.168.1.16\public$\Финансовый отдел\Армис для загрузки\" + ord.ToString() + ".xls");
                 }
-                var errorMessage = "you can return the errors here!";
-                return Json(new { fileName = files[0].FileName, errorMessage });
+                return Json(1);
             }
         }
 
@@ -1169,6 +1241,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     IWorksheet worksheet = workbook.Worksheets[0];
                     bool read = false;
                     int rows = worksheet.Rows.Length;
+                    string[] nameArray = new string[rows];
                     for (int i = 0; i < rows; i++)
                     {
                         if (read == false)
@@ -1176,6 +1249,12 @@ namespace Wiki.Areas.CMOS.Controllers
                             if (worksheet.Rows[i].Cells[0].Value == "№п/п")
                             {
                                 read = true;
+                                for (int k = i + 1; k < rows; k++)
+                                {
+                                    nameArray[k] = worksheet.Rows[k].Cells[2].Text;
+                                }
+                                worksheet.InsertColumn(3);
+                                worksheet.InsertColumn(3);
                             }
                         }
                         else
@@ -1184,13 +1263,15 @@ namespace Wiki.Areas.CMOS.Controllers
                                 i = rows;
                             else
                             {
-                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + "<" + worksheet.Rows[i].Cells[3].Value.Replace(" ", "");
-                                worksheet.Rows[i].Cells[1].Text = name + ">" + worksheet.Rows[i].Cells[2].Text;
-                                double quentity = worksheet.Rows[i].Cells[4].Number;
+                                string name = worksheet.Rows[i].Cells[1].Value.Replace(" ", "") + " <" + worksheet.Rows[i].Cells[5].Value.Replace(" ", "");
+                                double quentity = worksheet.Rows[i].Cells[6].Number;
+                                worksheet.Rows[i].Cells[2].Text = nameArray[i];
+                                worksheet.Rows[i].Cells[3].Text = name + "> " + nameArray[i];
+                                worksheet.Rows[i].Cells[4].Text = "шт";
                                 try
                                 {
-                                    var findPosition = positions.First(a => a.designation + "<" + a.index == name);
-                                    findPosition.weight += quentity;
+                                    var findPosition = positions.First(a => a.designation + " <" + a.index == name && a.quantity == quentity);
+                                    findPosition.weight = quentity;
                                     if (findPosition.quantity != quentity)
                                     {
                                         worksheet.Rows[i].Cells[9].Text = "Неверное кол-во, заложено: " + Math.Round(findPosition.quantity, 2).ToString();
@@ -1206,17 +1287,16 @@ namespace Wiki.Areas.CMOS.Controllers
                         }
                     }
                     var notFoundPositions = positions.Where(a => a.weight == 0.0).ToList();
-                    int j = 8;
+                    int j = 0;
                     foreach (var p in notFoundPositions)
                     {
-                        worksheet.Rows[j].Cells[8].Value = p.designation + "<" + p.index + ">" + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
+                        worksheet.Rows[j].Cells[8].Value = p.designation + " <" + p.index + "> " + p.name + ", в количестве: " + Math.Round(p.quantity, 2);
                         worksheet.Rows[j].Cells[8].CellStyle.ColorIndex = ExcelKnownColors.Yellow;
                         j++;
                     }
-                    workbook.SaveAs(fullPath);
+                    workbook.SaveAs(@"\\192.168.1.16\public$\Финансовый отдел\Армис для загрузки\" + ord.ToString() + ".xls");
                 }
-                var errorMessage = "you can return the errors here!";
-                return Json(new { fileName = files[0].FileName, errorMessage });
+                return Json(1);
             }
         }
 
@@ -2045,6 +2125,44 @@ namespace Wiki.Areas.CMOS.Controllers
                         foreach (var pos in listPos)
                         {
                             data += pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + pos.CMOSPreOrder.CMO_TypeProduct.name + "\n";
+                        }
+                    }
+                    else
+                    {
+                        int preOrderID = db.CMOSOrderPreOrder.First(a => a.id_CMOSOrder == id).id_CMOSPreOrder;
+                        data += db.CMOSPreOrder.Find(preOrderID).note;
+                    }
+                    return data;
+                }
+                catch
+                {
+                    return "";
+                }
+            }
+        }
+
+        private string GetPositionsNameOrderReparce(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string data = "";
+                try
+                {
+                    var listPos = db.CMOSOrderPreOrder
+                        .AsNoTracking()
+                        .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                        .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                        .Where(a => a.id_CMOSOrder == id)
+                        .ToList();
+                    int idPrd = listPos[0].id_CMOSPreOrder;
+                    bool reorder = db.CMOSPreOrder.AsNoTracking().First(a => a.id == idPrd).reOrder;
+                    if (reorder == false)
+                    {
+                        foreach (var pos in listPos)
+                        {
+                            data += pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + pos.CMOSPreOrder.CMO_TypeProduct.name.Replace("\r\n\r\n", "").Replace("\r\n", "") + "; ";
                         }
                     }
                     else

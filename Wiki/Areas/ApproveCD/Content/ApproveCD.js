@@ -55,6 +55,24 @@ var objOrders = [
     { "title": "Уд.", "data": "removeLink", "autowidth": true, "bSortable": false }
 ];
 
+var objOrdersFinish = [
+    { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "№ заказа", "data": "order", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
+    { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
+    { "title": "Дата согласования", "data": "finish", "autowidth": true, "bSortable": true },
+    { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
+    { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
+    { "title": "Ред. ГИПа", "data": "gHandLink", "autowidth": true, "bSortable": false },
+    { "title": "ГИП КБМ", "data": "gm", "autowidth": true, "bSortable": true },
+    { "title": "ГИП КБЭ", "data": "ge", "autowidth": true, "bSortable": true },
+    { "title": "Прим.", "data": "description", "autowidth": true, "bSortable": false },
+    { "title": "Уд.", "data": "removeLink", "autowidth": true, "bSortable": false }
+];
+
 var objQuestions = [
     { "title": "См.", "data": "viewLink", "autowidth": true, "bSortable": false },
     { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
@@ -306,7 +324,7 @@ function GetApproveTable() {
         "bDestroy": true,
         "order": [[2, "asc"]],
         "processing": true,
-        "columns": objOrders,
+        "columns": objOrdersFinish,
         "rowCallback": function (row, data, index) {
             $('td', row).eq(5).addClass('highlightColor');
         },
