@@ -336,6 +336,7 @@
     <Compile Include="Areas\CMOS\Models\MaterialsPreObj.cs" />
     <Compile Include="Areas\CMOS\Models\Position.cs" />
     <Compile Include="Areas\CMOS\Models\PositionBujet.cs" />
+    <Compile Include="Areas\CMOS\Models\ShortPosition.cs" />
     <Compile Include="Areas\CMOS\Struct\SKUStruct.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
     <Compile Include="Areas\CMO\Controllers\CMOAreaController.cs" />

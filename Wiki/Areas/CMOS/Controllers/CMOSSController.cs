@@ -56,8 +56,8 @@ namespace Wiki.Areas.CMOS.Controllers
                 ViewBag.userGroupId = 3;
             ViewBag.id_CMO_Company = new SelectList(db.CMO_Company.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             ViewBag.correctingListArmis = new SelectList(db.CMOSOrder
-                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 1)
-                .OrderBy(d => d.id), "id", "id");
+                .Where(d => d.remove == false && d.cMO_CompanyId == 1)
+                .OrderByDescending(d => d.id), "id", "id");
             ViewBag.correctingListGratius = new SelectList(db.CMOSOrder
                 .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 2)
                 .OrderBy(d => d.id), "id", "id");
@@ -736,33 +736,31 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-
-        public JsonResult PostPositionsPreorderApi(JObject id)
+        public string PostPositionsPreorderApi()
         {
+            string link = Request.RawUrl.Replace("/CMOS/CMOSS/PostPositionsPreorderApi/", "").Replace(@"\", "");
             try
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    db.Configuration.LazyLoadingEnabled = false;
-                    var model = JsonConvert.DeserializeObject<List<Position>>(id.ToString());
-                    foreach(var t in model)
-                    {
-                        var query = db.CMOSPositionPreOrder.First(a => a.id == t.Id);
-                        query.weight = t.Weight;
-                        query.quantity8 = t.Weight;
-                        query.flow = t.Rate;
-                        db.Entry(query).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
+                    int id = Convert.ToInt32(link.Substring(0, link.IndexOf("a")));
+                    link = link.Substring(link.IndexOf("a") + 1);
+                    int rate = Convert.ToInt32(link.Substring(0, link.IndexOf("a")));
+                    link = link.Substring(link.IndexOf("a") + 1);
+                    double weight = Convert.ToDouble(link);
+                    CMOSPositionPreOrder pos = db.CMOSPositionPreOrder.Find(id);
+                    pos.flow = rate;
+                    pos.weight = weight;
+                    db.Entry(pos).State = EntityState.Modified;
+                    db.SaveChanges();
                     logger.Debug("CMOSSController / PostPositionsPreorderApi");
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    return "";
                 }
             }
             catch (Exception ex)
             {
                 logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + ex);
-                return Json(0, JsonRequestBehavior.AllowGet);
+                return "";
             }
         }
 
@@ -2192,6 +2190,240 @@ namespace Wiki.Areas.CMOS.Controllers
                 login = "Войти";
             }
             return login;
+        }
+
+        string GetPositionName(CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string positions = "";
+                var list = db.CMOSPreOrder.AsNoTracking()
+                    .Include(a => a.PZ_PlanZakaz)
+                    .Include(a => a.CMO_TypeProduct)
+                    .Include(a => a.CMOSOrderPreOrder)
+                    .Where(a => a.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    positions += d.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + d.CMO_TypeProduct.name + "; ";
+                }
+                positions = positions.Replace("\r\n", "");
+                return positions;
+            }
+        }
+
+        double GetOrdersFactSummaryWeight(CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionPreOrder.AsNoTracking()
+                    .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder)
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0 && a.note != "Входит в сб.")
+                    .ToList();
+                foreach (var d in list)
+                {
+                    try
+                    {
+                        double fWeight = db.SKU.First(a => a.sku1 == d.sku).weight;
+                        if (fWeight > 0)
+                        {
+                            res += d.quantity * fWeight;
+                        }
+                        else
+                        {
+                            res += d.summaryWeight;
+                        }
+                    }
+                    catch
+                    {
+                        res += d.summaryWeight;
+                    }
+                }
+                int x = order.id;
+
+                return res;
+            }
+        }
+
+        double GetPreordersSummaryWeight(CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionPreOrder.AsNoTracking()
+                    .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder)
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    res += d.summaryWeight;
+                }
+
+                return res;
+            }
+        }
+
+        public ActionResult GerOrderForArmis()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var ordersList = db.CMOSOrder
+                    .AsNoTracking()
+                    //.Include(a => a.CMOSPositionOrder.Select(a => a.CMOSOrder.CMOSPositionOrder))
+                    .Where(a => a.remove == false && a.cMO_CompanyId == 1 && a.finDate != null)
+                    .OrderByDescending(a => a.finDate)
+                    .ToList();
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+
+                    worksheet["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
+
+                    worksheet["A1"].ColumnWidth = 10.0;
+                    worksheet["B1"].ColumnWidth = 40.0;
+                    worksheet["C1"].ColumnWidth = 10.0;
+                    worksheet["D1"].ColumnWidth = 10.0;
+                    worksheet["E1"].ColumnWidth = 10.0;
+                    worksheet["F1"].ColumnWidth = 10.0;
+                    worksheet["G1"].ColumnWidth = 10.0;
+                    worksheet["H1"].ColumnWidth = 15.0;
+                    worksheet["I1"].ColumnWidth = 15.0;
+                    worksheet["J1"].ColumnWidth = 15.0;
+
+                    worksheet["A3"].Text = "Ид. заказа";
+                    worksheet["A3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["A3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["A3"].WrapText = true;
+
+                    worksheet["B3"].Text = "Позиции";
+                    worksheet["B3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["B3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["B3"].WrapText = true;
+
+                    worksheet["C3"].Text = "№ док. Поступление ТМЦ";
+                    worksheet["C3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["C3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["C3"].WrapText = true;
+
+                    worksheet["D3"].Text = "Дата поставки";
+                    worksheet["D3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["D3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["D3"].WrapText = true;
+
+                    worksheet["E3"].Text = "Расчетный вес, кг.";
+                    worksheet["E3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["E3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["E3"].WrapText = true;
+
+                    worksheet["F3"].Text = "Фактический вес, кг.";
+                    worksheet["F3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["F3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["F3"].WrapText = true;
+
+                    worksheet["G3"].Text = "Ставка";
+                    worksheet["G3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["G3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["G3"].WrapText = true;
+
+                    worksheet["H3"].Text = "Расчетная стоимость, USD";
+                    worksheet["H3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["H3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["H3"].WrapText = true;
+
+                    worksheet["I3"].Text = "Фактическая стоимость, USD";
+                    worksheet["I3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["I3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["I3"].WrapText = true;
+
+                    worksheet["J3"].Text = "Стоимость по накладной, бНДС BYN";
+                    worksheet["J3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["J3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["J3"].WrapText = true;
+
+                    int rowNum = 4;
+
+                    foreach (var order in ordersList)
+                    {
+                        double rWeight = 0.0;
+                        double fWeight = 0.0;
+
+                        worksheet.Range[rowNum, 1].Text = order.id.ToString();
+                        worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 1].WrapText = true;
+
+                        worksheet.Range[rowNum, 2].Text = GetPositionName(order);
+                        worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 2].WrapText = true;
+
+                        worksheet.Range[rowNum, 3].Text = order.numberTN;
+                        worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 3].WrapText = true;
+
+                        worksheet.Range[rowNum, 4].Text = order.finDate.Value.ToShortDateString();
+                        worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 4].WrapText = true;
+
+                        rWeight = Math.Round(GetPreordersSummaryWeight(order), 2);
+                        worksheet.Range[rowNum, 5].Text = rWeight.ToString();
+                        worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 5].WrapText = true;
+
+                        fWeight = Math.Round(GetOrdersFactSummaryWeight(order), 2);
+                        worksheet.Range[rowNum, 6].Text = fWeight.ToString();
+                        worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 6].WrapText = true;
+
+                        worksheet.Range[rowNum, 7].Text = order.rate.ToString();
+                        worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 7].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 7].WrapText = true;
+
+                        worksheet.Range[rowNum, 8].Text = Math.Round((rWeight * order.rate), 2).ToString();
+                        worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 8].WrapText = true;
+
+                        worksheet.Range[rowNum, 9].Text = Math.Round((fWeight * order.rate), 2).ToString();
+                        worksheet.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 9].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 9].WrapText = true;
+
+                        worksheet.Range[rowNum, 10].Text = Math.Round(order.factCost.Value, 2).ToString();
+                        worksheet.Range[rowNum, 10].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 10].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 10].WrapText = true;
+
+                        rowNum++;
+                    }
+                    HttpResponse response = HttpContext.ApplicationInstance.Response;
+                    try
+                    {
+                        workbook.SaveAs(DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + "Отчет.xlsx", HttpContext.ApplicationInstance.Response, ExcelDownloadType.Open);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return View();
         }
     }
 }

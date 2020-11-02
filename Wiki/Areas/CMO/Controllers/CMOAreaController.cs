@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -60,6 +61,16 @@ namespace Wiki.Areas.CMO.Controllers
             ViewBag.id_SandwichPanelCustomer = new SelectList(db.SandwichPanelCustomer.Where(d => d.active == true).OrderBy(d => d.name), "id", "name");
             logger.Debug("CMO: " + login);
             return View();
+        }
+
+        string GetPositionName(List<CMO2_Position> positionsList)
+        {
+            string positions = "";
+            foreach (var data in positionsList.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
+            {
+                positions += data.PZ_PlanZakaz.PlanZakaz + " - " + data.CMO_TypeProduct.name + ";" + "</br>";
+            }
+            return positions;
         }
 
         [HttpPost]
@@ -346,15 +357,51 @@ namespace Wiki.Areas.CMO.Controllers
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-        string GetPositionName(List<CMO2_Position> positionsList)
+
+
+        string GetPositionName(CMOSOrder order)
         {
-            string positions = "";
-            foreach (var data in positionsList.OrderBy(d => d.PZ_PlanZakaz.PlanZakaz))
+            using(PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                positions += data.PZ_PlanZakaz.PlanZakaz + " - " + data.CMO_TypeProduct.name + ";" + "</br>";
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string positions = "";
+                var list = db.CMOSPreOrder.AsNoTracking()
+                    .Include(a => a.PZ_PlanZakaz)
+                    .Include(a => a.CMO_TypeProduct)
+                    .Include(a => a.CMOSOrderPreOrder)
+                    .Where(a => a.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    positions += d.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + d.CMO_TypeProduct.name + "; ";
+                }
+
+                return positions;
             }
-            return positions;
         }
+
+        double GetPreordersSummaryWeight(CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionPreOrder.AsNoTracking()
+                    .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder)
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    res += d.summaryWeight;
+                }
+
+                return res;
+            }
+        }
+
+
 
         string GetPZsName(List<SandwichPanel_PZ> positionsList)
         {
@@ -1125,5 +1172,7 @@ namespace Wiki.Areas.CMO.Controllers
             new EmailStickers(order, login, 6);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+
     }
 }

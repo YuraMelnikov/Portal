@@ -20,12 +20,12 @@
             <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a onclick="return loadData(1);">Отчет (ЦМО)</a></li>
-            <li><a onclick="return loadData(2);">Отдел снабжения (ЦМО)</a></li>
+            @*<li><a onclick="return loadData(1);">Отчет (ЦМО)</a></li>
+            <li><a onclick="return loadData(2);">Отдел снабжения (ЦМО)</a></li>*@
             <li><a onclick="return loadData(3);">Отчет (сэндвич-панели)</a></li>
             <li><a onclick="return loadData(4);">Задачи по сэндвич-панелям</a></li>
             <li><a onclick="return loadData(5);">Заказ наклеек</a></li>
-            <li><a href="~/Areas/CMO/Content/Табл ЦМО.xlsx">Отчет ЦМО (до июня 2019)</a></li>
+            @*<li><a href="~/Areas/CMO/Content/Табл ЦМО.xlsx">Отчет ЦМО (до июня 2019)</a></li>*@
             <li>
                 <a style="color:crimson" href="/Account/Login/">
                     @{Html.RenderAction("RenderUserMenu", "CMOArea"); }
@@ -38,15 +38,15 @@
 
 <div class="row">
     <div class="col-md-12">
-        <button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ железа</button>
-        <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ железа</button>
+        @*<button id="btnAddOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createOrderModal" onclick=clearTextBox()>Сформировать заказ железа</button>
+        <button id="btnReOrder" type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#createReOrderModal" onclick=clearTextBox()>Сформировать дозаказ железа</button>*@
         <button id="btnAddSandwichPanel" type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#createSandwichPanelModal" onclick=clearTextBox()>Заказать сэндвич-панели</button>
         <button id="btnAddStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createStickersModal" onclick=ClearStickersData()>Сформировать заказ наклеек</button>
         <button id="btnReStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createReStickersModal" onclick=ClearStickersData()>Сформировать дозаказ наклеек</button>
         <button id="btnSimpleStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createSimpleStickersModal" onclick=ClearStickersData()>Сформировать заказ общих наклеек</button>
         <button id="btnPushStickersOrders" type="button" class="btn-xs btn-danger" onclick=PushStickersOrders()>Отправить заказ наклеек в закупку</button>
         <hr />
-        <div id="dApproveTable">
+        @*<div id="dApproveTable">
             <label>Требуется произвести сверку данных:</label>
             <table id="approveTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
@@ -70,8 +70,8 @@
             <label>Подтвердить приход:</label>
             <table id="complitedTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
-        </div>
-        <div id="dToWork">
+        </div>*@
+        @*<div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
@@ -90,7 +90,7 @@
             <label>Подтвердить поступление железа</label>
             <table id="toCloseTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
-        </div>
+        </div>*@
         <div id="dReport">
             <label>Отчет</label>
             <table id="reportTable" class="table table-hover table-striped" style="width:100%;"></table>
