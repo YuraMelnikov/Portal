@@ -913,7 +913,8 @@ namespace Wiki.Areas.CMOS.Controllers
                                 name = t.Cells[1].Value,
                                 weight = Convert.ToDouble(t.Cells[2].Number),
                                 indexMaterial = t.Cells[3].Value,
-                                designation = t.Cells[4].Value
+                                designation = t.Cells[4].Value,
+                                weightR = Convert.ToDouble(t.Cells[5].Number)
                             };
                             try
                             {
@@ -922,6 +923,14 @@ namespace Wiki.Areas.CMOS.Controllers
                             catch
                             {
                                 skuUp.weight = 0.0;
+                            }
+                            try
+                            {
+                                skuUp.weightR = (double)Convert.ToDecimal(skuUp.weightR);
+                            }
+                            catch
+                            {
+                                skuUp.weightR = 0.0;
                             }
                             skuUpList[i] = skuUp;
                             i++;
@@ -938,7 +947,9 @@ namespace Wiki.Areas.CMOS.Controllers
                                     name = sku.name,
                                     indexMaterial = sku.indexMaterial,
                                     sku1 = sku.sku1,
-                                    weight = sku.weight
+                                    weight = sku.weight,
+                                    WeightR = sku.weightR,
+                                    WeightArmis = 0.0
                                 };
                                 db.SKU.Add(skuAdd);
                                 db.SaveChanges();
@@ -950,6 +961,7 @@ namespace Wiki.Areas.CMOS.Controllers
                                 skuIn.name = sku.name;
                                 skuIn.indexMaterial = sku.indexMaterial;
                                 skuIn.weight = (double)sku.weight;
+                                skuIn.WeightR = (double)sku.weightR;
                                 db.Entry(skuIn).State = EntityState.Modified;
                                 db.SaveChanges();
                             }

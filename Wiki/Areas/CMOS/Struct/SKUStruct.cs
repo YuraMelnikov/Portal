@@ -7,5 +7,6 @@
         public string indexMaterial { get; set; }
         public int sku1 { get; set; }
         public double weight { get; set; }
+        public double weightR { get; set; }
     }
 }

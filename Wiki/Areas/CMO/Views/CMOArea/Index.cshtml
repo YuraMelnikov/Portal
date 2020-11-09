@@ -4,7 +4,7 @@
     Layout = "~/Areas/CMO/Views/Shared/_LayoutCMO.cshtml";
 }
 <head>
-    <script src="~/Areas/CMO/Content/CMO.js?v2.8"></script>
+    <script src="~/Areas/CMO/Content/CMO.js?v3.0"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -46,7 +46,7 @@
         <button id="btnSimpleStickers" type="button" class="btn-xs btn-danger" data-toggle="modal" data-target="#createSimpleStickersModal" onclick=ClearStickersData()>Сформировать заказ общих наклеек</button>
         <button id="btnPushStickersOrders" type="button" class="btn-xs btn-danger" onclick=PushStickersOrders()>Отправить заказ наклеек в закупку</button>
         <hr />
-        @*<div id="dApproveTable">
+        <div id="dApproveTable">
             <label>Требуется произвести сверку данных:</label>
             <table id="approveTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
@@ -70,8 +70,8 @@
             <label>Подтвердить приход:</label>
             <table id="complitedTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
-        </div>*@
-        @*<div id="dToWork">
+        </div>
+        <div id="dToWork">
             <label>Сформировать заказ поставщику</label>
             <table id="toWorkTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
@@ -90,7 +90,7 @@
             <label>Подтвердить поступление железа</label>
             <table id="toCloseTable" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
-        </div>*@
+        </div>
         <div id="dReport">
             <label>Отчет</label>
             <table id="reportTable" class="table table-hover table-striped" style="width:100%;"></table>
