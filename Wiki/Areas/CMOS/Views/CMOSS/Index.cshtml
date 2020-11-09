@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
 }
 <head>
-    <script src="~/Areas/CMOS/Content/CMOS.js?v.2.1.7"></script>
+    <script src="~/Areas/CMOS/Content/CMOS.js?v.2.1.9"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -24,11 +24,12 @@
         }
 
         @@keyframes spin {
-            0% { 
-                transform: rotate(0deg); 
+            0% {
+                transform: rotate(0deg);
             }
-            100% { 
-                transform: rotate(360deg); 
+
+            100% {
+                transform: rotate(360deg);
             }
         }
     </style>
@@ -41,7 +42,10 @@
         </div>
         <ul class="nav navbar-nav">
             <li>
-                <a href="@Url.Action("GerOrderForArmis", "CMOSS")">Xlsx</a>
+                <a href="@Url.Action("GerOrderForArmis", "CMOSS")">Отчет Армис</a>
+            </li>
+            <li>
+                <a href="@Url.Action("ControlReport", "CMOSS")">Анализ цен</a>
             </li>
             <li>
                 <a style="color:crimson" href="/Account/Login/">@{Html.RenderAction("RenderUserMenu", "CMOSS"); }</a>
@@ -57,7 +61,7 @@
         <button id="btnReOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateBackorder()>Сформировать дозаказ изделий из ЛМ</button>
         <button id="btnAddOrder" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=CreateOrder()>Сформировать заказ изделий из ЛМ</button>
         <button id="btnOpeningMaterialsCModal" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningMaterialsCModal()>Загрузить SKU</button>
-
+        <button id="btnInput" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningInputModal()>Загрузить Поступления</button>
         <button id="btnCorrectArmis" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectArmis()>Сверка Армис</button>
         <button id="btnCorrectGratius" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectGratius()>Сверка Гратиус</button>
         <button id="btnCorrectEcowood" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectEcowood()>Сверка Эковуд</button>
@@ -239,9 +243,9 @@
                         <input type="text" class="form-control" id="numberTN" disabled="disabled" autocomplete="off" />
                     </div>
                     @*<div class="col-lg-2">
-            <label>Дата создания док. пост. ТМЦ:</label>
-            <input type="text" class="form-control" id="dateTN" disabled="disabled" autocomplete="off" />
-        </div>*@
+                            <label>Дата создания док. пост. ТМЦ:</label>
+                            <input type="text" class="form-control" id="dateTN" disabled="disabled" autocomplete="off" />
+                        </div>*@
                     <div class="col-lg-2">
                         <label>Расчетный вес:</label>
                         <input type="text" class="form-control" id="planWeight" disabled="disabled" autocomplete="off" />
@@ -257,17 +261,17 @@
                 <div class="row">
 
                     @*<div class="col-lg-2">
-                        <label>Фактический вес:</label>
-                        <input type="text" class="form-control" id="factWeightTN" disabled="disabled" autocomplete="off" />
-                    </div>*@
+                            <label>Фактический вес:</label>
+                            <input type="text" class="form-control" id="factWeightTN" disabled="disabled" autocomplete="off" />
+                        </div>*@
                     <div class="col-lg-2">
                         <label>Цена, BYN:</label>
                         <input type="text" class="form-control" id="cost" disabled="disabled" autocomplete="off" />
                     </div>
                     @*<div class="col-lg-2">
-                        <label>Стоимость, BYN:</label>
-                        <input type="text" class="form-control" id="factCost" disabled="disabled" autocomplete="off" />
-                    </div>*@
+                            <label>Стоимость, BYN:</label>
+                            <input type="text" class="form-control" id="factCost" disabled="disabled" autocomplete="off" />
+                        </div>*@
                     <div class="col-lg-2">
                         <label>Курс валюты:</label>
                         <input type="text" class="form-control" id="curency" disabled="disabled" autocomplete="off" />
@@ -388,7 +392,7 @@
     </div>
 </div>
 
-@*<div id="bujetListModal" class="modal modal-wide fade" data-keyboard="false">
+<div id="inputModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -396,15 +400,17 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <label>Позиции предзаказа:</label>
-                        <table id="tableBujet" class="table table-hover table-striped" style="width:100%;"></table>
+                    <div class="col-lg-8">
+                        <input accept=".xlsx" type="file" multiple name="fileInput" id="fileInput" enctype="multipart/form-data" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingInput" class="btn btn-primary" onclick="LoadingInput()">Загрузить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>*@
+</div>
 
 <div id="OpeningCorrectArmisModal" class="modal modal-wide fade" data-keyboard="false">
     <div class="modal-dialog">

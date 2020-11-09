@@ -10,6 +10,7 @@ $(document).ready(function () {
         $('#dTableNoPlaningOrder').show();
         $('#dTableNoClothingOrder').show();
         $('#dFullReport').show(); 
+        $('#btnInput').show();
         $('#btnOpeningMaterialsCModal').show();
         $('#btnCorrectArmis').show();
         $('#btnCorrectGratius').show();
@@ -32,7 +33,7 @@ $(document).ready(function () {
         $('#dFullReport').show();
         $('#btnCorrectArmis').show();
         $('#btnCorrectGratius').show();
-        $('#btnCorrectEcowood').show();
+        $('#btnCorrectEcowood').show(); 
     }
     else {
         $('#dShortReport').show();
@@ -756,6 +757,10 @@ function OpeningMaterialsCModal() {
     $('#materialsCModal').modal('show');
 }
 
+function OpeningInputModal() {
+    $('#inputModal').modal('show');
+}
+
 function LoadingMaterialsC() {
     var data = new FormData();
     var files = document.getElementById('fileC').files;
@@ -770,6 +775,24 @@ function LoadingMaterialsC() {
         data: data,
         success: function (result) {
             $('#materialsCModal').modal('hide');
+        }
+    });
+}
+
+function LoadingInput() {
+    var data = new FormData();
+    var files = document.getElementById('fileInput').files;
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingInput",
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function (result) {
+            $('#inputModal').modal('hide');
         }
     });
 }

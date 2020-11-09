@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NLog;
 using Syncfusion.XlsIO;
 using System;
@@ -8,6 +7,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.CMOS.Models;
@@ -962,6 +962,53 @@ namespace Wiki.Areas.CMOS.Controllers
             catch (Exception ex)
             {
                 logger.Error("CMOSSController / LoadingMaterialsC: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult LoadingInput()
+        {
+            string login = HttpContext.User.Identity.Name;
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    HttpPostedFileBase fiel = Request.Files[0];
+                    string fileReplace = Path.GetFileName(fiel.FileName);
+                    var fileName = Path.Combine(Server.MapPath("~/Areas/CMOS/ToInput"), fileReplace);
+                    fiel.SaveAs(fileName);
+                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    {
+                        FileStream inputStream = fiel.InputStream as FileStream;
+                        IApplication application = excelEngine.Excel;
+                        IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
+                        IWorksheet worksheet = workbook.Worksheets[0];
+                        var list = worksheet.Rows.ToArray();
+                        int i = 0;
+                        foreach (var t in list)
+                        {
+                            if (t.Cells[1].Value != "" && i > 1)
+                            {
+                                string num = t.Cells[0].Value.Replace(" ", "");
+                                if (db.CMOSOrder.Count(a => a.numberTN == num) > 0)
+                                {
+                                    CMOSOrder order = db.CMOSOrder.First(a => a.numberTN == num);
+                                    order.finDate = Convert.ToDateTime(t.Cells[1].Value);
+                                    order.factCost = Convert.ToDouble(t.Cells[8].Number) - (Convert.ToDouble(t.Cells[8].Number) / 1.2 * 0.2);
+                                    db.Entry(order).State = EntityState.Modified;
+                                    db.SaveChanges();
+                                }
+                            }
+                            i++;
+                        }
+                    }
+                    logger.Debug("CMOSSController / LoadingInput: " + " | " + login);
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / LoadingInput: " + " | " + ex + " | " + login);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
@@ -2214,7 +2261,7 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        double GetOrdersFactSummaryWeight(CMOSOrder order)
+        double GetOrdersFactSummaryWeight(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -2223,7 +2270,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 double res = 0.0;
                 var list = db.CMOSPositionPreOrder.AsNoTracking()
                     .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder)
-                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0 && a.note != "Входит в сб.")
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == id) > 0 && a.note != "Входит в сб.")
                     .ToList();
                 foreach (var d in list)
                 {
@@ -2244,13 +2291,13 @@ namespace Wiki.Areas.CMOS.Controllers
                         res += d.summaryWeight;
                     }
                 }
-                int x = order.id;
+                int x = id;
 
                 return res;
             }
         }
 
-        double GetPreordersSummaryWeight(CMOSOrder order)
+        double GetPreordersSummaryWeight(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
@@ -2259,7 +2306,46 @@ namespace Wiki.Areas.CMOS.Controllers
                 double res = 0.0;
                 var list = db.CMOSPositionPreOrder.AsNoTracking()
                     .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder)
-                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == id) > 0)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    res += d.summaryWeight;
+                }
+
+                return res;
+            }
+        }
+
+        double GetPreordersSummaryFactWeight(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionPreOrder.AsNoTracking()
+                    .Where(a => a.CMOSPreOrderId == id && a.note != "Входит в сб.")
+                    .ToList();
+                foreach (var d in list)
+                {
+                    double add = db.SKU.First(a => a.sku1 == d.sku).weight * d.quantity;
+                    res += add;
+                }
+
+                return res;
+            }
+        }
+
+        double GetOrdersSummaryWeight(CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionOrder.AsNoTracking()
+                    .Where(a => a.note != "Входит в сб." && a.id_CMOSOrder == order.id)
                     .ToList();
                 foreach (var d in list)
                 {
@@ -2379,13 +2465,13 @@ namespace Wiki.Areas.CMOS.Controllers
                         worksheet.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 4].WrapText = true;
 
-                        rWeight = Math.Round(GetPreordersSummaryWeight(order), 2);
+                        rWeight = Math.Round(GetPreordersSummaryWeight(order.id), 2);
                         worksheet.Range[rowNum, 5].Text = rWeight.ToString();
                         worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 5].WrapText = true;
 
-                        fWeight = Math.Round(GetOrdersFactSummaryWeight(order), 2);
+                        fWeight = Math.Round(GetOrdersFactSummaryWeight(order.id), 2);
                         worksheet.Range[rowNum, 6].Text = fWeight.ToString();
                         worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
@@ -2413,6 +2499,494 @@ namespace Wiki.Areas.CMOS.Controllers
 
                         rowNum++;
                     }
+                    HttpResponse response = HttpContext.ApplicationInstance.Response;
+                    try
+                    {
+                        workbook.SaveAs(DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_" + "Отчет.xlsx", HttpContext.ApplicationInstance.Response, ExcelDownloadType.Open);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return View();
+        }
+
+        private string GetPeriodMonth(int month)
+        {
+            if (month < 10)
+                return "0" + month.ToString();
+            else
+                return month.ToString();
+        }
+
+        public ActionResult ControlReport()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var customerList = db.CMO_Company.AsNoTracking().Where(a => a.active == true).ToList();
+                var typeList = db.CMO_TypeProduct.AsNoTracking().Where(a => a.active == true || a.name == "Прочие\r\n").ToList();
+                List<MonthResult> monthResults = new List<MonthResult>();
+                List<MonthResultType> monthResultTypes = new List<MonthResultType>();
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                DateTime controlDate = new DateTime(2020, 10, 1);
+                var orders = db.CMOSOrder
+                    .AsNoTracking()
+                    .Include(a => a.CMO_Company)
+                    .Where(a => a.numberTN != null && a.remove == false && a.finDate != null && a.finDate >= controlDate)
+                    .ToList();
+                var posList1 = db.CMOSPositionPreOrder
+                    .AsNoTracking()
+                    .Include(a => a.CMOSPreOrder)
+                    .Include(a => a.CMOSPreOrder.CMOSOrderPreOrder.Select(b => b.CMOSOrder))
+                    .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                    .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                    .Where(a => a.note != "Входит в сб." && a.CMOSPreOrder.CMOSOrderPreOrder.Count() > 0)
+                    .ToList();
+                var posList = posList1
+                    .Where(a => a.CMOSPreOrder.CMOSOrderPreOrder.First().CMOSOrder.numberTN != null && a.CMOSPreOrder.CMOSOrderPreOrder.First().CMOSOrder.finDate != null && a.CMOSPreOrder.CMOSOrderPreOrder.First().CMOSOrder.finDate >= controlDate)
+                    .ToList();
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    workbook.Worksheets.Create();
+                    workbook.Worksheets.Create();
+                    workbook.Worksheets.Create();
+                    IWorksheet worksheet = workbook.Worksheets[1];
+                    worksheet.Name = "Заказы";
+                    worksheet["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
+                    worksheet["A1"].ColumnWidth = 10.0;
+                    worksheet["B1"].ColumnWidth = 40.0;
+                    worksheet["C1"].ColumnWidth = 15.0;
+                    worksheet["D1"].ColumnWidth = 10.0;
+                    worksheet["E1"].ColumnWidth = 10.0;
+                    worksheet["F1"].ColumnWidth = 10.0;
+                    worksheet["G1"].ColumnWidth = 10.0;
+                    worksheet["H1"].ColumnWidth = 10.0;
+                    worksheet["I1"].ColumnWidth = 10.0;
+                    worksheet["J1"].ColumnWidth = 10.0;
+                    worksheet["K1"].ColumnWidth = 15.0;
+                    worksheet["L1"].ColumnWidth = 15.0;
+                    worksheet["M1"].ColumnWidth = 15.0;
+                    worksheet["N1"].ColumnWidth = 15.0;
+                    worksheet["O1"].ColumnWidth = 15.0;
+                    worksheet["A3"].Text = "Ид. заказа";
+                    worksheet["A3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["A3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["A3"].WrapText = true;
+                    worksheet["B3"].Text = "Позиции";
+                    worksheet["B3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["B3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["B3"].WrapText = true;
+                    worksheet["C3"].Text = "Поставщик";
+                    worksheet["C3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["C3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["C3"].WrapText = true;
+                    worksheet["D3"].Text = "№ док. Поступление ТМЦ";
+                    worksheet["D3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["D3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["D3"].WrapText = true;
+                    worksheet["E3"].Text = "Дата поставки";
+                    worksheet["E3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["E3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["E3"].WrapText = true;
+                    worksheet["F3"].Text = "Вес файла заказа, кг.";
+                    worksheet["F3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["F3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["F3"].WrapText = true;
+                    worksheet["G3"].Text = "Расчетный вес, кг.";
+                    worksheet["G3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["G3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["G3"].WrapText = true;
+                    worksheet["H3"].Text = "Фактический вес, кг.";
+                    worksheet["H3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["H3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["H3"].WrapText = true;
+                    worksheet["I3"].Text = "Ставка";
+                    worksheet["I3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["I3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["I3"].WrapText = true;
+                    worksheet["J3"].Text = "Курс на дату поставки, USD/BYN";
+                    worksheet["J3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["J3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["J3"].WrapText = true;
+                    worksheet["K3"].Text = "Стоимость по файлу, USD";
+                    worksheet["K3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["K3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["K3"].WrapText = true;
+                    worksheet["L3"].Text = "Расчетная стоимость, USD";
+                    worksheet["L3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["L3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["L3"].WrapText = true;
+                    worksheet["M3"].Text = "Фактическая стоимость, USD";
+                    worksheet["M3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["M3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["M3"].WrapText = true;
+                    worksheet["N3"].Text = "Стоимость по накладной, бНДС BYN";
+                    worksheet["N3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["N3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["N3"].WrapText = true;
+                    worksheet["O3"].Text = "Стоимость по накладной, бНДС USD";
+                    worksheet["O3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["O3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["O3"].WrapText = true;
+                    int rowNum = 4;
+                    foreach (var order in orders)
+                    {
+                        string period = order.finDate.Value.Year.ToString() + "." + GetPeriodMonth(order.finDate.Value.Month);
+                        if(monthResults.Count(a => a.Period == period) == 0)
+                        {
+                            foreach (var t in customerList)
+                            {
+                                monthResults.Add(new MonthResult(period, t.name));
+                                foreach(var tp in typeList)
+                                {
+                                    monthResultTypes.Add(new MonthResultType(period, t.name, tp.name));
+                                }
+                            }
+                        }
+                        double fileWeight = Math.Round(GetOrdersSummaryWeight(order), 2);
+                        double rWeight = Math.Round(GetPreordersSummaryWeight(order.id), 2);
+                        double fWeight = Math.Round(GetOrdersFactSummaryWeight(order.id), 2);
+                        double curency = GetCurrency(order.finDate.Value);
+                        monthResults.First(a => a.Period == period && a.Customer == order.CMO_Company.name).Weight += fWeight;
+                        monthResults.First(a => a.Period == period && a.Customer == order.CMO_Company.name).Cost += order.factCost.Value / curency;
+                        var listPreorder = db.CMOSPreOrder
+                            .AsNoTracking()
+                            .Include(a => a.CMO_TypeProduct)
+                            .Where(a => a.CMOSOrderPreOrder.Count(b => b.id_CMOSOrder == order.id) > 0)
+                            .ToList();
+                        foreach (var t in listPreorder)
+                        {
+                            var ws = GetPreordersSummaryFactWeight(t.id);
+                            double percent = ws / fWeight;
+                            double costPreorder = (order.factCost.Value / curency) * percent;
+                            monthResultTypes.First(a => a.Period == period && a.Customer == order.CMO_Company.name && a.Type == t.CMO_TypeProduct.name).Weight += ws;
+                            monthResultTypes.First(a => a.Period == period && a.Customer == order.CMO_Company.name && a.Type == t.CMO_TypeProduct.name).Cost += costPreorder;
+                        }
+                        worksheet.Range[rowNum, 1].Text = order.id.ToString();
+                        worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 1].WrapText = true;
+                        worksheet.Range[rowNum, 2].Text = GetPositionName(order);
+                        worksheet.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 2].WrapText = true;
+                        worksheet.Range[rowNum, 3].Text = order.CMO_Company.name.Replace("\r\n", "");
+                        worksheet.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheet.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 3].WrapText = true;
+                        worksheet.Range[rowNum, 4].Text = order.numberTN;
+                        worksheet.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 4].WrapText = true;
+                        worksheet.Range[rowNum, 5].Text = order.finDate.Value.ToShortDateString();
+                        worksheet.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 5].WrapText = true;
+                        worksheet.Range[rowNum, 6].Number = fileWeight;
+                        worksheet.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 6].WrapText = true;
+                        worksheet.Range[rowNum, 7].Number = rWeight;
+                        worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 7].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 7].WrapText = true;
+                        worksheet.Range[rowNum, 8].Number = fWeight;
+                        worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 8].WrapText = true;
+                        worksheet.Range[rowNum, 9].Number = order.rate;
+                        worksheet.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 9].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 9].WrapText = true;
+                        worksheet.Range[rowNum, 10].Number = curency;
+                        worksheet.Range[rowNum, 10].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 10].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 10].WrapText = true;
+                        worksheet.Range[rowNum, 11].Number = Math.Round((fileWeight * order.rate), 2);
+                        worksheet.Range[rowNum, 11].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 11].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 11].WrapText = true;
+                        worksheet.Range[rowNum, 12].Number = Math.Round((rWeight * order.rate), 2);
+                        worksheet.Range[rowNum, 12].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 12].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 12].WrapText = true;
+                        worksheet.Range[rowNum, 13].Number = Math.Round((fWeight * order.rate), 2);
+                        worksheet.Range[rowNum, 13].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 13].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 13].WrapText = true;
+                        worksheet.Range[rowNum, 14].Number = Math.Round(order.factCost.Value, 2);
+                        worksheet.Range[rowNum, 14].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 14].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 14].WrapText = true;
+                        worksheet.Range[rowNum, 15].Number = Math.Round(order.factCost.Value / curency, 2);
+                        worksheet.Range[rowNum, 15].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 15].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 15].WrapText = true;
+                        rowNum++;
+                    }
+                    IWorksheet worksheetSummary = workbook.Worksheets[0];
+                    worksheetSummary.Name = "Суммарно";
+                    worksheetSummary["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
+                    worksheetSummary["A1"].ColumnWidth = 25.0;
+                    worksheetSummary["B1"].ColumnWidth = 15.0;
+                    worksheetSummary["C1"].ColumnWidth = 15.0;
+                    worksheetSummary["D1"].ColumnWidth = 15.0;
+                    worksheetSummary["A3"].Text = "Итого";
+                    worksheetSummary["A3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetSummary["A3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetSummary["A3"].WrapText = true;
+                    worksheetSummary["B3"].Text = "Масса";
+                    worksheetSummary["B3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetSummary["B3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetSummary["B3"].WrapText = true;
+                    worksheetSummary["C3"].Text = "Стоимость";
+                    worksheetSummary["C3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetSummary["C3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetSummary["C3"].WrapText = true;
+                    worksheetSummary["D3"].Text = "Цена за кг";
+                    worksheetSummary["D3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetSummary["D3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetSummary["D3"].WrapText = true;
+                    string thisPeriod = "";
+                    rowNum = 4;
+                    foreach (var p in monthResults.OrderBy(a => a.Period))
+                    {
+                        if(p.Period != thisPeriod)
+                        {
+                            worksheetSummary.Range[rowNum, 1].Text = p.Period;
+                            worksheetSummary.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheetSummary.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 1].WrapText = true;
+                            thisPeriod = p.Period;
+                            rowNum++;
+                            worksheetSummary.Range[rowNum, 1].Text = "Итого цена за кг " + p.Customer.Replace("\r\n", "") + ":";
+                            worksheetSummary.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheetSummary.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 1].WrapText = true;
+                            worksheetSummary.Range[rowNum, 2].Number = Math.Round(p.Weight, 2);
+                            worksheetSummary.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 2].WrapText = true;
+                            worksheetSummary.Range[rowNum, 3].Number = Math.Round(p.Cost, 2);
+                            worksheetSummary.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 3].WrapText = true;
+                            worksheetSummary.Range[rowNum, 4].Number = Math.Round(p.Cost / p.Weight, 2);
+                            worksheetSummary.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 4].WrapText = true;
+                            rowNum++;
+                        }
+                        else
+                        {
+                            worksheetSummary.Range[rowNum, 1].Text = "Итого цена за кг " + p.Customer.Replace("\r\n", "") + ":";
+                            worksheetSummary.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheetSummary.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 1].WrapText = true;
+                            worksheetSummary.Range[rowNum, 2].Number = Math.Round(p.Weight, 2);
+                            worksheetSummary.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 2].WrapText = true;
+                            worksheetSummary.Range[rowNum, 3].Number = Math.Round(p.Cost, 2);
+                            worksheetSummary.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 3].WrapText = true;
+                            worksheetSummary.Range[rowNum, 4].Number = Math.Round(p.Cost / p.Weight, 2);
+                            worksheetSummary.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetSummary.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetSummary.Range[rowNum, 4].WrapText = true;
+                            rowNum++;
+                        }
+                    }
+                    IWorksheet worksheetPF = workbook.Worksheets[2];
+                    worksheetPF.Name = "Группы изделий";
+                    worksheetPF["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
+                    thisPeriod = "";
+                    rowNum = 4;
+                    int columsLenght = typeList.Count * 3 + 1;
+                    int j = 0;
+                    int k = 0;
+                    worksheetPF.Range[rowNum, 1].Text = "Поставщик";
+                    rowNum++;
+                    for (int i = 1; i < columsLenght; i++)
+                    {
+                        if (j == 3)
+                            j = 0;
+                        if (j == 0)
+                        {
+                            worksheetPF.Range[rowNum - 1, i].Text = typeList[k].name;
+                            k++;
+                            worksheetPF.Range[rowNum, i].Text = "Масса";
+                        }
+                        if (j == 1)
+                            worksheetPF.Range[rowNum, i].Text = "Стоимость";
+                        if (j == 2)
+                            worksheetPF.Range[rowNum, i].Text = "Цена за кг";
+                        j++;
+                    }
+                    rowNum++;
+                    int col = 0;
+                    foreach (var p in monthResultTypes.OrderBy(a => a.Period))
+                    {
+                        if (p.Period != thisPeriod)
+                        {
+                            worksheetPF.Range[rowNum, 1].Text = p.Period;
+                            worksheetPF.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                            worksheetPF.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetPF.Range[rowNum, 1].WrapText = true;
+                            int l = 1;
+                            foreach(var data in customerList)
+                            {
+                                worksheetPF.Range[rowNum + l, 1].Text = data.name;
+                                worksheetPF.Range[rowNum + l, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                                worksheetPF.Range[rowNum + l, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                                worksheetPF.Range[rowNum + l, 1].WrapText = true;
+                                k++;
+                            }
+                            rowNum++;
+                            thisPeriod = p.Period;
+                            col = 1;
+                        }
+                        else
+                        {
+                            worksheetPF.Range[rowNum, col].Number = Math.Round(p.Weight);
+                            worksheetPF.Range[rowNum, col].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetPF.Range[rowNum, col].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetPF.Range[rowNum, col].WrapText = true;
+                            worksheetPF.Range[rowNum, col + 1].Number = Math.Round(p.Cost, 2);
+                            worksheetPF.Range[rowNum, col + 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetPF.Range[rowNum, col + 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetPF.Range[rowNum, col + 1].WrapText = true;
+                            worksheetPF.Range[rowNum, col + 2].Number = Math.Round(p.Cost / p.Weight, 2);
+                            worksheetPF.Range[rowNum, col + 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                            worksheetPF.Range[rowNum, col + 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                            worksheetPF.Range[rowNum, col + 2].WrapText = true;
+                            rowNum++;
+                        }
+                    }
+                    IWorksheet worksheetFullPos = workbook.Worksheets[3];
+                    worksheetFullPos.Name = "Развернутый";
+                    worksheetFullPos["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
+                    rowNum = 4;
+                    worksheetFullPos["A1"].ColumnWidth = 10.0;
+                    worksheetFullPos["B1"].ColumnWidth = 10.0;
+                    worksheetFullPos["C1"].ColumnWidth = 40.0;
+                    worksheetFullPos["D1"].ColumnWidth = 10.0;
+                    worksheetFullPos["E1"].ColumnWidth = 40.0;
+                    worksheetFullPos["F1"].ColumnWidth = 10.0;
+                    worksheetFullPos["G1"].ColumnWidth = 10.0;
+                    worksheetFullPos["H1"].ColumnWidth = 10.0;
+                    worksheetFullPos["I1"].ColumnWidth = 10.0;
+                    worksheetFullPos["J1"].ColumnWidth = 10.0;
+                    worksheetFullPos["K1"].ColumnWidth = 10.0;
+                    worksheetFullPos["L1"].ColumnWidth = 10.0;
+                    worksheetFullPos["A3"].Text = "№ заказа";
+                    worksheetFullPos["A3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["A3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["A3"].WrapText = true;
+                    worksheetFullPos["B3"].Text = "№ план-заказа";
+                    worksheetFullPos["B3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["B3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["B3"].WrapText = true;
+                    worksheetFullPos["C3"].Text = "Полуфабрикат";
+                    worksheetFullPos["C3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["C3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["C3"].WrapText = true;
+                    worksheetFullPos["D3"].Text = "№ позиции";
+                    worksheetFullPos["D3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["D3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["D3"].WrapText = true;
+                    worksheetFullPos["E3"].Text = "Имя позиции";
+                    worksheetFullPos["E3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["E3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["E3"].WrapText = true;
+                    worksheetFullPos["F3"].Text = "№ поступления";
+                    worksheetFullPos["F3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["F3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["F3"].WrapText = true;
+                    worksheetFullPos["G3"].Text = "Дата поступления";
+                    worksheetFullPos["G3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["G3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["G3"].WrapText = true;
+                    worksheetFullPos["H3"].Text = "Вес по файлу";
+                    worksheetFullPos["H3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["H3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["H3"].WrapText = true;
+                    worksheetFullPos["I3"].Text = "Вес по 1с7";
+                    worksheetFullPos["I3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["I3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["I3"].WrapText = true;
+                    worksheetFullPos["J3"].Text = "Кол-во";
+                    worksheetFullPos["J3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["J3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["J3"].WrapText = true;
+                    worksheetFullPos["K3"].Text = "Суммарный вес по файлу";
+                    worksheetFullPos["K3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["K3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["K3"].WrapText = true;
+                    worksheetFullPos["L3"].Text = "Суммарный вес по 1с7";
+                    worksheetFullPos["L3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetFullPos["L3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheetFullPos["L3"].WrapText = true;
+                    rowNum = 4;
+                    foreach (var p in posList.OrderBy(a => a.id))
+                    {
+                        worksheetFullPos.Range[rowNum, 1].Text = p.CMOSPreOrder.CMOSOrderPreOrder.First().id_CMOSOrder.ToString();
+                        worksheetFullPos.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheetFullPos.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 1].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 2].Text = p.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString();
+                        worksheetFullPos.Range[rowNum, 2].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheetFullPos.Range[rowNum, 2].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 2].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 3].Text = p.CMOSPreOrder.CMO_TypeProduct.name;
+                        worksheetFullPos.Range[rowNum, 3].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheetFullPos.Range[rowNum, 3].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 3].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 4].Text = p.positionNum.ToString();
+                        worksheetFullPos.Range[rowNum, 4].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheetFullPos.Range[rowNum, 4].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 4].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 5].Text = p.designation + " <" + p.index + "> " + p.name;
+                        worksheetFullPos.Range[rowNum, 5].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
+                        worksheetFullPos.Range[rowNum, 5].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 5].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 6].Text = p.CMOSPreOrder.CMOSOrderPreOrder.First().CMOSOrder.numberTN;
+                        worksheetFullPos.Range[rowNum, 6].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheetFullPos.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 6].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 7].Text = p.CMOSPreOrder.CMOSOrderPreOrder.First().CMOSOrder.finDate.ToString().Substring(0, 10);
+                        worksheetFullPos.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheetFullPos.Range[rowNum, 7].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 7].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 8].Number = p.weight;
+                        worksheetFullPos.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheetFullPos.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 8].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 9].Number = db.SKU.First(a => a.sku1 == p.sku).weight;
+                        worksheetFullPos.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheetFullPos.Range[rowNum, 9].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 9].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 10].Number = p.quantity;
+                        worksheetFullPos.Range[rowNum, 10].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheetFullPos.Range[rowNum, 10].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 10].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 11].Number = p.weight * p.quantity;
+                        worksheetFullPos.Range[rowNum, 11].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheetFullPos.Range[rowNum, 11].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 11].WrapText = true;
+                        worksheetFullPos.Range[rowNum, 12].Number = db.SKU.First(a => a.sku1 == p.sku).weight * p.quantity;
+                        worksheetFullPos.Range[rowNum, 12].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheetFullPos.Range[rowNum, 12].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheetFullPos.Range[rowNum, 12].WrapText = true;
+                        rowNum++;
+                    }
+                    worksheetPF.Remove();
                     HttpResponse response = HttpContext.ApplicationInstance.Response;
                     try
                     {
