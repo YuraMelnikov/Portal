@@ -47,6 +47,12 @@ var objBujet = [
     { "title": "Факт, документ", "data": "factDoc", "autowidth": true, "bSortable": true },
 ]; 
 
+var objControlTable = [
+    { "title": "Вес по файлу", "data": "fileWeight", "autowidth": true, "bSortable": false },
+    { "title": "Расчетный вес", "data": "rWeight", "autowidth": true, "bSortable": false },
+    { "title": "Вес по 1с7", "data": "sWeight", "autowidth": true, "bSortable": false }
+]; 
+
 var objPositionsPreorder = [
     { "title": "№ поз.", "data": "positionNum", "autowidth": true, "bSortable": true },
     { "title": "№ заказа", "data": "CMOSPreOrderId", "autowidth": true, "bSortable": false },
@@ -192,6 +198,46 @@ function StartMenu() {
         "info": false,
         "searching": false,
         "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#controlPreorderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetControlWeightPreorder/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objControlTable,
+        "scrollX": false,
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "scrollCollapse": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
+    $("#controlBackorderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetControlWeightBackorder/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objControlTable,
+        "scrollX": false,
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "scrollCollapse": false,
         "language": {
             "zeroRecords": "Отсутствуют записи",
             "infoEmpty": "Отсутствуют записи",
@@ -374,19 +420,39 @@ function CleanerModals() {
     $('#manufDate').val("");
     $('#finDate').val("");
     $('#numberTN').val("");
-    //$('#dateTN').val("");
     $('#cost').val("");
-    //$('#factCost').val("");
     $('#planWeight').val("");
     $('#curency').val("");
-    $('#rate').val("");
-    //$('#factWeightTN').val("");
+    $('#rate').val(""); 
     $('#filePreorder').val("");
     $('#fileBackorder').val("");
     $('#datePlanningGetMaterials').val("");
 }
 
 function CreatePreOrder() {
+    var table = $('#controlPreorderTable').DataTable();
+    table.destroy();
+    $('#controlPreorderTable').empty();
+    $("#controlPreorderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetControlWeightPreorder/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objControlTable,
+        "scrollX": false,
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "scrollCollapse": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     CleanerModals();
     $('#btnAddPreOrderModal').show();
     $('#creatingPreOrderModal').modal('show');
@@ -394,6 +460,29 @@ function CreatePreOrder() {
 }
 
 function CreateBackorder() {
+    var table = $('#controlBackorderTable').DataTable();
+    table.destroy();
+    $('#controlBackorderTable').empty();
+    $("#controlBackorderTable").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetControlWeightBackorder/" + 0,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "processing": true,
+        "columns": objControlTable,
+        "scrollX": false,
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "scrollCollapse": false,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     CleanerModals();
     $('#btnAddBackorderModal').show();
     $('#creatingBackorderModal').modal('show');
@@ -422,7 +511,34 @@ function AddPreOrder() {
         success: function (result) {
             $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
-            $('#creatingPreOrderModal').modal('hide');
+            //$('#creatingPreOrderModal').modal('hide');
+            var table = $('#controlPreorderTable').DataTable();
+            table.destroy();
+            $('#controlPreorderTable').empty();
+            $("#controlPreorderTable").DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [ 
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5'
+                ],
+                "ajax": {
+                    "cache": false,
+                    "url": "/CMOSS/GetControlWeightPreorder/" + result,
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "bDestroy": true,
+                "order": [[0, "asc"]],
+                "bAutoWidth": false,
+                "columns": objControlTable,
+                "searching": false,
+                //"scrollY": '70vh',
+                "scrollX": false,
+                "paging": false,
+                "info": false,
+                "scrollCollapse": false
+            });
         }
     });
 }
@@ -467,7 +583,34 @@ function AddBackorder() {
         success: function (result) {
             $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
-            $('#creatingBackorderModal').modal('hide');
+            //$('#creatingBackorderModal').modal('hide');
+            var table = $('#controlBackorderTable').DataTable();
+            table.destroy();
+            $('#controlBackorderTable').empty();
+            $("#controlBackorderTable").DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5'
+                ], 
+                "ajax": {
+                    "cache": false,
+                    "url": "/CMOSS/GetControlWeightBackorder/" + result,
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "bDestroy": true,
+                "order": [[0, "asc"]],
+                "bAutoWidth": false,
+                "columns": objControlTable,
+                "searching": false,
+                //"scrollY": '70vh',
+                "scrollX": false,
+                "paging": false,
+                "info": false,
+                "scrollCollapse": false
+            });
         }
     });
 }
@@ -570,12 +713,9 @@ function GetOrder(id) {
             $('#manufDate').val(result.manufDate);
             $('#finDate').val(result.finDate);
             $('#customerOrderId').val(result.customerOrderId);
-            $('#numberTN').val(result.numberTN);
-            //$('#dateTN').val(result.dateTN);
+            $('#numberTN').val(result.numberTN); 
             $('#cost').val(result.cost);
-            //$('#factCost').val(result.factCost); 
             $('#planWeight').val(result.planWeight);
-            //$('#factWeightTN').val(result.factWeightTN);
             $('#curency').val(result.curency);
             $('#rate').val(result.rate);
             if (result.manufDate === "null") {
@@ -583,27 +723,17 @@ function GetOrder(id) {
             }
             else if (result.numberTN === null && result.finDate === null) {
                 $('#numberTN').prop('disabled', true);
-                //$('#dateTN').prop('disabled', true);
-                //$('#factWeightTN').prop('disabled', true); 
-                //$('#factCost').prop('disabled', true);
             }
             else if (result.numberTN === null) {
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
-                //$('#rate').prop('disabled', true);
                 $('#numberTN').prop('disabled', false); 
-                //$('#dateTN').prop('disabled', false);
-                //$('#factWeightTN').prop('disabled', false);
-                //$('#factCost').prop('disabled', false);
             }
             else {
-                //$('#factWeightTN').prop('disabled', false);
-                //$('#factCost').prop('disabled', false);
                 $('#customerOrderId').prop('disabled', true);
                 $('#manufDate').prop('disabled', true);
                 $('#finDate').prop('disabled', false);
                 $('#numberTN').prop('disabled', false); 
-                //$('#rate').prop('disabled', true); 
             }
             $('#btnUpdateOrder').show();
             $('#orderModal').modal('show');
@@ -618,9 +748,6 @@ function UpdateOrder() {
         manufDate: $('#manufDate').val(),
         finDate: $('#finDate').val(),
         numberTN: $('#numberTN').val(),
-        //dateTN: $('#dateTN').val(),
-        //factCost: $('#factCost').val().replace('.', ','),
-        //factWeightTN: $('#factWeightTN').val().replace('.', ','), 
         rate: $('#rate').val().replace('.', ',')
     };
     if (obj.numberTN !== "") {
@@ -650,13 +777,6 @@ function UpdateOrder() {
 
 function ValidTN() {
     var isValid = true;
-    //if ($('#factCost').val() === "0" || $('#factCost').val() === "" || $('#factCost').val() === 0) {
-    //    $('#factCost').css('border-color', 'Red');
-    //    isValid = false;
-    //}
-    //else {
-    //    $('#factCost').css('border-color', 'lightgrey');
-    //}
     return isValid;
 }
 
@@ -868,8 +988,6 @@ function LoadingFileArmis() {
         data: data,
 
     }).done(function (data) {
-        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
-        //window.location.href = myUrl;
         $('#OpeningCorrectArmisModal').modal('hide');
         $('#btnLoadingFileArmis').show();
         $('#loaderOpeningCorrectArmisModal').hide();
@@ -903,8 +1021,6 @@ function LoadingFileGratius() {
         data: data,
 
     }).done(function (data) {
-        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
-        //window.location.href = myUrl;
         $('#OpeningCorrectGratiusModal').modal('hide');
         $('#btnLoadingFileGratius').show();
         $('#loaderOpeningCorrectGratiusModal').hide();
@@ -939,8 +1055,6 @@ function LoadingFileEcowood() {
         data: data,
 
     }).done(function (data) {
-        //var myUrl = "/CMOSS/Download/?fileName=" + data.fileName;
-        //window.location.href = myUrl;
         $('#OpeningCorrectEcowoodModal').modal('hide');
         $('#btnLoadingFileEcowood').show(); 
         $('#loaderOpeningCorrectEcowoodModal').hide();

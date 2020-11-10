@@ -126,6 +126,11 @@
                         <div id="loaderPreorder" class="loader"></div>
                     </div>
                 </div>
+                <hr />
+                <div>
+                    <label>Контроль бюджета:</label>
+                    <table id="controlPreorderTable" class="table table-hover table-striped" style="width:100%;"></table>
+                </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -172,6 +177,10 @@
                         <button id="btnAddBackorderModal" class="btn btn-primary" onclick="AddBackorder()">Создать дозаказ</button>
                         <div id="loaderBackorder" class="loader"></div>
                     </div>
+                </div>
+                <div>
+                    <label>Контроль бюджета:</label>
+                    <table id="controlBackorderTable" class="table table-hover table-striped" style="width:100%;"></table>
                 </div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
                 <div class="row"><div class="col-lg-4">&nbsp</div></div>
@@ -242,10 +251,6 @@
                         <label>№ док. поступления ТМЦ:</label>
                         <input type="text" class="form-control" id="numberTN" disabled="disabled" autocomplete="off" />
                     </div>
-                    @*<div class="col-lg-2">
-                            <label>Дата создания док. пост. ТМЦ:</label>
-                            <input type="text" class="form-control" id="dateTN" disabled="disabled" autocomplete="off" />
-                        </div>*@
                     <div class="col-lg-2">
                         <label>Расчетный вес:</label>
                         <input type="text" class="form-control" id="planWeight" disabled="disabled" autocomplete="off" />
@@ -259,19 +264,10 @@
                 </div>
                 <hr />
                 <div class="row">
-
-                    @*<div class="col-lg-2">
-                            <label>Фактический вес:</label>
-                            <input type="text" class="form-control" id="factWeightTN" disabled="disabled" autocomplete="off" />
-                        </div>*@
                     <div class="col-lg-2">
                         <label>Цена, BYN:</label>
                         <input type="text" class="form-control" id="cost" disabled="disabled" autocomplete="off" />
                     </div>
-                    @*<div class="col-lg-2">
-                            <label>Стоимость, BYN:</label>
-                            <input type="text" class="form-control" id="factCost" disabled="disabled" autocomplete="off" />
-                        </div>*@
                     <div class="col-lg-2">
                         <label>Курс валюты:</label>
                         <input type="text" class="form-control" id="curency" disabled="disabled" autocomplete="off" />

@@ -393,6 +393,7 @@ namespace Wiki.Areas.CMOS.Controllers
         public JsonResult AddPreOrder()
         {
             string login = HttpContext.User.Identity.Name;
+            int returnId = 0;
             try
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -423,10 +424,12 @@ namespace Wiki.Areas.CMOS.Controllers
                         CreatingPositionsPreorder(preorder.id, preorder.folder);
                         db.Entry(preorder).State = EntityState.Modified;
                         db.SaveChanges();
+                        if (returnId == 0)
+                            returnId = preorder.id;
                         new EmailCMOS(preorder, login, 0);
                     }
                     logger.Debug("CMOSSController / AddPreOrder: " + " | " + login);
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    return Json(returnId, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -439,6 +442,7 @@ namespace Wiki.Areas.CMOS.Controllers
         public JsonResult AddBackorder()
         {
             string login = HttpContext.User.Identity.Name;
+            int result = 0;
             try
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -463,6 +467,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     };
                     db.CMOSPreOrder.Add(preorder);
                     db.SaveChanges();
+                    result = preorder.id;
                     preorder.folder = CreateFolderAndFileForBackorderrder(preorder.id, files);
                     CreatingPositionsPreorder(preorder.id, preorder.folder);
                     db.Entry(preorder).State = EntityState.Modified;
@@ -499,7 +504,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.SaveChanges();
                     new EmailCMOS(order, login, 4);
                     logger.Debug("CMOSSController / AddBackorder: " + " | " + login);
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -3175,6 +3180,120 @@ namespace Wiki.Areas.CMOS.Controllers
                 }
             }
             return View();
+        }
+
+        public JsonResult GetControlWeightPreorder(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.CMOSPositionPreOrder
+                        .AsNoTracking()
+                        .Where(a => a.CMOSPreOrderId == id && a.note != "Входит в сб.")
+                        .ToList();
+                    double fileWeight = 0;
+                    double rWeight = 0;
+                    double sWeight = 0;
+                    foreach (var pos in query)
+                    {
+                        fileWeight += pos.summaryWeight;
+                        try
+                        {
+                            double skuR = db.SKU.First(a => a.indexMaterial == pos.index && a.designation == pos.designation).WeightR * pos.quantity;
+                            double skuS = db.SKU.First(a => a.indexMaterial == pos.index && a.designation == pos.designation).weight * pos.quantity;
+                            if(skuR == 0)
+                                rWeight += pos.summaryWeight;
+                            else
+                                rWeight += skuR;
+
+                            if (skuS == 0)
+                                sWeight += pos.summaryWeight;
+                            else
+                                sWeight += skuS;
+                        }
+                        catch
+                        {
+                            rWeight += pos.summaryWeight;
+                            sWeight += pos.summaryWeight;
+                        }
+                    }
+                    List<WeightTable> listData = new List<WeightTable>();
+                    listData.Add(new WeightTable { fileWeight = Math.Round(fileWeight, 2), rWeight = Math.Round(rWeight, 2), sWeight = Math.Round(sWeight, 2) }); 
+                    var data = listData.Select(dataList => new
+                    {
+                        fileWeight,
+                        rWeight,
+                        sWeight
+                    });
+                    logger.Debug("CMOSSController / GetControlWeightPreorder");
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetControlWeightPreorder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetControlWeightBackorder(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.CMOSPositionPreOrder
+                        .AsNoTracking()
+                        .Where(a => a.CMOSPreOrderId == id && a.note != "Входит в сб.")
+                        .ToList();
+                    double fileWeight = 0;
+                    double rWeight = 0;
+                    double sWeight = 0;
+                    foreach (var pos in query)
+                    {
+                        fileWeight += pos.summaryWeight;
+                        try
+                        {
+                            double skuR = db.SKU.First(a => a.indexMaterial == pos.index && a.designation == pos.designation).WeightR * pos.quantity;
+                            double skuS = db.SKU.First(a => a.indexMaterial == pos.index && a.designation == pos.designation).weight * pos.quantity;
+                            if (skuR == 0)
+                                rWeight += pos.summaryWeight;
+                            else
+                                rWeight += skuR;
+
+                            if (skuS == 0)
+                                sWeight += pos.summaryWeight;
+                            else
+                                sWeight += skuS;
+                        }
+                        catch
+                        {
+                            rWeight += pos.summaryWeight;
+                            sWeight += pos.summaryWeight;
+                        }
+                    }
+                    List<WeightTable> listData = new List<WeightTable>();
+                    listData.Add(new WeightTable { fileWeight = Math.Round(fileWeight, 2), rWeight = Math.Round(rWeight, 2), sWeight = Math.Round(sWeight, 2) });
+                    var data = listData.Select(dataList => new
+                    {
+                        fileWeight,
+                        rWeight,
+                        sWeight
+                    });
+                    logger.Debug("CMOSSController / GetControlWeightBackorder");
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetControlWeightBackorder: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

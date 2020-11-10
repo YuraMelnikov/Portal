@@ -339,6 +339,7 @@
     <Compile Include="Areas\CMOS\Models\Position.cs" />
     <Compile Include="Areas\CMOS\Models\PositionBujet.cs" />
     <Compile Include="Areas\CMOS\Models\ShortPosition.cs" />
+    <Compile Include="Areas\CMOS\Models\WeightTable.cs" />
     <Compile Include="Areas\CMOS\Struct\InputStruct.cs" />
     <Compile Include="Areas\CMOS\Struct\SKUStruct.cs" />
     <Compile Include="Areas\CMO\CMOAreaRegistration.cs" />
