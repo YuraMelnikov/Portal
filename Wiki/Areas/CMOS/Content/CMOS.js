@@ -276,7 +276,7 @@ function StartMenu() {
         "columns": objFullReport,
         "rowCallback": function (row, data, index) {
             if (data.state === "Оприходован") {
-                $('td', row).css('background-color', '#00A4CCFF'); 
+                $('td', row).css('background-color', '#c1e6be');  
             }
         },
         "scrollY": '75vh',
