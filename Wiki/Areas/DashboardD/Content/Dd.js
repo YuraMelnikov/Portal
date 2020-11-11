@@ -2057,7 +2057,7 @@ function GetPF() {
                     type: 'column'
                 },
                 title: {
-                    text: 'Итого (тыс.)',
+                    text: 'Итого (тыс.) *',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -2427,7 +2427,7 @@ function GetNLast120() {
                     type: 'spline'
                 },
                 title: {
-                    text: 'Средневзвешенный НОП (привязка к дате открытия заказа) *',
+                    text: 'Средневзвешенный НОП (привязка к дате открытия заказа) **',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
@@ -2494,7 +2494,7 @@ function GetDSVN() {
                     type: 'spline'
                 },
                 title: {
-                    text: 'Динамика среднего взвешенного НОПа **',
+                    text: 'Динамика среднего взвешенного НОПа ***',
                     style: {
                         "font-size": titleFontSize,
                         "color": titleDiagrammColor
