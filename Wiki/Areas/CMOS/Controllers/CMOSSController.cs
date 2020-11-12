@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using Wiki.Areas.CMOS.Models;
 using Wiki.Areas.CMOS.Struct;
+using Zen.Barcode;
 
 namespace Wiki.Areas.CMOS.Controllers
 {
@@ -1396,10 +1397,7 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        private string GetSKU(string name, string index, string designation)
-        {
-            return "";
-        }
+
 
         private string GetPercentComplited(int id)
         {
@@ -3294,6 +3292,100 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetControlWeightBackorder: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        //int maxheight = 40;
+        //Code39BarcodeDraw barcode39 = BarcodeDrawFactory.Code39WithoutChecksum;
+        //Image img = barcode39.Draw(barcode, maxheight);
+        //Code 128 should look like this
+
+
+        //int maxheight = 40;
+        //Code128BarcodeDraw barcode128 = BarcodeDrawFactory.Code128WithChecksum;
+        //Image img = barcode128.Draw("TESTBARCODE", maxheight);
+        //Im using Zen.Barcode.Rendering.Framework version 3.1.10729.1 downloaded from NuGet
+
+        private string GetCode(int code)
+        {
+            if (code < 10)
+                return "0000" + code.ToString();
+            else if (code < 100)
+                return "000" + code.ToString();
+            else if (code < 1000)
+                return "00" + code.ToString();
+            else if (code < 10000)
+                return "0" + code.ToString();
+            else 
+                return code.ToString();
+        }
+
+        private string GetCode(string code)
+        {
+            if (code.Length < 2)
+                return "000" + code;
+            else if (code.Length < 3)
+                return "00" + code;
+            else if (code.Length < 4)
+                return "0" + code;
+            else 
+                return code;
+        }
+
+        private int GetSKU(string designation, string index)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                try
+                {
+                    return db.SKU.First(a => a.designation == designation && a.indexMaterial == index).sku1;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        private string GetSKU(string name, string index, string designation)
+        {
+            return "";
+        }
+
+        public ActionResult GetMarks(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var ordersList = db.CMOSPositionOrder
+                    .AsNoTracking()
+                    .Include(a => a.CMOSOrder)
+                    .Where(a => a.id_CMOSOrder == id)
+                    .ToList();
+                List<MarcksOrder> list = new List<MarcksOrder>();
+                foreach(var pos in ordersList)
+                {
+                    for (int i = 0; i < pos.quantity; i++)
+                    {
+                        MarcksOrder mark = new MarcksOrder
+                        {
+                            Name = pos.designation + "<" + pos.index + ">" + pos.name,
+                            PartName = "парт: " + pos.CMOSOrder.numberTN,
+                            Note = "заказ №: " + pos.CMOSOrder.id.ToString(),
+                            Stock = "Адр: (Склад №1 Пром9)",
+                            Code = "1000" + GetCode(pos.CMOSOrder.numberTN) + GetCode(GetSKU(pos.designation, pos.index)),
+                            Num = (i + 1).ToString() + " из " + pos.quantity.ToString(),
+                            Color = pos.color
+                        };
+                        list.Add(mark);
+                    }
+                }
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+
+                }
+            }
+            return View();
         }
     }
 }
