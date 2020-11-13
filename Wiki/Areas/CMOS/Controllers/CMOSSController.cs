@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -3294,17 +3295,6 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-        //int maxheight = 40;
-        //Code39BarcodeDraw barcode39 = BarcodeDrawFactory.Code39WithoutChecksum;
-        //Image img = barcode39.Draw(barcode, maxheight);
-        //Code 128 should look like this
-
-
-        //int maxheight = 40;
-        //Code128BarcodeDraw barcode128 = BarcodeDrawFactory.Code128WithChecksum;
-        //Image img = barcode128.Draw("TESTBARCODE", maxheight);
-        //Im using Zen.Barcode.Rendering.Framework version 3.1.10729.1 downloaded from NuGet
-
         private string GetCode(int code)
         {
             if (code < 10)
@@ -3362,6 +3352,42 @@ namespace Wiki.Areas.CMOS.Controllers
                     .Include(a => a.CMOSOrder)
                     .Where(a => a.id_CMOSOrder == id)
                     .ToList();
+
+
+
+
+
+
+
+
+
+                //BarcodeLib.Barcode.Linear ean13 = new BarcodeLib.Barcode.Linear();
+                //ean13.Type = BarcodeLib.Barcode.BarcodeType.EAN13;
+                //ean13.Data = "123456789123";
+                //ean13.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
+                //ean13.BarColor = Color.Blue;
+                //ean13.LeftMargin = 4;
+                //ean13.RightMargin = 4;
+                //ean13.BarWidth = 2;
+                //ean13.drawBarcode("c:/datamatrix.jpeg");
+                //byte[] barcodeInBytes = ean13.drawBarcodeAsBytes();
+                //Graphics graphics = ...;
+                //ean13.drawBarcode(graphics);
+                //HttpResponse response = ...;
+                //ean13.drawBarcode(response);
+                //Stream stream = ...;
+                //ean13.drawBarcode(stream);
+
+
+
+
+
+
+
+
+
+
+
                 List<MarcksOrder> list = new List<MarcksOrder>();
                 foreach(var pos in ordersList)
                 {
