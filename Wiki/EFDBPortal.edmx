@@ -741,6 +741,7 @@
           <Property Name="note" Type="varchar(max)" Nullable="false" />
           <Property Name="flow" Type="float" Nullable="false" />
           <Property Name="sku" Type="int" />
+          <Property Name="newWeight" Type="float" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -8439,6 +8440,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="flow" Type="Double" Nullable="false" />
           <Property Name="sku" Type="Int32" />
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
+          <Property Name="newWeight" Type="Double" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -13697,6 +13699,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSPositionPreOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionPreOrder">
               <MappingFragment StoreEntitySet="CMOSPositionPreOrder">
+                <ScalarProperty Name="newWeight" ColumnName="newWeight" />
                 <ScalarProperty Name="sku" ColumnName="sku" />
                 <ScalarProperty Name="flow" ColumnName="flow" />
                 <ScalarProperty Name="note" ColumnName="note" />

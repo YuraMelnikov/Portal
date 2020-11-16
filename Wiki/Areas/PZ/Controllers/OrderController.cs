@@ -1274,6 +1274,7 @@ namespace Wiki.Areas.PZ.Controllers
                     worksheet["F1"].ColumnWidth = 20.0;
                     worksheet["G1"].ColumnWidth = 20.0;
                     worksheet["H1"].ColumnWidth = 10.0;
+                    worksheet["I1"].ColumnWidth = 10.0;
 
                     worksheet["A1"].Text = "№ п/п";
                     worksheet["B1"].Text = "№ договора, дата";
@@ -1283,10 +1284,11 @@ namespace Wiki.Areas.PZ.Controllers
                     worksheet["F1"].Text = "Сумма договора";
                     worksheet["G1"].Text = "Поставщик";
                     worksheet["H1"].Text = "Дата регистрации";
+                    worksheet["I1"].Text = "План-заказ";
 
-                    worksheet.Range["A1:H1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                    worksheet.Range["A1:H1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
-                    worksheet.Range["A1:H1"].WrapText = true;
+                    worksheet.Range["A1:I1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet.Range["A1:I1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet.Range["A1:I1"].WrapText = true;
 
                     int rowNum = 2;
                     string fio = "";
@@ -1345,6 +1347,11 @@ namespace Wiki.Areas.PZ.Controllers
                         worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                         worksheet.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 8].WrapText = true;
+
+                        worksheet.Range[rowNum, 9].Text = order.PlanZakaz.ToString();
+                        worksheet.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                        worksheet.Range[rowNum, 9].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 9].WrapText = true;
 
                         rowNum++;
                     }

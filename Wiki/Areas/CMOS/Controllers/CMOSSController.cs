@@ -723,7 +723,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     {
                         name = dataList.designation + "<" + dataList.index + ">" + dataList.name,
                         code = GetSKUName(dataList.sku.Value),
-                        weight = dataList.weight,
+                        weight = GetWeightSKU(dataList.designation, dataList.index, dataList.newWeight),
                         shortName = dataList.name,
                         norm = dataList.quantity,
                         rate = dataList.flow,
@@ -743,6 +743,23 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        private double GetWeightSKU(string designation, string index, Nullable<double> newWeight)
+        {
+            try
+            {
+                if (newWeight > 0)
+                    return newWeight.Value;
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    return db.SKU.First(a => a.designation == designation && a.indexMaterial == index).weight;
+                }
+            }
+            catch
+            {
+                return 0.0;
+            }
+        }
+
         public string PostPositionsPreorderApi()
         {
             string link = Request.RawUrl.Replace("/CMOS/CMOSS/PostPositionsPreorderApi/", "").Replace(@"\", "");
@@ -750,6 +767,7 @@ namespace Wiki.Areas.CMOS.Controllers
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
+                    double contrilWeight = 0.0;
                     int id = Convert.ToInt32(link.Substring(0, link.IndexOf("a")));
                     link = link.Substring(link.IndexOf("a") + 1);
                     int rate = Convert.ToInt32(link.Substring(0, link.IndexOf("a")));
@@ -758,6 +776,15 @@ namespace Wiki.Areas.CMOS.Controllers
                     CMOSPositionPreOrder pos = db.CMOSPositionPreOrder.Find(id);
                     pos.flow = rate;
                     pos.weight = weight;
+                    try
+                    {
+                        contrilWeight = db.SKU.First(a => a.designation == pos.designation && a.indexMaterial == pos.index).weight;
+                    }
+                    catch
+                    {
+                    }
+                    if (contrilWeight != weight)
+                        pos.newWeight = weight;
                     db.Entry(pos).State = EntityState.Modified;
                     db.SaveChanges();
                     logger.Debug("CMOSSController / PostPositionsPreorderApi");
@@ -1416,7 +1443,11 @@ namespace Wiki.Areas.CMOS.Controllers
                         weightGet += p.flow * p.weight;
                     }
                 }
-                return Math.Round((weightGet / summaryWeight * 100), 2).ToString();
+                double returnPercent = Math.Round((weightGet / summaryWeight * 100), 2).ToString();
+                if (returnPercent > 100.0)
+                    returnPercent = 100.0;
+
+                return returnPercent;
             }
         }
 
@@ -3361,22 +3392,26 @@ namespace Wiki.Areas.CMOS.Controllers
 
 
 
-                //BarcodeLib.Barcode.Linear ean13 = new BarcodeLib.Barcode.Linear();
-                //ean13.Type = BarcodeLib.Barcode.BarcodeType.EAN13;
-                //ean13.Data = "123456789123";
-                //ean13.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
-                //ean13.BarColor = Color.Blue;
-                //ean13.LeftMargin = 4;
-                //ean13.RightMargin = 4;
-                //ean13.BarWidth = 2;
-                //ean13.drawBarcode("c:/datamatrix.jpeg");
-                //byte[] barcodeInBytes = ean13.drawBarcodeAsBytes();
-                //Graphics graphics = ...;
-                //ean13.drawBarcode(graphics);
-                //HttpResponse response = ...;
-                //ean13.drawBarcode(response);
-                //Stream stream = ...;
-                //ean13.drawBarcode(stream);
+
+
+                BarcodeSymbology s = BarcodeSymbology.CodeEan13;
+                BarcodeDraw drawObject = BarcodeDrawFactory.GetSymbology(s);
+                var metrics = drawObject.GetDefaultMetrics(60);
+                metrics.Scale = 2;
+                var barcodeImage = drawObject.Draw("1234123132", metrics);
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    barcodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    byte[] imageBytes = ms.ToArray();
+                }
+
+
+
+
+
+
+
 
 
 
