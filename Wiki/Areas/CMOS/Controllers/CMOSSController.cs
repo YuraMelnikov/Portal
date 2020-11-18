@@ -66,7 +66,6 @@ namespace Wiki.Areas.CMOS.Controllers
             ViewBag.correctingListEcowood = new SelectList(db.CMOSOrder
                 .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 3)
                 .OrderBy(d => d.id), "id", "id");
-            logger.Debug("CMOSSController/Index: " + login);
             return View();
         }
 
@@ -107,7 +106,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         deviation = GetDeviation(dataList.cost, dataList.curency * dataList.rate * dataList.weight),
                         rfactCost = GetRFactCost(dataList.rate, dataList.curency, dataList.weight)
                     });
-                    logger.Debug("CMOSSController / GetTableOrders");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -154,7 +152,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         remove = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return RemovePreOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-remove" + '\u0022' + "></span></a></td>",
                         folder = @"<a href =" + dataList.folder + "> Папка </a>"
                     });
-                    logger.Debug("CMOSSController / GetTableNoPlaningPreOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -197,7 +194,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.rate,
                         curency = dataList.curency
                     });
-                    logger.Debug("CMOSSController / GetTableNoPlaningOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -240,7 +236,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.rate,
                         curency = dataList.curency
                     });
-                    logger.Debug("CMOSSController / GetTableTNOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -288,7 +283,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         cost = dataList.factCost,
                         dataList.numberTN
                     });
-                    logger.Debug("CMOSSController / GetTableNoClothingOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -320,7 +314,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         percentComplited = GetPercentComplited(dataList.id),
                         dataList.numberTN
                     });
-                    logger.Debug("CMOSSController / GetTableNoClothingOrderApi");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -355,7 +348,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.Entry(ord).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    logger.Debug("CMOSSController / RemovePreOrder: " + id.ToString() + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -380,7 +372,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.Entry(ord).State = EntityState.Modified;
                     db.SaveChanges();
                     new EmailCMOS(ord, login, 6);
-                    logger.Debug("CMOSSController / RemoveOrder: " + id.ToString() + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -430,7 +421,6 @@ namespace Wiki.Areas.CMOS.Controllers
                             returnId = preorder.id;
                         new EmailCMOS(preorder, login, 0);
                     }
-                    logger.Debug("CMOSSController / AddPreOrder: " + " | " + login);
                     return Json(returnId, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -505,7 +495,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                     new EmailCMOS(order, login, 4);
-                    logger.Debug("CMOSSController / AddBackorder: " + " | " + login);
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -563,7 +552,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     CreatingFileOrder(order.id);
                     CreatingStockFileOrder(order.id);
                     new EmailCMOS(order, login, 2, datePlanningGetMaterials);
-                    logger.Debug("CMOSSController / AddOrder: " + " | " + login + " | " + order.id);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -601,7 +589,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.coating,
                         dataList.note
                     });
-                    logger.Debug("CMOSSController / GetPositionsPreorder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -640,7 +627,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.note,
                         sku = GetSKU(dataList.name, dataList.index, dataList.designation)
                     });
-                    logger.Debug("CMOSSController / GetPositionsOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -685,7 +671,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         curency = dataList.curency,
                         rate = dataList.rate
                     });
-                    logger.Debug("CMOSSController / GetOrder");
                     return Json(data.First(), JsonRequestBehavior.AllowGet);
                 }
             }
@@ -714,7 +699,8 @@ namespace Wiki.Areas.CMOS.Controllers
                     List<CMOSPositionPreOrder> listPrd = new List<CMOSPositionPreOrder>();
                     foreach (var prds in query)
                     {
-                        foreach (var prd in prds.CMOSPreOrder.CMOSPositionPreOrder.Where(a => a.note != "Входит в сб.").ToList())
+                        var posList = prds.CMOSPreOrder.CMOSPositionPreOrder.Where(a => a.note != "Входит в сб.").OrderBy(a => a.CMOSPreOrderId).ThenBy(a => a.name).ToList();
+                        foreach (var prd in posList)
                         {
                             listPrd.Add(prd);
                         }
@@ -730,9 +716,9 @@ namespace Wiki.Areas.CMOS.Controllers
                         loading = dataList.quantity - dataList.flow,
                         order = (dataList.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + dataList.CMOSPreOrder.CMO_TypeProduct.name).Replace("\r\n", ""),
                         color = "RAL" + dataList.color,
-                        id = dataList.id
+                        id = dataList.id,
+                        IsWeight = GetIsWeight(dataList.newWeight)
                     });
-                    logger.Debug("CMOSSController / GetPositionsPreorderApi");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -741,6 +727,14 @@ namespace Wiki.Areas.CMOS.Controllers
                 logger.Error("CMOSSController / GetPositionsPreorderApi: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private bool GetIsWeight(double? d)
+        {
+            if (d > 0)
+                return true;
+            else
+                return false;
         }
 
         private double GetWeightSKU(string designation, string index, Nullable<double> newWeight)
@@ -787,14 +781,13 @@ namespace Wiki.Areas.CMOS.Controllers
                         pos.newWeight = weight;
                     db.Entry(pos).State = EntityState.Modified;
                     db.SaveChanges();
-                    logger.Debug("CMOSSController / PostPositionsPreorderApi");
-                    return "";
+                    return "1";
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + ex);
-                return "";
+                logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + ex + " | " + link);
+                return "0";
             }
         }
 
@@ -889,7 +882,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    logger.Debug("CMOSSController / UpdateOrder: " + " | " + login + " | " + idOrder);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -1001,7 +993,6 @@ namespace Wiki.Areas.CMOS.Controllers
                             }
                         }
                     }
-                    logger.Debug("CMOSSController / LoadingMaterialsC: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -1048,7 +1039,6 @@ namespace Wiki.Areas.CMOS.Controllers
                             i++;
                         }
                     }
-                    logger.Debug("CMOSSController / LoadingInput: " + " | " + login);
                     return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -1116,7 +1106,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         dataList.factAuto,
                         dataList.factDoc
                     });
-                    logger.Debug("GetBujetList / GetPositionsOrder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -1425,8 +1414,6 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
-
-
         private string GetPercentComplited(int id)
         {
             double weightGet = 0;
@@ -1436,18 +1423,18 @@ namespace Wiki.Areas.CMOS.Controllers
                 var prdList = db.CMOSOrderPreOrder.AsNoTracking().Where(a => a.id_CMOSOrder == id).ToList();
                 foreach (var prdId in prdList)
                 {
-                    var pos = db.CMOSPositionPreOrder.AsNoTracking().Where(a => a.CMOSPreOrderId == prdId.id_CMOSPreOrder).ToList();
-                    summaryWeight += pos.Sum(a => a.summaryWeight);
+                    var pos = db.CMOSPositionPreOrder.AsNoTracking().Where(a => a.CMOSPreOrderId == prdId.id_CMOSPreOrder && a.note != "Входит в сб.").ToList();
+                    summaryWeight += pos.Sum(a => a.quantity);
                     foreach (var p in pos)
                     {
-                        weightGet += p.flow * p.weight;
+                        weightGet += p.flow;
                     }
                 }
-                double returnPercent = Math.Round((weightGet / summaryWeight * 100), 2).ToString();
+                double returnPercent = (weightGet / summaryWeight * 100);
                 if (returnPercent > 100.0)
-                    returnPercent = 100.0;
+                    return "100";
 
-                return returnPercent;
+                return Math.Round(returnPercent, 2).ToString();
             }
         }
 
@@ -3258,7 +3245,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         rWeight,
                         sWeight
                     });
-                    logger.Debug("CMOSSController / GetControlWeightPreorder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -3315,7 +3301,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         rWeight,
                         sWeight
                     });
-                    logger.Debug("CMOSSController / GetControlWeightBackorder");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -3385,15 +3370,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     .ToList();
 
 
-
-
-
-
-
-
-
-
-
                 BarcodeSymbology s = BarcodeSymbology.CodeEan13;
                 BarcodeDraw drawObject = BarcodeDrawFactory.GetSymbology(s);
                 var metrics = drawObject.GetDefaultMetrics(60);
@@ -3405,20 +3381,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     barcodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                     byte[] imageBytes = ms.ToArray();
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
