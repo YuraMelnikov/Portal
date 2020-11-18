@@ -3356,59 +3356,5 @@ namespace Wiki.Areas.CMOS.Controllers
         {
             return "";
         }
-
-        public ActionResult GetMarks(int id)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var ordersList = db.CMOSPositionOrder
-                    .AsNoTracking()
-                    .Include(a => a.CMOSOrder)
-                    .Where(a => a.id_CMOSOrder == id)
-                    .ToList();
-
-
-                BarcodeSymbology s = BarcodeSymbology.CodeEan13;
-                BarcodeDraw drawObject = BarcodeDrawFactory.GetSymbology(s);
-                var metrics = drawObject.GetDefaultMetrics(60);
-                metrics.Scale = 2;
-                var barcodeImage = drawObject.Draw("1234123132", metrics);
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    barcodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    byte[] imageBytes = ms.ToArray();
-                }
-
-
-
-
-                List<MarcksOrder> list = new List<MarcksOrder>();
-                foreach(var pos in ordersList)
-                {
-                    for (int i = 0; i < pos.quantity; i++)
-                    {
-                        MarcksOrder mark = new MarcksOrder
-                        {
-                            Name = pos.designation + "<" + pos.index + ">" + pos.name,
-                            PartName = "парт: " + pos.CMOSOrder.numberTN,
-                            Note = "заказ №: " + pos.CMOSOrder.id.ToString(),
-                            Stock = "Адр: (Склад №1 Пром9)",
-                            Code = "1000" + GetCode(pos.CMOSOrder.numberTN) + GetCode(GetSKU(pos.designation, pos.index)),
-                            Num = (i + 1).ToString() + " из " + pos.quantity.ToString(),
-                            Color = pos.color
-                        };
-                        list.Add(mark);
-                    }
-                }
-                using (ExcelEngine excelEngine = new ExcelEngine())
-                {
-
-                }
-            }
-            return View();
-        }
     }
 }
