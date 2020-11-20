@@ -88,7 +88,11 @@ namespace Wiki.Areas.CMOS.Models
                 }
                 else if (stepNumber == 7) //stickers
                 {
-                    //GetMailList();
+                    GetMailListStock();
+                    GetMailPM();
+                }
+                else if (stepNumber == 8) //for Armis
+                {
                     GetMailListStock();
                     GetMailPM();
                 }
@@ -191,7 +195,7 @@ namespace Wiki.Areas.CMOS.Models
             return true;
         }
 
-        private string  GetPositionsOrderName()
+        private string GetPositionsOrderName()
         {
             string res = "(";
             var list = db.CMOSOrderPreOrder
@@ -219,17 +223,11 @@ namespace Wiki.Areas.CMOS.Models
                 body += GetPreorderName() + "<br/>";
                 body += "Просьба сформировать заказ.";
             }
-            //else if (stepNumber == 1)
-            //{
-            //    body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + order.id + "<br/>";
-            //    body += GetPlanZakazs() + "<br/>";
-            //    body += "Просьба сформировать заявку на первый этап торгов.";
-            //}
             else if (stepNumber == 2)
             {
                 body = "Добрый день!" + "<br/>" + "Размещаем заказ деталей №: " + order.id + "<br/>";
                 body += "Прошу прислать сроки готовности заказа: " + order.workDate.ToString().Substring(0, 16) + "<br/>";
-                if(datePlanningGetMaterials != null)
+                if (datePlanningGetMaterials != null)
                 {
                     body += "Требуемая дата поставки: " + datePlanningGetMaterials.Value.ToShortDateString() + "<br/>";
                 }
@@ -275,6 +273,13 @@ namespace Wiki.Areas.CMOS.Models
                 body += "в 1с7 создан документ Поступление ТМЦ: " + order.numberTN + "<br/>";
                 body += "Необходимо распечатать этикетки и передать их подрядчику" + "<br/>";
             }
+            else if (stepNumber == 8)
+            {
+                body = "Добрый день!" + "<br/>";
+                body += "На заказ изделий из ЛМ № : " + order.id + "<br/>";
+                body += "в 1с7 создан документ Поступление ТМЦ: " + order.numberTN + "<br/>";
+                body += "Необходимо распечатать этикетки" + "<br/>";
+            }
             return true;
         }
 
@@ -317,7 +322,6 @@ namespace Wiki.Areas.CMOS.Models
 
         bool GetMailPM()
         {
-            //mailToList.Add("koag@katek.by");
             mailToList.Add("myi@katek.by");
             return true;
         }
@@ -329,7 +333,7 @@ namespace Wiki.Areas.CMOS.Models
 
             if (stepNumber == 7)
             {
-                if(preOrder.reOrder == false)
+                if (preOrder.reOrder == false)
                 {
                     return Directory.GetFiles(@"\\192.168.1.30\m$\_ЗАКАЗЫ\CMOS\Stock\" + order.id.ToString() + @"\").ToList();
                 }

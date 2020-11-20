@@ -14,7 +14,7 @@ $(document).ready(function () {
         $('#btnOpeningMaterialsCModal').show();
         $('#btnCorrectArmis').show();
         $('#btnCorrectGratius').show();
-        $('#btnCorrectEcowood').show();
+        $('#btnCorrectEcowood').show(); 
     }
     else if (userGroupId === 2) { 
         $('#btnAddPreOrder').show();
@@ -70,6 +70,7 @@ var objPositionsPreorder = [
 
 var objFullReport = [
     { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "%", "data": "percentComplited", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Номер поступления 1С", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -91,6 +92,7 @@ var objFullReport = [
 
 var objSmallReport = [
     { "title": "ИД", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "%", "data": "percentComplited", "autowidth": true, "bSortable": true },
     { "title": "Позиция/и", "data": "positions", "autowidth": true, "bSortable": false, "class": 'colu-200' },
     { "title": "Подрядчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Номер поступления 1С", "data": "tnNumber", "autowidth": true, "bSortable": true, "className": 'text-center', "defaultContent": "", "render": processNull },
@@ -144,7 +146,7 @@ var objTNOrders = [
     { "title": "Расчетный вес, кг", "data": "summaryWeight", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Расчетная цена, BYN", "data": "planingCost", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Ставка за кг, USD", "data": "rate", "autowidth": true, "bSortable": false, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false },
+    { "title": "Позиции", "data": "posList", "autowidth": true, "bSortable": false }, 
     { "title": "Папка", "data": "folder", "autowidth": true, "bSortable": false },
     { "title": "Удалить", "data": "remove", "autowidth": true, "bSortable": false }
 ];
@@ -346,6 +348,11 @@ function StartMenu() {
         "order": [0, "desc"],
         "processing": true,
         "columns": objSmallReport,
+        "rowCallback": function (row, data, index) {
+            if (data.state === "Оприходован") {
+                $('td', row).css('background-color', '#c1e6be');
+            }
+        },
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -859,6 +866,11 @@ function GetPositionsOrder(id) {
         "bAutoWidth": false,
         "columns": objPositionsPreorder,
         "scrollY": '70vh',
+        "rowCallback": function (row, data, index) {
+            if (data.quantity === data.quantity8) {
+                $('td', row).css('background-color', '#c1e6be');
+            }
+        },
         "searching": false,
         "scrollX": true,
         "paging": false,

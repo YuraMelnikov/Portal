@@ -345,6 +345,7 @@
     <Compile Include="Areas\CMOS\CMOSAreaRegistration.cs" />
     <Compile Include="Areas\CMOS\Controllers\CMOSSController.cs" />
     <Compile Include="Areas\CMOS\Models\CorrectingModel.cs" />
+    <Compile Include="Areas\CMOS\Models\EmailArmis.cs" />
     <Compile Include="Areas\CMOS\Models\EmailCMOS.cs" />
     <Compile Include="Areas\CMOS\Models\MarcksOrder.cs" />
     <Compile Include="Areas\CMOS\Models\MaterialsOrdObj.cs" />
