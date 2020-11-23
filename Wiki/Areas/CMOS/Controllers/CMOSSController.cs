@@ -3410,6 +3410,8 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheet["E1"].ColumnWidth = 15.0;
                     worksheet["F1"].ColumnWidth = 10.0;
                     worksheet["G1"].ColumnWidth = 10.0;
+                    worksheet["H1"].ColumnWidth = 10.0;
+                    worksheet["I1"].ColumnWidth = 10.0;
                     worksheet["A1"].Text = "Наименование ТМЦ";
                     worksheet["A1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["A1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
@@ -3438,6 +3440,14 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheet["G1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["G1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["G1"].WrapText = true;
+                    worksheet["H1"].Text = "Обозначение";
+                    worksheet["H1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["H1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["H1"].WrapText = true;
+                    worksheet["I1"].Text = "Индекс";
+                    worksheet["I1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["I1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["I1"].WrapText = true;
                     int rowNum = 2;
                     foreach (var rel in list)
                     {
@@ -3445,17 +3455,16 @@ namespace Wiki.Areas.CMOS.Controllers
                         foreach (var pos in posList)
                         {
                             int code = GetSKU(pos.designation, pos.index);
-                            for (int i = 1; i <= pos.quantity; i++)
-                            {
-                                worksheet.Range[rowNum, 1].Text = pos.designation + " <" + pos.index + "> " + pos.name;
-                                worksheet.Range[rowNum, 2].Text = "парт:" + order.numberTN;
-                                worksheet.Range[rowNum, 3].Text = "Заказ №: " + order.id.ToString();
-                                worksheet.Range[rowNum, 4].Text = "Адр: (Склад №1 Пром9)";
-                                worksheet.Range[rowNum, 5].Text = "1000" + GetCode(order.numberTN) + GetCode(code);
-                                worksheet.Range[rowNum, 6].Text = i.ToString() + " из " + pos.quantity.ToString();
-                                worksheet.Range[rowNum, 7].Text = pos.color;
-                                rowNum++;
-                            }
+                            worksheet.Range[rowNum, 1].Text = pos.designation + " <" + pos.index + "> " + pos.name;
+                            worksheet.Range[rowNum, 2].Text = "парт:" + order.numberTN;
+                            worksheet.Range[rowNum, 3].Text = "Заказ №: " + order.id.ToString();
+                            worksheet.Range[rowNum, 4].Text = "Адр: (Склад №1 Пром9)";
+                            worksheet.Range[rowNum, 5].Text = "1000" + GetCode(order.numberTN) + GetCode(code);
+                            worksheet.Range[rowNum, 6].Text = pos.quantity.ToString();
+                            worksheet.Range[rowNum, 7].Text = pos.color;
+                            worksheet.Range[rowNum, 8].Text = pos.designation;
+                            worksheet.Range[rowNum, 9].Text = pos.index;
+                            rowNum++;
                         }
                     }
                     HttpResponse response = HttpContext.ApplicationInstance.Response;
