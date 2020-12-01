@@ -518,34 +518,34 @@ function AddPreOrder() {
         success: function (result) {
             $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
-            //$('#creatingPreOrderModal').modal('hide');
-            var table = $('#controlPreorderTable').DataTable();
-            table.destroy();
-            $('#controlPreorderTable').empty();
-            $("#controlPreorderTable").DataTable({
-                "dom": 'Bfrtip',
-                "buttons": [ 
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5'
-                ],
-                "ajax": {
-                    "cache": false,
-                    "url": "/CMOSS/GetControlWeightPreorder/" + result,
-                    "type": "POST",
-                    "datatype": "json"
-                },
-                "bDestroy": true,
-                "order": [[0, "asc"]],
-                "bAutoWidth": false,
-                "columns": objControlTable,
-                "searching": false,
-                //"scrollY": '70vh',
-                "scrollX": false,
-                "paging": false,
-                "info": false,
-                "scrollCollapse": false
-            });
+            $('#creatingPreOrderModal').modal('hide');
+            //var table = $('#controlPreorderTable').DataTable();
+            //table.destroy();
+            //$('#controlPreorderTable').empty();
+            //$("#controlPreorderTable").DataTable({
+            //    "dom": 'Bfrtip',
+            //    "buttons": [ 
+            //        'copyHtml5',
+            //        'excelHtml5',
+            //        'csvHtml5'
+            //    ],
+            //    "ajax": {
+            //        "cache": false,
+            //        "url": "/CMOSS/GetControlWeightPreorder/" + result,
+            //        "type": "POST",
+            //        "datatype": "json"
+            //    },
+            //    "bDestroy": true,
+            //    "order": [[0, "asc"]],
+            //    "bAutoWidth": false,
+            //    "columns": objControlTable,
+            //    "searching": false,
+            //    //"scrollY": '70vh',
+            //    "scrollX": false,
+            //    "paging": false,
+            //    "info": false,
+            //    "scrollCollapse": false
+            //});
         }
     });
 }
@@ -590,34 +590,34 @@ function AddBackorder() {
         success: function (result) {
             $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
-            //$('#creatingBackorderModal').modal('hide');
-            var table = $('#controlBackorderTable').DataTable();
-            table.destroy();
-            $('#controlBackorderTable').empty();
-            $("#controlBackorderTable").DataTable({
-                "dom": 'Bfrtip',
-                "buttons": [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5'
-                ], 
-                "ajax": {
-                    "cache": false,
-                    "url": "/CMOSS/GetControlWeightBackorder/" + result,
-                    "type": "POST",
-                    "datatype": "json"
-                },
-                "bDestroy": true,
-                "order": [[0, "asc"]],
-                "bAutoWidth": false,
-                "columns": objControlTable,
-                "searching": false,
-                //"scrollY": '70vh',
-                "scrollX": false,
-                "paging": false,
-                "info": false,
-                "scrollCollapse": false
-            });
+            $('#creatingBackorderModal').modal('hide');
+            //var table = $('#controlBackorderTable').DataTable();
+            //table.destroy();
+            //$('#controlBackorderTable').empty();
+            //$("#controlBackorderTable").DataTable({
+            //    "dom": 'Bfrtip',
+            //    "buttons": [
+            //        'copyHtml5',
+            //        'excelHtml5',
+            //        'csvHtml5'
+            //    ], 
+            //    "ajax": {
+            //        "cache": false,
+            //        "url": "/CMOSS/GetControlWeightBackorder/" + result,
+            //        "type": "POST",
+            //        "datatype": "json"
+            //    },
+            //    "bDestroy": true,
+            //    "order": [[0, "asc"]],
+            //    "bAutoWidth": false,
+            //    "columns": objControlTable,
+            //    "searching": false,
+            //    //"scrollY": '70vh',
+            //    "scrollX": false,
+            //    "paging": false,
+            //    "info": false,
+            //    "scrollCollapse": false
+            //});
         }
     });
 }
