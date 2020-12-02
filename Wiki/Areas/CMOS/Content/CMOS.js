@@ -13,7 +13,7 @@ $(document).ready(function () {
         $('#btnInput').show();
         $('#btnOpeningMaterialsCModal').show();
         $('#btnCorrectArmis').show();
-        $('#btnCorrectGratius').show();
+        $('#btnCorrectGratius').show(); 
         $('#btnCorrectEcowood').show(); 
     }
     else if (userGroupId === 2) { 
@@ -321,12 +321,16 @@ function StartMenu() {
         },
         "order": [6, "desc"],
         "processing": true,
-        "columns": objFullReport,
         "rowCallback": function (row, data, index) {
             if (data.state === "Оприходован") {
-                $('td', row).css('background-color', '#c1e6be');  
+                $('td', row).css('background-color', '#c1e6be');
             }
-        },
+            else if (data.percentComplited === "100") {
+                data.state = "Принят";
+                $('td', row).css('background-color', '#E0E722');
+            }
+        }, 
+        "columns": objFullReport,
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -352,7 +356,11 @@ function StartMenu() {
             if (data.state === "Оприходован") {
                 $('td', row).css('background-color', '#c1e6be');
             }
-        },
+            else if (data.percentComplited === "100") {
+                data.state = "Принят";
+                $('td', row).css('background-color', '#E0E722');
+            }
+        }, 
         "scrollY": '75vh',
         "scrollX": true,
         "paging": false,
@@ -1044,7 +1052,7 @@ function OpeningCorrectGratius() {
     $('#loaderOpeningCorrectGratiusModal').hide();
 } 
 
-//
+// 
 function LoadingFileEcowood() {
     var files = document.getElementById('fileEcowoodOrder').files;
     var valid = ValidLoadingFile(files.length);
