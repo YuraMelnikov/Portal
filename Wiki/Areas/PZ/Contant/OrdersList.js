@@ -622,6 +622,7 @@ function clearTextBox() {
     $('#active').css('border-color', 'lightgrey');
 }
 
+//DateCreate
 function getbyID(Id) {
     $('#partRem').show();
     $.ajax({
@@ -636,8 +637,15 @@ function getbyID(Id) {
             $('#cgm').val(result.cgm);
             $('#cge').val(result.cge);
             $('#nameTU').val(result.nameTU);
-            $("#nameTU").attr('disabled', true);
-            $("#Cost").attr('disabled', true); 
+            var d = new Date();
+            var tmp = d.setDate(d.getDate() - 3);
+            var tmp2 = result.DateCreate1.replace("/Date(", "").replace(")/", "");
+            var A = parseInt(tmp);
+            var B = parseInt(tmp2);
+            if (A > B) {
+                $("#nameTU").attr('disabled', true);
+                $("#Cost").attr('disabled', true); 
+            }
             $('#massa').val(result.massa);
             $('#StantionGruzopoluchatel').val(result.StantionGruzopoluchatel);
             $('#KodStanciiGruzopoluchatelya').val(result.KodStanciiGruzopoluchatelya);

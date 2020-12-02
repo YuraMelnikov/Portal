@@ -535,6 +535,7 @@ namespace Wiki.Areas.PZ.Controllers
             var data = query.Select(dataList => new
             {
                 dataList.PlanZakaz,
+                DateCreate1 = dataList.DateCreate,
                 DateCreate = JsonConvert.SerializeObject(dataList.DateCreate, settings).Replace(@"""", ""),
                 dataList.Manager,
                 dataList.id_Provider,
