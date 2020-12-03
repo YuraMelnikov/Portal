@@ -3459,7 +3459,7 @@ namespace Wiki.Areas.CMOS.Controllers
                             worksheet.Range[rowNum, 2].Text = "парт:" + order.numberTN;
                             worksheet.Range[rowNum, 3].Text = "Заказ №: " + order.id.ToString();
                             worksheet.Range[rowNum, 4].Text = "Адр: (Склад №1 Пром9)";
-                            worksheet.Range[rowNum, 5].Text = "1000" + GetCode(order.numberTN) + GetCode(code);
+                            worksheet.Range[rowNum, 5].Text = "0100" + GetCode(order.numberTN) + GetCode(code);
                             worksheet.Range[rowNum, 6].Text = pos.quantity.ToString();
                             worksheet.Range[rowNum, 7].Text = pos.color;
                             worksheet.Range[rowNum, 8].Text = pos.designation;
