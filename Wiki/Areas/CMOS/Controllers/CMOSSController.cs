@@ -73,7 +73,7 @@ namespace Wiki.Areas.CMOS.Controllers
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-                    DateTime controlDate = DateTime.Now.AddDays(-90);
+                    DateTime controlDate = DateTime.Now.AddDays(-85);
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
                     var query = db.CMOSOrder
@@ -84,25 +84,23 @@ namespace Wiki.Areas.CMOS.Controllers
                         .ToList();
                     var data = query.Select(dataList => new
                     {
-                        percentComplited = GetPercentComplited(dataList.id),
                         dataList.id,
-                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
+                        percentComplited = GetPercentComplited(dataList.id),
                         positions = GetPositionsNamePreOrder(dataList.id),
                         customer = dataList.CMO_Company.name,
+                        dateGetMail = JsonConvert.SerializeObject(dataList.manufDate, shortSetting).Replace(@"""", ""),
                         state = GetStateOrder(dataList.id),
                         startDate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
                         finishDate = JsonConvert.SerializeObject(dataList.finDate, shortSetting).Replace(@"""", ""),
-                        dataList.cost,
                         dataList.factCost,
+                        dataList.rate,
                         folder = @"<a href =" + dataList.folder + "> Папка </a>",
                         tnNumber = dataList.numberTN,
-                        summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
                         posList = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetPositionsOrder('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
-                        dataList.rate,
-                        factWeight = dataList.weight,
-                        curency = dataList.curency,
-                        deviation = GetDeviation(dataList.cost, dataList.curency * dataList.rate * dataList.weight),
-                        rfactCost = GetRFactCost(dataList.rate, dataList.curency, dataList.weight)
+                        curency = GetCurrencyForReport(dataList.finDate),
+                        summaryWeight = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2),
+                        cost = Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2) * dataList.rate * GetCurrencyForReport(dataList.finDate),
+                        deviation = dataList.factCost - Math.Round(dataList.CMOSPositionOrder.Sum(a => a.summaryWeight), 2) * dataList.rate * GetCurrencyForReport(dataList.finDate)
                     });
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
@@ -111,6 +109,40 @@ namespace Wiki.Areas.CMOS.Controllers
             {
                 logger.Error("CMOSSController / GetTableOrders: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private double GetCurrencyForReport(DateTime? date)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                if (date == null)
+                {
+                    date = db.CurencyBYN.Max(a => a.date);
+                    return db.CurencyBYN.First(a => a.date == date).USD;
+                }
+                else
+                {
+                    date = date.Value.AddDays(1);
+                    try
+                    {
+                        db.Configuration.ProxyCreationEnabled = false;
+                        db.Configuration.LazyLoadingEnabled = false;
+                        try
+                        {
+                            return db.CurencyBYN.First(a => a.date == date).USD;
+                        }
+                        catch
+                        {
+                            date = db.CurencyBYN.Max(a => a.date);
+                            return db.CurencyBYN.First(a => a.date == date).USD;
+                        }
+                    }
+                    catch
+                    {
+                        return 0.0;
+                    }
+                }
             }
         }
 
@@ -682,7 +714,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         finDate = JsonConvert.SerializeObject(dataList.finDate, shortDefaultSetting).Replace(@"""", ""),
                         customerOrderId = dataList.cMO_CompanyId,
                         numberTN = dataList.numberTN,
-                        //dateTN = JsonConvert.SerializeObject(dataList.dateTN, shortDefaultSetting).Replace(@"""", ""),
                         cost = dataList.cost,
                         factCost = dataList.factCost,
                         planWeight = GetWeigthtOrder(dataList.id),
@@ -895,6 +926,14 @@ namespace Wiki.Areas.CMOS.Controllers
                         }
                         else
                         {
+                            //try
+                            //{
+                            //    new EmailOS(order, login);
+                            //}
+                            //catch (Exception ex)
+                            //{
+                            //    logger.Error("CMOSSController / UpdateOrder: " + " | " + ex + " | " + login);
+                            //}
                             new EmailCMOS(order, login, 7);
                         }
                     }
@@ -2468,7 +2507,6 @@ namespace Wiki.Areas.CMOS.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var ordersList = db.CMOSOrder
                     .AsNoTracking()
-                    //.Include(a => a.CMOSPositionOrder.Select(a => a.CMOSOrder.CMOSPositionOrder))
                     .Where(a => a.remove == false && a.cMO_CompanyId == 1 && a.finDate != null)
                     .OrderByDescending(a => a.finDate)
                     .ToList();
