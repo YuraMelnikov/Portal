@@ -1227,8 +1227,8 @@ namespace Wiki.Areas.CMOS.Controllers
                             }
                             else
                             {
-                                string postName = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "");
-                                string name = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "");
+                                string postName = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "").Replace(@",  Закрытое акционерное общество ""АрмисИнвестГрупп""", "");
+                                string name = worksheet.Rows[i].Cells[0].Value.Replace(@",  ЗАО ""АрмисИнвестГрупп""", "").Replace(@",  Закрытое акционерное общество ""АрмисИнвестГрупп""", "");
                                 string[] split = postName.Split();
                                 if (split[0] == "")
                                 {
@@ -1326,7 +1326,7 @@ namespace Wiki.Areas.CMOS.Controllers
                                 double quentity = worksheet.Rows[i].Cells[4].Number;
                                 try
                                 {
-                                    var findPosition = positions.First(a => a.designation + "<" + a.index == name);
+                                    var findPosition = positions.First(a => a.designation + " <" + a.index == name);
                                     findPosition.weight += quentity;
                                     if (findPosition.quantity != quentity)
                                     {
