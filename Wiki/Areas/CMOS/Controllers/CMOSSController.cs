@@ -2698,8 +2698,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     workbook.Worksheets.Create();
                     workbook.Worksheets.Create();
                     IRange range;
-
-
                     IWorksheet worksheet = workbook.Worksheets[1];
                     worksheet.Name = "Заказы";
                     worksheet["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
@@ -2947,8 +2945,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         range.BorderAround(ExcelLineStyle.Thin);
                         rowNum++;
                     }
-
-
                     IWorksheet worksheetSummary = workbook.Worksheets[0];
                     worksheetSummary.Name = "Суммарно";
                     worksheetSummary["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
@@ -3065,8 +3061,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheetSummary.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignLeft;
                     worksheetSummary.Range[rowNum, 1].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheetSummary.Range[rowNum, 1].WrapText = false;
-
-
                     IWorksheet worksheetPF = workbook.Worksheets[2];
                     worksheetPF.Name = "Группы изделий";
                     worksheetPF["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
@@ -3135,8 +3129,6 @@ namespace Wiki.Areas.CMOS.Controllers
                             }
                         }
                     }
-
-
                     IWorksheet worksheetFullPos = workbook.Worksheets[3];
                     worksheetFullPos.Name = "Развернутый";
                     worksheetFullPos["A1"].Text = "Данные по состоянию на: " + DateTime.Now.ToLongDateString() + " на " + DateTime.Now.ToShortTimeString();
@@ -3254,8 +3246,6 @@ namespace Wiki.Areas.CMOS.Controllers
                         worksheetFullPos.Range[rowNum, 12].WrapText = true;
                         rowNum++;
                     }
-
-
                     worksheetPF.Remove();
                     HttpResponse response = HttpContext.ApplicationInstance.Response;
                     try
