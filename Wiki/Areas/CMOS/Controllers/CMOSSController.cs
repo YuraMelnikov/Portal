@@ -344,6 +344,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         percentComplited = GetPercentComplited(dataList.id),
                         dataList.numberTN
                     });
+                    logger.Error("CMOSSController / GetTableNoClothingOrderApi");
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -769,6 +770,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         id = dataList.id,
                         IsWeight = GetIsWeight(dataList.newWeight)
                     });
+                    logger.Error("CMOSSController / GetPositionsPreorderApi: " + " | " + id.ToString());
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -831,6 +833,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         pos.newWeight = weight;
                     db.Entry(pos).State = EntityState.Modified;
                     db.SaveChanges();
+                    logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + pos.id.ToString());
                     return "1";
                 }
             }
