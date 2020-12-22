@@ -1381,6 +1381,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     IWorkbook workbook = application.Workbooks.Open(files[0].InputStream);
                     string fullPath = Path.Combine(Server.MapPath("~/temp"), files[0].FileName);
                     IWorksheet worksheet = workbook.Worksheets[0];
+                    worksheet.UsedRange.Clear(ExcelClearOptions.ClearConditionalFormats);
                     bool read = false;
                     int rows = worksheet.Rows.Length;
                     string[] nameArray = new string[rows];
