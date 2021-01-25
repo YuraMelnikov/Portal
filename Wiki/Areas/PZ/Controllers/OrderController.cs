@@ -29,7 +29,7 @@ namespace Wiki.Areas.PZ.Controllers
         {
             ViewBag.id_Provider = new SelectList(db.Provider.OrderBy(a => a.name), "id", "name");
             ViewBag.Orders = new SelectList(db.PZ_PlanZakaz.Where(d => d.PlanZakaz < 9000).OrderByDescending(x => x.PlanZakaz), "id", "PlanZakaz");
-            ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
+            ViewBag.Manager = new SelectList(db.AspNetUsers.Where(d => d.LockoutEnabled == true).Where(x => x.Devision == 5 || x.CiliricalName == "Антипов Эдуард Валерьевич" || x.CiliricalName == "Брель Андрей Викторович" || x.CiliricalName == "Русак Игорь Георгиевич" || x.CiliricalName == "Моргунов Анатолий Юрьевич").OrderBy(x => x.CiliricalName), "id", "CiliricalName");
             ViewBag.Client = new SelectList(db.PZ_Client.OrderBy(x => x.NameSort), "id", "NameSort");
             ViewBag.Dostavka = new SelectList(db.PZ_Dostavka.OrderBy(d => d.Name), "id", "Name");
             ViewBag.ProductType = new SelectList(db.PZ_ProductType.OrderBy(d => d.ProductType), "id", "ProductType");
@@ -134,7 +134,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by")
+            else if (devision == 5 || devision == 4 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -241,7 +241,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by")
+            else if (devision == 5 || devision == 4 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -334,7 +334,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by")
+            else if (devision == 5 || devision == 4 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;
@@ -427,7 +427,7 @@ namespace Wiki.Areas.PZ.Controllers
                 linkPartOne = firstPartLinkEditKO;
                 linkPartTwo = lastPartEdit;
             }
-            else if (devision == 5 || login == "myi@katek.by")
+            else if (devision == 5 || devision == 4 || login == "myi@katek.by")
             {
                 linkPartOne = firstPartLinkEditOP;
                 linkPartTwo = lastPartEdit;

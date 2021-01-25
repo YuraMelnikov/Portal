@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
@@ -65,10 +64,10 @@
       <HintPath>..\packages\Open-XML-SDK.2.9.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus, Version=5.4.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.5.4.1\lib\net45\EPPlus.dll</HintPath>
@@ -410,6 +409,8 @@
     <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
     <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
     <Compile Include="Areas\OrdersTables\OrdersTablesAreaRegistration.cs" />
+    <Compile Include="Areas\Plexiglass\Controllers\PlexiglasController.cs" />
+    <Compile Include="Areas\Plexiglass\PlexiglassAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
     <Compile Include="Areas\PZ\Controllers\OperatorController.cs" />
@@ -1502,6 +1503,7 @@
     <Content Include="Areas\E3\Contents\E3.js" />
     <Content Include="Areas\NotesOrders\Content\notes.js" />
     <Content Include="Areas\OrdersTables\Content\OrderTable.js" />
+    <Content Include="Areas\Plexiglass\Content\Plexiglass.js" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.css" />
     <Content Include="Areas\PZ\Contant\Bootstrap\bootstrap.js" />
     <Content Include="Areas\PZ\Contant\DataTable\Scroll\dataTables.fixedColumns.min.js" />
@@ -2686,6 +2688,9 @@
     <Content Include="E3_Components_Symbols_Edit.edmx.diagram">
       <DependentUpon>E3_Components_Symbols_Edit.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Plexiglass\Views\web.config" />
+    <Content Include="Areas\Plexiglass\Views\Shared\_LayoutPlexiglas.cshtml" />
+    <Content Include="Areas\Plexiglass\Views\Plexiglas\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3245,9 +3250,11 @@
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
+    <Folder Include="Areas\Plexiglass\Data\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
     <Folder Include="temp\" />
+    <Folder Include="Views\Plexiglass\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -3342,10 +3349,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

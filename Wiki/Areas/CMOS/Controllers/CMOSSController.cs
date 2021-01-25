@@ -17,7 +17,7 @@ namespace Wiki.Areas.CMOS.Controllers
 {
     public class CMOSSController : Controller
     {
-        private readonly double rate = 3.55;
+        private readonly double rate = 3.7;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
@@ -820,20 +820,23 @@ namespace Wiki.Areas.CMOS.Controllers
                     link = link.Substring(link.IndexOf("a") + 1);
                     double weight = Convert.ToDouble(link);
                     CMOSPositionPreOrder pos = db.CMOSPositionPreOrder.Find(id);
-                    pos.flow = rate;
-                    pos.weight = weight;
-                    try
+                    if (pos.weight != weight || pos.flow != rate)
                     {
-                        contrilWeight = db.SKU.First(a => a.designation == pos.designation && a.indexMaterial == pos.index).weight;
+                        pos.flow = rate;
+                        pos.weight = weight;
+                        try
+                        {
+                            contrilWeight = db.SKU.First(a => a.designation == pos.designation && a.indexMaterial == pos.index).weight;
+                        }
+                        catch
+                        {
+                        }
+                        if (contrilWeight != weight)
+                            pos.newWeight = weight;
+                        db.Entry(pos).State = EntityState.Modified;
+                        db.SaveChanges();
+                        logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + pos.id.ToString());
                     }
-                    catch
-                    {
-                    }
-                    if (contrilWeight != weight)
-                        pos.newWeight = weight;
-                    db.Entry(pos).State = EntityState.Modified;
-                    db.SaveChanges();
-                    logger.Error("CMOSSController / PostPositionsPreorderApi: " + " | " + pos.id.ToString());
                     return "1";
                 }
             }
