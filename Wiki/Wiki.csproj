@@ -410,6 +410,7 @@
     <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
     <Compile Include="Areas\OrdersTables\OrdersTablesAreaRegistration.cs" />
     <Compile Include="Areas\Plexiglass\Controllers\PlexiglasController.cs" />
+    <Compile Include="Areas\Plexiglass\Models\EmailPlexiglas.cs" />
     <Compile Include="Areas\Plexiglass\PlexiglassAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
@@ -1103,6 +1104,15 @@
     </Compile>
     <Compile Include="planZakaz.cs">
       <DependentUpon>ExportImportKATEK.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlexiglassCompany.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlexiglassOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlexiglassPositionsOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="PlugInfo.cs">
       <DependentUpon>E3_Components_Symbols_Edit.tt</DependentUpon>
@@ -3250,7 +3260,6 @@
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
-    <Folder Include="Areas\Plexiglass\Data\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
     <Folder Include="temp\" />

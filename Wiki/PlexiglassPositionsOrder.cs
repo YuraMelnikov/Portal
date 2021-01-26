@@ -12,26 +12,18 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class CMOSPositionPreOrder
+    public partial class PlexiglassPositionsOrder
     {
         public int id { get; set; }
-        public int CMOSPreOrderId { get; set; }
+        public int id_PlexiglassOrder { get; set; }
         public string positionNum { get; set; }
         public string designation { get; set; }
         public string name { get; set; }
         public string index { get; set; }
-        public double weight { get; set; }
-        public double quantity { get; set; }
-        public double quantity8 { get; set; }
-        public double summaryWeight { get; set; }
-        public string color { get; set; }
-        public string coating { get; set; }
-        public string note { get; set; }
-        public double flow { get; set; }
-        public Nullable<int> sku { get; set; }
-        public Nullable<double> newWeight { get; set; }
-        public Nullable<bool> isUpdateWeight { get; set; }
+        public int quentity { get; set; }
+        public double square { get; set; }
+        public string barcode { get; set; }
     
-        public virtual CMOSPreOrder CMOSPreOrder { get; set; }
+        public virtual PlexiglassOrder PlexiglassOrder { get; set; }
     }
 }

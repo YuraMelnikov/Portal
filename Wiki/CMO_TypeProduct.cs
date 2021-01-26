@@ -21,6 +21,7 @@ namespace Wiki
             this.CMO_PositionPreOrder = new HashSet<CMO_PositionPreOrder>();
             this.CMO2_Position = new HashSet<CMO2_Position>();
             this.CMOSPreOrder = new HashSet<CMOSPreOrder>();
+            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
         }
     
         public int id { get; set; }
@@ -35,5 +36,7 @@ namespace Wiki
         public virtual ICollection<CMO2_Position> CMO2_Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMOSPreOrder> CMOSPreOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
     }
 }

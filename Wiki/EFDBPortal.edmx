@@ -742,6 +742,7 @@
           <Property Name="flow" Type="float" Nullable="false" />
           <Property Name="sku" Type="int" />
           <Property Name="newWeight" Type="float" />
+          <Property Name="isUpdateWeight" Type="bit" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -1457,6 +1458,45 @@
           <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="action" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlexiglassCompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar(max)" Nullable="false" />
+          <Property Name="remove" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlexiglassOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PZ_PlanZakaz" Type="int" Nullable="false" />
+          <Property Name="id_CMO_TypeProduct" Type="int" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="id_PlexiglassCompany" Type="int" Nullable="false" />
+          <Property Name="datetimeCreate" Type="datetime" Nullable="false" />
+          <Property Name="continueDate" Type="date" />
+          <Property Name="finishDate" Type="date" />
+          <Property Name="folder" Type="varchar(max)" Nullable="false" />
+          <Property Name="remove" Type="bit" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlexiglassPositionsOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_PlexiglassOrder" Type="int" Nullable="false" />
+          <Property Name="positionNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="designation" Type="varchar(max)" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="index" Type="varchar(max)" Nullable="false" />
+          <Property Name="quentity" Type="int" Nullable="false" />
+          <Property Name="square" Type="float" Nullable="false" />
+          <Property Name="barcode" Type="varchar" MaxLength="13" Nullable="false" />
         </EntityType>
         <EntityType Name="PostAlertShip">
           <Key>
@@ -3880,6 +3920,66 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PlexiglassOrder_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PlexiglassOrder" Type="Self.PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_CMO_TypeProduct">
+          <End Role="CMO_TypeProduct" Type="Self.CMO_TypeProduct" Multiplicity="1" />
+          <End Role="PlexiglassOrder" Type="Self.PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_PlexiglassCompany">
+          <End Role="PlexiglassCompany" Type="Self.PlexiglassCompany" Multiplicity="1" />
+          <End Role="PlexiglassOrder" Type="Self.PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlexiglassCompany">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_PlexiglassCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="PlexiglassOrder" Type="Self.PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassPositionsOrder_PlexiglassOrder">
+          <End Role="PlexiglassOrder" Type="Self.PlexiglassOrder" Multiplicity="1" />
+          <End Role="PlexiglassPositionsOrder" Type="Self.PlexiglassPositionsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlexiglassOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassPositionsOrder">
+              <PropertyRef Name="id_PlexiglassOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PostAlertShip_debit_WorkBit">
           <End Role="Debit_WorkBit" Type="Self.Debit_WorkBit" Multiplicity="1" />
           <End Role="PostAlertShip" Type="Self.PostAlertShip" Multiplicity="*" />
@@ -5112,6 +5212,9 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="PlanOrders" EntityType="Self.PlanOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVerificationItems" EntityType="Self.PlanVerificationItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVerificationItemsLog" EntityType="Self.PlanVerificationItemsLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlexiglassCompany" EntityType="Self.PlexiglassCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlexiglassOrder" EntityType="Self.PlexiglassOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlexiglassPositionsOrder" EntityType="Self.PlexiglassPositionsOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostAlertShip" EntityType="Self.PostAlertShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostMatching" EntityType="Self.PostMatching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionCalendar" EntityType="Self.ProductionCalendar" Schema="dbo" store:Type="Tables" />
@@ -5778,6 +5881,26 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_PlanVerificationItemsLog_PlanVerificationItems" Association="Self.FK_PlanVerificationItemsLog_PlanVerificationItems">
             <End Role="PlanVerificationItems" EntitySet="PlanVerificationItems" />
             <End Role="PlanVerificationItemsLog" EntitySet="PlanVerificationItemsLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_AspNetUsers" Association="Self.FK_PlexiglassOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_CMO_TypeProduct" Association="Self.FK_PlexiglassOrder_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_PlexiglassCompany" Association="Self.FK_PlexiglassOrder_PlexiglassCompany">
+            <End Role="PlexiglassCompany" EntitySet="PlexiglassCompany" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_PZ_PlanZakaz" Association="Self.FK_PlexiglassOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassPositionsOrder_PlexiglassOrder" Association="Self.FK_PlexiglassPositionsOrder_PlexiglassOrder">
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+            <End Role="PlexiglassPositionsOrder" EntitySet="PlexiglassPositionsOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_PostAlertShip_debit_WorkBit" Association="Self.FK_PostAlertShip_debit_WorkBit">
             <End Role="Debit_WorkBit" EntitySet="Debit_WorkBit" />
@@ -7177,6 +7300,29 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="PlexiglassCompany" EntityType="PortalKATEKModel.PlexiglassCompany" />
+          <EntitySet Name="PlexiglassOrder" EntityType="PortalKATEKModel.PlexiglassOrder" />
+          <EntitySet Name="PlexiglassPositionsOrder" EntityType="PortalKATEKModel.PlexiglassPositionsOrder" />
+          <AssociationSet Name="FK_PlexiglassOrder_AspNetUsers" Association="PortalKATEKModel.FK_PlexiglassOrder_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_CMO_TypeProduct" Association="PortalKATEKModel.FK_PlexiglassOrder_CMO_TypeProduct">
+            <End Role="CMO_TypeProduct" EntitySet="CMO_TypeProduct" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_PlexiglassCompany" Association="PortalKATEKModel.FK_PlexiglassOrder_PlexiglassCompany">
+            <End Role="PlexiglassCompany" EntitySet="PlexiglassCompany" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_PlexiglassOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlexiglassPositionsOrder_PlexiglassOrder" Association="PortalKATEKModel.FK_PlexiglassPositionsOrder_PlexiglassOrder">
+            <End Role="PlexiglassOrder" EntitySet="PlexiglassOrder" />
+            <End Role="PlexiglassPositionsOrder" EntitySet="PlexiglassPositionsOrder" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMKO_ThisFinalBonus">
           <Key>
@@ -7795,6 +7941,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="StickersPreOrder" />
           <NavigationProperty Name="TaskForPZ" Relationship="PortalKATEKModel.FK_TaskForPZ_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskForPZ" />
           <NavigationProperty Name="AspNetRoles" Relationship="PortalKATEKModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="PlexiglassOrder" />
         </EntityType>
         <EntityType Name="BurnDown">
           <Key>
@@ -8303,6 +8450,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="CMO_PositionPreOrder" Relationship="PortalKATEKModel.FK_CMO_PositionPreOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO_PositionPreOrder" />
           <NavigationProperty Name="CMO2_Position" Relationship="PortalKATEKModel.FK_CMO2_Position_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMO2_Position" />
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPreOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="CMOSPreOrder" />
+          <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassOrder_CMO_TypeProduct" FromRole="CMO_TypeProduct" ToRole="PlexiglassOrder" />
         </EntityType>
         <EntityType Name="CMO_TypeTask">
           <Key>
@@ -8441,6 +8589,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="sku" Type="Int32" />
           <NavigationProperty Name="CMOSPreOrder" Relationship="PortalKATEKModel.FK_CMOSPositionPreOrder_CMOSPreOrder" FromRole="CMOSPositionPreOrder" ToRole="CMOSPreOrder" />
           <Property Name="newWeight" Type="Double" />
+          <Property Name="isUpdateWeight" Type="Boolean" />
         </EntityType>
         <EntityType Name="CMOSPreOrder">
           <Key>
@@ -9372,6 +9521,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="StickersPreOrder" />
+          <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PlexiglassOrder" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -12537,6 +12687,112 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="PlexiglassCompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassOrder_PlexiglassCompany" FromRole="PlexiglassCompany" ToRole="PlexiglassOrder" />
+        </EntityType>
+        <EntityType Name="PlexiglassOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PZ_PlanZakaz" Type="Int32" Nullable="false" />
+          <Property Name="id_CMO_TypeProduct" Type="Int32" Nullable="false" />
+          <Property Name="id_AspNetUsers" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="id_PlexiglassCompany" Type="Int32" Nullable="false" />
+          <Property Name="datetimeCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="continueDate" Type="DateTime" Precision="0" />
+          <Property Name="finishDate" Type="DateTime" Precision="0" />
+          <Property Name="folder" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remove" Type="Boolean" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_PlexiglassOrder_AspNetUsers" FromRole="PlexiglassOrder" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CMO_TypeProduct" Relationship="PortalKATEKModel.FK_PlexiglassOrder_CMO_TypeProduct" FromRole="PlexiglassOrder" ToRole="CMO_TypeProduct" />
+          <NavigationProperty Name="PlexiglassCompany" Relationship="PortalKATEKModel.FK_PlexiglassOrder_PlexiglassCompany" FromRole="PlexiglassOrder" ToRole="PlexiglassCompany" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_PlexiglassOrder_PZ_PlanZakaz" FromRole="PlexiglassOrder" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="PlexiglassPositionsOrder" Relationship="PortalKATEKModel.FK_PlexiglassPositionsOrder_PlexiglassOrder" FromRole="PlexiglassOrder" ToRole="PlexiglassPositionsOrder" />
+        </EntityType>
+        <EntityType Name="PlexiglassPositionsOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_PlexiglassOrder" Type="Int32" Nullable="false" />
+          <Property Name="positionNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="index" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="quentity" Type="Int32" Nullable="false" />
+          <Property Name="square" Type="Double" Nullable="false" />
+          <Property Name="barcode" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassPositionsOrder_PlexiglassOrder" FromRole="PlexiglassPositionsOrder" ToRole="PlexiglassOrder" />
+        </EntityType>
+        <Association Name="FK_PlexiglassOrder_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlexiglassOrder" Role="PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_CMO_TypeProduct">
+          <End Type="PortalKATEKModel.CMO_TypeProduct" Role="CMO_TypeProduct" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlexiglassOrder" Role="PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CMO_TypeProduct">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_CMO_TypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_PlexiglassCompany">
+          <End Type="PortalKATEKModel.PlexiglassCompany" Role="PlexiglassCompany" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlexiglassOrder" Role="PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlexiglassCompany">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_PlexiglassCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlexiglassOrder" Role="PlexiglassOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlexiglassOrder">
+              <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlexiglassPositionsOrder_PlexiglassOrder">
+          <End Type="PortalKATEKModel.PlexiglassOrder" Role="PlexiglassOrder" Multiplicity="1" />
+          <End Type="PortalKATEKModel.PlexiglassPositionsOrder" Role="PlexiglassPositionsOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlexiglassOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlexiglassPositionsOrder">
+              <PropertyRef Name="id_PlexiglassOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13699,6 +13955,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="CMOSPositionPreOrder">
             <EntityTypeMapping TypeName="PortalKATEKModel.CMOSPositionPreOrder">
               <MappingFragment StoreEntitySet="CMOSPositionPreOrder">
+                <ScalarProperty Name="isUpdateWeight" ColumnName="isUpdateWeight" />
                 <ScalarProperty Name="newWeight" ColumnName="newWeight" />
                 <ScalarProperty Name="sku" ColumnName="sku" />
                 <ScalarProperty Name="flow" ColumnName="flow" />
@@ -15214,6 +15471,48 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PlexiglassCompany">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PlexiglassCompany">
+              <MappingFragment StoreEntitySet="PlexiglassCompany">
+                <ScalarProperty Name="remove" ColumnName="remove" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlexiglassOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PlexiglassOrder">
+              <MappingFragment StoreEntitySet="PlexiglassOrder">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="remove" ColumnName="remove" />
+                <ScalarProperty Name="folder" ColumnName="folder" />
+                <ScalarProperty Name="finishDate" ColumnName="finishDate" />
+                <ScalarProperty Name="continueDate" ColumnName="continueDate" />
+                <ScalarProperty Name="datetimeCreate" ColumnName="datetimeCreate" />
+                <ScalarProperty Name="id_PlexiglassCompany" ColumnName="id_PlexiglassCompany" />
+                <ScalarProperty Name="id_AspNetUsers" ColumnName="id_AspNetUsers" />
+                <ScalarProperty Name="id_CMO_TypeProduct" ColumnName="id_CMO_TypeProduct" />
+                <ScalarProperty Name="id_PZ_PlanZakaz" ColumnName="id_PZ_PlanZakaz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlexiglassPositionsOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.PlexiglassPositionsOrder">
+              <MappingFragment StoreEntitySet="PlexiglassPositionsOrder">
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="square" ColumnName="square" />
+                <ScalarProperty Name="quentity" ColumnName="quentity" />
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="positionNum" ColumnName="positionNum" />
+                <ScalarProperty Name="id_PlexiglassOrder" ColumnName="id_PlexiglassOrder" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

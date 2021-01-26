@@ -46,6 +46,7 @@ namespace Wiki
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
             this.StickersPreOrder = new HashSet<StickersPreOrder>();
+            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
         }
     
         public int Id { get; set; }
@@ -165,5 +166,7 @@ namespace Wiki
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StickersPreOrder> StickersPreOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
     }
 }

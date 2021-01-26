@@ -34,7 +34,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.PWA_EmpTaskAll" Width="1.5" PointX="99.125" PointY="15.5" />
         <EntityTypeShape EntityType="PortalKATEKModel.RKD_TaskUIDProjectUD" Width="1.5" PointX="97.125" PointY="19.5" />
         <EntityTypeShape EntityType="PortalKATEKModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.AdvancePaynemts" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.AdvancePaynemts" Width="1.5" PointX="38.75" PointY="46.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.ApproveCDActions" Width="1.5" PointX="21.25" PointY="122.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.ApproveCDOrders" Width="1.5" PointX="13.25" PointY="129" />
         <EntityTypeShape EntityType="PortalKATEKModel.ApproveCDQuestionCorr" Width="1.5" PointX="25.75" PointY="124.625" />
@@ -88,7 +88,7 @@
         <EntityTypeShape EntityType="PortalKATEKModel.CMOSPositionPreOrder" Width="1.5" PointX="26.75" PointY="132.875" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMOSPreOrder" Width="1.5" PointX="24.5" PointY="133.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.CMOSRate" Width="1.5" PointX="11.75" PointY="9.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Contracts" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Contracts" Width="1.5" PointX="39.125" PointY="47.25" />
         <EntityTypeShape EntityType="PortalKATEKModel.CurencyBYN" Width="1.5" PointX="11.75" PointY="4.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_HSSPO" Width="1.5" PointX="27.5" PointY="141" />
         <EntityTypeShape EntityType="PortalKATEKModel.DashboardBP_HSSPOSmall" Width="1.5" PointX="9.75" PointY="12.75" />
@@ -132,13 +132,13 @@
         <EntityTypeShape EntityType="PortalKATEKModel.OrdersTables" Width="1.5" PointX="10.25" PointY="236.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.OrdersTablesPositions" Width="1.5" PointX="21.5" PointY="183.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.PF" Width="1.5" PointX="8" PointY="113.625" />
-        <EntityTypeShape EntityType="PortalKATEKModel.PlanOrders" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PlanOrders" Width="1.5" PointX="47.75" PointY="32.75" />
         <EntityTypeShape EntityType="PortalKATEKModel.PlanVerificationItems" Width="1.5" PointX="21.5" PointY="112.25" />
         <EntityTypeShape EntityType="PortalKATEKModel.PlanVerificationItemsLog" Width="1.5" PointX="16.25" PointY="136.625" />
         <EntityTypeShape EntityType="PortalKATEKModel.PostAlertShip" Width="1.5" PointX="23.75" PointY="155.25" />
         <EntityTypeShape EntityType="PortalKATEKModel.PostMatching" Width="1.5" PointX="10" PointY="6.875" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProductionCalendar" Width="1.5" PointX="3" PointY="123.375" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Products" Width="1.5" PointX="5.25" PointY="7.375" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Products" Width="1.5" PointX="27.875" PointY="55.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectTask" Width="1.5" PointX="3" PointY="158.5" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectTaskLinks" Width="1.5" PointX="5.25" PointY="159" />
         <EntityTypeShape EntityType="PortalKATEKModel.ProjectTypesLine" Width="1.5" PointX="3" PointY="155.25" />
@@ -194,8 +194,8 @@
         <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksReclamations" Width="1.5" PointX="12.5" PointY="185.125" />
         <EntityTypeShape EntityType="PortalKATEKModel.ServiceRemarksTypes" Width="1.5" PointX="12.5" PointY="250.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.SKU" Width="1.5" PointX="4.75" PointY="16.75" />
-        <EntityTypeShape EntityType="PortalKATEKModel.Specifications" Width="1.5" PointX="3" PointY="2" />
-        <EntityTypeShape EntityType="PortalKATEKModel.SpecificationsPositions" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="PortalKATEKModel.Specifications" Width="1.5" PointX="15.125" PointY="43.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.SpecificationsPositions" Width="1.5" PointX="31" PointY="22.875" />
         <EntityTypeShape EntityType="PortalKATEKModel.StickersPreOrder" Width="1.5" PointX="29.5" PointY="129.25" />
         <EntityTypeShape EntityType="PortalKATEKModel.TaskForPZ" Width="1.5" PointX="16.25" PointY="140.375" />
         <EntityTypeShape EntityType="PortalKATEKModel.TypeRKD_Mail_Version" Width="1.5" PointX="19" PointY="111.125" />
@@ -407,6 +407,14 @@
         <AssociationConnector Association="PortalKATEKModel.FK_SpecificationsPositions_Specifications" />
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PlexiglassCompany" Width="1.5" PointX="24.25" PointY="117.625" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PlexiglassOrder" Width="1.5" PointX="26.5" PointY="117.75" />
+        <EntityTypeShape EntityType="PortalKATEKModel.PlexiglassPositionsOrder" Width="1.5" PointX="28.75" PointY="118.25" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PlexiglassOrder_AspNetUsers" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PlexiglassOrder_CMO_TypeProduct" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PlexiglassOrder_PlexiglassCompany" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PlexiglassOrder_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_PlexiglassPositionsOrder_PlexiglassOrder" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
