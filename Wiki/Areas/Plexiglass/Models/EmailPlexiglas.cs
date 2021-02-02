@@ -35,15 +35,15 @@ namespace Wiki.Areas.Plexiglass.Models
                 mail.From = new MailAddress(_login);
                 if (_stepNumber == 0) //Create - 0
                 {
-                    //GetMailListCreate();
+                    GetMailListCreate();
                     GetMailPM();
-                    //GetMailClient();
+                    GetMailClient();
                 }
                 else if (_stepNumber == 1) //Remove - 2
                 {
-                    //GetMailListCreate();
+                    GetMailListCreate();
                     GetMailPM();
-                    //GetMailClient();
+                    GetMailClient();
                 }
                 else
                 {

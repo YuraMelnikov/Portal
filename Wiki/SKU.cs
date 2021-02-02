@@ -22,5 +22,6 @@ namespace Wiki
         public double weight { get; set; }
         public double WeightR { get; set; }
         public double WeightArmis { get; set; }
+        public string Note { get; set; }
     }
 }

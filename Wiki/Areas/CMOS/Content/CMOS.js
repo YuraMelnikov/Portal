@@ -20,6 +20,7 @@ $(document).ready(function () {
         $('#btnAddPreOrder').show();
         $('#btnReOrder').show();
         $('#dTableNoPlaningPreOrder').show();
+        $('#dSKU').show(); 
         $('#dFullReport').show();
     }
     else if (userGroupId === 4) {
@@ -31,9 +32,11 @@ $(document).ready(function () {
     else if (userGroupId === 5) {
         $('#dTableTNOrder').show();
         $('#dFullReport').show();
+        $('#dSKU').show(); 
         $('#btnCorrectArmis').show();
         $('#btnCorrectGratius').show();
         $('#btnCorrectEcowood').show(); 
+        $('#btnLoadArmisWeight').show(); 
     }
     else {
         $('#dShortReport').show();
@@ -51,6 +54,13 @@ var objControlTable = [
     { "title": "Вес по файлу", "data": "fileWeight", "autowidth": true, "bSortable": false },
     { "title": "Расчетный вес", "data": "rWeight", "autowidth": true, "bSortable": false },
     { "title": "Вес по 1с7", "data": "sWeight", "autowidth": true, "bSortable": false }
+]; 
+
+var objSKU = [
+    { "title": "Ред", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "ТМЦ", "data": "name", "autowidth": true, "bSortable": false },
+    { "title": "Расчетный вес", "data": "weight", "autowidth": true, "bSortable": false },
+    { "title": "Вес Армиса", "data": "WeightArmis", "autowidth": true, "bSortable": false }
 ]; 
 
 var objPositionsPreorder = [
@@ -181,6 +191,28 @@ var objOrders = [
 ];
 
 function StartMenu() {
+    $("#skuReport").DataTable({
+        "ajax": {
+            "cache": false,
+            "url": "/CMOSS/GetTableSKUKO",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [0, "desc"],
+        "processing": true,
+        "columns": objSKU,
+        "scrollY": '75vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "searching": true,
+        "scrollCollapse": true,
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
     $("#tableNoPlaningPreOrder").DataTable({
         "ajax": {
             "cache": false,
@@ -524,33 +556,6 @@ function AddPreOrder() {
             $('#tableNoPlaningPreOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#creatingPreOrderModal').modal('hide');
-            //var table = $('#controlPreorderTable').DataTable();
-            //table.destroy();
-            //$('#controlPreorderTable').empty();
-            //$("#controlPreorderTable").DataTable({
-            //    "dom": 'Bfrtip',
-            //    "buttons": [ 
-            //        'copyHtml5',
-            //        'excelHtml5',
-            //        'csvHtml5'
-            //    ],
-            //    "ajax": {
-            //        "cache": false,
-            //        "url": "/CMOSS/GetControlWeightPreorder/" + result,
-            //        "type": "POST",
-            //        "datatype": "json"
-            //    },
-            //    "bDestroy": true,
-            //    "order": [[0, "asc"]],
-            //    "bAutoWidth": false,
-            //    "columns": objControlTable,
-            //    "searching": false,
-            //    //"scrollY": '70vh',
-            //    "scrollX": false,
-            //    "paging": false,
-            //    "info": false,
-            //    "scrollCollapse": false
-            //});
         }
     });
 }
@@ -596,33 +601,6 @@ function AddBackorder() {
             $('#tableNoPlaningOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#creatingBackorderModal').modal('hide');
-            //var table = $('#controlBackorderTable').DataTable();
-            //table.destroy();
-            //$('#controlBackorderTable').empty();
-            //$("#controlBackorderTable").DataTable({
-            //    "dom": 'Bfrtip',
-            //    "buttons": [
-            //        'copyHtml5',
-            //        'excelHtml5',
-            //        'csvHtml5'
-            //    ], 
-            //    "ajax": {
-            //        "cache": false,
-            //        "url": "/CMOSS/GetControlWeightBackorder/" + result,
-            //        "type": "POST",
-            //        "datatype": "json"
-            //    },
-            //    "bDestroy": true,
-            //    "order": [[0, "asc"]],
-            //    "bAutoWidth": false,
-            //    "columns": objControlTable,
-            //    "searching": false,
-            //    //"scrollY": '70vh',
-            //    "scrollX": false,
-            //    "paging": false,
-            //    "info": false,
-            //    "scrollCollapse": false
-            //});
         }
     });
 }
@@ -753,6 +731,33 @@ function GetOrder(id) {
     });
 }
 
+function CleanerSKU() {
+    $('#idSKU').val("");
+    $('#skuName').val("");
+    $('#skuWeight').val("");
+    $('#skuWeightArmis').val("");
+    $('#Note').val(""); 
+}
+
+function GetSKU(id) {
+    CleanerSKU();
+    $('#btnAddOrderModal').hide();
+    $.ajax({
+        cache: false,
+        url: "/CMOSS/GetSKU/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idSKU').val(result.idSKU);
+            $('#skuName').val(result.skuName);
+            $('#skuWeight').val(result.skuWeight);
+            $('#skuWeightArmis').val(result.skuWeightArmis);
+            $('#skuModal').modal('show');
+        }
+    });
+}
+
 function UpdateOrder() {
     var obj = {
         idOrder: $('#idOrder').val(),
@@ -783,6 +788,25 @@ function UpdateOrder() {
             $('#tableNoClothingOrder').DataTable().ajax.reload(null, false);
             $('#fullReport').DataTable().ajax.reload(null, false);
             $('#orderModal').modal('hide');
+        }
+    });
+}
+
+function UpdateSKU() {
+    var obj = {
+        idSKU: $('#idSKU').val(),
+        Note: $('#Note').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/CMOSS/UpdateSKU",
+        data: JSON.stringify(obj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#skuReport').DataTable().ajax.reload(null, false);
+            $('#skuModal').modal('hide');
         }
     });
 }
@@ -1082,3 +1106,35 @@ function OpeningCorrectEcowood() {
     $('#OpeningCorrectEcowoodModal').modal('show');
     $('#loaderOpeningCorrectEcowoodModal').hide();
 } 
+
+function OppeningArmisWeight() {
+    $('#OppeningArmisWeightModal').modal('show');
+    $('#loaderOppeningArmisWeightModal').hide();
+}
+
+function LoadingArmisWeightForOrder() {
+    var files = document.getElementById('fileforWeightArmis').files;
+    var valid = ValidLoadingFile(files.length);
+    if (valid === false) {
+        return false;
+    }
+    $('#btnLoadingArmisWeight').hide();
+    $('#loaderOppeningArmisWeightModal').show();
+    var data = new FormData();
+    var t = $('#listForWeightArmis').val();
+    data.append(t, t);
+    for (var x = 0; x < files.length; x++) {
+        data.append(files[x].name, files[x]);
+    }
+    $.ajax({
+        type: "POST",
+        url: "/CMOSS/LoadingArmisWeightForOrder",
+        contentType: false,
+        processData: false,
+        data: data,
+    }).done(function (data) {
+        $('#OppeningArmisWeightModal').modal('hide');
+        $('#btnLoadingArmisWeight').show(); 
+        $('#loaderOppeningArmisWeightModal').hide();
+    });
+}

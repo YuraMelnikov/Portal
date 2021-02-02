@@ -1,5 +1,5 @@
 ﻿@*https://chrome.google.com/webstore/detail/enable-local-file-links/nikfmfgobenbhmocjaaboihbeocackld/related*@
-
+@model Wiki.SKU
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/CMOS/Views/Shared/_LayoutCMOS.cshtml";
@@ -13,6 +13,7 @@
             background-color: #c42525;
             color: white;
         }
+
         .loader {
             border: 5px solid #d7d7d7;
             border-radius: 50%;
@@ -21,6 +22,7 @@
             height: 50px;
             animation: spin 2s linear infinite;
         }
+
         @@keyframes spin {
             0% {
                 transform: rotate(0deg);
@@ -63,6 +65,7 @@
         <button id="btnCorrectArmis" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectArmis()>Сверка Армис</button>
         <button id="btnCorrectGratius" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectGratius()>Сверка Гратиус</button>
         <button id="btnCorrectEcowood" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningCorrectEcowood()>Сверка Эковуд</button>
+        <button id="btnLoadArmisWeight" style="display:none;" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OppeningArmisWeight()>Загрузить веса Армис</button>
         <hr />
         <div id="dTableNoPlaningPreOrder" style="display:none;">
             <label>Требуется сформировать заказ поставщику:</label>
@@ -82,6 +85,11 @@
         <div id="dTableNoClothingOrder" style="display: none;">
             <label>Подтвердить поступление изделий из ЛМ:</label>
             <table id="tableNoClothingOrder" class="table table-hover table-striped" style="width:100%;"></table>
+            <hr />
+        </div>
+        <div id="dSKU" style="display:none;">
+            <label>Проверить вес:</label>
+            <table id="skuReport" class="table table-hover table-striped" style="width:100%;"></table>
             <hr />
         </div>
         <div id="dFullReport" style="display:none;">
@@ -534,6 +542,106 @@
         </div>
     </div>
 </div>
+
+<div id="OppeningArmisWeightModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label>Укажите № заказа изделий из ЛМ:</label>
+                        @Html.DropDownList("listForWeightArmis", ViewBag.correctingListArmis as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xls, .xlsx" type="file" multiple name="fileforWeightArmis" id="fileforWeightArmis" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingArmisWeight" class="btn btn-primary" onclick="LoadingArmisWeightForOrder()">Загрузить файл</button>
+                        <div id="loaderOppeningArmisWeightModal" class="loader"></div>
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="skuModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>ИД:</label>
+                        <input type="text" class="form-control" id="idSKU" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label>ТМЦ:</label>
+                        <input type="text" class="form-control" id="skuName" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Расч.вес:</label>
+                        <input type="text" class="form-control" id="skuWeight" disabled="disabled" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Вес Армиса:</label>
+                        <input type="text" class="form-control" id="skuWeightArmis" disabled="disabled" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Описание:</label>
+                        @Html.TextAreaFor(model => model.Note, htmlAttributes: new { @class = "form-control", @rows = 4 })
+                    </div>
+                </div>
+                <hr />
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Назад</button>
+                        <button id="btnSKUUpdate" class="btn btn-primary" onclick="UpdateSKU()">Обновить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(".modal-wide").on("show.bs.modal", function () {

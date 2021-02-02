@@ -37,6 +37,7 @@ namespace Wiki
             this.MailGraphic = new HashSet<MailGraphic>();
             this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
             this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
+            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
             this.PZ_PZNotes = new HashSet<PZ_PZNotes>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
             this.PZ_TEO = new HashSet<PZ_TEO>();
@@ -46,7 +47,6 @@ namespace Wiki
             this.SandwichPanel_PZ = new HashSet<SandwichPanel_PZ>();
             this.ServiceRemarksPlanZakazs = new HashSet<ServiceRemarksPlanZakazs>();
             this.StickersPreOrder = new HashSet<StickersPreOrder>();
-            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
         }
     
         public int Id { get; set; }
@@ -141,6 +141,8 @@ namespace Wiki
         public virtual ICollection<OrdersTablesPositions> OrdersTablesPositions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanVerificationItems> PlanVerificationItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
         public virtual Provider Provider { get; set; }
         public virtual PZ_Client PZ_Client { get; set; }
         public virtual PZ_Dostavka PZ_Dostavka { get; set; }
@@ -166,7 +168,5 @@ namespace Wiki
         public virtual ICollection<ServiceRemarksPlanZakazs> ServiceRemarksPlanZakazs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StickersPreOrder> StickersPreOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
     }
 }

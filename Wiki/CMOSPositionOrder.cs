@@ -26,6 +26,7 @@ namespace Wiki
         public string color { get; set; }
         public string coating { get; set; }
         public string note { get; set; }
+        public Nullable<double> weightArmis { get; set; }
     
         public virtual CMOSOrder CMOSOrder { get; set; }
     }

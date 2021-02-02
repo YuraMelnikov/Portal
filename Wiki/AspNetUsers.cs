@@ -48,6 +48,7 @@ namespace Wiki
             this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
             this.OrdersTables = new HashSet<OrdersTables>();
             this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
+            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
             this.PZ_Notes = new HashSet<PZ_Notes>();
             this.PZ_PlanZakaz = new HashSet<PZ_PlanZakaz>();
             this.PZ_Setup = new HashSet<PZ_Setup>();
@@ -70,7 +71,6 @@ namespace Wiki
             this.StickersPreOrder = new HashSet<StickersPreOrder>();
             this.TaskForPZ = new HashSet<TaskForPZ>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
         }
     
         public string Id { get; set; }
@@ -157,6 +157,8 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanVerificationItemsLog> PlanVerificationItemsLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_Notes> PZ_Notes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PZ_PlanZakaz> PZ_PlanZakaz { get; set; }
@@ -200,7 +202,5 @@ namespace Wiki
         public virtual ICollection<TaskForPZ> TaskForPZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlexiglassOrder> PlexiglassOrder { get; set; }
     }
 }

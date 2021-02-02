@@ -112,6 +112,37 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        public JsonResult GetTableSKUKO()
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.SKU
+                        .AsNoTracking()
+                        .Where(a => a.WeightArmis > 0.0 && a.Note == null)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetSKU('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>",
+                        dataList.id,
+                        name = dataList.designation + " |" + dataList.indexMaterial + "| " + dataList.name,
+                        dataList.weight,
+                        dataList.WeightArmis,
+                        dataList.sku1
+                    });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetTableSKUKO: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private double GetCurrencyForReport(DateTime? date)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -732,6 +763,35 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        public JsonResult GetSKU(int id)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.SKU
+                        .AsNoTracking()
+                        .Where(a => a.id == id)
+                        .ToList();
+                    var data = query.Select(dataList => new
+                    {
+                        idSKU = dataList.id,
+                        skuName = dataList.designation + " |" + dataList.indexMaterial + "| " + dataList.name,
+                        skuWeight = dataList.weight,
+                        skuWeightArmis = dataList.WeightArmis
+                    });
+                    return Json(data.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / GetSKU: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetPositionsPreorderApi(int id)
         {
             try
@@ -956,6 +1016,27 @@ namespace Wiki.Areas.CMOS.Controllers
             catch (Exception ex)
             {
                 logger.Error("CMOSSController / UpdateOrder: " + " | " + ex + " | " + login);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateSKU(int idSKU, string Note)
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    SKU order = db.SKU.Find(idSKU);
+                    order.Note = Note;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CMOSSController / UpdateSKU: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1483,6 +1564,74 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult LoadingArmisWeightForOrder()
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                HttpPostedFileBase[] files = new HttpPostedFileBase[Request.Files.Count];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Request.Files[i];
+                }
+                int ord = GetTypeMaterials(Request.Form.ToString());
+                var positions = db.CMOSPositionOrder
+                    .AsNoTracking()
+                    .Where(a => a.id_CMOSOrder == ord && a.note != "Входит в сб.")
+                    .ToList();
+
+
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.Open(files[0].InputStream);
+                    string fullPath = Path.Combine(Server.MapPath("~/temp"), files[0].FileName);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    worksheet.UsedRange.Clear(ExcelClearOptions.ClearConditionalFormats);
+                    int rows = worksheet.Rows.Length;
+                    string[] nameArray = new string[rows];
+                    for (int i = 1; i < rows; i++)
+                    {
+                        var weight = 0.0;
+                        if (double.IsNaN(worksheet.Rows[i].Cells[5].Number))
+                        {
+                            try
+                            {
+                                weight = Convert.ToDouble(worksheet.Rows[i].Cells[5].DisplayText);
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    weight = Convert.ToDouble(worksheet.Rows[i].Cells[5].DisplayText.Replace(".", ","));
+                                }
+                                catch
+                                {
+                                }
+                            }
+                        }
+                        else
+                            weight = worksheet.Rows[i].Cells[5].Number;
+                        string designationArmis = worksheet.Rows[i].Cells[1].Text.Split('<').First().Trim(' ');
+                        string indexArmis = worksheet.Rows[i].Cells[1].Text.Split('<').Last().Substring(0, 1);
+                        var first = positions.First(a => a.designation == designationArmis && a.index == indexArmis);
+                        first.weightArmis = weight;
+                        db.Entry(first).State = EntityState.Modified;
+                        db.SaveChanges();
+                        var sku = db.SKU.First(a => a.designation == designationArmis && a.indexMaterial == indexArmis);
+                        var different = Math.Abs((sku.weight - weight) / sku.weight);
+                        if(different > 0.05)
+                        {
+                            sku.WeightArmis = weight;
+                            db.Entry(sku).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                return Json(1);
+            }
+        }
+
         private string GetPercentComplited(int id)
         {
             double weightGet = 0;
@@ -1845,7 +1994,8 @@ namespace Wiki.Areas.CMOS.Controllers
                                             summaryWeight = Convert.ToDouble(worksheet.Rows[i].Cells[6].Value),
                                             color = worksheet.Rows[i].Cells[7].Value,
                                             coating = worksheet.Rows[i].Cells[8].Value,
-                                            note = worksheet.Rows[i].Cells[9].Value
+                                            note = worksheet.Rows[i].Cells[9].Value, 
+                                            weightArmis = 0.0
                                         };
                                         db.CMOSPositionOrder.Add(pos);
                                         db.SaveChanges();
@@ -1893,7 +2043,8 @@ namespace Wiki.Areas.CMOS.Controllers
                             summaryWeight = data.summaryWeight,
                             color = data.color,
                             coating = data.coating,
-                            note = data.note
+                            note = data.note, 
+                            weightArmis = 0.0
                         };
                         prepositionsList.Add(pos);
 
@@ -1930,7 +2081,8 @@ namespace Wiki.Areas.CMOS.Controllers
                         summaryWeight = prepositionsList.Where(a => a.designation == mt.Designation && a.name == mt.Name && a.index == mt.Index && a.color == mt.Color && a.coating == mt.Coating).Sum(a => a.quantity) * mt.Weigth,
                         color = mt.Color,
                         coating = mt.Coating,
-                        note = mt.Note
+                        note = mt.Note, 
+                        weightArmis = 0.0
                     };
                     db.CMOSPositionOrder.Add(pos);
                     db.SaveChanges();
