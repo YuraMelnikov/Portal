@@ -33,6 +33,7 @@ $(document).ready(function () {
         $('#dTableTNOrder').show();
         $('#dFullReport').show();
         $('#dSKU').show(); 
+        $('#btnOpeningMaterialsCModal').show();
         $('#btnCorrectArmis').show();
         $('#btnCorrectGratius').show();
         $('#btnCorrectEcowood').show(); 

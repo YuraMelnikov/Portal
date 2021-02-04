@@ -1564,6 +1564,32 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        private double GetCurrency(DateTime date, int addDays)
+        {
+            date = date.AddDays(addDays);
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    try
+                    {
+                        return db.CurencyBYN.First(a => a.date == date).USD;
+                    }
+                    catch
+                    {
+                        date = db.CurencyBYN.Max(a => a.date);
+                        return db.CurencyBYN.First(a => a.date == date).USD;
+                    }
+                }
+            }
+            catch
+            {
+                return 0.0;
+            }
+        }
+
         [HttpPost]
         public ActionResult LoadingArmisWeightForOrder()
         {
@@ -2599,6 +2625,30 @@ namespace Wiki.Areas.CMOS.Controllers
             }
         }
 
+        double GetOrdersWeightArmis(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                double res = 0.0;
+                var list = db.CMOSPositionOrder.AsNoTracking()
+                    .Where(a => a.note != "Входит в сб." && a.id_CMOSOrder == id)
+                    .ToList();
+                foreach (var d in list)
+                {
+                    try
+                    {
+                        res += (double)d.weightArmis * d.quantity;
+                    }
+                    catch
+                    {
+                    }
+                }
+                return res;
+            }
+        }
+
         double GetPreordersSummaryWeight(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -2680,14 +2730,18 @@ namespace Wiki.Areas.CMOS.Controllers
 
                     worksheet["A1"].ColumnWidth = 10.0;
                     worksheet["B1"].ColumnWidth = 40.0;
-                    worksheet["C1"].ColumnWidth = 10.0;
-                    worksheet["D1"].ColumnWidth = 10.0;
-                    worksheet["E1"].ColumnWidth = 10.0;
-                    worksheet["F1"].ColumnWidth = 10.0;
-                    worksheet["G1"].ColumnWidth = 10.0;
+                    worksheet["C1"].ColumnWidth = 15.0;
+                    worksheet["D1"].ColumnWidth = 15.0;
+                    worksheet["E1"].ColumnWidth = 15.0;
+                    worksheet["F1"].ColumnWidth = 15.0;
+                    worksheet["G1"].ColumnWidth = 15.0;
                     worksheet["H1"].ColumnWidth = 15.0;
                     worksheet["I1"].ColumnWidth = 15.0;
                     worksheet["J1"].ColumnWidth = 15.0;
+                    worksheet["K1"].ColumnWidth = 15.0;
+                    worksheet["L1"].ColumnWidth = 15.0;
+                    worksheet["M1"].ColumnWidth = 15.0;
+                    worksheet["N1"].ColumnWidth = 15.0;
 
                     worksheet["A3"].Text = "Ид. заказа";
                     worksheet["A3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
@@ -2709,35 +2763,56 @@ namespace Wiki.Areas.CMOS.Controllers
                     worksheet["D3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["D3"].WrapText = true;
 
-                    worksheet["E3"].Text = "Расчетный вес, кг.";
+                    worksheet["E3"].Text = "Вес согласно Заказу, кг.";
                     worksheet["E3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["E3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["E3"].WrapText = true;
 
-                    worksheet["F3"].Text = "Фактический вес, кг.";
+                    worksheet["F3"].Text = "Текущий вес, кг.";
                     worksheet["F3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["F3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["F3"].WrapText = true;
 
-                    worksheet["G3"].Text = "Ставка";
+
+                    worksheet["G3"].Text = "Вес Армиса, кг.";
                     worksheet["G3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["G3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["G3"].WrapText = true;
 
-                    worksheet["H3"].Text = "Расчетная стоимость, USD";
+                    worksheet["H3"].Text = "Ставка";
                     worksheet["H3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["H3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["H3"].WrapText = true;
 
-                    worksheet["I3"].Text = "Фактическая стоимость, USD";
+                    worksheet["I3"].Text = "Стоимость согласно весу Заказа, USD";
                     worksheet["I3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["I3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["I3"].WrapText = true;
 
-                    worksheet["J3"].Text = "Стоимость по накладной, бНДС BYN";
+                    worksheet["J3"].Text = "Стоимость по текущему весу, USD";
                     worksheet["J3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
                     worksheet["J3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                     worksheet["J3"].WrapText = true;
+
+                    worksheet["K3"].Text = "Стоимость по весу Армиса, USD";
+                    worksheet["K3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["K3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["K3"].WrapText = true;
+
+                    worksheet["L3"].Text = "Стоимость по накладной, бНДС BYN";
+                    worksheet["L3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["L3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["L3"].WrapText = true;
+
+                    worksheet["M3"].Text = "Курс на дату накладной + 1 день BYN/USD по НБРБ";
+                    worksheet["M3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["M3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["M3"].WrapText = true;
+
+                    worksheet["N3"].Text = "Стоимость по накладной, бНДС USD";
+                    worksheet["N3"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["N3"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["N3"].WrapText = true;
 
                     int rowNum = 4;
 
@@ -2745,6 +2820,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     {
                         double rWeight = 0.0;
                         double fWeight = 0.0;
+                        double aWeight = 0.0;
 
                         worksheet.Range[rowNum, 1].Text = order.id.ToString();
                         worksheet.Range[rowNum, 1].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
@@ -2778,25 +2854,47 @@ namespace Wiki.Areas.CMOS.Controllers
                         worksheet.Range[rowNum, 6].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 6].WrapText = true;
 
-                        worksheet.Range[rowNum, 7].Text = order.rate.ToString();
+                        aWeight = Math.Round(GetOrdersWeightArmis(order.id), 2);
+                        worksheet.Range[rowNum, 7].Text = aWeight.ToString();
                         worksheet.Range[rowNum, 7].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 7].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 7].WrapText = true;
 
-                        worksheet.Range[rowNum, 8].Text = Math.Round((rWeight * order.rate), 2).ToString();
+                        worksheet.Range[rowNum, 8].Text = order.rate.ToString();
                         worksheet.Range[rowNum, 8].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 8].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 8].WrapText = true;
 
-                        worksheet.Range[rowNum, 9].Text = Math.Round((fWeight * order.rate), 2).ToString();
+                        worksheet.Range[rowNum, 9].Text = Math.Round((rWeight * order.rate), 2).ToString();
                         worksheet.Range[rowNum, 9].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 9].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 9].WrapText = true;
 
-                        worksheet.Range[rowNum, 10].Text = Math.Round(order.factCost.Value, 2).ToString();
+                        worksheet.Range[rowNum, 10].Text = Math.Round((fWeight * order.rate), 2).ToString();
                         worksheet.Range[rowNum, 10].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                         worksheet.Range[rowNum, 10].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
                         worksheet.Range[rowNum, 10].WrapText = true;
+
+                        worksheet.Range[rowNum, 11].Text = Math.Round((aWeight * order.rate), 2).ToString();
+                        worksheet.Range[rowNum, 11].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 11].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 11].WrapText = true;
+
+                        worksheet.Range[rowNum, 12].Text = Math.Round(order.factCost.Value, 2).ToString();
+                        worksheet.Range[rowNum, 12].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 12].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 12].WrapText = true;
+
+                        double currency = GetCurrency(order.finDate.Value, 1);
+                        worksheet.Range[rowNum, 13].Text = Math.Round(currency, 4).ToString();
+                        worksheet.Range[rowNum, 13].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 13].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 13].WrapText = true;
+
+                        worksheet.Range[rowNum, 14].Text = Math.Round(order.factCost.Value / currency, 2).ToString();
+                        worksheet.Range[rowNum, 14].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                        worksheet.Range[rowNum, 14].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                        worksheet.Range[rowNum, 14].WrapText = true;
 
                         rowNum++;
                     }
