@@ -1620,7 +1620,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.SaveChanges();
                         var sku = db.SKU.First(a => a.designation == designationArmis && a.indexMaterial == indexArmis);
                         var different = Math.Abs((sku.weight - weight) / sku.weight);
-                        if(different > 0.05)
+                        if(different > 0.06)
                         {
                             sku.WeightArmis = weight;
                             db.Entry(sku).State = EntityState.Modified;
