@@ -193,9 +193,17 @@ function AddOrder() {
         processData: false,
         data: data,
         success: function (result) {
-            $('#tableKOOrder').DataTable().ajax.reload(null, false);
-            $('#tableAllOrder').DataTable().ajax.reload(null, false);
-            $('#creatingOrderModal').modal('hide');
+            if (result !== "0") {
+                $('#btnAddOrderModal').show();
+                $('#loaderOrder').hide();
+                $('#errorMessage').val(result);
+            }
+            else {
+                $('#tableKOOrder').DataTable().ajax.reload(null, false);
+                $('#tableAllOrder').DataTable().ajax.reload(null, false);
+                $('#errorMessage').val("");
+                $('#creatingOrderModal').modal('hide');
+            }
         }
     });
 }
@@ -265,6 +273,7 @@ function CleanerModals() {
     $('#finishDate').val("");
     $('#note').val("");
     $('#fileOrder').val("");
+    $('#errorMessage').val("");
 }
 
 function UpdateOrder() {

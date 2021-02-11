@@ -87,6 +87,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                        dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
                         dataList.ApproveCDOrders.description,
                         removeLink = GetRemoveLink(dataList.id),
                         gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
@@ -150,6 +151,25 @@ namespace Wiki.Areas.ApproveCD.Controllers
             }
         }
 
+        private DateTime? GetDateLastError(int idOrder)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                var list = db.ApproveCDActions
+                    .Where(a => a.ApproveCDVersions.id_ApproveCDOrders == idOrder && a.id_RKD_VersionWork == 7)
+                    .OrderByDescending(a => a.datetime)
+                    .ToList();
+                try
+                {
+                    return list[0].datetime;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
         [HttpPost]
         public JsonResult GetApproveTable()
         {
@@ -183,6 +203,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
                         ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
                         dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                        dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
                         dataList.ApproveCDOrders.description,
                         removeLink = "",
                         gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)

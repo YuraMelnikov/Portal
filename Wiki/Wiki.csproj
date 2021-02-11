@@ -411,6 +411,7 @@
     <Compile Include="Areas\OrdersTables\OrdersTablesAreaRegistration.cs" />
     <Compile Include="Areas\Plexiglass\Controllers\PlexiglasController.cs" />
     <Compile Include="Areas\Plexiglass\Models\EmailPlexiglas.cs" />
+    <Compile Include="Areas\Plexiglass\Models\ErrorPlexiglass.cs" />
     <Compile Include="Areas\Plexiglass\PlexiglassAreaRegistration.cs" />
     <Compile Include="Areas\PZ\Controllers\ClientController.cs" />
     <Compile Include="Areas\PZ\Controllers\KuratorController.cs" />
@@ -3260,6 +3261,7 @@
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\NotesOrders\Models\" />
+    <Folder Include="Areas\Plexiglass\TMP\" />
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
     <Folder Include="temp\" />

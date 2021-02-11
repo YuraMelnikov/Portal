@@ -3,7 +3,7 @@
 //3 - All
 //4 - Admin
 
-var vhScrollY = '50vh';
+var vhScrollY = '50vh'; 
 
 $(document).ready(function () {
     $('#BtnAddQuestion').hide();
@@ -45,6 +45,7 @@ var objOrders = [
     { "title": "Заказчик", "data": "customer", "autowidth": true, "bSortable": true },
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
+    { "title": "Дата замечания", "data": "dateLastError", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
     { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },
@@ -63,6 +64,7 @@ var objOrdersFinish = [
     { "title": "Состояние", "data": "state", "autowidth": true, "bSortable": true },
     { "title": "Дата согласования", "data": "finish", "autowidth": true, "bSortable": true },
     { "title": "Дата отправки РКД", "data": "dateLastLoad", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
+    { "title": "Дата замечания", "data": "dateLastError", "autowidth": true, "bSortable": true, "defaultContent": "", "render": processNull, "className": 'text-center' },
     { "title": "Текущая вер.", "data": "ver", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Дата открытия зак.", "data": "dateOpen", "autowidth": true, "bSortable": true, "className": 'text-center' },
     { "title": "Контрактный срок", "data": "contractDate", "autowidth": true, "bSortable": true, "className": 'text-center' },

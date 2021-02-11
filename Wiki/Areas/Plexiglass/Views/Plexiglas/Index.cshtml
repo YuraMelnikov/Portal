@@ -1,11 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Plexiglass/Views/Shared/_LayoutPlexiglas.cshtml";
 }
 
 <head>
-    <script src="~/Areas/Plexiglass/Content/Plexiglass.js?v.0.0.1"></script>
+    <script src="~/Areas/Plexiglass/Content/Plexiglass.js?v.1.0.0"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
@@ -107,6 +106,12 @@
                     <div class="col-lg-3">
                         <label>Укажите поставщика:</label>
                         @Html.DropDownList("customerNewOrderId", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <textarea rows="7" style="width: 500px" id="errorMessage" disabled="disabled"></textarea>
                     </div>
                 </div>
                 <hr />

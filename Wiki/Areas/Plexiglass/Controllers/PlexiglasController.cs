@@ -200,6 +200,52 @@ namespace Wiki.Areas.Plexiglass.Controllers
                 int[] ord = GetOrdersArray(Request.Form.ToString());
                 int typeMaterials = GetTypeMaterials(Request.Form.ToString());
                 int customer = GetCustomer(Request.Form.ToString());
+
+
+                int fileSize = files[0].ContentLength;
+                var fileName = Path.GetFileName(files[0].FileName);
+                byte[] fileByteArray = new byte[fileSize];
+                files[0].InputStream.Read(fileByteArray, 0, fileSize);
+                string fileLocation = Path.Combine(Server.MapPath("~/temp"), fileName);
+                if (!Directory.Exists(Server.MapPath("~/temp")))
+                    Directory.CreateDirectory(Server.MapPath("~/temp"));
+                files[0].SaveAs(fileLocation);
+
+
+                string error = "";
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.Open(fileLocation);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    int lenght = worksheet.Rows.Length;
+                    for (int i = 0; i < lenght; i++)
+                    {
+                        if (worksheet.Rows[i].Columns[1].DisplayText.Contains("PCAM") == true)
+                        {
+                            PlexiglassPositionsOrder pos = new PlexiglassPositionsOrder
+                            {
+                                id_PlexiglassOrder = 0,
+                                positionNum = "",
+                                designation = worksheet.Rows[i].Cells[1].Value.Trim(),
+                                name = worksheet.Rows[i].Cells[2].Value.Trim(),
+                                index = worksheet.Rows[i].Cells[3].Value.Trim(),
+                                quentity = 0,
+                                square = 0.0,
+                                barcode = ""
+                            };
+                            bool correct = GetFileMaterials(pos.designation);
+                            if (correct == false)
+                                error += pos.designation + " - файл не найден " + "\n";
+                        }
+                    }
+                    workbook.Close();
+                }
+                if (error != "")
+                    return Json(error, JsonRequestBehavior.AllowGet);
+
+
+
                 foreach (var p in ord)
                 {
                     var order = new PlexiglassOrder
@@ -362,6 +408,17 @@ namespace Wiki.Areas.Plexiglass.Controllers
             return Convert.ToInt32(str);
         }
 
+        private string CreateTmpFile(HttpPostedFileBase[] fileUploadArray)
+        {
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                IWorkbook workbook = application.Workbooks.Open(fileUploadArray[0].InputStream);
+                string fullPath = Path.Combine(Server.MapPath("~/temp"), fileUploadArray[0].FileName);
+                return fullPath;
+            }
+        }
+
         private string CreateFolderAndFileForPreOrder(int id, HttpPostedFileBase[] fileUploadArray)
         {
             string directory = pathPlexiglas + id.ToString() + "\\";
@@ -399,6 +456,7 @@ namespace Wiki.Areas.Plexiglass.Controllers
                 .Replace(">", "")
                 .Replace("|", "");
         }
+
 
         private void CreatingPositionsPreorder(int orderId, string path)
         {
@@ -460,6 +518,22 @@ namespace Wiki.Areas.Plexiglass.Controllers
                     }
                 }
             }
+        }
+
+        private bool GetFileMaterials(string name)
+        {
+            bool result = false;
+            name = name.ToLower();
+            var fileList = Directory.GetFiles(pathKOPlexiglas).ToList();
+            foreach (var data in fileList)
+            {
+                if (data.ToLower().Contains(name) == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
         private void GetFileMaterials(string name, string path)
