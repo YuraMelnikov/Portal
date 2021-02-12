@@ -12,7 +12,7 @@
     <script src="~/Content/DataTables/jszip.min.js"></script>
     <script src="~/Content/DataTables/pdfmake.min.js"></script>
     <script src="~/Content/DataTables/buttons.html5.min.js"></script>
-    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.16"></script>
+    <script src="~/Areas/PZ/Contant/OrdersList.js?v1.17"></script>
     <style>
         th.dt-invisible-column {
             border: 0 !important;
@@ -255,7 +255,6 @@
                     </div>
                 </div>
                 <br />
-                @*<hr />*@
                 <button type="button" class="btn-xs btn-primary" id="btnGetInfGP" onclick="GetGP(document.getElementById('Gruzopoluchatel').value);">Получить данные о грузополучателе</button>
                 <div class="row">
                     <div class="col-lg-3">
@@ -554,10 +553,6 @@
                 </div>
                 <br />
                 <div class="row">
-                    @*<div class="col-lg-6">
-                        <label for="nameTU">Наименование по ТУ:</label>
-                        @Html.TextAreaFor(model => model.nameTU, htmlAttributes: new { @class = "form-control", @rows = 5 })
-                    </div>*@
                     <div class="col-lg-2">
                         <label for="ProductType">Тип продукции:</label>
                         @Html.DropDownList("koProductType", ViewBag.ProductType as MultiSelectList, new { @class = "form-control" })

@@ -193,7 +193,7 @@ function AddOrder() {
         processData: false,
         data: data,
         success: function (result) {
-            if (result !== "0") {
+            if (result !== 0) {
                 $('#btnAddOrderModal').show();
                 $('#loaderOrder').hide();
                 $('#errorMessage').val(result);

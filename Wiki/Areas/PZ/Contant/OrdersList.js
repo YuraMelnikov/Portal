@@ -733,6 +733,7 @@ function Update() {
         id_PZ_OperatorDogovora: $('#id_PZ_OperatorDogovora').val(),
         id_PZ_FIO: $('#id_PZ_FIO').val(),
         Name: $('#Name').val(),
+        nameTU: $('#nameTU').val(),
         Description: $('#Description').val(),
         MTR: $('#MTR').val(),
         nomenklaturNumber: $('#nomenklaturNumber').val(),
@@ -769,6 +770,7 @@ function Update() {
             $('#massa').val("");
             $('#cgm').val("");
             $('#cge').val("");
+            $('#nameTU').val(""),
             $('#KodStanciiGruzopoluchatelya').val("");
             $('#OsobieOtmetkiGruzopoluchatelya').val("");
             $('#PowerST').val("");

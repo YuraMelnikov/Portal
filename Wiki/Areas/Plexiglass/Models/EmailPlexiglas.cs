@@ -41,16 +41,16 @@ namespace Wiki.Areas.Plexiglass.Models
                 }
                 else if (_stepNumber == 1) //Remove - 2
                 {
-                    //GetMailListCreate();
+                    GetMailListCreate();
                     GetMailPM();
-                    //GetMailClient();
+                    GetMailClient();
                 }
                 else
                 {
                 }
-                //GetSubject();
+                GetSubject();
                 GetBody();
-                //SendEmail();
+                SendEmail();
                 _logger.Debug("EmailPlexiglas: " + order.id);
             }
             catch (Exception ex)
