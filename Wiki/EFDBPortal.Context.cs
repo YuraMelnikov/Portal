@@ -224,5 +224,6 @@ namespace Wiki
         public virtual DbSet<TypeRKD_Mail_Version> TypeRKD_Mail_Version { get; set; }
         public virtual DbSet<TypeTaskForPZ> TypeTaskForPZ { get; set; }
         public virtual DbSet<WBS> WBS { get; set; }
+        public virtual DbSet<CrossOrder> CrossOrder { get; set; }
     }
 }

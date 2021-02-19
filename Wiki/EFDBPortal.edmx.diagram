@@ -415,6 +415,9 @@
         <AssociationConnector Association="PortalKATEKModel.FK_ServiceRemarksCauses_ServiceRemarksCause" />
         <AssociationConnector Association="PortalKATEKModel.FK_TaskForPZ_TypeTaskForPZ" />
         <AssociationConnector Association="PortalKATEKModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PortalKATEKModel.CrossOrder" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz" />
+        <AssociationConnector Association="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

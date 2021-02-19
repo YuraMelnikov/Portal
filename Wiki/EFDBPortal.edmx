@@ -782,6 +782,15 @@
           <Property Name="remove" Type="bit" Nullable="false" />
           <Property Name="id_Provider" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CrossOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_OrderParent" Type="int" Nullable="false" />
+          <Property Name="id_OrderChild" Type="int" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="CurencyBYN">
           <Key>
             <PropertyRef Name="date" />
@@ -2385,7 +2394,7 @@
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -2412,7 +2421,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.CMO_Report' does not have a p
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -2422,7 +2431,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpProject' does not have
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2443,7 +2452,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTask' does not have a 
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2464,7 +2473,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_EmpTaskAll' does not have
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -2536,7 +2545,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.PWA_TasksForBP' does not have
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -3419,6 +3428,30 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
             </Principal>
             <Dependent Role="CMOSPreOrder">
               <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossOrder_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="CrossOrder" Type="Self.CrossOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossOrder">
+              <PropertyRef Name="id_OrderParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossOrder_PZ_PlanZakaz1">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="CrossOrder" Type="Self.CrossOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossOrder">
+              <PropertyRef Name="id_OrderChild" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5158,6 +5191,7 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <EntitySet Name="CMOSPreOrder" EntityType="Self.CMOSPreOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMOSRate" EntityType="Self.CMOSRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrossOrder" EntityType="Self.CrossOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurencyBYN" EntityType="Self.CurencyBYN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPO" EntityType="Self.DashboardBP_HSSPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DashboardBP_HSSPOSmall" EntityType="Self.DashboardBP_HSSPOSmall" Schema="dbo" store:Type="Tables" />
@@ -5719,6 +5753,14 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <AssociationSet Name="FK_CMOSPreOrder_PZ_PlanZakaz" Association="Self.FK_CMOSPreOrder_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="CMOSPreOrder" EntitySet="CMOSPreOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossOrder_PZ_PlanZakaz" Association="Self.FK_CrossOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CrossOrder" EntitySet="CrossOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossOrder_PZ_PlanZakaz1" Association="Self.FK_CrossOrder_PZ_PlanZakaz1">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CrossOrder" EntitySet="CrossOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_DashboardBP_HSSPO_DashboardBP_State" Association="Self.FK_DashboardBP_HSSPO_DashboardBP_State">
             <End Role="DashboardBP_State" EntitySet="DashboardBP_State" />
@@ -7324,6 +7366,15 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <AssociationSet Name="AspNetUserRoles" Association="PortalKATEKModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="CrossOrder" EntityType="PortalKATEKModel.CrossOrder" />
+          <AssociationSet Name="FK_CrossOrder_PZ_PlanZakaz" Association="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CrossOrder" EntitySet="CrossOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossOrder_PZ_PlanZakaz1" Association="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz1">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="CrossOrder" EntitySet="CrossOrder" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CMKO_ThisFinalBonus">
@@ -9716,6 +9767,8 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <NavigationProperty Name="SandwichPanel_PZ" Relationship="PortalKATEKModel.FK_SandwichPanel_PZ_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="SandwichPanel_PZ" />
           <NavigationProperty Name="ServiceRemarksPlanZakazs" Relationship="PortalKATEKModel.FK_ServiceRemarksPlanZakazs_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="ServiceRemarksPlanZakazs" />
           <NavigationProperty Name="StickersPreOrder" Relationship="PortalKATEKModel.FK_StickersPreOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="StickersPreOrder" />
+          <NavigationProperty Name="CrossOrder" Relationship="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="CrossOrder" />
+          <NavigationProperty Name="CrossOrder1" Relationship="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz1" FromRole="PZ_PlanZakaz" ToRole="CrossOrder" />
         </EntityType>
         <EntityType Name="PZ_ProductType">
           <Key>
@@ -12797,6 +12850,41 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
           <End Type="PortalKATEKModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="CrossOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_OrderParent" Type="Int32" Nullable="false" />
+          <Property Name="id_OrderChild" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz" FromRole="CrossOrder" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="PZ_PlanZakaz1" Relationship="PortalKATEKModel.FK_CrossOrder_PZ_PlanZakaz1" FromRole="CrossOrder" ToRole="PZ_PlanZakaz" />
+        </EntityType>
+        <Association Name="FK_CrossOrder_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CrossOrder" Role="CrossOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossOrder">
+              <PropertyRef Name="id_OrderParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossOrder_PZ_PlanZakaz1">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.CrossOrder" Role="CrossOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossOrder">
+              <PropertyRef Name="id_OrderChild" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15519,6 +15607,16 @@ warning 6002: The table/view 'PortalKATEK_TEST.dbo.RKD_TaskUIDProjectUD' does no
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CrossOrder">
+            <EntityTypeMapping TypeName="PortalKATEKModel.CrossOrder">
+              <MappingFragment StoreEntitySet="CrossOrder">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="id_OrderChild" ColumnName="id_OrderChild" />
+                <ScalarProperty Name="id_OrderParent" ColumnName="id_OrderParent" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

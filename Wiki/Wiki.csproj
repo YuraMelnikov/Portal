@@ -365,6 +365,8 @@
     <Compile Include="Areas\CMO\Models\EmailSandwichPanel.cs" />
     <Compile Include="Areas\CMO\Models\EmailStickers.cs" />
     <Compile Include="Areas\CMO\Models\SandwichPanelCRUD.cs" />
+    <Compile Include="Areas\CrossTable\Controllers\CTOController.cs" />
+    <Compile Include="Areas\CrossTable\CrossTableAreaRegistration.cs" />
     <Compile Include="Areas\DashboardBP\Controllers\BPController.cs" />
     <Compile Include="Areas\DashboardBP\DashboardBPAreaRegistration.cs" />
     <Compile Include="Areas\DashboardBP\Models\Complited.cs" />
@@ -648,6 +650,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadERController.cs" />
+    <Compile Include="CrossOrder.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="CurencyBYN.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -1494,6 +1499,7 @@
     <Content Include="Areas\CMOS\Content\CMOS.js" />
     <Content Include="Areas\CMO\Content\CMO.js" />
     <Content Include="Areas\CMO\migrate db\importCMO.sql" />
+    <Content Include="Areas\CrossTable\Content\CrossTable.js" />
     <Content Include="Areas\DashboardD\Content\Dd.js" />
     <Content Include="Areas\DashboardD\Content\DDScript.sql" />
     <Content Include="Areas\DashboardKO\Content\CRUDDashboardKO_UsersMonthPlan.js" />
@@ -2702,6 +2708,9 @@
     <Content Include="Areas\Plexiglass\Views\web.config" />
     <Content Include="Areas\Plexiglass\Views\Shared\_LayoutPlexiglas.cshtml" />
     <Content Include="Areas\Plexiglass\Views\Plexiglas\Index.cshtml" />
+    <Content Include="Areas\CrossTable\Views\web.config" />
+    <Content Include="Areas\CrossTable\Views\Shared\_LayoutCTO.cshtml" />
+    <Content Include="Areas\CrossTable\Views\CTO\Index.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3265,7 +3274,6 @@
     <Folder Include="Areas\UsersKO\Models\" />
     <Folder Include="Scripts\tiny-editor-master\" />
     <Folder Include="temp\" />
-    <Folder Include="Views\Plexiglass\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
