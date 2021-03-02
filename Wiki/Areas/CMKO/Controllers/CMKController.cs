@@ -1843,7 +1843,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP1
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Тиханский Максим Васильевич")
+                    .Where(d => d.ciliricalName == "Ширко Александр Олегович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -1907,7 +1907,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP1
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Волкова Алёна Александровна")
+                    .Where(d => d.ciliricalName == "Чичиков Станислав Вячеславович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -2419,7 +2419,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP2
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Тиханский Максим Васильевич")
+                    .Where(d => d.ciliricalName == "Ширко Александр Олегович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -2483,7 +2483,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP2
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Волкова Алёна Александровна")
+                    .Where(d => d.ciliricalName == "Чичиков Станислав Вячеславович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -2899,7 +2899,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP3
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Тиханский Максим Васильевич")
+                    .Where(d => d.ciliricalName == "Ширко Александр Олегович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -2963,7 +2963,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP3
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Волкова Алёна Александровна")
+                    .Where(d => d.ciliricalName == "Чичиков Станислав Вячеславович")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();

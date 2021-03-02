@@ -9,7 +9,15 @@ namespace Wiki.Areas.DashboardD.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            string login = HttpContext.User.Identity.Name;
+            if (login == "myi@katek.by")
+                return View();
+            else if(login == "laa@katek.by")
+                return View();
+            else if(login == "gvi@katek.by")
+                return View();
+            else
+                return null;
         }
 
         public string RenderUserMenu()

@@ -1777,7 +1777,7 @@ function manpowerUsersInMonth() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Волкова']
+                    categories: ['Чичиков']
                 },
                 yAxis: {
                     min: 0,
@@ -3169,7 +3169,7 @@ function manpowerUsersInMonth() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Тиханский']
+                    categories: ['Ширко']
                 },
                 yAxis: {
                     min: 0,

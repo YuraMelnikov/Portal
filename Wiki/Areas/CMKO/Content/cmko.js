@@ -3515,7 +3515,7 @@ function GetManpowerFirstPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Тиханский Максим Васильевич']
+                                categories: ['Ширко Александр Олегович']
                             },
                             yAxis: {
                                 min: 0,
@@ -3738,7 +3738,7 @@ function GetManpowerFirstPeriod() {
                     }
                 });
             }
-            else if (result === 'voaa@katek.by') {
+            else if (result === 'csv@katek.by') {
                 $('#speed1').hide();
                 $('#speed3').hide();
                 $('#speed4').hide();
@@ -3795,7 +3795,7 @@ function GetManpowerFirstPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Волкова Алена Александровна']
+                                categories: ['Чичиков Станислав Вячеславович']
                             },
                             yAxis: {
                                 min: 0,
@@ -5911,7 +5911,7 @@ function GetManpowerSecondPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Тиханский Максим Васильевич']
+                                categories: ['Ширко Александр Олегович']
                             },
                             yAxis: {
                                 min: 0,
@@ -6118,7 +6118,7 @@ function GetManpowerSecondPeriod() {
                     }
                 });
             }
-            else if (result === 'voaa@katek.by') {
+            else if (result === 'csv@katek.by') {
                 $('#container2-2').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP2_2/",
@@ -6159,7 +6159,7 @@ function GetManpowerSecondPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Волкова Алена Александровна']
+                                categories: ['Чичиков Станислав Вячеславович']
                             },
                             yAxis: {
                                 min: 0,
@@ -8038,7 +8038,7 @@ function GetManpowerThreePeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Тиханский Максим Васильевич']
+                                categories: ['Ширко Александр Олегович']
                             },
                             yAxis: {
                                 min: 0,
@@ -8245,7 +8245,7 @@ function GetManpowerThreePeriod() {
                     }
                 });
             }
-            else if (result === 'voaa@katek.by') {
+            else if (result === 'csv@katek.by') {
                 $('#container3-2').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP3_2/",
@@ -8286,7 +8286,7 @@ function GetManpowerThreePeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Волкова Алена Александровна']
+                                categories: ['Чичиков Станислав Вячеславович']
                             },
                             yAxis: {
                                 min: 0,
@@ -9406,7 +9406,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Волкова Алена Александровна']
+                    categories: ['Чичиков Станислав Вячеславович']
                 },
                 yAxis: {
                     min: 0,
@@ -10858,7 +10858,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Тиханский Максим Васильевич']
+                    categories: ['Ширко Александр Олегович']
                 },
                 yAxis: {
                     min: 0,

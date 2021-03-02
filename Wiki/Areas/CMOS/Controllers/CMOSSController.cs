@@ -48,7 +48,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 ViewBag.userGroupId = 1;
             else if (login == "myi@katek.by" || login == "koag@katek.by" || login == "naa@katek.by")
                 ViewBag.userGroupId = 5;
-            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "kaav@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
+            else if (login == "nrf@katek.by" || login == "vi@katek.by" || login == "kaav@katek.by" || login == "lis@katek.by" || login == "goa@katek.by" || login == "cherskov@katek.by" || login == "cyv@katek.by")
                 ViewBag.userGroupId = 2;
             else if (login == "bav@katek.by" || login == "laa@katek.by")
                 ViewBag.userGroupId = 4;
@@ -984,7 +984,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         db.Entry(order).State = EntityState.Modified;
                         db.SaveChanges();
 
-                        if(order.cMO_CompanyId == 1)
+                        if (order.cMO_CompanyId == 1)
                         {
                             string folder = CreateFolderForArmis(order.id);
                             CreateFileForArmis(folder, order);
@@ -992,15 +992,10 @@ namespace Wiki.Areas.CMOS.Controllers
                         }
                         else
                         {
-                            //try
-                            //{
-                            //    new EmailOS(order, login);
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    logger.Error("CMOSSController / UpdateOrder: " + " | " + ex + " | " + login);
-                            //}
-                            new EmailCMOS(order, login, 7);
+                            string folder = CreateFolderForEcowood(order.id);
+                            CreateFileForEcowood(folder, order);
+                            new EmailEcowood(order, login);
+                            //new EmailCMOS(order, login, 7);
                         }
                     }
                     else if (finDate != null)
@@ -2312,6 +2307,16 @@ namespace Wiki.Areas.CMOS.Controllers
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\CMOS\\Armis\\" + id.ToString() + "\\";
+                Directory.CreateDirectory(directory);
+                return directory;
+            }
+        }
+
+        private string CreateFolderForEcowood(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\CMOS\\Ecowood\\" + id.ToString() + "\\";
                 Directory.CreateDirectory(directory);
                 return directory;
             }
@@ -3673,6 +3678,82 @@ namespace Wiki.Areas.CMOS.Controllers
         private string GetSKU(string name, string index, string designation)
         {
             return "";
+        }
+
+        private void CreateFileForEcowood(string folder, CMOSOrder order)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var list = db.CMOSOrderPreOrder
+                    .AsNoTracking()
+                    .Where(a => a.id_CMOSOrder == order.id)
+                    .ToList();
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    IApplication application = excelEngine.Excel;
+                    application.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = application.Workbooks.Create(1);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    worksheet["A1"].ColumnWidth = 45.0;
+                    worksheet["B1"].ColumnWidth = 15.0;
+                    worksheet["C1"].ColumnWidth = 15.0;
+                    worksheet["D1"].ColumnWidth = 15.0;
+                    worksheet["E1"].ColumnWidth = 15.0;
+                    worksheet["A1"].Text = "Наименование ТМЦ";
+                    worksheet["A1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["A1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["A1"].WrapText = true;
+                    worksheet["B1"].Text = "Примечание";
+                    worksheet["B1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["B1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["B1"].WrapText = true;
+                    worksheet["C1"].Text = "Склад";
+                    worksheet["C1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["C1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["C1"].WrapText = true;
+                    worksheet["D1"].Text = "Код EAN13";
+                    worksheet["D1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["D1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["D1"].WrapText = true;
+                    worksheet["E1"].Text = "Кол-во";
+                    worksheet["E1"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheet["E1"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignCenter;
+                    worksheet["E1"].WrapText = true;
+                    int rowNum = 2;
+                    foreach (var rel in list)
+                    {
+                        var posList = db.CMOSPositionPreOrder
+                            .AsNoTracking()
+                            .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
+                            .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
+                            .Where(a => a.CMOSPreOrderId == rel.id_CMOSPreOrder && a.note != "Входит в сб.")
+                            .ToList();
+                        foreach (var pos in posList)
+                        {
+                            for(int i = 1; i <= pos.quantity; i++ )
+                            {
+                                int code = GetSKU(pos.designation, pos.index);
+                                worksheet.Range[rowNum, 1].Text = pos.designation + " <" + pos.index + "> " + pos.name;
+                                worksheet.Range[rowNum, 2].Text = "Заказ №: " + pos.CMOSPreOrder.PZ_PlanZakaz.PlanZakaz.ToString() + " - " + pos.CMOSPreOrder.CMO_TypeProduct.name;
+                                worksheet.Range[rowNum, 3].Text = "Адр: (Склад №1 Пром9) - Д4-1-2-1";
+                                worksheet.Range[rowNum, 4].Text = "0100" + GetCode(order.numberTN) + GetCode(code);
+                                worksheet.Range[rowNum, 5].Text = i.ToString() + " из " + pos.quantity.ToString();
+                                rowNum++;
+                            }
+                        }
+                    }
+                    HttpResponse response = HttpContext.ApplicationInstance.Response;
+                    try
+                    {
+                        workbook.SaveAs(folder + "Этикетки.xlsx");
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
         }
 
         private void CreateFileForArmis(string folder, CMOSOrder order)
