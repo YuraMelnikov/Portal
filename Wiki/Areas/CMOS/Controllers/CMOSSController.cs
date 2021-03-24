@@ -3729,6 +3729,7 @@ namespace Wiki.Areas.CMOS.Controllers
                             .Include(a => a.CMOSPreOrder.PZ_PlanZakaz)
                             .Include(a => a.CMOSPreOrder.CMO_TypeProduct)
                             .Where(a => a.CMOSPreOrderId == rel.id_CMOSPreOrder && a.note != "Входит в сб.")
+                            .OrderBy(a => a.designation)
                             .ToList();
                         foreach (var pos in posList)
                         {

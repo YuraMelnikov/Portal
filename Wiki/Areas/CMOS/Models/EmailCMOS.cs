@@ -292,6 +292,7 @@ namespace Wiki.Areas.CMOS.Models
             mailToList.Add("nrf@katek.by");
             mailToList.Add("goa@katek.by");
             mailToList.Add("kaav@katek.by");
+            mailToList.Add("lis@katek.by");
             return true;
         }
 
