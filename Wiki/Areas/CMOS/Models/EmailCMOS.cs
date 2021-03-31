@@ -21,6 +21,7 @@ namespace Wiki.Areas.CMOS.Models
         CMOSOrder order;
         DateTime? datePlanningGetMaterials;
         private new readonly PortalKATEKEntities db = new PortalKATEKEntities();
+        private string noteBackorder;
 
         public EmailCMOS(CMOSPreOrder preOrder, string login, int stepNumber)
         {
@@ -124,6 +125,74 @@ namespace Wiki.Areas.CMOS.Models
                 GetMailList();
                 GetMailClient();
                 GetMailPM();
+                GetSubject();
+                GetBody();
+                SendEmail();
+                logger.Debug("EmailCMOS: " + order.id);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("EmailCMOS: " + order.id + " | " + ex);
+            }
+        }
+
+        public EmailCMOS(CMOSOrder order, string login, int stepNumber, string noteBackorder)
+        {
+            this.noteBackorder = noteBackorder;
+            mailToList = new List<string>();
+            try
+            {
+                this.login = login;
+                this.stepNumber = stepNumber;
+                this.order = db.CMOSOrder.Find(order.id);
+                mail.From = new MailAddress(login);
+                if (stepNumber == 0) //Create - 0
+                {
+                    GetMailListCreate();
+                    GetMailPM();
+                }
+                else if (stepNumber == 2) //work - 2
+                {
+                    GetMailList();
+                    GetMailClient();
+                    GetMailPM();
+                }
+                else if (stepNumber == 3) //manuf - 3
+                {
+                    GetMailList();
+                    GetMailClient();
+                    GetMailPM();
+                }
+                else if (stepNumber == 4) // Create ReOrder - 4
+                {
+                    GetMailListCreate();
+                    GetMailClient();
+                    GetMailPM();
+                }
+                else if (stepNumber == 5)
+                {
+                    GetMailPM();
+                }
+                else if (stepNumber == 6) //Remove
+                {
+                    GetMailClient();
+                    GetMailListCreate();
+                    GetMailPM();
+                }
+                else if (stepNumber == 7) //stickers
+                {
+                    GetMailListStock();
+                    GetMailPM();
+                }
+                else if (stepNumber == 8) //for Armis
+                {
+                    GetMailListStock();
+                    GetMailPM();
+                }
+                else
+                {
+
+                }
                 GetSubject();
                 GetBody();
                 SendEmail();
@@ -250,6 +319,8 @@ namespace Wiki.Areas.CMOS.Models
                 body = "Добрый день!" + "<br/>" + "Размещаем ДОЗАКАЗ деталей №: " + order.id + "<br/>";
                 body += "Прошу прислать сроки готовности дозаказа: " + order.workDate.ToString().Substring(0, 16) + "<br/>";
                 body += "Внутренний номер дозаказа: " + order.id.ToString() + ", просим прописывать в накладной." + "<br/>" + "<br/>";
+                if(noteBackorder != "")
+                    body += "Прим.: " + noteBackorder + "<br/>" + "<br/>";
                 body += "С уважением," + "<br/>" + "Гришель Дмитрий Петрович" + "<br/>" + "Начальник отдела по материально - техническому снабжению" + "<br/>" +
                         "Тел:  +375 17 366 90 67(вн. 329)" + "<br/>" + "Моб.: МТС + 375 29 561 98 28, velcom + 375 29 350 68 35" + "<br/>" + "Skype: sitek_dima" + "<br/>" +
                         "gdp@katek.by";

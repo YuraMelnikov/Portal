@@ -446,7 +446,9 @@ function StartMenu() {
 }
 
 function CleanerModals() {
+    $('#noteBackorder').val("");
     $('#typeProductId').css('border-color', 'lightgrey');
+    $('#noteBackorder').val("");
     $('#idOrder').val("");
     $('#typeProductId').val("");
     $('#pzList').val("");
@@ -589,6 +591,8 @@ function AddBackorder() {
     $('#loaderBackorder').show();
     var data = new FormData();
     data.append($('#pzListBackorder').val(), $('#customerBackorder').val());
+    data.append($('#noteBackorder').val(), $('#noteBackorder').val());
+    data.append($('#customerBackorder').val(), $('#customerBackorder').val());
     for (var x = 0; x < files.length; x++) {
         data.append(files[x].name, files[x]);
     }

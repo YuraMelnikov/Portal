@@ -10,7 +10,6 @@
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
     <style>
         .highlightColor {
-            background-color: #c42525;
             color: white;
         }
 
@@ -172,6 +171,14 @@
                     <div class="col-lg-4">
                         <label>Укажите поставщика:</label>
                         @Html.DropDownList("customerBackorder", ViewBag.id_CMO_Company as MultiSelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label>Примечание (инф. для рассылки, в БД не сохраняется):</label>
+                        <br />
+                        <textarea rows="5" style="width: 500px" id="noteBackorder"></textarea>
                     </div>
                 </div>
                 <hr />

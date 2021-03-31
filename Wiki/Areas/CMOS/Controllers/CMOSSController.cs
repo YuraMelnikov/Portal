@@ -506,8 +506,9 @@ namespace Wiki.Areas.CMOS.Controllers
                     {
                         files[i] = Request.Files[i];
                     }
-                    int[] ord = GetOrdersArray(Request.Form.ToString());
-                    int customerId = GetTypeMaterials(Request.Form.ToString());
+                    int[] ord = GetBackOrdersArray(Request.Form.AllKeys[0].ToString());
+                    int customerId = Convert.ToInt32(Request.Form.AllKeys[2].ToString());
+                    string noteBackorder = Request.Form.AllKeys[1].ToString().Replace("%0A", "<br/>");
                     var preorder = new CMOSPreOrder
                     {
                         id_PZ_PlanZakaz = 3606,
@@ -556,7 +557,7 @@ namespace Wiki.Areas.CMOS.Controllers
                     order.cost = Math.Round(order.rate * curency * summaryWeight, 2);
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
-                    new EmailCMOS(order, login, 4);
+                    new EmailCMOS(order, login, 4, noteBackorder);
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -2234,6 +2235,17 @@ namespace Wiki.Areas.CMOS.Controllers
                     }
                 }
             }
+        }
+
+        private int[] GetBackOrdersArray(string str)
+        {
+            var strList = str.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            int[] res = new int[strList.Length];
+            for (int i = 0; i < strList.Length; i++)
+            {
+                res[i] = Convert.ToInt32(strList[i]);
+            }
+            return res;
         }
 
         private int[] GetOrdersArray(string str)
