@@ -3038,7 +3038,7 @@ function GetManpowerFirstPeriod() {
                     }
                 });
             }
-            else if (result === 'faa@katek.by') {
+            else if (result === 'shai@katek.by') {
                 $('#speed1').hide();
                 $('#speed2').hide();
                 $('#speed3').hide();
@@ -3095,7 +3095,7 @@ function GetManpowerFirstPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Фейгина Анастасия Аркадьевна']
+                                categories: ['Шелег Андрей Игоревич']
                             },
                             yAxis: {
                                 min: 0,
@@ -3458,7 +3458,7 @@ function GetManpowerFirstPeriod() {
                     }
                 });
             }
-            else if (result === 'tmv@katek.by') {
+            else if (result === 'sao@katek.by') {
                 $('#speed1').hide();
                 $('#speed2').hide();
                 $('#speed3').hide();
@@ -4215,7 +4215,7 @@ function GetManpowerFirstPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Жибуль Дмитрий Олегович']
+                                categories: ['Костенич Евгений Владимирович']
                             },
                             yAxis: {
                                 min: 0,
@@ -5498,7 +5498,7 @@ function GetManpowerSecondPeriod() {
                     }
                 });
             }
-            else if (result === 'faa@katek.by') {
+            else if (result === 'shai@katek.by') {
                 $('#container2-7').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP2_7/",
@@ -5539,7 +5539,7 @@ function GetManpowerSecondPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Фейгина Анастасия Аркадьевна']
+                                categories: ['Шелег Андрей Игоревич']
                             },
                             yAxis: {
                                 min: 0,
@@ -5870,7 +5870,7 @@ function GetManpowerSecondPeriod() {
                     }
                 });
             }
-            else if (result === 'tmv@katek.by') {
+            else if (result === 'sao@katek.by') {
                 $('#container2-14').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP2_14/",
@@ -6531,7 +6531,7 @@ function GetManpowerSecondPeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Жибуль Дмитрий Олегович']
+                                categories: ['Костенич Евгений Владимирович']
                             },
                             yAxis: {
                                 min: 0,
@@ -7625,7 +7625,7 @@ function GetManpowerThreePeriod() {
                     }
                 });
             }
-            else if (result === 'faa@katek.by') {
+            else if (result === 'shai@katek.by') {
                 $('#container3-7').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP3_7/",
@@ -7666,7 +7666,7 @@ function GetManpowerThreePeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Фейгина Анастасия Аркадьевна']
+                                categories: ['Шелег Андрей Игоревич']
                             },
                             yAxis: {
                                 min: 0,
@@ -7997,7 +7997,7 @@ function GetManpowerThreePeriod() {
                     }
                 });
             }
-            else if (result === 'tmv@katek.by') {
+            else if (result === 'sao@katek.by') {
                 $('#container3-14').show();
                 $.ajax({
                     url: "/CMK/GetUsersMMP3_14/",
@@ -8658,7 +8658,7 @@ function GetManpowerThreePeriod() {
                                 text: null
                             },
                             xAxis: {
-                                categories: ['Жибуль Дмитрий Олегович']
+                                categories: ['Костенич Евгений Владимирович']
                             },
                             yAxis: {
                                 min: 0,
@@ -9769,7 +9769,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Жибуль Дмитрий Олегович']
+                    categories: ['Костенич Евгений Владимирович']
                 },
                 yAxis: {
                     min: 0,
@@ -10979,7 +10979,7 @@ function ManpowerUsersInMonth1() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Фейгина Анастасия Аркадьевна']
+                    categories: ['Шелег Андрей Игоревич']
                 },
                 yAxis: {
                     min: 0,

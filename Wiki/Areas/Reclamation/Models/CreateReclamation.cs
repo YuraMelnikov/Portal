@@ -21,7 +21,8 @@ namespace Wiki.Areas.Reclamation.Models
             this.reclamation.id_DevisionCreate = aspNetUsers.Devision.Value;
             CorrectAddCloseReclamation();
             GetCorrectFieldReclamation();
-            GetCloseMKO(login, false);
+            int count = db.Reclamation_Answer.Count(a => a.id_Reclamation == reclamation.id);
+            GetCloseMKO(login, false, reclamation.id_DevisionReclamation, count);
         }
 
         public CreateReclamation(Wiki.Reclamation reclamation, string login, bool? reload, int? reloadDevision)
@@ -39,7 +40,8 @@ namespace Wiki.Areas.Reclamation.Models
             ReloadReclamation(reload, reloadDevision);
             this.reclamation.dateTimeCreate = GetDatetimeCreate(reclamation.id);
             this.reclamation.id_AspNetUsersCreate = GetUserCreate(reclamation.id);
-            GetCloseMKO(login, reload.Value);
+            int count = db.Reclamation_Answer.Count(a => a.id_Reclamation == reclamation.id);
+            GetCloseMKO(login, reload.Value, reclamation.id_DevisionReclamation, count);
         }
 
         bool GetCorrectFieldReclamation()
@@ -135,12 +137,23 @@ namespace Wiki.Areas.Reclamation.Models
             return db.Reclamation.Find(id_reclamation).id_AspNetUsersCreate;
         }
 
-        bool GetCloseMKO(string login, bool reload)
+        bool GetCloseMKO(string login, bool reload, int devision, int queAnswers)
         {
+            int devisionUser= db.AspNetUsers.First(a => a.Email == login).Devision.Value;
             if (login == "fvs@katek.by" || login == "nrf@katek.by" || login == "vi@katek.by")
             {
-                reclamation.closeMKO = true;
-                reclamation.closeDevision = true;
+                if (devisionUser != devision)
+                {
+                    
+                }
+                else
+                {
+                    if (queAnswers > 0)
+                    {
+                        reclamation.closeMKO = true;
+                        reclamation.closeDevision = true;
+                    }
+                }
             }
             if (login == "nrf@katek.by")
             {

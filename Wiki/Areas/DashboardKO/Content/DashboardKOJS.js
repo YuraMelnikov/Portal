@@ -2589,7 +2589,7 @@ function manpowerUsersInMonth() {
                     text: null
                 },
                 xAxis: {
-                    categories: ['Жибуль']
+                    categories: ['Костенич']
                 },
                 yAxis: {
                     min: 0,

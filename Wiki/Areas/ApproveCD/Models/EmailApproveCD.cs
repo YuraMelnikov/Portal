@@ -92,15 +92,18 @@ namespace Wiki.Areas.ApproveCD.Models
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 mailToList = new List<MailList>();
-                mailToList.Add(new MailList { mail = "myi@katek.by" });
-                mailToList.Add(new MailList { mail = "bav@katek.by" });
-                mailToList.Add(new MailList { mail = "vi@katek.by" });
-                mailToList.Add(new MailList { mail = "goa@katek.by" });
-                mailToList.Add(new MailList { mail = "maj@katek.by" });
-                mailToList.Add(new MailList { mail = "nrf@katek.by" });
-                mailToList.Add(new MailList { mail = "fvs@katek.by" });
+                mailToList.Add(new MailList {mail = "myi@katek.by"});
+                mailToList.Add(new MailList {mail = "bav@katek.by"});
+                mailToList.Add(new MailList {mail = "vi@katek.by"});
+                mailToList.Add(new MailList {mail = "goa@katek.by"});
+                mailToList.Add(new MailList {mail = "nrf@katek.by"});
+                mailToList.Add(new MailList {mail = "fvs@katek.by"});
                 string mailToG = "";
                 ApproveCDOrders approveCDOrders = db.ApproveCDOrders.Find(approveCDOrdersId);
+                PZ_PlanZakaz pz = db.PZ_PlanZakaz.Find(approveCDOrders.id_PZ_PlanZakaz);
+                mailToList.Add(pz.Manager == "a94f65df-4580-4729-9541-446ebee13c1e"
+                    ? new MailList {mail = "cyv@katek.by"}
+                    : new MailList {mail = "maj@katek.by"});
                 try
                 {
                     if (approveCDOrders.id_AspNetUsersM != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")

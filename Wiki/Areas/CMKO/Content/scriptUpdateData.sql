@@ -21,6 +21,7 @@ DECLARE @sizeSpeed2 float;
 DECLARE @coefErrorGip float;
 
 
+
 SET @coefErrorGip = 1000.0;
 SET @coefConvertCalendarNorm = 0.9;
 SET @periodQua ='2020.4';

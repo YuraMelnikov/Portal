@@ -37,7 +37,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 .OrderByDescending(d => d.PlanZakaz), "Id", "PlanZakaz");
             ViewBag.ASPUsers = new SelectList(db.AspNetUsers
                 .Where(a => a.LockoutEnabled == true)
-                .Where(a => a.Devision == 3 || a.Devision == 15 || a.Devision == 16 || a.Email == "bav@katek.by" || a.Email == "maj@katek.by")
+                .Where(a => a.Devision == 3 || a.Devision == 15 || a.Devision == 16 || a.Email == "bav@katek.by" || a.Email == "maj@katek.by" || a.Email == "cyv@katek.by")
                 .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             ViewBag.GM = new SelectList(db.AspNetUsers.Where(a => a.LockoutEnabled == true).Where(a => a.Devision == 15).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
             ViewBag.GE = new SelectList(db.AspNetUsers.Where(a => a.LockoutEnabled == true).Where(a => a.Devision == 16).OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
