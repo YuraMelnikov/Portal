@@ -66,33 +66,104 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
-                    var query = db.ApproveCDVersions
-                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
-                        .Include(a => a.ApproveCDOrders.AspNetUsers)
-                        .Include(a => a.ApproveCDOrders.AspNetUsers1)
-                        .Include(a => a.RKD_VersionWork)
-                        .Include(a => a.RKD_VersionWork)
-                        .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10 && a.ApproveCDOrders.remove == false && a.ApproveCDOrders.isOpening == true)
-                        .ToList();
-                    var data = query.Select(dataList => new
+                    if (login == "cyv@katek.by")
                     {
-                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForView('" + dataList.ApproveCDOrders.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
-                        editLink = GetEditOrderLink(login, dataList.id_RKD_VersionWork, dataList.ApproveCDOrders.id),
-                        order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
-                        state = dataList.RKD_VersionWork.name,
-                        gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
-                        ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
-                        customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
-                        dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
-                        contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
-                        ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
-                        dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
-                        dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
-                        dataList.ApproveCDOrders.description,
-                        removeLink = GetRemoveLink(dataList.id),
-                        gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
-                    });
-                    return Json(new { data });
+                        var query = db.ApproveCDVersions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers1)
+                            .Include(a => a.RKD_VersionWork)
+                            .Include(a => a.RKD_VersionWork)
+                            .Where(a => a.activeVersion == true 
+                                        && a.id_RKD_VersionWork != 10 
+                                        && a.ApproveCDOrders.remove == false 
+                                        && a.ApproveCDOrders.isOpening == true
+                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForView('" + dataList.ApproveCDOrders.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditOrderLink(login, dataList.id_RKD_VersionWork, dataList.ApproveCDOrders.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            state = dataList.RKD_VersionWork.name,
+                            gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
+                            ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
+                            customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
+                            dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
+                            contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
+                            ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                            dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dataList.ApproveCDOrders.description,
+                            removeLink = GetRemoveLink(dataList.id),
+                            gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
+                        });
+                        return Json(new { data });
+                    }
+                    else if (login == "maj@katek.by")
+                    {
+                        var query = db.ApproveCDVersions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers1)
+                            .Include(a => a.RKD_VersionWork)
+                            .Include(a => a.RKD_VersionWork)
+                            .Where(a => a.activeVersion == true 
+                                        && a.id_RKD_VersionWork != 10 
+                                        && a.ApproveCDOrders.remove == false 
+                                        && a.ApproveCDOrders.isOpening == true
+                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForView('" + dataList.ApproveCDOrders.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditOrderLink(login, dataList.id_RKD_VersionWork, dataList.ApproveCDOrders.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            state = dataList.RKD_VersionWork.name,
+                            gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
+                            ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
+                            customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
+                            dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
+                            contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
+                            ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                            dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dataList.ApproveCDOrders.description,
+                            removeLink = GetRemoveLink(dataList.id),
+                            gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
+                        });
+                        return Json(new { data });
+                    }
+                    else
+                    {
+                        var query = db.ApproveCDVersions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz.PZ_Client)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers)
+                            .Include(a => a.ApproveCDOrders.AspNetUsers1)
+                            .Include(a => a.RKD_VersionWork)
+                            .Include(a => a.RKD_VersionWork)
+                            .Where(a => a.activeVersion == true && a.id_RKD_VersionWork != 10 && a.ApproveCDOrders.remove == false && a.ApproveCDOrders.isOpening == true)
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForView('" + dataList.ApproveCDOrders.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditOrderLink(login, dataList.id_RKD_VersionWork, dataList.ApproveCDOrders.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            state = dataList.RKD_VersionWork.name,
+                            gm = dataList.ApproveCDOrders.AspNetUsers.CiliricalName,
+                            ge = dataList.ApproveCDOrders.AspNetUsers1.CiliricalName,
+                            customer = dataList.ApproveCDOrders.PZ_PlanZakaz.PZ_Client.NameSort,
+                            dateOpen = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateCreate, shortSetting).Replace(@"""", ""),
+                            contractDate = JsonConvert.SerializeObject(dataList.ApproveCDOrders.PZ_PlanZakaz.DateShipping, shortSetting).Replace(@"""", ""),
+                            ver = "v." + dataList.numberVersion1 + "." + dataList.numberVersion2,
+                            dateLastLoad = JsonConvert.SerializeObject(GetDateLastUpload(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dateLastError = JsonConvert.SerializeObject(GetDateLastError(dataList.id_ApproveCDOrders), shortSetting).Replace(@"""", ""),
+                            dataList.ApproveCDOrders.description,
+                            removeLink = GetRemoveLink(dataList.id),
+                            gHandLink = GetEditLinkGHand(dataList.id_ApproveCDOrders, login)
+                        });
+                        return Json(new { data });
+                    }
                 }
             }
             catch(Exception ex)
@@ -292,23 +363,66 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
-                    var query = db.ApproveCDQuestions
-                        .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
-                        .Include(a => a.AspNetUsers)
-                        .Where(a => a.active == false)
-                        .ToList();
-                    var data = query.Select(dataList => new
+                    if (login == "cyv@katek.by")
                     {
-                        viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
-                        editLink = GetEditQueLink(login, dataList.id),
-                        order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
-                        idQue = dataList.id,
-                        que = dataList.textQuestion,
-                        queData = GetQuestionData(dataList.id),
-                        createDate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
-                        createUser = dataList.AspNetUsers.CiliricalName
+                        var query = db.ApproveCDQuestions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                            .Include(a => a.AspNetUsers)
+                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditQueLink(login, dataList.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            idQue = dataList.id,
+                            que = dataList.textQuestion,
+                            queData = GetQuestionData(dataList.id),
+                            createDate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                            createUser = dataList.AspNetUsers.CiliricalName
                         });
-                    return Json(new { data });
+                        return Json(new { data });
+                    }
+                    else if (login == "maj@katek.by")
+                    {
+                        var query = db.ApproveCDQuestions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                            .Include(a => a.AspNetUsers)
+                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditQueLink(login, dataList.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            idQue = dataList.id,
+                            que = dataList.textQuestion,
+                            queData = GetQuestionData(dataList.id),
+                            createDate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                            createUser = dataList.AspNetUsers.CiliricalName
+                        });
+                        return Json(new { data });
+                    }
+                    else
+                    {
+                        var query = db.ApproveCDQuestions
+                            .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
+                            .Include(a => a.AspNetUsers)
+                            .Where(a => a.active == false)
+                            .ToList();
+                        var data = query.Select(dataList => new
+                        {
+                            viewLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForView('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-list" + '\u0022' + "></span></a></td>",
+                            editLink = GetEditQueLink(login, dataList.id),
+                            order = dataList.ApproveCDOrders.PZ_PlanZakaz.PlanZakaz,
+                            idQue = dataList.id,
+                            que = dataList.textQuestion,
+                            queData = GetQuestionData(dataList.id),
+                            createDate = JsonConvert.SerializeObject(dataList.dateTimeCreate, shortSetting).Replace(@"""", ""),
+                            createUser = dataList.AspNetUsers.CiliricalName
+                        });
+                        return Json(new { data });
+                    }
                 }
             }
             catch (Exception ex)

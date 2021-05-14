@@ -19,9 +19,7 @@ namespace Wiki.Areas.Reclamation.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private PortalKATEKEntities db = new PortalKATEKEntities();
-        private readonly JsonSerializerSettings settings = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
         private readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
-        private readonly JsonSerializerSettings longSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy HH:mm" };
         private readonly JsonSerializerSettings longSettingYY = new JsonSerializerSettings { DateFormatString = "dd.MM.yy HH:mm" };
 
         public ActionResult Debug()
