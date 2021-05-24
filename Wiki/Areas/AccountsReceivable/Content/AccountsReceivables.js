@@ -170,7 +170,9 @@ var objTEO = [
     { "title": "КИ Прочие", "data": "KI_prochee", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Отпускная цена без НДС", "data": "OtpuskChena", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
     { "title": "Валюта", "data": "Currency", "autowidth": true, "bSortable": true },
-    { "title": "Сумма НДС", "data": "NDS", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
+    { "title": "Сумма НДС", "data": "NDS", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }, 
+    { "title": "Пошлина", "data": "importDutyPlan", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "ПошлинаФакт", "data": "importDuty", "autowidth": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
 ];
 
 var objContract = [
@@ -486,6 +488,8 @@ function getTEO(id) {
             $('#OtpuskChena').val("");
             $('#KursValuti').val("");
             $('#NDS').val("");
+            $('#importDuty').val("");
+            $('#importDutyPlan').val("");
             $('#SSMProduct').val("");
             $('#idTEO').val(result.idTEO);
             $('#Id_PlanZakaz').val(result.Id_PlanZakaz);
@@ -504,6 +508,8 @@ function getTEO(id) {
             $('#OtpuskChena').val(result.OtpuskChena);
             $('#KursValuti').val(result.KursValuti);
             $('#NDS').val(result.NDS);
+            $('#importDuty').val(result.importDuty);
+            $('#importDutyPlan').val(result.importDutyPlan);
             $('#teoModal').modal('show');
         },
         error: function (errormessage) {
@@ -533,6 +539,8 @@ function updateTEO() {
         , Id_PlanZakaz: $('#Id_PlanZakaz').val()
         , NDS: $('#NDS').val()
         , SSMProduct: $('#SSMProduct').val()
+        , importDuty: $('#importDuty').val()
+        , importDutyPlan: $('#importDutyPlan').val()
     };
     $.ajax({
         cache: false,

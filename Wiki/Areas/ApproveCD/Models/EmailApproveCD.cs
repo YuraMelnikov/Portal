@@ -106,7 +106,7 @@ namespace Wiki.Areas.ApproveCD.Models
                     : new MailList {mail = "maj@katek.by"});
                 try
                 {
-                    if (approveCDOrders.id_AspNetUsersM != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                    if (approveCDOrders.id_AspNetUsersM != "a94f65df-4580-4729-9541-446ebee13c1e")
                     {
                         mailToG = db.AspNetUsers.Find(approveCDOrders.id_AspNetUsersM).Email;
                         if (mailToList.Where(a => a.mail == mailToG).ToList().Count == 0)

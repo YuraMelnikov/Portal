@@ -17,7 +17,7 @@ namespace Wiki.Areas.CMOS.Controllers
 {
     public class CMOSSController : Controller
     {
-        private readonly double rate = 3.7;
+        private readonly double rate = 4.0;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         readonly JsonSerializerSettings shortDefaultSetting = new JsonSerializerSettings { DateFormatString = "dd.MM.yyyy" };
         readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
@@ -539,7 +539,7 @@ namespace Wiki.Areas.CMOS.Controllers
                         cMO_CompanyId = customerId,
                         cost = 0,
                         remove = false,
-                        rate = 3.8,
+                        rate = 4,
                         weight = 0.0,
                         curency = curency
                     };

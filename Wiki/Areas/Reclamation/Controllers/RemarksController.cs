@@ -46,13 +46,13 @@ namespace Wiki.Areas.Reclamation.Controllers
             {
             }
             ViewBag.DevisionsManufacturing = new SelectList(new DevisionsManufacturing().Devisions.OrderBy(d => d.name), "id", "name");
-            if (login == "fvs@katek.by")
+            if (login == "fvs@katek.by" || login == "myi@katek.by")
             {
                 List<Devision> devisions = db.Devision.Where(d => d.OTK == true).ToList();
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 16)
+                    .Where(d => d.Devision == 15 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';
@@ -74,7 +74,7 @@ namespace Wiki.Areas.Reclamation.Controllers
                 ViewBag.id_DevisionReclamation = new SelectList(devisions.OrderBy(d => d.name), "id", "name");
                 ViewBag.ButtonAddActivation = 1;
                 ViewBag.id_AspNetUsersError = new SelectList(db.AspNetUsers
-                    .Where(d => d.Devision == 15)
+                    .Where(d => d.Devision == 15 || d.Devision == 16)
                     .Where(d => d.LockoutEnabled == true)
                     .OrderBy(d => d.CiliricalName), "Id", "CiliricalName");
                 ViewBag.CRUDCounter = '2';

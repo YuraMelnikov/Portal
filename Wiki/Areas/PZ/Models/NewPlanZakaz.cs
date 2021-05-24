@@ -95,7 +95,9 @@ namespace Wiki.Areas.PZ.Models
                 percentPI = 0,
                 durationBeforePay = 0,
                 SSMToBYN = 0,
-                SSMProduct = 0
+                SSMProduct = 0, 
+                importDuty = 0,
+                importDutyPlan = 0
             };
             db.PZ_TEO.Add(pZ_TEO);
             db.SaveChanges();

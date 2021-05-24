@@ -51,7 +51,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                 return 4;
             if (devision == 3 || devision == 15 || devision == 16)
                 return 1;
-            if (devision == 4)
+            if (devision == 4 || login == "cyv@katek.by") 
                 return 2;
             return 3;
         }
@@ -78,7 +78,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                                         && a.id_RKD_VersionWork != 10 
                                         && a.ApproveCDOrders.remove == false 
                                         && a.ApproveCDOrders.isOpening == true
-                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "a94f65df-4580-4729-9541-446ebee13c1e")
                             .ToList();
                         var data = query.Select(dataList => new
                         {
@@ -112,7 +112,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                                         && a.id_RKD_VersionWork != 10 
                                         && a.ApproveCDOrders.remove == false 
                                         && a.ApproveCDOrders.isOpening == true
-                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                                        && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "a94f65df-4580-4729-9541-446ebee13c1e")
                             .ToList();
                         var data = query.Select(dataList => new
                         {
@@ -317,7 +317,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetOrderByIdForEdit('" + idOrder + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
                     }
                 }
-                if(devision == 4)
+                if(devision == 4 || login == "cyv@katek.by")
                 {
                     if (stateId == 2 || stateId == 5 || stateId == 16)
                     {
@@ -368,7 +368,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         var query = db.ApproveCDQuestions
                             .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
                             .Include(a => a.AspNetUsers)
-                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager == "a94f65df-4580-4729-9541-446ebee13c1e")
                             .ToList();
                         var data = query.Select(dataList => new
                         {
@@ -388,7 +388,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         var query = db.ApproveCDQuestions
                             .Include(a => a.ApproveCDOrders.PZ_PlanZakaz)
                             .Include(a => a.AspNetUsers)
-                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "8363828f-bba2-4a89-8ed8-d7f5623b4fa8")
+                            .Where(a => a.active == false && a.ApproveCDOrders.PZ_PlanZakaz.Manager != "a94f65df-4580-4729-9541-446ebee13c1e")
                             .ToList();
                         var data = query.Select(dataList => new
                         {
@@ -472,7 +472,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
             try
             {
                 int devision = GetDevisionId(login);
-                if (devision == 3 || devision == 15 || devision == 16 || devision == 4 || login == "myi@katek.by")
+                if (devision == 3 || devision == 15 || devision == 16 || devision == 4 || login == "myi@katek.by" || login == "cyv@katek.by")
                 {
                     return "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetQuestionByIdForEdit('" + idQue + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>";
                 }
@@ -918,7 +918,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                         return "3";
                     }
                 }
-                if (devision == 4)
+                if (devision == 4 || login == "cyv@katek.by")
                 {
                     if (idState == 5)
                     {

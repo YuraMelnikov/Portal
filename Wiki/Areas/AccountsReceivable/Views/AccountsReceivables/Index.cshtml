@@ -151,6 +151,14 @@
                         <label>Валюта:</label>
                         @Html.DropDownList("Currency", ViewBag.currency as MultiSelectList, new { @class = "form-control" })
                     </div>
+                    <div class="col-lg-2">
+                        <label>Импортная пошлина (факт):</label>
+                        <input type="text" class="form-control" id="importDuty" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Импортная пошлина:</label>
+                        <input type="text" class="form-control" id="importDutyPlan" />
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

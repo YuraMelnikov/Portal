@@ -162,7 +162,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         dataList.OtpuskChena,
                         Currency = dataList.PZ_Currency.Name,
                         dataList.NDS,
-                        dataList.SSMProduct
+                        dataList.SSMProduct,
+                        dataList.importDuty,
+                        dataList.importDutyPlan
                     });
                     try
                     {
