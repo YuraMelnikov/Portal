@@ -200,7 +200,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                         dataList.OtpuskChena,
                         Currency = dataList.PZ_Currency.Name,
                         dataList.NDS,
-                        dataList.SSMProduct
+                        dataList.SSMProduct,
+                        dataList.importDuty,
+                        dataList.importDutyPlan
                     });
                     try
                     {
@@ -734,7 +736,9 @@ namespace Wiki.Areas.AccountsReceivable.Controllers
                     dataList.KursValuti,
                     dataList.Id_PlanZakaz,
                     dataList.NDS,
-                    dataList.SSMProduct
+                    dataList.SSMProduct,
+                    dataList.importDuty,
+                    dataList.importDutyPlan
                 });
                 return Json(data.First(), JsonRequestBehavior.AllowGet);
             }

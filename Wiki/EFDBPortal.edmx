@@ -1374,6 +1374,143 @@
           <Property Name="adres" Type="varchar(max)" Nullable="false" />
           <Property Name="description" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Illiquid">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IlliquidStockStateId" Type="int" Nullable="false" />
+          <Property Name="IlliquidTypeId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IlliquidSourceTypeId" Type="int" Nullable="false" />
+          <Property Name="DevisionId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidAddStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="QuentityAtBeginning" Type="real" Nullable="false" />
+          <Property Name="QuentirtyAtTheEnd" Type="real" Nullable="false" />
+          <Property Name="Quentity" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidChangeInTheNorm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanOrderId" Type="int" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="ChangeInTheNorm" Type="real" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidChangeInTheNormUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IlliquidChangeInTheNormId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidNorm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="PlanOrderId" Type="int" Nullable="false" />
+          <Property Name="Quentity" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IlliquidId" Type="int" Nullable="false" />
+          <Property Name="Create" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserIlliquidId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IlliquidTypeId" Type="int" Nullable="false" />
+          <Property Name="IlliquidSourceTypeId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="QueAtTheBeginning" Type="real" Nullable="false" />
+          <Property Name="QueAtTheEnd" Type="real" Nullable="false" />
+          <Property Name="Ordered" Type="real" Nullable="false" />
+          <Property Name="Received" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidRelease">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="PlanOrderId" Type="int" Nullable="false" />
+          <Property Name="Quentity" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidReplacement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUNormId" Type="int" Nullable="false" />
+          <Property Name="SKUIssuedId" Type="int" Nullable="false" />
+          <Property Name="PlanOrderId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="QuentityNorm" Type="real" Nullable="false" />
+          <Property Name="QuentityIssue" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidSN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="PlanOrderId" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Quentity" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidSourceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidStockState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SKUId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IlliquidQue" Type="real" Nullable="false" />
+          <Property Name="IlliquidSum" Type="real" Nullable="false" />
+          <Property Name="SurplusQue" Type="real" Nullable="false" />
+          <Property Name="SurplusSum" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="MailGraphic">
           <Key>
             <PropertyRef Name="id" />
@@ -2243,6 +2380,7 @@
           <Property Name="WeightR" Type="float" Nullable="false" />
           <Property Name="WeightArmis" Type="float" Nullable="false" />
           <Property Name="Note" Type="varchar(max)" />
+          <Property Name="XMLCODE" Type="nvarchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="Specifications">
           <Key>
@@ -2395,8 +2533,8 @@
           <Property Name="valut" Type="varchar(max)" Nullable="false" />
           <Property Name="dateOpen" Type="date" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.CMO_Report" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.CMO_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CMO_Report">
           <Key>
             <PropertyRef Name="Id_Order" />
@@ -2422,8 +2560,8 @@
           <Property Name="FactFinishDate" Type="date" />
           <Property Name="folder" Type="varchar(max)" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.PWA_EmpProject" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpProject">
           <Key>
             <PropertyRef Name="ProjectUID" />
@@ -2432,8 +2570,8 @@
           <Property Name="ProjectUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.PWA_EmpTask" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTask">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2453,8 +2591,8 @@
           <Property Name="ResourceUID" Type="uniqueidentifier" />
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.PWA_EmpTaskAll" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_EmpTaskAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_EmpTaskAll">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -2474,8 +2612,8 @@
           <Property Name="ResourceUID" Type="uniqueidentifier" />
           <Property Name="ResourceName" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.PWA_TasksForBP" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.PWA_TasksForBP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PWA_TasksForBP">
           <Key>
             <PropertyRef Name="PK" />
@@ -2546,8 +2684,8 @@
           <Property Name="ResourceUID" Type="uniqueidentifier" />
           <Property Name="НК" Type="decimal" Precision="25" Scale="6" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "PortalKATEK.dbo.RKD_TaskUIDProjectUD" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RKD_TaskUIDProjectUD">
           <Key>
             <PropertyRef Name="TaskUID" />
@@ -3834,6 +3972,318 @@
             </Principal>
             <Dependent Role="DebitReclamation">
               <PropertyRef Name="id_PZ_PlanZakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_Devision">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="DevisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidSourceType">
+          <End Role="IlliquidSourceType" Type="Self.IlliquidSourceType" Multiplicity="1" />
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidSourceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidSourceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidStockState">
+          <End Role="IlliquidStockState" Type="Self.IlliquidStockState" Multiplicity="1" />
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidStockState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidStockStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidType">
+          <End Role="IlliquidType" Type="Self.IlliquidType" Multiplicity="1" />
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidAddStock_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidAddStock" Type="Self.IlliquidAddStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidAddStock">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNorm_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="IlliquidChangeInTheNorm" Type="Self.IlliquidChangeInTheNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNorm_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidChangeInTheNorm" Type="Self.IlliquidChangeInTheNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNormUsers_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="IlliquidChangeInTheNormUsers" Type="Self.IlliquidChangeInTheNormUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNormUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm">
+          <End Role="IlliquidChangeInTheNorm" Type="Self.IlliquidChangeInTheNorm" Multiplicity="1" />
+          <End Role="IlliquidChangeInTheNormUsers" Type="Self.IlliquidChangeInTheNormUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNormUsers">
+              <PropertyRef Name="IlliquidChangeInTheNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNorm_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="IlliquidNorm" Type="Self.IlliquidNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNorm">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNorm_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidNorm" Type="Self.IlliquidNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidNorm">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="IlliquidNote" Type="Self.IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="IlliquidNote" Type="Self.IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="UserIlliquidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_Illiquid">
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="1" />
+          <End Role="IlliquidNote" Type="Self.IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illiquid">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_IlliquidSourceType">
+          <End Role="IlliquidSourceType" Type="Self.IlliquidSourceType" Multiplicity="1" />
+          <End Role="IlliquidNote" Type="Self.IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidSourceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidSourceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_IlliquidType">
+          <End Role="IlliquidType" Type="Self.IlliquidType" Multiplicity="1" />
+          <End Role="IlliquidNote" Type="Self.IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidOrders_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidOrders" Type="Self.IlliquidOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidOrders">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidRelease_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="IlliquidRelease" Type="Self.IlliquidRelease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidRelease">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidRelease_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidRelease" Type="Self.IlliquidRelease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidRelease">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="1" />
+          <End Role="IlliquidReplacement" Type="Self.IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidReplacement" Type="Self.IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="SKUNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_SKU1">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidReplacement" Type="Self.IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="SKUIssuedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidSN_PZ_PlanZakaz">
+          <End Role="PZ_PlanZakaz" Type="Self.PZ_PlanZakaz" Multiplicity="0..1" />
+          <End Role="IlliquidSN" Type="Self.IlliquidSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidSN">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidSN_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidSN" Type="Self.IlliquidSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidSN">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidStockState_SKU">
+          <End Role="SKU" Type="Self.SKU" Multiplicity="1" />
+          <End Role="IlliquidStockState" Type="Self.IlliquidStockState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidStockState">
+              <PropertyRef Name="SKUId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5242,6 +5692,19 @@
           <EntitySet Name="Devision" EntityType="Self.Devision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FolderDocument" EntityType="Self.FolderDocument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Illiquid" EntityType="Self.Illiquid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidAddStock" EntityType="Self.IlliquidAddStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidChangeInTheNorm" EntityType="Self.IlliquidChangeInTheNorm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidChangeInTheNormUsers" EntityType="Self.IlliquidChangeInTheNormUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidNorm" EntityType="Self.IlliquidNorm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidNote" EntityType="Self.IlliquidNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidOrders" EntityType="Self.IlliquidOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidRelease" EntityType="Self.IlliquidRelease" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidReplacement" EntityType="Self.IlliquidReplacement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidSN" EntityType="Self.IlliquidSN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidSourceType" EntityType="Self.IlliquidSourceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidStockState" EntityType="Self.IlliquidStockState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidType" EntityType="Self.IlliquidType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailGraphic" EntityType="Self.MailGraphic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Measure" EntityType="Self.Measure" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTables" EntityType="Self.OrdersTables" Schema="dbo" store:Type="Tables" />
@@ -5888,6 +6351,110 @@
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_AspNetUsers" Association="Self.FK_Illiquid_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_Devision" Association="Self.FK_Illiquid_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidSourceType" Association="Self.FK_Illiquid_IlliquidSourceType">
+            <End Role="IlliquidSourceType" EntitySet="IlliquidSourceType" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidStockState" Association="Self.FK_Illiquid_IlliquidStockState">
+            <End Role="IlliquidStockState" EntitySet="IlliquidStockState" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidType" Association="Self.FK_Illiquid_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidAddStock_SKU" Association="Self.FK_IlliquidAddStock_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidAddStock" EntitySet="IlliquidAddStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNorm_PZ_PlanZakaz" Association="Self.FK_IlliquidChangeInTheNorm_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNorm_SKU" Association="Self.FK_IlliquidChangeInTheNorm_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNormUsers_AspNetUsers" Association="Self.FK_IlliquidChangeInTheNormUsers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidChangeInTheNormUsers" EntitySet="IlliquidChangeInTheNormUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm" Association="Self.FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm">
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+            <End Role="IlliquidChangeInTheNormUsers" EntitySet="IlliquidChangeInTheNormUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNorm_PZ_PlanZakaz" Association="Self.FK_IlliquidNorm_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidNorm" EntitySet="IlliquidNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNorm_SKU" Association="Self.FK_IlliquidNorm_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidNorm" EntitySet="IlliquidNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_AspNetUsers" Association="Self.FK_IlliquidNote_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_AspNetUsers1" Association="Self.FK_IlliquidNote_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_Illiquid" Association="Self.FK_IlliquidNote_Illiquid">
+            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_IlliquidSourceType" Association="Self.FK_IlliquidNote_IlliquidSourceType">
+            <End Role="IlliquidSourceType" EntitySet="IlliquidSourceType" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_IlliquidType" Association="Self.FK_IlliquidNote_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidOrders_SKU" Association="Self.FK_IlliquidOrders_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidOrders" EntitySet="IlliquidOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidRelease_PZ_PlanZakaz" Association="Self.FK_IlliquidRelease_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidRelease" EntitySet="IlliquidRelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidRelease_SKU" Association="Self.FK_IlliquidRelease_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidRelease" EntitySet="IlliquidRelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_PZ_PlanZakaz" Association="Self.FK_IlliquidReplacement_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_SKU" Association="Self.FK_IlliquidReplacement_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_SKU1" Association="Self.FK_IlliquidReplacement_SKU1">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidSN_PZ_PlanZakaz" Association="Self.FK_IlliquidSN_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidSN" EntitySet="IlliquidSN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidSN_SKU" Association="Self.FK_IlliquidSN_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidSN" EntitySet="IlliquidSN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidStockState_SKU" Association="Self.FK_IlliquidStockState_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidStockState" EntitySet="IlliquidStockState" />
+          </AssociationSet>
           <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="Self.FK_MailGraphic_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="MailGraphic" EntitySet="MailGraphic" />
@@ -6383,7 +6950,6 @@
           <EntitySet Name="Measure" EntityType="PortalKATEKModel.Measure" />
           <EntitySet Name="PostMatching" EntityType="PortalKATEKModel.PostMatching" />
           <EntitySet Name="RKD_HistoryTaskVersion" EntityType="PortalKATEKModel.RKD_HistoryTaskVersion" />
-          <EntitySet Name="SKU" EntityType="PortalKATEKModel.SKU" />
           <AssociationSet Name="FK_PostMatching_Debit_MatchingType" Association="PortalKATEKModel.FK_PostMatching_Debit_MatchingType">
             <End Role="Debit_MatchingType" EntitySet="Debit_MatchingType" />
             <End Role="PostMatching" EntitySet="PostMatching" />
@@ -6481,6 +7047,19 @@
           <EntitySet Name="Debit_WorkBit" EntityType="PortalKATEKModel.Debit_WorkBit" />
           <EntitySet Name="DebitReclamation" EntityType="PortalKATEKModel.DebitReclamation" />
           <EntitySet Name="Devision" EntityType="PortalKATEKModel.Devision" />
+          <EntitySet Name="Illiquid" EntityType="PortalKATEKModel.Illiquid" />
+          <EntitySet Name="IlliquidAddStock" EntityType="PortalKATEKModel.IlliquidAddStock" />
+          <EntitySet Name="IlliquidChangeInTheNorm" EntityType="PortalKATEKModel.IlliquidChangeInTheNorm" />
+          <EntitySet Name="IlliquidChangeInTheNormUsers" EntityType="PortalKATEKModel.IlliquidChangeInTheNormUsers" />
+          <EntitySet Name="IlliquidNorm" EntityType="PortalKATEKModel.IlliquidNorm" />
+          <EntitySet Name="IlliquidNote" EntityType="PortalKATEKModel.IlliquidNote" />
+          <EntitySet Name="IlliquidOrders" EntityType="PortalKATEKModel.IlliquidOrders" />
+          <EntitySet Name="IlliquidRelease" EntityType="PortalKATEKModel.IlliquidRelease" />
+          <EntitySet Name="IlliquidReplacement" EntityType="PortalKATEKModel.IlliquidReplacement" />
+          <EntitySet Name="IlliquidSN" EntityType="PortalKATEKModel.IlliquidSN" />
+          <EntitySet Name="IlliquidSourceType" EntityType="PortalKATEKModel.IlliquidSourceType" />
+          <EntitySet Name="IlliquidStockState" EntityType="PortalKATEKModel.IlliquidStockState" />
+          <EntitySet Name="IlliquidType" EntityType="PortalKATEKModel.IlliquidType" />
           <EntitySet Name="MailGraphic" EntityType="PortalKATEKModel.MailGraphic" />
           <EntitySet Name="OrdersTables" EntityType="PortalKATEKModel.OrdersTables" />
           <EntitySet Name="OrdersTablesPositions" EntityType="PortalKATEKModel.OrdersTablesPositions" />
@@ -6545,6 +7124,7 @@
           <EntitySet Name="ServiceRemarksPlanZakazs" EntityType="PortalKATEKModel.ServiceRemarksPlanZakazs" />
           <EntitySet Name="ServiceRemarksReclamations" EntityType="PortalKATEKModel.ServiceRemarksReclamations" />
           <EntitySet Name="ServiceRemarksTypes" EntityType="PortalKATEKModel.ServiceRemarksTypes" />
+          <EntitySet Name="SKU" EntityType="PortalKATEKModel.SKU" />
           <EntitySet Name="StickersPreOrder" EntityType="PortalKATEKModel.StickersPreOrder" />
           <EntitySet Name="TaskForPZ" EntityType="PortalKATEKModel.TaskForPZ" />
           <EntitySet Name="TypeRKD_Mail_Version" EntityType="PortalKATEKModel.TypeRKD_Mail_Version" />
@@ -6705,6 +7285,22 @@
           <AssociationSet Name="FK_DashboardKO_UsersMonthPlan_AspNetUsers" Association="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="DashboardKO_UsersMonthPlan" EntitySet="DashboardKO_UsersMonthPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_AspNetUsers" Association="PortalKATEKModel.FK_Illiquid_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNormUsers_AspNetUsers" Association="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidChangeInTheNormUsers" EntitySet="IlliquidChangeInTheNormUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_AspNetUsers" Association="PortalKATEKModel.FK_IlliquidNote_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_AspNetUsers1" Association="PortalKATEKModel.FK_IlliquidNote_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
           </AssociationSet>
           <AssociationSet Name="FK_OrdersTables_AspNetUsers" Association="PortalKATEKModel.FK_OrdersTables_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -7070,6 +7666,10 @@
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_Devision" Association="PortalKATEKModel.FK_Illiquid_Devision">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectTask_Devision" Association="PortalKATEKModel.FK_ProjectTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="ProjectTask" EntitySet="ProjectTask" />
@@ -7085,6 +7685,90 @@
           <AssociationSet Name="FK_RKD_TypeTask_Devision" Association="PortalKATEKModel.FK_RKD_TypeTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
             <End Role="RKD_TypeTask" EntitySet="RKD_TypeTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidSourceType" Association="PortalKATEKModel.FK_Illiquid_IlliquidSourceType">
+            <End Role="IlliquidSourceType" EntitySet="IlliquidSourceType" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidStockState" Association="PortalKATEKModel.FK_Illiquid_IlliquidStockState">
+            <End Role="IlliquidStockState" EntitySet="IlliquidStockState" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Illiquid_IlliquidType" Association="PortalKATEKModel.FK_Illiquid_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="Illiquid" EntitySet="Illiquid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_Illiquid" Association="PortalKATEKModel.FK_IlliquidNote_Illiquid">
+            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidAddStock_SKU" Association="PortalKATEKModel.FK_IlliquidAddStock_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidAddStock" EntitySet="IlliquidAddStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNorm_PZ_PlanZakaz" Association="PortalKATEKModel.FK_IlliquidChangeInTheNorm_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNorm_SKU" Association="PortalKATEKModel.FK_IlliquidChangeInTheNorm_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm" Association="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm">
+            <End Role="IlliquidChangeInTheNorm" EntitySet="IlliquidChangeInTheNorm" />
+            <End Role="IlliquidChangeInTheNormUsers" EntitySet="IlliquidChangeInTheNormUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNorm_PZ_PlanZakaz" Association="PortalKATEKModel.FK_IlliquidNorm_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidNorm" EntitySet="IlliquidNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNorm_SKU" Association="PortalKATEKModel.FK_IlliquidNorm_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidNorm" EntitySet="IlliquidNorm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_IlliquidSourceType" Association="PortalKATEKModel.FK_IlliquidNote_IlliquidSourceType">
+            <End Role="IlliquidSourceType" EntitySet="IlliquidSourceType" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidNote_IlliquidType" Association="PortalKATEKModel.FK_IlliquidNote_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="IlliquidNote" EntitySet="IlliquidNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidOrders_SKU" Association="PortalKATEKModel.FK_IlliquidOrders_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidOrders" EntitySet="IlliquidOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidRelease_PZ_PlanZakaz" Association="PortalKATEKModel.FK_IlliquidRelease_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidRelease" EntitySet="IlliquidRelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidRelease_SKU" Association="PortalKATEKModel.FK_IlliquidRelease_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidRelease" EntitySet="IlliquidRelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_PZ_PlanZakaz" Association="PortalKATEKModel.FK_IlliquidReplacement_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_SKU" Association="PortalKATEKModel.FK_IlliquidReplacement_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidReplacement_SKU1" Association="PortalKATEKModel.FK_IlliquidReplacement_SKU1">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidSN_PZ_PlanZakaz" Association="PortalKATEKModel.FK_IlliquidSN_PZ_PlanZakaz">
+            <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
+            <End Role="IlliquidSN" EntitySet="IlliquidSN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidSN_SKU" Association="PortalKATEKModel.FK_IlliquidSN_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidSN" EntitySet="IlliquidSN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidStockState_SKU" Association="PortalKATEKModel.FK_IlliquidStockState_SKU">
+            <End Role="SKU" EntitySet="SKU" />
+            <End Role="IlliquidStockState" EntitySet="IlliquidStockState" />
           </AssociationSet>
           <AssociationSet Name="FK_MailGraphic_PZ_PlanZakaz" Association="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz">
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
@@ -8106,20 +8790,6 @@
           <Property Name="osComplited" Type="Boolean" />
           <Property Name="manufComplited" Type="Boolean" />
         </EntityType>
-        <EntityType Name="SKU">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="indexMaterial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sku1" Type="Int32" Nullable="false" />
-          <Property Name="weight" Type="Double" Nullable="false" />
-          <Property Name="WeightR" Type="Double" Nullable="false" />
-          <Property Name="WeightArmis" Type="Double" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="FK_PostMatching_Debit_MatchingType">
           <End Type="PortalKATEKModel.Debit_MatchingType" Role="Debit_MatchingType" Multiplicity="1" />
           <End Type="PortalKATEKModel.PostMatching" Role="PostMatching" Multiplicity="*" />
@@ -8487,6 +9157,10 @@
           <NavigationProperty Name="DashboardBP_ProjectTasks" Relationship="PortalKATEKModel.FK_DashboardBP_ProjectTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBP_ProjectTasks" />
           <NavigationProperty Name="DashboardBPTaskInsert" Relationship="PortalKATEKModel.FK_DashboardBPTaskInsert_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardBPTaskInsert" />
           <NavigationProperty Name="DashboardKO_UsersMonthPlan" Relationship="PortalKATEKModel.FK_DashboardKO_UsersMonthPlan_AspNetUsers" FromRole="AspNetUsers" ToRole="DashboardKO_UsersMonthPlan" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_AspNetUsers" FromRole="AspNetUsers" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidChangeInTheNormUsers" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_AspNetUsers" FromRole="AspNetUsers" ToRole="IlliquidChangeInTheNormUsers" />
+          <NavigationProperty Name="IlliquidNote" Relationship="PortalKATEKModel.FK_IlliquidNote_AspNetUsers" FromRole="AspNetUsers" ToRole="IlliquidNote" />
+          <NavigationProperty Name="IlliquidNote1" Relationship="PortalKATEKModel.FK_IlliquidNote_AspNetUsers1" FromRole="AspNetUsers" ToRole="IlliquidNote" />
           <NavigationProperty Name="OrdersTables" Relationship="PortalKATEKModel.FK_OrdersTables_AspNetUsers" FromRole="AspNetUsers" ToRole="OrdersTables" />
           <NavigationProperty Name="PlanVerificationItemsLog" Relationship="PortalKATEKModel.FK_PlanVerificationItemsLog_AspNetUsers" FromRole="AspNetUsers" ToRole="PlanVerificationItemsLog" />
           <NavigationProperty Name="PlexiglassOrder" Relationship="PortalKATEKModel.FK_PlexiglassOrder_AspNetUsers" FromRole="AspNetUsers" ToRole="PlexiglassOrder" />
@@ -9423,10 +10097,181 @@
           <Property Name="OTK" Type="Boolean" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
           <NavigationProperty Name="DashboardBPDevisionCoef" Relationship="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" FromRole="Devision" ToRole="DashboardBPDevisionCoef" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_Devision" FromRole="Devision" ToRole="Illiquid" />
           <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="RKD_TypeTask" Relationship="PortalKATEKModel.FK_RKD_TypeTask_Devision" FromRole="Devision" ToRole="RKD_TypeTask" />
+        </EntityType>
+        <EntityType Name="Illiquid">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IlliquidStockStateId" Type="Int32" Nullable="false" />
+          <Property Name="IlliquidTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IlliquidSourceTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DevisionId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_Illiquid_AspNetUsers" FromRole="Illiquid" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Illiquid_Devision" FromRole="Illiquid" ToRole="Devision" />
+          <NavigationProperty Name="IlliquidSourceType" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidSourceType" FromRole="Illiquid" ToRole="IlliquidSourceType" />
+          <NavigationProperty Name="IlliquidStockState" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState" FromRole="Illiquid" ToRole="IlliquidStockState" />
+          <NavigationProperty Name="IlliquidType" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidType" FromRole="Illiquid" ToRole="IlliquidType" />
+          <NavigationProperty Name="IlliquidNote" Relationship="PortalKATEKModel.FK_IlliquidNote_Illiquid" FromRole="Illiquid" ToRole="IlliquidNote" />
+        </EntityType>
+        <EntityType Name="IlliquidAddStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuentityAtBeginning" Type="Single" Nullable="false" />
+          <Property Name="QuentirtyAtTheEnd" Type="Single" Nullable="false" />
+          <Property Name="Quentity" Type="Single" Nullable="false" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidAddStock_SKU" FromRole="IlliquidAddStock" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidChangeInTheNorm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanOrderId" Type="Int32" Nullable="false" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeInTheNorm" Type="Single" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNorm_PZ_PlanZakaz" FromRole="IlliquidChangeInTheNorm" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNorm_SKU" FromRole="IlliquidChangeInTheNorm" ToRole="SKU" />
+          <NavigationProperty Name="IlliquidChangeInTheNormUsers" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm" FromRole="IlliquidChangeInTheNorm" ToRole="IlliquidChangeInTheNormUsers" />
+        </EntityType>
+        <EntityType Name="IlliquidChangeInTheNormUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IlliquidChangeInTheNormId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_AspNetUsers" FromRole="IlliquidChangeInTheNormUsers" ToRole="AspNetUsers" />
+          <NavigationProperty Name="IlliquidChangeInTheNorm" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm" FromRole="IlliquidChangeInTheNormUsers" ToRole="IlliquidChangeInTheNorm" />
+        </EntityType>
+        <EntityType Name="IlliquidNorm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="PlanOrderId" Type="Int32" Nullable="false" />
+          <Property Name="Quentity" Type="Single" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_IlliquidNorm_PZ_PlanZakaz" FromRole="IlliquidNorm" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidNorm_SKU" FromRole="IlliquidNorm" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IlliquidId" Type="Int32" Nullable="false" />
+          <Property Name="Create" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserIlliquidId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IlliquidTypeId" Type="Int32" Nullable="false" />
+          <Property Name="IlliquidSourceTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_IlliquidNote_AspNetUsers" FromRole="IlliquidNote" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="PortalKATEKModel.FK_IlliquidNote_AspNetUsers1" FromRole="IlliquidNote" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_IlliquidNote_Illiquid" FromRole="IlliquidNote" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidSourceType" Relationship="PortalKATEKModel.FK_IlliquidNote_IlliquidSourceType" FromRole="IlliquidNote" ToRole="IlliquidSourceType" />
+          <NavigationProperty Name="IlliquidType" Relationship="PortalKATEKModel.FK_IlliquidNote_IlliquidType" FromRole="IlliquidNote" ToRole="IlliquidType" />
+        </EntityType>
+        <EntityType Name="IlliquidOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QueAtTheBeginning" Type="Single" Nullable="false" />
+          <Property Name="QueAtTheEnd" Type="Single" Nullable="false" />
+          <Property Name="Ordered" Type="Single" Nullable="false" />
+          <Property Name="Received" Type="Single" Nullable="false" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidOrders_SKU" FromRole="IlliquidOrders" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidRelease">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="PlanOrderId" Type="Int32" Nullable="false" />
+          <Property Name="Quentity" Type="Single" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_IlliquidRelease_PZ_PlanZakaz" FromRole="IlliquidRelease" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidRelease_SKU" FromRole="IlliquidRelease" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidReplacement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUNormId" Type="Int32" Nullable="false" />
+          <Property Name="SKUIssuedId" Type="Int32" Nullable="false" />
+          <Property Name="PlanOrderId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuentityNorm" Type="Single" Nullable="false" />
+          <Property Name="QuentityIssue" Type="Single" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_IlliquidReplacement_PZ_PlanZakaz" FromRole="IlliquidReplacement" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU" FromRole="IlliquidReplacement" ToRole="SKU" />
+          <NavigationProperty Name="SKU1" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU1" FromRole="IlliquidReplacement" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidSN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="PlanOrderId" Type="Int32" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quentity" Type="Single" Nullable="false" />
+          <NavigationProperty Name="PZ_PlanZakaz" Relationship="PortalKATEKModel.FK_IlliquidSN_PZ_PlanZakaz" FromRole="IlliquidSN" ToRole="PZ_PlanZakaz" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidSN_SKU" FromRole="IlliquidSN" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidSourceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidSourceType" FromRole="IlliquidSourceType" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidNote" Relationship="PortalKATEKModel.FK_IlliquidNote_IlliquidSourceType" FromRole="IlliquidSourceType" ToRole="IlliquidNote" />
+        </EntityType>
+        <EntityType Name="IlliquidStockState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SKUId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IlliquidQue" Type="Single" Nullable="false" />
+          <Property Name="IlliquidSum" Type="Single" Nullable="false" />
+          <Property Name="SurplusQue" Type="Single" Nullable="false" />
+          <Property Name="SurplusSum" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState" FromRole="IlliquidStockState" ToRole="Illiquid" />
+          <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidStockState_SKU" FromRole="IlliquidStockState" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidType" FromRole="IlliquidType" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidNote" Relationship="PortalKATEKModel.FK_IlliquidNote_IlliquidType" FromRole="IlliquidType" ToRole="IlliquidNote" />
         </EntityType>
         <EntityType Name="MailGraphic">
           <Key>
@@ -9762,6 +10607,11 @@
           <NavigationProperty Name="Debit_Platform" Relationship="PortalKATEKModel.FK_Debit_Platform_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_Platform" />
           <NavigationProperty Name="Debit_WorkBit" Relationship="PortalKATEKModel.FK_debit_WorkBit_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="Debit_WorkBit" />
           <NavigationProperty Name="DebitReclamation" Relationship="PortalKATEKModel.FK_DebitReclamation_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="DebitReclamation" />
+          <NavigationProperty Name="IlliquidChangeInTheNorm" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNorm_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="IlliquidChangeInTheNorm" />
+          <NavigationProperty Name="IlliquidNorm" Relationship="PortalKATEKModel.FK_IlliquidNorm_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="IlliquidNorm" />
+          <NavigationProperty Name="IlliquidRelease" Relationship="PortalKATEKModel.FK_IlliquidRelease_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="IlliquidRelease" />
+          <NavigationProperty Name="IlliquidReplacement" Relationship="PortalKATEKModel.FK_IlliquidReplacement_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="IlliquidReplacement" />
+          <NavigationProperty Name="IlliquidSN" Relationship="PortalKATEKModel.FK_IlliquidSN_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="IlliquidSN" />
           <NavigationProperty Name="MailGraphic" Relationship="PortalKATEKModel.FK_MailGraphic_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="MailGraphic" />
           <NavigationProperty Name="OrdersTablesPositions" Relationship="PortalKATEKModel.FK_OrdersTablesPositions_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="OrdersTablesPositions" />
           <NavigationProperty Name="PlanVerificationItems" Relationship="PortalKATEKModel.FK_PlanVerificationItems_PZ_PlanZakaz" FromRole="PZ_PlanZakaz" ToRole="PlanVerificationItems" />
@@ -10350,6 +11200,30 @@
           <NavigationProperty Name="Reclamation_Type" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_Reclamation_Type" FromRole="ServiceRemarksTypes" ToRole="Reclamation_Type" />
           <NavigationProperty Name="ServiceRemarks" Relationship="PortalKATEKModel.FK_ServiceRemarksTypes_ServiceRemarks" FromRole="ServiceRemarksTypes" ToRole="ServiceRemarks" />
         </EntityType>
+        <EntityType Name="SKU">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="indexMaterial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sku1" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
+          <Property Name="WeightR" Type="Double" Nullable="false" />
+          <Property Name="WeightArmis" Type="Double" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="IlliquidAddStock" Relationship="PortalKATEKModel.FK_IlliquidAddStock_SKU" FromRole="SKU" ToRole="IlliquidAddStock" />
+          <NavigationProperty Name="IlliquidChangeInTheNorm" Relationship="PortalKATEKModel.FK_IlliquidChangeInTheNorm_SKU" FromRole="SKU" ToRole="IlliquidChangeInTheNorm" />
+          <NavigationProperty Name="IlliquidNorm" Relationship="PortalKATEKModel.FK_IlliquidNorm_SKU" FromRole="SKU" ToRole="IlliquidNorm" />
+          <NavigationProperty Name="IlliquidOrders" Relationship="PortalKATEKModel.FK_IlliquidOrders_SKU" FromRole="SKU" ToRole="IlliquidOrders" />
+          <NavigationProperty Name="IlliquidRelease" Relationship="PortalKATEKModel.FK_IlliquidRelease_SKU" FromRole="SKU" ToRole="IlliquidRelease" />
+          <NavigationProperty Name="IlliquidReplacement" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU" FromRole="SKU" ToRole="IlliquidReplacement" />
+          <NavigationProperty Name="IlliquidReplacement1" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU1" FromRole="SKU" ToRole="IlliquidReplacement" />
+          <NavigationProperty Name="IlliquidSN" Relationship="PortalKATEKModel.FK_IlliquidSN_SKU" FromRole="SKU" ToRole="IlliquidSN" />
+          <NavigationProperty Name="IlliquidStockState" Relationship="PortalKATEKModel.FK_IlliquidStockState_SKU" FromRole="SKU" ToRole="IlliquidStockState" />
+          <Property Name="XMLCODE" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="StickersPreOrder">
           <Key>
             <PropertyRef Name="id" />
@@ -10878,6 +11752,54 @@
             </Principal>
             <Dependent Role="DashboardKO_UsersMonthPlan">
               <PropertyRef Name="id_AspNetUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNormUsers_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidChangeInTheNormUsers" Role="IlliquidChangeInTheNormUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNormUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_AspNetUsers">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNote" Role="IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_AspNetUsers1">
+          <End Type="PortalKATEKModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNote" Role="IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="UserIlliquidId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11973,6 +12895,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Illiquid_Devision">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="DevisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectTask_Devision">
           <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
           <End Type="PortalKATEKModel.ProjectTask" Role="ProjectTask" Multiplicity="*" />
@@ -12018,6 +12952,258 @@
             </Principal>
             <Dependent Role="RKD_TypeTask">
               <PropertyRef Name="id_Devision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidSourceType">
+          <End Type="PortalKATEKModel.IlliquidSourceType" Role="IlliquidSourceType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidSourceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidSourceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidStockState">
+          <End Type="PortalKATEKModel.IlliquidStockState" Role="IlliquidStockState" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidStockState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidStockStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Illiquid_IlliquidType">
+          <End Type="PortalKATEKModel.IlliquidType" Role="IlliquidType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Illiquid">
+              <PropertyRef Name="IlliquidTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_Illiquid">
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNote" Role="IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illiquid">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidAddStock_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidAddStock" Role="IlliquidAddStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidAddStock">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNorm_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidChangeInTheNorm" Role="IlliquidChangeInTheNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNorm_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidChangeInTheNorm" Role="IlliquidChangeInTheNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidChangeInTheNormUsers_IlliquidChangeInTheNorm">
+          <End Type="PortalKATEKModel.IlliquidChangeInTheNorm" Role="IlliquidChangeInTheNorm" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidChangeInTheNormUsers" Role="IlliquidChangeInTheNormUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidChangeInTheNorm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidChangeInTheNormUsers">
+              <PropertyRef Name="IlliquidChangeInTheNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNorm_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNorm" Role="IlliquidNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNorm">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNorm_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNorm" Role="IlliquidNorm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidNorm">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_IlliquidSourceType">
+          <End Type="PortalKATEKModel.IlliquidSourceType" Role="IlliquidSourceType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNote" Role="IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidSourceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidSourceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidNote_IlliquidType">
+          <End Type="PortalKATEKModel.IlliquidType" Role="IlliquidType" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidNote" Role="IlliquidNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidNote">
+              <PropertyRef Name="IlliquidTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidOrders_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidOrders" Role="IlliquidOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidOrders">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidRelease_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidRelease" Role="IlliquidRelease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidRelease">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidRelease_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidRelease" Role="IlliquidRelease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidRelease">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidReplacement" Role="IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidReplacement" Role="IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="SKUNormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidReplacement_SKU1">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidReplacement" Role="IlliquidReplacement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidReplacement">
+              <PropertyRef Name="SKUIssuedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidSN_PZ_PlanZakaz">
+          <End Type="PortalKATEKModel.PZ_PlanZakaz" Role="PZ_PlanZakaz" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.IlliquidSN" Role="IlliquidSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PZ_PlanZakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidSN">
+              <PropertyRef Name="PlanOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidSN_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidSN" Role="IlliquidSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidSN">
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidStockState_SKU">
+          <End Type="PortalKATEKModel.SKU" Role="SKU" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidStockState" Role="IlliquidStockState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SKU">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidStockState">
+              <PropertyRef Name="SKUId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -13667,21 +14853,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SKU">
-            <EntityTypeMapping TypeName="PortalKATEKModel.SKU">
-              <MappingFragment StoreEntitySet="SKU">
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="WeightArmis" ColumnName="WeightArmis" />
-                <ScalarProperty Name="WeightR" ColumnName="WeightR" />
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="sku1" ColumnName="sku" />
-                <ScalarProperty Name="indexMaterial" ColumnName="indexMaterial" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="designation" ColumnName="designation" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AdvancePaynemts">
             <EntityTypeMapping TypeName="PortalKATEKModel.AdvancePaynemts">
               <MappingFragment StoreEntitySet="AdvancePaynemts">
@@ -14768,6 +15939,156 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Illiquid">
+            <EntityTypeMapping TypeName="PortalKATEKModel.Illiquid">
+              <MappingFragment StoreEntitySet="Illiquid">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DevisionId" ColumnName="DevisionId" />
+                <ScalarProperty Name="IlliquidSourceTypeId" ColumnName="IlliquidSourceTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IlliquidTypeId" ColumnName="IlliquidTypeId" />
+                <ScalarProperty Name="IlliquidStockStateId" ColumnName="IlliquidStockStateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidAddStock">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidAddStock">
+              <MappingFragment StoreEntitySet="IlliquidAddStock">
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="QuentirtyAtTheEnd" ColumnName="QuentirtyAtTheEnd" />
+                <ScalarProperty Name="QuentityAtBeginning" ColumnName="QuentityAtBeginning" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidChangeInTheNorm">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidChangeInTheNorm">
+              <MappingFragment StoreEntitySet="IlliquidChangeInTheNorm">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ChangeInTheNorm" ColumnName="ChangeInTheNorm" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="PlanOrderId" ColumnName="PlanOrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidChangeInTheNormUsers">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidChangeInTheNormUsers">
+              <MappingFragment StoreEntitySet="IlliquidChangeInTheNormUsers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IlliquidChangeInTheNormId" ColumnName="IlliquidChangeInTheNormId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidNorm">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidNorm">
+              <MappingFragment StoreEntitySet="IlliquidNorm">
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="PlanOrderId" ColumnName="PlanOrderId" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidNote">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidNote">
+              <MappingFragment StoreEntitySet="IlliquidNote">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IlliquidSourceTypeId" ColumnName="IlliquidSourceTypeId" />
+                <ScalarProperty Name="IlliquidTypeId" ColumnName="IlliquidTypeId" />
+                <ScalarProperty Name="UserIlliquidId" ColumnName="UserIlliquidId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Create" ColumnName="Create" />
+                <ScalarProperty Name="IlliquidId" ColumnName="IlliquidId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidOrders">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidOrders">
+              <MappingFragment StoreEntitySet="IlliquidOrders">
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Ordered" ColumnName="Ordered" />
+                <ScalarProperty Name="QueAtTheEnd" ColumnName="QueAtTheEnd" />
+                <ScalarProperty Name="QueAtTheBeginning" ColumnName="QueAtTheBeginning" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidRelease">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidRelease">
+              <MappingFragment StoreEntitySet="IlliquidRelease">
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="PlanOrderId" ColumnName="PlanOrderId" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidReplacement">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidReplacement">
+              <MappingFragment StoreEntitySet="IlliquidReplacement">
+                <ScalarProperty Name="QuentityIssue" ColumnName="QuentityIssue" />
+                <ScalarProperty Name="QuentityNorm" ColumnName="QuentityNorm" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PlanOrderId" ColumnName="PlanOrderId" />
+                <ScalarProperty Name="SKUIssuedId" ColumnName="SKUIssuedId" />
+                <ScalarProperty Name="SKUNormId" ColumnName="SKUNormId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidSN">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidSN">
+              <MappingFragment StoreEntitySet="IlliquidSN">
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="PlanOrderId" ColumnName="PlanOrderId" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidSourceType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidSourceType">
+              <MappingFragment StoreEntitySet="IlliquidSourceType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidStockState">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidStockState">
+              <MappingFragment StoreEntitySet="IlliquidStockState">
+                <ScalarProperty Name="SurplusSum" ColumnName="SurplusSum" />
+                <ScalarProperty Name="SurplusQue" ColumnName="SurplusQue" />
+                <ScalarProperty Name="IlliquidSum" ColumnName="IlliquidSum" />
+                <ScalarProperty Name="IlliquidQue" ColumnName="IlliquidQue" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidType">
+              <MappingFragment StoreEntitySet="IlliquidType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MailGraphic">
             <EntityTypeMapping TypeName="PortalKATEKModel.MailGraphic">
               <MappingFragment StoreEntitySet="MailGraphic">
@@ -15557,6 +16878,22 @@
               <MappingFragment StoreEntitySet="ServiceRemarksTypes">
                 <ScalarProperty Name="id_ServiceRemarks" ColumnName="id_ServiceRemarks" />
                 <ScalarProperty Name="id_Reclamation_Type" ColumnName="id_Reclamation_Type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SKU">
+            <EntityTypeMapping TypeName="PortalKATEKModel.SKU">
+              <MappingFragment StoreEntitySet="SKU">
+                <ScalarProperty Name="XMLCODE" ColumnName="XMLCODE" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="WeightArmis" ColumnName="WeightArmis" />
+                <ScalarProperty Name="WeightR" ColumnName="WeightR" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="sku1" ColumnName="sku" />
+                <ScalarProperty Name="indexMaterial" ColumnName="indexMaterial" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

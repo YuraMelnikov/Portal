@@ -8,5 +8,6 @@
         public int sku1 { get; set; }
         public double weight { get; set; }
         public double weightR { get; set; }
+        public string xml { get; set; }
     }
 }

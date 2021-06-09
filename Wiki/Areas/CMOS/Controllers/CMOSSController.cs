@@ -523,10 +523,6 @@ namespace Wiki.Areas.CMOS.Controllers
                     db.CMOSPreOrder.Add(preorder);
                     db.SaveChanges();
                     result = preorder.id;
-                    preorder.folder = CreateFolderAndFileForBackorderrder(preorder.id, files);
-                    CreatingPositionsPreorder(preorder.id, preorder.folder);
-                    db.Entry(preorder).State = EntityState.Modified;
-                    db.SaveChanges();
                     DateTime maxDateCurency = db.CurencyBYN.Max(a => a.date);
                     DateTime curencyDate = db.CurencyBYN.Max(a => a.date);
                     double curency = db.CurencyBYN.Find(curencyDate).USD;
@@ -544,6 +540,13 @@ namespace Wiki.Areas.CMOS.Controllers
                         curency = curency
                     };
                     db.CMOSOrder.Add(order);
+                    db.SaveChanges();
+                    preorder.folder = CreateFolderAndFileForBackorderrder(preorder.id, files, order.id);
+                    CreatingPositionsPreorder(preorder.id, preorder.folder);
+                    db.Entry(preorder).State = EntityState.Modified;
+                    db.SaveChanges();
+                    order.folder = preorder.folder;
+                    db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                     var relations = new CMOSOrderPreOrder
                     {
@@ -1083,9 +1086,10 @@ namespace Wiki.Areas.CMOS.Controllers
                                 sku1 = (int)t.Cells[0].Number,
                                 name = t.Cells[1].Value,
                                 weight = Convert.ToDouble(t.Cells[2].Number),
-                                indexMaterial = t.Cells[3].Value,
-                                designation = t.Cells[4].Value,
-                                weightR = Convert.ToDouble(t.Cells[5].Number)
+                                indexMaterial = t.Cells[4].Value,
+                                designation = t.Cells[5].Value,
+                                weightR = 0.0
+                                , xml = t.Cells[3].Value
                             };
                             try
                             {
@@ -1121,20 +1125,45 @@ namespace Wiki.Areas.CMOS.Controllers
                                     weight = sku.weight,
                                     WeightR = sku.weightR,
                                     WeightArmis = 0.0
+                                    , XMLCODE = sku.xml
                                 };
                                 db.SKU.Add(skuAdd);
                                 db.SaveChanges();
                             }
                             else
                             {
+                                bool isUpdate = false;
                                 skuIn = dbres.First(a => a.sku1 == sku.sku1);
-                                skuIn.designation = sku.designation;
-                                skuIn.name = sku.name;
-                                skuIn.indexMaterial = sku.indexMaterial;
-                                skuIn.weight = (double)sku.weight;
-                                skuIn.WeightR = (double)sku.weightR;
-                                db.Entry(skuIn).State = EntityState.Modified;
-                                db.SaveChanges();
+                                if(skuIn.designation != sku.designation)
+                                {
+                                    skuIn.designation = sku.designation;
+                                    isUpdate = true;
+                                }
+                                if (skuIn.name != sku.name)
+                                {
+                                    skuIn.name = sku.name;
+                                    isUpdate = true;
+                                }
+                                if (skuIn.indexMaterial != sku.indexMaterial)
+                                {
+                                    skuIn.indexMaterial = sku.indexMaterial;
+                                    isUpdate = true;
+                                }
+                                if (skuIn.weight != (double)sku.weight)
+                                {
+                                    skuIn.weight = (double)sku.weight;
+                                    isUpdate = true;
+                                }
+                                if (skuIn.XMLCODE != sku.xml)
+                                {
+                                    skuIn.XMLCODE = sku.xml;
+                                    isUpdate = true;
+                                }
+                                if(isUpdate == true)
+                                {
+                                    db.Entry(skuIn).State = EntityState.Modified;
+                                    db.SaveChanges();
+                                }
                             }
                         }
                     }
@@ -2290,14 +2319,14 @@ namespace Wiki.Areas.CMOS.Controllers
             return directory;
         }
 
-        private string CreateFolderAndFileForBackorderrder(int id, HttpPostedFileBase[] fileUploadArray)
+        private string CreateFolderAndFileForBackorderrder(int id, HttpPostedFileBase[] fileUploadArray, int id_ord)
         {
             string directory = "\\\\192.168.1.30\\m$\\_ЗАКАЗЫ\\CMOS\\Backorder\\" + id.ToString() + "\\";
             Directory.CreateDirectory(directory);
             for (int i = 0; i < fileUploadArray.Length; i++)
             {
                 string fileReplace = Path.GetFileName(fileUploadArray[i].FileName);
-                fileReplace = ToSafeFileName(fileReplace);
+                fileReplace = id_ord.ToString() + "_" + ToSafeFileName(fileReplace);
                 var fileName = string.Format("{0}\\{1}", directory, fileReplace);
                 fileUploadArray[i].SaveAs(fileName);
                 if (fileReplace.Substring(fileReplace.Length - 1) == "s")
