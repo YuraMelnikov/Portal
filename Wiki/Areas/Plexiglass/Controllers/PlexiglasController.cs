@@ -210,8 +210,6 @@ namespace Wiki.Areas.Plexiglass.Controllers
                 if (!Directory.Exists(Server.MapPath("~/temp")))
                     Directory.CreateDirectory(Server.MapPath("~/temp"));
                 files[0].SaveAs(fileLocation);
-
-
                 string error = "";
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -243,9 +241,6 @@ namespace Wiki.Areas.Plexiglass.Controllers
                 }
                 if (error != "")
                     return Json(error, JsonRequestBehavior.AllowGet);
-
-
-
                 foreach (var p in ord)
                 {
                     var order = new PlexiglassOrder

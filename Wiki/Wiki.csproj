@@ -408,6 +408,8 @@
     <Compile Include="Areas\E3\Controllers\E3SeriesController.cs" />
     <Compile Include="Areas\E3\E3AreaRegistration.cs" />
     <Compile Include="Areas\E3\Models\EmailE3.cs" />
+    <Compile Include="Areas\Illiquid\Controllers\IlliqController.cs" />
+    <Compile Include="Areas\Illiquid\IlliquidAreaRegistration.cs" />
     <Compile Include="Areas\NotesOrders\Controllers\NoteOrderController.cs" />
     <Compile Include="Areas\NotesOrders\NotesOrdersAreaRegistration.cs" />
     <Compile Include="Areas\OrdersTables\Controllers\OrderFeTableController.cs" />
@@ -1558,6 +1560,7 @@
     <Content Include="Areas\Deb\Contant\TasksDoc.js" />
     <Content Include="Areas\Deb\Contant\Tasks.js" />
     <Content Include="Areas\E3\Contents\E3.js" />
+    <Content Include="Areas\Illiquid\Content\Illiquid.js" />
     <Content Include="Areas\NotesOrders\Content\notes.js" />
     <Content Include="Areas\OrdersTables\Content\OrderTable.js" />
     <Content Include="Areas\Plexiglass\Content\Plexiglass.js" />
@@ -2751,6 +2754,12 @@
     <Content Include="Areas\CrossTable\Views\web.config" />
     <Content Include="Areas\CrossTable\Views\Shared\_LayoutCTO.cshtml" />
     <Content Include="Areas\CrossTable\Views\CTO\Index.cshtml" />
+    <Content Include="Areas\Illiquid\Views\web.config" />
+    <Content Include="Areas\Illiquid\Views\Illiq\Index.cshtml" />
+    <Content Include="Areas\Illiquid\Views\Shared\_LayoutIlliquid.cshtml" />
+    <Content Include="Areas\CMOS\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CMOS\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\CMOS\Views\CMOSS\IndexPPP.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3309,6 +3318,7 @@
     <Folder Include="Areas\CMOS\ToInput\" />
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
+    <Folder Include="Areas\Illiquid\ToSKU\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\Plexiglass\TMP\" />
     <Folder Include="Areas\UsersKO\Models\" />

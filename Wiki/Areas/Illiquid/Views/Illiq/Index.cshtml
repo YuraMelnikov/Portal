@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Illiquid/Views/Shared/_LayoutIlliquid.cshtml";
+}
+<head>
+    <script src="~/Areas/Illiquid/Content/Illiquid.js?v.0.1"></script>
+    <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <style>
+        .highlightColor {
+            background-color: #c42525;
+            color: white;
+        }
+
+        .loader {
+            border: 5px solid #d7d7d7;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://tpserver/PWA/Projects.aspx">Проекты</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a style="color:crimson" href="/Account/Login/">
+                    @{Html.RenderAction("RenderUserMenu", "Illiq"); }
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <button id="btnLoadSku" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningSKUModal()>Загрузить ТМЦ</button>
+
+        <hr />
+
+    </div>
+</div>
+
+<div id="skuModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xlsx" type="file" multiple name="fileSku" id="fileSku" enctype="multipart/form-data" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadSkuModal" class="btn btn-primary" onclick="LoadingSku()">Загрузить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

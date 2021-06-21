@@ -607,7 +607,11 @@ namespace Wiki.Areas.PZ.Controllers
                 editPZ.Name = pZ_PlanZakaz.Name;
             }
             if (editPZ.nameTU != pZ_PlanZakaz.nameTU)
+            {
+                EmailRename emailRename = new EmailRename(editPZ.PlanZakaz.ToString(), editPZ.nameTU, pZ_PlanZakaz.nameTU, login, true);
+                emailRename.SendEmail();
                 editPZ.nameTU = pZ_PlanZakaz.nameTU;
+            }
             if (editPZ.Description != pZ_PlanZakaz.Description)
                 editPZ.Description = pZ_PlanZakaz.Description;
             if (editPZ.MTR != pZ_PlanZakaz.MTR)

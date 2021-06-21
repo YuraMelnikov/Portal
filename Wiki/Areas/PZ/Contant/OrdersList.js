@@ -643,7 +643,6 @@ function getbyID(Id) {
             var A = parseInt(tmp);
             var B = parseInt(tmp2);
             if (A > B) {
-                $("#nameTU").attr('disabled', true);
                 $("#Cost").attr('disabled', true); 
             }
             $('#massa').val(result.massa);
@@ -1132,7 +1131,6 @@ function UpdateKO() {
     var typeObj = {
         Id: $('#Id').val(),
         PlanZakaz: $('#kPlanZakaz').val(),
-        //nameTU: $('#nameTU').val(),
         ProductType: $('#koProductType').val(),
         massa: $('#massa').val().replace('.', ','),
         cgm: $('#cgm').val().replace('.', ','),
@@ -1158,14 +1156,6 @@ function UpdateKO() {
 
 function validateUpdateKO() {
     var isValid = true;
-    var tmp = $('#massa').val();
-    //if ($('#nameTU').val() === null) {
-    //    $('#nameTU').css('border-color', 'Red');
-    //    isValid = false;
-    //}
-    //else {
-    //    $('#nameTU').css('border-color', 'lightgrey');
-    //}
     if ($('#massa').val() < 1) {
         $('#massa').css('border-color', 'Red');
         isValid = false;
