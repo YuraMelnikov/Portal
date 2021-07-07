@@ -38,6 +38,8 @@ namespace Wiki
         public double WeightArmis { get; set; }
         public string Note { get; set; }
         public string XMLCODE { get; set; }
+        public Nullable<double> Min { get; set; }
+        public Nullable<double> Max { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidAddStock> IlliquidAddStock { get; set; }

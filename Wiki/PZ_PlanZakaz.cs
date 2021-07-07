@@ -40,7 +40,6 @@ namespace Wiki
             this.IlliquidNorm = new HashSet<IlliquidNorm>();
             this.IlliquidRelease = new HashSet<IlliquidRelease>();
             this.IlliquidReplacement = new HashSet<IlliquidReplacement>();
-            this.IlliquidSN = new HashSet<IlliquidSN>();
             this.MailGraphic = new HashSet<MailGraphic>();
             this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
             this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
@@ -154,8 +153,6 @@ namespace Wiki
         public virtual ICollection<IlliquidRelease> IlliquidRelease { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidReplacement> IlliquidReplacement { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidSN> IlliquidSN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MailGraphic> MailGraphic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

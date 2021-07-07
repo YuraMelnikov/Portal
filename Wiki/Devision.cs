@@ -20,6 +20,7 @@ namespace Wiki
             this.AspNetUsers = new HashSet<AspNetUsers>();
             this.DashboardBPDevisionCoef = new HashSet<DashboardBPDevisionCoef>();
             this.Illiquid = new HashSet<Illiquid>();
+            this.Illiquid1 = new HashSet<Illiquid>();
             this.ProjectTask = new HashSet<ProjectTask>();
             this.Reclamation = new HashSet<Reclamation>();
             this.Reclamation1 = new HashSet<Reclamation>();
@@ -36,6 +37,8 @@ namespace Wiki
         public virtual ICollection<DashboardBPDevisionCoef> DashboardBPDevisionCoef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Illiquid> Illiquid { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Illiquid> Illiquid1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTask> ProjectTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

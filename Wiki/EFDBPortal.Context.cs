@@ -53,13 +53,10 @@ namespace Wiki
         public virtual DbSet<PWA_TasksForBP> PWA_TasksForBP { get; set; }
         public virtual DbSet<PWA_EmpTaskAll> PWA_EmpTaskAll { get; set; }
         public virtual DbSet<RKD_TaskUIDProjectUD> RKD_TaskUIDProjectUD { get; set; }
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<Calendar> Calendar { get; set; }
         public virtual DbSet<CMKO_CounterError> CMKO_CounterError { get; set; }
         public virtual DbSet<CMKO_RemainingWork> CMKO_RemainingWork { get; set; }
         public virtual DbSet<CMKO_ThisDeductionsBonusFund> CMKO_ThisDeductionsBonusFund { get; set; }
         public virtual DbSet<CMKO_ThisHSS> CMKO_ThisHSS { get; set; }
-        public virtual DbSet<CMKO_ThisWageFund> CMKO_ThisWageFund { get; set; }
         public virtual DbSet<CMKO_ThisWithheldToBonusFund> CMKO_ThisWithheldToBonusFund { get; set; }
         public virtual DbSet<CMOSRate> CMOSRate { get; set; }
         public virtual DbSet<CurencyBYN> CurencyBYN { get; set; }
@@ -81,13 +78,18 @@ namespace Wiki
         public virtual DbSet<Debit_MatchingType> Debit_MatchingType { get; set; }
         public virtual DbSet<Measure> Measure { get; set; }
         public virtual DbSet<PostMatching> PostMatching { get; set; }
-        public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<AdvancePaynemts> AdvancePaynemts { get; set; }
         public virtual DbSet<Contracts> Contracts { get; set; }
         public virtual DbSet<PlanOrders> PlanOrders { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Specifications> Specifications { get; set; }
         public virtual DbSet<SpecificationsPositions> SpecificationsPositions { get; set; }
+        public virtual DbSet<IlliquidType> IlliquidType { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<Calendar> Calendar { get; set; }
+        public virtual DbSet<CMKO_ThisWageFund> CMKO_ThisWageFund { get; set; }
+        public virtual DbSet<IlliquidSourceType> IlliquidSourceType { get; set; }
+        public virtual DbSet<RKD_HistoryTaskVersion> RKD_HistoryTaskVersion { get; set; }
         public virtual DbSet<ApproveCDActions> ApproveCDActions { get; set; }
         public virtual DbSet<ApproveCDOrders> ApproveCDOrders { get; set; }
         public virtual DbSet<ApproveCDQuestionCorr> ApproveCDQuestionCorr { get; set; }
@@ -156,18 +158,18 @@ namespace Wiki
         public virtual DbSet<DebitReclamation> DebitReclamation { get; set; }
         public virtual DbSet<Devision> Devision { get; set; }
         public virtual DbSet<Illiquid> Illiquid { get; set; }
+        public virtual DbSet<IlliquidAction> IlliquidAction { get; set; }
         public virtual DbSet<IlliquidAddStock> IlliquidAddStock { get; set; }
         public virtual DbSet<IlliquidChangeInTheNorm> IlliquidChangeInTheNorm { get; set; }
         public virtual DbSet<IlliquidChangeInTheNormUsers> IlliquidChangeInTheNormUsers { get; set; }
+        public virtual DbSet<IlliquidGroupAction> IlliquidGroupAction { get; set; }
         public virtual DbSet<IlliquidNorm> IlliquidNorm { get; set; }
-        public virtual DbSet<IlliquidNote> IlliquidNote { get; set; }
         public virtual DbSet<IlliquidOrders> IlliquidOrders { get; set; }
         public virtual DbSet<IlliquidRelease> IlliquidRelease { get; set; }
         public virtual DbSet<IlliquidReplacement> IlliquidReplacement { get; set; }
         public virtual DbSet<IlliquidSN> IlliquidSN { get; set; }
-        public virtual DbSet<IlliquidSourceType> IlliquidSourceType { get; set; }
         public virtual DbSet<IlliquidStockState> IlliquidStockState { get; set; }
-        public virtual DbSet<IlliquidType> IlliquidType { get; set; }
+        public virtual DbSet<IlliquidTypeAction> IlliquidTypeAction { get; set; }
         public virtual DbSet<MailGraphic> MailGraphic { get; set; }
         public virtual DbSet<OrdersTables> OrdersTables { get; set; }
         public virtual DbSet<OrdersTablesPositions> OrdersTablesPositions { get; set; }

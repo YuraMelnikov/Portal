@@ -46,10 +46,7 @@ namespace Wiki
             this.DashboardBP_ProjectTasks = new HashSet<DashboardBP_ProjectTasks>();
             this.DashboardBPTaskInsert = new HashSet<DashboardBPTaskInsert>();
             this.DashboardKO_UsersMonthPlan = new HashSet<DashboardKO_UsersMonthPlan>();
-            this.Illiquid = new HashSet<Illiquid>();
             this.IlliquidChangeInTheNormUsers = new HashSet<IlliquidChangeInTheNormUsers>();
-            this.IlliquidNote = new HashSet<IlliquidNote>();
-            this.IlliquidNote1 = new HashSet<IlliquidNote>();
             this.OrdersTables = new HashSet<OrdersTables>();
             this.PlanVerificationItemsLog = new HashSet<PlanVerificationItemsLog>();
             this.PlexiglassOrder = new HashSet<PlexiglassOrder>();
@@ -157,13 +154,7 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DashboardKO_UsersMonthPlan> DashboardKO_UsersMonthPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Illiquid> Illiquid { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidChangeInTheNormUsers> IlliquidChangeInTheNormUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNote> IlliquidNote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNote> IlliquidNote1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTables> OrdersTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

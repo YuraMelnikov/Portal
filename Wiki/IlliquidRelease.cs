@@ -18,6 +18,11 @@ namespace Wiki
         public int SKUId { get; set; }
         public int PlanOrderId { get; set; }
         public float Quentity { get; set; }
+        public string DocNumber { get; set; }
+        public System.DateTime DocDate { get; set; }
+        public string Action { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime FinishDate { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
         public virtual SKU SKU { get; set; }

@@ -977,6 +977,9 @@
     <Compile Include="Illiquid.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="IlliquidAction.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="IlliquidAddStock.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
@@ -986,10 +989,10 @@
     <Compile Include="IlliquidChangeInTheNormUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="IlliquidNorm.cs">
+    <Compile Include="IlliquidGroupAction.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="IlliquidNote.cs">
+    <Compile Include="IlliquidNorm.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="IlliquidOrders.cs">
@@ -1011,6 +1014,9 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="IlliquidType.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IlliquidTypeAction.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Layer.cs">
@@ -3319,6 +3325,7 @@
     <Folder Include="Areas\CMOS\ToSKU\" />
     <Folder Include="Areas\DashboardD\Data\" />
     <Folder Include="Areas\Illiquid\ToSKU\" />
+    <Folder Include="Areas\Illiquid\ToStock\" />
     <Folder Include="Areas\NotesOrders\Models\" />
     <Folder Include="Areas\Plexiglass\TMP\" />
     <Folder Include="Areas\UsersKO\Models\" />
@@ -3337,15 +3344,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="KoffAddIn">
-      <Guid>{39DC140D-83E8-49CD-8885-134731216CAD}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -3402,7 +3400,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57314</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57314/</IISUrl>
+          <IISUrl>http://localhost:57318/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1014,6 +1014,7 @@ namespace Wiki.Areas.ApproveCD.Controllers
                     approveCDVersions.id_RKD_VersionWork = 4;
                     db.Entry(approveCDVersions).State = EntityState.Modified;
                     db.SaveChanges();
+                    EmailApproveCD emailApproveCD = new EmailApproveCD(hideIdOrder, login, 0, commitTSToKO);
                     ApproveCDActions approveCDActions = new ApproveCDActions
                     {
                         id_ApproveCDVersions = approveCDVersions.id,

@@ -17,23 +17,28 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Illiquid()
         {
-            this.IlliquidNote = new HashSet<IlliquidNote>();
+            this.IlliquidAction = new HashSet<IlliquidAction>();
+            this.IlliquidGroupAction = new HashSet<IlliquidGroupAction>();
         }
     
-        public int Id { get; set; }
-        public int IlliquidStockStateId { get; set; }
-        public int IlliquidTypeId { get; set; }
-        public string UserId { get; set; }
-        public int IlliquidSourceTypeId { get; set; }
-        public int DevisionId { get; set; }
+        public int id { get; set; }
+        public Nullable<int> idIlliquidStockStateBefore { get; set; }
+        public int idIlliquidStockStateNext { get; set; }
+        public float quantityBefore { get; set; }
+        public float quantityNext { get; set; }
+        public bool IsAnalisis { get; set; }
+        public Nullable<int> DevisionAutomatic { get; set; }
+        public Nullable<int> DevisionCorrect { get; set; }
         public string Note { get; set; }
+        public string Cause { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Devision Devision { get; set; }
-        public virtual IlliquidSourceType IlliquidSourceType { get; set; }
+        public virtual Devision Devision1 { get; set; }
         public virtual IlliquidStockState IlliquidStockState { get; set; }
-        public virtual IlliquidType IlliquidType { get; set; }
+        public virtual IlliquidStockState IlliquidStockState1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNote> IlliquidNote { get; set; }
+        public virtual ICollection<IlliquidAction> IlliquidAction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidGroupAction> IlliquidGroupAction { get; set; }
     }
 }

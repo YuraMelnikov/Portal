@@ -71,6 +71,10 @@ namespace Wiki.Areas.ApproveCD.Models
                 {
                     subject += " - Получено согласование РКД";
                 }
+                if (stepNumber == 0)
+                {
+                    subject += " - РКД отправлено на доработку";
+                }
                 return true;
             }
         }

@@ -3,9 +3,14 @@
     Layout = "~/Areas/Illiquid/Views/Shared/_LayoutIlliquid.cshtml";
 }
 <head>
-    <script src="~/Areas/Illiquid/Content/Illiquid.js?v.0.1"></script>
+    <script src="~/Areas/Illiquid/Content/Illiquid.js?v.0.8.4"></script>
     <link href="~/Content/Chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+    <link href="~/Content/DataTables/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Content/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/DataTables/jszip.min.js"></script>
+    <script src="~/Content/DataTables/pdfmake.min.js"></script>
+    <script src="~/Content/DataTables/buttons.html5.min.js"></script>
     <style>
         .highlightColor {
             background-color: #c42525;
@@ -19,6 +24,21 @@
             width: 50px;
             height: 50px;
             animation: spin 2s linear infinite;
+        }
+
+        .colu-100 {
+            min-width: 100px;
+            max-width: 200px;
+        }
+
+        .colu-200 {
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .colu-300 {
+            min-width: 300px;
+            max-width: 400px;
         }
 
         @@keyframes spin {
@@ -49,11 +69,14 @@
 
 <div class="row">
     <div class="col-md-12">
-
-        <button id="btnLoadSku" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningSKUModal()>Загрузить ТМЦ</button>
-
+        <button id="btnLoadStock" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningStockModal()>Загрузить Склад</button>
+        <button id="btnLoadGetIlliquidPeriodModal" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=OpeningGetIlliquidPeriodModal()>Обновить неликвиды</button>
+        <button id="btnAnalisysIlliquid" type="button" class="btn-xs btn-primary" data-toggle="modal" onclick=AnalisysIlliquid()>Произвести анализ</button>
         <hr />
-
+        <div id="dTableNotWorrking">
+            <label>Требуется обработать позиции:</label>
+            <table id="tableNotWorrking" class="table table-hover table-striped" style="width:100%;"></table>
+        </div>
     </div>
 </div>
 
@@ -76,3 +99,97 @@
         </div>
     </div>
 </div>
+
+<div id="stockModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input accept=".xlsx" type="file" multiple name="fileStock" id="fileStock" enctype="multipart/form-data" value="Выбрать файл" /><br />
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnLoadingStock" class="btn btn-primary" onclick="LoadingStock()">Загрузить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="getIlliquidPeriodModal" class="modal modal-wide fade" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Начальная дата:</label>
+                        <input type="text" class="form-control" id="startDate" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Конечная дата:</label>
+                        <input type="text" class="form-control" id="finishDate" />
+                    </div>
+                </div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <div class="row"><div class="col-lg-4">&nbsp</div></div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-8">
+
+                    </div>
+                    <div class="col-lg-4">
+                        <button id="btnGetIlliquidPeriodModal" class="btn btn-primary" onclick="GetIlliquidPeriod()">Загрузить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".chosen-select").chosen({
+        placeholder_text_multiple: "Нажмите для выбора...",
+        no_results_text: 'Не найдено: ',
+        allow_single_deselect: true, disable_search_threshold: 5, width: "100%"
+    });
+</script>
+<script>
+    $(".modal-wide").on("show.bs.modal", function () {
+        var height = $(window).height() - 200;
+        $(this).find(".modal-body").css("max-height", height);
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#startDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#finishDate').datetimepicker({
+            locale: 'ru',
+            format: 'L',
+            calendarWeeks: true,
+            showTodayButton: true
+        });
+    });
+</script>

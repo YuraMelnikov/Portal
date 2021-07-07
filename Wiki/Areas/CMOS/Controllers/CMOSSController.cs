@@ -62,7 +62,7 @@ namespace Wiki.Areas.CMOS.Controllers
                 .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 2)
                 .OrderBy(d => d.id), "id", "id");
             ViewBag.correctingListEcowood = new SelectList(db.CMOSOrder
-                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 3)
+                .Where(d => d.remove == false && d.finDate == null && d.cMO_CompanyId == 3 || d.cMO_CompanyId == 8)
                 .OrderBy(d => d.id), "id", "id");
             return View();
         }

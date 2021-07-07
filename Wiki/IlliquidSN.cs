@@ -16,12 +16,11 @@ namespace Wiki
     {
         public int Id { get; set; }
         public int SKUId { get; set; }
-        public Nullable<int> PlanOrderId { get; set; }
         public string Number { get; set; }
         public System.DateTime Date { get; set; }
         public float Quentity { get; set; }
+        public string Devision { get; set; }
     
-        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
         public virtual SKU SKU { get; set; }
     }
 }

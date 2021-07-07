@@ -18,6 +18,7 @@ namespace Wiki
         public IlliquidStockState()
         {
             this.Illiquid = new HashSet<Illiquid>();
+            this.Illiquid1 = new HashSet<Illiquid>();
         }
     
         public int Id { get; set; }
@@ -30,6 +31,8 @@ namespace Wiki
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Illiquid> Illiquid { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Illiquid> Illiquid1 { get; set; }
         public virtual SKU SKU { get; set; }
     }
 }

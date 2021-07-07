@@ -2067,7 +2067,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP1
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Фейгина Анастасия Аркадьевна")
+                    .Where(d => d.ciliricalName == "Шелег Андрей Игоревич")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -2643,7 +2643,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP2
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Фейгина Анастасия Аркадьевна")
+                    .Where(d => d.ciliricalName == "Шелег Андрей Игоревич")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();
@@ -3123,7 +3123,7 @@ namespace Wiki.Areas.CMKO
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.DashboardKOMP3
                     .AsNoTracking()
-                    .Where(d => d.ciliricalName == "Фейгина Анастасия Аркадьевна")
+                    .Where(d => d.ciliricalName == "Шелег Андрей Игоревич")
                     .OrderByDescending(d => d.ciliricalName)
                     .ToList();
                 int maxCounterValue = query.Count();

@@ -14,20 +14,8 @@ namespace Wiki
     
     public partial class IlliquidType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public IlliquidType()
-        {
-            this.Illiquid = new HashSet<Illiquid>();
-            this.IlliquidNote = new HashSet<IlliquidNote>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Illiquid> Illiquid { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNote> IlliquidNote { get; set; }
     }
 }

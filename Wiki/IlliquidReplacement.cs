@@ -18,8 +18,6 @@ namespace Wiki
         public int SKUNormId { get; set; }
         public int SKUIssuedId { get; set; }
         public int PlanOrderId { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Number { get; set; }
         public float QuentityNorm { get; set; }
         public float QuentityIssue { get; set; }
     

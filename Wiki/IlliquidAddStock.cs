@@ -21,6 +21,7 @@ namespace Wiki
         public float QuentityAtBeginning { get; set; }
         public float QuentirtyAtTheEnd { get; set; }
         public float Quentity { get; set; }
+        public string Provider { get; set; }
     
         public virtual SKU SKU { get; set; }
     }
