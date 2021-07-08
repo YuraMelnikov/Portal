@@ -38,7 +38,7 @@ function StartMenu() {
 
 var objNotWorking = [
     { "title": "Ид", "data": "id", "autowidth": true, "bSortable": true },
-    //{ "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
     { "title": "Код", "data": "code", "autowidth": true, "bSortable": true },
     { "title": "НО", "data": "max", "autowidth": true, "bSortable": true },
     { "title": "ТМЦ", "data": "materialName", "autowidth": true, "bSortable": true, "class": 'colu-100' },
@@ -46,18 +46,64 @@ var objNotWorking = [
     { "title": "До", "data": "queBefore", "autowidth": true, "bSortable": true },
     { "title": "После", "data": "queNext", "autowidth": true, "bSortable": true },
     { "title": "Откл", "data": "que", "autowidth": true, "bSortable": true },
-    //{ "title": "Sum.", "data": "sum", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Изм.норм", "data": "updateNorm", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Sum.", "data": "sum", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Изм.норм", "data": "updateNorm", "autowidth": true, "bSortable": true, "class": 'colu-250' },
     { "title": "Заявки на СН", "data": "sn", "autowidth": true, "bSortable": true, "class": 'colu-100' },
     { "title": "Заказы пост.", "data": "orders", "autowidth": true, "bSortable": true, "class": 'colu-100' },
     { "title": "Поступ.", "data": "added", "autowidth": true, "bSortable": true, "class": 'colu-100' },
     { "title": "Поступ. Х", "data": "addedX", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Замены", "data": "replacment", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Движения", "data": "moveStock", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    //{ "title": "Замены", "data": "replacment", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    //{ "title": "Движения", "data": "moveStock", "autowidth": true, "bSortable": true, "class": 'colu-100' },
     { "title": "Причина", "data": "cause", "autowidth": true, "bSortable": true },
-    { "title": "СП", "data": "devision", "autowidth": true, "bSortable": true },
+    //{ "title": "СП", "data": "devision", "autowidth": true, "bSortable": true },
     { "title": "Прим.", "data": "note", "autowidth": true, "bSortable": true, "class": 'colu-300' }
 ];
+
+function CleanerIlliquidModal() {
+    $('#idIlliquid').val("");
+    $('#devision').val("");
+    $('#typeError').val("");
+    $('#noteIlliquid').val("");
+}
+
+function GetIlliquid(id) {
+    CleanerIlliquidModal();
+    $.ajax({
+        cache: false,
+        url: "/Illiq/GetIlliquid/" + id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idIlliquid').val(result.data[0].id);
+            //$('#devision').val(result.devision);
+            //$('#typeError').val(result.typeError);
+            $('#noteIlliquid').val(result.data[0].noteIlliquid);
+            $('#getIlliquidModal').modal('show');
+        }
+    });
+}
+
+function UpdateIlliquid() {
+    var obj = {
+        idIlliquid: $('#idIlliquid').val(),
+        //devision: $('#devision').val(),
+        //typeError: $('#typeError').val(),
+        noteIlliquid: $('#noteIlliquid').val()
+    };
+    $.ajax({
+        cache: false,
+        url: "/Illiq/UpdateIlliquid",
+        data: JSON.stringify(obj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#tableNotWorrking').DataTable().ajax.reload(null, false);
+            $('#getIlliquidModal').modal('hide');
+        }
+    });
+}
 
 function OpeningSKUModal() {
     $('#skuModal').modal('show');
@@ -133,10 +179,6 @@ function AnalisysIlliquid() {
         processData: false,
         success: function (result) {
             $('#tableNotWorrking').DataTable().ajax.reload(null, false);
-            if(result === 1)
-                alert('Анализ успешно завершен');
-            else
-                alert('Анализ завершен с ошибкой');
         }
     });
 }

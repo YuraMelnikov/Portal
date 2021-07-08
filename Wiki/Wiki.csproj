@@ -1004,6 +1004,9 @@
     <Compile Include="IlliquidReplacement.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="IlliquidResult.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="IlliquidSN.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>

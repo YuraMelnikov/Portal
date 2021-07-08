@@ -1384,10 +1384,7 @@
           <Property Name="quantityBefore" Type="real" Nullable="false" />
           <Property Name="quantityNext" Type="real" Nullable="false" />
           <Property Name="IsAnalisis" Type="bit" Nullable="false" />
-          <Property Name="DevisionAutomatic" Type="int" />
-          <Property Name="DevisionCorrect" Type="int" />
           <Property Name="Note" Type="varchar(max)" Nullable="false" />
-          <Property Name="Cause" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="IlliquidAction">
           <Key>
@@ -1446,7 +1443,6 @@
           <Property Name="AddedX" Type="real" Nullable="false" />
           <Property Name="Replacement" Type="real" Nullable="false" />
           <Property Name="LastMoveStock" Type="real" Nullable="false" />
-          <Property Name="State" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="IlliquidNorm">
           <Key>
@@ -1494,6 +1490,19 @@
           <Property Name="PlanOrderId" Type="int" Nullable="false" />
           <Property Name="QuentityNorm" Type="real" Nullable="false" />
           <Property Name="QuentityIssue" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IlliquidResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IlliquidId" Type="int" Nullable="false" />
+          <Property Name="DevisionAuto" Type="int" Nullable="false" />
+          <Property Name="DevisionCorrect" Type="int" />
+          <Property Name="Cause" Type="varchar(max)" Nullable="false" />
+          <Property Name="IlliquidTypeId" Type="int" />
+          <Property Name="Quentity" Type="real" />
+          <Property Name="Sum" Type="real" />
         </EntityType>
         <EntityType Name="IlliquidSN">
           <Key>
@@ -4006,30 +4015,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Illiquid_Devision">
-          <End Role="Devision" Type="Self.Devision" Multiplicity="0..1" />
-          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Illiquid">
-              <PropertyRef Name="DevisionAutomatic" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Illiquid_Devision1">
-          <End Role="Devision" Type="Self.Devision" Multiplicity="0..1" />
-          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Devision">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Illiquid">
-              <PropertyRef Name="DevisionCorrect" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Illiquid_IlliquidStockState">
           <End Role="IlliquidStockState" Type="Self.IlliquidStockState" Multiplicity="0..1" />
           <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="*" />
@@ -4243,6 +4228,54 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Principal>
             <Dependent Role="IlliquidReplacement">
               <PropertyRef Name="SKUIssuedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_DevisionAutoKey">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="1" />
+          <End Role="IlliquidResult" Type="Self.IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="DevisionAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_DevisionCorrectKey">
+          <End Role="Devision" Type="Self.Devision" Multiplicity="0..1" />
+          <End Role="IlliquidResult" Type="Self.IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devision">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="DevisionCorrect" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_Illiquid">
+          <End Role="Illiquid" Type="Self.Illiquid" Multiplicity="1" />
+          <End Role="IlliquidResult" Type="Self.IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illiquid">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="IlliquidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_IlliquidType">
+          <End Role="IlliquidType" Type="Self.IlliquidType" Multiplicity="0..1" />
+          <End Role="IlliquidResult" Type="Self.IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="IlliquidTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5685,6 +5718,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="IlliquidOrders" EntityType="Self.IlliquidOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IlliquidRelease" EntityType="Self.IlliquidRelease" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IlliquidReplacement" EntityType="Self.IlliquidReplacement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IlliquidResult" EntityType="Self.IlliquidResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IlliquidSN" EntityType="Self.IlliquidSN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IlliquidSourceType" EntityType="Self.IlliquidSourceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IlliquidStockState" EntityType="Self.IlliquidStockState" Schema="dbo" store:Type="Tables" />
@@ -6336,14 +6370,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
-          <AssociationSet Name="FK_Illiquid_Devision" Association="Self.FK_Illiquid_Devision">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="Illiquid" EntitySet="Illiquid" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Illiquid_Devision1" Association="Self.FK_Illiquid_Devision1">
-            <End Role="Devision" EntitySet="Devision" />
-            <End Role="Illiquid" EntitySet="Illiquid" />
-          </AssociationSet>
           <AssociationSet Name="FK_Illiquid_IlliquidStockState" Association="Self.FK_Illiquid_IlliquidStockState">
             <End Role="IlliquidStockState" EntitySet="IlliquidStockState" />
             <End Role="Illiquid" EntitySet="Illiquid" />
@@ -6415,6 +6441,22 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_IlliquidReplacement_SKU1" Association="Self.FK_IlliquidReplacement_SKU1">
             <End Role="SKU" EntitySet="SKU" />
             <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_DevisionAutoKey" Association="Self.FK_IlliquidResult_DevisionAutoKey">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_DevisionCorrectKey" Association="Self.FK_IlliquidResult_DevisionCorrectKey">
+            <End Role="Devision" EntitySet="Devision" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_Illiquid" Association="Self.FK_IlliquidResult_Illiquid">
+            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_IlliquidType" Association="Self.FK_IlliquidResult_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
           </AssociationSet>
           <AssociationSet Name="FK_IlliquidSN_SKU" Association="Self.FK_IlliquidSN_SKU">
             <End Role="SKU" EntitySet="SKU" />
@@ -6945,7 +6987,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="Specifications" EntitySet="Specifications" />
             <End Role="SpecificationsPositions" EntitySet="SpecificationsPositions" />
           </AssociationSet>
-          <EntitySet Name="IlliquidType" EntityType="PortalKATEKModel.IlliquidType" />
           <EntitySet Name="C__MigrationHistory" EntityType="PortalKATEKModel.C__MigrationHistory" />
           <EntitySet Name="Calendar" EntityType="PortalKATEKModel.Calendar" />
           <EntitySet Name="CMKO_ThisWageFund" EntityType="PortalKATEKModel.CMKO_ThisWageFund" />
@@ -7028,8 +7069,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySet Name="IlliquidOrders" EntityType="PortalKATEKModel.IlliquidOrders" />
           <EntitySet Name="IlliquidRelease" EntityType="PortalKATEKModel.IlliquidRelease" />
           <EntitySet Name="IlliquidReplacement" EntityType="PortalKATEKModel.IlliquidReplacement" />
+          <EntitySet Name="IlliquidResult" EntityType="PortalKATEKModel.IlliquidResult" />
           <EntitySet Name="IlliquidSN" EntityType="PortalKATEKModel.IlliquidSN" />
           <EntitySet Name="IlliquidStockState" EntityType="PortalKATEKModel.IlliquidStockState" />
+          <EntitySet Name="IlliquidType" EntityType="PortalKATEKModel.IlliquidType" />
           <EntitySet Name="IlliquidTypeAction" EntityType="PortalKATEKModel.IlliquidTypeAction" />
           <EntitySet Name="MailGraphic" EntityType="PortalKATEKModel.MailGraphic" />
           <EntitySet Name="OrdersTables" EntityType="PortalKATEKModel.OrdersTables" />
@@ -7625,13 +7668,13 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             <End Role="PZ_PlanZakaz" EntitySet="PZ_PlanZakaz" />
             <End Role="DebitReclamation" EntitySet="DebitReclamation" />
           </AssociationSet>
-          <AssociationSet Name="FK_Illiquid_Devision" Association="PortalKATEKModel.FK_Illiquid_Devision">
+          <AssociationSet Name="FK_IlliquidResult_DevisionAutoKey" Association="PortalKATEKModel.FK_IlliquidResult_DevisionAutoKey">
             <End Role="Devision" EntitySet="Devision" />
-            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
           </AssociationSet>
-          <AssociationSet Name="FK_Illiquid_Devision1" Association="PortalKATEKModel.FK_Illiquid_Devision1">
+          <AssociationSet Name="FK_IlliquidResult_DevisionCorrectKey" Association="PortalKATEKModel.FK_IlliquidResult_DevisionCorrectKey">
             <End Role="Devision" EntitySet="Devision" />
-            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectTask_Devision" Association="PortalKATEKModel.FK_ProjectTask_Devision">
             <End Role="Devision" EntitySet="Devision" />
@@ -7664,6 +7707,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_IlliquidGroupAction_Illiquid" Association="PortalKATEKModel.FK_IlliquidGroupAction_Illiquid">
             <End Role="Illiquid" EntitySet="Illiquid" />
             <End Role="IlliquidGroupAction" EntitySet="IlliquidGroupAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_Illiquid" Association="PortalKATEKModel.FK_IlliquidResult_Illiquid">
+            <End Role="Illiquid" EntitySet="Illiquid" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
           </AssociationSet>
           <AssociationSet Name="FK_IlliquidAction_IlliquidTypeAction" Association="PortalKATEKModel.FK_IlliquidAction_IlliquidTypeAction">
             <End Role="IlliquidTypeAction" EntitySet="IlliquidTypeAction" />
@@ -7716,6 +7763,10 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <AssociationSet Name="FK_IlliquidReplacement_SKU1" Association="PortalKATEKModel.FK_IlliquidReplacement_SKU1">
             <End Role="SKU" EntitySet="SKU" />
             <End Role="IlliquidReplacement" EntitySet="IlliquidReplacement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IlliquidResult_IlliquidType" Association="PortalKATEKModel.FK_IlliquidResult_IlliquidType">
+            <End Role="IlliquidType" EntitySet="IlliquidType" />
+            <End Role="IlliquidResult" EntitySet="IlliquidResult" />
           </AssociationSet>
           <AssociationSet Name="FK_IlliquidSN_SKU" Association="PortalKATEKModel.FK_IlliquidSN_SKU">
             <End Role="SKU" EntitySet="SKU" />
@@ -8877,14 +8928,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="IlliquidType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -10064,8 +10107,8 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="OTK" Type="Boolean" />
           <NavigationProperty Name="AspNetUsers" Relationship="PortalKATEKModel.FK_AspNetUsers_Devision" FromRole="Devision" ToRole="AspNetUsers" />
           <NavigationProperty Name="DashboardBPDevisionCoef" Relationship="PortalKATEKModel.FK_DashboardBPDevisionCoef_Devision" FromRole="Devision" ToRole="DashboardBPDevisionCoef" />
-          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_Devision" FromRole="Devision" ToRole="Illiquid" />
-          <NavigationProperty Name="Illiquid1" Relationship="PortalKATEKModel.FK_Illiquid_Devision1" FromRole="Devision" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidResult" Relationship="PortalKATEKModel.FK_IlliquidResult_DevisionAutoKey" FromRole="Devision" ToRole="IlliquidResult" />
+          <NavigationProperty Name="IlliquidResult1" Relationship="PortalKATEKModel.FK_IlliquidResult_DevisionCorrectKey" FromRole="Devision" ToRole="IlliquidResult" />
           <NavigationProperty Name="ProjectTask" Relationship="PortalKATEKModel.FK_ProjectTask_Devision" FromRole="Devision" ToRole="ProjectTask" />
           <NavigationProperty Name="Reclamation" Relationship="PortalKATEKModel.FK_Reclamation_Devision" FromRole="Devision" ToRole="Reclamation" />
           <NavigationProperty Name="Reclamation1" Relationship="PortalKATEKModel.FK_Reclamation_Devision1" FromRole="Devision" ToRole="Reclamation" />
@@ -10081,16 +10124,12 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="quantityBefore" Type="Single" Nullable="false" />
           <Property Name="quantityNext" Type="Single" Nullable="false" />
           <Property Name="IsAnalisis" Type="Boolean" Nullable="false" />
-          <Property Name="DevisionAutomatic" Type="Int32" />
-          <Property Name="DevisionCorrect" Type="Int32" />
           <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Cause" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_Illiquid_Devision" FromRole="Illiquid" ToRole="Devision" />
-          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_Illiquid_Devision1" FromRole="Illiquid" ToRole="Devision" />
           <NavigationProperty Name="IlliquidStockState" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState" FromRole="Illiquid" ToRole="IlliquidStockState" />
           <NavigationProperty Name="IlliquidStockState1" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState1" FromRole="Illiquid" ToRole="IlliquidStockState" />
           <NavigationProperty Name="IlliquidAction" Relationship="PortalKATEKModel.FK_IlliquidAction_Illiquid" FromRole="Illiquid" ToRole="IlliquidAction" />
           <NavigationProperty Name="IlliquidGroupAction" Relationship="PortalKATEKModel.FK_IlliquidGroupAction_Illiquid" FromRole="Illiquid" ToRole="IlliquidGroupAction" />
+          <NavigationProperty Name="IlliquidResult" Relationship="PortalKATEKModel.FK_IlliquidResult_Illiquid" FromRole="Illiquid" ToRole="IlliquidResult" />
         </EntityType>
         <EntityType Name="IlliquidAction">
           <Key>
@@ -10157,7 +10196,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <Property Name="AddedX" Type="Single" Nullable="false" />
           <Property Name="Replacement" Type="Single" Nullable="false" />
           <Property Name="LastMoveStock" Type="Single" Nullable="false" />
-          <Property Name="State" Type="Single" Nullable="false" />
           <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_IlliquidGroupAction_Illiquid" FromRole="IlliquidGroupAction" ToRole="Illiquid" />
         </EntityType>
         <EntityType Name="IlliquidNorm">
@@ -10215,6 +10253,23 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU" FromRole="IlliquidReplacement" ToRole="SKU" />
           <NavigationProperty Name="SKU1" Relationship="PortalKATEKModel.FK_IlliquidReplacement_SKU1" FromRole="IlliquidReplacement" ToRole="SKU" />
         </EntityType>
+        <EntityType Name="IlliquidResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IlliquidId" Type="Int32" Nullable="false" />
+          <Property Name="DevisionAuto" Type="Int32" Nullable="false" />
+          <Property Name="DevisionCorrect" Type="Int32" />
+          <Property Name="Cause" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IlliquidTypeId" Type="Int32" />
+          <Property Name="Quentity" Type="Single" />
+          <Property Name="Sum" Type="Single" />
+          <NavigationProperty Name="Devision" Relationship="PortalKATEKModel.FK_IlliquidResult_DevisionAutoKey" FromRole="IlliquidResult" ToRole="Devision" />
+          <NavigationProperty Name="Devision1" Relationship="PortalKATEKModel.FK_IlliquidResult_DevisionCorrectKey" FromRole="IlliquidResult" ToRole="Devision" />
+          <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_IlliquidResult_Illiquid" FromRole="IlliquidResult" ToRole="Illiquid" />
+          <NavigationProperty Name="IlliquidType" Relationship="PortalKATEKModel.FK_IlliquidResult_IlliquidType" FromRole="IlliquidResult" ToRole="IlliquidType" />
+        </EntityType>
         <EntityType Name="IlliquidSN">
           <Key>
             <PropertyRef Name="Id" />
@@ -10241,6 +10296,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <NavigationProperty Name="Illiquid" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState" FromRole="IlliquidStockState" ToRole="Illiquid" />
           <NavigationProperty Name="Illiquid1" Relationship="PortalKATEKModel.FK_Illiquid_IlliquidStockState1" FromRole="IlliquidStockState" ToRole="Illiquid" />
           <NavigationProperty Name="SKU" Relationship="PortalKATEKModel.FK_IlliquidStockState_SKU" FromRole="IlliquidStockState" ToRole="SKU" />
+        </EntityType>
+        <EntityType Name="IlliquidType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="IlliquidResult" Relationship="PortalKATEKModel.FK_IlliquidResult_IlliquidType" FromRole="IlliquidType" ToRole="IlliquidResult" />
         </EntityType>
         <EntityType Name="IlliquidTypeAction">
           <Key>
@@ -12837,26 +12901,26 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Illiquid_Devision">
-          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+        <Association Name="FK_IlliquidResult_DevisionAutoKey">
+          <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidResult" Role="IlliquidResult" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Devision">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Illiquid">
-              <PropertyRef Name="DevisionAutomatic" />
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="DevisionAuto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Illiquid_Devision1">
+        <Association Name="FK_IlliquidResult_DevisionCorrectKey">
           <End Type="PortalKATEKModel.Devision" Role="Devision" Multiplicity="0..1" />
-          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="*" />
+          <End Type="PortalKATEKModel.IlliquidResult" Role="IlliquidResult" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Devision">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Illiquid">
+            <Dependent Role="IlliquidResult">
               <PropertyRef Name="DevisionCorrect" />
             </Dependent>
           </ReferentialConstraint>
@@ -12953,6 +13017,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="IlliquidGroupAction">
+              <PropertyRef Name="IlliquidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_Illiquid">
+          <End Type="PortalKATEKModel.Illiquid" Role="Illiquid" Multiplicity="1" />
+          <End Type="PortalKATEKModel.IlliquidResult" Role="IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illiquid">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
               <PropertyRef Name="IlliquidId" />
             </Dependent>
           </ReferentialConstraint>
@@ -13110,6 +13186,18 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
             </Principal>
             <Dependent Role="IlliquidReplacement">
               <PropertyRef Name="SKUIssuedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IlliquidResult_IlliquidType">
+          <End Type="PortalKATEKModel.IlliquidType" Role="IlliquidType" Multiplicity="0..1" />
+          <End Type="PortalKATEKModel.IlliquidResult" Role="IlliquidResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IlliquidType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IlliquidResult">
+              <PropertyRef Name="IlliquidTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14836,15 +14924,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IlliquidType">
-            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidType">
-              <MappingFragment StoreEntitySet="IlliquidType">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="PortalKATEKModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -15889,10 +15968,7 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="Illiquid">
             <EntityTypeMapping TypeName="PortalKATEKModel.Illiquid">
               <MappingFragment StoreEntitySet="Illiquid">
-                <ScalarProperty Name="Cause" ColumnName="Cause" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DevisionCorrect" ColumnName="DevisionCorrect" />
-                <ScalarProperty Name="DevisionAutomatic" ColumnName="DevisionAutomatic" />
                 <ScalarProperty Name="IsAnalisis" ColumnName="IsAnalisis" />
                 <ScalarProperty Name="quantityNext" ColumnName="quantityNext" />
                 <ScalarProperty Name="quantityBefore" ColumnName="quantityBefore" />
@@ -15951,7 +16027,6 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
           <EntitySetMapping Name="IlliquidGroupAction">
             <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidGroupAction">
               <MappingFragment StoreEntitySet="IlliquidGroupAction">
-                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="LastMoveStock" ColumnName="LastMoveStock" />
                 <ScalarProperty Name="Replacement" ColumnName="Replacement" />
                 <ScalarProperty Name="AddedX" ColumnName="AddedX" />
@@ -16017,6 +16092,20 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidResult">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidResult">
+              <MappingFragment StoreEntitySet="IlliquidResult">
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="IlliquidTypeId" ColumnName="IlliquidTypeId" />
+                <ScalarProperty Name="Cause" ColumnName="Cause" />
+                <ScalarProperty Name="DevisionCorrect" ColumnName="DevisionCorrect" />
+                <ScalarProperty Name="DevisionAuto" ColumnName="DevisionAuto" />
+                <ScalarProperty Name="IlliquidId" ColumnName="IlliquidId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="IlliquidSN">
             <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidSN">
               <MappingFragment StoreEntitySet="IlliquidSN">
@@ -16038,6 +16127,15 @@ warning 6002: The table/view 'PortalKATEK.dbo.RKD_TaskUIDProjectUD' does not hav
                 <ScalarProperty Name="IlliquidQue" ColumnName="IlliquidQue" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IlliquidType">
+            <EntityTypeMapping TypeName="PortalKATEKModel.IlliquidType">
+              <MappingFragment StoreEntitySet="IlliquidType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

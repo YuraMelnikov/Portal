@@ -84,7 +84,6 @@ namespace Wiki
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Specifications> Specifications { get; set; }
         public virtual DbSet<SpecificationsPositions> SpecificationsPositions { get; set; }
-        public virtual DbSet<IlliquidType> IlliquidType { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Calendar> Calendar { get; set; }
         public virtual DbSet<CMKO_ThisWageFund> CMKO_ThisWageFund { get; set; }
@@ -167,8 +166,10 @@ namespace Wiki
         public virtual DbSet<IlliquidOrders> IlliquidOrders { get; set; }
         public virtual DbSet<IlliquidRelease> IlliquidRelease { get; set; }
         public virtual DbSet<IlliquidReplacement> IlliquidReplacement { get; set; }
+        public virtual DbSet<IlliquidResult> IlliquidResult { get; set; }
         public virtual DbSet<IlliquidSN> IlliquidSN { get; set; }
         public virtual DbSet<IlliquidStockState> IlliquidStockState { get; set; }
+        public virtual DbSet<IlliquidType> IlliquidType { get; set; }
         public virtual DbSet<IlliquidTypeAction> IlliquidTypeAction { get; set; }
         public virtual DbSet<MailGraphic> MailGraphic { get; set; }
         public virtual DbSet<OrdersTables> OrdersTables { get; set; }

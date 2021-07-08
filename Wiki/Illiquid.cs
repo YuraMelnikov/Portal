@@ -19,6 +19,7 @@ namespace Wiki
         {
             this.IlliquidAction = new HashSet<IlliquidAction>();
             this.IlliquidGroupAction = new HashSet<IlliquidGroupAction>();
+            this.IlliquidResult = new HashSet<IlliquidResult>();
         }
     
         public int id { get; set; }
@@ -27,18 +28,15 @@ namespace Wiki
         public float quantityBefore { get; set; }
         public float quantityNext { get; set; }
         public bool IsAnalisis { get; set; }
-        public Nullable<int> DevisionAutomatic { get; set; }
-        public Nullable<int> DevisionCorrect { get; set; }
         public string Note { get; set; }
-        public string Cause { get; set; }
     
-        public virtual Devision Devision { get; set; }
-        public virtual Devision Devision1 { get; set; }
         public virtual IlliquidStockState IlliquidStockState { get; set; }
         public virtual IlliquidStockState IlliquidStockState1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidAction> IlliquidAction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidGroupAction> IlliquidGroupAction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidResult> IlliquidResult { get; set; }
     }
 }

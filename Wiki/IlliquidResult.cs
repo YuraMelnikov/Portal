@@ -12,20 +12,20 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class IlliquidGroupAction
+    public partial class IlliquidResult
     {
         public int Id { get; set; }
         public int IlliquidId { get; set; }
-        public System.DateTime Date { get; set; }
-        public bool IsPeriod { get; set; }
-        public float Change { get; set; }
-        public float SN { get; set; }
-        public float Ordered { get; set; }
-        public float Added { get; set; }
-        public float AddedX { get; set; }
-        public float Replacement { get; set; }
-        public float LastMoveStock { get; set; }
+        public int DevisionAuto { get; set; }
+        public Nullable<int> DevisionCorrect { get; set; }
+        public string Cause { get; set; }
+        public Nullable<int> IlliquidTypeId { get; set; }
+        public Nullable<float> Quentity { get; set; }
+        public Nullable<float> Sum { get; set; }
     
+        public virtual Devision Devision { get; set; }
+        public virtual Devision Devision1 { get; set; }
         public virtual Illiquid Illiquid { get; set; }
+        public virtual IlliquidType IlliquidType { get; set; }
     }
 }
