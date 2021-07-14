@@ -20,8 +20,9 @@ namespace Wiki
         public Nullable<int> DevisionCorrect { get; set; }
         public string Cause { get; set; }
         public Nullable<int> IlliquidTypeId { get; set; }
-        public Nullable<float> Quentity { get; set; }
-        public Nullable<float> Sum { get; set; }
+        public float Quentity { get; set; }
+        public float Sum { get; set; }
+        public string Note { get; set; }
     
         public virtual Devision Devision { get; set; }
         public virtual Devision Devision1 { get; set; }

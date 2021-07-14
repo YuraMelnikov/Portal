@@ -19,13 +19,14 @@ namespace Wiki
         {
             this.IlliquidAddStock = new HashSet<IlliquidAddStock>();
             this.IlliquidChangeInTheNorm = new HashSet<IlliquidChangeInTheNorm>();
-            this.IlliquidNorm = new HashSet<IlliquidNorm>();
             this.IlliquidOrders = new HashSet<IlliquidOrders>();
-            this.IlliquidRelease = new HashSet<IlliquidRelease>();
             this.IlliquidReplacement = new HashSet<IlliquidReplacement>();
             this.IlliquidReplacement1 = new HashSet<IlliquidReplacement>();
             this.IlliquidSN = new HashSet<IlliquidSN>();
             this.IlliquidStockState = new HashSet<IlliquidStockState>();
+            this.IlliquidVipusk = new HashSet<IlliquidVipusk>();
+            this.IlliquidVozvrat = new HashSet<IlliquidVozvrat>();
+            this.IlliquidVozvratMOL = new HashSet<IlliquidVozvratMOL>();
         }
     
         public int id { get; set; }
@@ -46,11 +47,7 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidChangeInTheNorm> IlliquidChangeInTheNorm { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNorm> IlliquidNorm { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidOrders> IlliquidOrders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidRelease> IlliquidRelease { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidReplacement> IlliquidReplacement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -59,5 +56,11 @@ namespace Wiki
         public virtual ICollection<IlliquidSN> IlliquidSN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidStockState> IlliquidStockState { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidVipusk> IlliquidVipusk { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidVozvrat> IlliquidVozvrat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidVozvratMOL> IlliquidVozvratMOL { get; set; }
     }
 }

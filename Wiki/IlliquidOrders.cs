@@ -18,10 +18,7 @@ namespace Wiki
         public int SKUId { get; set; }
         public System.DateTime Date { get; set; }
         public string Number { get; set; }
-        public float QueAtTheBeginning { get; set; }
-        public float QueAtTheEnd { get; set; }
         public float Ordered { get; set; }
-        public float Received { get; set; }
     
         public virtual SKU SKU { get; set; }
     }

@@ -989,16 +989,7 @@
     <Compile Include="IlliquidChangeInTheNormUsers.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="IlliquidGroupAction.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IlliquidNorm.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="IlliquidOrders.cs">
-      <DependentUpon>EFDBPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IlliquidRelease.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="IlliquidReplacement.cs">
@@ -1020,6 +1011,15 @@
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="IlliquidTypeAction.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IlliquidVipusk.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IlliquidVozvrat.cs">
+      <DependentUpon>EFDBPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IlliquidVozvratMOL.cs">
       <DependentUpon>EFDBPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Layer.cs">

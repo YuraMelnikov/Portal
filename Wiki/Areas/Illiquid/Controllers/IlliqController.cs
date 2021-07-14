@@ -7,12 +7,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Wiki.Areas.Illiquid.Controllers
 {
     public class IlliqController : Controller
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        readonly JsonSerializerSettings shortSetting = new JsonSerializerSettings { DateFormatString = "yyyy.MM.dd" };
 
         public ActionResult Index()
         {
@@ -77,13 +79,13 @@ namespace Wiki.Areas.Illiquid.Controllers
             {
                 using (PortalKATEKEntities db = new PortalKATEKEntities())
                 {
-                    var listBefore = db.IlliquidStockState.Where(a => a.Date == startDate).ToList();
-                    var listNext = db.IlliquidStockState.Where(a => a.Date == finishDate).ToList();
+                    var listBefore = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == startDate).ToList();
+                    var listNext = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == finishDate).ToList();
                     List<Wiki.Illiquid> list = new List<Wiki.Illiquid>();
                     foreach (var data in listNext)
                     {
                         float queBefore = listBefore.Where(a => a.SKUId == data.SKUId).Sum(a => a.SurplusQue);
-                        if(data.SurplusQue - queBefore >= 1.0)
+                        if (data.SurplusQue - queBefore >= 1.0)
                         {
                             Wiki.Illiquid illiquid = new Wiki.Illiquid
                             {
@@ -117,47 +119,83 @@ namespace Wiki.Areas.Illiquid.Controllers
                     db.Configuration.ProxyCreationEnabled = false;
                     db.Configuration.LazyLoadingEnabled = false;
                     var query = db.Illiquid
+                        .AsNoTracking()
                         .Include(a => a.IlliquidStockState1.SKU)
                         .Include(a => a.IlliquidStockState)
                         .Include(a => a.IlliquidStockState1)
+                        .Where(a => a.IsAnalisis == false)
                         .ToList();
-  
+
                     var data = query.Select(dataList => new
                     {
-                        id = dataList.id
-                        , editLink = "<td><a href=" + '\u0022' + "#" + '\u0022' + " onclick=" + '\u0022' + "return GetIlliquid('" + dataList.id + "')" + '\u0022' + "><span class=" + '\u0022' + "glyphicon glyphicon-pencil" + '\u0022' + "></span></a></td>"
-                        , code = dataList.IlliquidStockState1.SKU.sku1
-                        , materialName = dataList.IlliquidStockState1.SKU.designation + " |" + dataList.IlliquidStockState1.SKU.indexMaterial + "| " + dataList.IlliquidStockState1.SKU.name
-                        , queBefore = Math.Round(dataList.quantityBefore, 2)
-                        , queNext = Math.Round(dataList.quantityNext, 2)
-                        , que = Math.Round(dataList.quantityNext - dataList.quantityBefore, 2)
-                        , updateNorm = GetChangeNormForTable(dataList.id)
-                        , note = dataList.Note
-                        , orders = GetOrdersForTable(dataList.id)
-                        , added = GetAddedForTable(dataList.id)
-                        , addedX = GetAddedXForTable(dataList.id)
-                        , sn = GetSNForTable(dataList.id)
-                        , replacment = GetReplacementForTable(dataList.id)
-                        , sum = dataList.IlliquidStockState1.SurplusSum - GetNullFloat(dataList.IlliquidStockState)
-                        , cause = GetCauseForTable(dataList.id)
-                        //, devision = GetDevisionNameForTable(dataList.Devision)
-                        , max = dataList.IlliquidStockState1.SKU.Max
-                        , moveStock = ""
-                    }); 
+                        id = dataList.id,
+                        code = dataList.IlliquidStockState1.SKU.sku1,
+                        max = dataList.IlliquidStockState1.SKU.Max,
+                        materialName = dataList.IlliquidStockState1.SKU.designation + " |" + dataList.IlliquidStockState1.SKU.indexMaterial + "| " + dataList.IlliquidStockState1.SKU.name,
+                        queBefore = Math.Round(dataList.quantityBefore, 2),
+                        queNext = Math.Round(dataList.quantityNext, 2),
+                        que = Math.Round(dataList.quantityNext - dataList.quantityBefore, 2),
+                        sum = dataList.IlliquidStockState1.SurplusSum - GetNullFloat(dataList.IlliquidStockState)
+                    });
                     return Json(new { data }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("CMOSSController / GetTableOrders: " + " | " + ex);
+                logger.Error("IlliqController / GetTableNotWorking: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
 
-        //idIlliquid
-        //devision
-        //typeError
-        //noteIlliquid
+        public JsonResult GetTableWorking()
+        {
+            try
+            {
+                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var query = db.IlliquidResult
+                        .AsNoTracking()
+                        .Include(a => a.Illiquid.IlliquidStockState)
+                        .Include(a => a.Illiquid.IlliquidStockState1.SKU)
+                        .ToList();
+
+                    var data = query.Select(dataList => new
+                    {
+                        id = dataList.Id,
+                        idNlk = dataList.IlliquidId,
+                        date = JsonConvert.SerializeObject(dataList.Illiquid.IlliquidStockState1.Date, shortSetting).Replace(@"""", ""),
+                        code = dataList.Illiquid.IlliquidStockState1.SKU.sku1,
+                        max = dataList.Illiquid.IlliquidStockState1.SKU.Max,
+                        materialName = dataList.Illiquid.IlliquidStockState1.SKU.designation + " |" + dataList.Illiquid.IlliquidStockState1.SKU.indexMaterial + "| " + dataList.Illiquid.IlliquidStockState1.SKU.name,
+                        que = Math.Round(dataList.Quentity, 2),
+                        sum = Math.Round(dataList.Sum, 2),
+                        cause = dataList.Cause,
+                        note = dataList.Note,
+                        changeNorms = GetChangeNormForTable(dataList.IlliquidId),
+                        orders = GetOrdersForTable(dataList.IlliquidId),
+                        added = GetAddedForTable(dataList.IlliquidId),
+                        replacement = GetReplacementForTable(dataList.IlliquidId),
+                        sn = GetSNForTable(dataList.IlliquidId),
+                        addedX = GetAddedXForTable(dataList.IlliquidId),
+                        vozvrat = GetVozvratForTable(dataList.IlliquidId),
+                        vipusk = GetVipuskForTable(dataList.IlliquidId),
+                        queBefore = Math.Round(dataList.Illiquid.quantityBefore, 2),
+                        queNext = Math.Round(dataList.Illiquid.quantityNext, 2),
+                        otkl = Math.Round(dataList.Illiquid.quantityNext - dataList.Illiquid.quantityBefore, 2),
+                        vozvratMOL = GetVozvratMOLForTable(dataList.IlliquidId)
+                    });
+                    return Json(new { data }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("IlliqController / GetTableNotWorking: " + " | " + ex);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetIlliquid(int id)
         {
             try
@@ -205,20 +243,6 @@ namespace Wiki.Areas.Illiquid.Controllers
             {
                 logger.Error("Illiq / UpdateIlliquid: " + " | " + ex);
                 return Json(0, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        string GetCauseForTable(int id)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                string result = "";
-                var res = db.IlliquidResult.Where(a => a.IlliquidId == id).ToList();
-                foreach (var data in res)
-                {
-                    result += data.Cause + "; ";
-                }
-                return result;
             }
         }
 
@@ -273,6 +297,32 @@ namespace Wiki.Areas.Illiquid.Controllers
             }
         }
 
+        string GetVozvratMOLForTable(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string data = "";
+                var listSN = db.IlliquidAction
+                    .AsNoTracking()
+                    .Where(a => a.IlliquidId == id && a.ActionId == 11)
+                    .ToList();
+                int count = listSN.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (i + 1 == count)
+                        data += listSN[i].Quentity.ToString() + " | " + listSN[i].Date.ToShortDateString();
+                    else
+                        data += listSN[i].Quentity.ToString() + " | " + listSN[i].Date.ToShortDateString() + "</br>";
+                }
+
+                if (data.Length == 0)
+                    data += "-";
+                return data;
+            }
+        }
+
         float GetNullFloat(IlliquidStockState state)
         {
             if (state == null)
@@ -306,6 +356,54 @@ namespace Wiki.Areas.Illiquid.Controllers
             }
         }
 
+        string GetVozvratForTable(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string data = "";
+                var list = db.IlliquidAction
+                    .AsNoTracking()
+                    .Where(a => a.IlliquidId == id && a.ActionId == 8)
+                    .OrderBy(a => a.Date)
+                    .ToList();
+                int count = list.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (i + 1 == count)
+                        data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString();
+                    else
+                        data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString() + "</br>";
+                }
+                return data;
+            }
+        }
+
+        string GetVipuskForTable(int id)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                string data = "";
+                var list = db.IlliquidAction
+                    .AsNoTracking()
+                    .Where(a => a.IlliquidId == id && a.ActionId == 10)
+                    .OrderBy(a => a.Date)
+                    .ToList();
+                int count = list.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (i + 1 == count)
+                        data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString();
+                    else
+                        data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString() + "</br>";
+                }
+                return data;
+            }
+        }
+
         string GetAddedForTable(int id)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
@@ -319,9 +417,9 @@ namespace Wiki.Areas.Illiquid.Controllers
                     .OrderBy(a => a.Date)
                     .ToList();
                 int count = list.Count;
-                for(int i = 0; i < count; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    if(i + 1 == count) 
+                    if (i + 1 == count)
                         data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString();
                     else
                         data += list[i].Quentity.ToString() + " | " + list[i].Date.ToShortDateString() + "</br>";
@@ -379,6 +477,26 @@ namespace Wiki.Areas.Illiquid.Controllers
             }
         }
 
+        DateTime GetStartDateAction(int id, DateTime finish)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                try
+                {
+                    return db.Illiquid
+                        .AsNoTracking()
+                        .Include(a => a.IlliquidStockState)
+                        .First(a => a.id == id).IlliquidStockState.Date;
+                }
+                catch
+                {
+                    return finish.AddDays(-16);
+                }
+            }
+        }
+
         [HttpPost]
         public JsonResult AnalisysIlliquid()
         {
@@ -387,6 +505,7 @@ namespace Wiki.Areas.Illiquid.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var query = db.Illiquid
+                    .AsNoTracking()
                     .Include(a => a.IlliquidStockState)
                     .Include(a => a.IlliquidStockState1)
                     .Include(a => a.IlliquidStockState1.SKU)
@@ -394,258 +513,295 @@ namespace Wiki.Areas.Illiquid.Controllers
                     .ToList();
                 foreach (var data in query)
                 {
-                    bool isMax = false;
-                    if (data.IlliquidStockState1.SKU.Max > 0)
-                        isMax = true;
-                    float addStock = 0.0f;
-                    addStock = GetAddStockActions(data);
-                    GetOrdersActions(data, addStock);
-                    DateTime finishPeriod = data.IlliquidStockState1.Date;
-                    DateTime startPeriod = finishPeriod.AddDays(-16);
+                    float quentity = data.quantityNext - data.quantityBefore;
+                    float cost = data.IlliquidStockState1.SurplusSum / data.IlliquidStockState1.SurplusQue;
+                    DateTime finish = data.IlliquidStockState1.Date;
+                    DateTime start = GetStartDateAction(data.id, finish).AddDays(-1);
+                    DateTime controlDateForLastAdded = DateTime.Now.AddDays(-185);
+                    SaveActionsAddStock(data, quentity);
+                    SaveActionsOrders(data, quentity);
+                    SaveActionsSN(data, quentity);
+                    SaveActionsVozvrat(data, quentity, start);
+                    SaveActionsVozvratMOL(data, quentity, start);
+                    SaveActionsVipusk(data, quentity, start);
+                    SaveActionsReplacement(data, quentity, start);
+                    DateTime minDateForChange = finish.AddDays(-16);
                     try
                     {
-                        startPeriod = data.IlliquidStockState.Date.AddDays(-1);
-                    }
-                    catch
-                    {
-                    }
-                    DateTime minDateForChange = finishPeriod.AddDays(-16);
-                    try
-                    {
-                        minDateForChange = db.IlliquidAction
+                        DateTime minDateForChangeT = db.IlliquidAction
                             .Where(a => a.IlliquidId == data.id)
                             .Where(a => a.ActionId == 3 || a.ActionId == 4 || a.ActionId == 7)
                             .Min(a => a.Date);
+                        //if (minDateForChange > minDateForChangeT)
+                        minDateForChange = minDateForChangeT;
                     }
                     catch
                     {
                     }
-                    GetChangeNormsActions(data, minDateForChange, addStock);
-                    GetSNActions(data, minDateForChange);
-                    //8 - возврат из производства
-                    //5 - замена в производстве
-                    //- - списано меньше чем по норме
-
-                    var actions = db.IlliquidAction
-                        .Where(a => a.Date >= minDateForChange && a.IlliquidId == data.id)
+                    SaveActionsChangeNorms(data, minDateForChange, quentity);
+                    var listChangeInTheNorm = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 1 && a.IlliquidId == data.id)
+                        .Where(a => a.Date > minDateForChange && a.Date <= finish)
+                        .OrderBy(a => a.Date)
                         .ToList();
-                    foreach (var act in actions)
+                    var listOrders = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 3 && a.IlliquidId == data.id)
+                        .Where(a => a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listAddStock = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 4 && a.IlliquidId == data.id)
+                        //.Where(a => a.Date >= start && a.Date <= finish)
+                        .Where(a => a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listReplacement = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 5 && a.IlliquidId == data.id)
+                        .Where(a => a.Date >= start && a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listSN = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 6 && a.IlliquidId == data.id)
+                        .Where(a => a.Date >= minDateForChange && a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listAddStockX = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 7 && a.IlliquidId == data.id)
+                        .Where(a => a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listVozvrat = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 8 && a.IlliquidId == data.id)
+                        .Where(a => a.Date >= start && a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listVozvratMOL = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 11 && a.IlliquidId == data.id)
+                        .Where(a => a.Date >= start && a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    var listVipusk = db.IlliquidAction
+                        .AsNoTracking()
+                        .Where(a => a.ActionId == 10 && a.IlliquidId == data.id)
+                        .Where(a => a.Date >= start && a.Date <= finish)
+                        .OrderByDescending(a => a.Date)
+                        .ToList();
+                    bool no = false;
+                    while(quentity > 0)
                     {
-                        IlliquidGroupAction ga = new IlliquidGroupAction();
-                        if (act.ActionId == 1)
-                            ga.Change = act.Quentity;
-                        else if (act.ActionId == 3)
-                            ga.Ordered = act.Quentity;
-                        else if (act.ActionId == 4)
-                            ga.Added = act.Quentity;
-                        else if (act.ActionId == 5) 
-                            ga.Replacement = act.Quentity;
-                        else if (act.ActionId == 6)
-                            ga.SN = act.Quentity;
-                        else if (act.ActionId == 7)
-                            ga.AddedX = act.Quentity;
-                        else if (act.ActionId == 8)
-                            ga.LastMoveStock = act.Quentity;
-                        ga.Date = act.Date;
-                        ga.IlliquidId = act.IlliquidId;
-                        if (act.Date >= startPeriod)
+                        IlliquidResult result = new IlliquidResult();
+                        result.IlliquidId = data.id;
+                        if (no == false && data.IlliquidStockState1.SKU.Max > 0)
                         {
-                            if(act.ActionId == 1 && act.Quentity > 0.0f)
-                                ga.IsPeriod = false;
-                            else
-                                ga.IsPeriod = true;
-                        }
-                        else
-                            ga.IsPeriod = false;
-                        db.IlliquidGroupAction.Add(ga);
-                        db.SaveChanges();
-                    }
-                    float control = data.quantityNext - data.quantityBefore;
-                    DateTime controlDate = DateTime.Now.AddDays(-185);
-                    var groupres = db.IlliquidGroupAction.Where(a => a.IlliquidId == data.id).ToList();
-                    if (isMax == true)
-                    {
-                        IlliquidResult result = new IlliquidResult
-                        {
-                            Cause = "Неснижаемый остаток",
-                            DevisionAuto = 24,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else if (groupres.Count(a => a.IsPeriod == true) == 0)
-                    {
-                        IlliquidResult result = new IlliquidResult
-                        {
-                            Cause = "Преждние периоды",
-                            DevisionAuto = 24,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else if (groupres.Where(a => a.IsPeriod == true).Sum(a => a.AddedX) > 0)
-                    {
-                        if (groupres.Where(a => a.IsPeriod == true).Sum(a => a.AddedX) - control >= 0.0f)
-                        {
-                            IlliquidResult result = new IlliquidResult
+                            float max = (float)data.IlliquidStockState1.SKU.Max;
+                            if(data.quantityNext <= max)
                             {
-                                Cause = "Поступление от Х",
-                                DevisionAuto = 25,
-                                IlliquidId = data.id
-                            };
-                            AddedResult(result);
-                        }
-                        else
-                        {
-                            IlliquidResult result = new IlliquidResult
-                            {
-                                Cause = "Поступление от Х",
-                                DevisionAuto = 25,
-                                IlliquidId = data.id
-                            };
-                            AddedResult(result);
-                            ////////остаток по 2 алгоритму!
-                            //////IlliquidResult result = new IlliquidResult
-                            //////{
-                            //////    Cause = "Остаток 2 алгоритма",
-                            //////    DevisionAuto = 24,
-                            //////    IlliquidId = data.id
-                            //////};
-                            //////AddedResult(result);
-                            if (groupres.Where(a => a.Added > 0 || a.AddedX > 0).Max(a => a.Date) < controlDate)
-                            {
-                                IlliquidResult result1 = new IlliquidResult
-                                {
-                                    Cause = "Преждние периоды",
-                                    DevisionAuto = 24,
-                                    IlliquidId = data.id
-                                };
-                                AddedResult(result1);
-                            }
-                            else if (groupres.Sum(a => a.Change) < 0.0f)
-                            {
-                                IlliquidResult result2 = new IlliquidResult
-                                {
-                                    Cause = "Уменьшение нормы",
-                                    DevisionAuto = 30,
-                                    IlliquidId = data.id
-                                };
-                                AddedResult(result2);
-                            }
-                            else if (groupres.Sum(a => a.Added) - groupres.Sum(a => a.Change) >= 0)
-                            {
-                                IlliquidResult result3 = new IlliquidResult
-                                {
-                                    Cause = "Закуплено не по норме",
-                                    DevisionAuto = 7,
-                                    IlliquidId = data.id
-                                };
-                                AddedResult(result3);
-                            }
-                            else if (groupres.Sum(a => a.Change) - control > 0)
-                            {
-                                IlliquidResult result4 = new IlliquidResult
-                                {
-                                    Cause = "Преждние периоды, закуплено не по норме",
-                                    DevisionAuto = 24,
-                                    IlliquidId = data.id
-                                };
-                                AddedResult(result4);
+                                if (max > quentity)
+                                    max = quentity;
+                                result.DevisionAuto = 24;
+                                result.Cause = "Неснижаемый остаток";
+                                result.Quentity = max;
+                                result.Sum = cost * max;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                quentity -= result.Quentity;
                             }
                             else
                             {
-                                IlliquidResult result5 = new IlliquidResult
+                                max = quentity - (data.quantityNext - max);
+                                if(max < quentity && max > 0)
                                 {
-                                    Cause = "НД",
-                                    DevisionAuto = 24,
-                                    IlliquidId = data.id
-                                };
-                                AddedResult(result5);
+                                    result.DevisionAuto = 24;
+                                    result.Cause = "Неснижаемый остаток";
+                                    result.Quentity = max;
+                                    result.Sum = cost * max;
+                                    result.Note = data.Note;
+                                    db.IlliquidResult.Add(result);
+                                    db.SaveChanges();
+                                    quentity -= result.Quentity;
+                                }
+                            }
+                            no = true;
+                        }
+                        else if (listVozvratMOL.Sum(a => a.Quentity) > 0)
+                        {
+                            IlliquidAction action = listVozvratMOL.First();
+                            if (action.Quentity > quentity)
+                                action.Quentity = quentity;
+                            result.DevisionAuto = 24;
+                            result.Cause = "Возврат МОЛом";
+                            result.IlliquidTypeId = 11;
+                            result.Quentity = action.Quentity;
+                            result.Sum = cost * action.Quentity;
+                            result.Note = data.Note;
+                            db.IlliquidResult.Add(result);
+                            db.SaveChanges();
+                            listVozvratMOL.Remove(action);
+                            quentity -= result.Quentity;
+                        }
+                        else if (listAddStockX.Sum(a => a.Quentity) > 0)
+                        {
+                            IlliquidAction action = listAddStockX.First();
+                            if (action.Date >= start)
+                            {
+                                if (action.Quentity > quentity)
+                                    action.Quentity = quentity;
+                                result.DevisionAuto = 24;
+                                result.Cause = "Поступление от Х";
+                                result.IlliquidTypeId = 11;
+                                result.Quentity = action.Quentity;
+                                result.Sum = cost * action.Quentity;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                listAddStockX.Remove(action);
+                                quentity -= result.Quentity;
+                            }
+                            else
+                            {
+                                if (action.Quentity > quentity)
+                                    action.Quentity = quentity;
+                                result.DevisionAuto = 24;
+                                result.Cause = "Преждние периоды";
+                                result.Quentity = action.Quentity;
+                                result.Sum = cost * result.Quentity;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                listAddStockX.Remove(action);
+                                quentity -= result.Quentity;
                             }
                         }
-                    }
-                    else if (groupres.Where(a => a.Added > 0 || a.AddedX > 0).Max(a => a.Date) < controlDate)
-                    {
-                        IlliquidResult result = new IlliquidResult
+                        else if (listAddStock.Max(a => a.Date) < controlDateForLastAdded)
                         {
-                            Cause = "Преждние периоды",
-                            DevisionAuto = 24,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else if (groupres.Sum(a => a.Change) < 0.0f)
-                    {
-                        IlliquidResult result = new IlliquidResult
+                            IlliquidAction action = listAddStock.First();
+                            if (action.Quentity > quentity)
+                                action.Quentity = quentity;
+                            result.DevisionAuto = 24;
+                            result.Cause = "Преждние периоды";
+                            result.Quentity = action.Quentity;
+                            result.Sum = cost * result.Quentity;
+                            result.Note = data.Note;
+                            db.IlliquidResult.Add(result);
+                            db.SaveChanges();
+                            quentity -= result.Quentity;
+                            listAddStock.Remove(action);
+                        }
+                        else if (listReplacement.Sum(a => a.Quentity) > 0)
                         {
-                            Cause = "Уменьшение нормы",
-                            DevisionAuto = 30,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else if (groupres.Sum(a => a.Added) - groupres.Sum(a => a.Change) >= 0)
-                    {
-                        IlliquidResult result = new IlliquidResult
+                            IlliquidAction action = listReplacement.First();
+                            if (action.Quentity > quentity)
+                                action.Quentity = quentity;
+                            result.DevisionAuto = 24;
+                            result.Cause = "Замена ТМЦ";
+                            result.IlliquidTypeId = 6;
+                            result.Quentity = action.Quentity;
+                            result.Sum = cost * action.Quentity;
+                            result.Note = data.Note;
+                            db.IlliquidResult.Add(result);
+                            db.SaveChanges();
+                            listReplacement.Remove(action);
+                            quentity -= result.Quentity;
+                        }
+                        else if (listVipusk.Sum(a => a.Quentity) > 0)
                         {
-                            Cause = "Закуплено не по норме",
-                            DevisionAuto = 7,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else if (groupres.Sum(a => a.Change) - control > 0)
-                    {
-                        IlliquidResult result = new IlliquidResult
+                            IlliquidAction action = listVipusk.First();
+                            if (action.Quentity > quentity)
+                                action.Quentity = quentity;
+                            result.DevisionAuto = 24;
+                            result.Cause = "Факт выпуска меньше нормы";
+                            result.Quentity = action.Quentity;
+                            result.Sum = cost * action.Quentity;
+                            result.Note = data.Note;
+                            db.IlliquidResult.Add(result);
+                            db.SaveChanges();
+                            listVipusk.Remove(action);
+                            quentity -= result.Quentity;
+                        }
+                        else if (listAddStock.Sum(a => a.Quentity) + Math.Abs(listChangeInTheNorm.Where(a => a.Quentity < 0).Sum(a => a.Quentity)) > 0)
                         {
-                            Cause = "Преждние периоды, закуплено не по норме",
-                            DevisionAuto = 24,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
-                    }
-                    else
-                    {
-                        IlliquidResult result = new IlliquidResult
+                            if (listChangeInTheNorm.Sum(a => a.Quentity) < 0)
+                            {
+                                float resQue = Math.Abs(listChangeInTheNorm.Sum(a => a.Quentity));
+                                if (quentity < Math.Abs(listChangeInTheNorm.Sum(a => a.Quentity)))
+                                    resQue = quentity;
+                                result.DevisionAuto = 30;
+                                result.Cause = "Уменьшение нормы";
+                                result.Quentity = resQue;
+                                result.Sum = cost * result.Quentity;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                quentity -= result.Quentity;
+                                listChangeInTheNorm.RemoveAll(a => a.Id > 0);
+                            }
+                            else if (listAddStock.Sum(a => a.Quentity) > 0) 
+                            {
+                                IlliquidAction action = listAddStock.First();
+                                if (action.Quentity > quentity)
+                                    action.Quentity = quentity;
+                                result.DevisionAuto = 7;
+                                result.Cause = "Закуплено не по норме";
+                                result.Quentity = action.Quentity;
+                                result.Sum = cost * result.Quentity;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                quentity -= result.Quentity;
+                                listAddStock.Remove(action);
+                            }
+                            else
+                            {
+                                result.DevisionAuto = 24;
+                                result.Cause = "НД";
+                                result.Quentity = quentity;
+                                result.Sum = cost * quentity;
+                                result.Note = data.Note;
+                                db.IlliquidResult.Add(result);
+                                db.SaveChanges();
+                                quentity -= result.Quentity;
+                            }
+                        }
+                        else
                         {
-                            Cause = "НД",
-                            DevisionAuto = 24,
-                            IlliquidId = data.id
-                        };
-                        AddedResult(result);
+                            result.DevisionAuto = 24;
+                            result.Cause = "Преждние периоды";
+                            result.Quentity = quentity;
+                            result.Sum = cost * quentity;
+                            result.Note = data.Note;
+                            db.IlliquidResult.Add(result);
+                            db.SaveChanges();
+                            quentity -= result.Quentity;
+                        }
                     }
                     data.IsAnalisis = true;
                     db.Entry(data).State = EntityState.Modified;
                     db.SaveChanges();
-                    //IsAnalisis
-                    //DevisionAutomatic
-                    //Cause
                 }
-
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
-        void AddedResult(IlliquidResult result)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.IlliquidResult.Add(result);
-                db.SaveChanges();
-            }
-        }
-
-        float GetAddStockActions(Wiki.Illiquid illiquid)
+        void SaveActionsAddStock(Wiki.Illiquid illiquid, float control)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var addStock = db.IlliquidAddStock
+                    .AsNoTracking()
                     .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId)
                     .OrderByDescending(a => a.Date)
                     .ToList();
-                float control = illiquid.quantityNext - illiquid.quantityBefore;
                 foreach (var data in addStock)
                 {
                     IlliquidAction action = new IlliquidAction
@@ -664,62 +820,200 @@ namespace Wiki.Areas.Illiquid.Controllers
                     if (control <= 0.0f)
                         break;
                 }
-
-                float result = 0.0f;
-                try
-                {
-                    result += db.IlliquidAction.Where(a => a.IlliquidId == illiquid.id && a.ActionId == 4).Sum(a => a.Quentity);
-                }
-                catch
-                {
-                }
-                return result;
             }
         }
 
-        bool GetOrdersActions(Wiki.Illiquid illiquid, float control)
+        void SaveActionsOrders(Wiki.Illiquid illiquid, float control)
         {
-            if (control > 0)
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                DateTime filt = illiquid.IlliquidStockState1.Date.AddDays(-185);
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var orders = db.IlliquidOrders
+                                .AsNoTracking()
+                                .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.Date > filt)
+                                .OrderByDescending(a => a.Date)
+                                .ToList();
+                foreach (var data in orders)
                 {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    db.Configuration.LazyLoadingEnabled = false;
-                    var orders = db.IlliquidOrders
-                                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId)
-                                    .OrderByDescending(a => a.Date)
-                                    .ToList();
-                    foreach (var data in orders)
+                    IlliquidAction action = new IlliquidAction
                     {
-                        IlliquidAction action = new IlliquidAction
-                        {
-                            ActionId = 3,
-                            IlliquidId = illiquid.id,
-                            Date = data.Date,
-                            Quentity = data.Ordered,
-                            Note = ""
-                        };
-                        db.IlliquidAction.Add(action);
-                        db.SaveChanges();
-                        if (action.Quentity > 0.0f)
-                        {
-                            control -= action.Quentity;
-                            if (control <= 0.0f)
-                                break;
-                        }
-                    }
+                        ActionId = 3,
+                        IlliquidId = illiquid.id,
+                        Date = data.Date,
+                        Quentity = data.Ordered,
+                        Note = ""
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
                 }
             }
-            return true;
         }
 
-        bool GetChangeNormsActions(Wiki.Illiquid illiquid, DateTime startDate, float controlQue)
+        void SaveActionsSN(Wiki.Illiquid illiquid, float control)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                DateTime filt = illiquid.IlliquidStockState1.Date.AddDays(-185);
+                var snOrders = db.IlliquidSN
+                    .AsNoTracking()
+                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.Date > filt)
+                    .OrderByDescending(a => a.Date)
+                    .ToList();
+                foreach (var data in snOrders)
+                {
+                    IlliquidAction action = new IlliquidAction
+                    {
+                        ActionId = 6,
+                        IlliquidId = illiquid.id,
+                        Date = data.Date,
+                        Quentity = data.Quentity,
+                        Note = data.Devision
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
+                }
+            }
+        }
+
+        void SaveActionsVozvratMOL(Wiki.Illiquid illiquid, float control, DateTime start)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var list = db.IlliquidVozvratMOL
+                    .AsNoTracking()
+                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.DateDoc >= start)
+                    .OrderByDescending(a => a.DateDoc)
+                    .ToList();
+                foreach (var data in list)
+                {
+                    IlliquidAction action = new IlliquidAction
+                    {
+                        ActionId = 11,
+                        IlliquidId = illiquid.id,
+                        Date = data.DateDoc,
+                        Quentity = data.Quentity,
+                        Note = ""
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
+                }
+            }
+        }
+
+        void SaveActionsVozvrat(Wiki.Illiquid illiquid, float control, DateTime start)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var list = db.IlliquidVozvrat
+                    .AsNoTracking()
+                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.DateDoc >= start)
+                    .OrderByDescending(a => a.DateDoc)
+                    .ToList();
+                foreach (var data in list)
+                {
+                    IlliquidAction action = new IlliquidAction
+                    {
+                        ActionId = 8,
+                        IlliquidId = illiquid.id,
+                        Date = data.DateDoc,
+                        Quentity = data.Quentity,
+                        Note = ""
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
+                }
+            }
+        }
+
+        void SaveActionsVipusk(Wiki.Illiquid illiquid, float control, DateTime start)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var list = db.IlliquidVipusk
+                    .AsNoTracking()
+                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.DateDoc >= start)
+                    .Where(a => a.Norm - a.Fact > 0)
+                    .OrderByDescending(a => a.DateDoc)
+                    .ToList();
+                foreach (var data in list)
+                {
+                    IlliquidAction action = new IlliquidAction
+                    {
+                        ActionId = 10,
+                        IlliquidId = illiquid.id,
+                        Date = data.DateDoc,
+                        Quentity = data.Norm - data.Fact,
+                        Note = ""
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
+                }
+            }
+        }
+
+        void SaveActionsReplacement(Wiki.Illiquid illiquid, float control, DateTime start)
+        {
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                db.Configuration.LazyLoadingEnabled = false;
+                var list = db.IlliquidReplacement
+                    .AsNoTracking()
+                    .Where(a => a.SKUNormId == illiquid.IlliquidStockState1.SKUId && a.DateDoc >= start)
+                    .OrderByDescending(a => a.DateDoc)
+                    .ToList();
+                foreach (var data in list)
+                {
+                    IlliquidAction action = new IlliquidAction
+                    {
+                        ActionId = 5,
+                        IlliquidId = illiquid.id,
+                        Date = data.DateDoc,
+                        Quentity = data.QuentityNorm,
+                        Note = ""
+                    };
+                    db.IlliquidAction.Add(action);
+                    db.SaveChanges();
+                    control -= action.Quentity;
+                    if (control <= 0.0f)
+                        break;
+                }
+            }
+        }
+
+        void SaveActionsChangeNorms(Wiki.Illiquid illiquid, DateTime startDate, float controlQue)
         {
             using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 db.Configuration.LazyLoadingEnabled = false;
                 var listChangeNorms = db.IlliquidChangeInTheNorm
+                                            .AsNoTracking()
                                             .Include(a => a.PZ_PlanZakaz)
                                             .Include(a => a.IlliquidChangeInTheNormUsers.Select(b => b.AspNetUsers))
                                             .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.Date >= startDate)
@@ -748,6 +1042,7 @@ namespace Wiki.Areas.Illiquid.Controllers
                     db.SaveChanges();
                 }
                 var listChangeForQue = db.IlliquidChangeInTheNorm
+                            .AsNoTracking()
                             .Include(a => a.PZ_PlanZakaz)
                             .Include(a => a.IlliquidChangeInTheNormUsers.Select(b => b.AspNetUsers))
                             .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.Date < startDate)
@@ -779,34 +1074,7 @@ namespace Wiki.Areas.Illiquid.Controllers
                     if (controlQue <= 0.0f)
                         break;
                 }
-                return true;
             }
-        }
-
-        bool GetSNActions(Wiki.Illiquid illiquid, DateTime control)
-        {
-            using (PortalKATEKEntities db = new PortalKATEKEntities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                db.Configuration.LazyLoadingEnabled = false;
-                var snOrders = db.IlliquidSN
-                    .Where(a => a.SKUId == illiquid.IlliquidStockState1.SKUId && a.Date >= control)
-                    .ToList();
-                foreach (var data in snOrders)
-                {
-                    IlliquidAction action6 = new IlliquidAction
-                    {
-                        ActionId = 6,
-                        IlliquidId = illiquid.id,
-                        Date = data.Date,
-                        Quentity = data.Quentity,
-                        Note = data.Devision
-                    };
-                    db.IlliquidAction.Add(action6);
-                    db.SaveChanges();
-                }
-            }
-            return true;
         }
 
         public string RenderUserMenu()

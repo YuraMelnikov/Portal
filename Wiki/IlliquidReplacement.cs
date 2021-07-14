@@ -20,6 +20,8 @@ namespace Wiki
         public int PlanOrderId { get; set; }
         public float QuentityNorm { get; set; }
         public float QuentityIssue { get; set; }
+        public System.DateTime DateDoc { get; set; }
+        public string NumberDoc { get; set; }
     
         public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
         public virtual SKU SKU { get; set; }

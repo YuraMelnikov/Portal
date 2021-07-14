@@ -18,8 +18,6 @@ namespace Wiki
         public int SKUId { get; set; }
         public System.DateTime Date { get; set; }
         public string Number { get; set; }
-        public float QuentityAtBeginning { get; set; }
-        public float QuentirtyAtTheEnd { get; set; }
         public float Quentity { get; set; }
         public string Provider { get; set; }
     

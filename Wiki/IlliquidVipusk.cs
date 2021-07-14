@@ -12,20 +12,17 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class IlliquidGroupAction
+    public partial class IlliquidVipusk
     {
         public int Id { get; set; }
-        public int IlliquidId { get; set; }
-        public System.DateTime Date { get; set; }
-        public bool IsPeriod { get; set; }
-        public float Change { get; set; }
-        public float SN { get; set; }
-        public float Ordered { get; set; }
-        public float Added { get; set; }
-        public float AddedX { get; set; }
-        public float Replacement { get; set; }
-        public float LastMoveStock { get; set; }
+        public int PlanOrderId { get; set; }
+        public int SKUId { get; set; }
+        public string NumberDoc { get; set; }
+        public System.DateTime DateDoc { get; set; }
+        public float Norm { get; set; }
+        public float Fact { get; set; }
     
-        public virtual Illiquid Illiquid { get; set; }
+        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
+        public virtual SKU SKU { get; set; }
     }
 }

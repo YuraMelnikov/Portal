@@ -18,7 +18,6 @@ namespace Wiki
         public Illiquid()
         {
             this.IlliquidAction = new HashSet<IlliquidAction>();
-            this.IlliquidGroupAction = new HashSet<IlliquidGroupAction>();
             this.IlliquidResult = new HashSet<IlliquidResult>();
         }
     
@@ -34,8 +33,6 @@ namespace Wiki
         public virtual IlliquidStockState IlliquidStockState1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidAction> IlliquidAction { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidGroupAction> IlliquidGroupAction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidResult> IlliquidResult { get; set; }
     }

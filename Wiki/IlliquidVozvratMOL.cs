@@ -12,14 +12,15 @@ namespace Wiki
     using System;
     using System.Collections.Generic;
     
-    public partial class IlliquidNorm
+    public partial class IlliquidVozvratMOL
     {
         public int Id { get; set; }
-        public int SKUId { get; set; }
-        public int PlanOrderId { get; set; }
+        public string NumberDoc { get; set; }
+        public System.DateTime DateDoc { get; set; }
         public float Quentity { get; set; }
+        public int SKUId { get; set; }
+        public string Note { get; set; }
     
-        public virtual PZ_PlanZakaz PZ_PlanZakaz { get; set; }
         public virtual SKU SKU { get; set; }
     }
 }

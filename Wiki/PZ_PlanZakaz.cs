@@ -37,9 +37,9 @@ namespace Wiki
             this.Debit_WorkBit = new HashSet<Debit_WorkBit>();
             this.DebitReclamation = new HashSet<DebitReclamation>();
             this.IlliquidChangeInTheNorm = new HashSet<IlliquidChangeInTheNorm>();
-            this.IlliquidNorm = new HashSet<IlliquidNorm>();
-            this.IlliquidRelease = new HashSet<IlliquidRelease>();
             this.IlliquidReplacement = new HashSet<IlliquidReplacement>();
+            this.IlliquidVipusk = new HashSet<IlliquidVipusk>();
+            this.IlliquidVozvrat = new HashSet<IlliquidVozvrat>();
             this.MailGraphic = new HashSet<MailGraphic>();
             this.OrdersTablesPositions = new HashSet<OrdersTablesPositions>();
             this.PlanVerificationItems = new HashSet<PlanVerificationItems>();
@@ -148,11 +148,11 @@ namespace Wiki
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidChangeInTheNorm> IlliquidChangeInTheNorm { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidNorm> IlliquidNorm { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IlliquidRelease> IlliquidRelease { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IlliquidReplacement> IlliquidReplacement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidVipusk> IlliquidVipusk { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IlliquidVozvrat> IlliquidVozvrat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MailGraphic> MailGraphic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

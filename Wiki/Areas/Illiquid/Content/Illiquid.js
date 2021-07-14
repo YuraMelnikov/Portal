@@ -34,29 +34,74 @@ function StartMenu() {
             "search": "Поиск"
         }
     });
+
+    $("#tableWorrking").DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5'
+        ],
+        "ajax": {
+            "cache": false,
+            "url": "/Illiq/GetTableWorking",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "order": [1, "asc"],
+        "processing": true,
+        "columns": objWorking,
+        "scrollY": '70vh',
+        "scrollX": true,
+        "paging": false,
+        "info": false,
+        "searching": true,
+        "scrollCollapse": true,
+        "fixedColumns": {
+            "leftColumns": 3
+        },
+        "language": {
+            "zeroRecords": "Отсутствуют записи",
+            "infoEmpty": "Отсутствуют записи",
+            "search": "Поиск"
+        }
+    });
 }
 
-var objNotWorking = [
+var objWorking = [
     { "title": "Ид", "data": "id", "autowidth": true, "bSortable": true },
-    { "title": "Ред.", "data": "editLink", "autowidth": true, "bSortable": false },
+    { "title": "ИдНеликв", "data": "idNlk", "autowidth": true, "bSortable": true },
+    { "title": "Дата", "data": "date", "autowidth": true, "bSortable": true },
     { "title": "Код", "data": "code", "autowidth": true, "bSortable": true },
     { "title": "НО", "data": "max", "autowidth": true, "bSortable": true },
     { "title": "ТМЦ", "data": "materialName", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    //{ "title": "Период", "data": "period", "autowidth": true, "bSortable": false },
+    { "title": "До", "data": "queBefore", "autowidth": true, "bSortable": true },
+    { "title": "После", "data": "queNext", "autowidth": true, "bSortable": true },
+    { "title": "Откл", "data": "otkl", "autowidth": true, "bSortable": true },
+    { "title": "Кол-во", "data": "que", "autowidth": true, "bSortable": true },
+    { "title": "Сумма USD", "data": "sum", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
+    { "title": "Причина", "data": "cause", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Прим.", "data": "note", "autowidth": true, "bSortable": true, "class": 'colu-300' },
+    { "title": "Изм.норм", "data": "changeNorms", "autowidth": true, "bSortable": true, "class": 'colu-200' },
+    { "title": "Заказы", "data": "orders", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Пост.", "data": "added", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Замены", "data": "replacement", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Заявки СН", "data": "sn", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Пост. Х", "data": "addedX", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Уменшен выпуск", "data": "vipusk", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Возврат МОЛом", "data": "vozvratMOL", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+    { "title": "Возврат", "data": "vozvrat", "autowidth": true, "bSortable": true, "class": 'colu-100' },
+];
+
+var objNotWorking = [
+    { "title": "Ид", "data": "id", "autowidth": true, "bSortable": true },
+    { "title": "Код", "data": "code", "autowidth": true, "bSortable": true },
+    { "title": "НО", "data": "max", "autowidth": true, "bSortable": true },
+    { "title": "ТМЦ", "data": "materialName", "autowidth": true, "bSortable": true, "class": 'colu-100' },
     { "title": "До", "data": "queBefore", "autowidth": true, "bSortable": true },
     { "title": "После", "data": "queNext", "autowidth": true, "bSortable": true },
     { "title": "Откл", "data": "que", "autowidth": true, "bSortable": true },
-    { "title": "Sum.", "data": "sum", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') },
-    { "title": "Изм.норм", "data": "updateNorm", "autowidth": true, "bSortable": true, "class": 'colu-250' },
-    { "title": "Заявки на СН", "data": "sn", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Заказы пост.", "data": "orders", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Поступ.", "data": "added", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Поступ. Х", "data": "addedX", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    //{ "title": "Замены", "data": "replacment", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    //{ "title": "Движения", "data": "moveStock", "autowidth": true, "bSortable": true, "class": 'colu-100' },
-    { "title": "Причина", "data": "cause", "autowidth": true, "bSortable": true },
-    //{ "title": "СП", "data": "devision", "autowidth": true, "bSortable": true },
-    { "title": "Прим.", "data": "note", "autowidth": true, "bSortable": true, "class": 'colu-300' }
+    { "title": "Сумма USD", "data": "sum", "autowidth": true, "bSortable": true, "className": 'text-right', render: $.fn.dataTable.render.number(',', '.', 2, '') }
 ];
 
 function CleanerIlliquidModal() {
@@ -179,6 +224,7 @@ function AnalisysIlliquid() {
         processData: false,
         success: function (result) {
             $('#tableNotWorrking').DataTable().ajax.reload(null, false);
+            $('#tableWorrking').DataTable().ajax.reload(null, false);
         }
     });
 }
