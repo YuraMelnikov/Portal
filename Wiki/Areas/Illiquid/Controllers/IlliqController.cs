@@ -26,48 +26,39 @@ namespace Wiki.Areas.Illiquid.Controllers
 
         public JsonResult LoadingStock()
         {
-            string login = HttpContext.User.Identity.Name;
-            try
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                HttpPostedFileBase fiel = Request.Files[0];
+                string fileReplace = Path.GetFileName(fiel.FileName);
+                var fileName = Path.Combine(Server.MapPath("~/Areas/Illiquid/ToStock"), fileReplace);
+                fiel.SaveAs(fileName);
+                using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    HttpPostedFileBase fiel = Request.Files[0];
-                    string fileReplace = Path.GetFileName(fiel.FileName);
-                    var fileName = Path.Combine(Server.MapPath("~/Areas/Illiquid/ToStock"), fileReplace);
-                    fiel.SaveAs(fileName);
-                    using (ExcelEngine excelEngine = new ExcelEngine())
+                    FileStream inputStream = fiel.InputStream as FileStream;
+                    IApplication application = excelEngine.Excel;
+                    IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
+                    IWorksheet worksheet = workbook.Worksheets[0];
+                    int rowsQuantity = worksheet.Rows.Length;
+                    var list = worksheet.Rows.ToArray();
+                    foreach (var t in list)
                     {
-                        FileStream inputStream = fiel.InputStream as FileStream;
-                        IApplication application = excelEngine.Excel;
-                        IWorkbook workbook = application.Workbooks.OpenReadOnly(fileName);
-                        IWorksheet worksheet = workbook.Worksheets[0];
-                        int rowsQuantity = worksheet.Rows.Length;
-                        var list = worksheet.Rows.ToArray();
-                        foreach (var t in list)
+                        int fnd = Convert.ToInt32(t.Cells[0].Value);
+                        int idSku = db.SKU.First(a => a.sku1 == fnd).id;
+                        IlliquidStockState state = new IlliquidStockState
                         {
-                            int fnd = Convert.ToInt32(t.Cells[0].Value);
-                            int idSku = db.SKU.First(a => a.sku1 == fnd).id;
-                            IlliquidStockState state = new IlliquidStockState
-                            {
-                                Date = t.Cells[5].DateTime,
-                                IlliquidQue = (float)t.Cells[1].Number,
-                                IlliquidSum = (float)t.Cells[2].Number,
-                                SurplusQue = (float)t.Cells[3].Number,
-                                SurplusSum = (float)t.Cells[4].Number,
-                                SKUId = idSku
-                            };
-                            db.IlliquidStockState.Add(state);
-                            db.SaveChanges();
-                        }
+                            Date = t.Cells[5].DateTime,
+                            IlliquidQue = (float)t.Cells[1].Number,
+                            IlliquidSum = (float)t.Cells[2].Number,
+                            SurplusQue = (float)t.Cells[3].Number,
+                            SurplusSum = (float)t.Cells[4].Number,
+                            SKUId = idSku
+                        };
+                        db.IlliquidStockState.Add(state);
                         db.SaveChanges();
                     }
-                    return Json(1, JsonRequestBehavior.AllowGet);
+                    db.SaveChanges();
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("Illiq / LoadingStock: " + " | " + ex + " | " + login);
-                return Json(0, JsonRequestBehavior.AllowGet);
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -75,38 +66,31 @@ namespace Wiki.Areas.Illiquid.Controllers
         public JsonResult GetIlliquidPeriod(DateTime startDate, DateTime finishDate)
         {
             string login = HttpContext.User.Identity.Name;
-            try
+            using (PortalKATEKEntities db = new PortalKATEKEntities())
             {
-                using (PortalKATEKEntities db = new PortalKATEKEntities())
+                var listBefore = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == startDate).ToList();
+                var listNext = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == finishDate).ToList();
+                List<Wiki.Illiquid> list = new List<Wiki.Illiquid>();
+                foreach (var data in listNext)
                 {
-                    var listBefore = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == startDate).ToList();
-                    var listNext = db.IlliquidStockState.AsNoTracking().Where(a => a.Date == finishDate).ToList();
-                    List<Wiki.Illiquid> list = new List<Wiki.Illiquid>();
-                    foreach (var data in listNext)
+                    float queBefore = listBefore.Where(a => a.SKUId == data.SKUId).Sum(a => a.SurplusQue);
+                    if (data.SurplusQue - queBefore >= 1.0)
                     {
-                        float queBefore = listBefore.Where(a => a.SKUId == data.SKUId).Sum(a => a.SurplusQue);
-                        if (data.SurplusQue - queBefore >= 1.0)
+                        Wiki.Illiquid illiquid = new Wiki.Illiquid
                         {
-                            Wiki.Illiquid illiquid = new Wiki.Illiquid
-                            {
-                                idIlliquidStockStateNext = data.Id,
-                                quantityNext = data.SurplusQue,
-                                quantityBefore = queBefore,
-                                idIlliquidStockStateBefore = null
-                            };
-                            if (queBefore > 0)
-                                illiquid.idIlliquidStockStateBefore = listBefore.First(a => a.SKUId == data.SKUId).Id;
-                            db.Illiquid.Add(illiquid);
-                            db.SaveChanges();
-                        }
+                            idIlliquidStockStateNext = data.Id,
+                            quantityNext = data.SurplusQue,
+                            quantityBefore = queBefore,
+                            idIlliquidStockStateBefore = null,
+                            Note = ""
+                        };
+                        if (queBefore > 0)
+                            illiquid.idIlliquidStockStateBefore = listBefore.First(a => a.SKUId == data.SKUId).Id;
+                        db.Illiquid.Add(illiquid);
+                        db.SaveChanges();
                     }
-                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("Illiq / GetIlliquidPeriod: " + " | " + ex + " | " + login);
-                return Json(0, JsonRequestBehavior.AllowGet);
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -532,7 +516,6 @@ namespace Wiki.Areas.Illiquid.Controllers
                             .Where(a => a.IlliquidId == data.id)
                             .Where(a => a.ActionId == 3 || a.ActionId == 4 || a.ActionId == 7)
                             .Min(a => a.Date);
-                        //if (minDateForChange > minDateForChangeT)
                         minDateForChange = minDateForChangeT;
                     }
                     catch
@@ -595,14 +578,14 @@ namespace Wiki.Areas.Illiquid.Controllers
                         .OrderByDescending(a => a.Date)
                         .ToList();
                     bool no = false;
-                    while(quentity > 0)
+                    while (quentity > 0)
                     {
                         IlliquidResult result = new IlliquidResult();
                         result.IlliquidId = data.id;
                         if (no == false && data.IlliquidStockState1.SKU.Max > 0)
                         {
                             float max = (float)data.IlliquidStockState1.SKU.Max;
-                            if(data.quantityNext <= max)
+                            if (data.quantityNext <= max)
                             {
                                 if (max > quentity)
                                     max = quentity;
@@ -618,7 +601,7 @@ namespace Wiki.Areas.Illiquid.Controllers
                             else
                             {
                                 max = quentity - (data.quantityNext - max);
-                                if(max < quentity && max > 0)
+                                if (max < quentity && max > 0)
                                 {
                                     result.DevisionAuto = 24;
                                     result.Cause = "Неснижаемый остаток";
@@ -744,7 +727,7 @@ namespace Wiki.Areas.Illiquid.Controllers
                                 quentity -= result.Quentity;
                                 listChangeInTheNorm.RemoveAll(a => a.Id > 0);
                             }
-                            else if (listAddStock.Sum(a => a.Quentity) > 0) 
+                            else if (listAddStock.Sum(a => a.Quentity) > 0)
                             {
                                 IlliquidAction action = listAddStock.First();
                                 if (action.Quentity > quentity)
